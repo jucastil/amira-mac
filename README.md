@@ -12,12 +12,12 @@ To download docker for mac, follow the instructions (https://docs.docker.com/doc
 
 ## Running the amira docker (first time)
 
-- Choose a folder where the docker will lay.\  
+- Choose a folder where the docker will lay. \  
 - Download the docker. WARNING: it's quite big (2.1G) \
- ``git clone https://github.com/jucastil/amira-mac.git``\  
+ ``git clone https://github.com/jucastil/amira-mac.git`` \  
 - Go into the docker folder **amira-mac**.\
 ``cd amira-mac``
-- Start the X11 forwarding.\ 
+- Start the X11 forwarding. \ 
 ``./start-X11-forwarding.sh``.\
 The script will kill the port forwarding if already running.\
 It will also download a docker image to test the X11.\
@@ -99,7 +99,7 @@ Expected output:\
 </details>
 
 ## Run the amira docker (after the initial install)
-- Check "COMPUTERNAMEamira" is running ``docker ps -a`` should show it as running.\
+- Check "COMPUTERNAMEamira" is running ``docker ps -a`` should show it as running. \
 - Run AMIRA. Type ``docker exec -it COMPUTERNAMEamira /extra/start-amira.sh``. \
 
 ## Issues 
@@ -110,8 +110,8 @@ You can always remove the docker and install it again :-)
 ## IMPORTANT remarks
 
 - There is **no data share** mapped inside the container. \  
-If you want to do that, simply edit **start-amira-docker.sh** and map the corresponding folder.\
-- There is **no user defined** inside the container. Everything runs as root.\
+If you want to do that, simply edit **start-amira-docker.sh** and map the corresponding folder. \
+- There is **no user defined** inside the container. Everything runs as root. \
 If you don't want to run as root, please add yourself as an user via command line. \
 NOTE that this docker visible only in the same subnet. \
 NOTE that not all the options were tested. \
