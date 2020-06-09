@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">23.4 Quick Start Tutorial</a></h2>
+<p>This section contains a short tutorial on how to compile and execute the
+demo package provided with <font face="helvetica">Developer Option</font>. The demo package contains the source
+code of the example modules and IO routines described elsewhere in this
+manual. At this point you should just get a rough idea about the basic
+process required to develop your own modules and IO routines. Details will
+be discussed in the following chapters.</p>
+<p>For the development of custom <font face="helvetica">Amira</font> packages a dedicated directory,
+the local <font face="helvetica">Amira</font> directory, is required. Initially, this directory should
+be created using the <a class="link" href="HxDev-wizard.html#A1">Development Wizard</a>. Lets see how
+this is done:</p>
+<p></p>
+<ul><li>Start <font face="helvetica">Amira</font> and choose the Development Wizard from the <em>Help</em>
+ menu of the <font face="helvetica">Amira</font> main window.</li><li>Make sure that the item <em>Set local <font face="helvetica">Amira</font> directory</em> is selected
+ in the wizard's dialog window.</li><li>Press the <em>Next</em> button.</li>
+</ul><p></p>
+<p>You can now enter a directory name for the local <font face="helvetica">Amira</font> directory. For
+example you may choose <tt><font face="monospace">Amira</font>Local</tt> in your home directory. The
+directory must be different from directory where <font face="helvetica">Amira</font> has been installed.</p>
+<p></p>
+<ul><li>Enter the name for the local <font face="helvetica">Amira</font> directory.</li><li>Select the button <em>copy demo package</em>.</li><li>Press the <em>OK</em> button.</li>
+</ul><p></p>
+<p>If the directory did not yet exist, <font face="helvetica">Amira</font> asks you if it should be
+created. The name of the directory is stored in the Windows registry
+or in the <tt>.<font face="monospace">Amira</font>Registry</tt> file in the Unix or MacOS home directory, so that the
+next time <font face="helvetica">Amira</font> is started all modules or IO routines defined in this
+directory will be available.</p>
+<p>The next step is to create the Visual Studio project files for Windows or
+the GNUmakefiles for Unix and MacOS. These files will be generated from a <em>Package</em> file which must be present in each custom package directory. The
+syntax of the Package file is described in <a class="link" href="HxDev-packagefile.html#A1">Chapter 24.10</a>.
+The demo package already contains a Package file, so there is no need to
+create one here.</p>
+<p></p>
+<ul><li>Select <em>Create build system</em> on the main page of the
+ Development Wizard.</li><li>Press the <em>Next</em> button.</li><li>Choose <em>all local packages</em> as target.</li><li>Choose which kind of build system you want to create.</li><li>Press the <em>OK</em> button.</li>
+</ul><p></p>
+<p>The files for the selected build system will now be created automatically.
+The advantage of the automatic generation is that the include and library
+paths are always set correctly. Also, any dependencies between local
+packages are taken into account.</p>
+<p>Once the build system has been created you can close the Development Wizard
+and exit <font face="helvetica">Amira</font>. We are now ready to compile the demo package. This is
+different for each platform:</p>
+<p><b>Windows Visual Studio</b></p>
+<p></p>
+<ul><li>Start Visual Studio and load the solution file <tt><font face="monospace">Amira</font>Local.vc80.sln / <font face="monospace">Amira</font>Local.vc90.sln</tt> from
+ the local <font face="helvetica">Amira</font> directory. If your local <font face="helvetica">Amira</font>
+ directory is not called <tt><font face="monospace">Amira</font>Local</tt>, the solution
+ file also has some other name.</li><li>Build all local packages in debug mode by pressing F7 or by choosing
+ <em>Build Solution</em> from the <em>Build</em> menu.</li>
+</ul><p></p>
+<p><b>Unix GNUmakefile system</b></p>
+<p></p>
+<ul><li>Change into the local <font face="helvetica">Amira</font> directory in a shell.</li><li>Type in <tt>gmake</tt> to build all local packages in debug mode. If
+ <tt>gmake</tt> is not already installed on your system you can find it
+ in the subdirectory <tt>bin</tt> in the <font face="helvetica">Amira</font> root directory. Either add
+ this directory in your path variable or create a link in a directory
+ already listed in your path, e.g., <tt>/usr/bin</tt>.</li>
+</ul><p></p>
+<p><b>Mac GNUmakefile system</b></p>
+<p></p>
+<ul><li>Open a <tt>Terminal</tt> window and change into the local <font face="helvetica">Amira</font> directory
+ you created before.</li><li>Type in <tt>gmake</tt> to build all local packages.</li>
+</ul><p></p>
+<p>We are now ready to start <font face="helvetica">Amira</font> in order to test the demo package. However,
+because we have compiled the demo package in debug mode, we also need to start
+<font face="helvetica">Amira</font> in debug mode. Otherwise, <font face="helvetica">Amira</font> would not find the correct DLLs or shared
+libraries. For Linux, start <font face="helvetica">Amira</font> with the command line option <tt>-debug</tt>.
+On Windows use the <em><font face="helvetica">Amira</font> (debug)</em> shortcut in the start menu. on Mac systems
+you can even start immediately the application, the new path will be automatically recognized.</p>
+<p></p>
+<p>In order to check if the demo package has been successfully compiled and can
+be loaded by <font face="helvetica">Amira</font>, you can for example choose the entry <em>DynamicColormap</em> from the <em>Create/Data</em> menu of the <font face="helvetica">Amira</font> main window.
+Then a new colormap object should be created. You can find the source code
+of this new object in the local <font face="helvetica">Amira</font> directory under <tt>src/mypackage/MyDynamicColormap.cpp</tt>. In the same directory there is also
+the header file for this class.</p>
+<p>If you want to compile the demo package in release mode, you must change
+the active configuration in Visual Studio and recompile the code. On Unix,
+you have to call <tt>gmake MAKE_CFG=Optimize</tt>. You can also define <tt>MAKE_CFG</tt> as an environment variable.</p>
+<p></p>
+<p>
+</p></body>
+</html>

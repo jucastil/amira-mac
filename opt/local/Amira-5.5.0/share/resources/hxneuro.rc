@@ -1,0 +1,44 @@
+# ----------------------------------------------------------------------
+#   Neuro package
+# ----------------------------------------------------------------------
+
+module -name "VolumeEdit"		\
+    -primary "HxUniformScalarField3 HxUniformColorField3" \
+    -category "Compute"	\
+    -class "HxVolumeEdit"		\
+    -dso "libhxneuro.so"
+
+# Offer ProjectionView only for data sets with primType byte or short
+module -name "ProjectionView" \
+    -check { [$PRIMARY coordType]==1 } \
+    -primary "HxUniformScalarField3 HxMultiChannelField3 HxUniformColorField3" \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -class "HxProjectionView" \
+    -category "Display" \
+    -dso "libhxneuro.so"
+
+module -name "ProjectionViewCursor" \
+    -primary "HxProjectionView" \
+    -class "HxProjectionViewCursor" \
+    -category "Main" \
+    -dso "libhxneuro.so"
+
+
+module -name "Relabel"	\
+    -primary "HxUniformLabelField3" \
+    -category "Compute"	\
+    -class "HxRelabel"	\
+    -dso "libhxneuro.so"
+
+module -name "CorrectZDrop" \
+    -check { [$PRIMARY coordType]<=2 && [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -primary "HxRegScalarField3 HxMultiChannelField3" \
+    -class "HxCorrectZDrop" \
+    -category "Deconv" \
+    -dso "libhxneuro.so"
+
+
+module -name "CreateImage" \
+    -primary "HxProjectionView" \
+    -proc { $PRIMARY createImage } \
+    -category "Main"

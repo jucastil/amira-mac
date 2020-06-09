@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.2.1 Version 1: Displaying Geometry</a></h3>
+<p>The first version of our module, called <em>MyDisplayVertices1</em>, merely
+detects the vertices of interest and displays them using little cubes. In
+order to understand the code, we first need to look more closely at the
+class <tt>HxSurface</tt>. As we can see in the reference documentation, a surface
+essentially contains an array of 3D points and an array of triangles. Each
+triangle has three indices pointing into the list of points. In order to
+count the triangles per vertex, we simply walk through the list of triangles
+and increment a counter for each vertex.</p>
+<p>Once we have detected all interesting vertices, we are going to display
+them using small cubes. This is done by creating an Open Inventor scene
+graph. If you want to learn more about Open Inventor, you probably should
+look at <em>The Inventor Mentor</em>, an excellent book about Open Inventor
+published by Addison-Wesley. In brief, an Open Inventor scene graph is a
+tree-like structure of C++ objects which describes a 3D scene. Our scene is
+quite simple. It consists of one <em>separator node</em> containing
+several cubes, i.e., instances of class <tt>SoCube</tt>. Since an <tt>SoCube</tt>
+is always located at the origin, we put an additional node of type <tt>SoTranslation</tt> right before each <tt>SoCube</tt>. We adjust the size of the
+cubes so that each side is 0.01 times the length of the diagonal of the
+bounding box of the input surface.</p>
+<p>After this short overview we now look at the header file of the module.
+It is called <tt>MyDisplayVertices1.h</tt>:</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Example of a display module
+//
+/////////////////////////////////////////////////////////////////
+#ifndef MY_DISPLAY_VERTICES_H
+#define MY_DISPLAY_VERTICES_H
+
+#include &lt;McHandle.h&gt; // smart pointer template class
+#include &lt;hxcore/HxModule.h&gt;
+#include &lt;hxcore/HxPortIntSlider.h&gt;
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+#include &lt;Inventor/nodes/SoSeparator.h&gt;
+
+class MYPACKAGE_API MyDisplayVertices1 : public HxModule
+{
+    HX_HEADER(MyDisplayVertices1);
+
+  public:
+    // Constructor.
+    MyDisplayVertices1();
+
+    // Destructor.
+    ~MyDisplayVertices1();
+
+    // Input parameter. 
+    HxPortIntSlider portNumTriangles;
+
+    // This is called when an input port changes.
+    virtual void compute();
+
+  protected:
+    McHandle&lt;SoSeparator&gt; scene;
+};
+
+#endif
+</pre><p><font size="2"></font></p>
+<p>The header file can be understood quite easily. First some other header
+files are included. Then the new module is declared as a child class of
+<tt>HxModule</tt>. As usual, the macros <tt>MYPACKAGE_API</tt> and <tt>HX_HEADER</tt> are obligatory. Our module implements a default constructor,
+a destructor, and a compute method. In addition, it has a port of type
+<tt>HxPortIntSlider</tt> which allows the user to specify the number of
+triangles of the vertices to be displayed.
+A pointer to the actual Open Inventor scene is stored in the member
+variable <tt>scene</tt> of type <tt>McHandle&lt;SoSeparator&gt;</tt>. A <tt>McHandle</tt>
+is a so-called <em>smart pointer</em>. It can be used like an ordinary C pointer.
+However, each time a value is assigned to it, the reference counter of the
+referenced object is automatically increased or decreased. This is done by
+calling the <tt>ref</tt> or <tt>unref</tt> method of the object. If the reference
+counter becomes zero or less, the object is deleted automatically. We
+recommend using smart pointers instead of C pointers because they are
+safer.The actual implementation of the module is contained in the file
+<tt>MyComputeThreshold1.cpp</tt>. This file looks as follows:</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Example of a compute module (version 1)
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;hxcore/HxMessage.h&gt;
+#include &lt;hxsurface/HxSurface.h&gt;
+#include &lt;mypackage/MyDisplayVertices1.h&gt;
+
+#include &lt;Inventor/nodes/SoCube.h&gt;
+#include &lt;Inventor/nodes/SoTranslation.h&gt;
+
+HX_INIT_CLASS(MyDisplayVertices1,HxModule)
+
+MyDisplayVertices1::MyDisplayVertices1() :
+    HxModule(HxSurface::getClassTypeId()),
+    portNumTriangles(this,"numTriangles")
+{
+    portNumTriangles.setMinMax(1,12);
+    portNumTriangles.setValue(6);
+    scene = new SoSeparator;
+}
+
+MyDisplayVertices1::~MyDisplayVertices1()
+{
+    hideGeom(scene);
+}
+
+void MyDisplayVertices1::compute()
+{
+    int i;
+
+    // Access input object (portData is inherited from HxModule):
+    HxSurface* surface = (HxSurface*) portData.source();
+
+    if (!surface) { // Check if input object is available
+        hideGeom(scene);
+        return;
+    }
+
+    // Get value from input port, query size of surface:
+    int numTriPerVertex = portNumTriangles.getValue();
+    int nVertices = surface-&gt;points.size();
+    int nTriangles = surface-&gt;triangles.size();
+
+    // We need a triangle counter for every vertex: 
+    McDArray&lt;unsigned short&gt; triCount(nVertices);
+    triCount.fill(0);
+    
+    // Loop over all triangles and increase vertex counters:
+    for (i=0; i&lt;nTriangles; i++)
+        for (int j=0; j&lt;3; j++)
+            triCount[surface-&gt;triangles[i].points[j]]++;
+
+    // Now create the scene graph...
+    // First remove all previous childs:
+    scene-&gt;removeAllChildren();
+    
+    // Cube size should be 1% of the bounding box diagonal:
+    float size = surface-&gt;getBoundingBoxSize().length() * 0.01;
+
+    // Pointer to coordinates cast from McVec3f to SbVec3f.
+    SbVec3f* p = (SbVec3f*) surface-&gt;points.dataPtr();
+
+    SbVec3f q(0,0,0); // position of last point
+    int count = 0; // vertex counter
+
+    for (i=0; i&lt;nVertices; i++) {
+        if (triCount[i] == numTriPerVertex) {
+            SoTranslation* trans = new SoTranslation;
+            trans-&gt;translation.setValue(p[i]-q);
+
+            SoCube* cube = new SoCube;
+            cube-&gt;width = cube-&gt;height = cube-&gt;depth = size;
+
+            scene-&gt;addChild(trans);
+            scene-&gt;addChild(cube);
+
+            count++;
+            q=p[i];
+        }
+    }
+
+    theMsg-&gt;printf("Found %d vertices belonging to %d triangles",
+        count, numTriPerVertex);
+
+    showGeom(scene); // finally show scene in viewer
+}
+</pre><p><font size="2"></font></p>
+<p>A lot of things are happening here. Let us point out some of
+these in more detail now. The constructor initializes the base class with
+the type returned by <tt>HxSurface::getClassTypeId</tt>. This ensures that the
+module can only be attached to data objects of type <tt>HxSurface</tt>. The
+constructor also initializes the member variable <tt>portNumTriangles</tt>.
+The range of the slider is set from 1 to 12. The initial value is set to 6.
+Finally, a new Open Inventor separator nodes is created and stored in <tt>scene</tt>.</p>
+<p>The destructor contains only one call, <tt>hideGeom(scene)</tt>. This causes
+the Open Inventor scene to be removed from all viewers (provided it is
+visible). The scene itself is deleted automatically when the destructor of
+<tt>McHandle</tt> is called.</p>
+<p>The actual computation is performed in the <tt>compute</tt> method. The method
+returns immediately if no input surface is present. If an input surface
+exists, the numbers of triangles per point are counted. For this purpose a
+dynamic array <tt>triCount</tt> is defined. The array provides a counter for
+each vertex. Initially it is filled with zeros. The counters are increased
+in a loop over the vertices of all triangles.</p>
+<p>In the second part of the compute method the Open Inventor scene graph is
+created. First, all previous children of <tt>scene</tt> are removed. Then the
+length of the diagonal of the input surface is determined. The size of the
+cubes will be set proportional to this length. For convenience the pointer
+to the coordinates of the surface is stored in a local variable <tt>p</tt>.
+Actually the coordinates are of type <tt>McVec3f</tt>. However, this class is
+fully compatible with the Open Inventor vector class <tt>SbVec3f</tt>.
+Therefore the pointer to the coordinates can be cast as shown in the
+code.After everything has been set up, every element of the array <tt>triCount</tt>
+is checked in a for-loop. If the value of an element matches the selected
+number of triangles per vertex, two new Inventor nodes of type <tt>SoTranslation</tt> and <tt>SoCube</tt> are created, initialized, and inserted into
+<tt>scene</tt>. Since the <tt>SoTranslation</tt> also affects all subsequent
+translation nodes we must remember the position of the last point in
+<tt>q</tt> and subtract this position from the one of the current point.
+Alternatively, we could have encapsulated the <tt>SoTranslation</tt> and the
+<tt>SoCube</tt> in an additional <tt>SoSeparator</tt> node. However, this would
+have resulted in a more complex scene graph. At the very end of the compute
+method, the new scene graph is made visible in the viewer by calling <tt>showGeom</tt>. This method automatically checks if a node has already been
+visible. Therefore it may be called multiple times with the same argument.</p>
+<p>The module is registered in the usual way in the package resource file,
+i.e., in <tt>mypackage/share/resource/mypackage.rc</tt>. Once you have
+compiled the demo package, you may test the module by loading the surface
+<tt>mypackage/data/test.surf</tt> located in the local <font face="helvetica">Amira</font> directory.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

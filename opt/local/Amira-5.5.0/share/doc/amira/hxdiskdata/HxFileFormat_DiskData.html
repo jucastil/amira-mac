@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LargeDiskData</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "FileFormat" "LargeDiskData" "access image data blockwise (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This is the native <font face="helvetica">Amira</font> file format for blockwise access of image data stored
+on disk as described in <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a>.
+It supports read/write operations, multi-resolution access and 
+saving of changed parameters. The data is stored in a couple of files, e.g.:</p>
+<pre>
+visMaleCT
+visMaleCT-SUPR.dat
+visMaleCT-0001.dat
+visMaleCT-0000.dat
+visMaleCT-0002.dat
+</pre>
+<p>The first one is recognized by <font face="helvetica">Amira</font> as an AmiraMesh file. It 
+contains the parameters and a link to the other files. It can be loaded
+into <font face="helvetica">Amira</font> with the <a class="link" href="../usersguide/fileBrowser.html#A1">File Dialog</a>.
+The other files contain the actual image data.</p>
+<p>You can create such a fileset with the
+<a class="link" href="HxConvertToDiskData.html#A1">ConvertToDiskData</a> module.</p>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

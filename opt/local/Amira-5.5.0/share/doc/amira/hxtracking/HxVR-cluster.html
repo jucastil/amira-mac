@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">11.3 Using <font face="helvetica">Virtual Reality Option</font> on a cluster</a></h2>
+<p></p>
+<h3><a name="A2">11.3.1 Overview</a></h3>
+<p>A graphics cluster consists of multiple computers <em>cluster nodes</em>) connected via a network. 
+Each computer controls one or more screens of a tiled or multi-wall display system. 
+<font face="helvetica">Virtual Reality Option</font> synchronizes the different cluster nodes, ensuring that the same scene is 
+rendered simultaneously from different viewpoints. 
+This cluster support enables distributed
+parallel rendering. It does not speed up ordinary computations
+by distributing them across multiple nodes of the cluster. Instead, on
+each cluster node a separate instance of <font face="helvetica">Amira</font> is running, with the complete
+modules network and all data being replicated in cluster's node memory. 
+Changes of <font face="helvetica">Amira</font> modules made on a <em>master node</em> will be propagated to the <em>slave nodes</em> as lightweight command messages and executed
+synchronously: therefore the master and the slaves nodes execute the same processing steps.
+A special <em>daemon</em> running on slave nodes is responsible for starting the <font face="helvetica">Amira</font> instance upon requests of the master, once a cluster configuration is selected. 
+The 2D mouse or a 3D input device can be used to interact with the application on the master node.</p>
+<p></p>
+<h3><a name="A3">11.3.2 Requirements</a></h3>
+<p></p>
+<ul><li>All nodes of the cluster should be of the same type. If different
+ hardware is used, it is possible that the cluster will run
+ out-of-sync for instance because of round-off errors.</li><li>Rendering speed is limited by the slowest node of the cluster, including the master node. Therefore it is recommended that all cluster nodes including the master node 
+ have the same type of graphics board.</li><li>All nodes of the graphics cluster must be able to communicate with each other via a TCP/IP connection. A standard 10 Mbit ethernet connection may be fast enough, 
+ since only synchronization commands are exchanged, rather than images or raw data blocks.</li><li>For active stereoscopy, the graphics cards of the different cluster nodes must be genlocked with
+ a genlock cable. Currently only a small number of graphics cards (such
+ as WildCat, SUN Zulu, NVidia 'G' boards) provide genlocking. Genlocking ensures
+ that the video refresh cycles are synchronized. <font face="helvetica">Virtual Reality Option</font> itself only
+ synchronizes OpenGL buffer swaps. Passive stereoscopy does not require genlocking.</li><li>Installation path and data location.<br />
+
+When <font face="helvetica">Amira</font> loads scripts or data below its installation directory, the relative path on the master is 'rooted' to <font face="helvetica">Amira</font> installation directory on slaves. For instance, <tt>/master-path/<font face="helvetica">Amira</font>/data/xxx</tt> is translated into <tt>/slave-path/<font face="helvetica">Amira</font>/data/xxx</tt>. However it is highly recommended that all data files and scripts have the same absolute file path on all nodes of the cluster. Likewise, <font face="helvetica">Amira</font> should be installed at
+ the same location on all nodes. For convenience, it is recommended
+ to run <font face="helvetica">Amira</font> from a shared mounted file system. This ensures that the same
+ scripts and config files will be used on all cluster nodes.</li><li>On a Linux or UNIX cluster, it is recommended to have a shared home directory. This ensures that some modules have consistent access to preferences settings stored in .<font face="helvetica">Amira</font>Registry.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A4">11.3.3 Preparing cluster slave nodes</a></h3>
+<p><font face="helvetica">Amira</font> requires a daemon process to run on each slave node.
+This sections explains how this can be achieved automatically or manually.</p>
+<p></p>
+<h4><a name="A5">Using the <font face="helvetica">Amira</font> service</a></h4>
+<p><font face="helvetica">Amira</font> can manage services for automatic start-up of daemon processes such as the <font face="helvetica">Virtual Reality Option</font>
+
+daemon. You may request installation of services during <font face="helvetica">Amira</font>
+installation, or you can control the services with a dedicated utility program
+provided with <font face="helvetica">Amira</font>. </p>
+<p><b>Note:</b> To manage the <font face="helvetica">Amira</font> services, you must have administrator
+privileges (Windows) or root privileges (UNIX/Linux).
+<br />
+ <br />
+</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=serviceconfig.png.html><img width=300 src="serviceconfig.png" /></a><br />
+<div class="caption">
+<b>Figure 61:</b>
+The <font face="helvetica">Amira</font> service configurator.</div>
+
+
+</div><p></p>
+<p>Just launch "<tt>bin\arch-...-Optimize\hxservicemanager.exe</tt>" on Windows, and
+"<tt>bin/start -servicemanager</tt>" on Linux. This tool manages the execution
+of <font face="helvetica">Virtual Reality Option</font> 
+ 
+services. Indeed, instead of the user launching the <font face="helvetica">Virtual Reality Option</font> daemon
+
+manually, a service can be installed on the system so that it automatically
+starts these processes at system start-up.</p>
+<p>In order to install and start a service, click on the Start button.
+Then, clicking on the Stop button will stop and uninstall the service.</p>
+<p></p>
+<h4><a name="A7">Platform-dependent notes</a></h4>
+<p></p>
+<ul><li><p>On Windows platforms:</p>
+<p>Once installed, services can be started or stopped from the services manager of the system
+that can be launched via the Control Panel (select Administrative tools, then Services) or with
+the command: <tt>services.msc&nbsp;/s</tt>.</p>
+
+<ul><li>To start an <font face="helvetica">Amira</font> service, select it in the list 
+("hxvrdaemon"),
+ 
+then select Start from the Action menu.</li><li>To restart the service, select it in the list, then select Restart from the
+Action menu.</li><li>To stop the service, select it in the list, then select Stop from the
+Action menu.</li>
+</ul>
+<p><b>Warning about virtual drives:</b> <font face="helvetica">Amira</font> services do not support logical or network volumes.
+Indeed, such virtual drives do not exist in the service execution context. 
+You must specify full paths constructed according to the universal naming convention (UNC), such as "<tt>\\remotemachine\directory</tt>".</p>
+<p>For example, to install the service from a virtual drive <tt>S:</tt> 
+targeting a distant mount point "<tt>\\remotemachine\directory</tt>",
+do not launch the installer from <tt>S:</tt>, but from "<tt>\\remotemachine\directory</tt>".
+Then, for the same reason, the user should not load data from virtual drives 
+because <font face="helvetica">Amira</font> slaves cannot resolve virtual paths unless they are below 
+<tt>%AMIRA_ROOT%</tt>, in which case data paths are re-interpreted on slaves 
+with the local <tt>%AMIRA_ROOT%</tt>.<br />
+</p></li><li><p>On Unix/Linux platforms:</p>
+<p><font face="helvetica">Amira</font> services are implemented as daemons, started from the "<tt>/etc/init.d</tt>" directory.
+Once installed, services can be manually started or stopped using the appropriate script.
+For example, type "<tt>/etc/init.d/hxvrdaemon stop</tt>" to stop the <font face="helvetica">Virtual Reality Option</font> daemon.
+Note that this will not uninstall the daemon, that will be launched on next system start-up
+(or next "<tt>init 5</tt>" mode switch in particular).</p>
+<p>One specific feature of <font face="helvetica">Amira</font> services on Linux platforms is that they can be executed as a given user, other than root. To do so, just type a valid login in the user field, then restart the service to take the change into account.</p>
+<p>One other specific feature is that <font face="helvetica">Virtual Reality Option</font> daemons can be installed on remote nodes of a cluster from the master node, provided the fact that <tt>%AMIRA_ROOT%</tt> is the same on every machine. Just type the list of the nodes hostnames separated by space chars. Make sure that ssh is installed on all machines and configured to use RSA authentication protocol (public and private key files) so that you will not be prompted for password on any operation.</p></li>
+</ul><p></p>
+<p></p>
+<h4><a name="A8">Running the daemon</a></h4>
+<p>If the <font face="helvetica">Amira</font> service cannot be used for some reason, one can use manual start-up.
+On Linux start <font face="helvetica">Amira</font> with command line option <tt>-clusterdaemon</tt>, on Windows start hxvrdaemon.exe</p>
+<p>On Windows, to start the daemon automatically after the computer is booted, a shortcut to the daemon executable can be added to the Start/Programs/Startup folder.</p>
+<p></p>
+<h3><a name="A9">11.3.4 Running <font face="helvetica">Virtual Reality Option</font> on cluster</a></h3>
+<p>The following steps are required to use cluster configurations:</p>
+<p></p>
+<ol><li>Install <font face="helvetica">Virtual Reality Option</font> on every node of the graphics cluster under the
+ same absolute path name, or better yet, create a mounted file system
+ with the same absolute path name on every node.</li><li>Create a standard <font face="helvetica">Virtual Reality Option</font> config file describing the geometry
+ of your display system (see the next sections about configurations). 
+ Then add a field <em>hostname</em> in each
+ screen section. This field indicates on which node the screen will
+ be rendered. The config file must be stored on all nodes in the
+ directory <tt>$AMIRA_ROOT/share/config/vr</tt>.</li><li>Choose one node as the master node. After <font face="helvetica">Amira</font> installation,
+ a daemon is started on the slave nodes, by a service on Windows systems or by inetd
+ on Unix/Linux systems. Start <font face="helvetica">Virtual Reality Option</font> on the master and select your cluster
+ configuration from the config menu. Slave instances of <font face="helvetica">Virtual Reality Option</font> should now be
+ started on all nodes specified in the config file.</li>
+</ol><p></p>
+<p>To use the <tt>-clusterdaemon</tt> option, stop
+ the daemon (see <a class="link" href="#A5">11.3.3 service management</a>) and replace step 3 by the following steps:</p>
+<p> </p>
+<ol><li>Choose one node as the master node. On all other nodes start
+ <font face="helvetica">Amira</font> with the command line option&nbsp; <tt>-clusterdaemon</tt>. With this
+ option a little daemon is started, to which the master process can
+ talk. The daemon automatically starts a slave instance of the
+ real <font face="helvetica">Amira</font> if necessary.</li><li>Start <font face="helvetica">Virtual Reality Option</font> on the master node. Then select your cluster
+ configuration from the config menu. Slave instances of <font face="helvetica">Virtual Reality Option</font> should
+ now be started on all nodes specified in the config file.</li><li>Next you can load any standard <font face="helvetica">Amira</font> network script. For example,
+ open the online help browser on the master node and choose one of
+ the standard <font face="helvetica">Virtual Reality Option</font> tracking demos. The particular script will
+ be loaded on all slaves as well. Once a script has been loaded, all
+ standard <font face="helvetica">Virtual Reality Option</font> interaction modes are available in cluster mode too.</li>
+</ol><p></p>
+<p>
+</p>
+<h3><a name="A10">11.3.5 Limitations</a></h3>
+<p></p>
+<ul><li>The primary focus of the <font face="helvetica">Virtual Reality Option</font> cluster version is on working in a VR
+ environment. Consequently all manipulations performed in VR mode,
+ e.g., via the 3D menu, will be properly synchronized. On the other
+ hand, currently not all manipulations made on the master node via
+ the conventional 2D user interface will be synchronized.</li><li>Any kind of 2D mouse interaction in a 3D viewer window also will
+ not be synchronized in cluster mode. Thus you cannot draw a lasso 
+ area with the 2D mouse. Mouse manipulation and interaction are entirely
+ disabled on slaves nodes.</li><li>Transform editors and clip planes are synchronized in cluster mode, while other editors may be grayed out and not accessible.</li><li>When loading a new cluster configuration file, <font face="helvetica">Amira</font> attempts to send the current network to slaves nodes for reloading after they are restarted. Data should be duplicated or shared in order to have the same path relative to script. This may also fail if default directory for temporary files are not the same path on master and slaves. You may check TMPDIR, TEMP or TMP environment variable depending on your system.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A11">11.3.6 Troubleshooting cluster configurations</a></h3>
+<p></p>
+<ul><li>Check that cluster slaves can be reached from master.
+ <tt>ping &lt;slave-hostname&gt;</tt> or <tt>ping &lt;slave-IP-adress&gt;</tt> 
+ You can change hostnames with IP adresses in the configuration file.</li><li>Check that cluster master can be reached from slave with master hostname with 
+ <tt>ping &lt;master-hostname&gt;</tt>.
+Otherwise, on the master node you can set the environment variable <tt>AMIRA_HOSTNAME</tt> &nbsp;to the master hostname or IP address that can be used from slaves to reach the master.</li><li>Check that <font face="helvetica">Amira</font> runs properly on each slaves. You may need to switch keyboard and mouse to each slave nodes for checking. You may first try hint below.</li><li>In order to show and check console output on slaves, you can reduce the channel size in SoScreen, and add in the configuration file:<br />
+
+<pre>
+   SoVRProperty { 
+      showSlaveConsole TRUE 
+      showSlaveGUI TRUE
+      showSlaveCursor TRUE
+   } 
+</pre>
+<em>showSlaveCursor</em> should be set if you wish to use a mouse connected to a slave node.</li><li>It is highly recommended to have one and only one screen defined for the master in the configuration file (SoScreen without specified hostname). 
+Use SoVRProperty with keepMasterViewerInsideGUI field for convenience. 
+Be sure to fill screen coordinates in immersive configuration, since default coordinates may not match with your configuration. 
+The simplest choice is to copy the front screen coordinates.</li><li>Remember that the 3D immersive menu default position is relative to the first screen in the configuration file.
+Check the first screen coordinates if you don't see the 3D menu on screens.
+One frequent mistake is to let the master screen with default coordinates, as the first screen in the configuration file.</li><li>Do not mix flat and immersive screen definitions.</li><li>Make sure that no firewall limits communication within the cluster (port 17234 and dynamic port are used).</li>
+</ul><p>
+
+</p></body>
+</html>

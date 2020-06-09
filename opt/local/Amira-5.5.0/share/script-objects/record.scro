@@ -1,0 +1,38 @@
+# Amira-Script-Object V0.1
+
+
+# This will be called only once, it creates all ports.
+
+proc constructor {} {
+	global this
+
+	$this newPortText NumFrames
+	$this NumFrames setLabel "Number of Frames:"
+	$this NumFrames setNumColumns 5
+	$this NumFrames setValue 50
+
+	$this newPortText MyFilename
+	$this MyFilename setLabel Filename:
+	$this MyFilename setNumColumns 25
+	$this MyFilename setValue /tmp/rotation
+
+	$this newPortButtonList Action 1
+	$this Action setLabel Action:
+	$this Action setLabel 0 Record
+
+}
+
+if {[$this isFirstCall]} {
+	constructor
+}
+
+if {[$this Action isNew]==1 } {
+	set i 0
+	set rgbFile [$this MyFilename getValue]
+	while {$i < [$this NumFrames getValue] } {
+		viewer 0 rotate 1
+		viewer 0 snapshot $rgbFile.$i.rgb
+		echo snapshot $rgbFile.$i.rgb
+		set i [expr $i + 1]
+	}
+}

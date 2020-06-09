@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">11.2 Using <font face="helvetica">Virtual Reality Option</font> on a multi-pipe system</a></h2>
+<p></p>
+<h3><a name="A2">11.2.1 Configuration</a></h3>
+<p>Effective rendering on a multi-pipe system requires parallel rendering, i.e. sending data to the graphics engines from several threads running in parallel. Note that for all common current graphics architectures it makes no sense to render multiple windows on the same pipe in parallel. Typically, this even implies a significant performance decrease. 
+<font face="helvetica">Virtual Reality Option</font> configurations allows to define display <a class="link" href="HxVR-config.html#A2">thread groups</a> for multi-pipe rendering (more about configuration with examples in next sections).</p>
+<p></p>
+<h3><a name="A3">11.2.2 Starting <font face="helvetica">Amira</font></a></h3>
+<p>After <font face="helvetica">Virtual Reality Option</font> has been installed <font face="helvetica">Amira</font> can be started as usual. However,
+in order to activate parallel rendering of screens assigned to different
+thread groups, <font face="helvetica">Amira</font> should be started with the <tt>-mt</tt> command line
+options. This option enables multi-threading. In order to permanently
+activate multi-threading, the environment variable <tt>AMIRA_MULTITHREAD</tt> &nbsp;can be set.
+In order to disable multi-threading when <tt>AMIRA_MULTITHREAD</tt> &nbsp;is set, 
+<font face="helvetica">Amira</font> can also be started with the <tt>-st</tt>
+command line option (single-threaded mode).</p>
+<p><b>Note:</b> On some graphics engines such as SGI Onyx systems there are known 
+problems with the OpenGL driver related to the use of texture objects in different 
+OpenGL contexts. 
+If you are rendering more than one screen on a single pipe, you may
+define the environment variable <tt>AMIRA_NO_CONTEXT_SHARING</tt> &nbsp;as a workaround. This may
+be fixed by some OS or driver update.</p>
+<p>
+</p></body>
+</html>

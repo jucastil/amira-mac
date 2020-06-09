@@ -1,0 +1,119 @@
+# Amira-Script-Object V3.0
+
+$this proc constructor {} {     
+    $this newPortConnection data0 HxMolecule
+    $this setVar numInputs 1
+
+    $this newPortButtonList build 1
+    $this build setLabel 0 "Create MolViews"
+
+    $this newPortButtonList action 3
+    $this action setLabel 0 "All"
+    $this action setLabel 1 "Master"
+    $this action setLabel 2 "No alignment"
+}
+
+$this proc destructor {} {
+}
+
+$this proc connectTimeStepsWithDataPorts {} {
+    set hxmoltraj [ $this data source ]
+
+    set numMol [ $hxmoltraj numTimeSteps ]
+    
+    for { set i 1 } { $i <= $numMol } { incr i 1 } {
+        
+        set hxmol [ create HxMolecule ]
+        
+        $hxmol data connect $hxmoltraj
+        $hxmol fire
+        $hxmol time setValue $i
+        $hxmol fire
+        
+        if { $i == 1 } {
+            set yPos [lindex [$hxmol getIconPosition] 1]
+        }
+        
+        $hxmol setIconPosition [lindex [$hxmol getIconPosition] 0] $yPos
+        incr yPos 18
+        
+        if { $i < [ expr [$this getVar numInputs] - 1 ]  } {
+            $this data[expr $i - 1] connect $hxmol
+        } else {
+            $this data[expr $i - 1] connect $hxmol
+            $this newPortConnection data[expr $i] HxMolecule
+            $this setVar numInputs [ expr [ $this getVar numInputs ] + 1 ]
+        }
+    } 
+}
+
+$this proc compute {} {
+
+    if { [ $this data isNew ] && 
+         [ $this data source ] != "" &&
+         [ [ $this data source ] getTypeId ] == "HxMolTrajectory" } {
+        # extract time steps from trajectory and connect them to the
+        # data ports
+        $this connectTimeStepsWithDataPorts 
+    }
+
+    for { set i 0 } { $i < [$this getVar numInputs]} { incr i } {  
+        $this setVar meanMol$i [$this data$i source]
+        
+        if { [$this data$i isNew] 
+             && [exists [$this getVar meanMol$i]]
+             && ($i > 0)} {
+            [$this getVar meanMol$i] alignMaster connect [$this getVar meanMol0]
+            [$this getVar meanMol$i] selection hit 0
+            [$this getVar meanMol$i] fire
+        }
+    }
+
+    if {[exists [$this getVar meanMol[expr [$this getVar numInputs]-1]]]} {
+        $this newPortConnection data[$this getVar numInputs] HxMolecule
+        $this setVar numInputs [expr [$this getVar numInputs] + 1]
+    } else {
+        echo No [$this getVar meanMol[expr [$this getVar numInputs]-1]]
+    }
+
+    if {[$this build wasHit 0]} {
+        for { set i 0 } { $i < [$this getVar numInputs]} { incr i } {  
+            if { [exists [$this getVar meanMol$i]]} {
+                set hxmolview [ create HxMolView ]
+                $hxmolview setIconPosition 240 \
+                    [lindex [[$this getVar meanMol$i] getIconPosition] 1]
+                $hxmolview data connect [$this getVar meanMol$i]
+                $hxmolview fire
+            }
+        }
+    }
+
+    if {[$this action wasHit 0]} {
+        for { set i 1 } { $i < [$this getVar numInputs]} { incr i } {  
+            if { [exists [$this getVar meanMol$i]]} {
+                [$this getVar meanMol$i] transformation setValue 2
+                [$this getVar meanMol$i] selection hit 0
+                [$this getVar meanMol$i] fire
+            }
+        }
+    }
+    
+    if {[$this action wasHit 1]} {
+        for { set i 1 } { $i < [$this getVar numInputs]} { incr i } {  
+            if { [exists [$this getVar meanMol$i]]} {
+                [$this getVar meanMol$i] transformation setValue 2
+                [$this getVar meanMol$i] selection hit 2
+                [$this getVar meanMol$i] fire
+            }
+        }
+    }
+
+    if {[$this action wasHit 2]} {
+        for { set i 1 } { $i < [$this getVar numInputs]} { incr i } {  
+            if { [exists [$this getVar meanMol$i]]} {
+                [$this getVar meanMol$i] transformation setValue 0
+                [$this getVar meanMol$i] fire
+            }
+        }
+    }
+}

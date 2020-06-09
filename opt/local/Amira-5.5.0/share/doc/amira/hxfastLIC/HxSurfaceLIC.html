@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceLIC</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "SurfaceLIC" "visualizes a flow field on a surface in 3D" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes a vector field defined on an arbitrary
+ triangular surface using line integral convolution (LIC).
+ Alternatively, a 3D vector field projected onto such a surface can be
+ visualized. The LIC algorithm works by convolving a random noise
+ function along field lines tangential to the surface using a
+ piecewise-linear hat filter. In this way for each triangle a small
+ piece of texture is computed and mapped back onto the surface. The
+ final surface texture clearly reveals the directional structure of the
+ surface vector field. A similar 2D algorithm is implemented by the
+ <a class="link" href="HxFastLIC.html#A1">PlanarLIC</a> module.</p>
+<p> Press the <em>Apply</em> button to start the computation of the surface 
+ LIC texture. Computation may take
+ a minute or more depending on texture resolution and on the number
+ of triangles of the surface.</p>
+<p> Click <a href="../../../examples/HxSurfaceLIC.hx">here</a> to execute a
+ script demonstrating the <em>SurfaceLIC</em> module. Computation of
+ the surface LIC texture may take about half a minute.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Surface</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Surface for which a LIC texture is to be computed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">VectorField</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Surface vector field or 3D vector field to be visualized. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which can be used for pseudo-coloring.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color field2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which can be used for pseudo-coloring. The
+ colors are multiplied with the colors from the first colorfield</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring. If no colormap is connected
+	the default color of the colormap port will be used.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring using the second scalar field. If no 
+ colormap is connected the default color of the colormap port will be used. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap2</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_colormap2.png" /><br /></div>
+<div class="body"><p>Port to select the second colormap.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ColorMode</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_colorMode.png" /><br /></div>
+<div class="body"><p>Four different color modes are provided. If <em>Constant</em> is
+	selected, then a uniform overall base color is used for the LIC
+	texture. This will be the default color of the colormap port or the
+	left-most color of the colormap connected to this port, if any. If
+	<em>Magnitude</em> is selected, then the LIC texture will be colored
+	according to the magnitude of the vector field. Third, if <em>	Color field</em> is selected, and a scalar field is connected to the
+	module, then the LIC texture will be colored according to the values
+	of this scalar field. Finally, if <em>2 ColorFields multiplied</em> is 
+	selected, the LIC texture will be colored with two colors. The 
+ colors are chosen according to the values of the two scalar fields. 
+	The colors are multiplied. </p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture Interpolation</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_interpol.png" /><br /></div>
+<div class="body"><p>A radio box determining how the triangle textures are being filtered
+	by the underlying OpenGL driver. Possible choices are <em>	constant</em> or <em>bilinear</em> interpolation. Usually, you will not see
+	a big difference unless you zoom up the image very much.</p>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_contrast.png" /><br /></div>
+<div class="body"><p>This port provides two parameters controlling the amount of
+	contrast of the final LIC texture. Input field <em>center</em>
+	specifies the average gray value of the texture. Higher values
+	result in brighter images. Input field <em>factor</em> determines
+	the width of the gray value histogram, which is of Gaussian type.
+	Higher numbers produce more contrast.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSurfaceLIC_options.png" /><br /></div>
+<div class="body"><p>Parameter <em>filter length</em> specifies the one-sided length of the
+	triangular filter kernel used for line integral convolution. The
+	larger this value, the more coherent the grayscale distribution
+	along the field lines. Often larger values are visually more
+	attractive than smaller ones. </p>
+<p>	The second input determines the <em>resolution</em> of the LIC
+	texture. More precisely, the width of a single texture cell is
+	chosen to be equal to the length of the diagonal of the incoming
+	vector field's bounding box divided by the value of the <em>	resolution</em> field.</p>
+
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setAmbientColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+	Allows you to change the ambient color of the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDiffuseColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+	Allows you to change the diffuse color of the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSpecularColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+	Allows you to change the specular color of the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setShininess &lt;value&gt;</span>  
+
+<div class="body"><p>
+	Allows you to change the shininess of the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCreaseAngle &lt;value&gt;</span>  
+
+<div class="body"><p>
+	Neighboring triangles will share a common vertex normal if the
+ angle between their face normals is smaller than the crease angle.
+ The default value is 60 degrees. This command lets you overwrite
+ this value. Note that discontinuities will appear if the triangles
+ of the input surface are not oriented in the same way. In order
+ to fix this, use the command <tt>fixOrientation</tt> of the surface.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

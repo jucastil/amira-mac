@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.1 Getting Started</a></h2>
+<p>In this section you will learn how to </p>
+<p></p>
+<ol><li>start the program</li><li>load a demo data set into the system</li><li>invoke editors for editing the data</li><li>connect visualization modules to the data</li><li>interact with the 3D viewer.</li>
+</ol><p></p>
+<p>The following text has the form of a short step-by-step tutorial. Each step
+builds on the steps described before. We recommend that you read the text online
+and carry out the instructions directly on the computer. Instructions
+are indicated by a dot so you can execute them quickly without reading the
+explanations between the instructions.</p>
+<p></p>
+<ul><li>Windows, select the <font face="helvetica">Amira</font> icon from the start menu.</li><li>Mac, select the <font face="helvetica">Amira</font> icon from the Application menu.</li><li>Unix-Linux, start <font face="helvetica">Amira</font> by entering <tt><font face="helvetica">Amira</font></tt> in a shell
+ window.</li>
+</ul><p></p>
+<p>If there is no such command, the software has not been properly installed.
+In this case try to execute the script <tt>bin/start</tt> located in the <tt>AMIRA_ROOT</tt> &nbsp;directory.</p>
+<p>When <font face="helvetica">Amira</font> is running, a window like the one shown in Figure
+<a class="link" href="#A3">2</a> appears on the screen. The user interface is
+divided into four major regions. The 3D viewer window displays
+visualization results, e.g., slices or isosurfaces. The Pool
+will contain small icons representing data objects and modules. The
+Properties Area displays interface elements (<em>ports</em>) associated
+with <font face="helvetica">Amira</font> objects. Finally, the lower right pane is shared by
+the console and the DemoDirector timeline. 
+Click on the Console or DemoDirector tab to select which window you want to view.
+The console prints system messages and lets you enter <font face="helvetica">Amira</font> commands.
+The DemoDirector allows you to create animations.</p>
+<p><font face="helvetica">Amira</font>'s integrated help browser can be activated by pressing
+F1, selecting <em>User's Guide</em> from the <em>Help</em> menu of
+<font face="helvetica">Amira</font>'s main window, or by typing <tt>help</tt> in the console
+window.</p>
+<p></p>
+<h3><a name="A2">2.1.1 Loading Data</a></h3>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=getstart_gui1.png.html><img width=750 src="getstart_gui1.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The <font face="helvetica">Amira</font> user interface consists of six major parts: 
+ the 3D viewer (1), the Pool (2), the Properties Area (3), the
+ console window (4), the DemoDirector (5), and the help browser (6).</div>
+
+
+</div><p></p>
+<p>
+Usually, the first thing you will do after starting <font face="helvetica">Amira</font> is to load a
+data set. Let's see how this can be done:</p>
+<p></p>
+<ul><li>Choose <em>Open Data ...</em> from the <em>File</em> menu.</li>
+</ul><p></p>
+<p>After selecting this menu item, the file dialog appears (see Figure
+<a class="link" href="#A4">3</a>). By default the dialog displays the contents of 
+the first directory defined in the environment variable <tt>AMIRA_DATADIR</tt>.
+If no such variable exists the contents of <font face="helvetica">Amira</font>'s demo data directory
+are displayed. You can quickly switch to other directories, e.g., to the
+current working directory, using the directory list located in the upper
+part of the dialog window. </p>
+<p>At the top of the Pool is an Open Data button which is a shortcut
+to the File/Open Data dialog. You may use it for opening data files in the 
+tutorials that follow. However, the tutorials will instruct you to use 
+the File/Open Data command.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=getstart_gui5.png.html><img width=450 src="getstart_gui5.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Data sets can be loaded into <font face="helvetica">Amira</font> using the file browser. In
+ most cases, the file format can be determined automatically. This is
+ done by either analyzing the file header or the file name suffix.
+ </div>
+
+
+</div><p></p>
+<p><font face="helvetica">Amira</font> is able to determine many file formats automatically, either by
+analyzing the file header or the file name suffix. The format of a
+particular file will be printed in the file dialog right beside the
+file name.</p>
+<p>Now, we would like to load a scalar field from one of the demo data
+directories contained in the <font face="helvetica">Amira</font> distribution.</p>
+<p></p>
+<ul><li>Change to the directory <tt>data/tutorials</tt>, select the
+ file <tt>lobus.am</tt> and press <em>Load</em>.</li>
+</ul><p></p>
+<p>The data will be loaded into the system. Depending on its size this may
+take a few seconds. The file is stored in <font face="helvetica">Amira</font>'s native <em>AmiraMesh</em>
+format. The file <tt>lobus.am</tt> contains 3D image data of a part of a
+fruit fly's brain, namely an optical lobe, obtained by confocal
+microscopy. This means the data represents a series of parallel 2D image
+slices across a 3D volume. Once it has been loaded, the data set appears as
+a green icon in the Pool. In the following we call this data
+set "lobus data set". </p>
+<p></p>
+<ul><li>Click on the green data icon with the left mouse button to select it.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=getstart_gui6.png.html><img width=450 src="getstart_gui6.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+Data objects are represented by green icons in the 
+ Pool. Once an icon has been selected information about the data
+ set such as its size or its coordinate type is displayed in the
+ Properties Area.</div>
+ 
+</div><p></p>
+<p>This causes some information about the data record to be displayed in the
+Properties Area (Figure <a class="link" href="#A5">4</a>). In our case we can read off the
+dimensions of the data set, the primitive data type, the coordinate type,
+as well as the voxel size. To deselect the icon, click on an empty area in
+the Pool window. You may also pick the icon with the left mouse
+button and drag it around in the Pool.</p>
+<p>Clicking on an object typically causes additional buttons to be displayed in the
+button area at the top of the Pool. These buttons are convenience
+buttons allowing easy one-click access to the modules most frequently used
+with the selected object. The tutorials, however, will have you access
+modules via the menu interface to help familiarize you with the organization 
+of modules within <font face="helvetica">Amira</font>.</p>
+<p></p>
+<h3><a name="A6">2.1.2 Invoking Editors</a></h3>
+<p>After selecting an object, in addition to the textual information,
+some buttons appear in the Properties Area, to the far right of the data
+object's name. These buttons represent <em>editors</em>, which
+can be used to interactively manipulate the data object in some
+way. For example, all data objects provide a <em>parameter
+editor</em>. This editor can be used to edit arbitrary attributes
+associated with the data set, e.g., filename, original size, or
+bounding box. Another example is the <em>transform editor</em>
+which can be used to translate or rotate the data in world
+coordinates. However, at this point we don't want to go into
+details. We just want to learn how to invoke and close an editor:</p>
+<p></p><div style="text-align:center"><p>
+ <a href=getstart_gui8.png.html><img width=450 src="getstart_gui8.png" /></a>
+</p></div><p></p>
+<p></p>
+<ul><li>Invoke one of the editors by clicking on an editor icon.</li><li>Close the editor by clicking again on the editor icon.</li>
+</ul><p> </p>
+<p>Further information about particular editors is provided in the user's
+reference manual.</p>
+<p></p>
+<h3><a name="A7">2.1.3 Visualizing Data</a></h3>
+<p>Data objects like the lobus data can be visualized by attaching <em>display modules</em> to them. Each icon in the Pool provides a popup
+menu from which compatible modules, i.e., modules that can operate on
+this specific kind of data, can be selected. To activate the popup menu</p>
+<p></p>
+<ul><li>click with the right mouse button on the green data icon. 
+ Choose the entry called <em>BoundingBox</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=getstart_gui7.png.html><img width=450 src="getstart_gui7.png" /></a><br />
+<div class="caption">
+<b>Figure 5:</b>
+In order to attach a module to a data set, click on the green icon
+ using the right mouse button. A popup menu appears containing all
+ modules that can be used to process this particular type of
+ data.</div>
+
+
+</div><p></p>
+<p>After you release the mouse button, a new <em>BoundingBox</em> module is
+created and is automatically connected to the data object. The <em>Bounding Box</em> object is represented by a yellow icon in the 
+Pool and the connection is indicated by a blue line connecting the
+icons. At the same time, the graphics output generated by the <em>BoundingBox</em> module becomes visible in the 3D viewer. Since the output
+is not very interesting, in this case we will connect a second display
+module to the data set:</p>
+<p></p>
+<ul><li>Choose the entry called <em>OrthoSlice</em> from the popup menu of the 
+ lobus data set.</li>
+</ul><p></p>
+<p>Now a 2D slice through the optical lobe is shown in the viewer window.
+Initially, a slice oriented perpendicular to the z-direction and centered
+inside the image volume is displayed. Slices are numbered 0, 1, 2, and so
+on. The slice number as well as the orientation are parameters of the <em>OrthoSlice</em> module. In order to change these parameters, you must select
+the module. As for the green data icon, this is done by clicking on the
+<em>OrthoSlice</em> icon with the left mouse button. By the way, in contrast
+to the <em>BoundingBox</em>, the <em>OrthoSlice</em> icon is orange, indicating
+that this module can be used for clipping.</p>
+<p></p>
+<ul><li>Select the <em>OrthoSlice</em> module.</li>
+</ul><p></p>
+<p>Now you should see various buttons and sliders in the Properties Area,
+ordered in rows. Each row represents a <em>port</em> allowing you
+to adjust one particular control parameter. Usually, the name of a port is
+printed at the beginning of a row. For example, the port labeled <em>Slice Number</em> allows you to change the slice number via a slider.</p>
+<p></p>
+<ul><li>Select different slices using the <em>Slice Number</em> port.</li>
+</ul><p></p>
+<p>By default, <em>OrthoSlice</em> displays slices with axial orientation, i.e.,
+perpendicular to the z-direction. However, the module can also extract
+slices from the image volume perpendicular to x- and y-direction. These
+two alternate orientations are sometimes referred to as <em>sagittal</em> and <em>coronal</em> (these are standard phrases used in radiology).</p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=getstart_gui2.png.html><img width=450 src="getstart_gui2.png" /></a><br />
+<div class="caption">
+<b>Figure 6:</b>
+Visualization results are displayed in the 3D viewer window.
+ Parameters or ports of a module are displayed in the Properties Area after
+ you select the module.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A10">2.1.4 Interaction with the Viewer</a></h3>
+<p>The 3D viewer lets you look at the model from different positions. If
+you click on the <em>Trackball</em> button in the viewer toolbar, moving the 
+mouse inside the viewer window with the left mouse button pressed
+lets you rotate the object. If you click on the <em>Translate</em> or the <em>Zoom</em> 
+buttons, you can translate or zoom the object. (For zoom, move the
+mouse up and down.)</p>
+<p>Alternatively, with the middle mouse button pressed you can translate
+the object. For zooming press both the left and the middle mouse buttons at
+the same time and move the mouse up or down. </p>
+<p>Notice that the mouse cursor has the shape of a little hand inside the
+viewer window. This indicates that the viewer is in viewing mode. By pressing
+the <tt>ESC</tt> key you can switch the viewer into interaction mode. In this
+mode, interaction with the geometry displayed in the viewer is possible by
+mouse operations. For example, when using <em>OrthoSlice</em> you can change
+the slice number by clicking on the slice and dragging it.</p>
+<p></p>
+<ul><li>Select different buttons of the <em>Orientation</em> port of the 
+ <em>OrthoSlice</em> module.</li><li>Rotate the object in a more general position.</li><li>Disable the <em>adjust view</em> toggle in the <em>Options</em> port.</li><li>Change the orientation using the <em>Orientation</em> port again.</li><li>Choose different slices using the <em>Slice Number</em> port or 
+ directly in the viewer with the interaction mode described above.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=getstart_gui3.png.html><img width=450 src="getstart_gui3.png" /></a><br />
+<div class="caption">
+<b>Figure 7:</b>
+The <em>OrthoSlice</em> module is able to extract arbitrary 
+ orthogonal slices from a regular 3D scalar field or image volume.
+ </div>
+
+
+</div><p></p>
+<p>Each display module has a <em>viewer toggle</em> by which you can switch off
+the display without removing the module. This button is just to the right
+of the colored bar where the module name is shown as illustrated below.</p>
+<p></p>
+<ul><li>Deactivate and activate the display of the <em>OrthoSlice</em> or 
+ <em>BoundingBox</em> module using the <em>viewer toggle</em>.</li>
+</ul><p> </p>
+<p></p><div style="text-align:center"><p>
+ <a href=getstart_gui4.png.html><img width=450 src="getstart_gui4.png" /></a>
+</p></div><p></p>
+<p>If you want to remove an object from the Pool, select it and choose <em>Remove Object</em> from the <em>Pool</em> menu. Choose <em>Remove All</em> from the same menu
+to remove all objects. 
+</p>
+<ul><li>Remove the <em>BoundingBox</em> module by selecting its icon and 
+ choosing <em>Remove Object</em> from the <em>Pool</em> menu.</li><li>Remove all remaining objects by choosing <em>Remove All Objects</em> from the
+ same menu.</li>
+</ul><p></p>
+<p>Now the Pool should be empty again. You may continue with the next
+tutorial, i.e., the one on <a class="link" href="tutscalar.html#A1">scalar field visualization</a>.
+
+</p></body>
+</html>

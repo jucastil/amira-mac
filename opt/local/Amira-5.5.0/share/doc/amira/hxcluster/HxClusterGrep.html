@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> ClusterGrep</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ClusterGrep" "identifies points with the same id in two point clusters" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module identifies common points in two different data objects
+ of type <a class="link" href="HxCluster.html#A1">HxCluster</a> and copies them into new cluster
+ objects. Using this module you may, for example, extract the same set
+ of points from multiple clusters representing different time steps
+ in a dynamic simulation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">A</span>  
+
+<div class="body"><p>	The first point cluster.</p>
+</div></div>
+<div class="hxconnection_default">
+ <span class="headline">B</span>  
+
+<div class="body"><p>	The second point cluster. Initially, this port will not be
+	connected to any data set. In order to use the module you have to
+	establish a connection manually by activating the popup menu over
+	the white square on the left side of the module's icon. 
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Points</span>  
+<div class="portsnapshot"><img src="HxClusterGrep_points.png" /><br /></div>
+<div class="body"><p>This port displays the number of points in the two input clusters.
+	If both input ports are connected, the number of common points
+	is also displayed. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxClusterGrep_mode.png" /><br /></div>
+<div class="body"><p>This port provides two radio buttons allowing you to specify
+	which points are copied into the output clusters. If <em>	inclusion</em> is selected, only common points are copied. If <em>	exclusion</em> is selected, only points not present in the other
+	cluster are copied.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxClusterGrep_action.png" /><br /></div>
+<div class="body"><p>	Button <em>Export A</em> copies points from the first input cluster
+	together with associated data values into a new cluster. Button
+	<em>Export B</em> copies points from the second input cluster
+	together with associated data values into a new cluster.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

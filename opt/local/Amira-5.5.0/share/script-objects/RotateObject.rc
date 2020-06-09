@@ -1,0 +1,56 @@
+########################################
+# scro RotateObject
+########################################
+
+module -name "ObjectRotate" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel ObjectRotate]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/RotateObject.scro
+	$mod fire
+    }	
+
+module -name "ObjectRotate" \
+    -package "hxscriptobj" \
+    -primary HxSpatialData \
+    -category "Animation/Demo" \
+    -proc {
+        set mod [[create HxScriptObject] setLabel ObjectRotate]
+        $mod script setValue $AMIRA_ROOT/share/script-objects/RotateObject.scro
+        if { [exists $PRIMARY] } { 
+            $mod data connect $PRIMARY
+            $mod fire
+        };
+    }	
+
+
+########################################################
+# put normal plane module into popup of RotateObject
+########################################################
+
+module -name "NormalPlane" \
+    -primary HxScriptObject \
+    -check { [$PRIMARY hasVar scroTypeRotateObject] } \
+    -category "Main" \
+    -proc {
+	set _data [$PRIMARY data source]
+	if {$_data == ""} {
+	    echo "$PRIMARY: please connect to spatial data first"
+	} else {
+	    # create plane module
+	    set _x [[create HxArbitraryCut] setLabel "NormalPlane"]
+	    # connect plane module to data 
+	    if [catch {$_x data connect $_data} msg] {echo $msg}
+	    # connect plane module to script object
+	    if [catch {$PRIMARY normalPlane connect $_x} msg] {echo $msg}
+	    $PRIMARY normalPlane setTightness 1
+	    $PRIMARY fire
+	    # switch on trackball manipulator
+	    $_x options setValue 1 1
+	    $_x fire
+	}
+    }
+
+
+

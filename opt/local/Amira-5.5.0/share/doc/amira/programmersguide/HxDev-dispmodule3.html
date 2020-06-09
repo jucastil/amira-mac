@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.2.3 Version 3: Adding an Update Method</a></h3>
+<p>Besides a compute method, modules may also define a <em>update method</em>.
+This method is called just before the compute method and also whenever a
+module is selected. In the update method, the user-interface of the module
+can be configured, i.e., ports can be shown or hidden dynamically if this
+is required, the sensitivity of ports can be adjusted, or the number of
+entries of an option menu can be modified dynamically.</p>
+<p>In order to illustrate how an update method might work, we implement an
+alternate display mode in our module. In this mode all vertices of a
+surface should be displayed, not only the ones with a certain number of
+neighboring triangles. In this second mode the slider <tt>portNumTriangles</tt> is not meaningful anymore. We therefore hide it by
+defining an appropriate update method. The following lines are added in the
+header file <tt>MyDisplayVertices3.h</tt>:<font size="2"></font></p><pre>
+    // Mode: 0=selected vertices, 1=all vertices
+    HxPortRadioBox portMode;
+
+    // Shows or hides required ports.
+    virtual void update();
+</pre><p><font size="2"></font></p>
+<p>The new radio box port lets the user switch between the two display modes.
+Like the compute method, the update method takes no arguments and also has
+no return value.If you look into the source code file <tt>MyDisplayVertices3.cpp</tt> you will
+notice that the radio box port is initialized in the constructor of the
+module and that the text labels are set properly. The update method itself
+is quite simple:</p>
+<p><font size="2"></font></p><pre>
+void MyDisplayVertices3::update()
+{
+    if (portMode.getValue()==0)
+        portNumTriangles.show();
+    else portNumTriangles.hide();
+}
+</pre><p><font size="2"></font></p>
+<p>The slider <tt>portNumTriangles</tt> is shown or hidden depending on the
+value of the radio box port. Note that before the update method is called,
+all ports are marked to be shown. Therefore you must hide them every time
+<tt>update</tt> is called. For example, the <tt>show</tt> and <tt>hide</tt> calls should
+not be encapsulated by an if statement which checks if some input port
+is new.</p>
+<p>In order to support the new all-vertices display style, we slightly
+modify the way the Open Inventor scene graph is created. Instead of
+a single <tt>SoMaterial</tt> node, we insert a new one whenever the color
+of a cube needs to be changed, i.e., whenever the number of triangles of
+a vertex differs from the previous one. The new for-loop looks as follows:</p>
+<p><font size="2"></font></p><pre>
+    int lastNumTriPerVertex = -1;
+    int allVertices = portMode.getValue();
+
+    for (i=0; i&lt;nVertices; i++) {
+        if (allVertices || triCount[i]==numTriPerVertex) {
+
+            if (triCount[i]!=lastNumTriPerVertex) {
+                SoMaterial* material = new SoMaterial;
+                material-&gt;diffuseColor =
+                    portColormap.getColor(triCount[i]);
+                scene-&gt;addChild(material);
+                lastNumTriPerVertex = triCount[i];
+            }
+
+            SoTranslation* trans = new SoTranslation;
+            trans-&gt;translation.setValue(p[i]-q);
+
+            SoCube* cube = new SoCube;
+            cube-&gt;width = cube-&gt;height = cube-&gt;depth = size;
+
+            scene-&gt;addChild(trans);
+            scene-&gt;addChild(cube);
+
+            count++;
+            q=p[i];
+        }
+    }
+</pre><p><font size="2"></font></p>
+<p>Again, you can test the module by loading the file <tt>mypackage/data/test.surf</tt> and attaching <tt>DisplayVertices3</tt> to it. If
+you connect the <em>physics.icol</em> colormap to the colormap port, adjust
+the colormap range to 1...9, and select the all-vertices display style, 
+you should get an image similar to the one shown in
+<a class="link" href="#A2">Figure 189</a>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=displayvertices.png.html><img width=750 src="displayvertices.png" /></a><br />
+<div class="caption">
+<b>Figure 189:</b>
+The demo module <em>DisplayVertices3</em> displays little cubes
+at the vertices of a surface. The cubes are colored according to the
+number of neighboring triangles.</div>
+
+
+</div><p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

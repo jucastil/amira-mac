@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolTrajectoryBundle Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Editor" "MolTrajectoryBundle Editor" "allows editing of a trajectory bundle based on its data entries" !>
+<p><img src="HxDataEditor.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This tool allows you to edit the data entries
+ contained in a <a class="link" href="../hxmolecule/HxMolTrajectoryBundle.html#A1">MolTrajectoryBundle</a> data object.</p>
+<p>	Each row shows a set of values for one trajectory in the bundle.
+	The first column contains the current index of each trajectory.
+	The second column contains the name. All other columns represent
+	data entries. Double clicking one of the cells in the index columns
+	will set the current trajectory in all downstream MolTrajectory
+	objects to the clicked trajectory.</p>
+<p>	It is possible to sort according to each columns values by clicking
+	on the header above the column. A certain sorting order can be applied
+	to the indices of the trajectories with the <i>Trajectory/ApplyOrder</i> menu.</p>
+<p>	The names and data entry columns can be edited by double clicking
+	the cell. The index column is not editable. </p>
+<p>	With CTRL-C the cell values of the current selection can be copied to the clipboard 
+	as a tab delimited string (which can be handled by most spreadhseet applications). 
+	CTRL-V overwrites the current selection with a tab delimited string in the clipboard.
+	This requires that the number of lines in the clipboard is identical
+	to the number of selected rows and that the number of tab delimited tokens
+	in each row is identical to the number of cells that are selected for 
+	the corresponding row.</p>
+<p><b>Trajectory Menu:</b>	</p>
+<p>	New trajectories can be added to the bundle with the <i>Trajectories/Add</i>
+	menu. A requester will appear that lets you pick any trajectory in the
+	object pool. With the <i>Trajectory/Remove</i> menu you can remove
+	all trajectories from the bundle for which at least one cell is
+	currently selected, and with <i>Trajectory/Restrict</i> you can restrict
+	the bundle to the selected trajectories.</p>
+<p><b>Data Menu:</b>	</p>
+<p>	New data can be added with the <i>Data/Add</i>
+	menu. <i>Data/AddSelection</i> will create a new data column containing '0'
+	for all unselected trajectories and '1' for all selected ones.
+	With the <i>Data/Remove</i> menu you can remove
+	all data from the bundle for which at least one cell is
+	currently selected. </p>
+<p><b>Selection:</b>	</p>
+<p>	Items can be selected manually by single clicking a cell (SHIFT and CTRL can
+	be used as modifiers). The section at the bottom of the editor allows you to
+	select trajectories based on <a class="link" href="../hxmolecule/molatomexpressions.html#A1">atom expressions</a>.
+	The <i>Add</i> and <i>Remove</i> buttons will add or remove 
+	the trajectories which are matched by the given expression to or from the selection.
+	The <i>Repalce</i> button will replace the selection with the matching.</p>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DisplayISL</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "DisplayISL" "visualizes a flow field using illuminated stream lines" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes a 3D vector field using so-called illuminated
+ field lines. This technique was first presented on the <em>Visualization '96</em> conference. More details are described in <em>M.
+ Z&ouml;ckler, D. Stalling, H.-C. Hege, Interactive Visualization of
+ 3D-Vector Fields using Illuminated Streamlines, Proc. IEEE
+ Visualization '96, Oct./Nov. 1996, San Francisco, pp. 107-113, 1996</em>.</p>
+<p> The module computes a large number of field lines by integrating the
+ vector field starting from random seed points. The lines are displayed
+ using a special illumination technique, which gives a much better
+ spatial understanding of the field's structure than ordinary
+ constant-colored lines. In order to execute a script demonstrating
+ this module click <a href="../../../examples/HxDisplayISL.hx">here</a>.</p>
+<p> The functionality of <em>DisplayISL</em> can be extended by means of the
+ <a class="link" href="HxSeedSurface.html#A1">SeedSurface</a> module.</p>
+<p> To initiate distribution of seeds and recomputation of field lines,
+ press the <em>Apply</em> button. Once the incoming vector field has changed
+ or you have modified the number of field lines or the line's length,
+ you must press <em>Apply</em> again in order to update the display.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The vector field to be visualized. Since a
+ procedural data interface is used, all types of vector fields are
+ supported (e.g., fields on regular or curvilinear grids, as well as
+ procedurally defined fields).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which, if present,
+ will be used for pseudo-coloring. Often it is useful to create a scalar
+ field from the vector field using the <a class="link" href="../hxarith/HxMagnitude.html#A1">Magnitude</a>
+ module.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlphaField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which can be used
+ to control the lines' opacity locally.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Distribution</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Either an optional scalar field which can be used
+ to control the distribution of seed points, or
+ a vertex set that is used as seed points.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> used to
+ encode the color field. Will only be visible if a color field is
+ connected to this module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A7"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_color.png" /><br /></div>
+<div class="body"><p>This port is visible if no color field is connected to the module and it allows to change
+the color of the ISLs. Clicking on the icon opens a Color Dialog where the color can be set.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_colormap.png" /><br /></div>
+<div class="body"><p>The optional colormap. This port is visible only if a color field is
+ connected to the module.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Num Lines</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_numLines.png" /><br /></div>
+<div class="body"><p>Number of field lines to be displayed. The technique typically gives
+ the best results with a rather large number of lines (e.g., 100-500).
+ Note however that on systems with slow 3D graphics without texture
+ hardware, having large number of lines can slow down rendering speed
+ significantly.</p>
+<p>
+<a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_length.png" /><br /></div>
+<div class="body"><p>The length of the field lines, or more precisely,
+ the number of atomic line segments, in forward respectively backward
+ direction. The lines may stop earlier if a singularity (i.e. zero
+ magnitude) is encountered or if the field's domain is left. By default
+ lines are traced the same distance in the forward and backward direction.
+ You may use the command <tt>setBalance</tt> to change this behavior.</p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Opacity</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_opacity.png" /><br /></div>
+<div class="body"><p>Base opacity factor of the lines. A value of 1 produces completely
+ opaque lines, while 0 results in fully transparent lines.</p>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Fade Factor</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_fadeFactor.png" /><br /></div>
+<div class="body"><p>This port controls how fast opacity decreases along field lines if <em>fade mode</em> is enabled. The first atomic line segment will be assigned
+ the base opacity set in port <em>Opacity</em>. The opacity of each
+ successive segment will be multiplied by the value of this port. This
+ is useful in order to encode the directional sign of a vector field.
+ The vector field points in the direction of increasing transparency. </p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha Window</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_alphaRange.png" /><br /></div>
+<div class="body"><p>This port will only be visible if <em>fade mode</em> is disabled and if an 
+ alpha field is connected to the module. In this case the alpha field's
+ values are mapped to opacity according to the range specified by this
+ port. At locations where the alpha field is equal to or smaller than <em>min</em>, field lines will be completely transparent. Likewise, at locations
+ where the alpha field is equal to or greater than <em>max</em>, field lines
+ will be completely opaque.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Seed</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_seed.png" /><br /></div>
+<div class="body"><p>This port defines the type of the random number generator that distributes
+ the seed point. The generation can be random or constant. </p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_options.png" /><br /></div>
+<div class="body"><p><i>Fade:</i> Enables fading mode as described above.<br />
+
+ <i>Lighting:</i> Controls illumination of lines. If off, constant colored
+ lines are drawn (flat shading).<br />
+
+ <i>Animate:</i> Activates particle-like animation. The animation speed
+ may be controlled via the command <tt>setAnimationSpeed</tt>.<br />
+
+ <i>DEC:</i> Activates directionally encoded colors. The colors are generated
+ from the tangent directions of the lines. Directions x, y, and z are mapped
+ to colors red, green, and blue.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Seed Box</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_box.png" /><br /></div>
+<div class="body"><p>Clicking on <i>XformBox</i> or <i>TabBox</i> brings up a 3D dragger in
+ the 3D Viewer. This allows you to restrict the region of interest, i.e.
+ the region in which seed points are placed, by interactively
+ transforming the dragger (Remember to switch the
+ <a class="link" href="../hxalign/HxAlignSlices.html#A2">viewer</a> into interaction mode by pressing ESC). After
+ changing the box, you must press <em>Apply</em> to trigger recalculation.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Distribute</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_distribute.png" /><br /></div>
+<div class="body"><p>This port provides an option menu specifying 
+ how seed points are distributed inside the seed box. By default
+ a <em>homogeneous</em> distribution will be used. Alternatively, seed
+ points may be distributed according to the vector field's magnitude or
+ according to the value of the distribution field, if such a field is
+ connected to the module. The <i>equalize</i> option provides a mixture
+ of homogeneous and proportional seed point distribution.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_DisplayBox.png" /><br /></div>
+<div class="body"><p>This port controls the projected seed box of the lines.
+The seed box is composed of a black shape representation and green little boxes that handle the manipulation.
+Pressing reset resizes the box to the bounding box of the connected data.</p>
+<p>When using projection (see HxProjection), only the lower left corner of the green boxes is used to compute the projected shape. Other boxes won't be synchronized with the box geometry.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box center</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_BoxCenter.png" /><br /></div>
+<div class="body"><p>This port controls the center of the seed box. 
+When using projection, it can happen that the value entered be erroneous. In that case, the old value is displayed again. </p>
+<p><a name="A20"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box center</span>  
+<div class="portsnapshot"><img src="HxDisplayISL_BoxScale.png" /><br /></div>
+<div class="body"><p>This port controls the scale factor of the seed box. When using projection,
+it can happen that the value entered be erroneous. 
+In that case, the old value is displayed again. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">createLineSet</span>  
+
+<div class="body"><p>Can be used to create a lineset object from the currently displayed lines.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

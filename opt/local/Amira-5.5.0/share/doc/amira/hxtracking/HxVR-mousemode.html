@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.7.6 The 2D Mouse mode</a></h3>
+<p>The 2D mouse mode is useful for accessing GUI elements which have no direct
+analogy in 3D. In this mode the position of the ordinary 2D mouse pointer
+is controlled using the 3D input device.</p>
+<p></p>
+<ul><li>In order to activate 2D mouse mode press the red <em>mouse mode</em>
+ button of the 3D menu. Once mouse mode is activated the <font face="helvetica">Amira</font> main
+ window is popped up automatically.</li><li>You can control the 2D mouse by translating or rotating the 3D input
+ device. Usually, rotating it is more convenient since less movement
+ is required. The position of the 2D mouse is computed by determining
+ the intersection of the virtual wand vector with the screen.</li><li><p>In order to exit 2D mouse mode, double-click the 3D input device over
+ some insensitive region of the 2D user interface. When leaving 2D mouse
+ mode the main graphics window is raised automatically.</p>
+<p> If the 2D mouse stays in the middle of the screen, of course 3D
+ impression is disturbed. Therefore, usually it is a good idea to move
+ the 2D mouse in a corner before returning to 3D mode.</p></li>
+</ul><p></p>
+<p>The two Tcl procedures <em>VRSettings_StartMouseMode</em> and <em>VRSettings_StopMouseMode</em> are called when entering and exiting 2D mouse mode.
+You can use these methods for example to pop up the <font face="helvetica">Amira</font> help browser
+with a page from which additional demos can be launched. For this, the
+following definition could be included for example in the file
+<em>$<tt>AMIRA_ROOT</tt>/share/resources/<font face="helvetica">Amira</font>/<font face="helvetica">Amira</font>.init</em>:</p>
+<p><tt>  proc VRSettings\_StartMouseMode { } {</tt> <br />
+
+<tt>    global </tt><tt>AMIRA_ROOT</tt> <br />
+
+<tt>    load $</tt><tt>AMIRA_ROOT</tt><tt>/share/usersguide/tracking.html</tt> <br />
+
+<tt>  }</tt></p>
+<p>In order to activate or deactivate the 2D mouse mode from Tcl, the <font face="helvetica">Virtual Reality Option</font>
+control module provides the command <tt>VRSettings enableMouseMode &lt;value&gt;</tt>,
+where <tt>&lt;value&gt;</tt> can be either 0 or 1. In order to check if 2D mouse 
+mode is currently active, you can use <tt>VRSettings isMouseModeEnabled</tt>.</p>
+<p>
+</p></body>
+</html>

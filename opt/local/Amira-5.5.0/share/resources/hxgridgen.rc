@@ -1,0 +1,34 @@
+# ----------------------------------------------------------------------
+# hxgridgen package
+# ----------------------------------------------------------------------
+
+# module -name "TetraGen" \
+#     -primary "HxSurface" \
+#     -class "HxTetraGen" \
+#     -category "Compute" \
+#     -dso "libhxgridgen.so"
+
+module -name "TetraGen" \
+    -primary "HxSurface" \
+    -class "HxTetraGen2" \
+    -category "Compute" \
+    -dso "libhxgridgen.so"
+
+module -name "Duplicate Nodes" \
+    -check { [ $PRIMARY hasDuplicatedNodes ] == 0 } \
+    -primary "HxTetraGrid" \
+    -category "Compute" \
+    -class "HxDupNodes" \
+    -dso "libhxgridgen.so"
+
+module -name "Delaunay2D" \
+    -primary "HxVertexSet" \
+    -category "Compute" \
+    -class "HxDelaunay2D" \
+    -dso "libhxgridgen.so"
+
+module -name "PointWrap" \
+    -primary "HxVertexSet" \
+    -category "Compute" \
+    -class "HxPointWrap" \
+    -dso "libhxgridgen.so"

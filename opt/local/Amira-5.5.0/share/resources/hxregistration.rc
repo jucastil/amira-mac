@@ -1,0 +1,25 @@
+
+module -name "AffineRegistration" \
+    -primary "HxRegScalarField3" \
+    -class "HxAffineRegistration" \
+    -category "Compute" \
+    -package "hxregistration"
+    
+#module -name "ElasticRegistration" \
+#    -primary "HxRegScalarField3" \
+#    -class "HxElasticRegistration" \ 
+#    -category "Compute" \
+#    -package "hxregistration"
+
+module -name "ApplyDeformation" \
+    -primary "HxVertexSet" \
+    -class "HxApplyDeformation" \
+    -category "Compute" \
+    -package "hxregistration"
+
+#module -name "ApplyBSplineTransform" \
+#    -check { ![ __isProduct "Avizo"] } \
+#    -primary "HxRegScalarField3" \
+#    -class "HxApplyBSplineTransform" \
+#    -category "Compute" \
+#    -package "hxregistration"

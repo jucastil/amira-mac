@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+#
+#   AVS field format
+#
+# ------------------------------------------------------
+
+dataFile -name "AVS Field" \
+    -option avs -ext .fld  \
+    -load "hxreadAVSField" \
+    -save "hxsaveAVSField" \
+    -type "HxLattice3" \
+    -dso "libhxavs.so"
+
+# ------------------------------------------------------
+#
+#   AVS UCD format
+#
+# ------------------------------------------------------
+
+dataFile -name "AVS UCD"	          \
+         -option ucd -ext .inp            \
+         -load "hxreadAVSUCD"             \
+         -loadInOwnThread true            \
+         -dso "libhxavs.so"
+
+dataFile -name "AVS UCD ascii"	          \
+         -option ucd -ext .inp            \
+         -save "hxsaveAVSUCDAscii"        \
+         -type "HxSurface"                \
+         -type "HxTetraGrid"              \
+         -type "HxTetraData"              \
+         -loadInOwnThread true            \
+         -dso "libhxavs.so"
+
+dataFile -name "AVS UCD binary"           \
+         -ext ".inp"                      \
+ 	 -save "hxsaveAVSUCDBinary"       \
+	 -type "HxSurface"                \
+         -type "HxTetraGrid"              \
+         -type "HxTetraData"              \
+         -loadInOwnThread true            \
+         -dso "libhxavs.so"
+

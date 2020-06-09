@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Magnitude</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Magnitude" "computes the magnitude of a real or complex vector field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Magnitude</em> module computes the magnitude of the vectors of
+ a vector field, i.e.,</p>
+\[
+        |V| = \sqrt{V_x^2 + V_y^2 + V_z^2}
+    \]
+<p> These vectors might be located on regular or on irregular grids.
+ Regular or complex vector fields are typically defined by
+ uniform, stacked, rectilinear, or curvilinear coordinates.
+ Vectors located on vertices of triangular surface meshes or
+ tetrahedral grids are defined by irregular coordinates.</p>
+<p> The result of <em>Magnitude</em> is a field of scalars, located at
+ positions according to the underlying grid of the input data.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Field or complex vector field defined on a regular grid
+ (<em>Lattice3</em>).</p>
+<p> Vector field on an irregular grid, either specified by nodes of
+ a surface, a tetrahedral or a hexahedral grid
+ (<em>SurfaceField, TetraData, HexaData</em>).
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Number of Vectors</span>  
+<div class="portsnapshot"><img src="HxMagnitude_info.png" /><br /></div>
+<div class="body"><p>Shows number of input vectors and the vector dimension for computing
+ the magnitude field.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxMagnitude_mode.png" /><br /></div>
+<div class="body"><p>Choose whether to compute the magnitude of the vector, its normal
+ or tangential component relative to the primary surface normals.
+ This port is only shown if a surface vectorfield has been connected.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

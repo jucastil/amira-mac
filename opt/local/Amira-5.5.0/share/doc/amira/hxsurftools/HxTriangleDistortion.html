@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TriangleDistortion</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "TriangleDistortion" "computes metric distortions of triangles of two surfaces" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes metric distortions of triangles of two
+ different surfaces, both having with the same connectivity (same
+ number of points/triangles). Metric distortions quantify the
+ amount of deformation of two triangles in terms of angles, areas
+ or lengths. The result output is a surface scalar field.
+ </p></div>
+<p></p>
+<p> </p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>any triangulated surface of type <a class="link" href="../hxsurface/HxSurface.html#A1">HxSurface</a></p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Template</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>any other triangulated surface of type <a class="link" href="../hxsurface/HxSurface.html#A1">HxSurface</a></p>
+</div></div>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Distortion</span>  
+<div class="portsnapshot"><img src="HxTriangleDistortion_distortion.png" /><br /></div>
+<div class="body"><p>Type of distortion measure: choose from angle, area or stretch
+ (= length distortion)</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Encoding</span>  
+<div class="portsnapshot"><img src="HxTriangleDistortion_encoding.png" /><br /></div>
+<div class="body"><p>Encoding of the output field. Values on nodes are averages over
+ all triangles adjacent to the node.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTriangleDistortion_options.png" /><br /></div>
+<div class="body"><p>Automatically adjusts the colormap used in the connected
+ SurfaceView module. Distortion values can optionally be weighted
+ by the area of the triangle.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> IsosurfaceRendering (LDA)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "Module" "IsosurfaceRendering (LDA)" "3D isosurface rendering" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module generates isosurfaces that are computed and rendered on the 
+ graphics hardware. This module does not compute geometry on the CPU.
+ Thus, unlike for the non-LDA Isosurface module, it is not possible to store
+ the results as a surface object or as an Open Inventor format file.</p>
+<p> This rendering technique needs more slices than typically used for 
+ volume rendering. 
+ A low number of slices will create holes in the surface.</p>
+<p> This module provides a hardware-accelerated implementation, 
+ which uses programmable shader hardware to allow real-time 
+ rendering. On platforms that do not have programmable shader support,
+ no isosurface will be drawn. </p>
+<p> If the isosurface is hidden in one viewer it is also hidden in 
+ all viewers (the visibility is global to all viewers)
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalarfield from which the isosurface is generated.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest, like
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. If such a module is connected,
+ only the selected part of the volume will be displayed.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used to visualize the data.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxIsosurfaceRender_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of slices</span>  
+<div class="portsnapshot"><img src="HxIsosurfaceRender_slices.png" /><br /></div>
+<div class="body"><p>The larger this number, the better the image quality and the less the rendering performance. 
+ A low number of slices will create holes in the surface.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxIsosurfaceRender_threshold.png" /><br /></div>
+<div class="body"><p>Isovalue to be rendered.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

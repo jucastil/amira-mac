@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DisplayLogos</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DisplayLogos" "displays the product and company logos in the viewer" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module displays the product logo (<font face="helvetica">Amira</font>) as well as the 
+FEI Visualization Sciences Group logo in the viewer window. In order 
+to do this, a specific Open Inventor file is loaded that contains 
+transparent raster graphics files. The user can choose between 
+different versions, each having a different size.</p>
+<p>Internally, the <i>DisplayLogos</i> script object loads the Open Inventor
+file and creates an <a class="link" href="../hxivdata/HxIvDisplay.html#A1">IvDisplay</a> module. Choose 
+<i>Pool/Show All</i> to see these hidden modules in the Pool.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Logo height</span>  
+<div class="portsnapshot"><img src="DisplayLogos_logoHeight.png" /><br /></div>
+<div class="body"><p>Choose the desired size of the logo.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<h3>Related Topics</h3>
+<p>
+The resource file for this module also defines the global Tcl command
+</p><blockquote>
+<p>
+<tt>createLogos [size]</tt>
+</p></blockquote>
+<p>
+to easily display the logos. For convenience, this command hides the 
+newly created <i>DisplayLogos</i> module in the Pool. The optional
+argument <tt>size</tt> allows you to specify the size of the logo, where 
+only those values offered in the module's <i>Logo height</i> port are 
+valid.
+</p></div>
+<p></p>
+<p>
+
+</p></body>
+</html>

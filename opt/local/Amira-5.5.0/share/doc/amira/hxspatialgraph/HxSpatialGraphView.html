@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SpatialGraphView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SpatialGraphView" "visualizes three dimensional networks of typedata SpatialGraph" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes data objects of type <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a>. 
+ Individual <em>Segments</em> may be displayed in wireframe mode, in <em>Point</em>-mode 
+ or alternatively as true three-dimensional tubes. In the case of <em>Point</em>-mode, 
+ the <em>Points</em> framing the <em>Segment</em> are shown; <em>Nodes</em> are displayed as spheres. 
+ Additional features of SpatialGraphView are pseudo-coloring and scaling of 
+ <em>Points</em>, <em>Nodes</em> and <em>Segments</em>. 
+In order to colorize and scale the displayed items, it is possible to use one 
+of the scalar data or labels stored in the data structure of the 
+connected <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> object.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> object to be displayed. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Statistics</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p><a class="link" href="HxSpatialGraphStats.html">SpatialGraphStats</a> created <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">SpreadSheet</a>
+object may be used for highlighting.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Node Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring the <em>Nodes</em>.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Segment Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring the <em>Segments</em>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Items to show</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_itemsToShow.png" /><br /></div>
+<div class="body"><p>Selects the items to be shown.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Node scale</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_nodeScale.png" /><br /></div>
+<div class="body"><p>If data variables are available, this menu allows you to select the variable 
+ that will be used to scale the diameter of the spheres. 
+ If no additional data values are present, only Constant scaling will be available.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Node scale factor</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_nodeScaleFactor.png" /><br /></div>
+<div class="body"><p>Scaling factor used to adjust the diameter of the spheres.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Node coloring</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_nodeColoring.png" /><br /></div>
+<div class="body"><p>If data variables or label sets are available, this menu allows you to select 
+ the variable or label that will be used to look up <em>Node</em> colors. 
+ If Constant has been selected, the lines or tubes will be displayed in a uniform color.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Node Colormap</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_nodeColormap.png" /><br /></div>
+<div class="body"><p>Colormap used for pseudo-coloring the spheres.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Node color</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_nodeColor.png" /><br /></div>
+<div class="body"><p>Color used for pseudo-coloring the spheres.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Segment style</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentStyle.png" /><br /></div>
+<div class="body"><p>Controls how the <em>Segments</em> are displayed. Select <em>Lines</em> for the wireframe mode,
+ <em>Points</em> for the <em>Points</em>-frame mode, <em>Tubes</em> for true three-dimensional tubes. When <em>Points</em> is selected,
+ the <em>Points</em> defining the <em>Segments</em> are shown.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tube scale</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_tubeScale.png" /><br /></div>
+<div class="body"><p>Optional connection to a scalar field, which can be used to influence scaling of the <em>Tubes</em>.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tube scale factor</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_tubeScaleFactor.png" /><br /></div>
+<div class="body"><p>If data variables are available, this menu allows you to select the variable 
+ that will be used to scale the diameter of the tubes. 
+ If no additional data values are present, only Constant scaling will be available.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Segment width</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentWidth.png" /><br /></div>
+<div class="body"><p>Line width of segments when they are rendered in wireframe mode (not as <em>Tubes</em>).</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Segment coloring</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentColoring.png" /><br /></div>
+<div class="body"><p>If data variables or label sets are available, this menu allows you to select 
+ the variable or label that will be used to look up <em>Segment</em> colors. 
+ If Constant has been selected, the lines or tubes will be displayed in a uniform color.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Label Coloring</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentLabelColoringOptions.png" /><br /></div>
+<div class="body"><p>If label sets are selected, this menu allows you to select 
+ how the segments will be colored. 
+ If Labels is selected, the lines or tubes will be displayed using the label-coded
+ colors. The colors are selected automatically according to the color of the labels specified in the 
+ SpatialGraph object. If Colormap is selected, a colormap is used.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Segment Colormap</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentColormap.png" /><br /></div>
+<div class="body"><p>Colormap used for pseudo-coloring the <em>Segments</em>.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Segment color</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_segmentColor.png" /><br /></div>
+<div class="body"><p>Color used for pseudo-coloring the <em>Segments</em>.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point size</span>  
+<div class="portsnapshot"><img src="HxSpatialGraphView_pointSize.png" /><br /></div>
+<div class="body"><p>Size of the markers representing the points that define the segments.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">setLineWidth &lt;width&gt;</span>  
+
+<div class="body"><p>
+ Specifies the width of width of lines in wireframe mode for <em>Segments</em>. This value can also be set using the
+ <a class="link" href="#A12">Segment width</a> port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getVisibility</span>  
+
+<div class="body"><p>Returns the <em>Segment</em> visibility string followed by the <em>Node</em> visibility string.
+ Where both strings contain only letters [A-Z], reflecting the current visibility mask of <em>Segments</em> and <em>Nodes</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setVisibility &lt;segmentVisibility&gt; &lt;nodeVisibility&gt;</span>  
+
+<div class="body"><p>Sets the visibility mask of <em>Segments</em> and <em>Nodes</em>.
+ Where <em>segmentVisibility</em> and <em>nodeVisibility</em> are strings containing only letters [A-Z].</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.2.1 The Lattice Interface</a></h3>
+<p>The actual data of any regular 3D field is stored in a member variable <tt>lattice</tt> of type <tt>HxLattice3</tt>. This variable essentially represents a
+dynamic 3D array of n-component vectors. The number of vector components as
+well as the primitive data type are subject to change, i.e., a data object
+of type <tt>HxLattice3</tt> can be re-initialized to hold a different number of
+components of different primitive data type. However, a lattice
+contained in an object of type <tt>HxRegScalarField3</tt> always consists of
+1-component vectors, while a lattice contained in an object of type <tt>HxRegVectorField3</tt> always consists of 3-component vectors. In addition, the
+coordinates of the field are stored in a separate coordinate object that
+is also referenced by the lattice.</p>
+<h4><a name="A2">Accessing the Data</a></h4>
+<p>To learn what kind of methods are provided by the lattice class,
+please refer to the online reference documentation or directly inspect
+the header file <tt>HxLattice3.h</tt> located in package <tt>hxfield</tt>. At
+this point, we just present a short example which shows how the
+dimensionality of the lattice, the number of data components, and the 
+primitive data type can be queried. The primitive data type is encoded
+by the class <tt>McPrimType</tt> defined in package <tt>mclib</tt>. In
+particular, the following six data types are supported by <font face="helvetica">Amira</font>:
+</p>
+<ul><li><tt>McPrimType::mc_uint8</tt> (8-bit unsigned bytes)</li><li><tt>McPrimType::mc_int16</tt> (16-bit signed shorts)</li><li><tt>McPrimType::mc_uint16</tt> (16-bit unsigned shorts)</li><li><tt>McPrimType::mc_int32</tt> (32-bit signed integers)</li><li><tt>McPrimType::mc_float</tt> (32-bit floats)</li><li><tt>McPrimType::mc_double</tt> (64-bit doubles)</li>
+</ul><p></p>
+<p>Regardless of the actual type of the lattice data values, the
+pointer to the data array is returned as <tt>void*</tt>. The return value
+must be explicitly cast to a pointer of the correct type. This is
+illustrated in the following example where we compute the maximum value
+of all data components of a lattice. Note that the data values are stored
+one after another without any padding. The first index runs fastest.</p>
+<p><font size="2"></font></p><pre>
+    HxLattice3&amp; lattice = field-&gt;lattice;
+    const int* dims = lattice.dims();
+    int nDataVar = lattice.nDataVar();
+
+    switch (lattice.primType()) {
+    case McPrimType::mc_uint8: {
+        unsigned char* data = (unsigned char*) lattice.dataPtr();
+        unsigned char max = data[0];
+        for (int k=0; k&lt;dims[2]; k++)
+            for (int j=0; j&lt;dims[1]; j++)
+                for (int i=0; i&lt;dims[0]; i++)
+                    for (int n=0; n&lt;nDataVar; n++) {
+                        int idx =
+                            nDataVar*((k*dims[1]+j)*dims[0]+i)+n;
+                        if (data[idx]&gt;max)
+                            max = data[idx];
+                    }
+        theMsg-&gt;printf("Max value is %d", max);
+        } break;
+
+    case McPrimType::mc_int16: {
+        short* data = (short*) lattice.dataPtr();
+        short max = data[0];
+        for (int k=0; k&lt;dims[2]; k++)
+            for (int j=0; j&lt;dims[1]; j++)
+                for (int i=0; i&lt;dims[0]; i++)
+                    for (int n=0; n&lt;nDataVar; n++) {
+                        int idx =
+                            nDataVar*((k*dims[1]+j)*dims[0]+i)+n;
+                        if (data[idx]&gt;max)
+                            max = data[idx];
+                    }
+        theMsg-&gt;printf("Max value is %d", max);
+        } break;
+
+    ...
+
+    }
+</pre><p><font size="2"></font></p>
+<p>As a tip, note that the processing of different primitive
+data types can often be simplified by defining appropriate template functions
+locally. In the case of our example, such a template function may look like
+this:<font size="2"></font></p><pre>
+template&lt;class T&gt;
+void getmax(T* data, const int* dims, int nDataVar)
+{
+    T max = data[0];
+    for (int k=0; k&lt;dims[2]; k++)
+        for (int j=0; j&lt;dims[1]; j++)
+            for (int i=0; i&lt;dims[0]; i++)
+                for (int n=0; n&lt;nDataVar; n++) {
+                    int idx =
+                        nDataVar*((k*dims[1]+j)*dims[0]+i)+n;
+                    if (data[idx]&gt;max)
+                        max = data[idx];
+                }
+    theMsg-&gt;printf("Max value is %d", max);
+}
+</pre><p><font size="2"></font></p>
+<p>Using this template function, the above switch statement looks as follows:</p>
+<p><font size="2"></font></p><pre>
+    switch (lattice.primType()) {
+    case McPrimType::mc_uint8:
+        getmax((unsigned char*)lattice.dataPtr(),dims,nDataVar);
+        break;
+    case McPrimType::mc_int16:
+        getmax((short*)lattice.dataPtr(),dims,nDataVar);
+        break;
+
+    ...
+
+    }
+</pre><p><font size="2"></font></p>
+<p>Though less efficient, another possibility for handling different primitive
+data types is to use one of the methods <tt>eval</tt>, <tt>set</tt>, <tt>getData</tt>, or <tt>putData</tt>. These methods always involve a cast to <tt>float</tt> if the primitive data type of the field requires it.</p>
+<p></p>
+<h4><a name="A3">Accessing the Lattice Interface</a></h4>
+<p>Imagine you want to write a module which operates on any kind of regular
+field, i.e., on objects of type <tt>HxRegScalarField3</tt>, <tt>HxRegVectorField3</tt>, and so on. One way to achieve this would be to
+configure the input port of the module so that it can be connected to all
+possible regular field input objects. This can be done by calling the method 
+<tt>portData.addType()</tt> in the module's constructor multiple times with the
+required class type IDs. In addition, all input types must be listed in the
+package resource file. This can be done by specifying a blank-separated
+list of types as the argument of the <tt>-primary</tt> option of the <tt>module</tt> command. In the compute method of the module, the actual type
+of the input must be queried, then the input pointer must be cast to the
+required type before a pointer to the lattice member of the object can be
+stored.</p>
+<p>Of course, this approach is very tedious. A much simpler approach is
+to make use of the fact that the lattice member of a regular field is an
+interface. Instead of the name of a real data class, the class type ID
+of <tt>HxLattice3</tt> may be used to specify to what kind of input object
+a module may be connected to. In fact, if this is done, any data object
+providing the lattice interface will be considered as a valid input.
+In order to access the lattice interface of the input object, the following
+statement must be used in the module's compute method (also check
+<a class="link" href="HxDev-plotmodule1.html#A1">Section 26.3.1</a> for an example of how to deal with interfaces):</p>
+<p><font size="2"></font></p><pre>
+    HxLattice3* lattice = (HxLattice3*)
+        portData.source(HxLattice3::getClassTypeId());
+</pre><p><font size="2"></font></p>
+<p></p>
+<p></p>
+<h4><a name="A4">Creating a Field From an Existing Lattice</a></h4>
+<p>When working with lattices, we may want to deposit a new lattice in the
+Pool, for example as the result of a compute module. However,
+since <tt>HxLattice3</tt> is not an <font face="helvetica">Amira</font> data class, this is not possible.
+Instead we must create a suitable field object which the lattice is a
+member of. For this purpose the class <tt>HxLattice3</tt> provides a static
+method <tt>create</tt> which creates a regular field and puts an existing
+lattice into it. If the lattice contains one data component, a scalar field
+will be created; if it contains three components, a vector field will be
+created, and so on. The resulting field may then be used as the result of a
+compute module. Note that the lattice must not be deleted once it has
+been put into a field object. The concept is illustrated by the following
+example:<font size="2"></font></p><pre>
+    HxLattice3* lattice = new HxLattice3(dims, nDataVar,
+        primType, otherLattice-&gt;coords()-&gt;duplicate());
+
+    ...
+
+    HxField3* field = HxLattice3::create(lattice);
+    theObjectPool-&gt;addObject(field);
+</pre><p><font size="2"></font></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

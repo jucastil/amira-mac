@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.3.2 Data Defined on Tetrahedral Grids</a></h3>
+<p>In most applications, you will not only have to deal with a single
+tetrahedral grid, but also with
+data fields defined on it, for example scalar fields (e.g. 
+temperature) or vector fields (e.g. flow velocity). <font face="helvetica">Amira</font> provides special
+classes for these data modalities, namely <tt>HxTetraScalarField3</tt>, <tt>HxTetraVectorField3</tt>, <tt>HxTetraComplexScalarField3</tt>, <tt>HxTetraComplexVectorField3</tt>, and <tt>HxTetraField3</tt> (see class
+hierarchy in <a class="link" href="HxDev-datahierarchy.html#A1">Section 27.1.1</a>).</p>
+<p>Like in the case of regular data fields, the actual information is stored 
+in a special member variable called <em>data</em>, which is of type 
+<tt>HxTetraData</tt>. Like the corresponding member type <tt>HxLattice3</tt> 
+for regular data, <tt>HxTetraData</tt> is an <tt>interface</tt>, i.e., derived 
+from <tt>HxInterface</tt>. It provides transparent access to data
+fields defined on tetrahedral grids regardless of the actual number of
+data components of the field. In order to access that interface without
+knowing the actual type of input object within a module, you may use
+the following statement:<font size="2"></font></p><pre>
+    HxTetraData* data = (HxTetraData*)
+        portData.source(HxTetraData::getClassTypeId());
+    if (!data) return;
+</pre><p><font size="2"></font></p>
+<p>Data on tetrahedral grids must always be of type <tt>float</tt>. The data
+values may be stored in three different ways, indicated by the encoding
+type as defined in <tt>HxTetraData</tt>:</p>
+<ul><li><tt>PER_TETRA</tt>: One data vector is stored for each tetrahedron.
+ The data are assumed to be constant inside the tetrahedron.</li><li><tt>PER_VERTEX</tt>: One data vector is stored for each vertex of the
+ grid. The data are interpolated linearly inside a tetrahedron.</li><li><tt>PER_TETRA_VERTEX</tt>: Four separate data vectors are stored for
+ each tetrahedron. The data are also interpolated linearly.</li>
+</ul><p></p>
+<p>This last encoding scheme is useful for modeling discontinuous fields. In
+order to evaluate a field at an arbitrary location in a transparent way,
+<font face="helvetica">Amira</font>'s procedural data interface should be used. This interface is
+described in <a class="link" href="HxDev-dataeval.html#A1">Section 27.5.1</a>.</p>
+<p>Like <tt>HxLattice3</tt>, the class <tt>HxTetraData</tt> provides a static method
+<tt>create</tt> which can be used to create a matching data field, e.g., an
+object of type <tt>HxTetraScalarField3</tt>, from an existing instance of
+<tt>HxTetraData</tt>. The <tt>HxTetraData</tt> object will not be copied but will
+be directly put into the field object. Therefore it may not be deleted
+afterwards. Also see <a class="link" href="HxDev-reglattice.html#A1">Section 27.2.1</a>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

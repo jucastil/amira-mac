@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">5.5 Configuring Popup Menus</a></h2>
+<p>In <font face="helvetica">Amira</font> all of the modules that can be attached to a data object are listed in
+the object's popup menu which is activated by clicking on the object's
+icon with the right mouse button. For some applications it makes sense
+to customize new modules using Tcl commands after they have been created.
+Sometimes it also makes sense to add new entries to an object's popup
+menu, causing a particular script to be executed. This sections describes
+how to achieve these goals by modifying <font face="helvetica">Amira</font> resource files or creating
+new ones.</p>
+<p><font face="helvetica">Amira</font> resource files are located in the directory <tt>$AMIRA_ROOT/share/resources</tt>, where <tt>$AMIRA_ROOT</tt> denotes the
+directory where <font face="helvetica">Amira</font> has been installed. Resource files are just ordinary
+script files, although they are identified by the suffix <tt>.rc</tt>.
+When <font face="helvetica">Amira</font> is started all resource files in the resources directory are
+read. In a resource file, modules, editors, and IO routines are registered
+using special Tcl commands. Registering a module means to specify its
+name as it should appear in the popup menu, the type of objects it can
+be attached to, the name of the shared library or DLL the module is defined
+in, and so on. For example, the <em>LabelVoxel</em> module is registered by the
+following command in the file <tt>hxlattice.rc</tt>:</p>
+<p><font size="2"></font></p><pre>
+module -name "LabelVoxel" \
+    -primary "HxUniformScalarField3 HxStackedScalarField3" \
+    -check { ![$PRIMARY hasInterface HxLabelLattice3] } \
+    -category "Labelling Compute" \
+    -class "HxLabelVoxel" \
+    -package "hxlattice"
+</pre><p><font size="2"></font></p>
+<p>The different options of this command have the following meaning:</p>
+<p></p>
+<ul><li>The option <tt>-name</tt> specifies the name or label of the module
+ as it will be printed in the popup menu.</li><li>The option <tt>-primary</tt> says that this module can be attached to
+ data objects of type <tt>HxUniformScalarField3</tt> or <tt>HxStackedScalarField3</tt>. This means that <em>LabelVoxel</em> will be
+ included in the popup menu of such objects only.</li><li>With <tt>-check</tt> an additional Tcl expression is specified which is
+ evaluated at run-time just before the menu is popped up. If the
+ expression fails, the module is removed from the menu. In the case of the
+ <em>LabelVoxel</em> module, it is checked if the input object provides a
+ <tt>HxLabelLattice3</tt> interface, i.e., if the input itself is a label
+ field. Although a label field can be regarded as a 3D image, it makes
+ no sense to perform a threshold segmentation on it. Therefore <em>LabelVoxel</em> is only provided for raw 3D images, but not for label
+ fields.</li><li>The option <tt>-category</tt> says that <em>LabelVoxel</em> should appear
+ in the <em>Compute</em> and <em>Labelling</em> submenus of the main popup
+ menu. If a module should appear not in a submenu but in the popup
+ menu itself, the category <tt>Main</tt> must be used.</li><li>The option <tt>-class</tt> specifies the internal class name of the
+ module. The internal class name of an object can be retrieved using
+ the command <tt>getTypeId</tt>. It is this class name which has to be used
+ for the <tt>-primary</tt> option described above, not the object's label
+ defined by <tt>-name</tt>.</li><li>Finally, the option <tt>-package</tt> specifies in which package
+ (shared library or DLL) the module is defined in.</li>
+</ul><p></p>
+<p>Besides these standard options, additional Tcl commands to be executed after
+the module has been created can be specified using the additional option
+<tt>-proc</tt>. For example, imagine you are working in a medical project
+where you have to identify stereotactic markers in CT images of the head.
+Then it might be a good idea to add a customized version of the <em>LabelVoxel</em> module to the popup menu, which already defines appropriate
+material names and thresholds. This could be done by adding the following
+command either in a new resource file in <tt>$AMIRA_ROOT/share/resources</tt> 
+or directly in <tt>hxlattice.rc</tt>:</p>
+<p><font size="2"></font></p><pre>
+module -name "Stereotaxy" \
+    -primary "HxUniformScalarField3 HxStackedScalarField3" \
+    -check { ![$PRIMARY hasInterface HxLabelLattice3] } \
+    -category "Labelling" \
+    -class "HxLabelVoxel" \
+    -package "hxlattice" \
+    -proc { $this regions setValue "Exterior Bone Markers";
+            $this fire;
+            $this boundary01 setValue 150;
+            $this boundary12 setvalue 300 }
+</pre><p><font size="2"></font></p>
+<p>The variable <tt>$this</tt> used in the Tcl code above refers to the newly
+created module, i.e., to the <em>LabelVoxel</em> module. Note that the
+commands are executed <em>before</em> the module is connected to the source
+object for which the popup menu was invoked. Some modules do some special
+initialization when they are connected to a new input object. These
+initializations may overwrite values set using Tcl commands defined by
+a custom <tt>-proc</tt> option. In such a case you can explicitly connect
+the module to the input object via the command sequence</p>
+<p></p><pre>
+    $this data connect $PRIMARY;
+    $this fire;
+</pre><p></p>
+<p>Here the Tcl variable <tt>$PRIMARY</tt> refers to the input object. The same
+variable is also used in Tcl expressions defined by a <tt>-check</tt> option,
+as described above.</p>
+<p>Besides creating custom popup menu entries based on existing modules, it
+is also possible to define completely new entries which do nothing but
+execute Tcl commands. For example, we could add a new submenu <em>Edit</em>
+to the popup menu of every <font face="helvetica">Amira</font> object and put in the <em>Hide</em>, <em>Remove</em>, and <em>Duplicate</em> commands here which are normally contained in
+the <em>Edit</em> menu of the <font face="helvetica">Amira</font> main window. This can be achieved in the
+following way:</p>
+<p></p><pre>
+module -name "Remove" \
+    -primary "HxObject" \
+    -proc { remove $source } \
+    -category "Edit"
+
+module -name "Hide" \
+    -primary "HxObject" \
+    -proc { $source hideIcon } \
+    -category "Edit"
+
+module -name "Duplicate" \
+    -primary "HxData" \
+    -proc { $source duplicate } \
+    -category "Edit"
+</pre><p></p>
+<p>Of course, it is also possible to execute an ordinary <font face="helvetica">Amira</font> script or even
+an <font face="helvetica">Amira</font> script object with a <tt>-proc</tt> command.
+
+</p></body>
+</html>

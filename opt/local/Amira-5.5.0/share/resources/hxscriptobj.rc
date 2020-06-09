@@ -1,0 +1,9 @@
+module -name "ScriptObj"                     \
+    -class "HxScriptObject"                  \
+    -dso "libhxscriptobj.so"
+
+dataFile -name "Amira Script Object"         \
+    -option "scriptobj"                      \
+    -header "Amira-Script-Object"            \
+    -load "HxScriptObject::readScriptObject" \
+    -dso "libhxscriptobj.so"

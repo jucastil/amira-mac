@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_MAP
+#define  OIV_STL_MAP
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

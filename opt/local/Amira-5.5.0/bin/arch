@@ -1,0 +1,52 @@
+#!/bin/sh
+
+#set -x
+
+MAKE_UNAME=${MAKE_UNAME:-`uname`}
+
+case $MAKE_UNAME in
+    SunOS)
+	if [ ! -z "$AMIRA64" ]; then
+	    MAKE_UNAME=SunOS64
+	fi
+	;;
+    Linux)
+        case `uname -m` in
+            ia64)
+                MAKE_UNAME=Linux64;
+                ;;
+            x86_64)
+                if [ ! -z "$AMIRA64" ]; then
+                    MAKE_UNAME=LinuxAMD64
+                fi
+                ;;
+        esac
+        ;;
+    HP-UX)
+	if [ ! -z "$AMIRA64" ]; then
+	    MAKE_UNAME=HP-UX64
+	fi
+	;;
+    AIX)
+	MAKE_UNAME=AIX64 ;; # AIX is always 64 bit
+    IRIX64)	
+	if [ -z "$AMIRA64" ]; then
+	    MAKE_UNAME=IRIX
+	fi
+	;;
+    Darwin)
+        if [ ! -z "$AMIRA64" ]; then
+	    MAKE_UNAME=MacX64
+        else   
+	    MAKE_UNAME=MacX
+        fi
+	;;
+    MINGW*)
+        MAKE_UNAME=Win64VC8
+        ;;
+esac
+
+make_arch=arch-${MAKE_UNAME}-${MAKE_CFG:-Debug}
+
+echo $make_arch
+

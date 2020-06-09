@@ -1,0 +1,5 @@
+module -name  "RemeshSurface" \
+    -primary  "HxSurface" \
+    -class    "HxRemeshSurface" \
+    -category "Compute" \
+    -package  "hxsurfremesh"

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.4.3 Reading an AmiraMesh File</a></h3>
+<p>In the previous section we presented a simple AmiraMesh write routine for
+colormaps. We now want to read back such files again. For this reason we define
+a static AmiraMesh read function in class <tt>HxColormap256</tt>. Of course, a
+global C++ function could be used as well. The read function is registered in
+the package resource file <tt>hxcolor.rc</tt> in the following way:
+<font size="2"></font></p><pre>
+amiramesh -ContentType "Colormap" \
+    -load "HxColormap256::readAmiraMesh" \
+    -package "hxcolor"
+</pre><p><font size="2"></font></p>
+<p>This statement indicates that the static member method <tt>readAmiraMesh</tt>
+of the class <tt>HxColormap256</tt> defined in package <tt>hxcolor</tt> should be
+called if the AmiraMesh file contains a parameter <em>ContentType</em> equal
+to <tt>Colormap</tt>. The source code of the read routine looks as follows:</p>
+<p><font size="2"></font></p><pre>
+int HxColormap256::readAmiraMesh(AmiraMesh* m,
+    const char* filename)
+{
+    for (int i=0; i&lt;m-&gt;dataList.size(); i++) {
+        AmiraMesh::Data* data = m-&gt;dataList[i];
+        
+        if (data-&gt;location()-&gt;nDim() != 1)
+            continue;
+        
+        if (data-&gt;dim()&lt;3 || data-&gt;dim()&gt;4)
+            continue;
+
+        if (data-&gt;primType() != McPrimType::mc_uint8 &amp;&amp;
+            data-&gt;primType() != McPrimType::mc_float)
+            continue;
+        
+        int dim = data-&gt;dim();
+        int size = data-&gt;location()-&gt;dims()[0];
+        
+        HxColormap256* colormap = new HxColormap256(size);
+        colormap-&gt;parameters = m-&gt;parameters;
+        
+        switch (data-&gt;primType()) {
+        case McPrimType::mc_uint8: {
+            unsigned char* src =
+                (unsigned char*) data-&gt;dataPtr();
+            for (int k=0; k&lt;size; k++, src+=dim) {
+                float a = (dim&gt;3) ? (src[3])/255.0 : 1;
+                colormap-&gt;setRGBA(k, src[0]/255., src[1]/255.,
+                    src[2]/255., a);
+            } } break;
+            
+        case McPrimType::mc_float: {
+            float* src = (float*) data-&gt;dataPtr();
+            for (int k=0; k&lt;size; k++, src+=dim) {
+                float a = (dim&gt;3) ? src[3] : 1;
+                colormap-&gt;setRGBA(k, src[0], src[1], src[2], a);
+            } } break;
+        }
+        
+        float minmax[2] = { 0,1 };
+        m-&gt;parameters.findReal("MinMax", 2, minmax);
+        colormap-&gt;setMinMax(minmax[0], minmax[1]);
+        
+        HxData::registerData(colormap, filename);
+        return 1;
+    }
+    
+    return 0;
+}
+</pre><p><font size="2"></font></p>
+<p>Compared to the write routine, the read routine is a little bit more complex
+since some consistency checks are performed. First, the member <tt>dataList</tt>
+of the <tt>AmiraMesh</tt> structure is searched for a one-dimensional array
+containing vectors of three or four elements of type byte or float. This array
+should contain the RGB or RGBA values of the colormap. If a matching
+<tt>Data</tt> structure is found, a new instance of type <tt>HxColormap256</tt> is
+created. The parameters are copied from the <tt>AmiraMesh</tt> class into the new
+colormap. Afterwards, the actual color values are copied. Although the
+write routine only exports RGBA tuples of type float, the read routine also
+supports byte data. For this reason two different cases are distinguished
+in a switch statement. If the file only contains 3-component data, the opacity
+value of each colormap entry is set to 1. Finally, the coordinate range of the
+colormap is set by evaluating the 2-component parameter <em>MinMax</em>, and the
+new colormap is added to the Pool by calling <tt>HxData::registerData</tt>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

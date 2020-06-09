@@ -1,0 +1,34 @@
+
+dataFile -name "Radioss" \
+    -option "radioss" \
+    -header "#RADIOSS" \
+    -ext ".rad,.RAD" \
+    -load "ReadRadioss" \
+    -loadInOwnThread true \
+    -package "hxradioss"
+
+dataFile -name "Radioss Time-history file" \
+    -option "lst" \
+    -ext "lst" \
+    -load "readRadiossTimeHistory" \
+    -loadInOwnThread true \
+    -package "hxradioss"
+
+# Used to set automatically tight connections on data modules
+# (glueing modules together)
+set radiossForceTightness 1
+set radiossCacheInitialFile 1
+set radiossUseInputNodesAsInitial 1
+set radiossLoadMultipleFilesAsTimeSeries 1
+
+module -name "RadiossData" \
+    -primary none \
+    -class "HxRadiossData" \
+    -package "hxradioss"
+
+module -name "RadiossView" \
+    -primary "HxRadiossData" \
+    -class "HxRadiossView" \
+    -category "Main Display" \
+    -package "hxradioss"
+

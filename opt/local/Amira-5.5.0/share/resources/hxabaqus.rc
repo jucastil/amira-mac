@@ -1,0 +1,14 @@
+################################################################################
+#
+# Resource file of package hxabaqus
+#
+################################################################################
+
+dataFile -name "ABAQUS Input" \
+         -option "abaqus" \
+         -ext "inp" \
+         -save "writeAbaqusFile" \
+         -type "HxSurface" \
+         -type "HxTetraGrid" \
+         -type "HxTetraData" \
+         -dso "libhxabaqus.so"

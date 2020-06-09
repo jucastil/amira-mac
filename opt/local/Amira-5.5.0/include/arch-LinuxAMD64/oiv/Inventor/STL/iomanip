@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_IOMANIP
+#define  OIV_STL_IOMANIP
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

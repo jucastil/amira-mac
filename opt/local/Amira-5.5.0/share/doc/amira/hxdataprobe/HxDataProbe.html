@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DataProbe</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DataProbe" "base class for data probes" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The three data probing modules <em>PointProbe, LineProbe, SplineProbe</em>
+ are used to inspect scalar or vector data fields. They have many features
+ in common so they are described in one section.
+ The probes are taken at a point (PointProbe)
+ or along a line (LineProbe, SplineProbe) which may be arbitrarily
+ placed. The controlpoints of the data probing modules determine the
+ locations where the samples are to be taken.
+ PointProbe has one controlpoint which is the samplepoint,
+ LineProbe has two controlpoints which are the endpoints of a line 
+ which is subdivided into a number of segments given by the Samples port
+ or by the Distance port, and SplineProbe has at least three controlpoints
+ that define a spline that goes through the endpoints and approximates 
+ the points in between. The spline curve is subdivided into a number
+ of segments given by the Samples port or by the Distance port by which
+ the sample points are obtained.</p>
+<p> To place the controlpoints within the bounding box of the given geometry
+ you can either type in the coordinates in the port Points (see below)
+ or you can shift the points interactively with the mouse.
+ The latter can be done by turning the 3D viewer into interactive mode
+ (ESC key) and picking and moving the crosshair dragger of the current point
+ (see <em>Points</em> port options to show/hide the dragger).
+ You can also pick a location with the middle mouse button on a pickable object 
+ in the scene, e.g. an OrthoSlice or a surface, to set the current point to that location. </p>
+<p> The plot immediately changes if the immediate mode toggle is set.
+ Usually the sampled values are plotted against the length of the probe
+ line or as a bar in case of <em>PointProbe</em> in an extra 
+ <a class="link" href="../hxplot/HxPlottool.html#A1">plot window</a>.
+ If you use more than one data probing module of the same type
+ all plotted curves will be shown in one plot window. </p>
+<p> PointProbe displays the value at the sample point and the material
+ if material values are set. LineProbe and SplineProbe display
+ the length of the line and of the spline respectively.</p>
+<p> A module of type <a class="link" href="HxProbeToLineSet.html#A1">ProbeToLineSet</a>
+ can be connected to a LineProbe or a SplineProbe module in order
+ to save the probe line and the sampled values.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Can be connected to arbitrary 3D fields. The LineProbe module can also
+ be attached to 3D input objects other than fields such as surfaces or
+ Open Inventor geometry. In this case the LineProbe doesn't sample any
+ data but simply measures distances.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxDataProbe_lineReset.png" /><br /></div>
+<div class="body"><p>This port which is used in <em>LineProbe</em> and <em>SplineProbe</em>
+ provides three buttons to specify the probe line orientation.
+ Axial probe lines are perpendicular to the x-y-plane, frontal probe
+ lines are perpendicular to the x-z-plane, and sagittal probe lines are
+ perpendicular to the y-z-plane. 
+
+ If one of these buttons is pressed, the
+ start and end coordinates of the probe line are set to the minima and the 
+ maxima respectively of the corresponding axis and to the center of the two axes
+ perpendicular to the probe line. </p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDataProbe_lineOptions.png" /><br /></div>
+<div class="body"><p>The <em>immediate</em> toggle determines whether the samples are taken while
+ the controlpoints are being moved or when the motion is finished.
+ If the <em>interpolate</em> toggle is on interpolation is used to evaluate value of Point Probe. 
+ This port is shown only for module <em>PointProbe</em>. 
+ If the <em>orthogonal</em> toggle is on all points are moved in sync,
+ when the coordinates of one point are changed with the dragger.
+ This port is not shown for module <em>PointProbe</em>.</p>
+<p> The <em>customize sampling</em> option is only available for <em>SplineProbe</em>. 
+ If it is unchecked, sample points will be equals to those of the tessellated displayed spline.
+ Otherwise, <a class="link" href="#A7">Control port</a> will be used to compute the sample points.</p>
+<p> The <em>follow slice</em> toggle is only available for regular scalar fields.
+If on, the probe coordinates will be placed on a virtual slice whose position is given by the sliceNumber port value. The slice orientation must have been previously defined with the orientation buttons. The sliceNumber defines a unique x, y or z (depending of the chosen orientation) for all the points of the probe. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Evaluate</span>  
+<div class="portsnapshot"><img src="HxDataProbe_vectorcomp.png" /><br /></div>
+<div class="body"><p>If the probe is connected to a vector field, these radio buttons are
+ shown. If the <em>magnitude</em> button is set the magnitude of the
+ vectors is shown in the plot window. With the <em>normal+tangent
+ Comp.</em> button set you get the normal and tangential components as two
+ curves. Setting the <em>all</em> button shows all components of the vector
+ field as separate curves. </p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Points</span>  
+<div class="portsnapshot"><img src="HxDataProbe_controlpoint.png" /><br /></div>
+<div class="body"><p>Here you can see and/or type in the coordinates of all controlpoints the data
+ probing module makes use of.
+ The options menu lets you toggle whether a dragger or a sphere is shown
+ for the controlpoints. 
+ You can also append, insert or remove controlpoints if this module
+ is a <em>SplineProbe</em> module.
+ Furthemore in case of a <em>SplineProbe</em> or a <em>LineProbe</em>, you have the
+ possibility to see where the line is being drawn by using the "Interactive Feedback"
+ option.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Control</span>  
+<div class="portsnapshot"><img src="HxDataProbe_sampledist.png" /><br /></div>
+<div class="body"><p>With this radio buttons you can choose which of the following two ports
+ are taken to compute the sample points. This port is not shown for
+ module <em>PointProbe</em>. If you have chosen the <em>adaptive</em> button,
+ the module tries to keep the number of samples which can be seen in the
+ plot window as close as possible to the number given with the appropriate
+ slider. I.e. the more you zoom into the plot window the more exact are
+ the curves in the plot window.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxDataProbe_samples.png" /><br /></div>
+<div class="body"><p>This slider allows you to choose the numbers of samples along the probe
+ line. This port is not shown for module <em>PointProbe</em>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Distance</span>  
+<div class="portsnapshot"><img src="HxDataProbe_distance.png" /><br /></div>
+<div class="body"><p>This slider allows you to choose the distance between two consecutive
+ sample points along the probeline.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDataProbe_options.png" /><br /></div>
+<div class="body"><p>The <em>average</em> option averages the probe values by taking samples on a
+ disk perpendicular to the sampling points and smoothes the sampled values
+ along the sampling line(s). This button is only available for a LineProbe
+ or SplineProbe module.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Average options</span>  
+<div class="portsnapshot"><img src="HxDataProbe_averageoptions.png" /><br /></div>
+<div class="body"><p>If averaging using the port <em>Options</em> is enabled this port selects
+ the type of sampling. By default the average value is reported but the
+ user might also select the maximum or minimum value.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxDataProbe_radius.png" /><br /></div>
+<div class="body"><p>The radius of the sampling disk. This slider is only shown if the above
+ average option is chosen.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Longitudinal Width</span>  
+<div class="portsnapshot"><img src="HxDataProbe_width.png" /><br /></div>
+<div class="body"><p>The width determines how many sampling values are used for smoothing.
+ This slider is only shown if the above average option is chosen.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Plot</span>  
+<div class="portsnapshot"><img src="HxDataProbe_plotsamples.png" /><br /></div>
+<div class="body"><p>If the <em>Show</em> button is pressed a <a class="link" href="../hxplot/HxPlottool.html#A1">plot window</a>
+ appears where the sampled values are plotted against the length of the
+ probe line. <em>Note:</em> There will be only one plot window regardless
+ of how many Line Probe modules there are in your setup. Every line
+ probe is represented in that plot window by a curve bearing the name of
+ the corresponding module. </p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Offset</span>  
+<div class="portsnapshot"><img src="HxDataProbe_offset.png" /><br /></div>
+<div class="body"><p>This port is used in <a class="link" href="HxLineProbe.html#A1">LineProbe</a> and <a class="link" href="HxSplineProbe.html#A1">SplineProbe</a>.
+ It allows you to add an offset (i.e. translation) to the <a class="link" href="../hxplot/HxPlottool.html#A1">plot window</a> X-Axis coordinates.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getInterpol</span>  
+
+<div class="body"><p>
+	Returns the currently used interpolation method.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setInterpol &#123;none|linear|spline&#125;</span>  
+
+<div class="body"><p>
+ Sets the interpolation method. <tt>none</tt> means no interpolation
+ at all and the sample values are taken at the controlpoints only.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getOrder</span>  
+
+<div class="body"><p>
+	Returns the order of the spline probe.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOrder &lt;value&gt;</span>  
+
+<div class="body"><p>
+	Sets the order of the spline probe.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPoint [&lt;index&gt;]</span>  
+
+<div class="body"><p>
+	Returns the coordinate of the requested controlpoint.
+	<tt>Index</tt> defaults to 0.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPoint [&lt;index&gt;] &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>
+	Sets the coordinates of controlpoint <tt>index</tt>.
+	<tt>Index</tt> defaults to 0.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSamplePoints</span>  
+
+<div class="body"><p>
+	Returns the coordinates of all points where samples are taken.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">currentValue</span>  
+
+<div class="body"><p>
+	Returns all sampled values.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSampledValues</span>  
+
+<div class="body"><p>
+	Returns all sampled values.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setImmediate &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+	Switches the immediate mode on or off, i.e. data is shown
+	while the probe line or point is being moved.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOrtho &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+	Switches the orthogonal mode on or off, i.e. all controlpoints
+	of a probe line are moved in sync or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumPoints</span>  
+
+<div class="body"><p>
+	Returns the number of control points of a probe line.
+	In case of a point probe 1 is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLength</span>  
+
+<div class="body"><p>
+	Returns the length of the probe line. 0 in case of a
+	point probe.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">appendPoint &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>
+	Appends a controlpoint with the given coordinates.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertPoint &lt;index&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>
+	Inserts a controlpoint with the given coordinates
+	as the <tt>index$$^{th}$$</tt> point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removePoint &lt;index&gt;</span>  
+
+<div class="body"><p>
+	Removes the given controlpoint.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

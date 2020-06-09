@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortButtonList</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortButtonList" "multiple pushbuttons" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides an arbitrary number of push buttons. The buttons
+ are implicitly numbered 0, 1, 2, ... from left to right. When a
+ button is pushed, the port's new flag is set. The index of the
+ pushed button can be obtained using the command <tt>getValue</tt>. After
+ the module was fired, the port's new flag is unset again and
+ <tt>getValue</tt> returns -1. This means that the port does not store
+ a permanent state. A push button is frequently used to trigger some
+ action.</p>
+<p> <img src="HxPortButtonList.png" /></p>
+<p> Modules using this port are, for example,
+ <a class="link" href="../hxtetra/HxGridVolume.html#A10">GridVolume</a> or
+ <a class="link" href="../hxlattice/HxObliqueSlice.html#A4">ObliqueSlice</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the index of the pushed button. If no button was pressed since
+ the module was fired the last time, -1 is returned. The method does not
+ interpret the snap toggle. In order to handle snapped buttons better
+ use the command <tt>wasHit</tt> (see below).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;index&gt;</span>  
+
+<div class="body"><p>Marks button <tt>index</tt> as being pushed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">wasShiftDown</span>  
+
+<div class="body"><p>Checks if the shift key was down the last time a button was pressed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">wasCtrlDown</span>  
+
+<div class="body"><p>Checks if the control key was down the last time a button was pressed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">wasAltDown</span>  
+
+<div class="body"><p>Checks if the alt key was down the last time a button was pressed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setShiftDown &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the shift key modifier flag.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCtrlDown &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the control key modifier flag.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setAltDown &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the alt key modifier flag.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity [&lt;index&gt;]</span>  
+
+<div class="body"><p>Checks whether the first button or button <tt>index</tt> is enabled
+ or disabled.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity [&lt;index&gt;] &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the first button or button <tt>index</tt>. If a button
+ is disabled, it is grayed out and cannot be pushed anymore.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the label of button <tt>index</tt> or the port's label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>Sets the label of button <tt>index</tt> of the port's label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCmd [&lt;index&gt;] &lt;command&gt;</span>  
+
+<div class="body"><p>Sets a Tcl command which is executed when the specified button is pressed.
+ This feature is especially useful in script objects since it avoids writing
+ long Tcl code with many if statements. If a command has been set for a
+ button, the owning module will not be fired and the port will not be touched
+ when the button is pressed. The command will be executed in the global Tcl
+ namespace. The variable <tt>this</tt> refers to the owning module.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getCmd [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the Tcl command associated with the specified button or an
+ empty string if no Tcl command has been set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumButtons</span>  
+
+<div class="body"><p>Returns the number of buttons of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumButtons &lt;number&gt;</span>  
+
+<div class="body"><p>Sets the number of buttons of the port. New buttons are created with
+ an empty label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">enableSnapToggle [&lt;index&gt;] &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enable or disable the snap toggle for the first button or for button
+ <tt>index</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">snap [&lt;index&gt;] &#123;0|1&#125;</span>  
+
+<div class="body"><p>Snap or unsnap a button. The button's snap toggle must be enabled.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isSnapped [&lt;index&gt;]</span>  
+
+<div class="body"><p>Check whether the specified button is snapped or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">wasHit [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns 1 if the specified button was hit or if its snap toggle
+ is down.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

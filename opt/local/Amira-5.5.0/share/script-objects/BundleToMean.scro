@@ -1,0 +1,399 @@
+# Amira-Script-Object V3.0
+
+$this proc constructor {} {     
+    global AMIRA_ROOT
+
+    if { ![exists physics.icol] }   {
+        set hideNewModules 1
+        [ load ${AMIRA_ROOT}/data/colormaps/physics.icol ] \
+            setLabel physics.icol
+        physics.icol setIconPosition 0 0
+        physics.icol fire
+        physics.icol flags setValue 1
+    }
+    
+    # some member variables
+    $this setVar numMolecules    0
+    $this setVar bundleConverter ""
+    $this setVar molParam        ""
+    $this setVar modAna          ""
+    $this setVar refMol          ""
+    $this setVar refMolView      ""
+    $this setVar molTrajConv     ""
+    $this setVar colors { 
+        { 1 0 0} { 0 1 0} { 0 0 1} 
+        { 1 1 0} { 1 0 1} { 0 1 1} 
+        { 1 0.5 0.5} { 0.5 1 0.5} { 0.5 0.5 1} 
+    }
+    $this setVar globalWeights   ""
+
+    # all ports
+    $this newPortConnection alignMaster HxMolecule
+    $this newPortFloatSlider globalWeightThreshold
+    
+    $this globalWeightThreshold setMinMax 0.0 1.0
+    $this globalWeightThreshold setValue 0.0 
+    
+    $this newPortRadioBox alignOptions 2
+    $this alignOptions setLabel "Alignment for means:"
+    $this alignOptions setLabel 0 "none"
+    $this alignOptions setLabel 1 "per trajectory"
+    $this alignOptions setValue 1
+
+    $this newPortRadioBox rankOptions 3
+    $this rankOptions setLabel "Rank options:"
+    $this rankOptions setLabel 0 "none"
+    $this rankOptions setLabel 1 "ParetoOptimalSet"
+    $this rankOptions setLabel 2 "RankTimeSteps"
+    $this rankOptions setValue 0 
+
+    $this newPortRadioBox alignmentSelection 3
+    $this alignmentSelection setLabel "Consider atoms for rmsd:"
+    $this alignmentSelection setLabel 0 "all"
+    $this alignmentSelection setLabel 1 "no H-atoms"
+    $this alignmentSelection setLabel 2 "expression"
+    $this alignmentSelection setValue 1 
+
+    $this newPortText alignmentExpression
+    $this alignmentExpression setLabel "Alignment expression:"
+    $this alignmentExpression setValue "not group(!C1-H1,C1-H2,C1-H3)"
+
+    $this newPortDoIt action
+    $this action setLabel 0 "DoIt"
+
+    $this newPortToggleList showMolViews 2
+    $this showMolViews setLabel "Show MolViews for:"
+    $this showMolViews setLabel 0 "mean molecules"
+    $this showMolViews setLabel 1 "representatives"
+    $this showMolViews setValue 0 1
+    $this showMolViews setValue 1 1
+
+    $this newPortButtonList molTrajConverter 2
+    $this molTrajConverter setLabel "MolTrajConverter"
+    $this molTrajConverter setLabel 0 "mean molecules"
+    $this molTrajConverter setLabel 1 "representatives"
+}
+
+$this proc destructor {} {
+    if {[exists [$this getVar bundleConverter]]} {
+        remove  [$this getVar bundleConverter]
+    }
+    if {[exists [$this getVar molParam]]} {
+        remove  [$this getVar molParam]
+    }
+    if {[exists [$this getVar modAna]]} {
+        remove  [$this getVar modAna]
+    }
+    if {[exists [$this getVar refMol]]} {
+        remove  [$this getVar refMol]
+    }
+    if {[exists [$this getVar refMolView]]} {
+        remove  [$this getVar refMolView]
+    }
+}
+
+$this proc update {} {
+    $this rankOptions show
+    $this alignmentSelection hide
+    $this alignmentExpression hide
+    $this showMolViews hide
+    $this molTrajConverter hide
+
+    if { [ $this rankOptions getValue ] != 0 } {
+        $this alignmentSelection show
+        if { [ $this alignmentSelection getValue ] == 2 } {
+            $this alignmentExpression show
+        } 
+    } 
+    
+    if { [ $this getVar numMolecules ] > 0 } {
+        $this showMolViews show
+        $this molTrajConverter show
+    }
+}
+
+$this proc setAlignment { module } {
+    if { [ $this alignmentSelection getValue ] == 0 } {
+        $module selection setValue 0
+    } else {
+        set alignMaster [ $module alignMaster source ]
+        if { [ $this alignmentSelection getValue ] == 1 } {
+            $alignMaster sel not atoms/type=H*
+        } else {
+            $alignMaster sel [ $this alignmentExpression getValue ]
+        }
+        $module selection setValue 2
+        $module fire
+        $alignMaster desel atoms/type=*
+    }
+}
+
+$this proc computeMeanMolecule { trajectoryIx count } {
+    global AMIRA_ROOT
+
+    set ix [ $this getVar numMolecules ]
+
+    # create molecule trajectory
+    $this setVar molTraj [create HxMolTrajectory MolTrajectory]
+    [$this getVar molTraj] setIconPosition \
+        [lindex [[$this getVar bundle] getIconPosition] 0] \
+        [expr [lindex [[$this getVar bundle] getIconPosition] 1] + 60 + $ix * 60 ] 
+    [$this getVar molTraj] bundle connect [$this getVar bundle]
+    [$this getVar molTraj] fire
+    [$this getVar molTraj] trajectory setValue 0 $trajectoryIx
+    [$this getVar molTraj] fire
+
+    # if global weight is not large enough, stop
+    if { [ $this globalWeightThreshold getValue ] > 
+         [ [$this getVar molTraj] globalWeight ] } {
+        remove [$this getVar molTraj]
+        return
+    }
+    
+    # append global weight to list of global weights
+    set tmp [ $this getVar globalWeights ] 
+    $this setVar globalWeights [ lappend tmp [ [$this getVar molTraj] globalWeight ] ]
+
+    $this setVar numMolecules [ expr [ $this getVar numMolecules ]+1 ]
+
+    if { [$this alignOptions getValue] == 1 } {
+        # create precomputed alignment module
+        $this setVar precAlign [create HxPrecomputeAlignment \
+                                    PrecomputeAlignment]
+        [$this getVar precAlign] setIconPosition 140 \
+            [lindex [[$this getVar molTraj] getIconPosition] 1]
+        [$this getVar precAlign] data connect [$this getVar molTraj]
+        [$this getVar precAlign] fire
+        [$this getVar precAlign] mode setValue 0 1
+
+        $this setVar alignment$ix [[$this getVar precAlign] create]
+    }
+
+    set molTraj [ $this getVar molTraj ]
+
+    $this setVar sumOfWeights [ expr [ $this getVar sumOfWeights ] + \
+                                    [ $molTraj globalWeight ] ]
+    
+    $this setVar compMeanMol$ix \
+        [create HxMeanMolecule ComputeMeanMolecule$ix]
+
+    [$this getVar compMeanMol$ix] data connect $molTraj
+
+    if { [$this alignOptions getValue] == 1 } {
+        [$this getVar compMeanMol$ix] setIconPosition 140 \
+            [lindex [[$this getVar alignment$ix] getIconPosition] 1]
+        [$this getVar compMeanMol$ix] \
+            precomputedAlignment connect [$this getVar alignment$ix]
+    }
+
+    [$this getVar compMeanMol$ix] fire
+    
+    $this setVar meanMol$ix \
+        [[[$this getVar compMeanMol$ix] create] setLabel \
+             [ $molTraj trajectoryName 1 ]_mean$ix]
+    [$this getVar meanMol$ix ] setIconPosition \
+        [lindex [[$this getVar molTraj] getIconPosition] 0] \
+        [expr [lindex [[$this getVar molTraj] getIconPosition] 1] + 18 ] 
+    [$this getVar meanMol$ix] fire
+    
+    $this setVar meanMolView$ix [create HxMolView MeanMoleculeView$ix]
+    [$this getVar meanMolView$ix] setIconPosition 240 \
+        [lindex [[$this getVar meanMol$ix] getIconPosition] 1]
+    [$this getVar meanMolView$ix] data connect [$this getVar meanMol$ix]
+    [$this getVar meanMolView$ix] fire
+    
+    if { [$this alignOptions getValue] == 1 } {
+        [$this getVar cmScro] data$ix connect [$this getVar meanMol$ix]
+        [$this getVar cmScro] fire
+    }
+
+    set molTraj [ $molTraj setLabel [ $molTraj trajectoryName 1 ]_traj$ix ]
+
+    set newMod ""
+    if { [ $this rankOptions getValue ] == 1 } {
+        set newMod [ [create HxParetoOptimalSet ParetoOptimalSet] \
+                         setLabel ParetoOptimalSet$ix ]
+    } elseif { [ $this rankOptions getValue ] == 2 } {
+        set newMod [ [create HxRepMolecule RankTimeSteps] \
+                         setLabel RankTimeSteps$ix ]
+    } 
+
+    if { [ $this rankOptions getValue ] > 0 } {
+        $newMod setIconPosition \
+            [ lindex [ $newMod getIconPosition ] 0 ] \
+            [ lindex [ $molTraj getIconPosition ] 1 ]
+        $newMod data connect $molTraj
+        if { [ $this alignMaster source ] != "" } {
+            $newMod alignMaster connect [ $this alignMaster source ]
+            [$this getVar meanMol$ix] alignMaster connect \
+                [ $this alignMaster source ]
+            $this setAlignment [$this getVar meanMol$ix]
+        } else {
+            $newMod alignMaster connect [$this getVar meanMol$ix]
+        }
+
+        if { [ $this rankOptions getValue ] == 2 } {
+            $newMod searchOption setValue 0
+        } 
+
+        $this setAlignment $newMod 
+        
+        $newMod action setValue 0
+        $newMod fire
+        
+        $this setVar mol$ix [ $newMod getResult ]
+        $this setVar mol$ix [ [ $this getVar mol$ix ] setLabel Molecule$ix ]
+        [ $this getVar mol$ix ] setIconPosition \
+            [lindex [[$this getVar meanMol$ix] getIconPosition] 0] \
+            [expr [lindex [[$this getVar meanMol$ix] getIconPosition] 1] + 18 ]
+        if { [$this alignOptions getValue] == 1 } {
+            [ $this getVar cmScro2 ] data$ix connect [$this getVar mol$ix]
+            [ $this getVar cmScro2 ] fire
+        }
+        
+        if { [ $this getVar mol$ix ]!="" } {
+            $this setVar repMolView$ix [ create HxMolView ]
+            $this setVar repMolView$ix [ [ $this getVar repMolView$ix ] \
+                                             setLabel MoleculeView$ix ]
+            [ $this getVar repMolView$ix ] setIconPosition \
+                [lindex [[$this getVar meanMolView$ix] getIconPosition] 0] \
+                [expr [lindex [[$this getVar mol$ix] getIconPosition] 1]]
+            [ $this getVar repMolView$ix ] data connect \
+                [ $this getVar mol$ix ]
+            
+            [ $this getVar mol$ix ] alignMaster connect \
+                [ $newMod alignMaster source ]
+            $this setAlignment [ $this getVar mol$ix ] 
+        } 
+    } 
+    
+    [$this getVar meanMol$ix] master disconnect
+    if { [$this alignOptions getValue] == 1 } {
+        remove [$this getVar precAlign]
+    }
+    remove [$this getVar compMeanMol$ix] 
+    if { [$this alignOptions getValue] == 1 } {
+        remove [$this getVar alignment$ix]
+    }
+    
+    viewer 0 redraw
+}
+
+$this proc setMolViewViewerMasks {} {
+    set meanMolMask 0
+    set repMolMask  0
+
+    if { [ $this showMolViews getValue 0 ] } {
+        set meanMolMask 65535
+    }
+    
+    if { [ $this showMolViews getValue 1 ] } {
+        set repMolMask 65535
+    }
+    
+    for { set i 0 } { $i < [$this getVar numMolecules] } { incr i } {
+        if { [ $this hasVar meanMolView$i ] &&
+             [ exists [ $this getVar meanMolView$i ] ] } {
+            [ $this getVar meanMolView$i ] setViewerMask $meanMolMask
+        }
+        if { [ $this hasVar repMolView$i ] &&
+             [ exists [ $this getVar repMolView$i ] ] } {
+            [ $this getVar repMolView$i ]  setViewerMask $repMolMask
+        }
+    }
+}
+
+$this proc connectToMolTrajConv { meanMols } {
+    
+    if { [ $this getVar molTrajConv ] == "" } {
+        $this setVar molTrajConv [ create HxMolTrajBundleConverter ]
+        [ $this getVar molTrajConv ] fire
+    }
+
+    set molBaseName "mol"
+    if { $meanMols } {
+        set molBaseName "meanMol"
+    }
+    
+    set inputId 1
+    for { set i 0 } { $i < [$this getVar numMolecules] } { incr i } {
+        if { [$this hasVar $molBaseName$i] &&
+             [ exists [ $this getVar $molBaseName$i] ] } {
+            [ $this getVar molTrajConv ] input$inputId connect \
+                [$this getVar $molBaseName$i]
+            
+            incr inputId
+            
+            [ $this getVar molTrajConv ] fire
+        } 
+    }
+    
+    # create trajectory
+    [ $this getVar molTrajConv ] action setValue 0 1
+    [ $this getVar molTrajConv ] fire
+
+    # only for trajectory, not for bundle
+    set trajectory [ [ $this getVar molTrajConv ] getResult 0 ]
+    if { $trajectory == "" || 
+         [ $trajectory getTypeId ] != "HxMolTrajectory" } {
+        return
+    }
+    
+    # write global weights to trajectory
+    set globalWeightList [ $this getVar globalWeights ]
+    set size [ llength $globalWeightList ]
+    for { set i 0 } { $i < $size } { incr i } {
+        $trajectory setObservable globalWeight $i \
+            [ lindex $globalWeightList $i ] 
+    }
+}
+
+$this proc compute {} {
+    global AMIRA_ROOT
+
+    $this setVar bundle [$this data source]
+    
+    if {[$this action wasHit 0]} {
+        $this setVar numTraj [[$this getVar bundle] numTrajectories]
+
+        if { [$this alignOptions getValue] == 1 } {
+            # Create CompareMeans script object
+            $this setVar cmScro [create HxScriptObject CompareMeans]
+            [$this getVar cmScro] script setValue \
+                ${AMIRA_ROOT}/share/script-objects/CompareMeans.scro
+            [$this getVar cmScro] setIconPosition 160 10
+            [$this getVar cmScro] fire
+            
+            # Create CompareMeans script object
+            $this setVar cmScro2 [ create HxScriptObject CompareMeans ]
+            [ $this getVar cmScro2 ] script setValue \
+                ${AMIRA_ROOT}/share/script-objects/CompareMeans.scro
+            [ $this getVar cmScro2 ] setIconPosition 160 28
+            [ $this getVar cmScro2 ] fire
+        }
+
+        # compute mean molecules
+        $this setVar numMolecules 0
+        $this setVar sumOfWeights 0
+        $this setVar globalWeights ""
+        for { set i 0 } { $i < [$this getVar numTraj]} { incr i } {  
+            $this computeMeanMolecule $i $i
+        }        
+        
+        if { [ $this getVar numMolecules ] > 0 } {
+            $this showMolViews show
+            $this molTrajConverter show
+        }
+    }
+    
+    if { [ $this getVar numMolecules ] && 
+         [ $this showMolViews isNew ] } {
+        $this setMolViewViewerMasks
+    }
+
+    if { [ $this molTrajConverter wasHit 0 ] } {
+        $this connectToMolTrajConv 1
+    } elseif { [ $this molTrajConverter wasHit 1 ] } {
+        $this connectToMolTrajConv 0
+    }
+}

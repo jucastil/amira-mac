@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">15.4 Diffusion Tensor Tutorial</a></h2>
+<p>The tutorial will cover the following topics:
+</p>
+<ul><li>Loading image data.</li><li>Tensor calculation using ComputeTensor.</li><li>Computing derived measures such as directionally encoded colors (DEC) and fractional anisotropy (FA).</li>
+</ul><p></p>
+<p><b>Note</b> that the tutorial is rather demanding with respect to memory usage so that some steps may fail or become slow on 32 Bit systems. It is recommended, therefore, to conduct this tutorial on a 64 Bit workstation with sufficient physical memory installed.</p>
+<p>
+</p>
+<h3><a name="A2">15.4.1 Loading image data</a></h3>
+<p>The image data used in this tutorial has been pre-processed using the techniques described in the <a class="link" href="tutDTI-DataPreprocess.html#A1">Data Preprocessing</a> tutorial which includes registration to an anatomical master volume and averaging of scans sharing the same magnetic diffusion gradient for noise reduction.</p>
+<p>All diffusion derived measures such as directionally encoded colors and fiber tracking are derived from the tensor field, which in turn is computed from the set of gradient weighted images. These images are produced by the MR scanner and can be imported into Amira using the <a class="link" href="../hxdicom/HxFileFormat_DICOM.html#A1">DICOM file format</a>. Loading data from DICOM files requires an AmiraDicomReader license, please ask you sales representative for such a license. The minimum number of volumes for a diffusion analysis is 7 (one B0 volume and 6 gradient volumes) but <font face="helvetica">Amira</font> supports an arbitrary number of diffusion weighted gradient volumes. A larger number of gradients will result in less noise and better angular resolution of the resulting tensor field.</p>
+<p></p>
+<ul><li>Load all AmiraMesh files from the directory <tt>data/tutorials/DTI/gradients-am/</tt>. 
+ There will be one object <em>B0.am</em> in the Pool and 12 objects labeled 
+ <em>gradient_*</em>.</li>
+</ul><p>
+If you encounter the <em>Out-of-Core Data</em> dialog box during import, select the option <em>Read complete volume into memory</em>. </p>
+<p></p>
+<h3><a name="A3">15.4.2 Tensor computation</a></h3>
+<p></p>
+<ul><li>Connect a <em>Compute&rarr;<a class="link" href="HxComputeTensor.html#A1">ComputeTensor</a></em> module to the B0 data.</li><li>Select all gradient data objects in the Pool (use the Ctrl+a 
+ keyboard shortcut) and click the <em>Attach selected data</em> button 
+ of <em>ComputeTensor</em>. This will attach all gradient images
+ with the <em>ComputeTensor</em> module. Since the gradient vectors have been stored within the image files, ports <em>G1</em> through <em>G12</em> will have their
+ text fields automatically filled with the correct gradient directions.</li><li>Set the diffusion weighting factor to 1000. This value will scale the diffusivity of the tensor field in a linear way that does not influence the shape of the tensors generated.</li><li>Pressing the <em>Apply</em> button creates a new data object in the Pool labeled <em>B0._tensor</em>.</li>
+</ul><p>
+The correct gradient directions are essential for the computation of a valid tensor field. <em>ComputeTensor</em> can automatically extract gradient directions from some DICOM tags but many vendors do not store gradient directions in the header or <font face="helvetica">Amira</font> is not able to extract them correctly. In this case the gradient directions for <em>ComputeTensor</em> need to be provided as a text file. In the case of one B0 volume and 12 gradient weighted images the file should contain 12 lines and for each line the three components of the gradient direction. Here an example:
+</p><pre>
+   0.35671 -0.360555 -0.85557
+   0.35671 -0.363318  0.85790
+   ...
+</pre><p>
+<em>ComputeTensor</em> will assume that the first connected volume is the B0 volume for which no gradient direction needs to be supplied.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutDTI-GradientsRightWrong.png.html><img width=450 src="tutDTI-GradientsRightWrong.png" /></a><br />
+<div class="caption">
+<b>Figure 166:</b>
+Fiber tracking performed to check the correctness of the gradient directions. The image on the left panel shows fibers correctly curving up in the frontal part of the brain, while in the image on the right panel they do not reach out to the forebrain area. The right image has been created by deliberately inverting the y-component of all gradient directions. While the DEC image of both tensors is identical the resulting putative fiber tracts can be incorrect.</div>
+
+
+</div><p></p>
+<p>In order to check if a set of gradient directions are correct both the directionally encoded color images created by <em>Compute&rarr;<a class="link" href="HxEigenvector2Color.html#A1">EigenvectorToColor</a></em> and the fiber tracts in a major bundle need to be checked. An example visualization for this check is provided in figure <a class="link" href="#A4">166</a>. In order to re-create this visualization follow this tutorial and the tutorial on <a class="link" href="tutDTI-FiberTrack.html#A1">fiber tracking</a>. </p>
+<p>It is common that gradient directions have to be corrected by the patient position in the scanner. This is done by changing the sign of one or more of the three components of the gradient vector, e.g., the y-component of the vector needs to point in the opposite direction. If the fibers do not follow the major tracts visible in the DEC image, use the interface of <em>ComputeTensor</em> to edit the components one-by-one or change the text file that stores the gradient directions and read them back into <em>ComputeTensor</em>.</p>
+<p>The generated tensor field has six components that encode the upper triangular part of the symmetric second order tensor field (indices are stored in row order 11, 12, 13, 22, 23, 33). Such a tensor field can be created from a number of imported scalar or vector fields using the <em>Compute&rarr;<a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a></em> module. In the simplest configuration six scalar fields need to be combined into two vector fields by using two Arithmetic modules. The resulting two vector fields can be combined into a symmetric second order tensor field by using a third Arithmetic module connected to both vector fields.</p>
+<p>In order to clean up the Pool the gradient images can be removed after creating the tensor field. </p>
+<p></p>
+<ul><li>Select all gradient (<em>gradient_*</em>) data objects in the Pool and select <em>Pool</em>&rarr;<em>Remove Object</em> from the main menu. Alternatively select <em>Pool</em>&rarr;<em>Hide Object</em> to hide them.</li>
+</ul><p></p>
+<p>The B0 volume should remain in the Pool as it is needed in the following step.</p>
+<p>
+</p>
+<h3><a name="A5">15.4.3 Tensor visualization</a></h3>
+<p>In order to focus on brain areas of interest it is necessary to create a brain mask. The mask is a label field with brain voxels assigned to a foreground material (i.e. value greater than 0) while non-brain voxels are assigned to the Exterior material (value 0).
+The mask can be created with a simple threshold operation in the Segmentation Editor. Because all the data sets are registered and resampled to the same frame of reference as defined by the anatomical scan (see <a class="link" href="tutDTI-DataPreprocess.html#A1">Data Preprocessing</a> tutorial) we can use any of our data sets to create the mask. Using the B0 volume for this step renders the operation trivial as the brain is greatly enhanced in this type of scan.</p>
+<p></p>
+<ul><li>Right-click <em>B0.am</em> and select <em>Labelling&rarr;<a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a></em>.
+ This creates a label field object and automatically opens the <em>Segmentation Editor</em>.</li><li>From the Tool Box in the lower part of the main panel select the <em>threshold tool</em>. This automatically turns on <em>Masking</em>, a semi-transparent blue overlay in the viewer that serves as a visual control for the current settings in the range slider control right underneath.</li><li>Set minimum and maximum of the range sliders to <em>124</em> and <em>4034</em>, 
+ respectively, and press the <em>Select</em> button of the threshold tool. Make sure the <em>All slices</em> option is checked.</li><li>From the main menu call <em>Selection</em>&rarr;<em>Smooth</em>&rarr;<em>All slices</em>. This operation will remove isolated pixels representing background noise from the selection.</li><li>Select <em>Inside</em> from the <em>Materials</em> list and click add (+) from
+ the Selection group of controls.</li><li>Save the label field as <tt>B0-BrainLabels.am</tt> to your
+ hard drive. This will change the name of the object in the Pool accordingly.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A6">15.4.3.1 TensorDisplay</a></h4>
+<p>It has shown convenient to visualize tensor fields using glyphs. Glyphs are simple parametreizable shapes that allow mapping the components of the tensor in a direct way and thus provide a visualization of the information contained in the local tensor. Glyphs like ellipsoids are elongated in directions where the measured diffusion is large compared to other directions. If the glyph is shaped like a sphere, the diffusion is isotropic, as, for example, in the water-filled ventricles. Small glyphs represent low overall diffusion.</p>
+<p></p>
+<ul><li>Right click the tensor field icon and select <em>Display&rarr;<a class="link" href="HxTensorDisplay.html#A1">TensorDisplay</a></em>.</li><li>Connect the <em>Mask</em> input port with the <em>B0-BrainLabels.am</em>
+ object.</li><li>Set <em>u</em> and <em>v</em> of port <em>Resolution</em> to 128. Using a larger resolution or a larger scale value will produce a larger density of the glyphs.</li><li>Click <em>Apply</em>.</li>
+</ul><p>
+The generated display shows the water diffusion in the non-Exterior regions of the data set for a single axial slice. The connected <a class="link" href="../hxcore/HxArbitraryCut.html#A1">EmptyPlane</a> module can be selected and used to adjust the displayed image plane. The module also contains a rotate checkbox that allows for arbitrary rotations of the image plane. After selecting <em>Apply</em> <em>TensorDisplay</em> will sample the tensor field at regular intervals and display the tensor information based on a trilinear interpolation of the components of the underlying tensor field.</p>
+<p><em>TensorDisplay</em> provides a rich interface to select different glyph types and to adjust the size and complexity of the glyphs. By default the glyphs are scaled by the fractional anisotropy, which will enlarge ellipsoids and scale down spheres, i.e., areas with no directional preference. Due to the amount of geometry generated the visualization can quickly become demanding on the resources of the machine. Work with reduced complexity settings and a lower number of glyphs to improve the performance.</p>
+<p></p>
+<h4><a name="A7">15.4.3.2 TensorDisplay on surface</a></h4>
+<p><em>TensorDisplay</em> can also be connected to a surface to visualize the diffusion close to some structure. An offset value is used to define the distance away from the surface in positive and negative direction of the local surface normal at which the tensors are sampled.
+</p>
+<ul><li>Load file <tt>data/tutorials/DTI/tumor.surf</tt> into the Amira work space.</li><li>Connect the <em>Surface</em> input port of <em>TensorDisplay</em> with the <em>tumor.surf</em> object.</li><li>Set the <em>Offset</em> port of <em>TensorDisplay</em> to a value of 1.0. Click <em>Apply</em>.</li>
+</ul><p>
+The generated display shows the ellipsoids in the vicinity of the tumor.</p>
+<p></p>
+<h4><a name="A8">15.4.3.3 Visualize tensors as directionally encoded colors (DEC)</a></h4>
+<p>Directionally encoded colors provide an efficient method to visualize the 
+directions of the major fiber bundles in the brain. With this technique voxels 
+are assigned a red color if the major direction of diffusion is along the 
+X-axis, green if it is along the Y-axis, and blue if it is along Z-axis. In 
+<font face="helvetica">Amira</font> the colorization is weighted by the fractional anisotropy (FA) in 
+order to emphasize fiber bundles over noisy regions.
+In order to arrive at a DEC image we need to first compute an eigenvalue decomposition of the tensor field, which produces the eigenvalues and eigenvectors required to compute the DEC image. </p>
+<p></p>
+<ul><li>Connect the module <em>Compute&rarr;<a class="link" href="HxExtractEigenvalues.html#A1">ExtractEigenvalues</a></em> to the tensor field.</li><li>Connect the <em>Mask</em> connection port of ExtractEigenvalues with the <em>B0-Brainlabels.am</em> object. This will prevent eigenvalues from being computed in areas that are outside the brain and defined by noise only.</li><li>Press the <em>Apply</em> button and four new volumes are created. Three volumes (<em>B0._evec1</em>, <em>B0._evec2</em>, and <em>B0._evec3</em>) are vector fields that represent the first, or principal eigenvector direction, and the second and third eigenvectors. The fourth field (<em>B0._evals</em>) contains the eigenvalues for each of the three eigenvectors sorted by size.</li><li>Connect a <em>Compute&rarr;<a class="link" href="HxEigenvector2Color.html#A1"> EigenvectorToColor</a></em> module to the <em>B0._evec1</em> object. The module will automatically create a second connection to the eigenvalues field.</li><li>Connect the <em>Mask</em> input port of <em>EigenvectorToColor</em> with the <em>B0-Brainlabels.am object</em>
+ and click <em>Apply</em>.</li><li>The resulting color field data object can be visualized using <em>Display&rarr;<a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a></em> and should look similar to figure <a class="link" href="#A4">166</a> left but without the fiber bundles.</li>
+</ul><p>
+The <em>EigenvectorToColor</em> module will scale the brightness of the colors generated by the fractional anisotropy. This will make major fiber bundles stand out more in the generated image. The <em>Exposure</em> setting can be used to enhance the overall brightness of the generated colors.</p>
+<p></p>
+<h4><a name="A9">15.4.3.4 Apparent Diffusion Coefficient (ADC) and other scalar measures</a></h4>
+<p>The apparent diffusion coefficient is a scalar measure that indicates areas where the diffusion is directed. These regions usually correspond to major fiber bundles.
+</p>
+<ul><li>Connect a <em>Compute&rarr;<a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a></em> module to the <em>B0_evals</em> field.</li><li>Set <em>Result channels</em> to <em>1 value (scalar)</em>.</li><li>Enable the check box <em>ignore errors</em> to allow the computation even if some voxel result in an error due to division by zero.</li><li>Use the following expression to compute the ADC values as the sum of the eigenvalues for each voxel: <tt>Ax + Ay + Az</tt>.</li><li>Press <em>Apply</em>.</li>
+</ul><p></p>
+<p>Many more scalar values useful for the evaluation of diffusion weighted images can be computed from the eigenvalues in a similar fashion. Here is a list of the expressions that need to be entered in the <em>Expr</em> port of <em>Arithmetic</em>. For all these computations <em>Arithmetic</em> needs to be connected to the B0._evals field.</p>
+<p></p>
+<ul><li>Relative anisotropy: <tt>1/sqrt(2)*sqrt((Ax-Ay)*(Ax-Ay) + (Ay-Az)*(Ay-Az) + (Ax-Az)*(Ax-Az))/(Ax+Ay+Az)</tt>.</li><li>Fractional anisotropy: <tt>1/sqrt(2)*sqrt((Ax-Ay)*(Ax-Ay) + (Ay-Az)*(Ay-Az) + (Ax-Az)*(Ax-Az)) / sqrt((Ax*Ax)+(Ay*Ay)+(Az*Az))</tt>.</li><li>Deviation from sphericity: <tt>(Ax+Ay-2*Az)/(Ax+Ay+Az)</tt>.</li><li>Linear measure: <tt>(Ax-Ay)/sqrt(Ax*Ax+Ay*Ay+Az*Az)</tt>.</li><li>Planar measure: <tt>2*(Ay-Az)/sqrt(Ax*Ax+Ay*Ay+Az*Az)</tt>.</li><li>Spherical measure: <tt>3*Az/sqrt(Ax*Ax+Ay*Ay+Az*Az)</tt>.</li>
+</ul><p></p>
+<p>The relative and fractional anisotropy values can also be computed directly from the tensor field without an eigenvalue decomposition. In this case the expressions for Arithmetic are:
+</p>
+<ul><li>Relative anisotropy: <tt>sqrt(Arx*Arx + 2*Ary*Ary + 2*Arz*Arz + Aix*Aix + 2*Aiy*Aiy + Aiz*Aiz)</tt>.</li><li>Fractional anisotropy: <tt>Arx + Aiy + Aiz</tt>.</li>
+</ul><p></p>
+<p>In order to visualize the resulting scalar fields attach an <em>Display&rarr;<a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a></em> module to the output of Arithmetic.
+
+</p></body>
+</html>

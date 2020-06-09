@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h1><a name="A1">6 Demo Framework</a></h1>
+<p><a name="A2"></a>
+<font face="helvetica">Demo Framework</font> adds a generalized framework for creating and
+steering demonstrations with <font face="helvetica">Amira</font>.
+</p>
+<p>
+Demonstrations are often prepared to present results of ones work to others.
+Speaking in terms of <font face="helvetica">Amira</font>, this means that scripts and data sets, e.g. .hx files and
+AmiraMesh files have been compiled and stored for presentation.
+After a while lots of scripts and their corresponding data files may have been spread
+over many disks and computers by many people.
+Now it's time to rearrange the demos and make them useable by others.</p>
+<p><font face="helvetica">Demo Framework</font> enables you to put your demo collection in order.
+It incorporates four major parts:</p>
+<p></p>
+<ul><li>A <a class="link" href="#A4">directory and file structure</a>
+ containing the <font face="helvetica">Amira</font> scripts to
+ execute the demos, their description and their data. The directory
+ structure may include a grouping and can also resemble a project
+ structure of the demos.
+<br />
+</li><li>Several scripts to <a class="link" href="#A13">select demos</a>
+ from the demo collection,
+ utilities to download data from remote servers, helper scripts for
+ demo steering, etc.
+<br />
+</li><li>A <a class="link" href="HxDemoGUI.html#A1">GUI</a>
+ for conveniently selecting and changing demo collections.
+<br />
+</li><li><a class="link" href="../scriptobjects/DemoSequence.html#A1">DemoSequence</a>,
+ an <font face="helvetica">Amira</font> script object for steering the selected demos.
+<br />
+</li>
+</ul><p></p>
+<p>A nice and easy way to create demos is the <a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMaker</a>,
+which is included in the base version of <font face="helvetica">Amira</font>.
+With the DemoMaker you can interactively create an animated sequence of
+actions of <font face="helvetica">Amira</font> modules.
+</p>
+<p></p>
+<h2><a name="A3">6.1 Directory Structure and Files</a></h2>
+<p><a name="A4"></a>
+In order to use <font face="helvetica">Demo Framework</font>, you must set environment variable
+<tt>AMIRA_DEMOS</tt> &nbsp;to the directory that contains the demos.
+This demo directory must have at least three subdirectories:
+Environment variable <tt>AMIRA_ROOT</tt> &nbsp;pointing to the directory where <font face="helvetica">Amira</font> has
+been installed, has to be set as well.</p>
+<p></p>
+<dl>
+<dt>src/</dt>
+<dd> The demo description files, <font face="helvetica">Amira</font> scripts, and
+ thumbnail images must be stored here. Use subdirectories to
+ organize the demos, for example, to reflect different projects or overall
+ themes.<br />
+</dd>
+<dt>data/</dt>
+<dd> This directory contains the data files in a subdirectory structure similar to
+ src/. The <font face="helvetica">Mesh Option</font> files used in your demos must be stored here.<br />
+</dd>
+</dl><p></p>
+<p>It may also have these subdirectories:</p>
+<p></p>
+<dl>
+<dt>cacheddata/</dt>
+<dd> This optional directory contains tar archives with
+ the data sets for the demos in src/. It is filled when you download
+ the data from a server.<br />
+</dd>
+<dt>output/</dt>
+<dd> This is the default name of the folder where you find
+ the selected demos if the selection has been done
+ with the command-line tool.<br />
+</dd>
+<dt>selection/</dt>
+<dd> Here you will find the selected demos if the selection has
+ been done using the <a class="link" href="HxDemoGUI.html#A1">Demo GUI</a>.<br />
+</dd>
+</dl><p></p>
+<p></p>
+<h3><a name="A5">6.1.1 Directories and Files in src/</a></h3>
+<p><a name="A6"></a>
+The directory structure is laid out recursively in order to group demos by
+themes or topics. Folders which group subfolders are called
+<em>container</em> or <em>project folders</em>,
+while folders containing the demos, i.e., the
+<font face="helvetica">Amira</font> scripts, are called <em>demo folders</em>.
+Due to their recursive structure, <em>project folders</em> can in turn contain
+<em>project folders</em>, but <em>demo folders</em> cannot contain any
+subfolders.</p>
+<p>Folders are regarded either as a project or demo folder if they
+have a file named <em>description.xml</em>. Otherwise the directories are not
+considered to be part of the demo structure.</p>
+<p>In order to set up a demo collection,
+create a directory below <tt>$AMIRA_DEMOS/src</tt> which reflects the
+structure of the subjects or projects you wish to prepare for demonstration.
+See figure <a class="link" href="#A7">53</a> for example.</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=demoframework-intro_FileStructure.png.html><img width=375 src="demoframework-intro_FileStructure.png" /></a><br />
+<div class="caption">
+<b>Figure 53:</b>
+File structure below <tt>$AMIRA_DEMOS/src</tt></div>
+
+
+</div><p></p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<p>The above mentioned project folders are those folders which do
+not contain <font face="helvetica">Amira</font> scripts (.hx files). However, they must contain a
+<tt>description.xml</tt> file.
+Like every other directory in the demo structure, such folders have a
+<tt>gfx</tt>
+directory which in turn contains images for representing the project as a whole.</p>
+<p>The associated description file for a project folder could look like the following:</p>
+<p><font size="2"></font></p><pre>
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;description style="project"&gt;
+             &lt;!-- Use style="projectlist" in the very first
+                  description.xml file directly in the product
+                  root directory! --&gt;
+   &lt;title&gt;
+      Your Project Title
+      &lt;!-- (Keep this title _short_ and _meaningful_)!
+           Don't start with "Visualization of" since this is certainly
+           the case in all demos. Consider that finding your demo
+           within a huge list of titles might become difficult. --&gt;
+   &lt;/title&gt;
+   &lt;general&gt;
+      Your Short Description.
+      &lt;!-- Please, don't write a long story here - just two or three
+           sentences. The text should guide an untrained presenter
+           to explain your demo. --&gt;
+   &lt;/general&gt;
+   &lt;!-- you might want to register a staff tag here --&gt;
+     &lt;staff&gt;
+       &lt;person&gt;
+         &lt;name&gt;Your Name&lt;/name&gt;
+         &lt;userid&gt;yourname&lt;/userid&gt;
+         &lt;email&gt;yourname@yourdomain&lt;/email&gt;
+         &lt;tel&gt;xxx&lt;/tel&gt;
+       &lt;/person&gt;
+       &lt;!-- This information will give the presenter the chance to
+            contact you in case your presence is desired or
+            necessary. --&gt;
+       &lt;!-- register more persons here --&gt;
+     &lt;/staff&gt;
+   &lt;!-- Please provide a thumbnail for this demo
+        (e.g., the teaser of your project page) --&gt;
+   &lt;thumbnail src="gfx/eyecatcher.png"/&gt;
+&lt;/description&gt;
+
+</pre><p><font size="2"></font></p>
+<p><b>Note:</b> Use <tt>projectlist</tt> as the value to the <tt>style</tt> attribute
+for the description .xml file in the directory $<tt>AMIRA_DEMOS</tt>.</p>
+<p>The final demo folders contain the <font face="helvetica">Amira</font> scripts, the <tt>gfx</tt> directory with
+one .png image for every demo step, and a description .xml file which may
+look similar to this:</p>
+<p><font size="2"></font></p><pre>
+
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+  &lt;description style="demo"&gt;
+    &lt;attributes&gt;       
+      &lt;attribute name="display" values="normal" /&gt;
+      &lt;attribute name="version" values="zib-2006-2" /&gt;
+      &lt;attribute name="topic" values="flow" /&gt;
+      &lt;attribute name="state" values="released" /&gt;
+    &lt;/attributes&gt;
+    &lt;title&gt;
+        Vector Field in a Bubble Chamber
+    &lt;/title&gt;
+    &lt;general&gt;
+       In this demo several visualization methods
+       for vector fields are shown.
+
+       The data set comes from ...
+    &lt;/general&gt;
+    &lt;thumbnail src="gfx/teaser.png" /&gt;
+    &lt;staff&gt;
+      &lt;person status="responsible"&gt;
+         &lt;name&gt;Your Name&lt;/name&gt;
+         &lt;userid&gt;yourusername&lt;/userid&gt;
+         &lt;email&gt;youremailaddress&lt;/email&gt;
+         &lt;tel&gt;xxx&lt;/tel&gt;
+      &lt;/person&gt;
+      &lt;!-- register more persons here --&gt;
+    &lt;/staff&gt;
+      &lt;prepacked href="https://servername/prepackeddemodata"&gt;
+        &lt;file src="bubble\_2006.06.22-1_data.tar.gz"/&gt;
+      &lt;/prepacked&gt;
+      &lt;demo&gt;
+        &lt;script file="bubble.hx"/&gt;
+          &lt;steps&gt;
+           &lt;step name="Vectors" playcommand="vectors"&gt;
+            Vector Arrows (For interactivity, pick plane
+            and shift up or down)
+           &lt;/step&gt;
+           &lt;step name="LIC" playcommand="lic"&gt;
+            Line Integral Convolution (LIC) (For interactivity
+            pick plane and shift forward or backward)
+           &lt;/step&gt;
+           &lt;!-- add more steps here --&gt;
+          &lt;/steps&gt;
+      &lt;/demo&gt;
+  &lt;/description&gt;
+</pre><p><font size="2"></font></p>
+<p><b>Note:</b> You can use HTML tags to enhance titles and general descriptions
+within the description file. The XSL parser is very strict,
+so always use a <tt>/&gt;</tt> at the end for single tags like <tt>br</tt> or <tt>p</tt>.
+Also be aware of the quite cumbersome encoding details.
+If you are writing German with umlauts, be sure that your editor
+also stores these characters as ISO-8859-1 encoding, also known as Latin1.
+Otherwise you will get surprising results in your HTML output.</p>
+<p>Each description file has a <tt>&lt;title&gt;</tt> and a <tt>&lt;general&gt;</tt> tag.
+Inside a <tt>&lt;demo&gt;</tt> tag there must be a <tt>&lt;script&gt;</tt> tag and a
+<tt>&lt;steps&gt;</tt> tag filled with <tt>&lt;step&gt;</tt> tags.</p>
+<p>The <tt>&lt;demo&gt;</tt> tag can have an additional attribute, <tt>stepmode</tt>,
+which can be set to <tt>random</tt> or <tt>static</tt>.
+The latter should only be used for demos, where the sequence
+of demo steps is strictly required (e.g., later steps rely on data
+loaded by earlier steps etc.).
+If no <tt>stepmode</tt> is specified, <tt>random</tt> is assumed.</p>
+<p>The <tt>&lt;script&gt;</tt> tag has a filename of an <font face="helvetica">Amira</font>-script as an attribute.
+This script is executed whenever the corresponding demo is started.
+Use it to define Tcl procedures for subsequent steps and to load necessary
+data sets and modules.</p>
+<p>The <tt>&lt;step&gt;</tt> tag takes an optional name and a mandatory <tt>playcommand</tt>
+attribute. An option is to register a <tt>jumpcommand</tt> attribute.
+Please write a short but meaningful description for each step.
+That way untrained users have a chance of presenting your demo as well.</p>
+<p>The content of <tt>playcommand</tt> is executed as a Tcl command to display
+the corresponding step.
+The content of <tt>jumpcommand</tt> is executed as a Tcl command
+to jump to the beginning of a step and display the first image.
+This is useful if one wants to explain something before the step is executed.</p>
+<p>In demo description files only, the <tt>&lt;description&gt;</tt> tag may contain
+an optional <tt>&lt;prepacked&gt;</tt> tag that specifies the files to download.
+<tt>.tar</tt> files are untarred automatically by <tt>downloadData.tcl</tt>,
+and <tt>.tar.gz</tt> files are gunzipped before.
+You can register any number of <tt>&lt;file&gt;</tt> tags inside
+<tt>&lt;prepacked&gt;</tt>. The data to be tarred in order to use it as a
+prepacked file should be stored relative to $<tt>AMIRA_DEMOS</tt> &nbsp;in a
+directory called <tt>$AMIRA_DEMOS/data</tt>.</p>
+<p>Also only in demo description files a <tt>&lt;attributes&gt;</tt> tag could be used
+to allow a demo categorization by the search algorithm of the Demo GUI.</p>
+<p>A <tt>&lt;staff&gt;</tt> tag filled with <tt>&lt;person&gt;</tt> tags of which one
+may have the parameter status="responsible" can be registered below
+<tt>&lt;description&gt;</tt> also.</p>
+<p>If you compiled your demo using <a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMaker</a>,
+you are in good shape.
+Typing <tt>&lt;DemoMakerName&gt; writeDescriptionFile</tt> in the
+<font face="helvetica">Amira</font> console window
+pops up a file browser. An appropriate <tt>description.xml</tt> file
+is written with <tt>jumpcommand</tt> and <tt>playcommand</tt> supplied correctly.
+All you have to do is fill in the descriptions for the demo as a
+whole and for each step. Also, replace the step names with more
+descriptive ones.
+</p>
+<p>Also a title must be given before
+the <tt>description.xml</tt> file will work.</p>
+<p>A description file that does not follow the conventions mentioned above will
+be skipped when parsing of the demo file tree takes place.</p>
+<p></p>
+<h4><a name="A8">Creating thumbnail pictures</a></h4>
+<p>Besides the explanation of the demo in the description file, a thumbnail image
+can be helpful to show what kind of view one can expect from a particular
+presentation.</p>
+<p>Thumbnails are shown in the <a class="link" href="HxDemoGUI.html#A1">Demo GUI</a> and in the
+<font face="helvetica">Amira</font> help window when it is used for demo steering. Furthermore
+demos can be started and steered with a web browser.
+See <a class="link" href="#A17">below</a>.</p>
+<p>If you have prepared your demos and set up selection as described below,
+start <font face="helvetica">Amira</font> and type:
+<font size="2"><tt>source $AMIRA_DEMOS/&lt;outputfolder&gt;/&lt;demodirectory&gt;/makeSnapshots.hx</tt></font>
+in the <font face="helvetica">Amira</font> console. Here <tt>&lt;outputfolder&gt;</tt> is 'selection' by default or,
+when using the command line tools, 'output' resp. the name
+specified in the -o option of <tt>prepareDemos.tcl</tt>.
+After that there are as many step$$<$$N$$>$$.png files as there are steps defined
+in the description file in a directory
+<tt>$AMIRA_DEMOS/src/&lt;demodirectory&gt;/gfx/</tt>.</p>
+<p>If for some reason you need manually created thumbnails for a particular demo,
+proceed as follows:
+Start that demo, and invoke source <tt>$AMIRA_DEMOS/setup/makeIcon.hx</tt>.
+After that a Tcl procedure <tt>makeIcon</tt> has been defined.
+Call it in the <font face="helvetica">Amira</font> console with
+<tt>makeIcon "&lt;thumbnail filename&gt;" &lt;width&gt; &lt;height&gt;</tt>.
+Do not give a filename extension, <tt>.png</tt> will be added automatically
+by <tt>makeIcon</tt>. If both values for width and height are given,
+the viewer will be resized accordingly.
+If one of these values set to 0, the viewer image will be
+scaled using Lanczos interpolation.</p>
+<p>Note: For better image quality, set your viewer size to
+a multiple of the thumbnail size
+(in the default case 150x150 for thumbnails =$$>$$ 900x900 viewer size).
+Also consider the contents of the viewer --if there are many small
+features, they won't be visible in the thumbnail.
+As is often true, less is more.</p>
+<p>Final remark: Consider the description together with the thumbnail images
+as a storyboard. It should describe the story you want to tell the
+audience while presenting the demonstration.
+Indeed you find a file <tt>storyboard.html</tt> in your output folder after
+you have setup a selection. It contains all descriptions and thumbnails
+of the whole selection together in one file. Useful for browsing and
+printing with your favourite webbrowser.</p>
+<p></p>
+<h3><a name="A9">6.1.2 Data Storage</a></h3>
+<p><a name="A10"></a>
+All data being used in the demos should be stored in the
+<tt>$AMIRA_DEMOS/data/</tt> directory.
+You should create a directory similar in structure to
+<tt>$AMIRA_DEMOS/src/</tt> for storing your data.</p>
+<p>The advantages of storing the data this way are:</p>
+<p></p>
+<ul><li>the data is separated from the script files.</li><li>a data file can easily be identified with the demo to which it belongs.</li><li>the data can be copied for <em>pack-and-go</em> automatically
+ (see <a class="link" href="#A17">below</a>).</li><li>the data can be used by several demos without needing to be duplicated.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A11">Using a File Server to Store the Demo Data</a></h3>
+<p>If you want to use the same demo data sets on several computers
+(perhaps at different locations), it may
+be helpful to store the data files in a tar archive on a remote http server.</p>
+<p><em>It is beyond the scope of this documentation to explain how to
+set up such a server.</em></p>
+<p>If you decided to use a data server, define a naming scheme for your data sets
+and save the data sets on the server according to that scheme. Now use
+the URL for the data in your <tt>description.xml</tt> files.
+Be sure to create the tar files relative to $<tt>AMIRA_DEMOS</tt>.</p>
+<p>Example:</p>
+<p>The following lines of <tt>description.xml</tt> contain the data to be
+downloaded:</p>
+<p><font size="2"></font></p><pre>
+    &lt;prepacked href="https://servername/prepackeddemodata"&gt;
+      &lt;file src="bubble_2006.06.22-1_data.tar.gz"/&gt;
+    &lt;/prepacked&gt;
+</pre><p><font size="2"></font></p>
+<p>and <tt>bubble_2006.06.22-1_data.tar.gz</tt> contains:</p>
+<p><font size="2"></font></p><pre>
+tar tvf bubble_2006.06.22-1_data.tar
+... 2006-06-22 12:10:10 data/cfd/bubblechamber/
+... 2006-06-22 12:29:20 data/cfd/bubblechamber/physics.am
+... 2006-06-22 12:29:01 data/cfd/bubblechamber/Blasensaeule.surf
+... 2006-06-22 12:10:10 data/cfd/bubblechamber/streamsurface.surf
+... 2006-06-22 12:29:20 data/cfd/bubblechamber/Vektorfeld_GW_01.am
+</pre><p><font size="2"></font></p>
+<p>In order to fetch all data sets, you must download them as follows
+prior to starting the demos:
+
+
+
+<font size="2"></font></p><pre>
+cd $AMIRA_DEMOS/hxdemos/src
+tclsh $AMIRA_DEMOS/hxroot/share/hxdemos-scripts/downloadData.tcl
+</pre><p><font size="2"></font>
+<tt>downloadData.tcl</tt> has no parameters or options!</p>
+<p><b>Note:</b> <tt>downloadData.tcl</tt> downloads ALL data files mentioned
+in the <tt>prepacked</tt> tag of the description.xml files found in the
+recursively traversed directory tree!
+All downloaded files are stored in the directory
+<tt>$AMIRA_DEMOS/cacheddata</tt>. Before <tt>downloadData.tcl</tt>
+downloads the files from the server, it checks to see if the files
+scheduled for downloading are already in the <i>cacheddata</i> directory.
+This ensures that a possibly time-consuming download is done only once.
+Then all files with the extensions
+<tt>.tar</tt>, <tt>.tar.gz</tt> or <tt>.tgz</tt> are unpacked
+to <tt>$AMIRA_DEMOS/data</tt> while all other files are copied to that
+folder.
+Depending on the amount of data you stored on your data server, this may take a
+quite a while and use a lot of disk space.</p>
+<p>See <a class="link" href="#A17">below</a> for downloading only those
+data files which are needed for a certain demo selection.</p>
+<p></p>
+<h2><a name="A12">6.2 Selecting Demos</a></h2>
+<p><a name="A13"></a>
+Demos can be selected in two ways:</p>
+<p></p>
+<ol><li>The most preferable way is to use the <a class="link" href="HxDemoGUI.html#A1">Demo GUI</a>, or</li><li>to use the command-line tool <tt>prepareDemos.tcl</tt>.</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A14">Demo GUI</a></h3>
+<p><a name="A15"></a>
+The Demo GUI provides a very convenient way for selecting demos
+from a pool of available demos.
+It is also possible to change a demo selection afterwards.
+A demo selection can be saved in an <font face="helvetica">Amira</font> script file for running it later.
+For more information, see the <a class="link" href="HxDemoGUI.html#A1">Demo GUI documentation</a>.</p>
+<p></p>
+<h3><a name="A16">Command-line Tools</a></h3>
+<p><a name="A17"></a>
+If for any reason the <em>Demo GUI</em> couldn't be used to select demos, you
+can use a command-line tool <tt>prepareDemos.tcl</tt> to do the selection.</p>
+<p>The command-line tools are stored under
+<tt>$AMIRA_ROOT/share/hxdemos-scripts</tt>.</p>
+<p>You can specify a selection of folders and steps as parameters to
+create adapted output in a subdirectory <tt>$AMIRA_DEMOS/output</tt>.</p>
+<p>The subdirectory then contains a file named <tt>demosequence.hx</tt>
+which is an <font face="helvetica">Amira</font> script for executing the selected demos.
+<tt>demosequence.demo</tt> contains the demos and their steps and
+is used by the <a class="link" href="../scriptobjects/DemoSequence.html#A1">DemoSequence</a>
+module for steering. Load the script into <font face="helvetica">Amira</font> to start the demos.</p>
+<p>Additionally an <tt>index.html</tt> file which can be used to control the demos
+from a web browser. To do so, start <font face="helvetica">Amira</font> and execute the command
+<tt>httpd start</tt> in the console and afterwards direct your favorite
+web browser to the URL
+<font size="2"><tt>http://localhost:7000/&lt;$AMIRA_DEMOS&gt;/&lt;outputfolder&gt;/index.html</tt></font>
+where <tt>&lt;outputfolder&gt;</tt> is <tt>output</tt> or the directory
+specified with the <tt>-o</tt> option.</p>
+<p>It is also possible to load the <tt>index.html</tt> file into <font face="helvetica">Amira</font> and
+start the demos from <font face="helvetica">Amira</font>'s help window.</p>
+<p>The full syntax of <tt>prepareDemos.tcl</tt> is</p>
+<p><font size="2"></font></p><pre>
+prepareDemos.tcl [--help | {[--include] {folder [--steps 
+   &lt;steplist&gt;]}* | --exclude &lt;folderlist&gt; }* | 
+   [--datainclude &lt;folderlist&gt;*] |
+   [--output &lt;outputfolder&gt;] |
+   [--force | --download | --[all]packandgo &lt;folder&gt;]
+
+   --include,   -i: given folders are included recursively to
+                    the output
+   --steps,     -s: string of type "5 8 2 1" defining selection
+                    and order of steps, steps starting from 1
+   --exclude,   -e: following folders are omitted in the
+                    recursion
+   --output,    -o: specifies the outputfolder relative to
+                    the demos directory
+   --force,     -f: overwrites content in outputfolder or
+                    packandgo-folder;
+                    if not given and folder exists,
+                    prepareDemos issues a warning and exits
+
+   --download,  -d: downloads data needed by the selected demos
+   --packandgo, -p: copies output and needed data to the
+                    specified folder
+   --allpackandgo : copies output, all from src and needed data
+                    to the specified folder
+   --datainclude  : given folders are included recursively to
+                    the data folder, if --packandgo has been
+                    specified, too
+   --help,      -h: prints this helpscreen and exits
+</pre><p><font size="2"></font></p>
+<p>The <tt>-o</tt> option allows you to specify an output folder different
+from the default folder named <i>output</i>.
+If the <tt>packandgo</tt> option is given at the same time this folder will
+be created under the pack-and-go folder.</p>
+<p>The <tt>--packandgo</tt> option copies all files recursively from the
+<tt>$AMIRA_DEMOS/src</tt> folder to a directory <tt>src</tt> under the
+folder specified for this option.
+The needed data sets are then copied from the directory
+<tt>$AMIRA_DEMOS/cacheddata</tt> into that folder, too.
+After that, you must unpack these tar files relative to the pack-and-go
+folder.</p>
+<p>In order to have the data ready in <em>cacheddata</em>,
+specify the <tt>--download</tt> option.</p>
+<p>As an alternative way to provide the needed data it is possible to supply
+a <tt>--datainclude</tt> option in conjunction with the <tt>--packandgo</tt>
+option. This option must have a selection of
+pathnames relative to <tt>$AMIRA_DEMOS/data</tt> which are copied
+to a data folder under the pack-and-go folder.</p>
+<p>It is now possible to set the $<tt>AMIRA_DEMOS</tt> &nbsp;environment variable to the pack
+and go folder.</p>
+<p><b>Note:</b> Be sure not to have any "/" (slash) at the end of a path since this
+leads to wrong results. Please, don't use the options <tt>--datainclude</tt> and
+<tt>--include</tt> together in conjunction with <tt>--packandgo</tt>, cause it copies
+way too much into the packandgo folder.</p>
+<p>Example:
+<font size="2">&nbsp;<br />
+ <tt>cd $AMIRA_DEMOS/src</tt>
+&nbsp;<br />
+ <tt>tclsh $AMIRA_ROOT/share/hxdemos-scripts/prepareDemos.tcl cfd/bubblechamber medicine/hyperthermia -s "1 2 5" --download --output mydemo</tt></font></p>
+<p>
+This selects the entire bubble chamber demo and three steps from the hyperthermia demo
+and stores the necessary files in <tt>$AMIRA_DEMOS/mydemo</tt>.
+The requested data sets for the two demos are stored under
+<tt>$AMIRA_DEMOS/data</tt> if there is a <tt>&lt;prepacked&gt;</tt> tag in the
+appropriate description files.</p>
+<p>On Unix/Linux systems start <font face="helvetica">Amira</font> with
+<tt>$AMIRA_ROOT/bin/start $AMIRA_DEMOS/mydemo/demosequence.hx</tt> and on
+Windows systems load <tt>$AMIRA_DEMOS/mydemo/demosequence.hx</tt> just after
+<font face="helvetica">Amira</font> has been started.</p>
+<p>Pack-and-Go Example:
+<font size="2">&nbsp;<br />
+ <tt>tclsh $AMIRA_ROOT/share/hxdemos-scripts/prepareDemos.tcl --packandgo /media/disk/hxdemos brusselator microvisu/gigamosaic microvisu/synchrotron microvisu/smallnetwork</tt></font></p>
+<p>This creates a folder named <tt>hxDemos</tt> under <tt>/media/disk/</tt>,
+selects four demos and puts the output into that folder.
+You also find under that folder the needed data as tar files,
+named as described in the appropriate description .xml file.</p>
+<p></p>
+<h2><a name="A18">6.3 Prerequisites</a></h2>
+<p>The following system tools and programs are used by <font face="helvetica">Demo Framework</font>:</p>
+<p></p>
+<ul><li>A recent version of <tt>tclsh</tt> and <tt>xsltproc</tt> is required
+ for the scripts <tt>prepareDemos.tcl</tt> and <tt>downloadData.tcl</tt>.<br />
+</li><li><tt>wget</tt> and either <tt>gtar</tt> or <tt>gzip</tt> and <tt>tar</tt>
+ is required for <tt>downloadData.tcl</tt>.<br />
+</li>
+</ul><p></p>
+<p>On Unix/Linux systems all tools should already be installed.</p>
+<p>On Windows systems all tools should already be installed in <em>cygwin</em>
+as well. If <tt>xsltproc</tt> is missing, it is part of the package <tt>libxslt</tt>.
+Make sure that the <tt>PATH</tt> environment variable includes <tt>cygwin/bin</tt>
+to be able to use it via <tt>exec</tt> in Tcl scripts.</p>
+<p>
+</p></body>
+</html>

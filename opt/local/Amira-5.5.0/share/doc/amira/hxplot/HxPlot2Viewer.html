@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ViewerPlot</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ViewerPlot" "plot-in-viewer" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ You may connect this module tightly to a module that provides a
+<a class="link" href="HxPlottool.html#A1">plot window</a>
+in order to display the plot within <font face="helvetica">Amira</font>'s viewer.
+If that module creates more than one plot window, it may be useful to connect
+one <em>ViewerPlot</em> module for each plot window. This may be useful, for example, 
+to produce snapshots that contain the plot display inside the viewer.
+For better results, use a 1x1 tiling for the snapshot.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">PlotModule</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>This port must be connected to a module providing a plot window and
+an interface to access this window.
+<a class="link" href="../hxstatistics/HxHistogram.html#A1">Histogram</a> and <a class="link" href="../hxdataprobe/HxDataProbe.html#A1">LineProbe</a> are examples
+for such modules.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Which Plotwindow</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_whichplot.png" /><br /></div>
+<div class="body"><p>This port is only shown if there are more than one plot window created by the
+module it is connected to. Use it to select which plot to display in the
+viewer.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_options1.png" /><br /></div>
+<div class="body"><p>This port provides the following two toggles:
+</p>
+<ul><li><b>frame:</b> Draw a frame around the plot in the viewer.</li><li><b>transparent:</b> If off, the plot has an opaque background.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_positionOptions.png" /><br /></div>
+<div class="body"><p>This port provides the following two toggles:
+</p>
+<ul><li><b>relative position:</b> Toggle between absolute or relative plot
+positions in viewer.</li><li><b>cycle position:</b> If there is more than one plot created by the 
+plotting module, the plot position in the viewer is cycled through the
+four corners clockwise.</li>
+</ul>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_transparency.png" /><br /></div>
+<div class="body"><p>A value of 1 produces a completely transparent plot background,
+while 0 results in a fully opaque background.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Absolute Position</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_position.png" /><br /></div>
+<div class="body"><p>Position of plot in viewer in absolute pixels relative to the lower left
+corner.
+If one of the numbers is negative, it is interpreted relative to the upper
+right corner.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Relative Position </span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_ndcposition.png" /><br /></div>
+<div class="body"><p>Position of plot in viewer in normalized coordinates (0..1)
+relative to the lower left corner. If one of the
+numbers is negative, it is interpreted relative to the upper right corner.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_size.png" /><br /></div>
+<div class="body"><p>Size of the plot in pixels.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Actions</span>  
+<div class="portsnapshot"><img src="HxPlot2Viewer_actions.png" /><br /></div>
+<div class="body"><p>Pressing the <em>Edit</em> button opens the object editor window of the plot.
+If you press the <em>Show plot window</em> button, the extra plot window is shown
+on the screen. Pressing the same button again, the plot window vanishes.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

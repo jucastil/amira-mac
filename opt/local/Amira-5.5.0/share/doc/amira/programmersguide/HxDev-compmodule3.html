@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.1.3 Version 3: Reusing the Result Object</a></h3>
+<p>Testing the first two versions of our module, we saw that the
+module's compute method is triggered automatically when the module is
+created and whenever the range port is changed. Each time a new result
+output data object is created. This quickly fills up the computer's main
+memory as well as <font face="helvetica">Amira</font>'s graphical user interface. Therefore, we now
+change this behavior: A new result object is to be created only the first
+time. Whenever the range port is changed afterwards, the existing result
+object should be overridden. In order to achieve this, we modify the middle
+part of the compute method in the following way:</p>
+<p><font size="2"></font></p><pre>
+    // Check if there is a result which we can reuse.
+    HxUniformScalarField3* output =
+        (HxUniformScalarField3*) getResult();
+
+    // Check for proper type.
+    if (output &amp;&amp; !output-&gt;isOfType(
+            HxUniformScalarField3::getClassTypeId() ))
+        output = 0;
+
+    // Check if size and primType still match the current input:
+    if (output) {
+        const int* outdims = output-&gt;lattice.dims();
+        if (dims[0]!=outdims[0] ||dims[1]!=outdims[1] ||
+            dims[2]!=outdims[2] ||
+            field-&gt;primType() != output-&gt;primType())
+            output=0;
+    }
+
+    // If necessary, create a new result data set.
+    if (!output) {
+        output = new HxUniformScalarField3(dims,
+            field-&gt;primType());
+        output-&gt;composeLabel(field-&gt;getName(),"masked");
+    }
+</pre><p><font size="2"></font></p>
+<p>The <tt>getResult</tt> method checks whether there is a data set whose master
+port is connected to the compute module. This typically is the object
+set by a previous call to <tt>setResult</tt>. However, it also may be any
+other object. Therefore, a run-time type check must be performed by
+calling the <tt>isOfType</tt> member method of the output object. If the
+output object is not of type <tt>HxUniformScalarField3</tt>, the variable <tt>output</tt> will be set to null. Then a check is made whether the output
+object has the same dimensions and the same primitive data type as the
+input object. If this test fails, <tt>output</tt> will also be set to null. At
+the end, a new result object will only be created if no result exists already or
+if the existing result does not match the input. It is possible to
+interactively try different range values without creating a bunch of new
+results. </p>
+<p>However, when one of the numbers of the range port is changed, computation
+starts immediately. Sometimes this may be desired, but in this case we
+prefer to add an <em>Apply</em> button as present in many other compute modules. 
+The user must explicitly push this button in order to start computation.
+In order to use the <em>Apply</em> button, the following line of code must
+be added in the public section of the module's header file:
+<font size="2"></font></p><pre>
+    // Start computation when this button is clicked.
+    HxPortDoIt portDoIt;
+</pre><p><font size="2"></font></p>
+<p>Of course, the corresponding include file <tt>Amira/HxPortDoIt.h</tt> must 
+be included as well. As for the other port, we must initialize <tt>portDoIt</tt> in the constructor of our module in the source file:</p>
+<p><font size="2"></font></p><pre>
+MyComputeThreshold3::MyComputeThreshold3() :
+    HxCompModule(HxUniformScalarField3::getClassTypeId()),
+    portRange(this,"range",2), // we want to have two float fields
+    portDoIt(this,"action")
+{
+    ...
+
+    // Set text of doIt button
+    portDoIt.setLabel(0,"DoIt");
+}
+</pre><p><font size="2"></font></p>
+<p>To achieve the desired behavior we finally change our compute method so
+that it immediately returns unless the <em>Apply</em> button was pressed.
+This can be done by adding the following piece of code at the beginning of
+the compute method:</p>
+<p><font size="2"></font></p><pre>
+    // Check whether doIt button was hit
+    if (!portDoIt.wasHit()) return;
+</pre><p><font size="2"></font> </p>
+<p>With these changes, the module is already quite usable. Try to attach the
+final version of the module to some data set, press <em>Apply</em>, change the
+range and press <em>Apply</em> again. Attach an <em>OrthoSlice</em> module to the
+result while experimenting with the range (use the histogram mapping in the
+<em>OrthoSlice</em> in order to see small changes). Try to detach the
+connection between the result and the module and press <em>Apply</em> again.</p>
+<p><b>Note:</b> Since <font face="helvetica">Amira</font> 4.0, the <tt>HxPortDoIt</tt> port is not (by default) 
+visible in the control panel of its associated module. 
+Rather, the fact that a module has an <tt>HxPortDoIt</tt> activates (makes green) 
+the <em>Apply</em> button at the bottom of the Properties Area. To request 
+display of the DoIt port in the module control panel, check the 
+<em>Show "DoIt" buttons</em> box in the <em>Layout</em> tab of the 
+<em>Edit/Preferences</em> dialog.</p>
+<p>Finally, some remarks on performance. Although it is
+probably not critical in this simple example, performance typically becomes an
+issue in real-world applications. In the inner-most loop, calling the
+methods <tt>field-&gt; evalReg</tt> and <tt>output-&gt; set</tt> is convenient but rather
+expensive. For example, if the input consists of bytes like in 
+<tt>lobus.am</tt>, these methods involve a cast from <tt>unsigned char</tt> to <tt>float</tt> and back to <tt>unsigned char</tt>.
+The performance can be improved by writing code which explicitly handles
+a particular primitive data type. A pointer to the actual data values of a
+<em>HxUniformScalarField3</em> can be obtained by calling 
+<tt>field-&gt; lattice.dataPtr()</tt>. The value returned by this method is of type
+<tt>void*</tt>. It must be explicitly cast to the data type the field
+actually belongs to. The voxel values itself are arranged without any
+padding. This means that the index of voxel (i, j, k ) is given by
+<tt>(k*dims[1]+j)*dims[0]+i</tt>, where <tt>dims[0]</tt> and <tt>dims[1]</tt>
+denote the number of voxels in the x and y directions, respectively.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

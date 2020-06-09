@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.8 Registration of 3D image data sets</a></h2>
+<p>In medical imaging a frequent task has become the registration of
+images from a subject taken with different imaging modalities, where
+the term <em>modalities</em> here refers to imaging techniques such as
+Computed Tomography (CT), Magnetic Resonance Tomography (MRT) and
+Positron Emission Tomography (PET). The challenge in inter-modality
+registration lies in the fact that e.g in CT images "bright" regions
+are not necessarily bright regions in MRT images of the same subject.</p>
+<p>In registration typically one of the data sets is taken as the <em>reference</em>, and the other one is transformed until both data sets
+match. <font face="helvetica">Amira</font>'s <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">AffineRegistration</a> module
+provides an affine registration, i.e. it determines an optimal
+transformation with respect to translation, rotation, anisotrope
+scaling, and shearing.</p>
+<p>Closely related to registration is the task of
+<a class="link" href="#A4">image fusion</a>, i.e., the simultaneous
+visualization of two registered image data sets.</p>
+<p>This tutorial shows how a registration can be performed and how to
+visualize the results. The following issues will be discussed:</p>
+<p></p>
+<ol><li>Basic manual registration using the <em>Transform Editor</em></li><li>Automatic registration</li><li>Image fusion</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A2">2.8.1 Basic Manual Registration</a></h3>
+<p>In this tutorial we want to register a CT and an MRT data set of a
+patient, showing the pelvic region. The images are located in the
+<font face="helvetica">Amira</font> data directory in the subdirectory <em>registration</em>.</p>
+<p>
+</p>
+<p></p>
+<ul><li>Load the files <tt>data/registration/CT-data.am</tt> and <tt>data/registration/MRT-data.am</tt> into <font face="helvetica">Amira</font>.</li><li>Attach an <em>OrthoSlice</em> module to each of the data sets.</li><li>Select <em>Coronal</em> (or <em>xz</em>) at the <em>Orientation</em> port of the
+ <em>OrthoSlice</em> module connected to the MRT data.</li><li>Select a camera position for the 3D viewer where you
+ can see both the axial slices of the CT data and the coronal
+ slices of the MRT data.</li><li>Select slice 31 at the <em>Slice Number</em> port of the
+ <em>OrthoSlice</em> module connected to the CT data.</li>
+</ul><p></p>
+<p>Now one OrthoSlice module should show an axial slice through the hip
+joints. Move the coronal slice through the MRT data. You will observe 
+that the two data sets are not correctly aligned.</p>
+<p></p>
+<ul><li>Select the green icon of the MRT data set. Invoke the 
+ <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a> by pressing the
+ Transform Editor button in the Properties Area. The <em>Transform Editor</em> enables you
+ to specify an affine transformation, including translation, 
+ rotation, and scaling. This transformation will be applied to 
+ the corresponding 3D data set. You can edit the transformation 
+ interactively in the 3D viewer using different Open Inventor 
+ draggers. You can also enter transformations numerically.</li><li>Press the <em>Dialog</em> button. A dialog window will pop up.</li><li>Enter <tt>-2</tt> at the third text field of the <em>Translation</em> port of the dialog window. This means a translation of -2 cm
+ in the z direction.</li><li>Enter <tt>5</tt> at the first text field at the <em>Rotation</em> port.
+ This means a rotation of 5 degrees. The axis of rotation is defined 
+ at the next ports, here it is the z-axis.</li><li>Press the <em>Close</em> button of the dialog window. Leave
+ the <em>Transform Editor</em> by pressing again the Transform Editor button.</li>
+</ul><p></p>
+<p>Inspect some coronal slices through the MRT data set. Now there is a
+better alignment of the CT and MRT data, but it's still not perfect.</p>
+<p>
+
+
+
+
+
+
+</p>
+<p>
+</p>
+<p>
+
+</p>
+<p>
+
+</p>
+<p>
+</p>
+<h3><a name="A3">2.8.2 Automatic Registration</a></h3>
+<p>The <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">Registration</a> module provides
+an automatic registration via optimization of a quality function. For
+registration of data sets from different imaging modalities, the <em>Normalized Mutual Information</em> is the best suited quality function. In
+short, it favors an alignment which "maps similar gray value structures to
+similar gray value structures". A hierarchical strategy is applied, starting at
+a coarse resampling of the data sets, and proceeding to finer
+resolutions later on.</p>
+<p></p>
+<ul><li>Attach an <em>Registration</em> module to the MRT data set
+ by choosing <em>Compute/AffineRegistration</em> from the popup menu
+ over the <em>MRT-data.am</em> icon.</li><li>Connect the second input port <em>Reference</em> of module <em>Registration</em> to the CT data set. For this click with the
+ right mouse button on the white square at the left hand side of
+ the module's icon.</li><li>Select toggle <em>Extended options</em>. More ports of
+ the <em>Registration</em> module will become visible.</li>
+</ul><p></p>
+<p>The first three ports of the <em>Registration</em> module define the
+optimization strategy. The default settings mean that an <em>ExtensiveDirection</em> optimizer is used for the coarse levels and a <em>QuasiNewton</em> optimizer for the finest two levels of the resampling
+hierarchy. At the <em>CoarsestResampling</em> port you can select the
+resampling rate for the coarsest resolution level. The default
+resampling rate is smaller in the z direction because the reference
+data set has a finer resolution in the x and y direction (0.17 cm) than in
+the z direction (0.5 cm). For the default settings (8,8,3), the resampling
+hierarchy will consist of four levels: (8,8,3), (4,4,2), (2,2,1), and
+the original resolution, (1,1,1).</p>
+<p>The <em>Normalized Mutual Information</em> is calculated from
+gray value histograms. The selected histogram ranges should 
+enclose the essential information of each data set. Normally
+you can choose the same range as for visualization via an
+<em>OrthoSlice</em> module.</p>
+<p></p>
+<ul><li>Set <tt>-200</tt> and <tt>200</tt> at the two text fields
+ of the <em>Histogram range reference</em> port.</li>
+</ul><p></p>
+<p>At the <em>Transform</em> port you can specify the type of affine 
+transformation. The default settings mean that only rigid body 
+motions will be applied, i.e. translations and rotations.</p>
+<p>Option <em>Ignore finest resolution</em> means that optimization is done
+on all but the finest level of the resampling hierarchy. This 
+will slightly reduce the accuracy, but save a large amount of
+computing time.</p>
+<p>Automatic registration may take some time depending on the resolution
+of the images and the quality of the pre-alignment. You can interrupt
+automatic registration at any time using the stop button. Interruption
+may take some seconds. The progress bar shows the current
+hierarchy level and the progress at that level.</p>
+<p></p>
+<ul><li>Start automatic registration by pressing the <em>Register</em> button
+ at the <em>Action</em> port.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A4">2.8.3 Image Fusion</a></h3>
+<p>The task of image fusion is the simultaneous visualization
+of two data sets. To that end <font face="helvetica">Amira</font> offers for all types of
+slicing modules (<a class="link" href="../hxlattice/HxOrthoSlice.html#A1">Orthoslice</a> and
+<a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a>) the <em>Colorwash</em> module. 
+Using <em>Colorwash</em>, the images from one data set can be overlayed
+over that of another taking into account their orientation in space.</p>
+<p></p>
+<ul><li>Remove the <em>OrthoSlice</em> module connected to the
+ MRT data set.</li><li>Select the green icon of the MRT data set.</li><li>Select a <a class="link" href="../hxlattice/HxColorwash.html#A1">Colorwash</a> module from the
+ popup menu over the icon of the <em>OrthoSlice</em> module 
+ connected to the CT data set.</li><li>Select the yellow icon of the <em>Colorwash</em> module.</li><li>Select the <em>physics.icol</em> colormap at port
+ <em>Colormap</em>.</li><li>Set <tt>70</tt> as the upper bound for the colormap range.</li><li>Select the icon of the <em>OrthoSlice</em> module.</li><li>Inspect axial slices with slice numbers between 15 and
+ 45.</li>
+</ul><p></p>
+<p>You will observe a good alignment of the pelvic bone from both
+data sets. The soft tissue contours are not perfectly aligned
+because there was some soft tissue deformation between both
+scans. This cannot be described by a rigid transformation.</p>
+<p>In image fusion it is sometimes necessary to observe all three
+orthogonal directions simultaneously. For that the 
+<a class="link" href="../hximview/HxStandardView.html#A1">StandardView</a> module can be used
+for image fusion. The <em>StandardView</em> module opens a separate window
+with four viewers, three of them showing the three orthogonal slices 
+of the image data and a fourth being a new instance of the 3D viewer.</p>
+<p></p>
+<ul><li>Attach a <em>StandardView</em> module to the CT data set by
+ choosing <em>Display StandardView</em> from the popup menu over the
+ <em>CT-data.am</em> icon. <font face="helvetica">Amira</font>'s <em>Viewer</em> window will now be
+ split into four parts showing three orthogonal slices through the
+ CT data, and the 3D Viewer in the upper left part.</li><li>Connect the second input port <em>OverlayData</em> of the 
+ <em>StandardView</em> module to the MRT data set. For this, click with the
+ right mouse button on the white square at the left hand side of
+ the module's icon.</li><li>Select slice numbers 179, 149, and 31 at ports <em>Slice
+ x</em>, <em>Slice y</em>, and <em>Slice z</em>, respectively. The three
+ orthogonal slices will show the hip joints now.</li><li>Increase the zoom-factor by clicking twice on button $$>$$
+ at the <em>Zoom</em> port.</li><li>Select <em>checkerboard</em> at the <em>Overlay mode</em> port.</li><li>Vary the size of the checkerboard tiles by moving the slider
+ at the <em>Pattern size</em> port. In this way you can again check the
+ alignment of the CT and MRT data sets.</li>
+</ul><p></p>
+<p>The bone contours around the hip joints show a good match. Note that
+bone is represented by white (i.e high intensity) voxels in the CT data, 
+but may occur as both white and black voxels in the MRT data. In the axial 
+slice you can observe larger deviations of the outer body contour between 
+the CT and MRT data.
+
+</p></body>
+</html>

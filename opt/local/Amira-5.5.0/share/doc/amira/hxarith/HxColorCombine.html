@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ColorCombine</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ColorCombine" "creates an RGBA color field from multiple input objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module combines up to three source fields into an
+ <a class="link" href="../hxfield/HxRegColorField3.html#A1">RGBA color field</a>. The resulting field has the
+ same dimensions as the field connected to <em>source1</em>. Therefore it
+ is imperative that there be a <em>source1</em>. <em>ColorCombine</em>
+ connects to color fields, scalar fields, and scalar fields with a
+ colormap. The relative scale of the input fields is determined by their
+ bounding boxes. The module supports three different ways of merging
+ the input data. "Alpha Weighted" weights the different inputs according to their
+ alpha values, i.e., inputs with a large alpha value become more
+ prominent in the resulting field. "Average" is the simple geometrical average of the
+ inputs. "Add &amp; Clamp" adds the values, making sure they do not exceed
+ 255. If all connected source fields are
+ scalar byte fields of the same dimensions, the module offers two more
+ options: "colormaps", which does exactly the same as the procedures
+ above, yet implemented in a much more efficient way, and "RGB planes",
+ which interprets source1, source2, and source3 as the R, G, and B values
+ of the resultfield, respectively.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Source1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A scalar or color field. This one determines the size of the result
+ field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Source2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Another scalar or color field.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Source3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>And yet another one.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap1</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap for source field 1.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap for source field 2.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap for source field 3.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap1</span>  
+<div class="portsnapshot"><img src="HxColorCombine_colormap1.png" /><br /></div>
+<div class="body"><p>Colormap input port for source field1.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap2</span>  
+<div class="portsnapshot"><img src="HxColorCombine_colormap2.png" /><br /></div>
+<div class="body"><p>Colormap input port for source field2.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap3</span>  
+<div class="portsnapshot"><img src="HxColorCombine_colormap3.png" /><br /></div>
+<div class="body"><p>Colormap input port for source field3.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxColorCombine_composeMode.png" /><br /></div>
+<div class="body"><p>These radio buttons let you choose the combining algorithm. 
+ <em>alpha weighted</em> weights the different inputs according to their
+ alpha values, i.e., inputs with a large alpha value become more
+ prominent in the resulting field.
+ <em>average</em> is the simple geometrical average of the
+ inputs.
+ <em>add &amp; clamp</em> adds the values, making sure they do not exceed
+ 255.
+ This port is only visible if the <em>ColorMode</em> port is 
+ set to <em>colormaps</em>.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ColorMode</span>  
+<div class="portsnapshot"><img src="HxColorCombine_colorMode.png" /><br /></div>
+<div class="body"><p>This port is only visible if all source fields are of equal dimensions
+ and if they are all byte fields. It means that faster algorithms
+ are now in use and offers the special choice <em>RGB planes</em>, which
+ makes source1, source2, and source3 the R, G, and B components of the
+ result respectively.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

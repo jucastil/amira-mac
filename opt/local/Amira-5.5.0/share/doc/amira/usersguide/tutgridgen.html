@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.6 Creating a Tetrahedral Grid from a Triangular Surface</a></h2>
+<p>To use the features described in this section an <font face="helvetica">Mesh Option</font> licence is required.
+
+By following this step-by-step tutorial, you will learn how to
+generate a volumetric tetrahedral grid from a triangular surface as
+created in the previous tutorial. A tetrahedral grid is the basis for
+producing various views of inner parts of the object, e.g., cuts
+through it, and is frequently used for numerical simulations.</p>
+<p>The generation process consists of these steps:</p>
+<p></p>
+<ol><li>Simplifying the surface</li><li>Editing the surface</li><li>Generating a tetrahedral grid (<font face="helvetica">Mesh Option</font> license required)</li>
+</ol><p> </p>
+<p>As a prerequisite for the following steps, you need a triangular
+surface, which is usually the result of a previous surface
+reconstruction. Load the supplied <em>lobus.surf</em> data set from the
+<em>data/tutorials</em> directory.</p>
+<p>
+</p>
+<h3><a name="A2">2.6.1 Simplifying the Surface</a></h3>
+<p>Usually the number of triangles created by the <em>SurfaceGen</em> module
+is far too large for subsequent operations, e.g., for a numerical
+simulation. Thus, the number of triangles should be reduced in a <em>surface simplification</em> step. In <font face="helvetica">Amira</font> a <a class="link" href="../hxsurftools/HxSimplifier.html#A1">Surface
+Simplification Editor</a> is provided for this purpose. There may be 
+different goals for the simplification: 
+</p>
+<ul><li>In <em>computer graphics</em>, one wants to prescribe just the
+number of faces, because this determines the rendering speed.</li><li>For a <em>numerical simulation</em>, one often wants to specify the
+maximum edge length occurring in the grid model.</li>
+</ul><p> 
+This tutorial shows how the maximum edge length can be controlled
+during simplification.</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutorials_gui11.png.html><img width=450 src="tutorials_gui11.png" /></a><br />
+<div class="caption">
+<b>Figure 22:</b>
+Surface representation of optical lobus as triangular grid</div>
+
+
+</div><p> </p>
+<p></p>
+<ul><li>Select the surface <em>lobus.surf</em>.</li><li>Click on the Simplifier (triangle mesh icon) in the Properties Area.</li><li>Set the desired number of faces to 1000 and the desired
+ maximal distance (i.e. edge length) to 10 in the <em>Simplify</em> port.</li><li>Leave the <em>fast</em> toggle turned off in the <em>Options</em> port. This will cause intersection tests to be
+ performed during simplification, which will considerably
+ reduce the probability that the simplified surface contains
+ self intersections.</li><li>Press the <em>Simplify now</em> button in the <em>Action</em> port.</li>
+</ul><p> </p>
+<p>Simplification terminates when either of the limits given by the
+number of faces or the maximum distance is reached. The progress bar
+tells you how much of the simplification task has already been done.
+In this example the maximum distance will be the limiting factor, and
+the resulting surface will contain about 6000 faces.</p>
+<p>Besides the maximum edge length, the minimum edge length occurring in
+the surface should also be controlled, because the ratio of maximum
+and minimum edge length will influence the quality of the resulting
+tetrahedral grid. This ratio should not be much larger than 10. If
+edges that are too short occur in the simplified surface, they can be
+removed as follows.</p>
+<p></p>
+<ul><li>Set the desired minimum distance to 2 in the <em>Simplify</em>
+ port.</li><li>Observe the number of faces as shown at the <em>Surface</em> port, 
+ and press the <em>Contract edges</em> button in port <em>Action</em>. All
+ edges shorter than 2 will be contracted. In this example about 30
+ small edges will be detected. You will observe that the number of
+ faces slightly decreases.</li>
+</ul><p></p>
+<p>
+</p>
+<h3><a name="A4">2.6.2 Editing the Surface</a></h3>
+<p>As a second step of preparation for tetrahedral grid generation,
+invoke the <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a>.</p>
+<p></p>
+<ul><li>Select the surface <em>lobus.surf</em>.</li><li>Leave the <em>Surface Simplification Editor</em> (Simplifier) by again
+ clicking on the triangle mesh icon.</li><li>Enter the <em>Surface Editor</em> by clicking on the Surface
+ Editor button in the Properties Area.</li>
+</ul><p></p>
+<p>Automatically, a <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module will be
+attached to the <em>lobus.surf</em> surface. For details about that
+module see its description.</p>
+<p>When the <em>Surface Editor</em> is invoked, the <em>Surface</em> menu is added
+to <font face="helvetica">Amira</font>'s menu bar and a new toolbar is placed just below <font face="helvetica">Amira</font>'s 
+viewer toolbar. The <em>Surface/Tests</em> menu contains 8 specific tests which are useful for preparing a
+tetrahedral grid generation. Each of the tests creates a buffer of
+triangles which can be cycled through using the back and forward
+buttons.</p>
+<p></p>
+<ul><li>Select <em>Intersection test</em> from the <em>Surface/Tests</em> menu.
+ The total number of intersecting triangles is printed in the
+ console window. Intersections shouldn't occur too often if toggle
+ <em>fast</em> was switched off during surface simplification. In case
+ they occur, the first of the intersecting triangles and its
+ neighbors are shown in the viewer window.</li><li>You can manually repair intersections using four basic
+ operations: <em>Edge Flip</em>, <em>Edge Collapse</em>, <em>Edge
+ Bisection</em>, and <em>Vertex Translation</em>. See the description of
+ the <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a> for details.</li><li>After repairing, invoke the intersection test again by
+ selecting it from the <em>Surface/Tests</em> menu or by pressing the
+ <em>Compute</em> button.</li><li>When the intersection test has been successfully passed,
+ select the <em>Orientation test</em> from the <em>Surface/Tests</em> menu.
+ After surface simplification, the orientation of a small number of
+ triangles may be inconsistent, resulting in a partial overlap of
+ the materials bounded by the triangles. In case of such incorrect
+ orientations, which should occur quite rarely, there is an
+ automatic repair. If this fails, the detected triangles will be
+ shown, and you can use the above mentioned manual operations for
+ repair. <b>Note:</b> There are two prerequisites for the
+ orientation test: the surface must be free of intersections, and
+ the outer triangles of the surface must be assigned to material
+ <em>Exterior</em>. If the surface does not contain such a material or
+ if the assignment to <em>Exterior</em> is not correct, the test will
+ falsely report orientation errors.</li>
+</ul><p> </p>
+<p>A successful pass of the intersection and orientation test is
+mandatory for tetrahedral grid generation. These tests are
+automatically performed at the beginning of grid generation. So you
+can directly enter the <em>TetraGen</em> module (see below) and try to
+create a grid. If one of the tests fails, an error message will be
+issued in the console window. You can then go back to the <em>Surface Editor</em> and start editing.</p>
+<p>The remaining three tests analyze the surface mesh with respect to
+different quality measures. These tests only need to be performed if
+the tetrahedral quality of the volumetric grid plays an important
+role, e.g., if the grid will be used for a numerical simulation.</p>
+<p></p>
+<ul><li>Select <em>Aspect ratio</em> from the <em>Surface/Tests</em> menu.
+ This computes the ratio of the radii of the circumcircle and 
+ the incircle for each triangle. The triangle with the worst
+ (i.e. largest) value is shown first, and the actual value
+ is printed in the console window. The largest aspect ratio 
+ should be below 20 (better below 10). Fortunately there is an 
+ automatic tool for improving the aspect ratio included in 
+ the <em>Surface Editor</em>.</li><li>Select <em>Flip edges</em> from the <em>Surface/Edit</em> menu.
+ A small dialog window appears. In the Radius Ratio area,
+ set the value of the "Try to flip a triangle..." field
+ to 10. Select mode <em>operate on whole surface</em>.
+ Press button <em>Flip</em>. All triangles with an aspect ratio 
+ larger than 10 will be inspected; if the aspect ratio can
+ be improved via an edge flip, this will be done 
+ automatically. The console window will tell you the
+ total number of bad triangles and how many of them could
+ be repaired. Press the <em>Close</em> button to leave the <em>Flip 
+ edges</em> tool.</li><li>Select again <em>Aspect ratio</em> from the <em>Surface/Tests</em> 
+ menu. Only a small number of triangles with large aspect 
+ ratio should remain after applying the <em>Flip edges</em> tool.</li><li>Select <em>Dihedral angle</em> from the <em>Surface/Tests</em> menu. For
+ each pair of adjacent triangles, the angle between them at their
+ common edge will be computed. The triangle pair including the
+ worst (i.e. smallest) angle is shown in the viewer, and the actual
+ value is printed in the console window. The smallest dihedral
+ angle should be larger than 5 degrees (better larger than 10).</li><li>For a manual repair of a small dihedral angle proceed as
+ follows: select the third points of both triangles (i.e. the
+ points opposite to the common edge) and move them away from each
+ other. For moving vertices you must enter <em>Vertex Translation</em>
+ mode by clicking on the first icon from the right on the top of
+ the viewer window or by pressing the <tt>"t"</tt> key. If the viewer
+ is in viewing mode, switch it into interaction mode by pressing
+ the <tt>ESC</tt> key or by clicking on the arrow icon (the first icon
+ from the top) on the right of the viewer window. Click on the
+ vertex to be moved. At the picked vertex a point dragger will be
+ shown. Pick and translate the dragger for moving the vertex.</li><li>In some cases an edge flip might also improve the situation.
+ Enter <em>Edge Flip</em> mode by clicking on the third icon from the
+ right on the top of the viewer window or by pressing the <tt>"f"</tt>
+ key. Switch the viewer into interaction mode. Click on the edge to
+ be flipped.</li><li>Select <em>Tetra quality</em> from the <em>Surface/Tests</em> menu. For
+ each surface triangle the aspect ratio of the tetrahedron which
+ would probably be created for that triangle will be calculated.
+ The aspect ratio for a tetrahedron is defined as the ratio of the 
+ radii of the circumsphere and the inscribed sphere. The triangle 
+ with the worst (i.e. largest) value is shown in the viewer, and 
+ the actual value is printed in the console window. The largest 
+ tetrahedral aspect ratio should be below 50 (better below 25). If all
+ small dihedral angles have already been repaired, the tetra
+ quality test will mainly detect configurations where the normal
+ distance between two triangles is small compared to their edge
+ lengths. Again, the <em>vertex translation</em> and the <em>edge
+ flip</em> operation are best suited for a manual repair of large
+ tetrahedron aspect ratios.</li><li>Leave the <em>Surface Editor</em> by again clicking on the
+ Surface Editor button in the Properties Area.</li>
+</ul><p> </p>
+<p><b>Hint:</b> In order to see the entire surface again, select the SurfaceView
+icon, then press its <em>Clear</em> button, set the <em>Selection mode</em> to
+<em>Material</em> and the <em>Materials</em> port to <em>All All</em> and press the
+<em>Add</em> button, then press the <em>ViewAll</em> button in the viewer toolbar.</p>
+<p></p>
+<h3><a name="A5">2.6.3 Generation of a Tetrahedral Grid</a></h3>
+<p>The last step is the generation of a <em>volumetric tetrahedral grid</em>
+from the surface. This means that the volume enclosed by the surface
+is filled with tetrahedra.</p>
+<p>Because the computation of the tetrahedral grid may be time consuming it
+can be performed as a <em>batch job</em>. You can then continue working
+with <font face="helvetica">Amira</font> while the job is running. However, for demonstration purposes
+we want to compute the grid right inside <font face="helvetica">Amira</font>.</p>
+<p></p>
+<ul><li>Connect a <a class="link" href="../hxgridgen/HxTetraGen2.html#A1">TetraGen</a> module to the <em>lobus.surf</em> surface by choosing <em>Compute TetraGen</em> from
+ the popup menu over the <em>lobus.surf</em> icon.</li><li><p>Leave toggle <em>improve grid</em> switched on and toggle
+ <em>save grid</em> switched off at the <em>Options</em> port.
+ The <em>improve grid</em> option will invoke an automatic 
+ post-processing of the generated grid, which improves 
+ tetrahedral quality by some iterations that move inner 
+ vertices and flip inner edges and faces. See the 
+ description of the <a class="link" href="../hxgridedit/HxGridEdit.html#A1">Grid Editor</a> for details. </p>
+<p> If toggle <em>save grid</em> is selected, an additional port 
+ <em>Grid</em> appears, where you can enter a filename. The
+ resulting tetrahedral grid will be stored automatically under
+ that name. If you want to run grid generation as a batch job,
+ you must select the <em>save grid</em> option.</p></li><li>Press the <em>Meshsize</em> button of the <em>Action</em> port. An editor
+ window will appear. It allows you to define a desired mesh size,
+ i.e., mean length of the inner edges to be created, for each region. 
+ For this you must enter the bundle of that region, and select
+ parameter <em>MeshSize</em>. Then you can change the value in the text
+ field at the lower border of the editor. There are some predefined
+ region names in <font face="helvetica">Amira</font> for which a default mesh size will be
+ automatically set. Make sure that the default values are suitable
+ for your application. If you are not sure about a suitable value,
+ set the desired mesh size to 0. In this case the mean edge length of
+ the surface triangles will be used.</li><li>Press the <em>Run now</em> button at port <em>Action</em>. A pop-up
+ dialog appears asking you whether you really want to start
+ the grid generation. Click <em>Continue</em> in order to proceed.</li>
+</ul><p> </p>
+<p>Once grid generation is running, the progress bar informs you about
+the number of tetrahedra which already have been created. In some
+situations grid generation may fail, for example, if the input surface
+intersects itself. Then an error message will occur at the <em>Console Window</em>. In this case go back to the
+<a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a> to interactively fix any
+intersections.</p>
+<p>After the tetrahedral grid has been successfully created, a new icon
+called <em>lobus.grid</em> will be put in the Pool. You can select
+this icon in order to see how many tetrahedra the created grid
+contains. If grid generation takes too long, you may also load the
+pre-computed grid <em>lobus.grid</em> from the <em>data/tutorials</em>
+directory.</p>
+<p>As the very last step you may want to have a look at the fruits of
+your work:</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> module to the <em>lobus.grid</em>.</li><li>Select the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> icon and press the
+ <em>Add to</em> button of the <em>Buffer</em> port.</li>
+</ul><p> </p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=tutorials_gui12.png.html><img width=450 src="tutorials_gui12.png" /></a><br />
+<div class="caption">
+<b>Figure 23:</b>
+Volumetric representation of optical lobe as tetrahedral grid</div>
+
+
+</div><p> </p>
+<p>The <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> module maintains an internal
+buffer and displays all tetrahedra stored in this buffer. By default
+the buffer is empty, but all tetrahedra are highlighted, i.e., they
+are displayed using a red wireframe representation. The <em>Add to</em>
+button causes the highlighted tetrahedra to be added to the
+buffer. You may easily visualize a subset of all tetrahedra using a 3D
+selection box or by drawing contours in the 3D viewer.</p>
+<p>Similar to the <em>Surface Editor</em>, there is a <a class="link" href="../hxgridedit/HxGridEdit.html#A1">Grid
+Editor</a> which can be invoked by selecting the tetrahedral grid <em>lobus.grid</em>
+and clicking on the Grid Editor (first icon from the left
+in the title bar) in the Properties Area. The editor allows for selecting
+tetrahedra with respect to different quality measures, e.g., aspect
+ratio, dihedral angles at tetrahedron edges, solid angles at
+tetrahedron vertices, and edge length. The editor contains 
+several modifiers that can be applied for improving mesh quality.
+
+</p></body>
+</html>

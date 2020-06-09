@@ -1,0 +1,44 @@
+#!/bin/sh 
+# description: RemoteVizD daemon service 
+# chkconfig: 345 99 0 
+ 
+#source function library 
+. /etc/init.d/functions 
+. /etc/sysconfig/RemoteVizD.conf
+
+prog=$"RemoteVizD"
+
+case $1 in 
+    'start') 
+        [ -f /var/lock/subsys/RemoteVizD ] && exit 0
+	gprintf "%s " "${prog}"
+	RETVAL=0
+	daemon --user $SCALEVIZD_USER $OIVHOME/bin/RemoteVizD -sstart $SCALEVIZD_PORT& 
+	RETVAL=$?
+	[ "$RETVAL" -eq 0 ] && success $"RemoteVizD startup" || \
+        failure "RemoteVizD start"
+        [ "$RETVAL" -eq 0 ] && touch /var/lock/subsys/RemoteVizD
+	echo
+    ;; 
+    'stop') 
+	gprintf "Stopping %s " "${prog}"
+        killproc RemoteVizD
+	RETVAL=$?
+        rm -f /var/lock/subsys/RemoteVizD 
+	echo
+    ;; 
+    'restart') 
+        $0 stop 
+        $0 start 
+    ;; 
+    'status') 
+        status RemoteVizD
+        exit $? 
+    ;; 
+    *) 
+        echo "Usage : RemoteVizD {start|stop|restart|status}" 
+        exit -1 
+    ;; 
+esac 
+exit 0 
+

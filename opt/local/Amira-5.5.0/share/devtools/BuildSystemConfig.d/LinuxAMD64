@@ -1,0 +1,265 @@
+set LIBSALIAS-LinuxAMD64 {
+    fftw3       {LIBS {fftw3 fftw3_threads fftw3f fftw3f_threads pthread}}
+    fortran     {LIBS {}}
+    glew        {LIBS {InventorGL}}
+    tcl         {LIBS {tcl8.3}}
+    opencl      {LIBS {OpenCL}}
+    opengl      {LIBS {-L$(MAINROOT)/lib/Mesa-LinuxAMD64/ GL GLU}}
+    hdf5        {LIBS {hdf5}}
+    hdf5hl      {LIBS {hdf5hl}}
+    arpack      {LIBS {arpack}}
+    globus      {LIBS {globus_gass_copy_gcc64dbgpthr globus_ftp_client_gcc64dbgpthr globus_gass_transfer_gcc64dbgpthr globus_ftp_control_gcc64dbgpthr globus_io_gcc64dbgpthr globus_xio_gcc64dbgpthr gssapi_error_gcc64dbgpthr globus_gss_assist_gcc64dbgpthr globus_gssapi_gsi_gcc64dbgpthr globus_gsi_proxy_core_gcc64dbgpthr globus_gsi_credential_gcc64dbgpthr globus_gsi_callback_gcc64dbgpthr globus_oldgaa_gcc64dbgpthr globus_gsi_sysconfig_gcc64dbgpthr globus_gsi_cert_utils_gcc64dbgpthr globus_openssl_gcc64dbgpthr globus_proxy_ssl_gcc64dbgpthr globus_openssl_error_gcc64dbgpthr globus_callout_gcc64dbgpthr ssl_gcc64dbgpthr crypto_gcc64dbgpthr ltdl_gcc64dbgpthr globus_common_gcc64dbgpthr}}
+    gat         {LIBS {gatengine sqlite xml2}}
+    python      {LIBS {python2.6}}
+}
+
+set BASE_MAKE-LinuxAMD64 {
+    LD = $(CXX)
+    MAKEDEP = $(CXX) $(INCLUDES) $(DEFINES) -MM -MF $@ -MT $(basename $@).o $<
+
+    HX_OPENMP_FLAG = $(shell $(CXX) --help -v 2>&1 | grep -q fopenmp && echo "-fopenmp")
+
+    LD_HASHSTYLE_FLAG = $(shell ld --hash-style=sysv 2>&1 | grep -i -q "unrecognized option" || echo "-Wl,--hash-style=sysv")
+    LD_SHARED = -shared -Wl,--export-dynamic $(LD_HASHSTYLE_FLAG)
+    SHARED_EXT = so
+    LD_SYMBOLIC = -Wl,-Bsymbolic
+    LDFLAGS += $(LD_HASHSTYLE_FLAG) -L/usr/X11R6/lib64 $(HX_OPENMP_FLAG)  -Wl,--unresolved-symbols=ignore-in-shared-libs
+
+    HXRPATH = -Wl,-rpath,$(LIBDIR)
+    LINK_BIN = $(LD) $(HXRPATH) $(LDFLAGS)
+
+    CFLAGS = -shared -fPIC $(HX_OPENMP_FLAG)
+    CFLAGS += -Wall -Wno-unknown-pragmas
+    CFLAGS += -mmmx -msse -msse2 -mfpmath=sse
+
+    CXXFLAGS = -shared -fPIC $(HX_OPENMP_FLAG)
+    CXXFLAGS += -Wall -Wno-unknown-pragmas
+    CXXFLAGS += -mmmx -msse -msse2 -mfpmath=sse
+
+    CXXFLAGS += -fmessage-length=0
+    CXXFLAGS += -fexceptions
+    CXXFLAGS += -frounding-math
+
+    CXXFLAGS += -DHAVE_UNISTD_H
+
+    PYTHON_EXT = so
+}
+
+set BASE_MAKE-LinuxAMD64-Debug {
+    CFLAGS    += -ggdb -D_DEBUG
+    CXXFLAGS  += -g -D_DEBUG -DTBB_USE_DEBUG
+}
+
+set BASE_DEFINES-LinuxAMD64 {
+    QT_THREAD_SUPPORT
+    QT_CLEAN_NAMESPACE
+    TGS_OIV
+    AMIRA_RELEASE
+    FORTRAN_UNDERLINE
+    _REENTRANT
+    AMIRA64
+    HX_OS_LINUX
+    HX_ARCH_LINUXAMD64
+    HX_LITTLE_ENDIAN
+    NEWSTYLE_IOSTREAM
+    HX_HAS_STDIOSTREAM
+    HX_NO_MATHF
+    HX_HAS_STD
+    HX_HAS_STDCOMPLEX
+    HX_HAS_X11
+
+    UNICODE_CHECK
+    OIV_MULTI_THREADS
+}
+
+set BASE_INCLUDES-LinuxAMD64 {
+    "/usr/X11R6/include"
+    "MAINROOT/include"
+    "MAINROOT/include/arch-LinuxAMD64"
+    "MAINROOT/include/arch-LinuxAMD64/oiv"
+    "MAINROOT/include/arch-LinuxAMD64/qt"
+    "MAINROOT/include/arch-LinuxAMD64/qt/ActiveQt"
+    "MAINROOT/include/arch-LinuxAMD64/qt/Qt"
+    "MAINROOT/include/arch-LinuxAMD64/qt/Qt3Support"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtAssistant"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtCore"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtDBus"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtDesigner"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtGui"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtNetwork"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtOpenGL"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtScript"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtSql"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtSvg"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtTest"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtUiTools"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtXml"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtXmlPatterns"
+    "MAINROOT/include/arch-LinuxAMD64/qt/QtWebKit"
+    
+    "MAINROOT/include/arch-LinuxAMD64/python"
+    "MAINROOT/include/arch-LinuxAMD64/cuda"
+    
+    "MAINROOT/include/arch-LinuxAMD64/itk/"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Algorithms"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Common"
+    "MAINROOT/include/arch-LinuxAMD64/itk/BasicFilters"
+    "MAINROOT/include/arch-LinuxAMD64/itk/IO"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Numerics"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Numerics/FEM"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Numerics/NeuralNetworks"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Numerics/Statistics"
+    "MAINROOT/include/arch-LinuxAMD64/itk/SpatialObject"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/MetaIO"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/NrrdIO"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/expat"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/itkExtHdrs"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/vxl/core"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/vxl/vcl"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/vxl/v3p/netlib"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/gdcm"
+    "MAINROOT/include/arch-LinuxAMD64/itk/Utilities/gdcm/src"
+}
+
+set BASE_MAKE-LinuxAMD64-Optimize {
+    CFLAGS    += -O2 -DNDEBUG
+    CXXFLAGS  += -O1 -DNDEBUG
+}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_thread {LIBS {boost_thread}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost {LIBS {boost_date_time boost_filesystem boost_graph boost_iostreams boost_math_c99 boost_math_c99f boost_math_c99l boost_math_tr1 boost_math_tr1f boost_math_tr1l boost_prg_exec_monitor boost_program_options boost_regex boost_serialization boost_signals boost_system boost_thread boost_unit_test_framework boost_wave boost_wserialization}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Optimize lapack {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_serialization {LIBS {boost_serialization}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_tr1l {LIBS {boost_math_tr1l}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_tr1l {LIBS {boost_math_tr1l}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_tr1f {LIBS {boost_math_tr1f}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug cuda {LIBS {cudart cutil}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_iostreams {LIBS {boost_iostreams}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Debug lapack {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug openssl {LIBS { ssl }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_tr1f {LIBS {boost_math_tr1f}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_iostreams {LIBS {boost_iostreams}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_python {LIBS {boost_python}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize tbb {LIBS { tbb tbbmalloc }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_program_options {LIBS {boost_program_options}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_system {LIBS {boost_system}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc43-Optimize acml {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_python {LIBS {boost_python}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_unit_test_framework {LIBS {boost_unit_test_framework}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Debug acml {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_c99 {LIBS {boost_math_c99}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc43-Debug acml {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_system {LIBS {boost_system}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_filesystem {LIBS {boost_filesystem}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug oiv {LIBS {InventorBase InventorGL Inventor InventorImage ScaleViz InventorGui InventorQt4 FXViz MeshViz VolumeViz LDM X11}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_wserialization {LIBS {boost_wserialization}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc43-Optimize lapack {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_c99l {LIBS {boost_math_c99l}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_wave {LIBS {boost_wave}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize qt {LIBS {Qt3Support  QtCore QtDesignerComponents QtDesigner QtGui QtNetwork QtOpenGL QtScript QtSql QtSvg QtTest QtXml QtXmlPatterns QtWebKit}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_wave {LIBS {boost_wave}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_c99l {LIBS {boost_math_c99l}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_c99f {LIBS {boost_math_c99f}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_c99f {LIBS {boost_math_c99f}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize hxjpeg6b {LIBS { jpeg }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_signals {LIBS {boost_signals}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_c99 {LIBS {boost_math_c99}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Optimize acml {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_signals {LIBS {boost_signals}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug itk {LIBS {ITKAlgorithms ITKBasicFilters ITKCommon ITKDICOMParser ITKEXPAT ITKFEM ITKIO ITKMetaIO ITKNrrdIO ITKNumerics ITKSpatialObject ITKStatistics ITKniftiio ITKznz itkNetlibSlatec itkgdcm itkjpeg12 itkjpeg16 itkjpeg8 itkopenjpeg itkpng itksys itktiff itkv3p_netlib itkvcl itkvnl itkvnl_algo itkvnl_inst itkzlib }}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Optimize xerces {LIBS { xerces-c }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_regex {LIBS {boost_regex}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_prg_exec_monitor {LIBS {boost_prg_exec_monitor}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug hxjpeg6b {LIBS { jpeg }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost {LIBS {boost_date_time boost_filesystem boost_graph boost_iostreams boost_math_c99 boost_math_c99f boost_math_c99l boost_math_tr1 boost_math_tr1f boost_math_tr1l boost_prg_exec_monitor boost_program_options boost_regex boost_serialization boost_signals boost_system boost_thread boost_unit_test_framework boost_wave boost_wserialization}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize oiv {LIBS {InventorBase InventorGL Inventor InventorImage ScaleViz InventorGui InventorQt4 FXViz MeshViz VolumeViz LDM X11}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize openssl {LIBS { ssl }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_math_tr1 {LIBS {boost_math_tr1}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc41-Debug xerces {LIBS { xerces-c }}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_graph {LIBS {boost_graph}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize cuda {LIBS {cudart cutil}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_wserialization {LIBS {boost_wserialization}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_serialization {LIBS {boost_serialization}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_program_options {LIBS {boost_program_options}}
+
+lappend LIBSALIAS-LinuxAMD64-gcc43-Debug lapack {LIBS { acml_mp }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_regex {LIBS {boost_regex}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_date_time {LIBS {boost_date_time}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_date_time {LIBS {boost_date_time}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize itk {LIBS {ITKAlgorithms ITKBasicFilters ITKCommon ITKDICOMParser ITKEXPAT ITKFEM ITKIO ITKMetaIO ITKNrrdIO ITKNumerics ITKSpatialObject ITKStatistics ITKniftiio ITKznz itkNetlibSlatec itkgdcm itkjpeg12 itkjpeg16 itkjpeg8 itkopenjpeg itkpng itksys itktiff itkv3p_netlib itkvcl itkvnl itkvnl_algo itkvnl_inst itkzlib }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_prg_exec_monitor {LIBS {boost_prg_exec_monitor}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_thread {LIBS {boost_thread}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug tbb {LIBS { tbb_debug tbbmalloc_debug }}
+
+lappend LIBSALIAS-LinuxAMD64-Debug qt {LIBS {Qt3Support  QtCore QtDesignerComponents QtDesigner QtGui QtNetwork QtOpenGL QtScript QtSql QtSvg QtTest QtXml QtXmlPatterns QtWebKit}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_math_tr1 {LIBS {boost_math_tr1}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_graph {LIBS {boost_graph}}
+
+lappend LIBSALIAS-LinuxAMD64-Optimize boost_unit_test_framework {LIBS {boost_unit_test_framework}}
+
+lappend LIBSALIAS-LinuxAMD64-Debug boost_filesystem {LIBS {boost_filesystem}}
+

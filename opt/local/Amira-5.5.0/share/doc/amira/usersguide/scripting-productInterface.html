@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">5.3 <font face="helvetica">Amira</font> Script Interface</a></h2>
+<p>Although the Tcl language is not intrinsically object oriented, the <font face="helvetica">Amira</font>
+script interface is. There is one command for each object in the <font face="helvetica">Amira</font>
+Pool. In addition there are several <a class="link" href="cmdGlobal.html#A1">global
+commands</a> associated with global objects in <font face="helvetica">Amira</font> such as the
+<a class="link" href="cmdViewer.html#A1">viewer</a> or the <font face="helvetica">Amira</font> <a class="link" href="cmdMain.html#A1">main window</a>.</p>
+<p>A command associated with an object in the Pool (e.g., an OrthoSlice
+module or an Isosurface module) only exists while the object exists. These
+commands are identical to the name of the object as displayed in the Pool. 
+Typically the script interface of a specific object contains many
+different functions. The general syntax for an <font face="helvetica">Amira</font> object-related
+command is </p>
+<p></p><pre>
+  &lt;object-name&gt; &lt;command-word&gt; &lt;optional-arguments&gt; ...
+</pre><p></p>
+<p>For example, if an object called GlobalAxis exists (choose View/Axis from
+the <font face="helvetica">Amira</font> menu) then you can use commands like</p>
+<p></p><pre>
+  GlobalAxis deselect
+  GlobalAxis select
+  GlobalAxis setIconPosition 100 100
+</pre><p></p>
+<p>Remember to use the completion and history functions provided by the
+<font face="helvetica">Amira</font> console, as described in <a class="link" href="console.html#A1">Section 3.1.9 (console
+window)</a> to save typing.</p>
+<p>If you have already used <font face="helvetica">Amira</font> you have noticed that the 
+parameters and the behavior of an <font face="helvetica">Amira</font> module are controlled
+via its <i>ports</i>. The ports provide a user interface to change 
+their values when the module is selected.
+All ports can also be controlled via 
+the command interface. The general syntax for that is </p>
+<p><font size="2"></font></p><pre>
+  &lt;object-name&gt; &lt;port-name&gt; &lt;port-command&gt; &lt;optional-arguments&gt; ...
+</pre><p><font size="2"></font></p>
+<p>For example for the GlobalAxis you can type</p>
+<p></p><pre>
+  GlobalAxis options setValue 1 1
+  GlobalAxis thickness setValue 1.5
+  GlobalAxis fire
+</pre><p></p>
+<p>When you type in these commands you will notice that the values in the user
+interface change immediately. However the module's compute method is not
+called until explicitly firing the module using the <tt>fire</tt> command.
+This allows you to first set values for multiple ports without a
+recomputation after each command. However, note that some modules
+automatically reset some of their ports for example when a new input object
+is connected. In such cases you may need to call <tt>fire</tt> after setting
+the value of every single port.</p>
+<p>Usually the name of a port is identical to the text label displayed in the
+graphical user interface, except that white spaces are removed and command
+names start with a lower case letter. To find out the names of all ports of
+a specific module use the command </p>
+<p></p><pre>
+  &lt;object-name&gt; allPorts
+</pre><p></p>
+<p>Almost all ports provide a <tt>setValue</tt> and a <tt>getValue</tt>
+command. The number of parameters and the syntax, of course, depend on
+the ports.</p>
+<p>Commands of the type <tt>&lt;object-name&gt; &lt;port-name&gt; setValue ...</tt> make up
+more than 90% of a typical <font face="helvetica">Amira</font> script. However, besides the port
+commands, many <font face="helvetica">Amira</font> objects provide additional specific commands. The
+command interface for a particular module is described in the User's
+Reference Guide. You can quickly find the corresponding page by clicking
+the ? button in the Properties Area when the module has been selected.</p>
+<p>As a quick help, entering an object's name without further options will
+display all commands available for that object. Note that this will
+also show undocumented, unreleased, and experimental commands. In order
+to get more information about a particular module or port command, you can
+type it into the console window without any arguments and then press the F1
+key. This opens the help browser with a command description.
+<font face="helvetica">Amira</font> objects are part of a class hierarchy. Similar to the C++
+programming interface, also script commands are inherited by derived
+classes from its base classes. This means that a particular object
+like the axis object will beside its own specific commands also
+provide all the commands available in its base classes.
+Links to the base class commands are given in a module's documentation.</p>
+<p></p>
+<h3><a name="A2">5.3.1 Predefined Variables</a></h3>
+<p>There exist some variables in <font face="helvetica">Amira</font> Tcl, which are predefined and have a
+special meaning. These are</p>
+<p></p>
+<ul><li><tt>AMIRA_ROOT</tt>: <font face="helvetica">Amira</font> installation directory.
+</li><li><tt>AMIRA_LOCAL</tt>: Personal <font face="helvetica">Amira</font> development directory (<font face="helvetica">Developer Option</font> only).
+</li><li><tt>SCRIPTFILE:</tt> Tcl script file currently executed.
+</li><li><tt>SCRIPTDIR:</tt> Directory in which currently executed script resides.
+</li><li><tt>hideNewModules:</tt> If set to 1, icons of newly created modules will initially be hidden.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">5.3.2 Object commands</a></h3>
+<p>The basic command interface of <font face="helvetica">Amira</font> modules and data objects is described
+in the data type chapter of the reference part of the user's guide in the
+<a class="link" href="../hxcore/HxObject.html#A1">Object</a> section. The basic syntax of object commands is</p>
+<p></p><pre>
+    &lt;object&gt; &lt;command&gt; &lt;arguments&gt; ...
+</pre><p></p>
+<p>where <tt>&lt;object&gt;</tt> refers to the name of the object and <tt>&lt;command&gt;</tt>
+denotes the command to be executed. Each module or data object may define
+its own set of commands in addition to the commands defined by its base
+classes. The commands described in the <a class="link" href="../hxcore/HxObject.html#A1">Object</a> section
+are provided by all modules and data objects. </p>
+<p>In the following section <a class="link" href="cmdGlobal.html#A1">Global commands</a> are described.</p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> RankTimeStep</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "RankTimeStep" "sorts molecules of a trajectory" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module takes an object of type
+ <a class="link" href="../hxmolecule/HxMolTrajectory.html#A1">MolTrajectory</a> as input and either sorts all
+ molecules in the trajectory or selects a single molecule from the
+ trajectory. Selection and sorting can either be done using the <i>observable</i> values of the trajectory or the <i>rmsd</i> value in
+ comparison to a specific molecule, which then needs to be connected
+ to the module. </p>
+<p> The module is, e.g., very helpful in conjunction with the module
+ for the computation of the <a class="link" href="HxMeanMolecule.html#A1">mean molecule</a>.
+ It allows you to find the time step in the trajectory that best
+ approximates the mean molecule.</p>
+<p> Press the <em>Apply</em> button to start the 
+search (and sorting). When pressing the button for the first
+time, a new object of type <i>Molecule</i>, connected to the
+trajectory, will be added to the Pool. This molecule is used
+to set the index of the molecule with min value, max value or
+according to the index of the sorted list.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Molecular trajectory for which the mean molecule should be
+ computed.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlignSlave</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This connection is only required if you want to search the
+ trajectory according to the <i>rmsd</i> value with respect to a
+ reference molecule. If the reference molecule has a different
+ topology than the time steps of the trajectory, an atom
+ correspondence is needed for the alignment and the rmsd computation.
+ To define this correspondence, one needs a selection in the align
+ master and the align slave, where the align slave should be a time
+ step of the trajectory.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlignMaster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This connection is only required if you want to search the
+ trajectory according to the <i>rmsd</i> value, since then you will
+ need a reference molecule.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PrecomputedAlignment</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Instead of aligning all time steps of a trajectory to the <em>AlignMaster</em> molecule, you can use a precomputed alignment to align the
+ time steps.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Search Option</span>  
+<div class="portsnapshot"><img src="HxRepMolecule_searchOption.png" /><br /></div>
+<div class="body"><p>The two options allow you to specify which kind of value, <i>root
+ mean square deviation (rmsd)</i> or some observable value, should be
+ used for ranking the time steps of the trajectory. The observable
+ type needs to be further specified by the <i>Observable</i> port.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Search Option 2</span>  
+<div class="portsnapshot"><img src="HxRepMolecule_searchOption2.png" /><br /></div>
+<div class="body"><p>Three options are possible. The first two allow you to search for a
+ single time step with either minimum of maximum value. The last
+ option, <i>all sorted</i>, gives you the most flexibility and is
+ therefore the default. </p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Observable</span>  
+<div class="portsnapshot"><img src="HxRepMolecule_observables.png" /><br /></div>
+<div class="body"><p>This port allows you to select the observable you are interested in.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxConfDensity_transformation.png" /><br /><img src="HxConfDensity_selection.png" /><br /><img src="HxConfDensity_selectionInfo.png" /><br /></div>
+<div class="body"><p>The three ports above specify how the molecules are transformed
+ before computing the <i>rmsd</i> value. See the description in the
+ general section on <a class="link" href="../hxmolecule/molpositioning.html#A5">alignment of
+ molecules</a> for a detailed explanation.</p>
+
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sorted Timesteps</span>  
+<div class="portsnapshot"><img src="HxRepMolecule_sortedTimesteps.png" /><br /></div>
+<div class="body"><p>This slider allows you to step through the time steps after sorting.
+ Time step 0 is that having the minimal value.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

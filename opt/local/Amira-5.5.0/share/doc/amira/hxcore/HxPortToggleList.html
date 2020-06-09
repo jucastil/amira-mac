@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortToggleList</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortToggleList" "multiple check boxes" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides multiple toggle buttons. The buttons are implicitly
+ numbered 0, 1, 2, ... from left to right and each button can be switched
+ independently. Usually each toggle represents a particular option
+ affecting the operation of a module.</p>
+<p> <img src="HxPortToggleList.png" /></p>
+<p> The port is used for example in the
+ <a class="link" href="../hxlattice/HxLabelVoxel.html#A7">LabelVoxel</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue &lt;index&gt;</span>  
+
+<div class="body"><p>Returns 1 if toggle <tt>&lt;index&gt;</tt> is checked or 0 if it is not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;index&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the state of the button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNum</span>  
+
+<div class="body"><p>Returns the number of toggle buttons of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNum &lt;numbuttons&gt;</span>  
+
+<div class="body"><p>Sets the number of toggle buttons of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>If no arguments are given, this command returns the port's label. If
+ one argument is given, this command returns the label of toggle button
+ <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>If only one argument is given, this command sets the port's label.
+ If two arguments are given, this command sets the label of toggle
+ button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>If no arguments are given, this command returns the port's label. If
+ one argument is given, this command returns the label of toggle button
+ <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>If only one argument is given, this command sets the port's label.
+ If two arguments are given, this command sets the label of toggle
+ button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity &lt;index&gt;</span>  
+
+<div class="body"><p>Checks whether toggle button <tt>&lt;index&gt;</tt> is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity &lt;index&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables toggle button <tt>&lt;index&gt;</tt>. A disabled button is
+ grayed out and cannot be modified interactively.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isToggleVisible &lt;index&gt;</span>  
+
+<div class="body"><p>Checks whether toggle button <tt>&lt;index&gt;</tt> is visible or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setToggleVisible &lt;index&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Show or hide toggle button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,21 @@
+# ----------------------------------------------------------------------
+# hxfieldcompat package
+# ----------------------------------------------------------------------
+
+interfaceFactory -class "HxField3ToHxFieldFactory" \
+               -adapts "HxField3" \
+               -package "hxfieldcompat"
+
+module -name "LegacyScalarField3"       \
+       -class "HxScalarField3FromField" \
+       -check { [$PRIMARY nDataVar] == 1 && ![$PRIMARY hasInterface HxField3] }\
+       -primary "HxField"               \
+       -category "Compatibility"        \
+       -package "hxfieldcompat"
+
+module -name "LegacyVectorField3"       \
+       -class "HxVectorField3FromField" \
+       -check { [$PRIMARY nDataVar] == 3 && ![$PRIMARY hasInterface HxField3] }\
+       -primary "HxField"               \
+       -category "Compatibility"        \
+       -package "hxfieldcompat"       

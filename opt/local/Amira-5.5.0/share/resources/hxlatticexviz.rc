@@ -1,0 +1,25 @@
+module -name "OrthoSlice" \
+    -color "lightsalmon" \
+    -primary "HxLattice" \
+    -check { [__checkLDM $PRIMARY] == 0 && [$PRIMARY hasInterface HxStackedScalarField3] == 0 && [$PRIMARY hasInterface HxUniformScalarField3] == 0 && [$PRIMARY hasInterface HxMultiChannelField3] == 0 && [$PRIMARY hasInterface HxRegColorField3] == 0 } \
+    -ccheck "HxLatticeOrthoSlice_isValidInput" \
+    -class "HxLatticeOrthoSlice" \
+    -category "Main Display" \
+    -package "hxlatticexviz"
+
+module -name "OrthoSlice (Lattice, non-blocking)" \
+    -color "lightsalmon" \
+    -primary "HxNonBlockingLattice" \
+    -check { [$PRIMARY hasInterface HxStackedScalarField3] == 0 && [$PRIMARY hasInterface HxUniformScalarField3] == 0 && [$PRIMARY hasInterface HxMultiChannelField3] == 0 && [$PRIMARY hasInterface HxRegColorField3] == 0 } \
+    -ccheck "HxNonBlockingLatticeOrthoSlice_isValidInput" \
+    -class "HxNonBlockingLatticeOrthoSlice" \
+    -category "Main Display" \
+    -package "hxlatticexviz"
+
+proc __checkLDM {module} {
+    set type [$module getTypeId]
+    if { $type == "HxVolumeDataObject" } {
+      return 1
+    }       
+    return 0
+}

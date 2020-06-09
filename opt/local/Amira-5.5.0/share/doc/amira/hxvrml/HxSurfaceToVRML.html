@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VRML-Export</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "VRML-Export" "exports surfaces in VRML format" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module enables you to export a <a class="link" href="../hxsurface/HxSurface.html#A1">triangular
+ surface</a> and optionally the 3D data set
+ from which the surface is derived into a VRML scene.
+ The scene consists of a
+ coordinate system and some animations: the 3D data set is
+ displayed by three orthoslices. To get an idea how the basic 3D
+ data set is related to the derived surface you can set the orthogonal
+ slices via sliders, scrolling through the triangular surface. Moreover,
+ the materials of the surface are clickable objects, which means that
+ they can be hidden or shown by a mouse click.</p>
+<p> You can publish such a VRML scene directly on the web, just put a link
+ to it into your homepage. To view the file by yourself, make sure that
+ a VRML viewer plugin like <em>Cosmo Player (version 2.1 or newer)</em> 
+ from SGI is installed for your web browser.</p>
+<p> If connected to the SurfaceView module, a special simple export mode becomes available 
+ which produces a VRML scene containing only a single IndexedFaceSet node. 
+ This is necessary for some 3D printers with limited VRML parsing abilities.</p>
+<p> If no surface is connected, only the slices may be exported to VRML.</p>
+<p> Press the <em>Apply</em> button to start the export.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface to be inserted into the VRML scene. It can either be an
+ <font face="helvetica">Amira</font> <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> data set or the
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module.</p>
+<p> 
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Image</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A scalar field of type <em>UniformScalarField3</em> or of type
+	<em>UniformColorField3</em> is needed to export the orthoslices.
+	If omitted, no slices are displayed in the VRML scene. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Tabbar</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_tabbar.png" /><br /></div>
+<div class="body"><p>Tab bar to navigate through the user-interface sections.
+ The <em>Slices</em> tab remains disabled as long no image data is connected. </p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_info.png" /><br /></div>
+<div class="body"><p>In simple export mode, the coloring mode and the number of primitives is shown here.
+ (only available in simple mode). </p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selected</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_selected.png" /><br /></div>
+<div class="body"><p>	This port shows the selected materials (not available in simple mode).</p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Material</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_material.png" /><br /></div>
+<div class="body"><p>With this port you can choose a material in order to add or to remove it from the current selection 
+ (not available in simple mode).</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_buffer.png" /><br /></div>
+<div class="body"><p>	With this port the selection of materials can be modified. 
+	To remove a material from
+	the list, choose this material from the <em>Material</em> 
+	menu and press <em>Remove</em>.
+	Similarly you can use <em>Add</em>. <em>Clear</em> clears the selection
+	list. Initially, all materials are selected
+	(not available in simple mode).</p>
+<p>
+<a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mask</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_mask.png" /><br /></div>
+<div class="body"><p>If the simple export mode was chosen, no selection by material is provided. Instead one can use 
+ the selection mechanism of the connected <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module.
+ Toggle <em>Selected</em> to export only the primitives selected there, i.e., the visible ones
+ (only available in simple mode).</p>
+<p>
+<a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Simple mode</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_simpleMode.png" /><br /></div>
+<div class="body"><p>If connected to the SurfaceView module, a special simple export mode becomes available 
+ which produces a VRML scene containing only a single IndexedFaceSet node. 
+ This is necessary for some 3D printers with limited VRML parsing abilities.</p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Render specular</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_renderSpecular.png" /><br /></div>
+<div class="body"><p>Adding a specular color to the scene which makes the surface more look like
+	plastic. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Render smooth</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_renderSmooth.png" /><br /></div>
+<div class="body"><p>Gives the scene a smoother appearance by using 
+	vertex normals.</p>
+<p>
+<a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Move slices</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_moveSlices.png" /><br /></div>
+<div class="body"><p>If clicked, the slices will actually be moved
+	through the volume when the sliders are operated. Otherwise,
+	only the textures mapped onto the slices are cycled.</p>
+<p>
+<a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Static switches</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_staticSwitches.png" /><br /></div>
+<div class="body"><p>	If clicked, the small objects used
+	to switch on and off the surface parts will be fixed 
+	on the screen. Note that this requires at least <em>Cosmo Player 2.1</em> or similar. </p>
+<p>	
+<a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Labels</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_labels.png" /><br /></div>
+<div class="body"><p>Toggle this for displaying the material names near the material toggles in the VRML scene.</p>
+<p>
+<a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Export slices</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_exportSlices.png" /><br /></div>
+<div class="body"><p>If toggled, the slice images taken from the image data are exported.
+ If no image data is connected, no slices are exported regardless of this toggle.</p>
+<p>
+<a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Data window</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_dataWindow.png" /><br /></div>
+<div class="body"><p>Needed to map data values of input field to gray values.
+	See module <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> for details.</p>
+<p>
+<a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice numbers</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_slicenumbers.png" /><br /></div>
+<div class="body"><p>Enter the numbers of slices per direction you want to be
+	selectable in the VRML scene. Only available on SGI and when image data
+	is connected.</p>
+<p>
+<a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxSurfaceToVRML_filename.png" /><br /></div>
+<div class="body"><p>Name of the file the VRML code is written to.
+ If export of slices is selected, the slice images are stored to the same directory.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

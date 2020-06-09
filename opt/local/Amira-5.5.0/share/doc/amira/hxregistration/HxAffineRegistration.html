@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AffineRegistration</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "AffineRegistration" "affine registration of two 3D images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes an affine transformation for the co-registration of
+ two image data sets, using an iterative optimization algorithm. 
+ A hierarchical strategy is applied, starting at a coarse resampling
+ of the data set, and proceeding to finer resolutions later on.
+ Different similarity measures like Euclidean distance, mutual
+ information, and correlation can be chosen.</p>
+<p> To use this module, you must connect it to two scalar fields. To
+ follow the progress visually, a module like BoundingBox or Isosurface
+ should be connected to each of them, but this may slow down the
+ registration process. If the <em>Register</em> button of the <em>Action</em> port 
+ is pressed, the module starts by successively optimizing the transformation 
+ of the first input.</p>
+<p> The optimization can be interrupted at any time. Interruption might
+ take some seconds.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Model</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The model data set to be transformed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Reference</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The reference data set to which the model is registered.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>See <em>Reference3</em> below.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The connection ports <em>Reference2</em> and <em>Reference3</em> are used for 
+a particular type of images routinely taken in MRI, so-called 
+<em>Localizers</em>. A Localizer consists of few (~3) slices each of 
+an axial/xy, sagittal/yz, and coronal/yz scan. A CT or MR taken from 
+the same patient or object can be registered to the Localizer images by 
+using high resolution information for each direction in 
+separate volumes. To do so, connect the two additional 
+Reference ports with the Localizer images. Note that the port 
+<em>Options2: Localizer</em> automatically gets checked.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Optimizer</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_optimizer.png" /><br /></div>
+<div class="body"><p>At this port you can choose between different optimization
+ strategies. The <em>ExtensiveDirection</em> or <em>BestNeighbor</em>
+ optimizers are well suited for coarse resolution levels, the <em>QuasiNewton</em> or <em>LineSearch</em> optimizers for the finer resolution
+ levels. The default strategy uses the <em>ExtensiveDirection</em>
+ optimizer on the coarse levels and the <em>QuasiNewton</em> optimizer on
+ the finest levels.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Optimizer step</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_step.png" /><br /></div>
+<div class="body"><p>This port sets the initial and the final value for the stepwidth
+ to be applied in the optimizations. These stepwidths refer to
+ translations. For rotations, scalings, and shearings appropriate
+ values are chosen accordingly.</p>
+<p> The default value for the initial stepwidth is 1/5 of the size of
+ the bounding box. If both data sets are already reasonably aligned,
+ you may choose a smaller initial stepwidth.</p>
+<p> The default value for the final stepwidth is 1/6 of the voxel size.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gradient optimizer</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_nLevelsGradient.png" /><br /></div>
+<div class="body"><p>At this port you can select the number of resolution levels 
+ (between 0 and 2) where the <em>QuasiNewton</em> optimizer is applied. 
+ On the coarser levels the optimizer as selected at port
+ <a class="link" href="#A6">Optimizer</a> is applied.
+ If the number of levels is less than or equal to the number selected
+ at this port, the optimizer as selected at port
+ <a class="link" href="#A6">Optimizer</a> is applied at 
+ least at the coarsest level.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">CoarsestResampling</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_coarsestResolution.png" /><br /></div>
+<div class="body"><p>At this port you can define the resampling rate for the coarsest 
+ resolution level where registration starts. The resampling rate
+ refers to the <a class="link" href="#A3">reference</a> 
+ data set. If the voxels of the reference data set are <em>anisotropic</em>, 
+ i.e. have a different size in x-, y-, and z-direction, the
+ default resampling rates are chosen in order to achieve isotropic
+ voxels on the coarsest level. If the voxel sizes of 
+ <a class="link" href="#A2">model</a> and 
+ <a class="link" href="#A3">reference</a> differ, the
+ resampling rates for the model are chosen in order to achieve
+ similar voxel sizes as for the reference on the same level.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Metric</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_metric.png" /><br /></div>
+<div class="body"><p>This port selects the similarity measure to be applied.
+ <em>Euclidean</em> means the Euclidean distance, i.e. the
+ mean squared difference between the gray values of model
+ and reference. <em>Correlation</em> measures the
+ correlation of the registered images. The <em>Mutual
+ information</em> metrics, especially the normalized one,
+ are recommended when images from different
+ modalities, e.g., CT and MRT, are to be registered.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">(Histogram) range reference</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_histogramRangeRef.png" /><br /></div>
+<div class="body"><p>This port is only active if one of the <em>Mutual information</em> metrics, 
+or the <em>Correlation</em> metric has been selected. Here you can define the 
+range of gray values for the <a class="link" href="#A3">reference</a> 
+data set. For the <em>Mutual information</em> metrics, gray values outside the 
+range are sorted into the first or last histogram bin, respectively. For the
+<em>Correlation</em> metric, voxels with gray values outside the range are 
+ignored. It is a good idea to determine the range via a visualization of the 
+data set, e.g., using an <em>OrthoSlice</em> module.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">(Histogram) range model</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_histogramRangeMod.png" /><br /></div>
+<div class="body"><p>The same as the previous port, now for the 
+ <a class="link" href="#A2">model</a> data set.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Histogram bins</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_histogramBins.png" /><br /></div>
+<div class="body"><p>For the <em>Normalized Mutual Information</em> and<em>Mutual Information</em> metric 
+ it is possible to set the number of bins for model and reference histograms
+ The number of bins basically determines the resolution by which the range of 
+ gray values set in ports <em>Histogram range reference/model</em> is partitioned. 
+ The more bins the more accurate the gray values are resolved but the more 
+ computation time is needed. The default values set by the module are usually a 
+ good compromise.
+</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_options.png" /><br /></div>
+<div class="body"><p>If toggle <em>IgnoreFinestLevel</em> is selected, registration
+ will be performed on all but the finest (i.e. the original) 
+ resolution. In many cases a sufficient accuracy can be
+ achieved in this way. Registration on the finest level 
+ may slightly improve the accuracy, but the computation
+ time will typically increase by an order of magnitude.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options2</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_options2.png" /><br /></div>
+<div class="body"><p>This port is automatically checked upon connecting ports 
+ <a class="link" href="#A4">Reference2</a> and/or <a class="link" href="#A5">Reference3</a>
+ with localizer images. If checked <em>AffineRegistration</em> will use those
+ images during registration.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transform</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_transform.png" /><br /></div>
+<div class="body"><p>At this port you can select the number of transformation
+ parameters to be optimized. The numbers are 6 for <em>Rigid</em>
+ (3 translations and 3 rotations), 7, 9, and 12 for
+ <em>IsoScale</em>, <em>AnisoScale</em>, and <em>Shear</em>, 
+ respectively. </p>
+<p> If you select for example <em>Rigid</em> and <em>AnisoScale</em>,
+ on each resolution level the 6 parameters of a rigid
+ transformation will be optimized first, followed by an 
+ optimization of all 9 parameters of an anisoscale 
+ transformation. In this way as much as possible is done
+ using a rigid transformation.</p>
+<p> If only <em>AnisoScale</em> is selected, all 
+ 9 parameters will be optimized at once. A larger contribution
+ of the scaling parameters may be expected for this selection. </p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Register</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_register.png" /><br /></div>
+<div class="body"><p>Select here the registration mode. If <em>2D</em> is checked, the search is 
+ restricted to transformations within the same plane. In the case <em>3D</em> is 
+ checked a full 3D registration is performed.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Extended options</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_extendedOptions.png" /><br /></div>
+<div class="body"><p>If this toggle is unset, only the most important ports are
+ visible. The other ports are set to default values which should 
+ work well in most cases. If the toggle is selected, the additional ports 
+ <em>Optimizer</em>, <em>Optimizer step</em>, <em>Gradient optimizer</em>, 
+ <em>CoarsestResampling</em>, <em>Histogram range reference</em>, <em>Histogram range 
+ model</em>, <em>Options</em>, <em>Options2</em>, and <em>Register</em> become visible.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxAffineRegistration_action.png" /><br /></div>
+<div class="body"><p>If the <em>Align Centers</em> button is pressed, the centers of
+ gravity of both data sets are computed, taking the image
+ intensity as a mass density. The model data set is
+ translated in order to align both centers of gravity.</p>
+<p> If the <em>Align Principal Axes</em> button is pressed, the centers of
+ gravity and moments of inertia of both data sets are computed, 
+ again taking the image intensity as a mass density. The 
+ principal moments of inertia and corresponding principal axes
+ are computed. The best of 24 possible alignments of the principal
+ axes is determined according to the similarity measure as selected
+ at the <em>Metric</em> port.</p>
+<p> Pressing the <em>Register</em> button starts the actual registration
+ process.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

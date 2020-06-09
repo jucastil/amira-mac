@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">30.3 Save-Network Issues</a></h2>
+<p>This section describes the mechanism used in <font face="helvetica">Amira</font> to save networks.
+For most modules this is done transparently for the developer.</p>
+<p>The menu command "Save Network" dumps a Tcl script that should
+reconstruct the current network. Essentially this is done by writing a
+<tt>load ...</tt> command for each data object, a <tt>create ...</tt>
+command for each module and <tt>setValue ...</tt> commands for each port
+of a module.This suffices to reconstruct the network correctly if all information
+about a module's state is kept in the module's ports only. If this is
+not the case, e.g., if the developer uses extra member variables that
+are important for the modules current state, those values are not
+restored automatically. If you cannot avoid this, you must extend
+the `Save Network' functionality of your module. In order to do so,
+you can override the virtual function <tt>savePorts</tt> so that it writes
+additional Tcl commands. For example, let us take a look at the <tt>HxArbitraryCut</tt> class, which is the base class e.g., for the <tt>ObliqueSlice</tt> module and which has to save its current slice orientation:
+<font size="2"></font></p><pre>
+void HxArbitraryCut::savePorts(FILE* fp)
+{
+    HxModule::savePorts(fp);    
+    ...
+    fprintf(fp, "%s setPlane %g %g %g %g %g %g %g %g %g\n",
+        getName(),
+        origin()[0], origin()[1], origin()[2],
+        uVec()[0], uVec()[1], uVec()[2],
+        vVec()[0], vVec()[1], vVec()[2]);
+}
+</pre><p><font size="2">
+</font></p>
+<p>Note that this method requires that <tt>HxArbitraryCut</tt> or some of its
+parent classes implement the Tcl command <tt>setPlane</tt>. Hints about
+implementing new Tcl commands are given in <a class="link" href="HxDev-dispmodule2.html#A1">Section 26.2.2</a>.</p>
+<p>Some remarks about how to generate the load command for data objects are
+given in <a class="link" href="HxDev-reader.html#A1">Section 25.2</a>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=savenet1.png.html><img width=562 src="savenet1.png" /></a><br />
+<div class="caption">
+<b>Figure 194:</b>
+When loading this network, the <em>Resample</em> module recreates
+the <em>lobus.Resampled</em> data object on the fly.</div>
+
+
+</div><p></p>
+<p>There is a special optimization for data objects created by computational
+modules. <font face="helvetica">Amira</font> automatically determines whether data objects which are
+created by other modules are not yet saved and asks the user to do so if
+necessary.
+However, in some cases, this may not be desired, since saving the data
+object consumes disk space and regenerating can sometimes be nearly as fast
+as loading the object from disk. As an example, consider the network in
+figure <a class="link" href="#A2">194</a>. In this case the resample module can
+automatically recompute the <tt>lobus.Resampled</tt> data object when the
+
+network is loaded. In order to determine whether a compute module is able
+to do so, the module must implement the function <tt>int
+HxResample::canCreateData(HxData* data, McString&amp; createCmd)</tt>. This
+function is called whenever a network containing newly created data objects
+is saved and these objects have not yet been saved but are still connected
+to a compute module. The method should return 1 if the compute module is
+able to recreate that particular data object. In this case the
+corresponding Tcl command should be stored in the string <tt>createCmd</tt>.
+When executed, the Tcl command should return the
+name of the newly created data object.</p>
+<p>Determining whether a compute module can create a data object may be
+tricky. Typically, it must be assured that in the time between the actual
+creation of the data object by the computational module and the execution
+of the save network command neither the parameters nor the input has changed,
+and that the resulting data object had not been edited.</p>
+<p>In order to implement this behavior, most compute modules use a flag that
+they set when they create a data object and which they clear when the
+module's <tt>update()</tt> method is called, indicating that some input has
+changed. In order to check whether the data object was edited, the data
+object's <tt>touchTime</tt> variable is saved. <tt>touchTime</tt> is increased
+automatically whenever a module is edited. A typical method could look like
+this:<font size="2"></font></p><pre>
+int HxResample::canCreateData(HxData* data, McString&amp; createCmd)
+{
+    if (resultTouchTime != data-&gt;getTouchTime() ||
+        parameterChanged)
+            return 0;
+
+    createCmd.printf("%s action hit; %s fire; %s getResult\n",
+        getName(), getName(), getName());
+    return 1;
+}
+</pre><p><font size="2">
+</font></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

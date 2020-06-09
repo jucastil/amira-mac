@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h1><a name="A1">28 Documentation of Modules in <font face="helvetica">Developer Option</font></a></h1>
+<p><font face="helvetica">Developer Option</font> allows the user to write the documentation for his or her own
+modules and integrate it into the user's guide. For this, in
+the package directory a subdirectory named <tt>doc</tt> need to be
+created, e.g.,</p>
+<p><tt>AMIRA_LOCAL/src/mypackage/doc</tt></p>
+<p>The documentation must be written in <font face="helvetica">Amira</font>'s native documentation
+style. The syntax is borrowed from the LaTeX text processing
+language. See the reference guide in <a class="link" href="../doc2html/d2h-main.html#A1">Chapter 29</a> for a complete list of commands. </p>
+<p>Documentation files can easily be created by
+the <tt>createDocFile</tt> command. To create a documentation template
+for <tt>MyModule</tt>, type</p>
+<p><tt>MyModule createDocFile</tt></p>
+<p>in the <font face="helvetica">Amira</font> console. 
+This will generate a template for the documentation file as well
+as snapshots of all ports. The file <tt>MyModule.doc</tt> already provides the skeleton
+for the module description and includes the port snapshots.</p>
+<p>The command <tt>createPortSnaps</tt> only creates the snapshots
+of the module ports. This is useful when the ports have changed
+and their snapshots must be updated in the user's guide.</p>
+<p></p>
+<h2><a name="A2">28.1 The Documentation File</a></h2>
+<p>Here, the basic elements of a documentation file are presented.</p>
+<p><font size="2"></font></p><pre>
+
+\begin{hxmodule2}{MyModule}{Short description to appear 
+in the table of modules}
+This command indicates the beginning of a description file. MyModule
+is the module name.
+
+\begin{hxdescription}
+This block contains a general module description.
+
+All beginning blocks must have an end.
+\end{hxdescription}
+
+\begin{hxconnections}
+\hxlabel{MyModule_data}
+This command sets a label such that this
+connection can be referenced in the documentation.
+\hxconnection{Data}{[required]}\\
+ Here the required master connection is described.
+
+\end{hxconnections}
+
+\begin{hxports}
+The module ports are listed here.
+\end{hxports}
+
+Anywhere in the documentation a label can be referenced:
+\link{MyModule_data}{Text for reference}
+
+
+\end{hxmodule2}
+
+</pre><p><font size="2">
+</font></p>
+<p>
+This is an <tt>hxmodule</tt> description. Others are also available:
+<font size="2"></font></p><pre>
+\begin{fileformat2}{name}{short description to appear 
+in the table of file formats}
+\begin{data2}{name}{short description to appear 
+in the table of data types}
+</pre><p><font size="2">
+</font>
+The file always must be closed by the corresponding <tt>end</tt> command.</p>
+<p><b>More commands</b>
+Other formats allow one to format and structure the documentation:
+</p>
+<ul><li><font size="2"></font><pre>\begin{itemize}
+\item This is an enumeration,
+and each item starts with the key word \item
+\end{itemize} </pre><font size="2"></font></li><li><font size="2"><tt> {\bf This will be set in bold face}</tt> </font></li><li><font size="2"><tt> {\it This will be set in italics}</tt> </font></li><li><font size="2"><tt> {\tt This will be set in Courier}</tt> </font></li>
+</ul><p></p>
+<p><a class="link" href="../doc2html/d2h-math.html#A1">Formulas</a> can be included by means of the text
+processor LaTeX. They must be written in the usual LaTeX syntax, e.g.,
+<tt>$a \cdot \sqrt{b}$</tt>.
+Doc2html uses MathJaX to display them, so there is no user action required
+to enable formula rendering.</p>
+<p></p>
+<h2><a name="A3">28.2 Generating the Documentation</a></h2>
+<p>All documentation files must be converted to HTML files and copied
+into the user's guide. For this purpose, the program <tt>doc2html</tt> is provided. It is called automatically when local packages
+are compiled. If you want to create documentation files without
+compiling the local packages, run this program from a command shell 
+with the following option:</p>
+<p><tt>doc2html -a</tt></p>
+<p>This gathers all the .doc files that can be found in local packages' /doc subfolders,
+converts these documentation files and writes the resulting HTML files to the
+appropriate places in the <tt>AMIRA_LOCAL/share/doc/mymodule</tt> 
+directory. </p>
+<p>Call <tt>doc2html</tt> without options to get a complete list of options.</p>
+<p>
+
+</p></body>
+</html>

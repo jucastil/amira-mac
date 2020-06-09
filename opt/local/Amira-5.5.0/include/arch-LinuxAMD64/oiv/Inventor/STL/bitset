@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_BITSET
+#define  OIV_STL_BITSET
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ClusterDensity</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "ClusterDensity" "Computes the density of a cluster" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module computes the local density of a point cloud. The density value is stored as a new data column on the result cluster. The density is defined as number of points per volume of a sphere centered at the point's location.</p>
+<p>Several algorithms for computing the density are available. The algorithms differ in memory requirements and speed. The default algorithm uses an octree based approach which is good for cluster with larger number of points.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Input cluster for which the density needs to be computed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Algorithm</span>  
+<div class="portsnapshot"><img src="HxClusterDensity_algorithm.png" /><br /></div>
+<div class="body"><p>The "Octree" based approach is suited for cluster with large number of points. The algorithm will use additional memory and time to setup the internal data structures. The second algorithm "Flat tree" uses a tree of a fixed size. This does not take into account the distribution of points in space as its done by the octree based approach. The first algorithm "No tree" uses a trivial implementation suited for cluster with a small number of points, no additional memory is required.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxClusterDensity_radius.png" /><br /></div>
+<div class="body"><p>The radius value specifies the radius of the sphere used for the density computation.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mass</span>  
+<div class="portsnapshot"><img src="HxClusterDensity_mass.png" /><br /></div>
+<div class="body"><p>A data value attached to each point can be used as point masses. The density computation will use the mass values.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">setFlatTreeSize &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the size of the flat tree. By default the size is (8, 8, 8).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getFlatTreeSize</span>  
+
+<div class="body"><p>Returns the size of the flat tree as a string.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOctreeDepth &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the depth value of the octree. A default value of 7 is used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getOctreeDepth</span>  
+
+<div class="body"><p>Returns the size of the octree used for computation.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOctreeLeafNumber &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the maximum number of nodes for each leaf. The number should not be too small because this requires a large time to setup the octree.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getOctreeLeafNumber</span>  
+
+<div class="body"><p>Returns the maximum number of cluster points for each leaf of the octree.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

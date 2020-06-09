@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TubeView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "TubeView" "connects an arbitrary set of atoms with a tube" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ With the <em>TubeView</em> module you can connect an arbitrary set
+ of consecutive atoms with a tube through interpolated
+ atom coordinates. To define the atom set, you can use
+ <a class="link" href="../hxmolecule/molatomexpressions.html#A1">atom expressions</a>. The
+ order with which the atoms are connected is determined 
+ by their sequence.</p>
+<p> <b>Selecting and Highlighting:</b> Parts of the molecule can be
+ selected by clicking onto specific regions 
+ in the selection mode (you can switch to the selection mode of
+ the viewer by pressing the ESC key).
+ A detailed description of the selection concept can be found 
+ in the section <a class="link" href="../hxmolecule/moldisplay.html#A10">visualization of molecules</a>.
+ Selected structures will be highlighted in the color that you choose
+ in the port <a class="link" href="#A10">Highlighting Color</a>. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule you want to be shown.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Part</span>  
+<div class="portsnapshot"><img src="HxTubeView_part.png" /><br /></div>
+<div class="body"><p>This port lets you enter an 
+ <a class="link" href="../hxmolecule/molatomexpressions.html#A1">atom expression</a>. The atom expression
+ will determine the set of atoms that will be connected. The default value
+ is <em>backbonereduced</em>, which means that the tube will indicate
+ the location of polypeptide and RNA/DNA backbone atoms.</p>
+<p> To restrict the display to just a few atoms it is more convenient
+ to use the filter that can be accessed
+ with the <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">Selection Browser</a>. 
+ To include atoms in the sequence to be shown it must
+ be active in the set defined by the atom-expression as well as the filter.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Distance Cutoff</span>  
+<div class="portsnapshot"><img src="HxTubeView_distanceCutoff.png" /><br /></div>
+<div class="body"><p>All atoms that are further away than the specified value will not
+ be connected.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxTubeView_radius.png" /><br /></div>
+<div class="body"><p>This port specifies the radius of the tube.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolation Method</span>  
+<div class="portsnapshot"><img src="HxTubeView_interpolationMethod.png" /><br /></div>
+<div class="body"><p>The tube coordinates will be interpolated by using the
+ atom coordinates as base points. This port lets you
+ choose the interpolation method. <em>BSpline</em>
+ interpolation is generally smoother than <em>cubic</em> interpolation but
+ the tube will not necessarily run through the atom coordinates.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complexity</span>  
+<div class="portsnapshot"><img src="HxTubeView_complexity.png" /><br /></div>
+<div class="body"><p>This port specifies the complexity of the tube triangulation
+ as well as the number of interpolation points to be added between
+ each atom coordinate. The higher the value the better the 
+ display quality but the slower the rendering.</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxTubeView_colorschemeColoring.png" /><br /><img src="HxTubeView_discreteColormapColoring.png" /><br /><img src="HxTubeView_continuousColormapColoring.png" /><br /><img src="HxTubeView_defineColorColoring.png" /><br /></div>
+<div class="body"><p>You will find the description of the four ports above in the section
+ on <a class="link" href="../hxmolecule/moldisplay.html#A4">visualization of molecules</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting</span>  
+<div class="portsnapshot"><img src="HxTubeView_highlighting.png" /><br /></div>
+<div class="body"><p>This port lets you select tube sections with a lasso style selection mechanism
+ or a ROI box. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting Color</span>  
+<div class="portsnapshot"><img src="HxTubeView_highlightingColor.png" /><br /></div>
+<div class="body"><p>Tube sections that belong to atoms that have been highlighted
+ with the <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">Selection Browser</a>
+ will be shown in this color.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

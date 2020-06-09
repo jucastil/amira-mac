@@ -1,0 +1,24 @@
+########################################
+#
+########################################
+
+module -name "ProcessTimeSeries" \
+    -package "hxscriptobj" \
+    -category "Compute" \
+    -primary HxDynamicFileSeriesCtrl \
+    -proc {      
+              if { [exists $PRIMARY] } {
+                set mod [[create HxScriptObject] setLabel "ProcessTimeSeries"]
+                set file share/script-objects/ProcessTimeSeries.scro
+                if [file readable $AMIRA_LOCAL/$file] {
+                   $mod script setValue $AMIRA_LOCAL/$file
+                } else {
+                   $mod script setValue $AMIRA_ROOT/$file
+                }      
+                $mod fire
+                $mod timeS connect $PRIMARY
+                $mod timeS setTightness 1
+                $mod fire
+                $mod select
+              }
+          }

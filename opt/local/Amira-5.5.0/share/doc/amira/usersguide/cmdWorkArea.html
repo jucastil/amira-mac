@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.5 Progress bar command options</a></h4>
+<p>The command <tt>workArea</tt> allows you to access the progress bar located
+in the lower part of the <font face="helvetica">Amira</font> main window. You can print messages or
+check if the stop button was pressed.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">workArea setProgressInfo &lt;text&gt;</span>  
+
+<div class="body"><p>Sets an info text to be displayed in the progress bar. The text
+ can be used to describe the status during some computation.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">workArea setProgressValue &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the value of the progress bar. The argument must be a floating
+ point number between 0 and 1. For example, a value of 0.8 indicates
+ that 80% of the current task has been done.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">workArea startWorking [&lt;message&gt;]</span>  
+
+<div class="body"><p>Activates the stop button. After calling this command the <font face="helvetica">Amira</font>
+ stop button becomes active. In your script you can check if the
+ stop button was hit by calling <tt>workArea wasInterrupted</tt>.
+ When the stop button is active you can't interact with any other
+ widget unless you call <tt>workArea stopWorking</tt> in your
+ script. Therefore you must not enter this command directly in the
+ console window, but you should only use it in a script file or in
+ a Tcl procedure.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">workArea stopWorking</span>  
+
+<div class="body"><p>Deactivates the stop button. Call this command when the compute
+ task started with <tt>workArea startWorking</tt> is done or if the
+ user pressed the stop button. This command also restores the progress
+ info text which was shown before calling <tt>startWorking</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">workArea wasInterrupted</span>  
+
+<div class="body"><p>Checks if the user pressed the stop button. You should only use
+ this command between <tt>workArea startWorking</tt> and <tt>workArea stopWorking</tt>. If there are multiple nested compute
+ tasks and the user presses the stop button, all subsequent calls
+ to <tt>wasInterrupted</tt> return true until the first level is
+ reached.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

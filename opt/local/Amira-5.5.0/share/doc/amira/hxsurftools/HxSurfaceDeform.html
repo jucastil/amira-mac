@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VertexShift</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "VertexShift" "deforms a surface by displacement fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The module displaces the vertices of a surface. The
+displacements are given by
+one or more vector fields. The vector field(s) might
+be assigned a multiplicative coefficient. The computed vector fields
+automatically connect to the domain surface.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface to be displaced.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Vector field</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The displacement vector field. If a vector field is connected, then
+the <em>Lambda 1</em> multiplicative factor port appears as well as a 
+second vector field port in order to connect another optional vector field
+and so on. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info </span>  
+<div class="portsnapshot"><img src="HxSurfaceDeform_Info.png" /><br /></div>
+<div class="body"><p>Informs that a vector field should be connected to the module.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lambda 1 </span>  
+<div class="portsnapshot"><img src="HxSurfaceDeform_Lambda1.png" /><br /></div>
+<div class="body"><p>Multiplicative factor to modify the contribution of the first vector field 
+to the surface displacement.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

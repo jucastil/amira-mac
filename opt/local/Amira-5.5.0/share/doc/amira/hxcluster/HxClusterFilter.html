@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ClusterFilter</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ClusterFilter" "Filter a cluster by position or attached data values" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module filters a connected cluster by an expression build from the coordinates and data values of each cluster point. The resulting cluster will contain only points for which the expression entered results in a true (not equal to 0) value. As an additional input a label field can be connected to the module and is used as a mask. Only points that are part of a label will be copied to the output.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect a cluster data set to this port. A cluster can be created for example from a PSI file.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a label field is connected to this input port only points which are inside the mask will be copied into the result cluster.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxClusterFilter_Info.png" /><br /></div>
+<div class="body"><p>This port lists the available symbols for the expression.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Expression</span>  
+<div class="portsnapshot"><img src="HxClusterFilter_Expression.png" /><br /></div>
+<div class="body"><p>This port needs to be filled with an expression that evaluates to true (1) or
+false (0). Available variables are the coordinates of each point as x, y, and
+z. Additionally each data value of the input cluster is available and can be
+referenced by its symbol. If ClusterDensity is used an expression that filters
+for a density larger 3 would be: $$d>3$$.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

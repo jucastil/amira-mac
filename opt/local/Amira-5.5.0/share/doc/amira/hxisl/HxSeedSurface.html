@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SeedSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "SeedSurface" "provides additional seed points for DisplayISL" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module extends the vector field visualization module
+ <a class="link" href="HxDisplayISL.html#A1">DisplayISL</a>. It allows you to compute illuminated
+ field lines of a vector field with seed points distributed across an
+ arbitrary <a class="link" href="../hxsurface/HxSurface.html#A1">surface</a>.</p>
+<p> First, load both the vector field and the surface into <font face="helvetica">Amira</font>. Then
+ attach <em>DisplayISL</em> to the vector field. From the popup menu of
+ <em>DisplayISL</em> choose <em>SeedSurface</em>. The <em>SeedSurface</em> module
+ automatically connects itself to the first surface found in the Pool.
+ Of course, you may change the surface connection at any time
+ later on. Properties of the illuminated field lines such as base
+ opacity, fade factor, or color will be determined by <em>DisplayISL</em>.</p>
+<p>
+ The <em>Apply</em> button is used
+ to initiate distribution of seeds and recomputation of field lines.
+ Once the incoming vector field has changed or you have modified the
+ number of field lines or the line's length, you must press <em>Apply</em>
+ again in order to update the display.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Surface</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Module of type <a class="link" href="HxDisplayISL.html#A1">DisplayISL</a> which is used to
+ display the illuminated field lines.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">DisplayISL</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface on which the field lines will be distributed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">NumLines</span>  
+<div class="portsnapshot"><img src="HxSeedSurface_numLines.png" /><br /></div>
+<div class="body"><p>Number of field lines to be displayed. This port will only be visible
+ if distribution mode <em>on surface</em> has been selected. The
+ distribution algorithm tries to achieve a constant seed density per
+ surface area.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxSeedSurface_length.png" /><br /></div>
+<div class="body"><p>The length of the field lines, or more precisely, the number of atomic
+ line segments, in forward respectively backward direction. The lines
+ may stop earlier if a singularity (i.e. zero magnitude) is encountered
+ or if the field's domain is left.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Balance</span>  
+<div class="portsnapshot"><img src="HxSeedSurface_balance.png" /><br /></div>
+<div class="body"><p>By default field lines are equally long in forward and backward
+ direction, corresponding to a balance value of 0. This port allows
+ you to change this behavior. A value of -1 indicates that field lines
+ should extend in backward direction only, while a value of 1 indicates
+ that field lines should extend in forward direction only.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Distribute</span>  
+<div class="portsnapshot"><img src="HxSeedSurface_distribute.png" /><br /></div>
+<div class="body"><p>This port provides an option menu specifying the
+ seed distribution mode. If <em>at vertices</em> is chosen, a field line
+ is started at each vertex of the surface. If <em>on surface</em> is chosen,
+ a user-defined number of field lines will be uniformly distributed
+ across the surface.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

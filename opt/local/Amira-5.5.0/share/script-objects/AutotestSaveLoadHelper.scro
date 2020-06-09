@@ -1,0 +1,154 @@
+# Amira-Script-Object V3.0
+
+$this proc constructor {} {
+    # list of possible viewer modules (name class)
+    set displayModuleList {{OrthoSlice HxOrthoSlice} {Volren HxVolren} {SurfaceView HxDisplaySurface}
+        {MoleculeView HxMolView} {SpatialGraphView HxSpatialGraphView} {DisplayColormap HxDisplayColormap}
+        {IvDisplay HxIvDisplay} {ClusterView HxClusterView} {Vectors HxVectors} {GridVolume HxHexaView}}
+    $this setVar displayModuleList $displayModuleList
+
+    $this newPortButtonMenu displayModule 0 1
+    $this displayModule setLabel "Display with"
+    $this displayModule setNumOptEntries [llength $displayModuleList]
+    set pos 0
+    foreach entry $displayModuleList {
+        $this displayModule setOptLabel $pos [lindex [lindex $displayModuleList $pos] 0]
+        incr pos
+    }
+
+    # arguments that should be inserted into the load command before the file name
+    $this newPortText frontLoadArgs
+    $this frontLoadArgs setLabel "Load arguments (front)"
+    # arguments that should be inserted into the load command after the file name
+    $this newPortText rearLoadArgs
+    $this rearLoadArgs setLabel "Load arguments (rear)"
+
+    set saveFormatList {{"2D Tiff" .tif} {"3D Tiff" .tif} {"ABAQUS Input" .inp}
+        {"AVS Field" .fld} {"AVS UCD ascii" .inp} {"AVS UCD binary" .inp} {"AMF" .amf} 
+        {"AmiraMesh binary" .am} {"AmiraMesh ascii" .am} {"AmiraMesh ZIP" .am}
+        {"AmiraMesh ASCII SpatialGraph" .am} {"Analyze 7.5 data" .hdr} {"Analyze AVW data" .avw}
+        {"AVS Field" .fld} {"BMP" .bmp} {"DICOM" .dcm} {"Duke-Southampton SWC" .swc}
+        {"DXF" .dxf} {"EPS" .eps} {"Explorer Lattice" .lat} {"FLUENT/UNS" .cas}
+        {"FLUENT/UNS binary" .cas} {"Gromacs" .gro} {"Gromacs_SINGLE" .gro}
+        {"Hypermesh ascii" .hmascii} {"HxSurface binary" .surf} {"HxSurface ascii" .surf}
+        {"I-DEAS Universal File" .unv} {"Indexed Icol" .icol} {"JPEG" .jpeg}
+        {"Matlab mat-file" .mat} {"Matlab m-file" .m} {"MDL_ISIS_MOL2" .sdf} {"MRC Volume" .rec}
+        {"MicroVisu3D ASCII" .mv3d} {"Neuron HOC" .hoc} {"Nifti" .nii} {"Non-indexed Icol" .icol}
+        {"Open Inventor" .iv} {"Open Inventor ascii" .iv} {"Open Inventor binary" .iv} {"PNG" .png}
+        {"PNM" .pgm} {"ProteinDataBank" .pdb} {"PSI Format" .psi} {"Raw Data 2D" .raw}
+        {"Raw Data 3D" .raw} {"SGI-RGB" .rgb} {"Stanford PLY" .ply} {"STL ascii" .stl}
+        {"STL binary Big Endian" .stl} {"STL binary Little Endian" .stl} {"Tripos_SYBYL_MOL2" .mol2}
+        {"UniChem" .uni} {"Visilog 5" .im5} {"Visolog 6" .im6} {"Wavefront" .obj} {"ZMF" .zmf}
+        {"MRC Stack" .mrc}}
+
+    $this setVar saveFormatList $saveFormatList
+    $this newPortButtonMenu saveFormat 0 1
+    $this saveFormat setLabel "Save as"
+    $this saveFormat setNumOptEntries [llength $saveFormatList]
+
+    set pos 0
+    foreach entry $saveFormatList {
+        $this saveFormat setOptLabel $pos [lindex [lindex $saveFormatList $pos] 0]
+        incr pos
+    }
+
+    $this newPortButtonList actions 4
+    $this actions setLabel "Actions:"
+    $this actions setLabel 0 "Display data"
+    $this actions setLabel 1 "Save and load again"
+    $this actions setLabel 2 "Clean up"
+}
+
+# Renames the data and set the name in an Amira variable. Creates a display object 
+# choosen by the user and connect it with the data.
+
+$this proc displayData {} {
+    set srcFilename [$this data source]
+    if { $srcFilename != "" } {
+        set currentObjectname [$srcFilename setLabel "dataset"]
+        $this setVar currentObjectname $currentObjectname
+        set displayModuleList [$this getVar displayModuleList]
+        set selDisplayModNum [$this displayModule getOptValue 0]
+        set selDisplayMod [lindex [lindex $displayModuleList $selDisplayModNum] 0]
+        set displayCreateString [lindex [lindex $displayModuleList $selDisplayModNum] 1]
+
+        set currentDisplayMod [create $displayCreateString $selDisplayMod]
+        $this setVar currentDisplay $currentDisplayMod
+
+        $currentDisplayMod data connect $currentObjectname
+        $currentDisplayMod fire
+    } else {
+        echo "No data connected."
+    }
+ }
+
+# Saves the data given by the currentObjectname in a file format given by port saveFormat. 
+# Then the saved data are loaded again and the display is connected to the new data. The
+# file on disk is immediately removed.
+
+$this proc saveAndLoadAgain {} {
+    if {[$this hasVar currentObjectname]} {
+        set srcObjectname [$this getVar currentObjectname]
+    } else {
+        set srcObjectname "dataset"
+    }
+    set autotestString "autotest_"
+    set saveFormatList [$this getVar saveFormatList]
+    set saveFormatNumber [$this saveFormat getOptValue 0]
+    set formatString [lindex [lindex  $saveFormatList $saveFormatNumber] 1]
+    set dstFilename $autotestString$srcObjectname$formatString
+    $this setVar dstFilename $dstFilename
+    set dstFileformat [lindex [lindex  $saveFormatList $saveFormatNumber] 0]
+    if {[$this hasVar currentDisplay]} {
+        set currentDisplayMod [$this getVar currentDisplay]
+        remove $currentDisplayMod
+    }
+    set displayModuleList [$this getVar displayModuleList]
+    set selDisplayModNum [$this displayModule getOptValue 0]
+    set selDisplayMod [lindex [lindex  $displayModuleList $selDisplayModNum] 0]
+    set displayCreateString [lindex [lindex  $displayModuleList $selDisplayModNum] 1]
+
+    set currentDisplayMod [create $displayCreateString $selDisplayMod]
+    $this setVar currentDisplay $currentDisplayMod
+
+    $srcObjectname save $dstFileformat $dstFilename
+    $dstFilename setLabel $srcObjectname
+    set frontLoadArguments [$this frontLoadArgs getValue]
+    set rearLoadArguments [$this rearLoadArgs getValue]
+    echo "load $frontLoadArguments $dstFilename $rearLoadArguments"
+    set currentSaveobjectname [eval load $frontLoadArguments $dstFilename $rearLoadArguments]
+    $this setVar currentSaveobjectname $currentSaveobjectname
+
+    $currentDisplayMod data connect $currentSaveobjectname
+    $currentDisplayMod fire
+    set removeFilename [file rootname $dstFilename]
+    set removeExt "*"
+    set removeFilename $removeFilename$removeExt
+    echo "Removing $removeFilename"
+    if {[catch {eval exec rm [glob $removeFilename]} result]} {
+        echo "Could not remove $removeFilename."
+    }
+}
+
+# Data set and display module are removed from the pool.
+
+$this proc cleanup {} {
+    if {[$this hasVar currentDisplay]} {
+        set currentDisplayMod [$this getVar currentDisplay]
+        remove $currentDisplayMod
+    }
+    if {[$this hasVar currentSaveobjectname]} {
+        set currentSaveobjectname [$this getVar currentSaveobjectname]
+        remove $currentSaveobjectname
+    }
+}
+
+$this proc compute {} {
+    if {[$this actions isNew]} {
+        switch -- [$this actions getValue] {
+            "0" {$this displayData}
+            "1" {$this saveAndLoadAgain}
+            "2" {$this cleanup}
+        }
+    }
+}

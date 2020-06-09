@@ -1,0 +1,26 @@
+########################################
+# scro DemoSequence 
+########################################
+
+module -name "DemoSequence" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+
+	# demo sequence
+	set mod [[create HxScriptObject] setLabel DemoSequence]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/DemoSequence.scro
+	$mod fire
+
+	# create status display if neccessary
+        set status [$mod DemoStatusDisplay source]
+        if {$status == ""} {
+	    set status [[create HxAnnotation] setLabel DemoStatusDisplay]
+	    $status position setValue 0 -20
+	    $status position setValue 1 20
+	    $status text setValue "X"
+	    $status fire
+	    $mod DemoStatusDisplay connect $status
+        }
+    }	
+

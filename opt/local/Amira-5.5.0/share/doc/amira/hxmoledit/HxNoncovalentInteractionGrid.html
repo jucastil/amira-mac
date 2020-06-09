@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> NoncovalentInteractionGrid</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "NoncovalentInteractionGrid" "computes the potential of non-covalent interaction between the input molecule and a probe atom on a regular grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module generates a grid which contains the noncovalent interaction energy between the input molecule and a probe atom at each grid point.
+The energy will be computed with the MMFF94 forcefield in kJ/mol. Grid dimensions and atom parameters for the probe atoms can be chosen by the user. The molecule must have MMFF94 parameters assigned. You can add parameters by using the 'Add MMFF Parameterization' menu entry in the MoleculeEdior or with the addMMFFParameterization tcl command of the molecule.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule for which the interaction energy will be computed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Atom Type</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_portAtomType.png" /><br /></div>
+<div class="body"><p>Allows to select the MMFF atom type of the probe atom. This atom type determines
+all van der Waals Parameters.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Charge</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_portAtomCharge.png" /><br /></div>
+<div class="body"><p>For the MMFF94 forcefield the charge of the atom is a function of the atoms formal charge
+and surrounding atoms by adjusting the charge according to bond charge increments.
+The probe atom has no bonds so the charge value needs to be adjusted by the user.
+Whenever the user choses a new atom type, the value will be set to its formal charge.
+This parameter has no effect if the Coulomb energy is deactivated.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Energy</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_portWhichEnergy.png" /><br /></div>
+<div class="body"><p>Sets which noncovalent energy components are computed.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lattice Box</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_box.png" /><br /></div>
+<div class="body"><p>Allows to adjust the bounding box of the grid.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Port field voxel size</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_portFieldVoxelSize.png" /><br /></div>
+<div class="body"><p>Allows to adjust the voxel size of the grid</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Port field dims info</span>  
+<div class="portsnapshot"><img src="HxNoncovalentInteractionGrid_portFieldDimsInfo.png" /><br /></div>
+<div class="body"><p>Shows the dimensions of the field. Large fields will take a long time to compute
+and computation may fail due to insufficient memory.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

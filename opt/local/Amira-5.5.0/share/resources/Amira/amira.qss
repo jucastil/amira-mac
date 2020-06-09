@@ -1,0 +1,576 @@
+/** Amira StyleSheet File
+/** V 2.0
+
+
+/*-----------------------------------------------------------------------------------------------*/
+/* The Tool Bar */
+QToolBar
+{
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    border-radius: 3px;
+    spacing: 0px;    
+    border: 1px solid #808080;    
+    qproperty-iconSize: 28px 28px;
+}
+
+QToolBar QToolButton::menu-button
+{
+   border: 1px solid transparent;
+}
+
+QToolBar QToolButton::menu-arrow
+{
+   top: 8px;
+}
+/* The QxMutliToolButton */
+QToolBar QxMultiToolButton
+{ 
+   border: 1px transparent;
+   background: none;
+   padding-left: -6px;
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/* Default QGroupBox should have a bold title font */
+QGroupBox
+{
+    font-weight: bold;
+}
+
+QGroupBox[style=QMacStyle]::title 
+{
+	subcontrol-origin: content;
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/* Menu Bar */
+ QMenuBar {
+     background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                       stop:0 lightgray, stop:1 #A7A7A7);
+     color: #000000;
+    
+ }
+
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Color button in segmentation editor material list */
+QFrame#roiColor
+{
+    margin: 1px;
+    border-radius: 0px;
+    border: 1px solid black;
+}
+
+QFrame#background
+{    
+    border-top: 0px;
+    background-color: #A7A7A7;
+    
+}
+
+/* Frame Console bar */
+QFrame#consoleFrame
+{
+    border: 1px solid #808080;
+    border-radius: 3px;
+    background-color: #A7A7A7;
+}
+
+QFrame#workAreaFrame
+{
+    background-color: #A7A7A7; 
+    border: none;
+}
+QFrame#poolFrame
+{
+    background-color: #A7A7A7; 
+    border: none;        
+}
+
+QFrame#viewerFrame
+{
+    background-color: #A7A7A7; 
+    border: none;
+}
+
+QFrame#applyStopArea
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D4D4D4, stop: 0.5 #BEBEBE, stop: 1.0 #ABABAB);
+    spacing: 0px;
+    border: 1px solid #808080;
+    border-top: 1px solid #808080;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+/* Frame LOAD button area */
+
+QFrame#poolButtonArea
+{    
+    background-color: #E0E0E0;
+    border: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    border-top: none;  
+}
+
+QFrame#Pool
+{    
+    background-color: #EFEFEF;
+    border: 1px solid #808080;
+    border-top: none;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+/* Frame including properties bar and area */
+
+QFrame#properties
+{
+    border: 1px solid #808080;
+    border-bottom: none;
+    background-color: #A7A7A7;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    
+}
+
+QFrame#borderPoolWidget
+{
+  border: 1px solid #808080;
+  max-height: 25px;
+  border-bottom: none;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+
+/*-----------------------------------------------------------------------------------------------*/
+/* QxTabWidget */
+QxTabWidget::pane
+{  
+     border-radius: 3px;       
+}
+
+QTabBar
+{
+    font-weight: bold; 
+}
+QTabBar::tab:!selected
+{
+    font-weight: normal; 
+}
+QTabBar::tab:hover
+{
+    font-weight: bold;  
+}
+
+
+QxTabWidget > QTabBar
+{
+    border: none;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #AFB0B0);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    min-height: 25px;        
+}
+
+QxTabWidget > QTabBar::tab
+{         
+     border: none;      
+     border-radius: 3px;     
+     min-height: 21px;
+     padding: 2px;
+     margin-left: 3px;         
+}
+
+QxTabWidget::tab-bar
+{  
+    alignment: left;
+    left: 12px;   
+}
+
+
+/*-----------------------------------------------------------------------------------------------*/
+/* The corner Widget are the arrow and the hand */
+
+QWidget#PoolButton
+{
+    border: none;
+    background: transparent;
+    min-height: 28px;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Push Button  Apply and Stop*/
+
+QPushButton#applybutton
+{
+    min-width: 80px;
+    min-height: 20px;
+    border: 1px solid #626262;
+    border-right: none;
+    border-radius: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,  stop: 0 #F1F1F1, stop: 0.5 #C7C7C7, stop: 1.0 #A3A3A3);
+}
+
+QPushButton#applybutton:enabled
+{
+    border: 1px solid #31662C;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ACFFA4, stop: 0.5 #41CE35, stop: 1.0 #36AA2B);
+}
+
+QPushButton#applybutton:pressed
+{
+    border: 1px solid #31662C;
+    background: #36AA2B;
+    padding-left: 2px;
+    padding-top: 2px;
+}
+QPushButton#applybutton:hover
+{
+    border: 2px inset #58626f;
+}
+
+QPushButton#stopbutton
+{
+    min-width: 80px;
+    min-height: 20px;
+    border: 1px solid #626262;    
+    border-radius: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,  stop: 0 #F1F1F1,  stop: 0.5 #C7C7C7, stop: 1.0 #A3A3A3);
+}
+
+QPushButton#stopbutton:enabled
+{
+    border: 1px solid #7B1616;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,  stop: 0 #FF6C6C,  stop: 0.5 #E31818, stop: 1.0 #CC1616);
+}
+
+QPushButton#stopbutton:pressed
+{
+    border: 1px solid #31662C;
+    background: #CC1616;
+    padding-left: 2px;
+    padding-top: 2px;
+}
+
+QPushButton#stopbutton:hover
+{
+    border: 2px inset #58626f;
+}
+/* The pin button */
+QToolButton#pin
+{
+    background: none;
+    border: none;
+}
+
+.QxPushButton[doDrawFrame="false"]
+{
+    border: none;
+    background: transparent;
+}
+
+
+QFrame#poolButtonArea QPushButton
+{
+    border: 1px solid #3C3C3C;
+    border-radius: 3px;
+    min-width: 80px;
+    min-height: 20px;
+    
+}
+
+QWidget#poolButtonArea QPushButton:pressed
+{
+    padding-left: 2px;
+    padding-top: 2px;
+}
+
+QWidget#poolButtonArea QPushButton:hover
+{
+    border: 2px inset #58626f;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* Label */
+
+QLabel#infoTag
+{
+    font: bold;
+}
+
+QLabel#portLabel
+{
+    font: bold;
+}
+QLabel#topLabel
+{
+    font: bold;
+    margin-left: 15px;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* Properties bar */
+QWidget#MainTopWidget
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    font-weight: bold;    
+    padding-left: 15px;
+    padding-bottom: 6px;
+    padding-top: 6px;    
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+
+QLabel#propertiesLabel
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    font-weight: bold;    
+    padding-left: 8px;
+    padding-bottom: 6px;
+    padding-top: 6px;    
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+QWidget#propertiesViewport
+{
+    background-color: #EFEFEF;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* The QSplitter and QxSplitter */
+QMainWindow QSplitter::handle
+{
+    background-color: #A7A7A7;    
+}
+
+QxSplitter
+{
+     qproperty-pixmapUp: url(:/embed/splitter/SplitterUp.png);
+     qproperty-pixmapDown: url(:/embed/splitter/SplitterDown.png);
+     qproperty-pixmapLeft: url(:/embed/splitter/SplitterLeft.png);
+     qproperty-pixmapRight: url(:/embed/splitter/SplitterRight.png);
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Status bar */
+
+QMainWindow QStatusBar
+{    
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,  stop: 0 #A7A7A7,  stop: 0.5 #ADADAD, stop: 1.0 #979797);
+}
+
+ QStatusBar::item 
+ {  
+     border: none;          
+ }
+
+.QxProgressBar:horizontal
+{   
+    padding: 1px;
+    margin-left:2px;
+    margin-top:-1px;
+    margin-bottom:-1px;
+    text-align: left;
+}
+
+
+
+/*-----------------------------------------------------------------------------------------------*/
+/* GI */
+
+QMainWindow QWidget#wGiFrame
+{
+    background-color: #EFEFEF;
+    border: 1px solid #808080;
+    border-radius: 3px;
+}
+
+QMainWindow QWidget#wGiFrame2
+{
+    background-color: #E0E0E0;
+    border: 1px solid #808080;
+    border-radius: 3px;
+}
+
+QMainWindow QWidget#wGiFrame2 QToolBar
+{
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    max-height: 26px;
+    border: none;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+QFrame#wToolContainer
+{
+    border-top: 1px solid #808080;
+    background-color: #EFEFEF;
+    border: none;
+    border-radius: 0px;
+}
+
+QFrame#tissueFrame QToolButton
+{
+    border: none;
+    background: none;
+}
+
+QFrame#tissueFrame QToolButton:hover
+{
+    border: 1px solid #8f8f91;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* Console */
+
+QTextEdit#console
+{
+    background-color: #EFEFEF;        
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* Help Menu */
+QDialog#QxHelpBrowserBase
+{
+    background-color: #EFEFEF;        
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Tree view */
+
+QTreeWidget#QxTreeView QHeaderView::section
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    border: none;
+    
+}
+
+QTreeWidget#QxTreeView
+{
+    border: 1px solid #808080;
+    border-top: none;
+}
+
+QLabel#TreeViewNetworkIsLoadingWarning
+{
+    background-color: #8290A3;
+    font: bold;
+    min-height: 22px;
+    max-height: 22px;
+    color: #CE0406;
+    border: 1px solid black;
+    border-top: none;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* SubApplications */
+
+QMainWindow QWidget#wSubAppMainFrame
+{
+    background-color: #EFEFEF;
+    border: 1px solid #808080;
+    border-radius: 3px;
+}
+
+QMainWindow QWidget#wSubAppToolBoxFrame .QWidget
+{
+    background-color: #EFEFEF;
+
+    border-left: 1px solid #808080;
+    border-right: 1px solid #808080;
+    border-top: none;
+}
+
+QMainWindow QWidget#wSubAppToolBoxFrame QToolBar
+{
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D8D8D8, stop: 0.5 #BCBCBC, stop: 1.0 #ABABAB);
+    border-bottom: none;
+    max-height: 26px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+
+
+QWidget#wSubAppInfoFrame
+{
+    background-color: #E0E0E0;
+    border: 1px solid #808080;
+    border-top: none;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/* Neuron Editor */
+QxViewOnlyHierarchicalLabelsView .QToolButton
+{
+	border: none;
+    background: none;
+}
+
+QToolBar#FilamentEditorToolboxToolbar
+{
+    padding-left: 2px;
+}
+
+QToolBar#FilamentEditorToolboxToolbar QToolButton
+{
+    border: none;
+    padding: 6px;
+}
+
+QToolBar#FilamentEditorToolboxToolbar QToolButton[style=QMacStyle]
+{
+    font-size: 13pt;
+}
+
+QToolBar#FilamentEditorToolboxToolbar QToolButton:hover 
+{
+    font-weight: bold;
+}
+
+QToolBar#FilamentEditorToolboxToolbar QToolButton:checked 
+{
+    font-weight: bold;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Demo Director */
+hxdemodirector--QxTimeline {
+    background-color: #EFEFEF;
+   
+}
+QWidget#mButtonsWidget
+{
+    background-color: #E6E6E6;   
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Performance logging */
+QLabel#logExplanationLabel {
+    font-size: 13pt;
+}
+
+QLabel#logTitleLabel {
+    font-size: 24pt;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/* Help Browser */
+QWidget#widgetHelpBrowserTop {
+    background-color: #E6E6E6;
+   
+}
+
+QWidget#widgetHelpBrowserBottom {
+    background-color: #E6E6E6;
+   
+}

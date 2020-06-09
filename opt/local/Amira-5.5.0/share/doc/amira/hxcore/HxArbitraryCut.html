@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ArbitraryCut</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ArbitraryCut" "base class for modules providing a 2D plane" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module defines a plane that can be positioned and oriented
+ arbitrarily inside the bounding box of a data object connected to
+ port <em>Data</em>. Mostly you will work with derived modules
+ displaying some kind of geometry inside the plane defined by this
+ base class. Examples of derived modules are
+ <a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a> and <a class="link" href="../hxfastLIC/HxFastLIC.html#A1">PlanarLIC</a>.</p>
+<p> However, this base class also serves as a background plane on which
+ so-called <em>overlay modules</em> display their geometry. Examples of
+ overlay modules are the <a class="link" href="../hxiso/HxIsolines.html#A1">Isolines</a> module, the
+ <a class="link" href="../hxvector/HxVectors.html#A1">Vectors</a> module, or the
+ <a class="link" href="../hxtetra/HxOverlayGrid.html#A1">Intersect</a> module. In fact, if you select an
+ overlay module from a data object's popup menu an instance of <em>ArbitraryCut</em> called <em>EmptyPlane</em> will be created automatically.</p>
+<p> You may also create an instance of <em>ArbitraryCut</em> by selecting
+ <em>Clipping Plane</em> from the global <em>Create</em> menu.
+ The module does not display useful geometric output by itself, but
+ it can be used to clip the output of any other module in <font face="helvetica">Amira</font>.
+ In order to perform clipping you first have to connect port <em>Data</em>
+ to the data object being investigated. Then you can simply click
+ on the module's <em>clip button</em> located in the orange header block.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the data object from which the bounding box is taken.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PointsToFit</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a vertex set with arbitrary number of points, on which the
+ position of the plane is based. The option "fit to points" is only
+ available, if you have not connected your own vertex set.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxArbitraryCut_orientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the plane's orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+
+ The plane will be translated into the center of the bounding box.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxArbitraryCut_options.png" /><br /></div>
+<div class="body"><p>If toggle <em>adjust
+	view</em> is active, then the camera of the 3D viewer will be reset
+	whenever one of the orientation buttons is clicked.</p>
+<p>	If the <em>rotate</em> toggle is active, then a virtual trackball is
+	displayed. By picking and dragging the trackball you may change
+	the orientation of the plane. Remember that the viewer must be in
+	interaction mode in order to do so. The ESC key inside the viewer
+	window toggles between navigation mode and interaction mode. The
+	trackball of the last active ArbitraryCut can also be turned on and
+	off by pressing the TAB key inside the viewer window.</p>
+<p>	The <em>immediate</em> toggle determines whether derived
+	modules and downstream modules receive an update signal while the
+	plane is being translated or rotated or not. This toggle might not
+	always be visible.</p>
+<p> The <em>fit to points</em> toggle lets you reset the plane by clicking on
+ at least 3 different points in the scene. After enabling this toggle,
+ you should switch to interaction mode by pressing the ESC key inside the
+ viewer. Then click 3 times at different points on any geometry in the scene. 
+ The plane then will be automatically adjusted to match these points. 
+ The virtual trackball - visible when <em>rotate</em> toggle is active - will be moved 
+ to the center of the picked points.
+ After 3 points have been picked, this toggle is automatically unchecked, 
+ unless you pressed the shift key. 
+ Shift-clicking allows you to select more than 3 points. In this case
+ the plane that best fits the selected points will be computed.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Translate</span>  
+<div class="portsnapshot"><img src="HxArbitraryCut_translate.png" /><br /></div>
+<div class="body"><p>This port lets you translate the plane along its normal direction.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">frame &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+	This command lets you turn on or off the orange frame indicating
+	the intersection of the plane with the bounding box of the data
+	object connected to the data port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setFrameColor &lt;color&gt;</tt></span>  
+
+<div class="body"><p>	Lets you change the color of the plane's frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setFrameWidth &lt;width&gt;</tt></span>  
+
+<div class="body"><p>	Lets you change the width of the plane's frame in pixels.
+
+ </p></div></div>
+<div class="hxcommand">
+  <span class="headline">getPlane</span>  
+
+<div class="body"><p>
+	Returns 9 numbers specifying the current plane settings. The
+	numbers comprise the x, y, and z-coordinates of the plane's origin,
+	the u-vector, and the v-vector.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPlane &lt;origin uVec vVec&gt;</span>  
+
+<div class="body"><p>
+	Adjust position and orientation of the plane. The command expects
+	9 numbers in the same format as returned by the <tt>getPlane</tt>
+	command.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinPlanePoint &lt;point&gt;</span>  
+
+<div class="body"><p>
+	Define the minimum plane position.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">unsetMinPlanePoint &lt;point&gt;</span>  
+
+<div class="body"><p>
+	Reset the minimum plane position.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMaxPlanePoint &lt;point&gt;</span>  
+
+<div class="body"><p>
+	Define the maximum plane position.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">unsetMaxPlanePoint &lt;point&gt;</span>  
+
+<div class="body"><p>
+	Reset the maximum plane position.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setAutoClippingPlane &lt;state&gt;</span>  
+
+<div class="body"><p>
+ Set the clipping plane auto mode to state. 
+ If auto mode is set, the clipping plane is adjusted to clip the front of the plane related to the camera position, otherwise the clipping plane uses the plane normal.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">connectPlane &lt;ArbitraryCut&gt;</span>  
+
+<div class="body"><p>
+ Interconnect origin and normal ports to given module so that both planes are synchronized.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">disconnectPlane &lt;ArbitraryCut&gt;</span>  
+
+<div class="body"><p>
+ Disconnect origin and normal ports from given module if previously connected. </p>
+</div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

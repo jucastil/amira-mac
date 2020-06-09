@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AnnaScalarField3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "AnnaScalarField3" "scalar field defined by an analytical expression" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This data class represents a user-defined 3D scalar field based on
+ an arithmetic expression. It provides a port <em>Expression</em> by which an
+ arithmetic expression depending on Cartesian coordinates
+ x, y, z can be entered that defines the value for each point in space.
+ The range of values with respect to the unit cube (default)
+ domain is indicated as <em>Component Range</em>. A data object of type
+ <em>AnnaSccalarField3</em> has three additional input ports that can
+ be connected to other data objects representing 3D fields, e.g., 
+ to image data objects. The predefined variables
+ <em>a</em>, <em>b</em> and <em>c</em> are available for referencing such connected
+ data objects in the arithmetic expression, this way a scalar field
+ depending on other fields can be defined. Whenever 
+ an expression evaluation is triggered to compute the value for a
+ point (x,y,z), the variables <em>a</em>, <em>b</em> and/or <em>c</em> will be
+ be substituted by the corresponding input values at the same
+ point (x,y,z). For instance
+ the value at a single point may be obtained by attaching a
+ <a class="link" href="../hxdataprobe/HxDataProbe.html#A1">PointProbe</a> module to the 
+ <em>AnnaScalarField3</em> data object and entering the point's 
+ coordinates by the <em>Coord</em> port of that module.</p>
+<p>	If inputs contain undefined values, each of them will be used during
+ the expression evaluation. If an undefined value is found, 0 will be used
+ during this evaluation instead of the real undefined value.
+ Therefore, the undefined value isn't propagated to the result.</p>
+<p> An expression consists of variables and mathematical and logical
+ operators, the syntax is basically the same as for C expressions.
+ The following variables are always defined:
+ </p>
+<ul><li><b>x:</b> the x-coordinate of the current point</li><li><b>y:</b> the y-coordinate of the current point</li><li><b>z:</b> the z-coordinate of the current point</li>
+</ul>
+<p> If data objects <em>Field A</em>, <em>Field B</em> or <em>Field C</em> are
+ connected to port <em>InputA</em>, <em>InputB</em> and <em>InputC</em> respectively, the following
+ variables are also defined:
+ </p>
+<ul><li><b>a:</b> the values of input object A</li><li><b>b:</b> the values of input object B</li><li><b>c:</b> the values of input object C</li>
+</ul>
+<p> 
+ The same C style mathematical and logical operators as well as built-in
+ functions that are available for arithmetic expressions can be used here,
+ see <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> module description.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">InputA</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">InputB</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional second scalar field.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Expr</span>  
+<div class="portsnapshot"><img src="HxAnnaScalarField3_expr.png" /><br /></div>
+<div class="body"><p>Input field for arithmetic expression defining the scalar field values.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Domain</span>  
+<div class="portsnapshot"><img src="HxAnnaScalarField3_Domain.png" /><br /></div>
+<div class="body"><p>This port is only visible if other fields are connected as input a, b or c. These
+ input fields might not be defined everywhere. If set to <em>unrestricted</em> the field
+ can be evaluated everywhere, a value of 0 is used for the input fields of a, b or c if
+ evaluated outside their domain. If set to <em>dependent field</em>, the field is only evaluated
+ inside all domains of the dependent fields a,b and c.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

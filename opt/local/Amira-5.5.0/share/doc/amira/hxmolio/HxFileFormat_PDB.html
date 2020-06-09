@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PDB</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "FileFormat" "PDB" "protein data base file format (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ PDB is a file format for storing structures of biomolecules.
+ The format is used for archiving molecules in the online protein
+ data base. [http://www.rcsb.org/pdb/]</p>
+<p> <b>Supported records</b></p>
+<p> <font face="helvetica">Amira</font> uses most, but not all, information supplied in a PDB file.
+ The following record types will be parsed:<br />
+
+ <tt>HELIX SHEET TURN SITE MODEL ENDMDL ATOM HETATM TER CONECT END</tt><br />
+
+ The rest will be skipped.</p>
+<p> When saving a structure, the following record types will be written:<br />
+
+ <tt>HEADER TITLE AUTHOR<br />
+
+ SEQRES HELIX SHEET TURN SITE SSBOND<br />
+
+ ATOM HETATM TER CONECT MASTER END</tt></p>
+<p> <font face="helvetica">Amira</font> supports PDB files that follow the conventions of PDB format
+ version 2.0 or higher.</p>
+<p> <b>How to identify PDB groups in <font face="helvetica">Amira</font></b></p>
+<p> In <font face="helvetica">Amira</font> all levels (atoms, residues, bonds , ...) contain
+ a set of information fields called attributes. Every level contains
+ the field `index' which is an internal
+ identifier that does not necessarily correspond to the succession
+ of the groups in the file.</p>
+<p> If the molecule has been read from a PDB file then the <b>atom</b> 'name' field
+ is composed of the chain name and the sequence number (columns 7 - 11) 
+ of the respective <tt>ATOM</tt> records. The field 'index' only corresponds
+ to the sequence number if the enumeration of pdb atoms is continuous.</p>
+<p> The `type' field contains the information of the
+ field named `atom name' (columns 13 - 16) in the PDB file.</p>
+<p> The `name' field of <b>chains</b> contains the chainID
+ (column 22) of the respective <tt>ATOM</tt> record. <tt>HETATM</tt> records whose
+ chainID field is empty will not belong to any chain in <font face="helvetica">Amira</font>.
+ The chain name of atoms belonging to <tt>ATOM</tt> records whose <tt>chainID</tt>
+ field is empty will be set to `NIL'.</p>
+<p> The `name' field of <b>residues</b> is composed of the chain name
+ and the residue sequence number (columns 23 - 26). 
+ If the residue is a het-group, the name will start with `HET'. </p>
+<p> The field `type' contains the residue names (columns 18 - 20). If none
+ is given, the field will be set to `UNK' (for unknown).</p>
+<p> <b>Example:</b></p>
+<p> <font size="2"></font></p><pre>
+  ATOM   441  CB  VAL L  58   ... 
+  21.025  37.362  -2.515  ... 
+  1.00  8.15  1IGM 562
+</pre><p><font size="2"></font>
+ The atom will be known with name 'L441' and comment `CB'.
+ It will belong to the residue with name `L58' and of type `VAL' 
+ which is sited on the chain with name `L'.</p>
+<p> It is possible to save trajectories in the PDB format. Note, however,
+ that this is inefficient due to the redundancy of information of the atom
+ records in each model entry.</p>
+<p> <b>Possible problems</b></p>
+<p> Some molecular modeling packages use slightly altered conventions
+ for saving PDB files. If you encounter any problems in reading such 
+ files please check the following section and adjust your files 
+ as necessary.</p>
+<p> <font face="helvetica">Amira</font> can read <b>several models of one molecule as a trajectory</b> 
+ if the different versions
+ are separately declared between <tt>MODEL</tt> and <tt>ENDMDL</tt> records. 
+ If there are
+ several possible conformations in one model (by using alternate location
+ identificators), <font face="helvetica">Amira</font> will read only the first version 
+ (that one with the <tt>altLocId</tt> `A').</p>
+<p> Molecules that are declared as models need to have the same number of atoms
+ as <font face="helvetica">Amira</font> will only read the topology once. Only the coordinates are
+ read in for each timestep. If you have <b>several different molecules</b>
+ in one
+ PDB file, you can separate them by <tt>END</tt> records. <font face="helvetica">Amira</font> will load every
+ molecule ended by an <tt>END</tt> record separately, creating its own
+ data object.</p>
+<p> The <b>automatic creation of bonds</b> of peptide and RNA/DNA residues 
+ is done by comparing the atoms of the
+ residues with a residue database. 
+ The method requires
+ the atom names and the residue names to follow the PDB standard.
+ Sometimes third party programs write atoms like O3* as O3'. This
+ will prevent <font face="helvetica">Amira</font> from recognizing the atoms in the database.
+ Connections between consecutive residues is done by checking the sequence
+ of residues of each chain. <b>Bonds of non-standard residues</b> must
+ be declared in the connect records.</p>
+<p> Columns 77-78 should contain the element name of the atom. In some PDB
+ files, this field is empty or contains other information. 
+ In this case, <font face="helvetica">Amira</font> uses the first two letters of the atom name to
+ determine the atom type. However, in special cases this is not
+ unequivocal. The field is not allowed to contain non-numerical
+ information.</p>
+<p> All information in columns 79-80 is interpreted as the charge of the atom.
+ Thus, line numbers in this field will lead to strange charge values.</p>
+<p> You can get complete documentation of the file format at 
+ http://www.rcsb.org/pdb/.</p>
+<p>	If you have an active network connection and know the PDB-Id, you can also load 
+	the structure directly from rcsb.org. To do so use the Tcl command
+</p><pre>
+  newMolFromPDB &lt;PDB-ID&gt;
+</pre><p>
+where PDB-ID is the ID of the structure (for example 1HVR). The command works asynchronously. 
+Depending on file size and bandwidth the process may take a few seconds up to several minutes.
+The requested pdb entry will appear as a new object in the object pool.</p>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

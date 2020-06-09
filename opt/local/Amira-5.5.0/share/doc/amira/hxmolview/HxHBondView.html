@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HBondView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "HBondView" "basic visualization module for hydrogen bonds" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>HBondView</em> module allows you to display hydrogen bonds using two
+ different representations: dashed lines or tubes. </p>
+<p>If the connected molecule does not contain information about hydrogen bonds, 
+the bonds can be computed internally on the fly. These bonds will not be inserted 
+into the original molecule. </p>
+<p>A hydrogen bond is displayed using 5 differently colored parts called 
+"sticks". The middle section represents the hydrogen atom that is being 
+shared by the two atoms that this bond is connecting.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule whose hydrogen bonds should be displayed.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Continuous CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap used for mapping float data to colors.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Discrete CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap used for mapping discrete attributes to colors.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Source of hbonds</span>  
+<div class="portsnapshot"><img src="HxHBondView_hbondSource.png" /><br /></div>
+<div class="body"><p>Selects the source from where the hydrogen bond information is taken.
+HBonds level means that the level 'hBonds' in the molecule is used.
+This only works if such a level has been computed beforehand.
+Compute means that the hydrogen bonds are computed internally.
+This makes sense when your molecule is part of a trajectory for
+which the hydrogens bonds may change between timesteps.
+With 'automatic' the level 'hBonds' is used if it exists and else the bonds
+are computed internally.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="HxHBondView_options.png" /><br /></div>
+<div class="body"><p>Selects the display mode: <em>lines</em> or <em>tubes</em>. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Line width</span>  
+<div class="portsnapshot"><img src="HxHBondView_lineWidth.png" /><br /></div>
+<div class="body"><p>Specifies the width of the lines.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complexity</span>  
+<div class="portsnapshot"><img src="HxHBondView_complexity.png" /><br /></div>
+<div class="body"><p>Specifies the complexity of the tubes. Higher complexity will 
+produce more attractive results, but will take longer to draw.
+</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tube radius</span>  
+<div class="portsnapshot"><img src="HxHBondView_bondradius.png" /><br /></div>
+<div class="body"><p>Specifies the radius of the tubes.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Animation</span>  
+<div class="portsnapshot"><img src="HxHBondView_animation.png" /><br /></div>
+<div class="body"><p>Starts an animated view of the hydrogen bond when using the tube 
+display mode. To visualize the sharing of the hydrogen atom between 
+the two atoms, the middle section representing the hydrogen atom will 
+move slowly back and forward in the two directions of the atoms 
+involved in this bond.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxHBondView_colorscheme.png" /><br /><img src="HxHBondView_continuousColormap.png" /><br /><img src="HxHBondView_discreteColormap.png" /><br /><img src="HxHBondView_defineColor.png" /><br /></div>
+<div class="body"><p>For an explanation of the four ports above, see the description in
+ the general section on <a class="link" href="../hxmolecule/moldisplay.html#A4">display of
+ molecules</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

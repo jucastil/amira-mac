@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Label Filters</a></h3>
+<p>Under the <em>Segmentation</em> item of the menu bar several filters for modifying
+the current labeling are provided. These filters operate directly on the
+labels. They do not take the current selection into account.</p>
+<p></p>
+<ul><li><b>Fill holes:</b> This filter removes islands of arbitrary size in
+ the <em>current material</em>, i.e., all pixels completely surrounded by
+ the current material are also assigned to this material (short cut is
+ <em>Shift-H</em> for the current slice). 
+ Suppose you have segmented a CT image using thresholding as provided by the
+ <a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a> module. You then want to assign the
+ dark marrow of the bones to the material <em>Bone</em> as well. In order
+ to do this, select <em>Bone</em> in the material list so that it becomes
+ the current material and then call the <em>fill holes</em> filter.
+ 
+ The filter can be applied to the current slice in the active viewer,
+ or to all slices.
+&nbsp;<br />
+
+&nbsp;<br />
+</li><li><b>Remove islands...:</b> This filter removes islands in or between
+ regions, depending on the <em>size</em> and <em>fraction</em> values that
+ are set in the filters dialog. An island is a connected area of voxels
+ containing a number of voxels less than or equal to the <em>size</em>
+ value specified in the dialog.
+ If an island is encountered, the fractions of the surrounding regions
+ with respect to the total number of voxels adjacent to the island are
+ calculated and compared with the <em>fraction</em> threshold. The
+ island is assigned to the region with the highest fraction value
+ greater than or equal to <em>fraction</em>. If no region exceeds the
+ <em>fraction</em> threshold, the island remains untouched. Note that the
+ <em>fraction</em> value must be between 0.0 and 1.0.
+ With the <em>mode</em> buttons you can control whether the filter works on
+ the current <em>slice</em>, on <em>all slices</em>, or on the <em>3D volume</em>. The
+ difference between the two latter cases is that in 3D mode the filter
+ searches for true 3D connected regions. Note that a long thin
+ structure like a blood vessel can be a very small region in each
+ slice, but has a rather large volume in 3D.
+ This filter is invoked by pressing the <em>Remove</em> button. Pressing
+ the <em>Select</em> button performs the same computations as before. 
+ However, the islands are not yet removed but are only selected. This
+ is useful in order to preview the effect of the filter and to find
+ optimal size and fraction values.
+&nbsp;<br />
+
+&nbsp;<br />
+ 
+<a name="A2"></a>
+</li><li><b>Smooth labels...:</b> This is a modified Gauss filter that smoothes 
+ the region boundaries, and therefore slightly changes the labeling. In
+ <em>3D</em> mode, additionally probabilities of voxels belonging to
+ regions are computed and assigned to voxels. The probability is one for
+ voxels in the interior of a region and decreases towards the region
+ boundary. Voxels near region boundaries are also assigned probabilities
+ with respect to neighboring regions. The probability information is
+ used in other modules - in particular in the <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a>
+ module - in order to make region boundaries appear smooth, otherwise
+ these may be displayed as zigzag lines. 
+ The <em>size</em> option allows you to enter the size of the filter mask
+ which is a square with <em>size</em> x <em>size</em> pixels. The smoothing
+ effect increases with the mask size, but computation time is higher for
+ bigger masks. 
+ The <em>2D</em> button lets you start the smoothing operation on the
+ present slice, the <em>3D</em> button lets you start a 3D smoothing on the
+ whole data volume.
+&nbsp;<br />
+
+&nbsp;<br />
+ 
+<a name="A3"></a>
+</li><li><b>Remove Skin...:</b> This filter is only active if the Tcl variable
+ <tt>giRemoveSkinFilter</tt> is set to 1. Its purpose is to remove thin
+ prolate regions of muscle or fat (skin) on the boundary to exterior.
+ The filter removes the currently chosen material on the boundary to
+ exterior. No other material than muscle or fat can be removed.
+ The <em>Layers</em> option is for entering the number of layers (in units
+ of pixels) outside of exterior (i.e. inside the body) where the filter
+ looks for possible appearances of the chosen material. The larger the
+ number of layers, the more of the skin region will be removed.
+ The filter can be applied to the current slice in the active
+ viewer, or to all slices.
+
+</li>
+</ul><p></p>
+<p>
+
+</p></body>
+</html>

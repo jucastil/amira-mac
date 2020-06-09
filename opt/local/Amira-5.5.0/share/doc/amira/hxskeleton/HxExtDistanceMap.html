@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DistanceMapSkeleton</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "DistanceMapSkeleton" "calculates a distance map from label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Calculates a distance map from a labelfield. In a distance map the value
+of each voxel is equal to the distance to the nearest border voxel. In the 
+context of skeletonizing filamentous structures a distance map is needed on 
+the one hand to guide the thinning procedure and on the other hand to provide 
+an estimate of the thickness (radius) of a fiber. The module can be used together
+with <a class="link" href="HxExtThinner.html#A1">Thinner</a> to calculate the centerline of filamentous
+structures. <em>DistanceMapSkeleton</em> is also engaged internally when using the 
+<a class="link" href="HxExtAutoSkeleton.html#A1">AutoSkeleton</a> module.
+Press Apply to trigger computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Labelfield to be processed. Can be a regular <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>
+or of type <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a> in which case the output is of the 
+same type.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxExtDistanceMap_filename.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is attached to a LargeDiskData object.
+Specify here the name of the output file.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Radius</span>  
+<div class="portsnapshot"><img src="HxExtDistanceMap_param.png" /><br /></div>
+<div class="body"><p>The value at this port specifies the maximum radius (in voxel) an object may have for the 
+distance transformation to be calculated correctly.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Do it</span>  
+<div class="portsnapshot"><img src="HxExtDistanceMap_doIt.png" /><br /></div>
+<div class="body"><p>Start computation of the distance map.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TIFF Image Format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "TIFF Image Format" "standard format for 2D and 3D image data (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This is the 2D TIFF file format. It can be used to read and write one or
+more 2D images. If multiple images of equal size have been selected in the
+<a class="link" href="../usersguide/fileBrowser.html#A1">file dialog</a>, they will be combined into a single 3D
+image volume, i.e., a uniform scalar field of bytes or an RGBA color field.
+TIFF files will be automatically identified by looking at the file header,
+irrespective of the actual file name extension.</p>
+<p>Likewise, if a 3D image data set is to be saved in TIFF format, in fact, for
+each slice a separate file will be created. If you choose the 2D TIFF
+format in the file dialog's format menu, a sequence of hashmark characters
+<tt>[#]</tt> will be automatically inserted into the filename. When saving
+the images, the hashmark sequence will be replaced by the current slice
+number (formatted with leading zeros). For example, if the base filename
+is <tt>image.####.tif</tt>, the files actually being written will be named
+<tt>image.0000.tif</tt>, <tt>image.0001.tif</tt>, and so on. </p>
+<p>Note that not all variants of the TIFF format are supported. In
+particular, the following limitations apply:</p>
+
+<ul><li>The number of channels must be 1, 3 or 4.</li><li>The number of bits per pixel must be 8 or 16 (1-channel images only).</li><li>Images defined in YbCbR colorspace can not be read.</li><li>Tiled images can not be read.</li><li>Only scalar fields consisting of bytes can be saved.</li>
+</ul>
+<p><a name="A2"></a>
+</p>
+<h3><a name="A3">The Channel Conversion Dialog</a></h3>
+<p>When reading 2D image files a special dialog window will be popped up. This
+dialog asks the user to specify how the 2D images should be converted into
+<font face="helvetica">Amira</font> data objects. In addition, the world coordinates of the resulting 3D
+data object can be adjusted. The channel conversion dialog looks as
+depicted in Figure <a class="link" href="#A4">1</a>.</p>
+<div style="text-align:center"><a name="A4"></a><a href=ChannelConversionDialog.png.html><img width=300 src="ChannelConversionDialog.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font>'s channel conversion dialog.</div>
+
+
+</div>
+<p>First of all, the dialog displays the number of files to be read, the
+number of 2D slices (in most cases equal to the number files), the size of
+a 2D slice in pixels, as well as the number of channels stored in the
+files. An option menu lets you select whether a 1-component uniform scalar
+field should be created or a 4-component RGBA color field. Depending on the
+type of input not all options may be active. The meaning of the individual
+items is described below.</p>
+
+<ul><li><b>Maximum.</b> The maximum value of the red, green, and blue channel
+ is stored in a uniform scalar field (3- and 4-channel input only).</li><li><b>Weighted Average.</b> A grayscale uniform scalar field is created
+ according to the NTSC formula, <tt>I=.3*R+.59*G+.11*B</tt> (3- and 
+ 4-channel input only).</li><li><b>Channel 1.</b> The first channel of the input is converted into a
+ uniform scalar field (will always be active).</li><li><b>Channel 2.</b> The second channel of the input is converted into a
+ uniform scalar field (3- and 4-channel input only).</li><li><b>Channel 3.</b> The third channel of the input is converted into a
+ uniform scalar field (3- and 4-channel input only).</li><li><b>Channel 4.</b> The fourth channel of the input is converted into a
+ uniform scalar field (4-channel input only).</li><li><b>Color Field.</b> An RGBA color field is created (4-channel input or
+ 1-channel input with additional colormap).</li>
+</ul>
+<p>If the first image file contains a colormap, the map will be loaded as a
+separate object if <em>Channel 1</em> is selected, or it will be used to
+compute an RGBA color field if <em>Color Field</em> is selected.</p>
+<p>Moreover, the dialog allows you to adjust the bounding box of the resulting
+image data set. The bounding box specifies the world coordinates of the
+center of the lower left front voxel (min values) and the center of the
+upper right back voxel (max values). For example, if your input is 256
+pixels wide and the size of each voxel is 1mm, then you may set <em>xMin</em>
+to 0 and <em>xMax</em> to 255. The bounding box of a data object may also be
+changed later using the <a class="link" href="../hxlattice/HxImageCrop.html#A1">ImageCrop Editor</a>.
+If the reader finds a tag defined by FEI (www.fei.com) in the TIFF
+file, an additional dialog is displayed that allows the user to adjust
+the stage tilt value. This adjustment will change the voxel size in
+the y-direction to correct for an artifact of image acquisition. If the
+user presses Skip, no adjustment is done.</p>
+<p>The user can set a default value for the tilt correction by defining
+an environment variable called "AMIRA_STAGE_TILT_CORRECTION_DEFAULT".</p>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

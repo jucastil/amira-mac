@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridVolume (Polyhedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "GridVolume (Polyhedra)" "displays a polyhedral grid or parts of it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>GridVolume</em> module is a powerful tool for visualizing labeled
+ polyhedral volume grids, e.g., polyhedral patient models. Views on
+ various sub-grids can be specified, e.g., a view on a sub-grid
+ corresponding to one of the tissue compartments of a patient model.
+ The module maintains an internal buffer which contains all currently
+ visible polyhedra. Polyhedra belonging to a particular compartment
+ can be selected and added to the buffer.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The labeled <a class="link" href="HxPbMesh3D.html#A1">polyhedral grid</a>
+ to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Arbitrary scalar field which is mapped onto the grid volume
+ using pseudo-coloring. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap is used for pseudo-coloring the grid volume.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The texture field must be an HxUniformColorField3 2D slice. 
+ When connected, the texture is mapped onto the surface geometry along 
+ the texture normal axis. A transformation can be applied to the data to 
+ change the texture projection axis and texture coordinates scale.
+ Note that texture projection override pseudo-color mode.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from the 
+	<a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a> 
+	class and therefore its description will be found there.
+	In contrast to other modules derived from the <i>ViewBase</i>
+	class this module does not provide the possibility to 
+	consider vertex and direct normals. The triangles will
+	always be drawn flat.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_colormap.png" /><br /></div>
+<div class="body"><p>This port becomes visible only if a scalar field has been 
+	connected to the <i>ColorField</i> port. For further details
+	see section <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture wrap</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_textureWrap.png" /><br /></div>
+<div class="body"><p>Wrap mode used for the texture projection on the surface. There are two wrap modes:
+ <i>Repeat: </i> The texture is repeated outside its 0-1 texture coordinate range.
+ <i>Clamp: </i> Clamps texture coordinates to lie within 0-1 range.
+ This port is hidden if there is nothing connected to the <em>Texture</em> connection port.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_selection.png" /><br /></div>
+<div class="body"><p>This port provides a menu where all 
+ materials of the input grid are listed.
+ It lets you <i>add</i> or <i>remove</i> the selected material skin to the scene.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color Mode</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_colorMode.png" /><br /></div>
+<div class="body"><p>This port is available only on meshes with data located on cells.
+It allows you to change the color mapping of the data set on the geometry. </p>
+
+<ul><li><b>Constant:</b> Constant color. <br />
+</li><li><b>Average:</b> Each cell is colored by a single color defined by the average value of its nodes. <br />
+</li><li><b>Mapping:</b> Cell coloring is obtained through interpolation of its node values. <br />
+</li><li><b>Contouring:</b> Each cell is colored relating to its node values and to isovalues between these values.<br />
+</li><li><b>Texturing:</b> Same as Contouring but a texture is used for creating contours.<br />
+</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

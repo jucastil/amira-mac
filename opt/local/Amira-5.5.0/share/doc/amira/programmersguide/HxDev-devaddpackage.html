@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.3 Adding a New Package</a></h2>
+<p>All <font face="helvetica">Amira</font> components are organized in <em>packages</em>. Each package
+will be compiled into a separate shared object (or DLL file on Windows).
+Therefore, before any components can be defined at least one package must
+be created in the local <font face="helvetica">Amira</font> directory. In order to do so, choose <em>add
+package to local <font face="helvetica">Amira</font> directory</em> on the first page of the wizard and
+press <em>Next</em>. On the next page you can enter the name of the new package
+(see <a class="link" href="#A2">Figure 183</a>).
+</p><div style="text-align:center"><a name="A2"></a><a href=dev3.png.html><img width=375 src="dev3.png" /></a><br />
+<div class="caption">
+<b>Figure 183:</b>
+Adding a new package to the local <font face="helvetica">Amira</font> directory.</div>
+
+
+</div><p></p>
+<p>The name of a package must not contain any white spaces or punctuation
+characters. When a package is added, a subdirectory of the same name is
+created under <tt>src</tt> in the local <font face="helvetica">Amira</font> directory. In this directory
+the source code and header files of all the modules and IO routines of
+the package are stored. In addition in each package directory there must
+be a <em>Package</em> file from which the build system files can be generated.</p>
+<p>Initially, a default <em>Package</em> file will be copied into a new package
+directory. This default file adds the most common <font face="helvetica">Amira</font> libraries for
+linking. It also selects all C++ source files in the package directory to
+be compiled. In order to generate the build system from the <em>Package</em>
+file, please refer to <a class="link" href="HxDev-devcreatebuildsystem.html#A1">Section 24.9</a>.</p>
+<p>In addition to the <em>Package</em> file also the files <tt>version.cpp</tt> 
+and <tt>packageAPI.h</tt> will be copied into a new package directory. The
+first file allows you to put version information into your package, which
+can later be viewed in the <font face="helvetica">Amira</font> system information dialog. The second
+file contains a macro required for putting symbols in a DLL on Windows.
+Finally, also an empty file <tt>package.rc</tt> will be copied into <tt>share/resources</tt>. In this file later modules and IO routines will be
+registered.</p>
+<p></p>
+<p>
+</p></body>
+</html>

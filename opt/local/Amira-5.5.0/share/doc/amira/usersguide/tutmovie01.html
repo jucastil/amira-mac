@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.12 Creating movie files</a></h2>
+<p>In this tutorial you will learn how to record a self-created animated
+sequence into a movie file using the <a class="link" href="../hxmoviemaker/HxMovieMaker.html#A1">MovieMaker</a>
+module.</p>
+<p>In our first example we will just use a camera path to animate the
+scene, whereas in our second example we will rely on the demo sequence
+created in <a class="link" href="tutdemodirector.html#A1">Section 2.11</a>.</p>
+<p>
+</p>
+<h3><a name="A2">2.12.1 Attaching MovieMaker to a Camera Path</a></h3>
+<p>If you have created a visualization of your data and want to create a
+movie showing this visualization from all sides or from certain
+interesting viewpoints, you can create an appropriate camera path and
+record a movie by following the camera along that path.</p>
+<p>Let us create a simple example. Load the <tt>lobus.am</tt> data set
+from the <tt>tutorial</tt> subdirectory and attach an
+<em>Isosurface</em> module to it. Choose an isosurface threshold of
+70 and press the <em>Apply</em> button. The result should look similar
+to this:</p>
+<p></p><div style="text-align:center"><p>
+
+<a href=tutmovie01_lobus.png.html><img width=637 src="tutmovie01_lobus.png" /></a>
+
+</p></div><p></p>
+<p>The easiest way to create a simple camera path is to use the
+<a class="link" href="../hxcamera/HxCircularCameraPath.html#A1">CameraRotate</a> module. Select
+<em>Create/CameraRotate</em> from the menu, and press the
+play button of the newly created module. You can watch the scene
+rotate in the viewer while the time slider is playing
+(<a href="../../../demo/animation/movie01_camrotate.hx">load network</a>).</p>
+<p>To record an animated scene into a movie file, you need to attach a
+<em>MovieMaker</em> module to a module that possesses a
+<a class="link" href="../hxtime/HxPortTime.html#A1">time slider port</a>. The movie is recorded by going 
+through the individual time steps and taking snapshots of the viewer
+along the way. </p>
+<p>In our example, the <em>CameraRotate</em> module has a time slider, so
+we can attach a <em>MovieMaker</em> module to it by right-clicking on
+the <em>CameraRotate</em> icon in the Pool and selecting
+<em>MovieMaker</em> from the popup menu:
+</p><blockquote>
+<p>
+ <img src="tutmovie01_moviemaker.png" />
+</p></blockquote>
+<p></p>
+<p>In the <em>MovieMaker</em> module, first click on the <em>Browse</em>
+button in the <em>Filename</em> port and enter a movie file name like
+<tt>c:/tmp/test.mpg</tt>. The <tt>.mpg</tt> suffix suggests that the
+movie file format will be MPEG, which is a widely accepted standard
+format for digital movies achieving a good compression ratio.</p>
+<p>Next, adjust the parameters of the <em>MovieMaker</em> module to your
+liking, e.g., change the <em>number of frames</em>, the <em>image
+size</em>, or the <em>compression quality</em>. Please refer to the
+<a class="link" href="../hxmoviemaker/HxMovieMaker.html#A1">MovieMaker documentation</a> for details. </p>
+<p>In our example, let us choose 180 frames and leave all other
+parameters untouched. Since the <em>CameraRotate</em> module does a
+full rotation of 360 degrees, each of the 180 frames will represent a
+rotation of two degrees with respect to the previous frame. Press the
+<em>Apply</em> button to start recording. 
+</p><blockquote>
+<p>
+ <a href=tutmovie01_params.png.html><img width=637 src="tutmovie01_params.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Wait for some time while the <em>MovieMaker</em> module drives the
+<em>CameraRotate</em> module and accumulates the
+snapshots. <i>Please note that the speed during the recording
+process is different than the playback speed of the movie.</i> Now view
+the resulting movie file <tt>test.mpg</tt> with a movie player of your
+choice (e.g., Windows Media Player or a similar tool). Experiment with the
+recording parameters until you get the desired result (e.g., control
+the file size and image quality by changing the <em>Compression
+quality</em> value, choose different image sizes to see up to which image
+size your computer is capable of smoothly displaying the movie, and
+change the number of frames to control the speed of the rotation).</p>
+<p>
+</p>
+<h3><a name="A3">2.12.2 Attaching MovieMaker to DemoMaker</a></h3>
+<p>Now we try to record a movie of a more complex animated scene. To this
+end, we load one of the networks that we have created in in
+<a class="link" href="tutdemodirector.html#A1">Section 2.11</a>:
+<a href="../../../demo/animation/demodirector_final.hx">load network</a>.</p>
+<p>As you might remember, the basic idea of the
+<a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMaker</a>/<a class="link" href="../hxdemodirector/HxDemoDirector.html#A1">DemoDirector</a> module
+was that you define a set of events to be executed on a certain time
+line. Check this out by clicking the play button in the
+<em>DemoDirector</em> GUI. You should see a nicely animated demonstration.
+</p>
+<p></p>
+<p>If you remember the previous section in this tutorial, you might
+already have an idea of how we can record this animated demonstration
+into a movie file. Like the <em>CameraRotate</em> module in the
+first example, the <em>DemoMaker</em> module is controlled via a
+<em>time slider</em> that we can attach to. So simply right-click on
+the <em>DemoMaker</em> icon in the Pool and attach a
+<em>MovieMaker</em> module. Like before, enter a movie file name and
+select the number of frames before you click on the <em>Apply</em> button 
+to start recording.
+
+</p></body>
+</html>

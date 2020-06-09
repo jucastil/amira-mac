@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.6 Visualizing Molecular Trajectories and Metastable Conformations</a></h2>
+<p><a name="A2"></a>
+A <a class="link" href="HxMolTrajectory.html#A1">MolTrajectory</a> can be visualized via
+animation of single time steps by attaching a <em>Molecule</em> module to
+the <em>MolTrajectory</em> and then attaching a <em>MoleculeView</em> or
+<em>BondAngleView</em> to the <em>Molecule</em>. The animation is controlled
+via the <em>Molecule's</em> <a class="link" href="HxMolecule.html#A6">Time</a> port.</p>
+<p>For <em>MolTrajectories</em> that represent metastable conformations, the
+modules <a class="link" href="../hxmolconformation/HxMeanMolecule.html#A1">MeanMolecule</a>,
+<a class="link" href="../hxmolalign/HxPrecomputeAlignment.html#A1">PrecomputeAlignment</a>, and
+<a class="link" href="../hxmolconformation/HxConfDensity.html#A1">ConfigurationDensity</a> can be used. The <em>MeanMolecule</em> module aligns all steps of a trajectory and computes a
+mean molecule by averaging every atomic coordinate over all time
+steps. Instead of computing the mean molecule to a reference, as with
+the <em>MeanMolecule</em> module, the <em>PrecomputeAlignment</em> module
+allows you to find the optimal transformation of each time step to
+minimize the overall sum of squared distances. With the
+<a class="link" href="../hxmolconformation/HxRepMolecule.html#A1">RankTimeStep</a> module you can search in a
+trajectory for a desired time step, using different criteria, such as
+the <em>rmsd</em> value to a given reference.</p>
+<p>The <em>ConfigurationDensity</em> module gives an impression of the
+fuzziness of the conformation by computing a probability density for
+the positions of atoms and bonds within a molecular trajectory. This
+density can then be visualized with the
+<a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> and <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> modules.</p>
+<p>
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

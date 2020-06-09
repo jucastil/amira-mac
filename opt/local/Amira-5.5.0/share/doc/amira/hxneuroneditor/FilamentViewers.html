@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">The Viewers</a></h3>
+<p>The Filament Editor has three viewers:</p>
+<p></p>
+<ul><li><b>2D slice viewer</b>: This viewer is used as the primary working area of the interactive tracing tool and displays the image data either as a conventional thin slice, i.e., data are shown from a definite plane within the volume, or as a thick slice, i.e., a slab with user-defined thickness. With thick slicing a maximum intensity projection of the gray values within the slab is displayed. The thickness of the slab can be set with the slider in the control panel. The data window can be set with the <em>Window level</em> tool. In addition, the tracing results within the slab are displayed on top of the gray data as green lines (segments) and blue points (nodes). Using the <em>Trackball</em> tool, the (thick) slice may take an arbitrary plane and using the <em>Browse slices</em> tool the position of the slice is alterable.</li><li><b>3D viewer</b>: This viewer is used to display the graph together with an optional 3D representation of the thick slice currently seen in the 2D slice viewer. The thick slice display is toggled by the button next to the <em>Thickness</em> slider. Together with the thick slice the bounding box and a yellow frame bounding the area displayed in the 2D viewer is rendered.
+The 3D viewer also serves to edit the graph directly by selecting nodes and segments.</li><li><b>2D segment viewer</b>: This viewer also displays the image data either as a thin or thick slice.
+In contrast to the 2D slice viewer, the slice is located along a <em>selected</em> segment and
+only this segment (as green line) and its corresponding nodes (as blue points) are displayed.
+If no segment or more then one are selected nothing is shown.
+However, in the case a segment was selected and the new selection still contains parts of it,
+like nodes or points, the viewer keeps showing this segment and the corresponding slice.
+Note that modifications of the thickness or the data window affect both the 2D segment viewer and the 2D slice viewer.</li>
+</ul><p></p>
+<p>
+</p>
+<h4><a name="A2">Viewer layout</a></h4>
+<p>The Filament Editor starts with the 2D slice viewer and the 3D viewer in a side-by-side layout.
+If no image data is loaded, the default layout is a single viewer.
+By default, the 2D segment viewer is hidden but the visibility and also the layout of the other viewers
+can be configured in the viewer toolbar.
+The 2D segment viewer is always located below the 2D slice and 3D viewer.</p>
+<p><img src="viewer_layout1.png" /> <em>Single viewer</em>: Show either the 2D slice viewer or the 3D viewer.
+If this button is pressed repeatedly the currently visible viewer is swapped with the other one</p>
+<p>
+<img src="viewer_layout2V.png" /> <img src="viewer_layout2H.png" /> <em>Two viewer side-by-side</em> or <em>stacked</em>:
+Show the 2D slice viewer and the 3D viewer side-by-side or stacked</p>
+<p><img src="ToggleViewer.png" /> <em>Toggle viewer</em>: Show or hide the 2D segment viewer
+<br />
+</p>
+<p></p>
+<h4><a name="A3">Viewer navigation</a></h4>
+<p>There are two basically different navigation modes: <em>Edit</em> and
+<em>Camera Navigation</em> mode. The two modes can be toggled using the ESC key.
+If no <em>SpatialGraph</em> object is present, <em>Edit</em> mode is not available
+and the icons in the viewer toolbar are not selectable.
+In the 2D slice viewer the <em>Edit</em> mode has three tools: <em>Select single</em>, <em>Move selected node</em>
+and the interactive tracing tool.
+In the 3D viewer default edit tool is <em>Select single</em>. Activating another 
+selection tool (e.g., <em>Lasso tool</em>, <em>Select connected</em>) makes this tool the standard selection tool. In <em>Camera Navigation</em> mode <em>Trackball</em>, <em>Translate</em> and <em>Zoom</em> have the corresponding effect in the two viewers. Also, like in the regular 3D viewer, the camera navigation tools are accessible through middle (translate) and middle+left mouse button (zoom).
+In the 2D segment viewer selection as well as editing are not provided and navigation is
+only possible by use of the <em>Translate</em> or the <em>Zoom</em> tool.</p>
+<p></p>
+<h4><a name="A4">Navigation Tools in 2D Slice Viewer</a></h4>
+<p><img src="ViewerTrackball.png" /> <em>Trackball</em>: Rotate the thick slice around selected point or center of slice, if no point is selected</p>
+<p><img src="ViewerTranslate.png" /> <em>Translate</em>: Displace the slice laterally</p>
+<p><img src="ViewerZoom.png" /> <em>Zoom</em>: Zoom in/out</p>
+<p><img src="viewerhome.png" /> <em>Home</em>: Change viewer perspective to home (default perspective)</p>
+<p><img src="viewersethome.png" /> <em>Set Home</em>: Sets a new home perspective</p>
+<p><img src="WindowLevel.png" /> <em>Window level</em>: Adjust data window (center/width). Drag the mouse vertically to move the center of the data window, drag it horizontally to change the width of the data window</p>
+<p><img src="BrowseSlices.png" /> <em>Browse slices</em>: Browse through slices in the 2D slice viewer
+<br />
+</p>
+<p></p>
+<h4><a name="A5">Navigation Tools in 3D Viewer</a></h4>
+<p><img src="ViewerTrackball.png" /> <em>Trackball</em>: Rotate scene</p>
+<p><img src="ViewerTranslate.png" /> <em>Translate</em>: Translate scene</p>
+<p><img src="ViewerZoom.png" /> <em>Zoom</em>: Zoom in/out</p>
+<p><img src="viewerrotate.png" /> <em>Rotate</em>: Click button to rotate scene around viewer z axis</p>
+<p><img src="viewerseek.png" /> <em>Seek</em>: Center and zoom scene to the node or segment which has been clicked</p>
+<p><img src="viewerhome.png" /> <em>Home</em>: Change camera position to home (default camera)</p>
+<p><img src="viewersethome.png" /> <em>Set Home</em>: Sets camera to the home position</p>
+<p><img src="ViewerOrtho.png" /> 
+<img src="ViewerPerspective.png" /> <em>Orthographic/Perspective</em>: Toggle between orthographic and perspective camera projection
+<br />
+</p>
+<p></p>
+<h4><a name="A6">Selection Tools Reference</a></h4>
+<p><img src="neuronEditorSelectSingle.png" /> <em>Select single node, segment, or point</em>: Selects a single item.
+Using Ctrl+Shift the selection is extended to the whole connected component (shortcut: e).</p>
+<p><img src="neuronEditorSelectCC.png" /> <em>Select a connected component</em>: Selects a segment and all connected segments and nodes (shortcut: w).</p>
+<p><img src="neuronEditorSelectSubTree.png" /> <em>Select subtree</em>: Selects a whole 
+sub-tree, or the shortest path to the root if the <em>Shift</em> key has been pressed. Available only if a root segment has been set, otherwise the tool will be disabled (shortcut: r).</p>
+<p><img src="neuronEditorSelectLasso.png" /> <em>Draw a line to select nodes, segments, and points</em>: Lasso tool. Draw a free-hand contour in the viewer to select items (shortcut: q). Only available in 3D viewer</p>
+<p><img src="neuronEditorShortestPath.png" /> <em>Calculate the shortest path between a pair of nodes or segments</em>: Calculates the shortest path between an arbitrary pair of nodes or segments and returns it as selection (shortcut: f)</p>
+<p><img src="neuronEditorSelectAll.png" /> <em>Select all nodes, segments, and points</em>: Selects all items in the SpatialGraph (shortcut: a).</p>
+<p><img src="neuronEditorClearSelection.png" /> <em>Clear selection</em>: Deselects any 
+items (shortcut: c).
+<br />
+</p>
+<p></p>
+<h4><a name="A7">Edit Tools Reference</a></h4>
+<p><img src="neuronEditorTrace.png" /> <em>Trace filament</em>: Activates the interactive tracing tools (shortcut: T).</p>
+<p><img src="neuronEditorMove.png" /> <em>Move selected node</em>: Activates the interactive moving of points including re-tracing of connected edges.
+In order to move a node, you need to first select it, then click the <em>Move selected node</em> tool and finally click onto the position on the slice where you want to move the point to (only in 2D slice viewer)</p>
+<p><img src="neuronEditorConnect.png" /> <em>Connect selected nodes, segments, or points</em>: Connects selected nodes, segments, or points (shortcut: S). 
+In particular, when 2 nodes are selected, they are connected. When a node and a point are selected, it converts the point to a node and connects them. Otherwise it connects the selection in the following way:
+</p>
+<ol><li>for each selected element, find the connected component of which it is part,</li><li>determine all ending nodes of all those connected components,</li><li>find the pair of ending nodes in the other connected components that are closest and connect them,</li><li>update the connected components and start over from 2) until only one connected component is left.</li>
+</ol><p>
+<img src="neuronEditorRemoveIntermediateVertices.png" /> <em>Remove intermediate nodes, leaving only branching and ending nodes</em>: Joins adjacent segments, if they are separated by a node with two incident segments, i.e., are neither branching nor ending nodes (shortcut: I).</p>
+<p><img src="neuronEditorConvertPointIntoNode.png" /> <em>Convert a selected point into a node</em>: Splits a segment at the selected point. This is useful to remove part of a segment: after the segment has been split at the selected point, the part to be removed can be selected and deleted. The selected point must not be the first or last point on a segment (shortcut: . (period)).</p>
+<p><img src="neuronEditorDelete.png" /> <em>Delete selected nodes, segments, and points</em>: Deletes selected nodes, segments, and points (shortcut: d).
+Selected nodes will be deleted only if all adjacent segments are selected as well</p>
+<p><img src="neuronEditorUndo.png" /> <em>Undo</em>: Undoes the last edit operation (shortcut: Ctrl+z)</p>
+<p><img src="neuronEditorRedo.png" /> <em>Redo</em>: Redoes the last edit operation (shortcut: Ctrl+y)
+<br />
+</p>
+<p></p>
+<h4><a name="A8">Modifier Reference for Edit Tools</a></h4>
+<p>The behavior of the three main selection tools <em>Lasso</em>, <em>Select single</em>, 
+and <em>Select connected</em> may be modified using one of the following <em>modifier keys</em> <b>Shift</b>, <b>Ctrl</b>, <b>Alt</b>, <b>Shift+Ctrl</b>, or
+<b>Alt+Ctrl</b>, as described below.<br />
+
+</p><div style="text-align:center"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+</td>
+<td align=left>
+ <b>Lasso tool</b> </td>
+<td align=left>
+ <b>Select single node/segment</b></td>
+<td align=left>
+ <b>Select connected component</b></td>
+</tr><tr><td align=left>
+
+<b>No modifier</b> </td>
+<td align=left>
+ Select all vertices/edges in contour. Deselect everything else. 
+ </td>
+<td align=left>
+ Select clicked vertex, deselect everything else.
+ </td>
+<td align=left>
+ Select connected component while deselecting everything else.</td>
+</tr><tr><td align=left>
+
+<b>Shift</b> </td>
+<td align=left>
+ Select all connected components that are completely inside contour. Deselect everything else.
+ </td>
+<td align=left>
+ Select clicked connected component while deselecting everything else.
+ </td>
+<td align=left>
+ Select clicked vertex while deselecting everything else.</td>
+</tr><tr><td align=left>
+
+<b>Ctrl</b> </td>
+<td align=left>
+ Add all vertices/edges inside contour to selection.
+ </td>
+<td align=left>
+ Toggles selection of clicked vertex/edge/point while retaining the rest of selection.
+ </td>
+<td align=left>
+ Toggles selection of clicked connected component while retaining the rest of selection.</td>
+</tr><tr><td align=left>
+
+<b>Alt</b> </td>
+<td align=left>
+ N/A 
+ </td>
+<td align=left>
+ N/A
+ </td>
+<td align=left>
+ N/A</td>
+</tr><tr><td align=left>
+
+<b>Shift+Ctrl </b> </td>
+<td align=left>
+ Add all connected components that are completely inside contour to selection.
+ </td>
+<td align=left>
+ Toggles selection of clicked connected component while retaining rest of selection.
+ </td>
+<td align=left>
+ Toggles selection of clicked vertex/edge/point while retaining the rest of selection.</td>
+</tr><tr><td align=left>
+
+<b>Shift+Alt</b> </td>
+<td align=left>
+ N/A 
+ </td>
+<td align=left>
+ N/A
+ </td>
+<td align=left>
+ N/A</td>
+</tr><tr><td align=left>
+
+</tr></table></div><p>
+
+</p></body>
+</html>

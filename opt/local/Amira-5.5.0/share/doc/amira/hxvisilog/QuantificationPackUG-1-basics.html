@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">13.1 Getting started with <font face="helvetica">Quantification+ Option</font> - Example 1: Measuring volume of pores in a foam sample</a></h2>
+<p>In this step-by-step tutorial you will learn the basics for using <font face="helvetica">Quantification+ Option</font>. This example used below can be easily transposed to other cases and follows the typical workflow of image analysis:
+</p>
+<ol><li>Image processing (noise reduction, filtering, ...)</li><li>Data extraction (thresholding, particle separation, ...)</li><li>Data analysis (measurements, selection, ...)</li>
+</ol><p></p>
+<p>To follow this tutorial you should be familiar with the basic concepts of
+<font face="helvetica">Amira</font>. In particular you should be able to load files, to interact with the 3D
+viewer, and to connect modules to data modules. All these issues are
+discussed in the general <font face="helvetica">Amira</font> tutorials <a class="link" href="../usersguide/tutstart.html#A1">section 2.1</a>.</p>
+<p></p>
+<h3><a name="A2">13.1.1 Loading data</a></h3>
+<p></p>
+<ul><li>Start by loading the stack of images <tt>data/images/Mousse/mousse.im6 </tt> from the <font face="helvetica">Amira</font> root directory.</li>
+</ul><p>
+</p><div style="text-align:center"><a name="A3"></a><a href=tutquant_basics00_load.png.html><img width=450 src="tutquant_basics00_load.png" /></a><br />
+<div class="caption">
+<b>Figure 75:</b>
+Load dialog</div>
+
+
+</div><p></p>
+<p>This image is stored using Visilog .im6 file format. 
+However <font face="helvetica">Quantification+ Option</font> can be used with any 
+image formats supported by <font face="helvetica">Amira</font>.
+When loading Visilog files, a dialog let you choose the import mode.
+</p><div style="text-align:center"><a name="A4"></a><a href=tutquant_import_mode.png.html><img width=187 src="tutquant_import_mode.png" /></a><br />
+<div class="caption">
+<b>Figure 76:</b>
+Import mode</div>
+
+
+</div><p>
+If you choose to process data from disk, the Visilog algorithms will only require some slices to be loaded in memory: 
+This removes most limitations on the size of the 3D images that can be processed. 
+If you have enough memory on your system, loading images fully in memory allows much faster processing. 
+For information about handling large 3D images, see also 
+<a class="link" href="../usersguide/tutoutofcore.html#A2">Chapter 12.1 (<font face="helvetica">Very Large Data Option</font> User's Guide)</a>. 
+</p>
+<ul><li>For the tutorial examples you can certainly choose to load the data in memory: Select the "In memory" option and press OK.</li><li>You can then attach <em>OrthoSlice</em> modules to the data object appearing in the pool to visualize it.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutquant_basics01_foam.png.html><img width=450 src="tutquant_basics01_foam.png" /></a><br />
+<div class="caption">
+<b>Figure 77:</b>
+Initial data</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A6">13.1.2 Processing images with <font face="helvetica">Quantification+ Option</font></a></h3>
+<p>Improving image quality is often necessary to obtain the best results with image analysis. 
+In order to reduce noise in the image, you could apply one of the 
+<a class="link" href="../hximproc/HxImageEditor.html#A1">Image Filters</a> available in the standard <font face="helvetica">Amira</font> software. 
+Alternatively, you can apply one the <font face="helvetica">Quantification+ Option</font> filters as described below.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="HxVisilog.html">Quantification</a> module to the <em>Mousse.im6</em> icon by 
+right clicking on it (or left-click on the white triangle) and selecting <em>Quantification</em> from the <em>Compute</em> submenu in the popup menu.</li>
+</ul><p>
+When the Quantification module is selected, the properties panel shows ports including the Visilog <em>Processing</em> dialog.</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutquant_basics02_panel_median.png.html><img width=450 src="tutquant_basics02_panel_median.png" /></a><br />
+<div class="caption">
+<b>Figure 78:</b>
+Processing dialog</div>
+
+
+</div><p></p>
+<p>The processing dialog contains:<br />
+
+- a <em>command</em> tree area to select commands type and group,<br />
+
+- a <em>pipeline</em> area to select input(s), command, associated parameters, and output(s),<br />
+
+- a <em>choice</em> area to select among options available for the selected item in the pipeline area.</p>
+<p></p>
+<ul><li>In the command tree, open the <em>Filter &amp; Convolution 3D</em> folder and choose the <em>Smoothing3d</em> group. 
+The <em>choices</em> area shows the set of commands belonging to the Smoothing3D group.</li><li>Select <em>medianfilter3d</em> : It appears in the pipeline, and the command input has been set by default to the data connected to the Quantification module.</li>
+</ul><p>
+Instead of using the command tree, you can also directly enter the command name <em>medianfilter3d</em> in the command search area, which supports automatic completion.</p>
+<p></p>
+<ul><li>You can then press the <em>Apply</em> button in the processing dialog to apply the filter.</li>
+</ul><p>
+Once computed, the result is stored in a new image object, as named in the pipeline. You may set in advance a specific output name in the pipeline area, or rename the output in the pool - for instance "imageMedian3D" - in order to retrieve more easily the intermediate results created. Note that keeping intermediate results can be memory consuming.</p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutquant_basics03_network_median.png.html><img width=225 src="tutquant_basics03_network_median.png" /></a><br />
+<div class="caption">
+<b>Figure 79:</b>
+Medianfilter3d network</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=tutquant_basics04_main_median.png.html><img width=450 src="tutquant_basics04_main_median.png" /></a><br />
+<div class="caption">
+<b>Figure 80:</b>
+After removing noise with a median filter.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A10">13.1.3 Getting more help</a></h3>
+<p></p>
+<ul><li>Make sure that a PDF document viewer such as Adobe Acrobat Reader is installed on you system.</li><li>Press the question mark button <img src="tutquant_basics27_question_mark.png" /> &nbsp;in the Properties panel to display the Quantification module help. This help provides some useful information for making scripts with <font face="helvetica">Quantification+ Option</font>.</li><li>For more complete help, you can directly access the Visilog user's guide PDF file by 
+pressing the <em>Panel Help</em> button of the <em>Action</em> port of the Quantification module.</li><li>Select a command in Quantification module's <em>Processing panel</em>, then pressing F1
+or the <em>Command Help</em> button of the <em>Action</em> port
+to display the corresponding reference documentation for this command with your PDF viewer.</li>
+</ul><p>
+Both the user's guide and reference documentation are located in the subdirectory <tt>doc/Visilog</tt> of the <font face="helvetica">Amira</font> installation directory.</p>
+<p></p>
+<h3><a name="A11">13.1.4 Binarisation</a></h3>
+<p><em>Binarisation</em> means transforming a gray level image into a binary image, i.e. a label image with only interior and exterior materials. 
+Threshold Binarisation is used when the relevant information in the gray level image corresponds to a specific gray level interval. Thresholding is a simple <em>segmentation</em> method - more sophisticated automatic, semi-automatic or manual segmentation tools are also available in <font face="helvetica">Amira</font>. 
+Threshold Binarisation can be done with an interactive command <tt>I_threshold</tt> which prompts the user to set the levels with a visual feedback. </p>
+<p></p>
+<ul><li>You can either attach a new Quantification module to the binary image resulting from the 
+previous <tt>medianfilter3d</tt> command, or reuse the Quantification module already in the pool.
+If you reuse the Quantification module, you will need to change the inputs and commands in the pipeline area.</li><li>In the command tree, open the <em>Thresholding </em> folder and choose the <em>Binarisation</em> group - then in <em>choices area</em> select <tt>I_threshold</tt>, or directly type <tt>I_threshold</tt> in the command search area.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A12"></a><a href=tutquant_basics05_panel_threshold.png.html><img width=300 src="tutquant_basics05_panel_threshold.png" /></a><br />
+<div class="caption">
+<b>Figure 81:</b>
+Binarisation pipeline</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>You can select the threshold parameter in the pipeline area, then set the threshold values to the range 0-30 for instance in the choices area.</li><li>Press the <em>Apply</em> button to start the command.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=tutquant_basics06_I_threshold.png.html><img width=450 src="tutquant_basics06_I_threshold.png" /></a><br />
+<div class="caption">
+<b>Figure 82:</b>
+interactive command dialog</div>
+
+
+</div><p></p>
+<p>A module named <em>I_threshold</em> is created in the pool and its ports are displayed in the properties panel.</p>
+<p></p><div style="text-align:center"><a name="A14"></a><a href=tutquant_basics07_threshold_prop.png.html><img width=300 src="tutquant_basics07_threshold_prop.png" /></a><br />
+<div class="caption">
+<b>Figure 83:</b>
+I_threshold module ports in properties panel</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A15">13.1.5 Interactive commands</a></h3>
+<p>Several Visilog commands have a name starting with <em>I_</em> and support interactive input: 
+These commands have a corresponding <font face="helvetica">Amira</font> module enabling convenient interactive 
+control of the command within <font face="helvetica">Amira</font>. Thus you are given a chance to interactively modify 
+the threshold values with immediate visual feedback. 
+The selected pixels appear in red in the displayed image. 
+</p>
+<ul><li>You can now edit the levels of the <tt>I_threshold</tt> module displayed in the Properties windows, and see the select pixels on the displayed slice.</li><li>Set minimum to 0 and maximum to 30, as used for the rest of this tutorial.</li><li>When you are done you can press the button <em>OK</em> in the displayed dialog.</li>
+</ul><p>
+In the output binary image, all pixels with an initial gray level value lying between the two bounds are set to 1, all the other pixels are set to 0.
+The <tt>I_threshold</tt> module is removed from the pool.
+The Quantification icon label is updated with the name of the last command.</p>
+<p></p><div style="text-align:center"><a name="A16"></a><a href=tutquant_basics08_network_threshold.png.html><img width=225 src="tutquant_basics08_network_threshold.png" /></a><br />
+<div class="caption">
+<b>Figure 84:</b>
+threshold network</div>
+
+
+</div><p></p>
+<p>The <tt>I_threshold</tt> command has created a binary image. For binary images the <font face="helvetica">Quantification+ Option</font> displays the voxels of intensity 1 with a blue color. </p>
+<p></p>
+<ul><li>If you attach an OrthoSlice to the resulting image, an appropriate colormap is selected by default. Note: If the Visilog colormaps have been removed from the pool, they can be reset with the Tcl command <em>createColormaps</em> of the Quantification module.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A17"></a><a href=tutquant_basics09_threshold_res.png.html><img width=450 src="tutquant_basics09_threshold_res.png" /></a><br />
+<div class="caption">
+<b>Figure 85:</b>
+Binary image displayed with Orthoslices</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A18">13.1.6 Separation</a></h3>
+<p>Some of the pores in the foam appear to be touching but ideally should be separate. Thresholding cannot avoid this type of output when the acquisition data is too coarse or noisy, or more generally because gray levels of the considered objects are not uniform enough across the volume.
+You can use the <tt>binseparate</tt> command to separate connected particles. </p>
+<p></p>
+<ul><li>In the command tree, open the <em>Fast Morphology </em> folder and choose <em>Separate</em> group, then in <em>choices</em> area select <tt>binseparate</tt>. Alternatively you can type <tt>binseparate</tt> in the command search area.</li><li>Then press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>The principle of the <tt>binseparate</tt> command is to compute watershed lines on the gray-level image for black objects or on the inverted image for white objects. The <tt>binseparate</tt> command is a high-level combination of the fast watershed, distance and numerical reconstruction algorithms. These processing steps are detailed in <a class="link" href="QuantificationPackUG-3-pores.html#A1">Example 3: advanced pore reconstruction</a>. </p>
+<p></p><div style="text-align:center"><a name="A19"></a><a href=tutquant_basics10_separate.png.html><img width=450 src="tutquant_basics10_separate.png" /></a><br />
+<div class="caption">
+<b>Figure 86:</b>
+The particles are now separated</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A20">13.1.7 Analysis</a></h3>
+<p>You can then use an analyze command to get volume, surface area, mean value, number of voxels, etc... individually for each separated particle.
+This analysis on the stack of images is undertaken by using the <tt>I_analyse</tt> Visilog command to extract statistical and numerical information, including the measurement of objects.</p>
+<p></p>
+<ul><li>In the command tree, open the <em>Analysis</em> folder and choose <em>Individual</em> group.</li><li>Then in <em>choices</em> area select <tt>I_analyse</tt>.</li>
+</ul><p>
+Alternatively you can type <tt>I_analyse</tt> in the command search area. 
+</p>
+<ul><li>In the pipeline area, make sure that the first input is the binary image (separated) and the second input it the gray image. If the first input is a gray image, the <tt>I_analyse</tt> command allows for interactive thresholding on the fly when <em>adjust</em> parameter is set. This is not used here, since the data required to be been segmented and separated in the previous steps.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A21"></a><a href=tutquant_basics11_panel_analyse.png.html><img width=450 src="tutquant_basics11_panel_analyse.png" /></a><br />
+<div class="caption">
+<b>Figure 87:</b>
+The processing panel with analysis command</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Press the <em>Apply</em> button.</li>
+</ul><p>
+A new <em>label</em> image data object is created in the pool, and a new window is displayed showing a spreadsheet-like table of results: The Visilog analysis <em>Result Viewer</em>.</p>
+<p></p><div style="text-align:center"><a name="A22"></a><a href=tutquant_basics12_network_analyse.png.html><img width=225 src="tutquant_basics12_network_analyse.png" /></a><br />
+<div class="caption">
+<b>Figure 88:</b>
+analyse network</div>
+
+
+</div><p></p>
+<p>If you left 'Basic' as measurement group in the pipeline inputs, you will get basics measurement as shown below (Volume3d, Area3d, ...). You can also visualize these measurements as histograms, curves, etc.</p>
+<p></p><div style="text-align:center"><a name="A23"></a><a href=tutquant_basics13_spreadsheet.png.html><img width=675 src="tutquant_basics13_spreadsheet.png" /></a><br />
+<div class="caption">
+<b>Figure 89:</b>
+Result Viewer with spreadsheet, histogram or curves</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A24"></a><a href=tutquant_basics14_histo.png.html><img width=375 src="tutquant_basics14_histo.png" /></a><br />
+<div class="caption">
+<b>Figure 90:</b>
+</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A25"></a><a href=tutquant_basics15_graph.png.html><img width=375 src="tutquant_basics15_graph.png" /></a><br />
+<div class="caption">
+<b>Figure 91:</b>
+</div>
+
+
+</div><p></p>
+<p>In the <em>label</em> image created along with the result spreadsheet, each particle has been identified and assigned a unique value.
+This label data is stored as 16-bit unsigned short data. It is also tagged with specific parameters (see <a class="link" href="../usersguide/parameters.html#A1">Section 3.2.7 (Parameters)</a>). Such images are displayed by default using a binary cyclic colormap so that particles in close proximity appear with a different color.
+</p>
+<ul><li>Attach an OrthoSlice to the label image.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A26"></a><a href=tutquant_basics16_label.png.html><img width=450 src="tutquant_basics16_label.png" /></a><br />
+<div class="caption">
+<b>Figure 92:</b>
+</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A27">13.1.8 Interactive selection</a></h3>
+<p>Generating an individual analysis from the result image allows for interaction between the 3D viewer and the <i>Result Viewer</i> in order to locate individual objects with corresponding measures. 
+</p>
+<ul><li>Attach a <a class="link" href="HxVisilogAnalyse.html">Quantification-Analyse</a> module to the label image created in the previous step: Right-click on label data icon and select the module in the <em>Measure</em> category of the popup menu. A <em>point dragger</em> is then displayed in the 3D viewer.</li><li>You can move the dragger using the rectangular handles, then upon button release the spreadsheet will highlight the corresponding object row. In order to move the dragger, you must put the viewer into interaction mode (press the ESC key). Then move the mouse over one of the dragger's crosshairs and press the left mouse button. The color of the picked crosshair changes. The moving area of the dragger is restricted to the corresponding plane.</li><li>You can also click with the middle mouse button over a pickable object in the scene displayed in the 3D viewer, for instance over a particular pore on a displayed slice: The dragger will move to the picked point and the corresponding spreadsheet row will also be highlighted.</li><li>If the point dragger is released in the background area (objects "exterior", displayed in black in OrthoSlice), there is no update of the selected row in the Result Viewer's spreadsheet.</li><li>When you select a cell (not a column or row) in the <i>Result Viewer</i> spreadsheet, the point dragger will move to the corresponding object location in the 3D view.</li><li>The Quantification-Analyse module allows you to hide or show the dragger.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A28"></a><a href=tutquant_basics17_selection.png.html><img width=600 src="tutquant_basics17_selection.png" /></a><br />
+<div class="caption">
+<b>Figure 93:</b>
+Selected row in ResultViewer and corresponding point dragger (brown lines crossing) in 3D viewer</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A29">13.1.9 Custom measurements</a></h3>
+<p>Perhaps you do not need all measurements of the <em>Basic</em> &nbsp;measurement group, or you would like to bundle in the spreadsheet a different set of measures. For such need, you can create your own measurement group. 
+</p>
+<ul><li>Make sure that the measure toolbar is visible with the View menu of the Visilog Result Viewer.</li><li>Click on the <em>columns</em> button <img src="tutquant_basics19_mesure_selection.png" />, in order to display the 'Measures Selection' dialog box.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A30"></a><a href=tutquant_basics24_measure_toolbar.png.html><img width=225 src="tutquant_basics24_measure_toolbar.png" /></a><br />
+<div class="caption">
+<b>Figure 94:</b>
+Measure toolbar of the Result Viewer</div>
+
+
+</div><p></p>
+<p>
+</p><div style="text-align:center"><a name="A31"></a><a href=tutquant_basics18_measure_def.png.html><img width=450 src="tutquant_basics18_measure_def.png" /></a><br />
+<div class="caption">
+<b>Figure 95:</b>
+Defining a measurement group</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>With this dialog, you can create a new measure group by pressing the <em>Add Group</em> button. This creates a new group in the measures Group tree.</li><li>Then select the new measures group and select the list of pre-defined measures you want to add in the new measures group. For instance, select Area3d, Mean and Volume3d and press the button 'add measure' <img src="tutquant_basics20_mesure_add.png" />.</li><li>Now close the dialog box and go back to <tt>I_analyse</tt> pipeline and replace the measurement group used in this command by your custom group and press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A32"></a><a href=tutquant_basics25_custom_group.png.html><img width=300 src="tutquant_basics25_custom_group.png" /></a><br />
+<div class="caption">
+<b>Figure 96:</b>
+Setting measure group for analyze</div>
+
+
+</div><p></p>
+<p>You now get a new spreadsheet with updated columns (Area, Mean, and Volume3d).</p>
+<p>Visilog offers powerful ways to define custom measures. 
+See the Visilog user's guide and reference guide for further details.</p>
+<p></p>
+<h3><a name="A33">13.1.10 Filtering based on measures</a></h3>
+<p>You can filter particles displayed in your 3D viewer. For example, you can decide to visualize only particles which volume3d is comprised between two specified values. 
+</p>
+<ul><li>Press the 'funnel' button <img src="tutquant_basics21_mesure_filter.png" /> in the analysis toolbar.
+<a href=tutquant_basics26_analysis_toolbar.png.html><img width=112 src="tutquant_basics26_analysis_toolbar.png" /></a></li><li>Create a new filter by pressing the <em>New</em> button, select Volume3d and define min and max values.</li><li>Then, push <em>Add</em> button and apply this new filter. 
+This creates a new analysis spreadsheet with fewer objects.</li><li>You can verify that there are fewer objects by using an OrthoSlice to visualize the label image that has been created.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A34"></a><a href=tutquant_basics22_filter_editor.png.html><img width=450 src="tutquant_basics22_filter_editor.png" /></a><br />
+<div class="caption">
+<b>Figure 97:</b>
+Filter editor</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A35"></a><a href=tutquant_basics23_filtered.png.html><img width=450 src="tutquant_basics23_filtered.png" /></a><br />
+<div class="caption">
+<b>Figure 98:</b>
+Filtering result</div>
+
+
+</div><p></p>
+<p>The new filter you have created can be used as a parameter for further analysis/filter commands such as <tt>I_analyse_filter</tt>. </p>
+<p></p>
+<h3><a name="A36">13.1.11 Scripting</a></h3>
+<p>The whole processing sequence can be put in a script in order to automate analysis for routine tasks.
+For details about scripting Visilog with <font face="helvetica">Amira</font>, see the Quantification module help and the provided demonstration example.</p>
+<p>A demo script corresponding to this tutorial can be found in: 
+<a href="../../../../data/tutorials/quantification/PorosityVolumes.hx">data/tutorials/quantification/PorosityVolumes.hx</a>. It uses a script object located in data/tutorials/quantification for automating the processing.</p>
+<p></p><div style="text-align:center"><a name="A37"></a><a href=tutquant_basics27_script.png.html><img width=300 src="tutquant_basics27_script.png" /></a><br />
+<div class="caption">
+<b>Figure 99:</b>
+Script object</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Once the script is loaded, you can select the script object (blue icon) and press <em>start processing</em> in the <em>Properties</em> panel to start the processing.</li><li>The value of the <em>Threshold</em> port is used by default.
+If you checked the <em>interactive threshold</em> option, the <em>I_threshold</em> command will be used and will prompt for threshold input during processing.</li>
+</ul><p></p>
+<p>You can find more script examples in the <font face="helvetica">Quantification+ Option</font> tutorials and demos.</p>
+<p>
+
+</p></body>
+</html>

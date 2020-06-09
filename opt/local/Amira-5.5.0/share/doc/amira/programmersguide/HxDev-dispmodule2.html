@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.2.2 Version 2: Adding Color and a Parse Method</a></h3>
+<p>In this section we want to add two more features to our module. First, we
+want to use a colormap port which allows us to specify the color of the
+cubes. Second, we want to add a parse method which allows us to specify
+additional Tcl commands for the module.</p>
+<p>A colormap port is used to establish a connection to a colormap, i.e., to a
+class of type <tt>HxColormap</tt>. It is derived from <tt>HxConnection</tt> but,
+in contrast to the base class, it provides a graphical user interface
+showing the contents of the colormap and letting the user change its
+coordinate range. If no colormap is connected to the port, a default color
+is displayed. The default color can be edited by the user by double-clicking 
+the color bar.In order to provide our module with a colormap port, we must insert the
+following line into the module's header file:</p>
+<p><font size="2"></font></p><pre>
+    HxPortColormap portColormap;
+</pre><p><font size="2"></font></p>
+<p>Of course, we must also include the header file of the class <tt>HxPortColormap</tt>. This file is located in package <tt>hxcolor</tt>. Note
+that the order in which ports are displayed on the screen depends on
+the order in which the ports are declared in the header file. If we
+declare <tt>portColormap</tt> before <tt>portNumTriangles</tt>, the colormap
+port will be displayed before the integer slider.</p>
+<p>In the compute method of our module we add the following piece of code
+just after the previous children of the scene graph have been removed:</p>
+<p><font size="2"></font></p><pre>
+    SoMaterial* material = new SoMaterial;
+    material-&gt;diffuseColor =
+        portColormap.getColor(numTriPerVertex);
+    scene-&gt;addChild(material);
+</pre><p><font size="2"></font></p>
+<p>With these lines we insert a material node right before all the translation
+and cube nodes into the separator. The material node causes the cubes to be
+displayed in a certain color. We call the <tt>getColor</tt> method of the
+colormap port in order to determine this color. If the port is not connected
+to a colormap, this method simply returns the default color. However, if it
+is connected, the color is taken from the colormap. As an argument we
+specify <tt>numTriPerVertex</tt>, the number of triangles of the selected
+vertices. Depending on the value of <tt>portNumTriangles</tt>, the cubes
+therefore will be displayed in different colors. Of course, this requires
+that the range of the colormap extend from something like 1 to 10 or 12.</p>
+<p><br />
+</p>
+<p>Besides the colormap port, we also want to add a Tcl command interface to
+our module. This is done by overloading the virtual method <tt>parse</tt>
+of <tt>HxModule</tt>. We therefore insert the following line into the module's
+class declaration:<font size="2"></font></p><pre>
+virtual int parse(Tcl_Interp* t, int argc, char **argv);
+</pre><p><font size="2"></font></p>
+<p>In a parse method special commands can be defined which allow us to control
+the module in a more sophisticated way. A typical application is to set
+special parameters which should not be represented by a separate port in
+the user interface. As an example, we want to provide a method which allows
+us to change the size of the cubes. In the initial version of the module
+the cubes were adjusted so that each side was 0.01 times the length of the
+diagonal of the bounding box of the input surface. The value of the scale
+factor shall now be stored in the member variable <tt>scale</tt>. In order to
+set and get this variable, two Tcl commands <tt>setScale</tt> and <tt>getScale</tt> shall be provided. The implementation of the parse method looks
+as follows:</p>
+<p><font size="2"></font></p><pre>
+int
+MyDisplayVertices2::parse(Tcl_Interp* t, int argc, char **argv)
+{
+    if (argc &lt; 2) return TCL_OK;
+    char *cmd = argv[1];
+
+    if (CMD("setScale")) {
+        ASSERTARG(3);
+        scale = atof(argv[2]);
+        fire(); // ensures that cubes will be updated immediately
+    }
+    else if (CMD("getScale")) {
+        Tcl_VaSetResult(t, "%g", scale);
+    }
+    else return HxModule::parse(t,argc,argv);
+
+    return TCL_OK;
+}
+</pre><p><font size="2"></font></p>
+<p>Commands are defined in a sequence of if-else statements. For each command,
+the macro <tt>CMD</tt> should be used. At the end of the if-else sequence the
+parse method of the base class should be called. Note that after a
+command is issued, the compute method of the module will not be called
+automatically by default. This is in contrast to interactive changes of
+ports. However, we may explicitly call <tt>fire</tt> in a command like shown
+above. In this case the size of the cubes then will be adjusted
+immediately. You may test the parse method by loading the file <tt>mypackage/data/test.surf</tt>, attaching <tt>DisplayVertices2</tt> to it, and 
+then typing something like <tt>DisplayVertices2 setScale 0.03</tt> into the
+<font face="helvetica">Amira</font> console window.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

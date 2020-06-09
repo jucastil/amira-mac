@@ -1,0 +1,20 @@
+#Inventor V2.1 ascii
+Annotation {
+	boundingBoxIgnoring TRUE
+	OrthographicCamera {
+		viewportMapping  LEAVE_ALONE 
+	}
+	Translation {
+		translation -1 -1 0
+	}
+	Image {
+		filename  "amira_150_green.png"
+	}
+	Translation {
+		translation 1.97 0.03 0
+	}
+	Image {
+		filename  "../VSGBanner150.png"
+		horAlignment  RIGHT  
+	}
+}

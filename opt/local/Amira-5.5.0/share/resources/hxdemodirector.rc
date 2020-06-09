@@ -1,0 +1,6 @@
+dso open libhxdemodirector.so
+
+namespace eval DemoMaker {
+    variable DefaultDemoLength 100
+    variable DefaultStepSize 0.1
+}

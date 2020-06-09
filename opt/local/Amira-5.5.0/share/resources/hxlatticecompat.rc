@@ -1,0 +1,25 @@
+# ----------------------------------------------------------------------
+# hxlatticecompat package
+# ----------------------------------------------------------------------
+interfaceFactory -class "HxLattice3ToLatticeFactory" \
+    -adapts "HxUniformLabelField3 HxRegScalarField3 HxRegComplexScalarField3 HxRegColorField3 HxRegComplexVectorField3 HxRegField3 HxRegVectorField3 HxSym2TensorField3" \
+    -package "hxlatticecompat"
+
+interfaceFactory -class "HxMultiChannelField3ToLatticeFactory" \
+    -adapts "HxMultiChannelField3" \
+    -package "hxlatticecompat"
+   
+interfaceFactory -class "HxExternalDataToLatticeFactory" \
+    -adapts "HxExternalData" \
+    -package "hxlatticecompat"
+
+module -name "LatticeAccess" \
+    -primary "HxLattice" \
+    -check { ![$PRIMARY hasInterface HxLattice3] && [__checkMultiChannelLDM $PRIMARY] != 1 } \
+    -class "HxLatticeAccess" \
+    -category "Main" \
+    -package "hxlatticecompat"
+
+tclwrapper -class "HxTclWrapperLattice" \
+           -wraps "HxLattice" \
+           -package "hxlatticecompat" 

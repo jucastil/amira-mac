@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TetraGrid</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "TetraGrid" "unstructured finite-element mesh composed of tetrahedra" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ A data object of type <em>TetraGrid</em> represents an unstructured
+ finite-element grid composed of tetrahedra. The geometric information
+ is stored in terms of vertices, edges, faces, and tetrahedra. For
+ instance such data objects are useful as patient models. Like a
+ <a class="link" href="HxUniformLabelField3.html#A1">LabelField</a> with its uniform hexahedral
+ grid structure a tetrahedral grid also contains a 'dictionary' of
+ different material types or regions. In addition to the material names
+ the dictionary may contain colors and other parameters related to
+ material properties.</p>
+<p> <font face="helvetica">Amira</font> is able to reconstruct tetrahedral grids from 3D image data.
+ This procedure involves several steps, including image segmentation,
+ extraction of boundary faces, surface simplification, and finally grid
+ generation. 
+ The tutorial in <a class="link" href="../usersguide/tutgridgen.html#A1">Section 2.6</a> of the user's
+ guide illustrated this process in more detail. 
+ 
+ The actual grid
+ generation step is performed by the computational module
+ <a class="link" href="../hxgridgen/HxTetraGen2.html#A1">TetraGen</a>. The quality of a tetrahedral grid may
+ be improved by applying certain operations provided by the
+ <a class="link" href="../hxgridedit/HxGridEdit.html#A1">Grid Editor</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">hasMaterial &lt;name&gt;</span>  
+
+<div class="body"><p>
+ Returns true if the specified material is defined in the material
+ section of the <em>TetraGrid</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasDuplicatedNodes</span>  
+
+<div class="body"><p>
+ Returns the number of duplicated nodes, i.e., nodes with exact
+ identical coordinates. Such nodes may be used in order to represent
+ discontinuous piecewise linear fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeDuplicatedPoints</span>  
+
+<div class="body"><p>
+ Removes all duplicated points from the grid. No field object must
+ be connected to the grid.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">add &lt;othergrid&gt;</span>  
+
+<div class="body"><p>
+ Copies all vertices and tetrahedra from an other tetrahedral grid
+ into this one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeTetra &lt;n&gt;</span>  
+
+<div class="body"><p>
+ Marks the tetrahedral cell specified by <tt>&lt;n&gt;</tt> as obsolete.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">cleanUp</span>  
+
+<div class="body"><p>
+ Removes all obsolete tetrahedra from the grid.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">fixOrientation</span>  
+
+<div class="body"><p>
+ Fixes the orientation of all tetrahedra so that the enclosed volume
+ is positive.
+</p></div></div>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

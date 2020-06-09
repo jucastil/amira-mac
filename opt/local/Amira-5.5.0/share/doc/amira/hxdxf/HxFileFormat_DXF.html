@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DXF</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "DXF" "Drawing Interchange Format for AutoCAD 3D models (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>DXF</em> file format is a general-purpose format used by the AutoCAD
+(TM) software, The format is able to store a large variety of 2D and 3D
+geometries. Currently, <font face="helvetica">Amira</font> only exports files in plain ASCII format
+containing 3D triangular surfaces and 3D line sets. The information defined
+in the parameter section of an <font face="helvetica">Amira</font> data object will only be saved in case
+of 3D trianglar surfaces.</p>
+<p>3D line sets can be exported in two different ways: the whole line set in a
+single file or on a per-slice basis (<em>DXF slice-by-slice</em>). The latter
+format can only be selected if the line set contains a special parameter
+describing the structure of the individual slices. Groups of lines
+belonging to the same slice, i.e., having the same x, y, or z coordinate,
+are saved in the same <em>DXF</em> file. Line sets of this special type are
+produced by the module <a class="link" href="../hxlines/HxComputeContours.html#A1">ComputeContours</a>.</p>
+<p>When importing <em>DXF</em> files <font face="helvetica">Amira</font> will create an Open Inventor scene
+graph object. You may use the module
+<a class="link" href="../hxsurftools/HxGeometryToSurface.html#A1">IvToSurface</a> in order to convert the scene graph
+into an <font face="helvetica">Amira</font> surface. Currently, only <em>DXF</em> files in ASCII format can
+be read.</p>
+<p><em>DXF</em> files are identified by the file name extension <tt>.dxf</tt>.
+</p></div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

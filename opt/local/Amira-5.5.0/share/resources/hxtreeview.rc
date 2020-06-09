@@ -1,0 +1,40 @@
+# ----------------------------------------------------------------------
+#   hxtreeview package
+# ----------------------------------------------------------------------
+
+if { [theAppSkin getOption TreeView]==0 }  {
+
+    set hideNewModules 1
+    create HxDirectory {Settings}
+    create HxDirectory {Data}
+    create HxDirectory {Display}
+    create HxDirectory {Compute}
+    create HxDirectory {Animation-Demo-Scripts}
+    create HxDirectory {Colormaps}
+
+} else {
+ 
+    module -name "Directory" \
+        -class "HxDirectory" \
+        -category "None" \
+        -dso "libhxtreeview.so"
+
+    module -name "DataDirectory" \
+        -class "HxDataDirectory" \
+        -category "None" \
+        -dso "libhxtreeview.so"
+ 
+    # ----------------------------------------------------------------------
+    # DEFAULT TREE VIEW
+    # ----------------------------------------------------------------------
+
+    tViewInfo -tViewKey "Default"                                         \
+          -tViewHxFile "TView_Default.hx"                             \
+          -defaultDataDirectory "Data"                                \
+          -defaultDisplayDirectory "Display"                          \
+          -defaultComputeDirectory "Compute"                          \
+          -defaultAnimationAndDemoDirectory "Animation-Demo-Scripts"  \
+          -colormapsDirectory "Colormaps"                             \
+          -settingsDirectory "Settings"
+
+}

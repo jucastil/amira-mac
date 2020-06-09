@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CenterlineTree</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "CenterlineTree" "extracts a centerline with tree topology from label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module extracts the centerlines of a labelfield object. Different than 
+<a class="link" href="HxExtAutoSkeleton.html#A1">AutoSkeleton</a> it searches for a graph with tree 
+topology and will not generate loops. If the object contains loops this module 
+will not fail, instead it will just ignore certain connectivity so that the tree 
+topology of graph is preserved. 
+The primary output of the object is a <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> 
+representation of the centerlines. The Euclidean distance to the nearest boundary 
+(boundary distance map) is stored at every point in the SpatialGraph object as
+thickness attribute. This value may be used as an estimate of the local thickness. 
+At least half of the length of the diagonal of one voxel is stored to avoid zero 
+thicknesses.</p>
+<p>The module implements the TEASAR algorithm as originally described in:<br />
+</p>
+<p> <tt>TEASAR: tree-structure extraction algorithm for accurate and robust skeletons
+ Sato, M.; Bitter, I.; Bender, M.A.; Kaufman, A.E.; Nakajima, M.
+ Computer Graphics and Applications, 2000. Proceedings. The Eighth Pacific Conference on
+ Volume , Issue , 2000 Page(s):281 - 449</tt></p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The labelfield containing the filamentous object.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">No end map</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A mask identifying parts of the object. These parts, and a zone around each part 
+(see <a class="link" href="#A5">Tubes Params</a> below), will be excluded from the 
+search for endpoints.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Maps</span>  
+<div class="portsnapshot"><img src="HxTEASAR_maps.png" /><br /></div>
+<div class="body"><p>In addition to the primary output (lineset) the module can provide some internal 
+data structures: 
+</p>
+<ul><li>Voxel Skel: A voxel representation of the skeleton.</li><li>SSDM: The single seeded distance map at the end of the processing.</li><li>SSPDM: The single seeded penalty distance map at the end of the processing.</li><li>tubes: A mask covering all parts of the object which are already processed.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tubes params</span>  
+<div class="portsnapshot"><img src="HxTEASAR_tubesParams.png" /><br /></div>
+<div class="body"><p>Each branch of the tree has a volume associated with it. This tube like volume is 
+'covered' by this branch. The slope and zeroVal are the parameters of a formula used
+to calculate the shape of the tube. All voxels not further away than <em>slope * 
+boundarydistance + zeroVal</em> (all measured in voxels) are covered by a branch and 
+will be excluded from the search for more endpoints. This mechanism avoids detecting 
+too many side branches. The parameters allow to tune the mechanism's sensitivity to 
+small features on the surface of the object. </p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Num parts</span>  
+<div class="portsnapshot"><img src="HxTEASAR_numParts.png" /><br /></div>
+<div class="body"><p>Using this parameter you can restrict the number of branches found during the search. 
+If the input data set contains only one connected object, CenterlineTree will start 
+finding the longest branches. <em>Num parts</em> offers a way to search for a specified number 
+of longest branches. If set to -1 all branches will be found. </p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTEASAR_options.png" /><br /></div>
+<div class="body"><p>If you uncheck auto root a dragger will appear which allows to manually set a point in
+3D space which is forced to belong to the tree. If you uncheck all components only the
+component connected to the manual root will be processed resulting in a centerline tree 
+which is fully connected. </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point</span>  
+<div class="portsnapshot"><img src="HxTEASAR_root.png" /><br /></div>
+<div class="body"><p>Use this port together with it's dragger in the viewer to specify a starting point for 
+the search.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

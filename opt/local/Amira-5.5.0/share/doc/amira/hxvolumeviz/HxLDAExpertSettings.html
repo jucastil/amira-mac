@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LDAExpertSettings</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "Module" "LDAExpertSettings" "allows tuning of LDA attributes" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The LDA technology is a multi-resolution data manager that allows the loading 
+of extremely large data sets (hundreds of gigabytes) with interactive 
+navigation. This makes it ideal for interactive exploration of very large volumes.</p>
+<p>The <em>LDAExpertSettings</em> module allows you to control various parameters
+in order to optimize the reading and display of the data depending on the
+capabilities of the hardware being used -- amount of system memory, the 
+graphics card, the number of CPUs, etc.</p>
+<p>In order to create the <em>LDAExpertSettings</em> module, choose 
+<em>Others/LDAExpertSettings</em> from the main window's <a class="link" href="../usersguide/createmenu.html#A1">Create</a> menu. </p>
+<p>A number of the settings that can be set using this module can also
+be set using the <em>LDA</em> tab of the <a class="link" href="../usersguide/editmenu.html#A1">Edit</a>/<a class="link" href="../usersguide/preferences.html#A1">Preferences</a> dialog. They
+are:</p>
+
+<ul><li><b>View culling</b></li><li><b>Viewpoint refinement</b></li><li><b>Move low resolution</b></li><li><b>Loading policy</b></li><li><b>Main memory amount</b></li><li><b>Texture memory amount</b><br />
+
+In the <em>Preferences</em> dialog the corresponding item is identified as <em>Video memory amount</em>.</li>
+</ul>
+<p>A change specified in this module will be reflected in the <em>Preferences</em> dialog, and vice
+versa. </p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">VisualFeedback1</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_visualFeedback1.png" /><br /></div>
+<div class="body">
+<ul><li><b>Draw Tiles:</b>
+Display tile texturing or not.</li><li><b>Slice Texture:</b>
+Display slice texturing or not.</li><li><b>Fake Data:</b>
+If selected, fake data is used instead of the real data during loading into main memory. 
+The fake data is programmatically generated and is designed to illustrate features 
+of LDA. It is necessary to reload the data after setting this flag in
+order to see the result of the selection.</li><li><b>Load Unload Tiles:</b>
+Show tiles loaded (in red) and unloaded (in blue) in texture memory.</li>
+</ul>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">VisualFeedback2</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_visualFeedback2.png" /><br /></div>
+<div class="body">
+<ul><li><b>Texture Front Outline:</b>
+Draw tile outlines for all primitives. The tile outlines of tiles of full resolution are drawn with a brighter gray for the volume, and a brighter green for the slices.</li><li><b>Data Front Outline:</b>
+Show tiles loaded in main memory. This implies showing the multi-resolution topology. The tile outlines of tiles of full resolution are drawn with a brighter yellow.</li><li><b>Valuation Outline:</b>
+Displays an octree representation showing the status of the octree. 
+Red dots are tiles that have been valuated. 
+Blue indicates the minimum and maximum resolution thresholds. 
+Yellow shows the octree itself.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options1</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_options1.png" /><br /></div>
+<div class="body">
+<ul><li><b>View Culling:</b>
+If checked, LDA will not load tiles located outside of the view frustum.</li><li><b>Viewpoint Refinement:</b>
+If checked, LDA will load tiles of higher resolution close to the viewpoint.</li><li><b>Screen Resolution Culling:</b>
+If checked, LDA will only load only load tiles for which the projection of a 
+voxel is greater than or equal to 1 pixel on screen. This avoids 
+unnecessary loading of high resolution data.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options2</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_options2.png" /><br /></div>
+<div class="body">
+<ul><li><b>Slice Equal Resolution:</b>
+If checked, all tiles on a slice will be taken from the same resolution level.</li><li><b>Move Low Resolution:</b>
+If checked, LDA will use a lower texturing resolution when the user is interacting
+with the scene.</li><li><b>Ignore Fully Transparent Tiles:</b>
+If checked, LDA will not load fully transparent tiles (i.e., if all voxels within the tile have an alpha value of 0).</li>
+</ul>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Num loading threads</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_numLoadingThreads.png" /><br /></div>
+<div class="body"><p>Number of separate threads used for tile loading. Using more threads can increase performance
+ on multiprocessor machines.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Loading policy</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_loadingPolicy.png" /><br /></div>
+<div class="body"><p>LDA loads the data asynchronously using separate threads. 
+ The loading policy allows you
+ to specify when the loading threads should load the data into main memory. 
+ <em>No interaction</em> means the threads will only load data when there is no user interaction. 
+ <em>Always</em> is at any time. <em>Never</em> means no more data loading will occur.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Fixed resolution</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_fixedResolution.png" /><br /></div>
+<div class="body"><p>If set, LDA will only load tiles from the specified resolution level (specified
+ using the <em>Fixed resolution level</em> port).</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Fixed resolution level</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_fixedResolutionLevel.png" /><br /></div>
+<div class="body"><p>Resolution level for the fixed resolution mode.</p>
+<p><b>Main memory:</b></p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Amount in MB</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_mainMemoryAmountInMB.png" /><br /></div>
+<div class="body"><p>Specifies how much main memory (in MB) LDA can use to cache data.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Notification rate</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_mainMemoryNotificationRate.png" /><br /></div>
+<div class="body"><p>LDA will redraw after a certain number of tiles are loaded into memory. This slider allows you to specify this number of tiles.</p>
+<p><b>Texture memory (volumes):</b></p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Amount in MB</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_volumeMemoryAmountInMB.png" /><br /></div>
+<div class="body"><p>Specifies how much texture memory (in MB) LDA can use for the volume (3D textures).</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture load rate</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_volumeTextureLoadRate.png" /><br /></div>
+<div class="body"><p>Specifies the maximum number of textures to load into texture memory between two frames.</p>
+<p><b>Texture memory (slices):</b></p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of textures</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_sliceNumberOfTextures.png" /><br /></div>
+<div class="body"><p>Specifies how much texture memory is allowed in MB for slices (2D textures).</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture load rate</span>  
+<div class="portsnapshot"><img src="HxLDAExpertSettings_sliceTextureLoadRate.png" /><br /></div>
+<div class="body"><p>Specifies the maximum number of textures to load into texture memory between two frames.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

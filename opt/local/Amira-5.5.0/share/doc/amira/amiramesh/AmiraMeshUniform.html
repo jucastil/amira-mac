@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Fields with Uniform Coordinates</a></h3>
+<p>In order to encode 3D scalar or vector fields defined on a uniform
+ grid you first have to define a 3D AmiraMesh array called <em>Lattice</em>. The field's data values are stored on this array. The
+ coordinate type of the field as well as the bounding box are
+ specified in the parameter section of the AmiraMesh file. This
+ is illustrated in the following example:</p>
+<p> </p><pre>
+    # AmiraMesh ASCII 1.0
+
+    # Dimensions in x-, y-, and z-direction
+    define Lattice 2 2 2
+
+    Parameters {
+        CoordType "uniform",
+        # BoundingBox is xmin xmax ymin ymax zmin zmax
+        BoundingBox 0 1 0 1 0 1
+    }
+
+    Lattice { float ScalarField } = @1
+
+    @1
+    0 0 1 1 0 0 2 2
+    </pre><p></p>
+<p> Use <tt>float[3]</tt> in order to encode a vector field instead of a
+ scalar field. Likewise, you may modify the field's primitive data
+ type. For example, 3D images are commonly encoded using <tt>byte</tt>
+ or <tt>short</tt>. Instead of <tt>ScalarField</tt> you may use any other
+ name in the data definition statement.</p>
+<p> The field's bounding box is given by the minimum and maximum x-, y-,
+ and z-coordinates of the <em>grid nodes</em> or voxel centers, not of the
+ voxel boundaries. <font face="helvetica">Amira</font> will always assume the width of a single voxel
+ to be <em>(xmax-xmin)/(dims[0]-1)</em>. For degenerated 3D data sets
+ with one dimension being 1 choose equal minimum and maximum coordinates
+ in that direction.</p>
+<p></p>
+<p>
+</p></body>
+</html>

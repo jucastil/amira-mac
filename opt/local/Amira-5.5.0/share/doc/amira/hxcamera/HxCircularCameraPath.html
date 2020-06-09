@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CameraRotate</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "CameraRotate" "circular camera path for simple animations" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This object can be created from the main window's <em>Create</em> menu. It
+lets you rotate the cameras of all viewers activated in the
+object's viewer mask. This is useful in order to create simple animations.
+The animations can be stored in MPEG movie files by attaching a
+<a class="link" href="../hxmoviemaker/HxMovieMaker.html#A1">MovieMaker</a> module to this object. More complex camera
+animations can be created using the <em>CameraPath</em>
+object and its <a class="link" href="HxKeyframeCameraPathEditor.html#A1">associated editor</a></p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to some other object providing a time source. This
+allows you to synchronize multiple time-dependent objects.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxCircularCameraPath_time.png" /><br /></div>
+<div class="body"><p>The current time value. Changing the time modifies the cameras in all
+viewers activated in the object's viewer mask, i.e., with the orange viewer
+mask button being set.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxCircularCameraPath_action.png" /><br /></div>
+<div class="body"><p>This port lets you specify the orientation of the camera rotation. Whenever
+the <em>recompute</em> button is pressed or a new menu option is selected the
+camera path is recomputed, i.e., the center of rotation and the radius are
+determined by analyzing the camera in the main viewer.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

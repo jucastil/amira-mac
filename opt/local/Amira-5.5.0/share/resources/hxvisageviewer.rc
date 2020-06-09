@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------
+#   VisageViewer package
+# ----------------------------------------------------------------------
+
+subApplication -name "Multi Planar Viewer" -icon "SubAppFusionEditor.png" -class "HxVisageViewerSubApplication" \
+    -package "hxvisageviewer"
+
+# -----------------------------------------------
+#   Plug-in mechanism for automatic tool registration
+# -----------------------------------------------
+if { [info exists hxvisageviewertools] == 0} {
+    set hxvisageviewertools [list];
+}
+
+lappend hxvisageviewertools {AutoRegTool           QxAutoReg_init_plugin               hxvisageviewer}
+lappend hxvisageviewertools {TransformEditorTool   QxTransformEditorTool_init_plugin   hxvisageviewer}

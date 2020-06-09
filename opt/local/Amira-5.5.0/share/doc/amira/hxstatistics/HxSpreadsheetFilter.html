@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SpreadsheetFilter</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "SpreadsheetFilter" "Filters spreadsheets for various aspects 
+ and prepares their data for visualization" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module filters one table of a <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a> by the 
+ data values of up to four user defined columns. Filtering can be performed by 
+ setting an upper and lower threshold or by an arithmetic expression. The data 
+ values of the columns are visualized by histograms and thresholds can be specified via sub-range sliders 
+ or by typing explicit numerical values. </p>
+<p> The filtered data is output as a new spreadsheet. Additionally a table
+ containing summary entries for the thresholding, the mean and the standard
+ deviation of the selected filter columns is created. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input is a spreadsheet object. It may contain more than one table.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be connected to a <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectROI</a> module. If the 
+ input spreadsheet contains columns <em>CenterX, CenterY</em>, and <em>CenterZ</em> 
+ the filtered data will only contain rows with a center position inside the ROI.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">MaskLabelField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be connected to a scalar field with byte short, ushort or int32
+ resolution to mask out regions. If the input spreadsheet contains columns 
+ <em>CenterX, CenterY</em>, and <em>CenterZ</em> a variable <em>mask</em> is initialized 
+ with the field's value at the given position and can be evaluated using the 
+ port <em>Expression</em>.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSpreadsheetFilter_info.png" /><br /></div>
+<div class="body"><p>This port lists summary information about the module's state and the number of 
+ found components.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Table</span>  
+<div class="portsnapshot"><img src="HxSpreadsheetFilter_Table.png" /><br /></div>
+<div class="body"><p>Here the currently active table of the spreadsheet can be selected.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Expression</span>  
+<div class="portsnapshot"><img src="HxSpreadsheetFilter_Expression.png" /><br /></div>
+<div class="body"><p>This field is only available if one or more of the <em>filter by expression</em> 
+ checkboxes (see Port <em>Column N</em>) are active or a mask label field is 
+ connected. The expression can contain the following variables: <tt>mask</tt> - 
+ the data value in the mask labels dataset at the center location (given by the 
+ columns <em>CenterX, CenterY</em>, and <em>CenterZ</em>) - and <tt>col0, col1, 
+ col2</tt>, and <tt>col3</tt> - the values of the current row of the selected columns 
+ (see below). </p>
+<p> If the expression evaluates to true (non-zero) and the row passes the other 
+ filters as well, it is added to the filtered output dataset.</p>
+<p> An expression that restricts the output to objects which are in the first 
+ material of the connected mask label field and which have small values in the 
+ third selected column can be written as: <tt>(mask==1)&amp;&amp;(col2&lt;0.5)</tt>.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Column N</span>  
+<div class="portsnapshot"><img src="HxSpreadsheetFilter_Column0.png" /><br /></div>
+<div class="body"><p>With the <em>Column N</em> ports the columns that will be used for filtering 
+ can be selected. By default, a range can be adjusted with the histogram slider
+ port <em>Filter N</em> (see below). If the checkbox is set at <em>filter by 
+ expression</em> an expression in port <em>Expression</em> is evaluated for the
+ column. Furthermore, the mean value of tzhe column is diplayed in this port.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Filter N</span>  
+<div class="portsnapshot"><img src="HxSpreadsheetFilter_Filter0.png" /><br /></div>
+<div class="body"><p>These ports let the user select a range of values for the respective column. 
+ Superimposed a scaled histogram of the values in <em>Column N</em> is displayed 
+ to guide the setting. Moving the slider will immediately update the numbers in
+ port <em>Info:</em> and the mean computations of the <em>Column N</em> ports. To 
+ update the output objects press <em>Apply</em>.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

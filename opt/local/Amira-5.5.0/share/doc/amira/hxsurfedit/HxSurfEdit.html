@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Surface Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Surface Editor" "modify triangles, remove intersections, assign boundary ids, ..." !>
+<p>&nbsp;<br />
+<img src="HxSurfEdit_Icon.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The surface editor allows you to modify a triangular surface
+in several ways, e.g., to remove or refine triangles, to flip edges
+or move points, or to set boundary ids for individual triangles. It
+also allows you to check a surface for intersecting triangles or for
+falsely oriented patches.</p>
+<p>To open a surface editor, in the Pool select the surface object to edit, 
+then click on the Surface Editor button in the Properties
+Area. 
+The surface editor places
+its GUI controls directly into the main 3D viewer window. This makes
+interactive surface editing very comfortable. In particular, the
+editor adds a <em>Surface</em> menu to the main menu bar,
+as well as a toolbar. The
+user interface of the editor is depicted in <a class="link" href="#A2">Figure 1</a>.
+To close a surface editor, click again on the surface editor button
+in the Properties Area. 
+Note that only one surface editor can be active at a time.
+Activating a second editor causes the first one to be closed. </p>
+<p>To save your work, you can use the following entries of the <em>File</em>
+menu:</p>
+
+<ul><li><em>Save</em>: Saves the surface under the same file name as it has been
+ saved under before. This option allows you to quickly save intermediate
+ results during complex edit tasks.</li><li><em>Save As...</em>: Pops up the file dialog and saves the surface under
+ a user-chosen file name.</li>
+</ul>
+<div style="text-align:center"><a name="A2"></a><a href=HxSurfEdit.png.html><img width=562 src="HxSurfEdit.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+User interface of the surface editor.</div>
+
+
+</div>
+<p>The surface editor works in conjunction with a
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module. If such a module is
+not already connected to the surface, an instance of it will be
+created automatically when the editor is activated. However, most
+settings of the <em>SurfaceView</em> module can be controlled directly
+via menu entries of the editor itself. Therefore there is no need
+to have the <em>SurfaceView</em> module permanently selected.</p>
+<p>A basic concept of the surface editor are the notions of <em>visible</em> and <em>highlighted triangles</em> respectively. Highlighted
+triangles are drawn in red wireframe. Many tools operate not on the
+surface as a whole, but only on highlighted triangles. For example,
+if you want to refine parts of the surface, you'll first have to
+highlight the involved triangles before choosing <em>Refine faces</em>
+from the <em>Surface/Edit</em> menu. Besides the highlight buffer, there is
+another buffer determining which triangles will actually be drawn.
+This allows you to cut away parts of a complex surface. Highlighted
+triangles can be added to the visible buffer or removed from it,
+just as in an ordinary <em>SurfaceView</em> module. Note that hiding
+a triangle doesn't mean to delete it.</p>
+<p>Triangles can be highlighted in a number of ways. On the one hand, there are
+interactive <em>tools</em> allowing you to select triangles using some kind of
+mouse interaction. For example, triangles can be picked individually or a
+contour can be drawn in the 3D viewer. Buttons representing the different
+mouse tools are listed in a tool bar. Clicking on a button causes the
+corresponding tool to be activated. On the other hand, triangles can be
+highlighted using automatic <em>selectors</em>. Selectors are listed in the
+leftmost combo box of the surface editor's selector tool bar. There are
+selectors for highlighting triangles depending on their inner and outer
+region, for highlighting triangles with a certain boundary id or belonging
+to certain patch, and many more.</p>
+<p>In the following different elements of the surface editor will be described
+in detail, namely</p>
+
+<ul><li><a class="link" href="SurfEditMenu.html#A1">menu entries</a></li><li><a class="link" href="SurfEditSelectors.html#A1">selectors including surface tests</a></li><li><a class="link" href="SurfEditTools.html#A1">mouse tools for selecting triangles and editing
+ the surface</a>
+</li>
+</ul>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">13.5 Tutorial 5: Further Image Analysis - Average Thickness of Material in Foam</a></h2>
+<p>This example shows how to compute the thickness of material in a foam sample.</p>
+<p>To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module.<br />
+
+At the end of this tutorial you will find a link to a corresponding demo script.<br />
+</p>
+<p>To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module (<a class="link" href="QuantificationPackUG-1-basics.html#A1">Getting started with <font face="helvetica">Quantification+ Option</font></a>).<br />
+
+You may want to skip image processing details in this example to focus on the specific new features introduced.<br />
+
+Throughout this tutorial you will find links to corresponding demo scripts.<br />
+</p>
+<p>In this document often the term "enter the command ..." or "apply the command ..." occure. This means that you have to attach a Quantification tool to the input data (defined in the text) and enter the command "..." in the Visilog command line (at the bottom right of the Quantification Properties section). It supports automatic completion. After pressing enter you can see the new command in the Pipeline Section of the Quantification Properties (in the left). Here you can change the input and output data/names (as described in the text). Then press apply.<br />
+</p>
+<p>Notice that sometimes it could happen that you accidentally delete the Visilog colormaps. This is the case, when you for example have a binary image an you attach an OrthoSlice to it and the viewer just shows a black image (see if the colormaps <em>"VisilogBinary.col"</em> and <em>"VisilogLabels.col"</em> are under Pool/ Show Object). The colormaps can be reset with the Tcl command (command line at the bottom right of the Amira window):<br />
+
+<tt>Quantification createColormaps</tt> <br />
+</p>
+<p>Start by loading <tt>data/tutorials/quantification/FoamPoro.im6 </tt> from the <font face="helvetica">Amira</font> root directory.</p>
+<p>The image used in this example is acquired by microtomography.
+It represents foam that consists of material and pores.
+Pores appear with dark levels in the image (low intensity voxels).
+Material appears with luminous levels (high intensity voxels).</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=tutquant_foam.png.html><img width=375 src="tutquant_foam.png" /></a><br />
+<div class="caption">
+<b>Figure 123:</b>
+Microtomography image of foam pores</div>
+
+
+</div><p></p>
+<p>The algorithm may be divided into 4 steps:
+</p>
+<ol><li>Porosity detection</li><li>Detection of the separation surfaces</li><li>Distance map of the material</li><li>Calculation of the material average thickness</li>
+</ol><p></p>
+<p><em>First step: Porosity detection</em><br />
+
+As in the previous example, we will obtain the binary pores image using thresholding, morphological opening, and binseparate operators.</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutquant_binary_image_porosity.png.html><img width=375 src="tutquant_binary_image_porosity.png" /></a><br />
+<div class="caption">
+<b>Figure 124:</b>
+Binary image of porosity</div>
+
+
+</div><p></p>
+<p><em>Second step: Detection of the Separation Surfaces</em><br />
+
+The goal of this step is to detect surfaces that cross the material at an equidistance from two pores.
+The <tt>skiz</tt> (SKeleton by Influence Zones) operation:
+</p>
+<ul><li>Takes a binary image for input (here the result of the <tt>binseparate</tt>).</li><li>Gives a binary image for output where
+	
+<ul><li>Each blue voxel of the output image is closer to the object situated at the center of the zone in the input image</li><li>Each black voxel is equidistant from at least two closer objects</li>
+</ul></li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutquant_skiz_image.png.html><img width=375 src="tutquant_skiz_image.png" /></a><br />
+<div class="caption">
+<b>Figure 125:</b>
+skiz image</div>
+
+
+</div><p></p>
+<p>The <tt>logical_not</tt> operation inverts the levels of a binary image.
+Applying <tt>logical_not</tt> on an SKIZ image gives a binary image where:
+</p>
+<ul><li>Each black voxel of the output image is closer to the object situated at the center of the zone in the input image</li><li>Each blue voxel is equidistant from at least two closer objects</li>
+</ul><p>
+So the skiz and <tt>logical_not</tt> combination provides a binary image of surfaces that separate pores through the material.</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutquant_separation_surfaces.png.html><img width=375 src="tutquant_separation_surfaces.png" /></a><br />
+<div class="caption">
+<b>Figure 126:</b>
+Separation surfaces image</div>
+
+
+</div><p></p>
+<p><em>Third step: Distance Map of the Material</em><br />
+
+Applying <tt>logical_not</tt> on the binary image of porosity (result of <tt>binseparate</tt>) gives a binary image where:
+</p>
+<ul><li>Each black voxel of the output image represents a background or porosity voxel.</li><li>Each blue voxel represents a material voxel.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=tutquant_foam_material_binary_image.png.html><img width=375 src="tutquant_foam_material_binary_image.png" /></a><br />
+<div class="caption">
+<b>Figure 127:</b>
+Material binary image</div>
+
+
+</div><p></p>
+<p>The distance algorithm applied on a binary image gives a gray level image where each voxel intensity
+represents the minimal distance in voxels from the object boundary.
+For a given voxel intensity:
+</p>
+<ul><li>Intensity level = 0 <tt>-&gt;</tt> porosity or background</li><li>Intensity level = 1 <tt>-&gt;</tt> material envelope</li><li>Others low level intensity <tt>-&gt;</tt> part of material close to the material envelope</li><li>Others high level intensity <tt>-&gt;</tt> part of material far from the material envelope</li>
+</ul><p>
+Use the <tt>distxxx</tt> command on the last result with parameter 1.0, 1.41, and 1.73. </p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutquant_foam_distance_map.png.html><img width=337 src="tutquant_foam_distance_map.png" /></a><br />
+<div class="caption">
+<b>Figure 128:</b>
+Distance map of material</div>
+
+
+</div><p>
+The mask operation:
+</p>
+<ul><li>Takes a gray level image for first input.</li><li>Takes a binary image for second input (mask image).</li><li>Provides a gray level image for output where:
+	
+<ul><li>Each black voxel of the mask image is set to 0 in the output image</li><li>Each blue voxel of the mask image is set to the initial level from the gray image</li>
+</ul></li>
+</ul><p>
+Enter the command <tt>mask</tt> with the distance map image as first input and the separation surfaces image (<tt>logical_not</tt> of SKIZ) as second input. This gives a gray image where:
+</p>
+<ul><li>Each non null intensity represents a voxel of a separation surface.</li><li>The intensity value is equal to the half distance in voxels between the two closest objects.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutquant_distance_map_separations.png.html><img width=337 src="tutquant_distance_map_separations.png" /></a><br />
+<div class="caption">
+<b>Figure 129:</b>
+Distance map of the separation surfaces</div>
+
+
+</div><p></p>
+<p><em>Fourth step: Calculation of the Average Material Thickness</em>
+Then the average thickness of the material is given by the following formula:
+</p><div style="text-align:center"><a href=tutquant_thickness_formula.png.html><img width=150 src="tutquant_thickness_formula.png" /></a><br />
+
+
+</div><p></p>
+<p>Where:
+</p>
+<ul><li>Vsize = voxel dimension in micrometers</li><li>Sigma(i) = Sum of the voxel intensities in the distance map image of the separation surfaces</li><li>NbVoxSep = number of voxels in the binary separation surfaces image</li>
+</ul><p></p>
+<p>The <tt>volume3D</tt> command gives the sum of the voxels intensities in a 3D image.
+</p>
+<ul><li>In a binary image it represents the number of blue voxels.</li><li>In a gray level image it represents the sum of all voxels intensities.</li>
+</ul><p></p>
+<p>As a consequence:
+</p>
+<ul><li>Volume3D of the distance map image of separation surfaces gives Sigma(i).</li><li>Volume3D of the binary image of separation surfaces gives NbVoxSep.</li>
+</ul><p></p>
+<p>To calculate the volume, use a Quantification module with the command <tt>volume3d</tt>. 
+Do this for both input images the result of the <em>mask operation</em> and the result of <tt>logical_not</tt> and <tt>skiz</tt>.</p>
+<p>You can use different output types.
+<em>none</em> and <em>spread sheet</em> open a text file resp. a spread sheet to display the result. If you use <em>none</em> as
+output you can get the volume with the following tcl commands.
+</p><pre>
+  set result "                 "
+  Quantification:volume3d getFieldValue Volume 1 Volume $result
+</pre><p></p>
+<p>Note that for <em>result</em> you should use a different variable
+name for the two different volumes and that the $ has to stand in front of the variable name when you want to use the value of the variable.<br />
+
+To convert the variable to a float use 
+</p><pre>
+  scan $result %f floatResult
+</pre><p>
+With the volume of the distance map (<em>fVolGrey</em>), the volume of the binary image (<em>fVolBin</em>), and the variable
+<em>fCal</em> for the voxel size (in this case you use <em>2.0</em> as <em>fCal</em>) you can compute the thickness as follows: 
+</p><pre>
+  if {$fVolBin &gt; 0} {
+    set fThick [expr 2.0*$fVolGrey*$fCal/$fVolBin ]
+    echo Mean thickness of material = $fThick um
+  }
+</pre><p>
+A demo script corresponding to this tutorial can be found in:<br />
+
+<a href="../../../../data/tutorials/quantification/PorosityThickness.hx">data/tutorials/quantification/PorosityThickness.hx</a><br />
+
+It uses a script object located in data/tutorials/quantification for automating the processing.<br />
+
+Once the script is loaded, you can select the script object (blue icon) and press <em>start processing</em> in the <em>Properties</em> panel to start the processing. <br />
+
+There may be some interactive commands possibly requiring your input and validation. Just press <em>OK</em> to follow the tutorial steps. These interactive commands could be easily replaced by commands with fixed parameters for a fully automatic processing.<br />
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

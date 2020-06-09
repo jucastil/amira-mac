@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Convolution</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "Convolution" "convolves two uniform 3D data objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module convolves two uniform 3D data objects with each other by
+Fourier transforming the two inputs, multiplying them, and then
+transforming them back. The module is part of the <font face="helvetica">Amira</font>
+<a class="link" href="deconv-intro.html">deconvolution modules</a>. It can be used for example
+to verify the results of image deconvolution.</p>
+<p>The bounding box and voxel sizes of the input data set and the
+convolution kernel are ignored by this module. Use the
+<a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module to make sure that the resolution
+of both inputs is identical.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+<p><b>Note:</b> The Convolution module currently only supports data
+sizes up to 536.870.911 voxels (including border voxels).</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data set to be convolved.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Kernel</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The convolution kernel. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Border width</span>  
+<div class="portsnapshot"><img src="HxConvolution_borderWidth.png" /><br /></div>
+<div class="body"><p>Defines the size of the border region. A border region is necessary if
+the input data set doesn't fade out to black at the boundaries.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxConvolution_options.png" /><br /></div>
+<div class="body"><p>If <i>normalize kernel</i> is selected, the integral of the convolution
+kernel (connected to port <i>Kernel</i>) will be normalized to one. If this
+is not the case, the intensities of the convolved data set will be scaled by
+the actual integral.</p>
+<p>If <i>apply noise</i> is selected, the values of the convolved data set
+will be multiplied by random numbers uniformly distributed around 1
+(white noise).
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Noise level</span>  
+<div class="portsnapshot"><img src="HxConvolution_noiseLevel.png" /><br /></div>
+<div class="body"><p>This port will only be shown if the <i>apply noise</i> option of the <i>Options</i> port has been selected. It specifies the amount of noise applied
+to the output, i.e., the range of the random numbers around 1, by which
+the result is multiplied.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

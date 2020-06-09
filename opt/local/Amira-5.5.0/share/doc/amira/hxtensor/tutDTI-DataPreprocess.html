@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">15.3 Data Preprocessing Tutorial</a></h2>
+<p>Diffusion weighted imaging is a relatively new imaging technique. Therefore no standard has yet been established regarding the way image data and metainformation are stored. In this section we give advice on how to deal with certain special cases.</p>
+<p>In general, the data in question consists of multiple volumes obtained from an MR scanner. An anatomical stack helps with identifying areas of interest like tumors, white matter, or lesions whereas gradient weighted image stacks contain information about water diffusion in the tissue. </p>
+<p>Some of the image stacks will have a noticeably larger data range and contrast. These images are the B0 volumes generated without an additional magnetic gradient in the scanner. They are used for normalization during the process of tensor creation. In general it is advisable to use several scans for each B0 and gradient volume. All duplicate gradient files should be registered with each other and averaged, which reduces the influence of noise.</p>
+<p>This tutorial will cover the following topics:
+</p>
+<ul><li>Common file formats for DTI processing.</li><li>How to convert DICOM mosaic images.</li><li>Registering DTI data to an anatomical reference image.</li><li>Averaging multiple images to reduce noise.</li><li>Resampling to anatomical data resolution.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A2">15.3.1 Automated registration and averaging</a></h3>
+<p>For registration and averaging <font face="helvetica">Amira</font> provides a script object that can be used to automatically process a large number of files. The script works well for the data in this tutorial but other data sets might require adjustments. Due to the amount of registration and alignment the script requires a substantial amount of processing time (about 20 minutes). The workflow performed by the script is described in detail below.
+If you wish to avoid the long processing time, load the
+resulting volume data from the <tt>data/tutorials/DTI/gradients-am/</tt>
+directory.</p>
+<p>Here are the steps in order to run the script on the DICOM data provided with this tutorial:
+</p>
+<ul><li>Load the script 
+<tt>share/script-objects/AverageRegisterGradientsHighRes.scro</tt>.
+</li><li>Use the <em>Browse</em> button of port <em>DICOM</em> and add the files in <tt>data/tutorials/DTI/gradients-dcm/*</tt> to the list.</li><li>Use the <em>Browse</em> button in port <em>Gradient list</em> and point it to the gradient file in <tt>data/tutorials/DTI/gradients.txt</tt>. This file contains in each line three numbers that are the components of the gradient direction vector. The B0 volumes are encoded with three zeros.</li><li>Use the <em>Browse</em> button in port <em>Anatomical</em> and add the 160 files in <tt>data/tutorials/DTI/T1-BrainOnly/</tt>.</li><li>Press the <em>Apply</em> button. The script will identify the files by the gradients listed in <tt>gradients.txt</tt> and sort them into groups that share the same gradient. In each group the volumes are first registered with the T1 and afterwards resampled to its resolution. For each group one volume is produced in the pool that represents the registered and resampled gradient weighted image.</li>
+</ul><p></p>
+<p>The following sections explain the reasoning behind the above script but they are not essential to the general workflow of this tutorial. Readers can advance to section <a class="link" href="tutDTI-Tensor.html#A1">Diffusion Tensor Tutorial</a>.</p>
+<p></p>
+<h3><a name="A3">15.3.2 Common file formats</a></h3>
+<p>DICOM is a standard for medical images that describes how data and
+meta-information is stored and exchanged between DICOM-aware
+entities. <font face="helvetica">Amira</font> supports the slice-based DICOM format (uncompressed) and DICOM Send protocol through the AmiraDicomReader license option. Make sure that a valid license is installed on your machine.</p>
+<p>Alternatives to the DICOM file format for DTI image analysis are
+<a class="link" href="../hxreadnifti/HxFileFormat_Nifti.html#A1">Nifti</a>,
+<a class="link" href="../hximio/HxFileFormat_AnalyzeAVW.html#A1">Analyze</a> (restricted, since it does not support transformations), and
+<a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A1">AmiraMesh</a>. But in general any image
+format that correctly stores voxel size, bounding box information, and
+the transformation of image data will work.</p>
+<p></p>
+<h3><a name="A4">15.3.3 How to convert mosaic images into volume stacks</a></h3>
+<p>In order to store the slices of a volume usually one file is generated for each
+slice. A number of slices thus contain the information for an image volume and
+many slices are required to store all the volumes in a diffusion weighted image
+series. Some vendors, however, arrange the single slices of a gradient volume into 
+one large mosaic slice with n$$\times$$n subimages. This is done to reduce
+the number of files in a study and thus improves transfer times between DICOM
+entities. A special pre-processing step is required to convert these mosaic
+data into the more general form of an image stack. </p>
+<p>
+</p><div style="text-align:center"><a name="A5"></a><a href=tutDTIStackMosaicVolume.png.html><img width=637 src="tutDTIStackMosaicVolume.png" /></a><br />
+<div class="caption">
+<b>Figure 163:</b>
+Example for mosaic format (left) and stack based format (right) for DTI image data.</div>
+
+
+</div><p></p>
+<p>Perform the following steps to find out, if your data is in mosaic format and if, how to convert them. The <em>AmiraMesh</em> file format can then be used to save converted image stacks as single files.</p>
+<p></p>
+<ul><li>Load the mosaic example data <tt>data/tutorials/DTI/mosaic.DCM</tt> into 
+ Amira. This is a single slice in mosaic format that contains a B0 image stack.</li><li>Connect <em>Display&rarr;<a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a></em> to your data set and 
+ make sure that the image displayed shows a mosaic of slice data.</li><li>Connect <em>Compute&rarr;<a class="link" href="../hxarith/HxSplitLattice.html#A1">SplitVolume</a></em> to the mosaic. Click <em>Apply</em>.</li>
+</ul><p></p>
+<p><em>SplitVolume</em> will attempt to extract information about dimensions and voxel 
+size from the DICOM header, if present. This will usually succeed if the data 
+has been generated by certain Siemens scanners. Otherwise, the dimensions must be 
+entered manually in <em>SplitVolume</em> and the voxel size set using 
+the <a class="link" href="../hxlattice/HxImageCrop.html#A1">Crop Editor</a>.</p>
+<p>Since converting mosaic files for many volumes can be tedious and time
+consuming, we provide a script object that automates the process of
+converting a larger number of mosaic files.</p>
+<p></p>
+<ul><li>Load the file <tt>share/script-objects/ConvertMosaics.scro</tt> into the Pool.
+</li><li>Select the blue icon in the Pool and click the <em>Browse</em> button of port
+ <em>Mosaic files</em>.</li><li>Click the <em>Add</em> button to open the Amira File
+ Browser. Navigate to directory <tt>data/tutorials/DTI/mosaics-dcm</tt>,
+ select all files (use Ctrl+a as shortcut), and click <em>OK</em>. This
+ creates 13 new data objects in the Pool, representing 13
+ volumetric image stacks.</li>
+</ul><p></p>
+<p>The script object assumes that the data is available in DICOM format
+and that <em>SplitVolume</em> is able to read the dimensions and voxel
+size from the DICOM header section. If this does not apply to your
+data, you can modify the script or perform the conversion manually.</p>
+<p></p>
+<h4><a name="A6">15.3.3.1 Registration using the MPR viewer</a></h4>
+<p>If multiple volumes have been acquired for B0 and for each gradient direction,
+it is advantageous to average them in order to reduce image noise. Since images
+are acquired over time and with different gradients, MR reconstruction artifacts
+are likely to occur. Registration helps to lessen the impact of these
+artifacts and improves the quality of the diffusion weighted image analysis.
+<font face="helvetica">Amira</font> supports the automatic affine registration of multiple modalities.</p>
+<p>The gradient weighted images can be either registered to a B0 image or to an
+anatomical image stack. The B0 images are usually stored together with the
+gradient weighted images and are obtained without an additional magnetic
+gradient. They are therefore less susceptible to the distortions caused by
+strong gradients. B0 images can be identified by a zero gradient direction and
+are characterized by a data range that is typically much larger than that of
+their counterpart gradient images.</p>
+<p>Anatomical image data, such as a T1 and T2 volumes, have a higher spatial resolution, less distortion, and show structures that are not visible in the diffusion weighted images. The diffusion weighted images in turn show structures not visible in the anatomical scans. Fusing the data of the anatomical image and the diffusion weighted images combines the strength of both image modalities and results in a superior analysis. Note, however, that if you decide to use a T1 scan as reference you should make sure that both T1 (T2) and DWI scans have been performed in the same scanner and that the patient has not changed its position. Otherwise the gradient directions will no longer be correct.</p>
+<p>The strategy for the registration should be as follows: select a master
+volume and register all volumes to the master volume. We will continue this
+tutorial with the T1 volume in the role of the master volume.</p>
+<p>Automatic registration will only work if the T1 volume shows similar
+structures compared to the B0 and gradient weighted
+volumes. Therefore, the T1 volume, which shows the complete head and
+neck of the patient, has to be processed to only contain the brain
+(skull stripping). For this tutorial this has been done already and
+the images in <tt>data/tutorials/DTI/T1-BrainOnly/</tt> contain only the
+brain without the skull. To repeat the process please see the section
+about brain stripping in the <a class="link" href="../hxatlas/tutBrainMap.html#A1">Brain-to-Brain Mapping</a> tutorial.</p>
+<p>A convenient tool in <font face="helvetica">Amira</font> that supports affine registration is the Multiplanar Viewer. All B0 and gradient scans need to be present in the Pool for this step. 
+</p>
+<ul><li>Load the data from <tt>data/tutorials/DTI/gradients-dcm/</tt>.</li>
+</ul><p>
+This should result in 39 new objects in the Pool corresponding to 39 image stacks of 128 x 128 x 49 voxels. If you select their icons in the Pool and read out the values of port <em>Info</em>, you will note that three of them have a considerable larger data range (0 ... 4095) than the others (0 ... &nbsp;1000). A deeper investigation of the data will reveal that the former correspond to 3 seperate scans of a B0 image (no gradientfiled present) while the remaining 36 stacks correspond to 3 repetitons of measurements with 12 different gradient fields superimposed.</p>
+<p></p>
+<ul><li>Load the T1 image data from <tt>data/tutorials/DTI/T1-BrainOnly/</tt> and remember its icon name (<em>T1-BrainOnly</em>).</li><li>Open the Multiplanar Viewer by clicking the icon in the sub-application task bar.</li><li>Select the master volume in the <em>Primary Data</em> drop down menu and
+ choose a second volume in the <em>Secondary Data</em> drop down menu.</li><li>Select the <em>Automatic Registration</em> tool from the Tool Box at the
+ bottom of the main panel and press <em>Align centers</em>. This should provide an initial registration based on the bounding box centers of the two volumes.</li><li>In the Tool Box at the bottom of the main panel check the <em>Rigid</em>, <em>Iso</em>, <em>Aniso-Scale</em>, and <em>Shear</em> check boxes in the <em>Transform</em> port. The correction for shear is especially important if gradient weighted images are to be registered. Keep the default setting for the metric (Euclidean) and perform the registration using the button <em>Register</em>.</li><li>Check the result for a sufficient overlap. If automatic registration 
+ fails, manual registration can be performed using the manual registration tool
+ from the viewer tool bar.</li><li>Repeat the above process with the next gradient weighted image as 
+ <em>Overlay</em> image until all volumes have been registered.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutDTI-RegistrationAfter.png.html><img width=600 src="tutDTI-RegistrationAfter.png" /></a><br />
+<div class="caption">
+<b>Figure 164:</b>
+Multi Planar Viewer showing anatomical data set and the B0 image in fusion mode. Both data sets are registered using the parameters as displayed.</div>
+
+
+</div><p></p>
+<p>At the end of this procedure all images should be registered with the master volume. The registration for each volume is stored as a 4$$\times$$4 transformation matrix. After the registration, any two data sets can be displayed as primary and overlay data in the MPR viewer and be displayed correctly relative to each other.</p>
+<p></p>
+<h4><a name="A8">15.3.3.2 Averaging multiple images to reduce noise</a></h4>
+<p>The images generated in the above section are registered to the master volume -- usually the anatomical volume -- and should therefore also be registered with each other. Averaging volumes obtained with the same gradient direction will now be performed to reduce noise in the data.</p>
+<p></p>
+<ul><li>Connect <em>Compute&rarr;<a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a></em> to the first volume.</li><li>Connect the second and third volume to the input ports <em>InputB</em> and <em>InputC</em> of Arithmetic.</li><li>Enter as expression into the <em>Expr</em> port of <em>Arithmetic</em> <em>(A+B+C)/3</em>, which computes the average intensity for each voxel and stores the results as a new volume.</li>
+</ul><p></p>
+<p>If more than three volumes need to be averaged, the procedure must be
+done in several steps because <em>Arithmetic</em> only provides a maximum of
+three input ports. Merge two data fields using <em>Arithmetic</em> with the
+expression <em>A+B</em>. Attach a new <em>Arithmetic</em> module to the result
+and connect as second input the third data set. Again use the
+expression <em>A+B</em> and repeat the procedure with more data sets to
+sum the intensities for each voxel. It is important to use a data type
+like short or integer for this summation if many volumes need to be
+averaged. This will ensure that the sum of all intensities per voxel
+is still a number that can be represented with the data type. The last
+step is to use another <em>Arithmetic</em> module and to divide the intensities
+of the last result data set by the number of volumes used during
+averaging.</p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=tutDTI-PreProcessAverage.png.html><img width=487 src="tutDTI-PreProcessAverage.png" /></a><br />
+<div class="caption">
+<b>Figure 165:</b>
+Image data (left), average intensity after registration (middle), and difference between image data before and after averaging (right) showing noise removed by the averaging procedure.</div>
+
+
+</div><p></p>
+<p></p>
+<h4><a name="A10">15.3.3.3 Resampling to anatomical data resolution</a></h4>
+<p>As a last step the data can be resampled to the resolution of the
+anatomical scan. The resolution is the number of voxel in each of the
+three spatial directions. This is done to allow a segmentation to be
+shared between the anatomical and the gradient weighted
+images and switching between the final images in the Segmentation Editor
+will not change the label field. This procedure will also increase the
+density of generated line sets during fiber tracking and therefore
+produce denser fiber bundles.</p>
+<p>We will assume that the volumes are already registered with each other.
+</p>
+<ul><li>Identify the lower resolution volume that needs to be resampled.</li><li>Connect a <em>Compute&rarr;<a class="link" href="../hxarith/HxResample.html#A1">Resample</a></em> module to the lower resolution volume.</li><li>Identify the volume that is used as a master volume, usually the anatomical volume with the highest resolution.</li><li>Connect the anatomical volume to the <em>Reference</em> port of <em>Resample</em>.</li><li>In the <em>Mode</em> port of <em>Resample</em>, select the <em>Reference</em> option to produce a new data set that matches in dimensions and bounding box the anatomical volume. Keep the default filter setting (<em>Lanczos</em>) and press <em>Apply</em>.</li>
+</ul><p></p>
+<p>The resulting data set should now match the anatomical volume in voxel size and dimension.
+
+</p></body>
+</html>

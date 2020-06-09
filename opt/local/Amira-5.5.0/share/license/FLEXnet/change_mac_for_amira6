@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+
+# to display table with status
+# ip -o link show | awk '{print $2,$9}'
+
+# loop over the interfaces
+for i in `ip -o link show | awk -F ":"  '{print $2}'`; 
+  do
+    #echo $i
+    STATUS=`ethtool $i | grep Link | awk '{print $3}'`
+    # echo " status : " $STATUS
+    if [ "$STATUS" == "no" ]; then
+	# echo " found one we can use"
+	ifconfig $i down
+	ifconfig $i hw ether 90:b1:1c:3d:e0:7a
+	# exiting
+	exit 0
+    fi
+done
+
+#/sbin/ifconfig eth0 down
+#/sbin/ifconfig eth0 hw ether 90:b1:1c:3d:e0:7a
+

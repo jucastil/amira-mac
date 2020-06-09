@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> FiberTracking</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "FiberTracking" "fiber tracking for diffusion tensor imaging data" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This modules implements the tensorline algorithm and computes line sets 
+from tensor fields by numerical 
+integration. The input may represent the first principal
+direction of a tensor field and its Eigenvalues (see 
+<a class="link" href="HxComputeTensor.html#A1">ComputeTensor</a>, 
+<a class="link" href="HxComputeTensorOutOfCore.html#A1">ComputeTensorOutOfCore</a> and 
+<a class="link" href="HxExtractEigenvalues.html#A1">ExtractEigenvalues</a>). The algorithms 
+implemented for the fiber tracking are streamline
+tracking (STT) and tensor deflection (TEND). The user may choose
+between a combination of both methods.
+The module takes care of the ambiguity of the sign of the
+Eigenvector solution and uses a fourth order Runge-Kutta integration
+method.</p>
+<p>The module requires a label field to be present with at least one label that fills the area in which fibers are expected. The fiber tracking will not continue into areas assigned to the Exterior material. The module will produce one line set for each label where the label is used as the seed area for the fiber tracts.</p>
+<p>Note that the number of line segments produced may be very large. The
+<a class="link" href="../hxlines/HxSelectLines.html#A1">SelectLines</a> module may help in this case to
+focus the analysis to a sub-region. Also selecting a higher threshold
+for the fractional anisotrophy will reduce the number of seed points and therefore the number of lines produced.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A vector field representing the first principal direction of
+the vector field. If this module is connected to the input the module
+will search the workspace for a second data set with a similar name
+(icon name ending '_evals') and connect it to the Eigenvalue port.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Mask</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A label field which is used to produce separate line sets for each
+material.</p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Tensor</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A symmetric second order tensor which is needed to perform the
+tensor diffusion algorithm.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Eigenvalues</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The Eigenvalues which belong to the Eigenvector solution of the
+vector field input. These values are used to compute the fractional
+anisotrophy (threshold value).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_Info.png" /><br /></div>
+<div class="body"><p>Port printing information about the expected number of integration
+steps using the currently selected values for the integration.
+The second info port explains the implentation of the two
+parameters f and g which weight solutions of the STT and the TEND 
+algorithm.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_Options.png" /><br /></div>
+<div class="body"><p>Port to specify if the module should guess the sign of the vector
+(local alignment), if the fractional anisotrophy threshold should be 
+used 
+to stop the integration (FA treshold) and if the module should
+check for how straight the path of integration is (direction threshold).</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options2</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_Options2.png" /><br /></div>
+<div class="body"><p>Port which when enabled replaces the weighting parameter f by the 
+linear tensor shape measure for each voxel.</p>
+<p>
+<a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">FA threshold</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_FAThreshold.png" /><br /></div>
+<div class="body"><p>Port to specify the threshold for the fractional anisotrophy. If
+the FA value for the current voxel is below the threshold the 
+integration scheme will stop.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tensor weight g</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_TensorWeightG.png" /><br /></div>
+<div class="body"><p>Port to specify the weighting between STT and TEND fiber 
+tracking.</p>
+<p>The weigthing factors f and g should both vary between 0 and 1. The
+algorithm is using three directional terms. The first is the vectors
+found in the data set in the data port (weighted by f), the second is 
+the current
+direction of travel (weighted by (1-f)(1-g)) and the third is the tensor 
+deflection term (weighted by (1-f)g).</p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tensor weight f</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_TensorWeightF.png" /><br /></div>
+<div class="body"><p>Port to specify the weighting between STT and TEND fiber tracking.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Direc threshold</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_DirecThreshold.png" /><br /></div>
+<div class="body"><p>The angle in degree at which the fiber tracking is stopped.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Step size</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_StepSize.png" /><br /></div>
+<div class="body"><p>The step size of the fiber tracking in units of the voxel size.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxFiberTracking_length.png" /><br /></div>
+<div class="body"><p>The length of the fiber tracked in units of the voxel size.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

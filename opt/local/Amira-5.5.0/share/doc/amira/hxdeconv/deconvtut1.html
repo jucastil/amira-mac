@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.3 Standard Deconvolution Tutorial</a></h3>
+<p>This tutorial explains how 3D image data sets can be deconvolved in <font face="helvetica">Amira</font>.
+It is asumed that the reader is already familiar with the basic concepts
+of <font face="helvetica">Amira</font> itself. If this is not the case, it is strongly recommended to
+work through the <a class="link" href="../usersguide/first.html#A1">standard <font face="helvetica">Amira</font> tutorials</a> first. In this
+section the following topics are covered:
+</p>
+<ol><li>Prerequisites for deconvolution</li><li>Resampling a measured PSF</li><li>Deconvolving an image data set</li><li>Calculating a theoretical PSF</li>
+</ol><p></p>
+<p>As an example we are going to use a confocal test data set (<i>polytrichum.am</i>) provided with the <font face="helvetica">Amira</font> deconvolution modules. The
+data file is located in the directory <i><font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/deconv</i>.</p>
+<p></p>
+<ul><li>Load the data set <i>polytrichum.am</i>.</li><li>Visualize it, for example, using a <i>ProjectionView</i> module.</li>
+</ul><p></p>
+<p>The data set shows four chloroplasts in a spore of the moss polytrichum commune.</p>
+<p></p>
+<h3><a name="A2">Prerequisites for Deconvolution</a></h3>
+<p>Besides the image data itself, for the standard non-blind deconvolution
+algorithm a so-called <i>point spread function</i> (PSF) is also required.
+The PSF is the image of a single point source, or as a close approximation, 
+the image of a single fluorescing sub-resolution sphere. PSF images can either be
+computed from theory (see below) or they can be obtained from measurements.
+In the latter case tiny so-called <i>beads</i> are recorded under the same
+conditions as the actual object. This means that the same objective lens, the same
+dye and wavelength, and the same immersion medium are used. Typically, the
+images of multiple beads are averaged to obtain an estimate of a single PSF. <font face="helvetica">Amira</font>
+provides a module called <a class="link" href="HxBeadExtract.html#A1">BeadExtract</a> facilitating
+this process. The use of this module is discussed in a
+<a class="link" href="deconvtut3.html#A1">separate tutorial</a> about bead extraction.
+At this point let us simply load a measured PSF from a file.
+</p>
+<ul><li>Load the data set <i>polytrichum-psf.am</i>.</li><li>Use the <i>ProjectionView</i> module to visualize it.</li>
+</ul><p></p>
+<p>The PSF appears as a bright spot located in the middle of the image volume
+(Figure <a class="link" href="#A3">131</a>).
+It is important that the PSF is exactly centered. Otherwise, the
+deconvolved data set will be shifted with respect to the original image.
+Also, it is important that the PSF fades out to black at the boundaries. If
+this is not the case, the black level of the PSF image needs to be adjusted
+using the <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> module. Finally, neither the PSF
+nor the image to be deconvolved should exhibit <em>intensity attenuation
+artifacts</em>, i.e., image slices with decreased average intensity due to
+excessive light absorption in other slices. If such artifacts are present,
+they can be removed using the <a class="link" href="../hxneuro/HxCorrectZDrop.html#A1">CorrectZDrop</a> module.
+</p><div style="text-align:center"><a name="A3"></a><a href=deconv-fig1.png.html><img width=450 src="deconv-fig1.png" /></a><br />
+<div class="caption">
+<b>Figure 131:</b>
+Maximum intensity projection of <i>polytrichum-psf.am</i></div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A4">Resampling a Measured PSF</a></h3>
+<p>Next, select both, the PSF and the image data. You'll notice that the voxel
+sizes of both objects are not the same. It is recommended to adjust
+different voxel sizes of PSF and image data prior to deconvolution using
+the <a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module. The deconvolution module itself
+also accounts for different voxel sizes, but is does so by using point
+sampling with trilinear interpolation. This is OK as long as the
+voxel size of the PSF is larger than that of the image data. However,
+in our case the voxel size of the PSF is smaller than that of the image
+data, i.e., the resolution of the PSF higher. Using the
+<a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module provides slightly more accurate results
+here, since all samples will be filtered correctly using a Lanczos kernel.
+</p>
+<ul><li>Connect a <i>Resample</i> module to <i>polytrichum-psf.am</i>.</li><li>Connect the <i>Reference</i> port of the <i>Resample</i> module 
+ to the image data set <i>polytrichum.am</i></li><li>In the <i>Mode</i> port of the <i>Resample</i> module, choose
+ <i>voxel size</i> (see Figure <a class="link" href="#A5">132</a>).</li><li>Resample the PSF by pressing the <i>Apply</i> button.</li>
+</ul><p></p>
+<p>The <i>voxel size</i> option means that the PSF will be resampled on a grid
+with exactly the same voxel size as the image data set, which is connected
+to the <i>Reference</i> port. While the original PSF had a dimension of
+12 x 12 x 30 voxels, the resampled one only has 12 x 12 x 16 voxels.
+However, the extent of a single voxel in z-direction is bigger now.</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=deconv-fig2.png.html><img width=300 src="deconv-fig2.png" /></a><br />
+<div class="caption">
+<b>Figure 132:</b>
+Resampling a PSF using the <i>Resample</i> module.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A6">Deconvolving an Image Data Set</a></h3>
+<p>After a suitable PSF has been obtained we are ready for deconvolving the
+image data set. This can be done by attaching a
+<a class="link" href="HxDeconvolution.html#A1">Deconvolution</a> module to the image data.</p>
+<p></p>
+<ul><li>Connect a <i>Deconvolution</i> module to <i>polytrichum.am</i>.</li><li>Connect the <i>Kernel</i> port of the <i>Deconvolution</i> module
+ to the resampled PSF <i>polytrichum-psf.Resampled</i>.</li>
+</ul><p></p>
+<p>Once the deconvolution module is connected to its two input objects, some
+additional parameters need to be adjusted (for a detailed discussion of
+these parameters see also the <a class="link" href="HxDeconvolution.html#A1">reference
+documentation</a> of the <i>Deconvolution</i> module itself). Figure
+<a class="link" href="#A7">133</a> shows these settings:</p>
+<p><i>Border width:</i> For deconvolution the image data has to be enlarged by
+a guardband region. Otherwise boundary artifacts can occur, i.e.,
+information from one side of the data can be passed to the other. There is
+no need to make the border bigger than the size of the PSF. However, if
+the data set is dark at the boundaries, a smaller border width is sufficient.
+In our case, let us choose the border values 0, 0, and 8 in the x, y, and
+z direction.
+<i>Iterations:</i> The number of iterations of the deconvolution algorithm.
+Let us choose a value of 20 here.</p>
+<p><i>Initial estimate:</i> Specifies the initial estimate of the deconvolution
+algorithm. If <i>const</i> is chosen a constant image is used initially.
+This is the most robust choice, yielding good results even if the input
+data is very noisy. We keep this option here.
+<i>Overrelaxation:</i> Overrelaxation is a technique to speed up the
+convergence of the iterative deconvolution process. In most cases the best
+compromise between speed and quality is <i>fixed</i> overrelaxation.
+Therefore we keep this choice also.
+<i>Method:</i> Selects between standard (non-blind) and blind deconvolution.
+Let us specify the <i>standard</i> option here.</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=deconv-fig3.png.html><img width=300 src="deconv-fig3.png" /></a><br />
+<div class="caption">
+<b>Figure 133:</b>
+Deconvolution module attached to <i>polytrichum.am</i>.</div>
+
+
+</div><p></p>
+<p>The actual deconvolution process is started by pressing the <i>Apply</i> button.
+Please press this button now. The deconvolution should take about 10
+seconds on a modern computer. During the deconvolution the progress bar
+informs you about the status of the operation. Also, after every iteration
+a message is printed in the <font face="helvetica">Amira</font> console window indicating the amount of
+change of the data. If the change seems to be small enough, you can
+terminate the deconvolution procedure by pressing the <em>Stop</em> button. However, note that
+the stop button is evaluated only once between two consecutive iterations.</p>
+<p>When deconvolution is finished, a new data set called <i>polytrichum.deconv</i> appears in the Pool. You might take a look at the
+deconvolved data by moving the <i>ProjectionView</i> connection line from
+<i>polytrichum.am</i> to <i>polytrichum.deconv</i>.</p>
+<p></p>
+<h3><a name="A8">Calculating a Theoretical PSF</a></h3>
+<p>Sometimes bead measurements are difficult to perform, so that an
+experimental PSF cannot easily be obtained. In such cases
+a theoretical PSF can be used instead. <font face="helvetica">Amira</font> provides the module
+<a class="link" href="HxPSFGen.html#A1">PSFGen</a>, allowing you to calculate theoretical PSFs.
+The module can be created by selecting <i>PSFGen</i> from the <i>Create</i> <i>Others</i> menu of the <font face="helvetica">Amira</font> main window.
+Once the module is created again some parameters have to be entered.
+The <i>resolution</i> and the <i>voxel size</i> can be most easily specified
+by connecting the <i>Data</i> port of the <em>PSGGen</em> module to
+the image data set to be convolved. In our case, please connect this port to
+<i>polytrichum.am</i>.</p>
+<p>In order to generate a PSF, you also need to know the numerical aperture
+of the microscope objective, the wavelength of the emitted light (to be
+entered in micrometers!), and the refractive index of the immersion medium.
+In our test example these values are NA=1.4, lambda=0.58, and n=1.516
+(oil medium). Also, change the microscopic mode from widefield to confocal.</p>
+<p>After you press the <i>Apply</i> button, the computed PSF appears as an icon
+labelled <i>PSF</i> in the Pool. You can compare the theoretical
+PSF with the measured one using the <i>OrthoSlice</i> module. You'll notice
+that the measured PSF appears to be slightly wider. This is a common
+observation in many experiments.</p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=deconv-fig4.png.html><img width=300 src="deconv-fig4.png" /></a><br />
+<div class="caption">
+<b>Figure 134:</b>
+The PSFGen module calculates theoretical PSFs.</div>
+
+
+</div><p></p>
+<p>Once you have computed a theoretical PSF, you can perform non-blind
+deconvolution as described above. However, for convenience the
+<a class="link" href="HxDeconvolution.html#A1">Deconvolution</a> module is also able to compute a
+theoretical PSF by itself. You can check this by disconnecting the <i>Kernel</i> port of the <i>Deconvolution</i> module. If no input is present at
+this port, additional input fields are shown, allowing you to enter the
+same parameters (numerical aperture, wavelength, refractive index, and
+microscopic mode) as in <i>PSFGen</i>. After these parameters have been
+entered, the deconvolution process again can be started by pressing the <em>Apply</em> button.</p>
+<p>Note that any previous result connected to the <em>Deconvolution</em> module
+will be overwritten when starting the deconvolution process again.
+Therefore, be sure to disconnect a previous result if you want to
+compare deconvolution with different input PSFs.</p>
+<p>
+
+</p></body>
+</html>

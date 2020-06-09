@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ColorField3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "ColorField3" "represents a 3D image consisting of RGBA tuples" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ An RGBA color field is a regular 3D field with 4 data components per
+ voxel. Each data component is an 8-byte value. The first 3 components
+ are interpreted as red, green, and blue color values. The fourth
+ component represents an opacity value (alpha). Color fields usually
+ have uniform coordinates, i.e., equal slice distances in all
+ directions, but other coordinate types are possible as well.</p>
+<p> Color fields can be visualized using the slicing modules
+ <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> and
+ <a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a>. They are especially useful in
+ combination with a <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> module for direct volume
+ rendering. Since the color field stores an RGBA tuple for each voxel,
+ no additional transfer function is required. This allows you for
+ example to visualize different data sets in a single volume rendered
+ image at once. The conversion of one or multiple scalar fields into
+ a color field is accomplished using the
+ <a class="link" href="../hxarith/HxColorCombine.html#A1">ColorCombine</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">alphaAverage [min] [max]</span>  
+
+<div class="body"><p>
+ Sets the alpha value of all voxels equal to the luminance 0.3*R +
+ 0.59*G + 0.11*B, i.e., brighter objects become more opaque. If min
+ and max are specified the alpha values are scaled so that they
+ fill this range. By default min and max are 0 and 255,
+ respectively.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alphaSet &lt;alpha&gt;</span>  
+
+<div class="body"><p>
+ Sets the alpha value of all voxels to the specified value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alphaThreshold &lt;luminance&gt;</span>  
+
+<div class="body"><p>
+ Sets the alpha value of all voxels with a luminance smaller than
+ the specified value to 0. The alpha of all other voxels is set to
+ 255. Luminance is computed as 0.3*R + 0.59*G + 0.11*B.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">swapRGBA</span>  
+
+<div class="body"><p>
+	Swaps ABGR tuples into RGBA tuples or vice versa.
+</p></div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

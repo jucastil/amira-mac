@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.12 Preferences Dialog</a></h3>
+<p>The <em>Preferences Dialog</em> allows you to adjust certain global settings
+of <font face="helvetica">Amira</font>. The preferences are stored in a permanent fashion on a per-user
+basis. 
+The dialog contains a tab bar with several tabs. The first tab, 
+<a class="link" href="#A2">General</a>, 
+is related to the Pool and saving the network. The second tab,
+<a class="link" href="#A3">Layout</a>, affects the layout of the user interface. The third,
+<a class="link" href="#A4">On Exit</a>, controls what conditions are checked for in the
+networks when <font face="helvetica">Amira</font> exits. 
+The <a class="link" href="#A5">Molecules</a> tab allows you to specify options for handling molecular data.
+The <a class="link" href="#A6">LDA</a> tab allows you to specify options for out-of-core data. For advanced
+users, additional
+options can be set using the <a class="link" href="../hxvolumeviz/HxLDAExpertSettings.html#A1">LDAExpertSettings</a> module.
+The <a class="link" href="#A7">Segmentation</a> tab allows you to specify options for the
+Segmentation Editor. See the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a> 
+documentation for details. In the <a class="link" href="#A8">Rendering</a> tab you can
+set the rendering options. In the <a class="link" href="#A10">Performance logging</a>
+tab the performance logging can be enabled or disabled, collected data can be
+inspected, and settings regarding the sending of log files can be changed.</p>
+<p>
+</p>
+<p></p>
+<h4><a name="A2">3.1.12.1 The General Tab</a></h4>
+<p><b>Object Pool</b></p>
+<p><em>2-pass firing algorithm</em><br />
+
+If set, a slightly more complex firing algorithm is used which ensures
+that down-stream modules connected to an up-stream object via multiple
+paths are only fired once if the up-stream object changes. The default
+is on.<br />
+</p>
+<p><em>Auto-select new modules</em><br />
+
+If set, a new module selected from the popup menu of its parent object is
+shown automatically in the Properties Area. The default is on.<br />
+</p>
+<p><em>Deselect previously selected modules</em><br />
+
+This option can only be set if auto-selection is turned on. If set, all
+objects are deselected before selecting the new module. Otherwise the new
+module will be appended at the end of the Properties Area. The default is on.<br />
+</p>
+<p><em>Draw viewer toggles on icons</em><br />
+
+If set, small viewer mask toggles are drawn on the icons of data objects
+and display modules. This allows you to show or hide a module in a viewer
+without selecting it first. The default is on.<br />
+</p>
+<p><em>Draw compute indicator</em><br />
+
+If set, a small red rectangle is drawn inside the icon of a module to
+indicate that the module is currently working. The default is on.<br />
+</p>
+<p><b>Save Network</b></p>
+<p><em>Include unused data objects</em><br />
+
+If set, all data objects including hidden colormaps are stored in network
+scripts. When executing such a script all existing objects are removed
+first. If not set only visible data objects and objects which are
+referenced by others are stored in a network script. When executing the
+script, hidden data objects are not removed. The default is on.<br />
+</p>
+<p><em>Include window sizes and positions</em><br />
+
+If set, window sizes and positions are stored in network scripts. Be
+careful using this option if you want to send your script to a machine
+with a different screen resolution.<br />
+</p>
+<p><em>Overwrite existing files in auto-save</em><br />
+
+If set, no overwrite check is performed for data objects which need to be
+saved automatically in order to create a network script. Otherwise a unique
+file name will be chosen. The default is on. Details about the auto-save
+feature are described in <a class="link" href="filemenu.html#A8">Section 3.1.1.7</a>.<br />
+</p>
+<p><b>Maximum number of recent documents</b></p>
+<p><em>Recent files</em><br />
+
+This determines the maximum number of recent files in the file menu.</p>
+<p><em>Recent networks</em><br />
+
+This determines the maximum number of recent networks in the file menu.</p>
+<p><b>Preferences and Settings</b></p>
+<p><em>Preferences and Settings</em><br />
+
+Load, save, or restore default settings.</p>
+<p></p>
+<h4><a name="A3">3.1.12.2 The Layout Tab</a></h4>
+<p><b>Naming convention</b></p>
+<p>These toggles allow you to chose between two naming conventions: <em>medical</em> and
+<em>technical</em>. Your choice will affect the labels of some ports, for example,
+orientation ports, as well as the appearance of the viewer buttons controlling
+the view orientation.<br />
+
+</p>
+<p></p>
+<p><b>Windows</b></p>
+<p>These items allow you to configure the layout of the <font face="helvetica">Amira</font> windows. 
+By default, the main <font face="helvetica">Amira</font> interface components (Pool, Properties Area,
+3D viewer, console, and help browser) share one large window.
+You can use the check boxes to display some of these components
+in separate top-level windows. This gives you additional flexibility in managing 
+the "real-estate" of your graphics display. For example, on a dual-head display
+it can be interesting to display the Main Viewer Window on one display and
+the rest of the <font face="helvetica">Amira</font> interface on the other.<br />
+ </p>
+<p><em>Save window layout on exit</em><br />
+
+The window layout is saved when Amira is closed.<br />
+</p>
+<p><em>Show viewer in top-level window</em><br />
+
+The 3D viewer will be displayed in a top-level window.<br />
+</p>
+<p><em>Show viewer on left-hand side</em><br />
+
+The 3D viewer will be displayed on the left-hand side.<br />
+</p>
+<p><em>Show console in top-level window</em><br />
+
+The console will be displayed in a top-level window.<br />
+</p>
+<p><em>Show help browser in top-level window</em><br />
+
+The help browser will be displayed in a top-level window.<br />
+</p>
+<p><em>Show "DoIt" buttons</em><br />
+
+Some modules have a button, usually labeled "DoIt", 
+to initiate the action of the module. Since Amira 4.0, by default,
+this button is not displayed in the Properties Area. Rather, the
+green <em>Apply</em> button at the bottom of the Properties Area is used
+to initiate the action. If this box is checked, the button will be displayed
+in the Properties Area. The green <em>Apply</em> button will still be available
+for use as well.<br />
+</p>
+<p>Finally, you have the choice to <em>Save current layout</em>, and <em>Restore current layout</em>.<br />
+ </p>
+<p><b>Viewer Gadgets</b></p>
+<p>There are two viewer gadgets, a camera trackball and a compass.</p>
+<p>The camera trackball, used for constrained rotation of the
+camera about the screen-aligned X, Y, or Z axes, is described
+in <a class="link" href="viewer.html#A1">Section 3.1.8</a>.</p>
+<p>The 3D compass indicates the direction from which the camera
+is viewing the scene. See <a class="link" href="viewer.html#A1">Section 3.1.8</a> for more
+details on the compass.</p>
+<p>Click on the tab of the gadget whose attributes
+you wish to control, then set its attributes as described below.<br />
+ </p>
+<p><em>Show the camera trackball</em> / <em>Show the compass</em><br />
+
+This toggle controls the visibility of the trackball (compass). The default is on.<br />
+</p>
+<p><em>Auto-hide the camera trackball</em> / <em>Auto-hide the compass</em><br />
+
+When this box is checked, the trackball (compass) is only displayed while the mouse
+is within the trackball (compass) display area. It is hidden as soon as the mouse moves 
+outside the trackball (compass) display area. The default is off. This item is not active 
+if the <em>Show the trackball (or compass)</em> item is off.<br />
+</p>
+<p><em>Camera trackball position</em> / <em>Compass position</em><br />
+
+This menu allows you to specify which corner of the viewer window to display
+the trackball (compass) in. The default is <em>Lower right</em> for the trackball,
+and <em>Upper right</em> for the compass. This item is not active if 
+the <em>Show the trackball (or compass)</em> item is off.<br />
+</p>
+<p><b>Pool</b><br />
+</p>
+<p>If <em>Show connection ports in the Properties Area</em> is checked,
+all object's/module's connection ports are shown at the top of its control
+panel in the Properties Area. By default this is off because the connections (shown
+as blue lines) between data objects and modules can be conveniently managed directly 
+in the Pool. Changes to the connections made in the Pool are reflected in the
+connection ports in the Properties Area, and vice versa.</p>
+<p>If <em>Show connected colormaps in the Pool Area</em> is checked, colormaps connected 
+to a colormap port will be shown in the Pool. By default all colormaps are hidden
+within the Pool.</p>
+<p></p>
+<h4><a name="A4">3.1.12.3 The On Exit Tab</a></h4>
+<p>The page allows you to control the network conditions that are checked
+when <font face="helvetica">Amira</font> exits. <font face="helvetica">Amira</font> displays a save dialog if conditions such
+as a modified network or data objects exist when exiting.
+</p>
+<p></p>
+<h4><a name="A5">3.1.12.4 The Molecules Tab</a></h4>
+<p><b>Color Schemes</b></p>
+<p>These check boxes allow you to chose alternate color schemes: CPK for atoms,
+and RasMol for amino acids.<br />
+</p>
+<p><b>Selection Info</b></p>
+<p>These items control how much information is printed into the console when
+ parts of a molecule are selected. Activate <em>Molecule name</em> if the name of the molecule
+ should be printed. Activate <em>Group name</em> if the name of the selected group should be
+ printed. If you activate <em>Group attributes</em>, all attributes of the selected group
+ are printed. If <em>Explicit attributes</em> is activated, the printed attributes are
+ restricted to those explicitly named in the corresponding text field.<br />
+</p>
+<p><b>Atom Expressions</b><br />
+
+<em>ID case sensitive</em><br />
+
+Specifies if atom identifiers are case sensitive or not.</p>
+<p></p>
+<h4><a name="A6">3.1.12.5 The LDA Tab</a></h4>
+<p><b>Conversion</b></p>
+<p><em>Out-of-core threshold</em><br />
+
+Specifies the size above which data sets will be 
+treated as out-of-core data.<br />
+</p>
+<p><em>Compression</em><br />
+
+Specifies the type of data compression. It enables creation of
+smaller lda files, however it could be a little bit slower at the loading stage
+because of the decompression process.<br />
+</p>
+<p><em>Sampling</em><br />
+
+Specifies the algorithm of data sampling. Available options are :
+</p>
+<ul><li><em>Sharp</em> to use decimation algorithm (one voxel out of two).</li><li><em>Average</em> to use weighted average algorithm : voxels in a tile of resolution N+1 are set
+to the average of the 6 neighbors from resolution N and the current voxel value weighted by n.</li>
+</ul><p></p>
+<p><em>Tile Size</em><br />
+
+Sets the size of the tiles to be compressed.<br />
+</p>
+<p><em>Border Size</em><br />
+
+Specifies the size of the tile border. A border of 3 eliminates tiling effect when the
+lighting for volume rendering is enabled.<br />
+</p>
+<p>
+<b>Rendering Quality</b></p>
+<p><em>Main memory amount</em><br />
+
+Sets the maximum allowed main memory in MB (megabytes) for
+all the out-of-core data sets. Increasing this value enables to load higher resolutions
+for very large files.<br />
+</p>
+<p><em>Video memory amount</em><br />
+
+Sets the maximum allowed texture memory in MB (megabytes)
+for all the out-of-core data sets. Increasing this value enables to visualize higher
+resolutions for very large files.<br />
+</p>
+<p><em>Loading priority</em><br />
+
+Defines whether <font face="helvetica">Amira</font> should load slices before volumes
+when running out of memory (Tcl command <em>thePrefDialog setLDAGeometryPriority</em> 
+and <em>thePrefDialog enableLDAGeometryPriority</em>).<br />
+</p>
+<p>
+<b>Options</b></p>
+<p><em>Viewpoint refinement</em><br />
+
+ If set, refinement depends on the viewpoint. <br />
+
+</p>
+<p><em>View culling</em><br />
+
+If set, refinement takes place only in the view frustum.<br />
+
+</p>
+<p><em>Move low resolution</em><br />
+
+If set, ortho slices and oblique slices are displayed in
+half resolution while moving.<br />
+</p>
+<p><em>Loading policy</em><br />
+
+Sets loading behavior. If <em>No Interaction</em> is selected,
+the asynchronous loading thread will only load when the user does not interact with
+the scene. If <em>Always</em> is selected, loading occurs as long as there is something to load. 
+If <em>Never</em> is selected, no loading occurs. The default is <em>No Interaction</em>. </p>
+<p></p>
+<h4><a name="A7">3.1.12.6 The Segmentation Tab</a></h4>
+<p><b>3D Draw Style</b></p>
+<p><em>3D Draw style</em><br />
+
+This option lets you choose the material draw style used in the 3D viewer.<br />
+</p>
+<p><b>Selection Draw Style</b></p>
+<p><em>Selection Draw style</em><br />
+
+This option lets you choose the material draw style used to highlight
+the selected voxels.</p>
+<p></p>
+<h4><a name="A8">3.1.12.7 The Rendering Tab</a></h4>
+<p><b>Shadowing</b></p>
+<p>
+<em>Shadowing</em><br />
+
+If set, shadows will be generated. You can select also the
+default behavior, the 
+intensity and the quality of the shadows. If this option is switched on, 
+some visualization modules show the "Shadow" button, through which you can directly
+specify the object behavior.<br />
+</p>
+<p><b>Surface Rendering</b></p>
+<p><em>Enable legacy rendering mode</em><br />
+
+By default Amira's surface rendering modules make use of recent OpenGL features (OpenGL 2.0 and higher) in order to achieve maximum performance. If the graphics card doesn't support those features or if artifacts occur, a "Legacy rendering mode" can be enabled. In this mode the user may choose between "Optimized graphics performance" (OpenGL display lists) and "Reduce video memory consumption".</p>
+<p><em>Two pass rendering mode</em><br />
+
+By default Amira's surface rendering modules make use of recent OpenGL features (OpenGL 2.0 and higher) in order to achieve maximum performance. On some graphic boards or on MacX, the back face lighting is not enabled. Activating the two pass rendering mode will fix this problem.</p>
+<p></p>
+<h4><a name="A9">3.1.12.8 The Performance Tab</a></h4>
+<p>Some Amira compute modules are multi-threaded and thus may take advantage of multiple processors and/or cores. The number of threads used is set in this preference option. 
+Typically each thread occupies one core of the CPU. If <em>Automatic</em> is checked, Amira will use all available cores, the number of which are given in the spin box.</p>
+<p></p>
+<h4><a name="A10">3.1.12.9 The Performance Logging Tab</a></h4>
+<p><em>Enable performance logging.</em><br />
+
+Performance logging information will be collected only if the checkbox is selected.</p>
+<p><em>Send logs at most every n days.</em><br />
+
+Amira will try at most every <em>n</em> days to send collected performance information. Furthermore, it considers
+the amount of data which could be sent and will only send if a certain amount was
+accumulated.</p>
+<p><em>Ask me before sending the logs.</em><br />
+
+If checked, Amira will ask every time before sending performance information.
+All collected information can be inspected and removed if desired. If unchecked, Amira will
+send the performance information automatically.</p>
+<p><em>Send logs now.</em><br />
+
+Instructs Amira to send all performance information now.</p>
+<p><em>Show me what information has been logged.</em><br />
+
+Opens a new dialog box which allows the user to inspect and remove all collected 
+performance information.
+
+</p></body>
+</html>

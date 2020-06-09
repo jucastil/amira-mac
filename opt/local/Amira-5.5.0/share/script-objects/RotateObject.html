@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML>
+<html>
+<head>
+  <title>Script Object: RotateObject</title>
+</head>
+
+<BODY LANG="EN" BGCOLOR="#ccd8e9" TEXT="#000000">
+
+<A NAME="A897"><H2>Script Object: RotateObject</H2></A>
+<! HxIndex: Module "RotateObject" "animate rotation of an object" !>
+
+<H3><FONT COLOR="#800080">Description:</FONT></H3>
+<BLOCKQUOTE>
+
+The <em>RotateObject</em> module can be used to animate the local
+rotation of a <a href=HxSpatialData.html>spatial data object</a>,
+which is done by changing the object's <i>transformation</i>, as
+opposed to manipulating the virtual camera. This allows to rotate
+multiple objects in the scene independently, which is especially
+important for animated demonstrations.
+
+The most efficient way to create a <em>RotateObject</em> module is to
+right-click on a spatial data object and select it from the
+<em>Animation/Demo</em> entry in the popup menu.
+
+Using the module is quite simple: just specify a <a href=#axis>
+rotation axis</a> as well as a <a href=#center>center of rotation</a>,
+and then use the <a href=#time>time slider</a> to animate the
+rotation. The center can be computed automatically as the <a
+href=#action>center of the object's bounding box</a>. The rotation
+axis can be specified by attaching an additional plane module and
+<a href=#plane>using the normal vector of that plane</a> as the axis.
+
+<P>
+</BLOCKQUOTE>
+
+<P>
+<H3><FONT COLOR="#800080">Connections:</FONT></H3>
+<BLOCKQUOTE>
+
+<A NAME="c_data"></A><B>Data</B><TT>[required]</TT><BR>
+The <em>Data</em> port connects the module to the spatial data object
+that is to be rotated.
+<P>
+<A NAME="c_normalplane"></A><B>Normal plane</B>
+<TT>[optional]</TT><BR> The <em>Normal plane</em> port connects the
+module to an optional planar module for defining the rotation
+axis. You may simply right-click on the blue <em>RotatbeObject</em>
+icon in the object pool and select <em>Normal Plane</em> from the
+popup menu to create such a plane. Once you have defined the
+orientation of the plane using e.g. its trackball manipulator, you can
+use the normal as the rotation axis by pressing the <i><a
+href=#action>Use normal plane</a></i> button.
+<P>
+<A NAME=c_time></A><B>Time</B><TT>[optional]</TT><BR>
+Port <em>Time</em> allows to synchronize with other modules, e.g.
+for using <a href=HxMovieMaker.html><em>MovieMaker</em></a>.
+
+<P>
+</BLOCKQUOTE>
+
+
+<P>
+<H3><FONT COLOR="#800080">Ports:</FONT></H3>
+<BLOCKQUOTE>
+
+<A NAME=time></A><B>Time</B>
+<BR>
+<IMG SRC="img/RotateObject_time.png"><BR>
+
+The time slider is used to animate the rotation. Press the play
+buttons on the left or right of the slider to play backwards or
+forwards, or click anywhere on the slider to jump to the respective
+time step. By right-clicking on the slider and selecting
+<em>Configure</em> you can change the slider increment in order to
+adjust the speed of the animation. (Please note that this increment
+value will have no effect if the <em>RotateObject</em> module is
+driven by some other module like <em>MovieMaker</em> or
+<em>DemoMaker</em>.) For more details please refer to the <a
+href=HxPortTime.html>time port</a> documentation.
+<P>
+
+<A NAME=axis></A><B>Axis</B>
+<BR>
+<IMG SRC="img/RotateObject_axis.png"><BR>
+
+Specify the X, Y, and Z components of the rotation axis vector. The
+vector will be normalized automatically. E.g. values of 0 1 0 will
+rotate the object around the Y axis of its local coordinate
+system. You can also set the values of the rotation axis by attaching
+a <a href=#c_normalplane>normal plane</a> and pressing the <i><a
+href=#action>Use normal plane</a></i> button.
+
+<P>
+
+<A NAME=center></A><B>Center</B>
+<BR>
+<IMG SRC="img/RotateObject_center.png"><BR> Specify the X, Y, and Z
+coordinates of the center of rotation. This can be set automatically
+to the object center by clicking on the <i><a href=#action>Use bbox
+center</a></i> button.
+<P>
+
+<A NAME=action></A><B>Action</B>
+<BR>
+<IMG SRC="img/RotateObject_action.png"><BR>
+<i>Use plane normal:</i>
+if you have connected a planar module via the <a
+href=#c_normalplane>Normal plane</a> connection, you can set the
+rotation axis to the normal vector of that plane by pressing this
+button.<br>
+
+<i>Use bbox center:</i> if you have connected a spatial data object
+via the <a href=#c_data>Data</a> connection, you can set the center of
+rotation to the center of the object's bounding box by pressing this
+button.<br>
+<P>
+
+<A NAME=degrees></A><B>Rotation degrees</B>
+<BR>
+<IMG SRC="img/RotateObject_degrees.png"><BR> Specify the amount of
+rotation in degrees, e.g. 360 degrees for one full rotation.
+<P>
+
+<A NAME=options></A><B>Options</B>
+<BR>
+<IMG SRC="img/RotateObject_options.png"><BR> <i>explicit redraw</i>:
+switching this toggle on will cause the module to explicitly call a
+"viewer redraw" command whenever the value of the time slider and
+rotation is changed.
+<P>
+
+
+</BLOCKQUOTE>
+
+<P>
+<hr>
+<a href=../doc/hxscriptobj/HxScriptObject.html>script object documentation</a> for script
+programming.
+
+</BODY>
+</HTML>
+

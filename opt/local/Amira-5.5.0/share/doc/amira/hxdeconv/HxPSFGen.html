@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PSFGen</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "PSFGen" "computes a point spread function (PSF)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be used to compute a point spread function (PSF) for
+deconvolution of widefield and confocal microscopic image data. PSF
+computation is based on electromagnetic vector theory. It can be
+created by selecting it from the <i>Create / Others</i> menu of the main
+window.
+Press the <em>Apply</em> button to compute the PSF.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A uniform scalar field (usually the image data to be deconvolved) can
+be connected to this port. The values of the <i>Resolution</i> and <i>Voxel size</i> ports will be set automatically to the values of the 
+input field then.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxPSFGen_resolution.png" /><br /></div>
+<div class="body"><p>The number of voxels of the PSF image to be generated.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Voxel size</span>  
+<div class="portsnapshot"><img src="HxPSFGen_voxelSize.png" /><br /></div>
+<div class="body"><p>The voxel size in microns of the PSF image to be generated.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">PSF Parameters</span>  
+<div class="portsnapshot"><img src="HxPSFGen_parameters.png" /><br /></div>
+<div class="body"><p>Parameters for calculating the point spread function. <i>NA</i> denotes the
+numerical aperture of the microscope. <i>lambda</i> denotes the wavelength (as measured in a vacuum)
+of the emitted light in micrometers. For confocal data the excitation and emission wavelength 
+are assumed to be identical. In this case it might prove useful to compensate by 
+supplying a value between excitation and emission wavelength as parameter.
+Finally, <i>n</i> denotes the refractive index of the specimen.
+<a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Microscopic Mode</span>  
+<div class="portsnapshot"><img src="HxPSFGen_mode.png" /><br /></div>
+<div class="body"><p>Specifies whether the PSF of a widefield microscope or of a confocal
+microscope should be computed.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

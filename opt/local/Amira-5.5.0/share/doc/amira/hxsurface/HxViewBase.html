@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ViewBase</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "ViewBase" "base class for many modules displaying triangles or quads" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module is the base class for several other <font face="helvetica">Amira</font> modules 
+ displaying a set of triangles, like <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a>,
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>, <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a>, and 
+ others. <em>ViewBase</em> is not useful on its own but provides special features 
+ common to all derived modules. In particular, these features comprise the 
+ following:</p>
+
+<ul><li>A dedicated port allowing the user to modify the 
+ <a class="link" href="#A2">draw style</a> of a triangular surface in an easy and 
+ consistent way. All modules derived from <em>ViewBase</em> thus have a similar 
+ GUI. Among the supported draw styles is a physically correct transparency 
+ mode.</li><li>A generic <a class="link" href="#A3">buffer</a>
+ concept allowing the user to select triangles by means of a tab-box dragger. 
+ Only triangles added to the internal buffer will be displayed. Thus, complex
+ surfaces may be decomposed into smaller pieces.</li><li>An arbitrary 3D scalar field may be visualized on top of the triangular 
+ surface by means of pseudo-coloring. Pseudo-coloring may be achieved via 
+ Gouraud shading (mapped vertex colors will be interpolated) or, more 
+ accurately, via texture mapping (vertex values will be interpolated linearly 
+ and mapped to color afterwards).</li><li>The set of triangles currently being visible can be converted 
+ automatically into a <a class="link" href="HxSurface.html#A1">Surface</a> object. This is useful, for 
+ example, in order to post-process isosurfaces or to extract parts from a bigger 
+ surface.</li><li>Common <a class="link" href="#A5">Tcl commands</a>
+ allow control of many parameters of modules derived from <em>ViewBase</em>. This 
+ includes line width, outline color, highlight color, specular color, shininess, 
+ alpha mode, normal binding, and more.</li>
+</ul></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">ColorField</span>  
+
+<div class="body"><p>Scalar field to be visualized via pseudo-coloring. The field will be evaluated 
+ at the vertex positions of the surface and a color will be mapped onto the 
+ surface using the colormap connected to connection port <em>Colormap</em>.
+ The field may be either of type <em>HxScalarField3</em> or of type 
+ <em>HxSurfaceScalarField</em>. In addition to scalar surface fields also 3- and 
+ 4-component surface fields are supported. In this case, the field components 
+ are directly interpreted as RGB or RGBA values. The values should range from 0 
+ to 1.
+</p></div></div>
+<div class="hxconnection_default">
+ <span class="headline">Colormap</span>  
+
+<div class="body"><p>Colormap used for pseudo-coloring (see <em>Color Field</em>). To change the colormap 
+ right-click the colormap window or reconnect (drag) the blue connection line
+ with another colormap data object. To change the port's default color double-
+ (left-)click the colormap window and select a color from the
+ <a class="link" href="../hxcore/QxColorDialog.html#A1">Color Dialog</a>.
+ See also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port allows connection of a 2D image that will be mapped onto the surface
+ as a texture. The image must be a single slice of type 
+ <a class="link" href="../hxfield/HxRegColorField3.html#A1">ColorField</a>.
+ A transformation can be applied to the texture image in order to change the 
+ texture projection axis and texture coordinates scale. Note that texture 
+ projection overrides pseudo-color mode.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxViewBase_drawStyle.png" /><br /></div>
+<div class="body"><p>This port determines the draw style of the surface. Five major styles may be 
+ selected from an option menu:
+</p>
+<ul><li><em>Outlined:</em> Opaque shaded display with edges superimposed.</li><li><em>Shaded:</em> Opaque shaded display without edges being visible.</li><li><em>Lines:</em> Shaded wireframe display.</li><li><em>Points:</em> Triangle vertices only.</li><li><em>Transparent:</em> Semi-transparent display.</li>
+</ul>
+<p><em>More options:</em> Pressing this button opens a pull-down menu that may be used
+to fine-tune draw style. This menu contains 4 groups of items:</p>
+<p>The first group deals with surface shading and pseudo-color mapping.
+</p>
+<ul><li><em>Specular:</em> Enables or disables specular highlights. Specular
+ color and shininess may be changed via the Tcl command interface.</li><li><em>Gouraud:</em> Indicates that if a color field is connected 
+ pseudo-coloring is performed via Gouraud shading. First, colors are looked up 
+ at the triangles' vertices, then interpolated colors are drawn inside the 
+ triangles. See also -&gt;<em>Texture</em>.</li><li><em>Texture:</em> Indicates that if a color field is connected 
+ pseudo-coloring is performed via texture mapping. The color field's values are 
+ interpolated linearly before color lookup is performed. In this mode no 
+ specular colors can be used. See also -&gt;<em>Gouraud</em>.</li>
+</ul>
+<p>The second group of items refers to transparency. Transparent mode implies 
+physically correct transparencies, i.e., triangles appear more opaque if they 
+are viewed under a small angle. It also implies approximate depth-sorting 
+(except for <a class="link" href="../usersguide/viewmenu.html#A1">Sorted Layers</a> and <a class="link" href="../usersguide/viewmenu.html#A1">Sorted 
+Layers Delayed</a> transparency types), i.e., triangles are roughly rendered from 
+back to front in order to obtain correct blending results. Note that in some 
+cases visual artifacts may occur for long and thin triangles, for 
+self-intersecting surfaces, or for multiple semi-transparent surfaces being 
+displayed simultaneously.</p>
+
+<ul><li><em>Opaque:</em> All triangles will be rendered opaque.</li><li><em>Const alpha:</em> Opacity values of a triangle will be taken as is. 
+ Usually, if no pseudo-coloring is done, all parts of the surface will have 
+ equal opacity.</li><li><em>Fancy alpha:</em> Enables physically correct transparencies. The
+ opacity values of the triangles will be modified according to their 
+ orientation with respect to the viewing direction. Causes the silhouette of 
+ the surface to be fully opaque, thus enhancing perception for very transparent 
+ surfaces.</li><li><em>Depth sorting:</em> Enables approximate depth sorting. The centers of the
+ triangles are presorted along the major coordinates axes. With 
+ <a class="link" href="../usersguide/viewmenu.html#A1">Sorted Layers</a> and <a class="link" href="../usersguide/viewmenu.html#A1">Sorted Layers Delayed</a> 
+ transparencies, this option has no effect.</li>
+</ul>
+<p>The third group of items control which side of a triangle is rendered. With 
+<em>Culling</em> enabled either the front or the back <em>face</em> of a triangle is 
+rendered. This may be used to improve rendering performance on some older
+graphics boards. Note that with modern graphics boards the difference is 
+usually negligible. Three modes can be selected:</p>
+
+<ul><li><em>Both faces:</em> Both faces are rendered.</li><li><em>Front face:</em> Only front faces are rendered.</li><li><em>Back face:</em> Only back faces are rendered.</li>
+</ul>
+<p>The following group of items is available for <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>
+only. The settings here affect the computation of the surface normals used for
+shading.
+</p>
+<ul><li><em>Triangle normals:</em> Enables per-triangle normals. Shading will be 
+ discontinuous at the triangles' edges so that faces appear flat.</li><li><em>Vertex normals:</em> Enables per-vertex normals. An average is computed
+ from neighboring normals for all triangle vertices. This gives the surface a 
+ smooth, continuous appearance.</li><li><em>Direct normals:</em> An average is computed from neighboring normals for all 
+ triangle vertices. No averaging is performed if two neighboring triangles form 
+ an angle greater than the crease angle. The default for this angle is 1.0472
+ radians (= 60 degrees) and can be changed using the command 
+ <tt>setCreaseAngle</tt> in the console.</li>
+</ul>
+<p>All <a class="link" href="#A1">ViewBase</a> derived display modules allow export of a 
+surface object.
+</p>
+<ul><li><em>Create surface:</em> Creates a <a class="link" href="HxSurface.html#A1">Surface</a> object
+ containing the set of currently visible triangles.</li>
+</ul>
+
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxViewBase_buffer.png" /><br /></div>
+<div class="body"><p>This port can be used to modify the list of currently visible triangles. All 
+visible triangles are stored in an internal buffer. To modify the contents
+of this buffer you need to first <em>select</em> triangles (selected triangles are
+drawn in red wireframe) and then add or remove them using the buttons described
+below. Triangles can be selected either by manipulating a tab-box dragger, 
+by using the <em>Materials</em> (<em>Patch</em> or <em>Boundary id</em>) ports,
+or by drawing a contour in the viewer.
+</p>
+<ul><li><em>Add:</em> Adds highlighted triangles to the buffer. If the Shift key is 
+ held down while the button is pressed, the buffer will be cleared before adding. 
+ The Shift key is especially useful in conjunction with the <em>Draw</em> 
+ selection.</li><li><em>Remove:</em> Removes highlighted triangles from the buffer.</li><li><em>Clear:</em> Removes all triangles from the buffer.</li><li><em>Show/Hide:</em> Shows or hides the tab-box dragger without modifying the 
+ internal buffer.</li><li><em>Draw:</em> Activates a lasso style selection mechanism: Using the mouse 
+ you can draw a contour in the viewer. All triangles within this contour will 
+ be highlighted. If CTRL is pressed while drawing, the triangles within the 
+ curve are deselected.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TextureWrap</span>  
+<div class="portsnapshot"><img src="HxViewBase_textureWrap.png" /><br /></div>
+<div class="body"><p>Wrap mode used for the texture projection on the surface when a texture is 
+applied to the surface. This port is hidden if no texture data is connected to 
+the <em>Texture</em> connection port. There are two wrap modes: 
+</p>
+<ul><li><i>Repeat:</i> The texture is repeated outside its 0-1 texture coordinate 
+ range.</li><li><i>Clamp:</i> Clamps texture coordinates to lie within 0-1 range.</li>
+</ul>
+
+</div></div>
+</div>
+<p></p>
+<p><a name="A5"></a>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>createSurface [name]</tt></span>  
+
+<div class="body"><p>
+ Converts the set of visible triangles into a <a class="link" href="HxSurface.html#A1">surface</a> object.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setAlphaMode &#123;opaque|constant|fancy&#125;</tt></span>  
+
+<div class="body"><p>
+ Triangles may be drawn either opaque or transparent. Two transparent modes are 
+ possible: with a constant alpha value (<i>constant</i>) or an alpha value 
+ varying according to triangle normal <i>(fancy)</i>. See also the description of
+ port <a class="link" href="#A2">Draw Style</a>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setNormalBinding &#123;perTriangle|perVertex&#125;</tt></span>  
+
+<div class="body"><p>
+ Normals can be bound either per triangle or per vertex. In the first mode the 
+ triangles appear flat.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setPointSize size</tt></span>  
+
+<div class="body"><p>
+ Sets the size of points when <em>points</em> are selected in port 
+ <a class="link" href="#A2">Draw Style</a>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setPolygonOffsetMode &#123;auto|on|off&#125;</tt></span>  
+
+<div class="body"><p>
+ If lines are to be drawn on top of a surface, the surface must be rendered 
+ with an offset to avoid artifacts. This can be done automatically (auto), 
+ always (on), or never (off).
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setOutlineColor &lt;color&gt; | &lt;r&gt;&lt;g&gt;&lt;b&gt;</tt></span>  
+
+<div class="body"><p>
+ Sets the line color in <em>outlined</em> <em>Draw style</em>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setLineWidth &lt;width&gt;</tt></span>  
+
+<div class="body"><p>
+ Sets the width of the lines in <em>outlined</em> and <em>lines</em> <em>Draw Style</em>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setHighlightColor &lt;color&gt; | &lt;r&gt; &lt;g&gt; &lt;b&gt;</tt></span>  
+
+<div class="body"><p>
+ Sets wireframe color of selected triangles.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setEmissiveColor &lt;color&gt; | &lt;r&gt; &lt;g&gt; &lt;b&gt;</tt></span>  
+
+<div class="body"><p>	
+ Sets the emissive color of the surface.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setSpecularColor &lt;color&gt; | &lt;r&gt; &lt;g&gt; &lt;b&gt;</tt></span>  
+
+<div class="body"><p>
+ Sets the specular color of the surface. This will only take effect if 
+ specular lighting has been enabled in port <em>Draw Style</em>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setShininess &lt;shininess&gt;</tt></span>  
+
+<div class="body"><p>
+ Sets the size and distinctness of the specular highlight in <em>Specular</em> 
+ surface rendering. The parameter &lt;shininess&gt; can take values between 0 and 1,
+ 0.2 being the default.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>showBox</tt></span>  
+
+<div class="body"><p>	
+ Shows box that is used for selecting triangles. See also the description of
+ port <a class="link" href="#A3">Buffer</a>.
+</p></div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>hideBox</tt></span>  
+
+<div class="body"><p>
+ Hides box that is used for selecting triangles. See also the description of
+ port <a class="link" href="#A3">Buffer</a>.
+</p></div></div>
+</div>
+<p></p>
+<p> 
+
+</p></body>
+</html>

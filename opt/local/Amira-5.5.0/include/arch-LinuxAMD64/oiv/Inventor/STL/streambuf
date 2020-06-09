@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_STREAMBUF
+#define  OIV_STL_STREAMBUF
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

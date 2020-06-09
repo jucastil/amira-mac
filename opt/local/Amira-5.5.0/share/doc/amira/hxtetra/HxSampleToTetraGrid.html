@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SampleScalarField</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "SampleScalarField" "samples a scalar field onto a tetrahedral grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module can be used to sample a scalar field at the cells of a tetrahedral
+ grid. The result is either a scalar field storing the mean value or a vector
+ field where minimum, mean and maximum for each cell are the components.</p>
+<p> The module lets the user determine the sampling level, i.e. how many values 
+ are sampled for each tetrahedron and sample either the entire grid or a user
+ defined selection.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Tetra grid</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect this port to the <a class="link" href="../hxfield/HxTetraGrid.html#A1">tetrahedral grid</a>.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Scalar field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connect this port to the <a class="link" href="../hxfield/HxScalarField3.html#A1">scalar field</a> to be sampled.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSampleToTetraGrid_info.png" /><br /></div>
+<div class="body"><p>This port provides information on the current 
+ <a class="link" href="#A5">Sampling Level</a>.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sampling level</span>  
+<div class="portsnapshot"><img src="HxSampleToTetraGrid_samplingLevel.png" /><br /></div>
+<div class="body"><p>This port lets the user specify the number of samples to be taken from each
+ tetrahedron. With <em>Sampling level</em> <b>1</b> one sample is taken at the 
+ tetrahedron's barycenter. With <em>Sampling level</em> <b>2</b>, and <b>3</b> the
+ tetra cells are subdivided into 8 or 64 subcells, respectively, and samples 
+ are taken at the sub-cell's barycenters.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Result per Tetra</span>  
+<div class="portsnapshot"><img src="HxSampleToTetraGrid_resultType.png" /><br /></div>
+<div class="body"><p>Select <em>Mean</em> if a scalar field storing the mean value is written as 
+ result or select <em>Min, Mean, Max</em> if a vector field with min, mean and max
+ values as components shall be written.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Default value</span>  
+<div class="portsnapshot"><img src="HxSampleToTetraGrid_defaultValue.png" /><br /></div>
+<div class="body"><p>The value specified at this port is written to all cells where either the 
+ scalar field is not defined or which have not been visible when <em>Sample:</em>
+ <em>Selection only</em> has been used (see below). If <em>Min, Mean, Max</em> is 
+ selected at port <a class="link" href="#A6">Result type</a> 3 
+ textfields will be available to enter the defaults for the Min, Mean, and Max 
+ component, respectively.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sample</span>  
+<div class="portsnapshot"><img src="HxSampleToTetraGrid_action.png" /><br /></div>
+<div class="body"><p>Press the <em>Entire Grid</em> button to sample the scalar fireld for all 
+ tetrahedra or press the <em>Selection only</em> button to sample only at tetra
+ cells currently visible. Use the <a class="link" href="../hxsurface/HxViewBase.html#A3">Buffer</a> port of
+ <a class="link" href="HxGridVolume.html#A1">GridVolume</a> to modify the set of visible tetrahedra.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

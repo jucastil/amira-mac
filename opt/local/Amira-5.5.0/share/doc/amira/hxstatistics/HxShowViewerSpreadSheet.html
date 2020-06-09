@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ShowViewerSpreadSheet</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ShowViewerSpreadSheet" "displays the content of a spread sheet in the viewer" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module uses a connected <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a> and
+displays the content of a selected row in the 3D viewer.
+Position and color of the text can be specified by the user. This may be useful, for example, to produce snapshots that contain the SpreadSheet inside the viewer. For better results, use a 1x1 tiling for the snapshot.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a> object which contains the
+information to be displayed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Row number</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_rowNumber.png" /><br /></div>
+<div class="body"><p>Enables to specify the row number of the spread sheet to display.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Background</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_background.png" /><br /></div>
+<div class="body"><p>Text's background color.
+If the transparent toggle is off, the annotation text will be drawn
+inside a filled rectangle. The background color of this rectangle can
+be set via the color button of this port.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Position type</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_coordType.png" /><br /></div>
+<div class="body"><p>Radio box defining whether the text position should be specified in <em>absolute</em> coordinates (screen pixels) or in <em>relative</em> coordinates
+ranging from (0,0) to (+-1,+-1).</p>
+<p>A positive x-coordinate moves the annotation text to the right, a negative moves it to the left.
+Likewise, a positive y-coordinate moves the text upwards and a negative coordinate downward.
+The text is always moved relative to the defined origin described next.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Origin (0,0)</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_originPos.png" /><br /></div>
+<div class="body"><p>Defines the origin used to calculate the position on the screen. 
+The four corners of the screen can be chosen.</p>
+
+</div></div>
+<div class="hxport">
+ <span class="headline">Position (pixels)</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_pixelPosition.png" /><br /></div>
+<div class="body"><p>Text position must be given in screen pixels.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Position (normalized)</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_normalizedPosition.png" /><br /></div>
+<div class="body"><p>The position is given as a fraction of screen width/height, that is, a number between 0 and 1.</p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Font</span>  
+<div class="portsnapshot"><img src="HxShowViewerSpreadSheet_font.png" /><br /></div>
+<div class="body"><p>This port enables to select and tune the font used by the displayed text.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.1.1 The Hierarchy of Data Classes</a></h3>
+<p>The hierarchy of <font face="helvetica">Amira</font> data classes roughly looks as follows (derived
+classes are indented, auxiliary base classes are ignored):
+<font size="2"><tt>HxData </tt>
+ <i>base class of all data objects</i><br />
+
+  <tt>HxSpreadSheet </tt>
+ <i>spreadsheet containing an arbitrary number of rows and columns</i><br />
+
+  <tt>HxColormap </tt>
+ <i>base class of colormaps</i><br />
+
+   <tt>HxColormap256 </tt>
+ <i>colormap consisting of discrete RGBA tuples</i><br />
+
+  <tt>HxCameraPath </tt>
+ <i>base class of camera paths</i><br />
+
+   <tt>HxKeyframeCameraPath </tt>
+ <i>camera path based on interpolated keyframes</i><br />
+
+  <tt>HxSpatialData </tt>
+ <i>data objects embedded in 3D space</i><br />
+
+   <tt>HxIvData </tt>
+ <i>encapsulates an Open Inventor scene graph</i><br />
+
+   <tt>HxField3 </tt>
+ <i>base class representing fields in 3D space</i><br />
+
+    <tt>HxScalarField3 </tt>
+ <i>scalar field (1 component)</i><br />
+
+     <tt>HxRegScalarField3 </tt>
+ <i>scalar field with regular coordinates</i><br />
+
+      <tt>HxUniformScalarField3 </tt>
+ <i>scalar field with uniform coordinates</i><br />
+
+       <tt>HxUniformLabelField3 </tt>
+ <i>material labels with uniform coordinates</i><br />
+
+      <tt>HxStackedScalarField3 </tt>
+ <i>scalar field with stacked coordinates</i><br />
+
+       <tt>HxStackedLabelField3 </tt>
+ <i>material labels with stacked coordinates</i><br />
+
+     <tt>HxAnnaScalarField3 </tt>
+ <i>scalar field defined by an analytic expression</i><br />
+
+     <tt>HxTetraScalarField3 </tt>
+ <i>scalar field defined on a tetrahedral grid</i><br />
+
+     <tt>HxHexaScalarField3 </tt>
+ <i>scalar field defined on a hexahedral grid</i><br />
+
+    <tt>HxVectorField3 </tt>
+ <i>vector field (3 components)</i><br />
+
+     <tt>HxRegVectorField3 </tt>
+ <i>vector field with regular coordinates</i><br />
+
+      <tt>HxUniformVectorField3 </tt>
+ <i>vector field with uniform coordinates</i><br />
+
+     <tt>HxEdgeElemVectorField3 </tt>
+ <i>vector field defined by Whitney elements</i><br />
+
+     <tt>HxAnnaVectorField3 </tt>
+ <i>vector field defined by an analytic expression</i><br />
+
+     <tt>HxTetraVectorField3 </tt>
+ <i>vector field defined on a tetrahedral grid</i><br />
+
+     <tt>HxHexaVectorField3 </tt>
+ <i>vector field defined on a hexahedral grid</i><br />
+
+    <tt>HxComplexScalarField3 </tt>
+ <i>complex-valued scalar field (2 components)</i><br />
+
+     <tt>HxRegComplexScalarField3 </tt>
+ <i>complex scalar field with regular coordinates</i><br />
+
+      <tt>HxUniformComplexScalarField3 </tt>
+ <i>complex scalar field w/ uniform coords</i><br />
+
+     <tt>HxTetraComplexScalarField3 </tt>
+ <i>complex scalar field defined on a tetra grid</i><br />
+
+     <tt>HxHexaComplexScalarField3 </tt>
+ <i>complex scalar field defined on a hexa grid</i><br />
+
+    <tt>HxComplexVectorField3 </tt>
+ <i>complex-valued vector field (6 components)</i><br />
+
+     <tt>HxRegComplexVectorField3 </tt>
+ <i>complex vector field with regular coordinates</i><br />
+
+      <tt>HxUniformComplexVectorField3 </tt>
+ <i>complex vector field w/ uniform coords</i><br />
+
+     <tt>HxEdgeElemComplexVectorField3 </tt>
+ <i>complex vector field w/ Whitney elements</i><br />
+
+     <tt>HxTetraComplexVectorField3 </tt>
+ <i>complex field defined on a tetrahedral grid</i><br />
+
+     <tt>HxHexaComplexVectorField3 </tt>
+ <i>complex field defined on a hexahedral grid</i><br />
+
+    <tt>HxColorField3 </tt>
+ <i>color field consisting of RGBA-tuples</i><br />
+
+     <tt>HxRegColorField3 </tt>
+ <i>color field with regular coordinates</i><br />
+
+      <tt>HxUniformColorField3 </tt>
+ <i>color field with uniform coordinates</i><br />
+
+    <tt>HxRegField3 </tt>
+ <i>other n-component field with regular coordinates</i><br />
+
+    <tt>HxTetraField3 </tt>
+ <i>other n-component field defined on a tetrahedral grid</i><br />
+
+    <tt>HxHexaField3 </tt>
+ <i>other n-component field defined on a hexahedral grid</i><br />
+
+   <tt>HxVertexSet </tt>
+ <i>data objects providing a set of discrete vertices</i><br />
+
+    <tt>HxSurface </tt>
+ <i>represents a triangular surface</i><br />
+
+    <tt>HxTetraGrid </tt>
+ <i>represents a tetrahedral grid</i><br />
+
+    <tt>HxHexaGrid </tt>
+ <i>represents a hexahedral grid</i><br />
+
+    <tt>HxLineSet </tt>
+ <i>represents a set of line segments with vertex data</i><br />
+
+    <tt>HxLandmarkSet </tt>
+ <i>represents one or multiple sets of corresponding landmarks</i><br />
+
+    <tt>HxCluster </tt>
+ <i>represents a set of vertices with associated data values</i><br />
+
+   <tt>HxSurfaceField </tt>
+ <i>base class for fields defined on triangular surfaces</i><br />
+
+    <tt>HxSurfaceScalarField </tt>
+ <i>scalar field defined on a surface (1 component)</i><br />
+
+    <tt>HxSurfaceVectorField </tt>
+ <i>vector field defined on a surface (3 components)</i><br />
+
+    <tt>HxSurfaceComplexScalarField </tt>
+ <i>complex scalar surface field (2 components)</i><br />
+
+    <tt>HxSurfaceComplexVectorField </tt>
+ <i>complex vector surface field (6 components)</i><br />
+
+    <tt>HxSurfaceField </tt>
+ <i>other n-component field defined on a surface</i><br />
+
+</font></p>
+<p>Note that you can find an in-depth description of every class in the
+online reference documentation. This description has been generated
+automatically from the commented <font face="helvetica">Amira</font> header files by a tool called DOC++.
+You may view it by pointing an external web browser such as Internet Explorer
+or Netscape Navigator to the file <tt>share/doc++/index.html</tt>
+contained in the <font face="helvetica">Amira</font> root directory. The reference documentation not only
+covers data objects but all classes provided with <font face="helvetica">Developer Option</font>. 
+As you already know, these classes are arranged in
+packages. For example, all data classes derived from <tt>HxField3</tt> are
+located in package <tt>hxfield</tt>, and all classes related to triangular
+surfaces are located in package <tt>hxsurface</tt>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

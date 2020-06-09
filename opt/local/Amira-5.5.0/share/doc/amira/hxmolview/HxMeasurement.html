@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Measurement</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "Measurement" "determines distances and dihedral angles in a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module lets you determine distances, angles, and 
+ dihedral angles between atoms of the molecule. </p>
+<p> To obtain a measurement, you need to select the
+ atoms that are to be examined. You can read more about selecting atoms in the documentation of the
+ <a class="link" href="HxMolView.html#A1">MoleculeView</a> and the <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">Selection Browser</a>.
+ The order of the selected atoms is important for angles and dihedrals. It is determined by the sequence that the 
+ atoms were selected. If the Measurement module is connected to two molecules, the selected atoms of the first molecule come first.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule in which you want to take measurements.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Data2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>	You can connect a second molecule. This allows to take intermolecular measurements.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+<p>
+ The following ports will only be visible if you have selected two 
+ atoms for distance measurement, three atoms for angle measurement,
+ or four atoms for measurement of dihedral angles.</p>
+<p> <a name="A4"></a>
+</p>
+<div class="hxport">
+ <span class="headline">Selected atoms</span>  
+<div class="portsnapshot"><img src="HxMeasurement_selectInfo.png" /><br /></div>
+<div class="body"><p>This port shows the indices and sequence of the atoms 
+ that are used for the measurement. If two molecules are connected it also shows the index of the molecule (1 or 2).</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxMeasurement_options.png" /><br /></div>
+<div class="body"><p>This port is visible if your base molecule is derived from 
+ a trajectory. If you activate the toggle, not only the measurement
+ of the currently active time step, but also the mean value of
+ the complete trajectory and its standard deviation will be
+ evaluated. For large trajectories this may take some time
+ as all atomic coordinates have to be loaded for each time step.
+ So if you do not need this option, leave it unchecked.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Angle</span>  
+<div class="portsnapshot"><img src="HxMeasurement_measInfo.png" /><br /></div>
+<div class="body"><p>This port shows the value of the measurement.
+ For two selected atoms, this is the distance; for three,
+ the angle; and for four atoms, their dihedral angle. (The
+ dihedral angle is defined as the angle between the two planes
+ determined by the first three selected atoms and the last three
+ selected atoms). The distance is given in angstroms, the angles
+ in degrees.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time-Mean</span>  
+<div class="portsnapshot"><img src="HxMeasurement_measTrajectoryInfo.png" /><br /></div>
+<div class="body"><p>This port is visible if your base molecule is derived from 
+ a trajectory and the <em>Time-mean</em> toggle is activated. 
+ It will show the mean value of the measurement 
+ by determining the arithmetic mean over all molecules that
+ are part of the trajectory. In addition, the standard deviation
+ of the time-mean will be shown.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time Plot</span>  
+<div class="portsnapshot"><img src="HxMeasurement_measTrajectoryButtons.png" /><br /></div>
+<div class="body"><p>Like the time-mean port, this port is only visible for
+ trajectories. By pressing the <em>Show</em> button you can see the
+ plot of the measurement against the time steps of the
+ trajectory. The vertical line of the plot indicates the position
+ of the currently shown time step. The horizontal lines show the mean
+ and the standard deviation.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxMeasurement_selectButtons.png" /><br /></div>
+<div class="body"><p>With the <em>Clear</em> button you can deselect all atoms.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Observable</span>  
+<div class="portsnapshot"><img src="HxMeasurement_observableButtons.png" /><br /></div>
+<div class="body"><p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Observable Name</span>  
+<div class="portsnapshot"><img src="HxMeasurement_portObservableName.png" /><br /></div>
+<div class="body"><p>	If the molecule is part of a trajectory, then you can create an observable of the measurement, that contains the value of 
+	the measurement for each time step. This observable will be added to the trajectory data object. The observable's name needs to be
+	entered in the text field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

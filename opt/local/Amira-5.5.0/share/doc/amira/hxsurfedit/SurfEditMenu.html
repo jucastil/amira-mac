@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Menu Entries</a></h3>
+<p>The surface editor's <em>Surface</em> menu is is displayed inside the 3D viewer 
+window while the editor is active. Four submenus
+are accessible from this menu: <em>Edit</em>, <em>View</em>, <em>Buffer</em>, and <em>Tests</em>.
+Each of these is described separately below. </p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<p>
+</p>
+<h4><a name="A2">Edit Menu</a></h4>
+<p></p>
+<ul><li><em>Undo</em>: Undoes the last edit operation (edge flip, edge collapse,
+ edge bisection, vertex movement). Selection and highlight changes can
+ be undone as well. The size of the undo buffer is limited to 100
+ entries.</li><li><em>Delete highlighted faces</em>: Permanently removes the highlighted
+ triangles from the surface.</li><li><em>Remove coplanar faces</em>: Permanently removes coplanar triangles,
+ i.e., triangles with the same three vertices, from the surface. The
+ inner region and outer region id of the remaining triangle is updated
+ appropriately.</li><li><em>Recompute connectivity</em>: Recomputes the surface's connectivity
+ information, i.e., contours and branching points. Connectivity
+ information is optional. If it is present, contours can be displayed
+ using the <a class="link" href="../hxsurftools/HxDisplayContours.html#A1">ContourView</a> module. In addition,
+ <em>recompute connectivity</em> causes unused points of the surface to
+ be deleted.</li><li><em>Refine faces</em>: Subdivides all highlighted triangles by bisecting
+ their edges. Each refined triangle is replaced by four new ones. In
+ addition, adjacent non-highlighted triangles are split in two in order
+ to avoid dangling nodes.</li><li><em>Smooth faces</em>: Smoothes all highlighted triangles by shifting 
+ their vertices. Each vertex is shifted towards the average position of 
+ its neighbors. Special care is taken in the case of boundary vertices, 
+ for which not all the neighbors are considered, but only those that 
+ are also on the boundary. In this way sharp boundaries are preserved.</li><li><em>Flip edges...</em>: Pops up a dialog allowing you to flip certain
+ edges inside the highlighted part of the surface. The edge flips are
+ performed in order to improve the aspect ratio of the involved
+ triangles. An edge flip is only attempted if the aspect ratio of one
+ of the two involved triangles is worse than a user-specified value,
+ and the crease angle between them is below a user-defined threshold.</li><li><em>Reorder patches...</em>: Pops up a dialog allowing you to rearrange
+ the internal order of the surface patches. Two different patches can be
+ selected and then swapped. This operation is useful for certain
+ applications where two different surfaces are required to have the 
+ same patch structure.</li><li><em>Set boundary ids...</em>: Pops up a dialog allowing you to edit the
+ surface's boundary ids. The dialog permits you to define new boundary
+ ids or to change existing ones (including the preferred colors).
+ Highlighted triangles can be assigned a new boundary id using the
+ dialog's <em>set</em> button.
+</li><li><em>Fix intersections...</em>: Pops up a dialog for an automatic repair
+ of intersecting triangles. The total number and the number of fixed 
+ intersections will be shown in the console window.</li><li><em>Fix small dihedral angles...</em>: Pops up a dialog for an automatic
+ repair of small dihedral angles. The dialog offers two different
+ repair modes: vertex smoothing, and a combination of edge flips and
+ vertex shifts. The dialog lets you define a lower bound for the
+ dihedral angle.</li><li><em>Fix tetra quality...</em>: This tool provides an automatic repair 
+ of configurations which might induce large tetrahedron aspect ratios. 
+ It pops up a dialog where you can specify an upper bound and an 
+ attempted value for the tetrahedron aspect ratio.</li><li><em>Prepare Tetragen...</em>: This tool may be useful if you want to 
+ create a tetrahedral volume mesh from the surface. It combines the
+ <em>Flip edges</em>, <em>Fix small dihedral angles</em>, and <em>Fix tetra 
+ quality</em> tools. You can specify a lower bound and an attempted value 
+ for the tetrahedron aspect ratio.</li><li><em>Fill Hole...</em>: This menu entry shows a drop down menu in the 
+ properties panel with a selection of hole fill algorithms. 
+ By pressing the fill button the currently displayed hole 
+ is triangulated using the selected hole fill algorithm. 
+ </li><li><em>Magic wand settings...</em>: This menu entry pops up a dialog
+ alowing you to change parameters of the <a class="link" href="SurfEditTools.html#A1">magic
+ wand tool</a>. Details for that are described below.</li>
+</ul><p></p>
+<p>
+</p>
+<h4><a name="A3">View Menu</a></h4>
+<p>This menu allows you to change certain settings of the
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module used by the surface editor.
+The settings affect the draw style and the color mode used for rendering
+the surface. Possible draw styles are <em>outlined</em>, <em>shaded</em>, <em>lines</em>, <em>points</em>, and <em>transparent</em>. Possible color modes are
+<em>normal</em>, <em>mixed</em>, <em>twisted</em>, and <em>boundary ids</em>. In the
+first three modes colors are chosen according to the material ids assigned
+to the surface's patches. In the last mode colors are chosen according to
+the triangles' boundary ids.</p>
+<p>
+</p>
+<h4><a name="A4">Buffer Menu</a></h4>
+<p>This menu contains several entries for modifying the editor's highlight
+and view buffers. The buffers determine whether a triangle is highlighted
+or whether it is visible in a normal fashion. Both buffers are independent
+from each other. They can be stored in an internal backup buffer
+using the menu entries <em>copy highlights</em> and <em>copy buffer</em>
+respectively. Once one of the buffers has been copied it can be
+restored using <em>paste highlights</em> or <em>paste buffer</em>.</p>
+<p>
+</p>
+<h4><a name="A5">Tests Menu</a></h4>
+<p>This menu lists certain test operations which can be performed in order
+to check the quality and consistency of the surface. Internally, the tests
+are considered as <em>selectors</em> because they cause certain triangles of
+the surface to be highlighted. Therefore, the test are described in detail
+in the <a class="link" href="SurfEditSelectors.html#A1">selectors section</a>.</p>
+<p></p>
+<p>
+</p></body>
+</html>

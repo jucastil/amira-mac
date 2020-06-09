@@ -1,0 +1,29 @@
+
+dataFile -name "Madymo kinematics file" \
+    -option "kn3" \
+    -ext ".kn3,.KN3" \
+    -header "#!<KIN3" \
+    -load "readMadymo" \
+    -loadInOwnThread true \
+    -package "hxmadymo"
+
+module -name "MadymoControl" \
+    -primary "none" \
+    -class "HxMadymoControl" \
+    -package "hxmadymo"
+
+
+module -name "TimeHistoryPlot" \
+    -primary "HxSpreadSheet" \
+    -class "HxTimeHistoryPlot" \
+    -category "Main" \
+    -package "hxmadymo"
+
+
+dataFile -name "Madymo Time-history file" \
+    -option "lac" \
+    -ext "lac" \
+    -load "readMadymoTimeHistory" \
+    -loadInOwnThread true \
+    -package "hxmadymo"
+

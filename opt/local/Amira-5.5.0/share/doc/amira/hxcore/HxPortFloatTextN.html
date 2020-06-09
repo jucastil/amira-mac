@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortFloatTextN</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortFloatTextN" "text fields for entering floating point values" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port represents a variable number of bounded float values which can
+ be edited interactively. The actual number of float fields can be changed
+ at run-time. Each float field has a label, a printf-style format string,
+ and a lower and upper bound used to constrain the value of the text field.
+ minimum and maximum values, as well as the sensitivity of each field.</p>
+<p> In order to quickly change the value of a float field, a <em>virtual
+ slider</em> is provided. The virtual slider is activated by clicking into a
+ text field with the shift key held down, and then moving the mouse up or
+ down.</p>
+<p> <img src="HxPortFloatTextN.png" /></p>
+<p> This port is used for example by the
+ <a class="link" href="../hxarith/HxResample.html#A13">Resample</a> module.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the value of the text field <tt>&lt;index&gt;</tt> or of the first text field,
+ if no argument is specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMinValue [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the lower bound of the text field <tt>&lt;index&gt;</tt> or of the first text
+ field, if no argument is specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxValue [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the upper bound of the text field <tt>&lt;index&gt;</tt> or of the first text
+ field, if no argument is specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue [&lt;index&gt;] &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the value of the text field <tt>&lt;index&gt;</tt> or of the first text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMax [&lt;index&gt;] &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the lower and upper bound of the text field <tt>&lt;index&gt;</tt> or of the
+ first text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValues &lt;value1&gt; &lt;value2&gt; ... &lt;valueN&gt;</span>  
+
+<div class="body"><p>Sets the values of all text fields. The number of arguments must match the
+ number of text fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMaxAll &lt;min1&gt; &lt;max1&gt; ... &lt;minN&gt; &lt;maxN&gt;</span>  
+
+<div class="body"><p>Sets the lower and upper bounds of all text fields. The number of arguments
+ must be equal to twice the number of text fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getFormat [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the printf format string of the specified text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFormat [&lt;index&gt;] &lt;format&gt;</span>  
+
+<div class="body"><p>Sets the printf format string of the specified text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity [&lt;index&gt;]</span>  
+
+<div class="body"><p>Checks if the specified text field is enabled or not. Insensitive text fields
+ are grayed out and they accept do not accept user input.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity [&lt;index&gt;] &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the specified text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the label of text field <tt>index</tt> or the port's label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>Sets the label of text field <tt>index</tt> of the port's label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPart &lt;index&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Shows or hides the specified text field. A hidden text field is not displayed
+ at all (in contrast to an insensitive one), but still exists and stores a value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNum</span>  
+
+<div class="body"><p>Returns the current number of text fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNum &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the current number of text fields.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LocalThreshold</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "LocalThreshold" "provides automated threshold segmentation algorithms" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p> 
+The module provides algorithms to perform a binary segmentation of an
+image stack into foreground and background objects. The output of the
+module is a label field. The algorithms work best if multiple
+small objects need to be segmented before a slowly varying background.</p>
+<p>Some of the thresholding algorithms require larger amounts of main
+memory for their operation (Niblack, Oberlaender,
+Mardia-Hainsworth). Floating point resolution buffers will be
+allocated based on the input image size.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect an image data set for which the threshold operation should be
+performed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Algorithm</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_Algorithm.png" /><br /></div>
+<div class="body"><p>The choice of the algorithm will depend on the statistics of the input
+data. Select one of the provided algorithms based on the resulting
+segmentation quality and the requirements of memory and processing
+time.
+</p>
+<ul><li><tt>Niblack</tt> implements local thresholding based on the mean
+ and the variance of the data. Set the <i>ObjectSize</i> port to a
+ size that will fully cover each object together with its immediate
+ background. The provided parameter <i>Lambda</i> selects the
+ threshold based on the variance around the mean. A smaller <i>Lambda</i> will result in a lower number of objects being
+ selected. The value of the <i>Normalization</i> port can be left to
+ half the input data range. Its specific value does not influence the
+ result substantially.</li><li><tt>Oberlaender</tt> implements local thresholding based on an
+ initial sigmoidal normalization of the image intensities. Mean and
+ variance of the normalized image are used during the final
+ segmentation. Set the <i>ObjectSize</i> port to a size that will
+ fully cover each object together with its immediate background. The 
+ <i>Lambda</i> parameter is a multiplicative factor used during the
+ normalization and affects the shift of the sigmoidal function
+ relative to the local mean. Larger values of <i>Lambda</i> will
+ result in in lower number of foreground objects. Adjust the value
+ range of the slider to be able to select values outside the
+ predefined range.</li><li><tt>Mardia-Hainsworth</tt> implements an iterative algorithm for
+ local threshold segmentation. The algorithm assumes that the
+ voxel belonging to foreground and background follow two
+ normal distributions with the same variance. The <i>FilterMask</i>
+ parameter is used to smooth the result at each iteration. The
+ algorithm might fail if the assumption of equal variance for
+ foreground and background is not met.</li><li><tt>Hysteresis</tt> implements a local thresholding algorithm which
+ uses two thresholds. The <i>seed threshold</i> is used to select seed
+ regions. From these seed regions a region growing is performed that
+ uses the <i>low threshold</i> as a stopping criterion. The algorithm
+ works well if objects can be identified by bright voxel above a
+ high threshold.</li><li><tt>Otsu</tt> implements a global thresholding which is based on
+ the gray value histogram of the data. The algorithm uses a threshold
+ which minimizes the within-class variances of the distribution of
+ gray values in the foreground and background regions.</li><li><tt>IsoData</tt> implements an iterative global thresholding
+ algorithm which is based on the gray value histogram of the
+ data. The threshold used is printed out in the Amira console.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Export</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_Export.png" /><br /></div>
+<div class="body"><p>If the algorithm selected generates intermediate volumes they can be
+exported into the object pool. Alternative segmentation algorithm
+might be based on the generated data.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ObjectSize</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_ObjectSize.png" /><br /></div>
+<div class="body"><p>This port allows the user to specify the size of the objects that
+are present in the image. By default 1/5-th of the dimensions
+of the image are used. For the Mardia-Hainsworth algorithm instead a
+filter size (3x3x3) is used which does not depend on the object size.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lambda</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_Lambda.png" /><br /></div>
+<div class="body"><p>Used as heuristic values by the Niblack and Oberlaender algorithms
+only. The default values for Niblack is -0.2, for Oberlaender a value 
+of 0.75 is set. Adjust these values to influence the size and number of
+foreground objects segmented. The values can savely be adjusted
+outside the default range provided by the slider.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Normalization</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_Normalization.png" /><br /></div>
+<div class="body"><p>This value is used for the Niblack algorithm only. Its value is set to
+a value at half the data range. The algorithm is relatively insensity
+to changes in this value.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Seed threshold</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_SeedThreshold.png" /><br /></div>
+<div class="body"><p>This port is used by the Hysteresis algorithm only. Select a high
+value to select the inner parts (seed regions) of objects to detect.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Low threshold</span>  
+<div class="portsnapshot"><img src="HxLocalThreshold_LowThreshold.png" /><br /></div>
+<div class="body"><p>This port is used by the Hysteresis algorithm only. Select a low
+threshold value that specifies the maximum range of dilation from the
+initial high threshold regions.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

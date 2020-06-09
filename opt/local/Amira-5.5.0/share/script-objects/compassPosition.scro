@@ -1,0 +1,179 @@
+# Amira-Script-Object v3.0
+
+$this proc constructor {} {
+    global AMIRA_ROOT
+    $this script hide
+
+    # The compass type port
+    $this newPortMultiMenu compass 4
+
+    $this compass setLabel "Compass"
+    $this compass setLabel 0 "Arrow"
+    $this compass setLabel 1 "AxisCube"
+    $this compass setLabel 2 "Axis"
+    $this compass setLabel 3 "Medical"
+
+    # The compass location port
+    $this newPortMultiMenu position 5
+    $this position setLabel "Position"
+    $this position setLabel 0 "Lower left"
+    $this position setLabel 1 "Lower right"
+    $this position setLabel 2 "Upper right"
+    $this position setLabel 3 "Upper left"
+    $this position setLabel 4 "Custom"
+
+    # The compass position port
+    $this newPortFloatTextN coordinates 2
+    $this coordinates setLabel "Coordinates"
+    $this coordinates setLabel 0 "x"
+    $this coordinates setLabel 1 "y" 
+    $this coordinates hide
+
+    # The compass scale
+    $this newPortFloatTextN scale 1
+    $this scale setValue 0 0.6
+
+    $this newPortButtonList actions 1
+    $this actions setLabel 0 "Compute"
+
+    $this newPortDoIt action
+
+    # The variables
+    $this setVar axis ""
+    $this setVar disp ""
+
+    # Load the models
+    $this loadModules
+    $this setCoordinates
+}
+
+
+$this proc destructor {} {
+
+    remove [$this getVar axis]
+    remove [$this getVar disp]
+}
+
+$this proc loadModules {} {
+    
+    global AMIRA_ROOT
+    set hideNewModules 1
+    
+    set mmenu  [$this compass getValue]
+
+    if { $mmenu == 0 } {
+        $this setVar axis [ load ${AMIRA_ROOT}/share/models/compass/defaultCompass.iv] 
+    }
+    if { $mmenu == 1 } {
+        $this setVar axis [ load ${AMIRA_ROOT}/share/models/compass/axisCube.iv ]   
+    }
+    if { $mmenu == 2 } {
+        $this setVar axis [ load ${AMIRA_ROOT}/share/models/compass/axis.iv] 
+    }
+    if { $mmenu == 3} {
+        $this setVar axis [ load ${AMIRA_ROOT}/share/models/compass/medicalCompass.iv ]   
+    }
+
+    [$this getVar axis] hideIcon
+    [$this getVar axis] fire
+
+    $this setVar disp [create HxIvDisplay]
+    [$this getVar disp] data connect [$this getVar axis]
+    [$this getVar disp] hideIcon
+    [$this getVar disp] fire
+}
+
+$this proc setCoordinates { } {
+
+    set delta 65
+
+    set viewid [viewer getAllExistingViewerIDs]
+    set viewerid [lindex $viewid 0]
+    set mmenu  [$this position getValue]
+    set scrsize [viewer $viewerid getSize]
+
+    set maxx [expr "[lindex $scrsize 0] - $delta"]
+    set maxy [expr "[lindex $scrsize 1] - $delta"]
+    
+    if { $mmenu == 0 } {
+        $this coordinates setValue 0 $delta
+        $this coordinates setValue 1 $delta
+        $this coordinates hide
+    }
+
+    if { $mmenu == 1 } {
+        $this coordinates setValue 0 $maxx
+        $this coordinates setValue 1 $delta	
+        $this coordinates hide
+    }
+
+    if { $mmenu == 2 } {
+        $this coordinates setValue 0 $maxx
+        $this coordinates setValue 1 $maxy	
+        $this coordinates hide
+    }
+
+    if { $mmenu == 3 } {
+        $this coordinates setValue 0 $delta
+        $this coordinates setValue 1 $maxy
+        $this coordinates hide
+    }
+
+    if { $mmenu == 4 } {
+        $this coordinates show
+    }
+}
+
+$this proc update {} {
+
+    if [$this compass isNew] {
+        remove [$this getVar axis]
+        remove [$this getVar disp]
+
+        $this loadModules	  
+    }
+
+    if [$this position isNew] {
+        $this setCoordinates
+    }
+}
+
+$this proc compDist { pct1 pct2 } {
+
+    set dx [ expr "[lindex $pct1 0] - [lindex $pct2 0]"]
+    set dy [ expr "[lindex $pct1 1] - [lindex $pct2 1]"]
+    set dz [ expr "[lindex $pct1 2] - [lindex $pct2 2]"]
+
+    set dist [ expr "sqrt($dx * $dx + $dy * $dy + $dz * $dz)"]
+
+    return $dist
+}
+
+$this proc compute {} {
+    set viewid [viewer getAllExistingViewerIDs]
+
+    if {[llength $viewid] > 1} {
+        echo "The coordinate are calculated on 1 display only"
+    }
+
+    set viewerid [lindex $viewid 0]
+    set vsize [viewer $viewerid getSize]
+    set dist  [viewer $viewerid getCameraFocalDistance]
+    set camtype  [viewer $viewerid getCameraType]
+
+    set posx [$this coordinates getValue 0]
+    set posy [$this coordinates getValue 1]
+    set posx2 [expr "$posx + 10"]
+    set posy2 [expr "$posy + 10"]
+	
+	set bbox [[$this getVar axis] getBoundingBox]
+
+    set pct   [viewer $viewerid transformScreenToWorld $posx  $posy [lindex $bbox 5]]
+    set pctsc [viewer $viewerid transformScreenToWorld $posx2 $posy2 [lindex $bbox 5]]
+
+    set scdist [$this compDist $pct $pctsc]
+    set sc [expr "$scdist * [$this scale getValue 0]"]
+
+    [$this getVar axis] setScaleFactor $sc $sc $sc 
+    [$this getVar axis] setTranslation [lindex $pct 0] [lindex $pct 1] [lindex $pct 2]
+}

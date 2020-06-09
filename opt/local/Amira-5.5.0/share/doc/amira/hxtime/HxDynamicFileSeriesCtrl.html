@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TimeSeriesControl</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "TimeSeriesControl" "loads time series data from multiple files" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module is created automatically if files are imported via the <em>Open Time Series Data...</em> option of the main window's <em>File</em> menu. The
+module assumes that all files selected in the file browser represent the
+same data object at different time steps. Instead of loading all files
+at once, a slider is provided allowing the user to select the current
+time step. Whenever a new time step is loaded data, objects associated
+with a previous time step are replaced. The replacement is performed in
+such a way that connections to down-stream modules are retained.</p>
+<p>The time series module is also able to linearly interpolate between
+subsequent time steps. However, this only works for certain types of
+data objects, namely surfaces, tetrahedral grids, hexahedral grids, fields
+defined on surfaces, tetrahedral or hexahedral grids, and data objects
+derived from the vertex set base class. In addition, it is required
+that for each time step the same number of data objects be created,
+that corresponding data objects are created in the same order in all
+time steps, and that corresponding data objects have the same number of
+vertices or elements. For example, you cannot easily interpolate between
+surfaces with a different number of triangles (<font face="helvetica">Amira</font> provides other
+modules to support this). If multiple data objects are created for each
+time step, interpolation of particular objects can be suppressed by
+switching off the orange viewer toggle of these objects.</p>
+<p>In addition to the step number, the module can also display the physical
+time associated with each time step, provided the physical time is
+specified as a <em>Time</em> parameter for each data object. It is required
+that the physical times of subsequent time steps be monotonically
+increasing. In order to use physical time mode, the relevant time
+steps must be loaded in index mode first.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a global time object.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxDynamicFileSeriesCtrl_info.png" /><br /></div>
+<div class="body"><p>This port displays the total number of time steps. If the data objects
+provide a physical time in a <em>Time</em> parameter, the physical time
+range is displayed too. If the last time step has not yet been loaded,
+a question mark is printed instead of the maximum time value. In addition,
+if a physical time is provided, the current physical time or the current
+time step index is displayed, depending on the value of the <em>physical
+time toggle</em>.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Cached steps</span>  
+<div class="portsnapshot"><img src="HxDynamicFileSeriesCtrl_cachedSteps.png" /><br /></div>
+<div class="body"><p>Allows you to adjust the cache size. By default every time step is cached,
+i.e., the number of cached steps is equal to the total number of time
+steps. If the number of cached steps is zero the cache is disabled.
+Data objects associated with a previous time step are deleted before
+a new time step is loaded. Interpolation mode requires a cache size of
+two, i.e., in addition to the current interpolated time step, at least
+two additional time steps have to be stored in memory.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDynamicFileSeriesCtrl_options.png" /><br /></div>
+<div class="body"><p>The first toggle is used to activate <em>interpolation mode</em>. In this mode,
+fractional time steps can be specified and a linear interpolation between
+two subsequent time steps is performed. Note that interpolation can only be
+performed if certain requirements are met (details are described above).</p>
+<p>The second toggle is used to activate <em>physical time mode</em>. Physical
+time mode is only available if the loaded data objects provide a <em>Time</em> parameter. In physical time mode the time slider displays the
+physical time instead of the current time step. </p>
+<p>The third toggle is used to apply to the data of the next (or previous) timestep
+the geometric transformation(s) applied to the data open at the current time step.</p>
+<p>The fourth toggle is used to copy all the parameters of the current time step data
+to the parameters of the data of the next (or previous) timestep.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxDynamicFileSeriesCtrl_time.png" /><br /></div>
+<div class="body"><p>Specifies the current time step or the current physical time. The port
+provides a popup menu (right mouse button click) which can be used to
+configure settings like animation mode or subrange interval. The two outer
+buttons allow you to automatically animate the time step or the physical time
+forwards or backwards. Animation speed in physical time mode can
+be controlled via the increment value in the configure dialog.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

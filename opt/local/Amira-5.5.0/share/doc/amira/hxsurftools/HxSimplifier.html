@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Simplification Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Simplification Editor" "reduce the number of triangles of a surface" !>
+<p>&nbsp;<br />
+<img src="HxSimplifier_Icon.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This editor can be used to reduce the number of triangles of a surface.
+ In particular, the output of the <a class="link" href="HxGMC.html#A1">SurfaceGen</a> module has to be
+ processed in this way before a tetrahedral patient model can be
+ generated. Surface simplification is
+ done by means of an edge collapsing algorithm. Edges of the original
+ surface are successively reduced to points. The shape of the original
+ surface is preserved by minimizing a certain error criterion. Special
+ care is taken to prevent the triangles of the simplified surface from
+ intersecting each other. However, in some cases intersections can
+ still occur. Therefore, the resulting surface should be checked
+ for intersections using the <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">surface editor</a>.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxSimplifier_simplifier.png.html><img width=450 src="HxSimplifier_simplifier.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+User interface of surface simplification editor.</div>
+
+ 
+ </div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Simplify</span>  
+
+<div class="body"><p>	This port provides three text fields for controlling some parameters
+	of the simplification process. Field <i>faces</i> determines the
+	desired number of triangles of the simplified surface. You may
+	simplify the surface in multiple steps. However, somewhat more
+	accurate results are obtained if the simplification is performed
+	in a single step. When the simplification process is finished,
+	a check is made whether the surface contains duplicated triangles.
+	Such triangles are removed automatically. Therefore the total
+	number of triangles of the reduced surface will usually be 
+	somewhat less than the value specified in <i>faces</i>.</p>
+<p>	The second field, <i>max dist</i>, defines a maximum edge length
+	for the triangles of the simplified surface. Usually, the 
+	default value of 3 cm should be suitable, but you can try to 
+	modify this value if the reduced surface still contains 
+	intersections.
+</p>
+<p>	The third field, <i>min dist</i>, defines a minimum edge length.
+	Shorter edges are contracted if button <i>Contract Edges</i>
+ is pressed (see below).</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+
+<div class="body"><p>	If the toggle <em>preserve slice structure</em> is set, edges of
+ <i>exterior</i> triangles of the surface are treated in a special
+	way, so that the slice structure of the original voxel grid is
+	preserved. 
+	%If this option is set, generating a
+	%<a class="link" href="HxBolusGrid.html">bolus grid</a> later will be easier.</p>
+<p>	If toggle <em>fast</em> is set, a less extensive intersection test 
+	strategy is selected. Surface simplification will run faster,
+	but there is a higher probability that intersecting triangles
+	will occur
+	(see explanation of command <em>setIntersectionTestStrategy</em>
+ below).</p>
+<p> If toggle <em>create level-of-detail</em> is set, all
+ intermediate steps (edge-collapse) of the simplification
+ process are stored in the surface in such a way that they
+ can rapidly be restored. To this end, the surface receives a
+ port <em>Level of detail</em>, where the desired level can be
+ set. Note that the port will not be created if during simplification
+ errors occur. In this case a message in the console will be
+ printed.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+
+<div class="body"><p>	Button <i>Simplify</i> starts surface simplification. The
+	simplification process will take several minutes. You may interrupt
+	it by clicking the stop button of the progress bar.</p>
+<p>	Button <i>Flip Edges</i> automatically flips some edges of a
+	surface if this improves the triangle quality. The Quality is defined 
+	as the ratio of the circumscribed circle and the inscribed circle of a
+	triangle. The smaller this ratio the higher the quality. Again,
+	duplicated triangles are removed automatically after this operation.</p>
+<p>	Button <i>Contract Edges</i> contracts all edges shorter than the
+	value defined at field <i>min dist</i> (see above).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">Simplifier setRadiusRatio &lt;value&gt;</span>  
+
+<div class="body"><p>
+	This command defines a quality threshold for the edge flipping
+	algorithm. Edges are flipped only if the radius ratio of a
+	triangle exceeds the given value. By default, a radius ratio of 20
+	is used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">Simplifier smooth &lt;nSteps&gt; &lt;lambda&gt;</span>  
+
+<div class="body"><p>
+	This commands shifts the vertices of the surface so that it gets
+	smoother. The value for <i>lambda</i> should be in the range of
+	0...1. This option is experimental and should not be used for
+	routine work.
+</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">Simplifier setIntersectionTestStrategy &lt;mode&gt;</span>  
+
+<div class="body"><p>
+	This command lets you choose between different intersection test
+	strategies. <i>mode</i> is a three-digit number, for example 100.
+	The digits specify the strategy used for testing modified
+	triangles against existing edges, for testing modified edges
+	against existing triangles, and for testing planar intersections.
+	The allowed values are 0-3 for the first, 0-2 for the second,
+	and 0-1 for the last digit. Larger values correspond to more
+	extensive tests which of course also require more computing
+	time. By default, a value of 211 is used. Modes 111 or 101 are
+	faster but more likely to produce intersecting triangles.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">Simplifier setFactError &lt;value&gt;</span>  
+
+<div class="body"><p>
+	In surface simplification the maximal edge length and the maximal
+	error (estimated distance between original and simplified surface)
+	can be controlled separately. The maximal error is computed by
+	multiplying the maximal edge length by a certain factor 
+	<i>factError</i>. The value of <i>factError</i> can be set using 
+	command <i>setFactError</i>. The default value is 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">Simplifier getFactError</span>  
+
+<div class="body"><p>
+	This command returns the current value of <i>factError</i>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

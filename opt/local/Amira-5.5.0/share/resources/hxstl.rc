@@ -1,0 +1,31 @@
+
+dataFile -name "STL" \
+    -header {[ \t]*solid} \
+    -ext ".stl" \
+    -load "hxReadSTL" \
+    -dso "libhxstl.so"
+
+dataFile -name "STL ascii" \
+    -ext ".stl" \
+    -save "hxWriteAsciiSTL" \
+    -type HxSurface \
+    -dso "libhxstl.so"
+
+dataFile -name "STL binary Little Endian" \
+    -ext ".stl" \
+    -save "hxWriteBinarySTLLittleEndian" \
+    -type HxSurface \
+    -dso "libhxstl.so"
+
+dataFile -name "STL binary Big Endian" \
+    -ext ".stl" \
+    -save "hxWriteBinarySTLBigEndian" \
+    -type HxSurface \
+    -dso "libhxstl.so"
+
+#dataFile -name "AutoForm" \
+#    -ext ".af" \
+#    -option autoform \
+#    -load "hxReadAutoForm" \
+#    -dso "libhxstl.so"
+

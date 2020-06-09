@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PlanarLIC</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "PlanarLIC" "texture-based flow visualization method" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module intersects an arbitrary 3D vector field and visualizes
+ its directional structure in the cutting plane using a technique
+ called <em>line integral convolution</em> (LIC). The LIC algorithm
+ works by convolving a random noise image along the projected field
+ lines of the incoming vector field using a piecewise-linear hat filter.
+ The synthesized texture clearly reveals the directional structure of
+ the vector field inside the cutting plane. As long as no valid LIC
+ texture has been computed, a default checkerboard pattern is displayed
+ instead.</p>
+<p> <em>PlanarLIC</em> is derived from <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a>.
+ See the documentation of this module for details on how to adjust the
+ position and orientation of the cutting plane. Click
+ <a href="../../../examples/HxFastLIC.hx">here</a> in order to execute a script
+ demonstrating the use of the <em>PlanarLIC</em> module.</p>
+<p> Press the <em>Apply</em> button to start the computation. If no LIC texture has been
+ computed yet, a default checkerboard pattern is displayed. This
+ pattern is also displayed as soon as filter length or resolution
+ are changed. Press the <em>Apply</em> button again in order to update
+ the texture.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Vector field to be visualized.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest, like
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A scalar field which may be used for pseudo-coloring.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring. If no colormap is connected
+	the default color of the colormap port will be used. The port is
+	hidden if pseudo-color mode is set to <em>none</em>.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A second scalar field which may be used for pseudo-coloring with two
+ color fields.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring with a combination of two color
+ fields. If no colormap is connected the default color of the colormap
+ port will be used. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxFastLIC_orientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the slice orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxFastLIC_options.png" /><br /></div>
+<div class="body"><p>If toggle <em>adjust
+	view</em> is active, then the camera of the 3D viewer will be reset
+	whenever one of the orientation buttons is clicked.</p>
+<p>	If the <em>rotate</em> toggle is active, then a virtual trackball is
+	displayed. By picking and dragging the trackball you may change
+	the orientation of the plane. Remember that the viewer must be in
+	interaction mode in order to do so. The ESC key inside the viewer
+	window toggles between navigation mode and interaction mode. The
+	trackball of the last active ArbitraryCut can also be turned on and
+	off by pressing the TAB key inside the viewer window.</p>
+<p> The <em>fit to points</em> toggle lets you reset the plane by clicking on
+ at least 3 different points in the scene. After enabling this toggle,
+ you should switch to interaction mode by pressing the ESC key inside the
+ viewer. Then click 3 times at different points on any geometry in the scene. 
+ The plane then will be automatically adjusted to match these points. 
+ The virtual trackball - visible when <em>rotate</em> toggle is active - will be moved 
+ to the center of the picked points.
+ After 3 points have been picked, this toggle is automatically unchecked, 
+ unless you pressed the shift key. 
+ Shift-clicking allows you to select more than 3 points. In this case
+ the plane that best fits the selected points will be computed.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Translate</span>  
+<div class="portsnapshot"><img src="HxFastLIC_translate.png" /><br /></div>
+<div class="body"><p>This port lets you translate the plane along its normal direction.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colorize</span>  
+<div class="portsnapshot"><img src="HxFastLIC_colorMode.png" /><br /></div>
+<div class="body"><p>An option menu allowing to select different pseudo-color modes. If
+	item <em>none</em> is selected, the LIC texture will be displayed in
+	grayscale only. If <em>magnitude</em> is selected, each pixel of the
+	LIC texture will be colored according to vector magnitude at this
+	point. If <em>normal component</em> is selected, then color denotes the
+	signed length of the vector component perpendicular to the cutting
+	plane. This length will be positive if the vector points upwards or
+ negative if the vector points downwards. If <em>parallel
+ component</em> is selected, then color denotes the length of the vector
+ component tangential to the plane. This length will always be
+ greater or equal than zero. Finally, if <em>color field</em> is
+ selected, and if a scalar field is connected to port <em>ColorField</em>, the external scalar field will be used for
+ pseudo-coloring. There is a second mode <em>2 color fields multiplied</em>. 
+ This mode makes it possible to visualize two color fields at the same time. 
+ The color fields have to be attached to the ports <em>ColorField</em> and 
+ <em>ColorField2</em>. The colors of each field are multiplied and then
+ applied to the final image. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxFastLIC_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p> <a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap2</span>  
+<div class="portsnapshot"><img src="HxFastLIC_colormap2.png" /><br /></div>
+<div class="body"><p>Port to select the second colormap that is applied to the second color field.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lic</span>  
+<div class="portsnapshot"><img src="HxFastLIC_lic.png" /><br /></div>
+<div class="body"><p>The input denoted <em>filter length</em> controls the one-sided length
+	of the filter kernel used for line integral convolution. The larger
+	this value is, the more coherent the grayscale distribution along the
+	field lines. Often larger values are visually more attractive than
+	smaller ones. A value of 0 lets you see an isotropic noise pattern
+	without any directional information.</p>
+<p>	The second input of this port determines the <em>resolution</em> of 
+	an intermediate sampling raster used to compute field lines.
+	Fine details of the vector field might be missed if the sampling
+	resolution is too low. The resolution value also has an effect
+	on the granularity of the resulting LIC image. The size of the
+	LIC texture being computed is chosen to be the next power of two
+	larger than or equal to the sampling resolution. For example, if the
+	resolution is set to 128, the size of the LIC texture will be 128x128.
+	If the resolution is set to 129, then a LIC texture of size 256x256
+	will be computed, resulting in much finer structures.</p>
+<p>	The third input of this port denoted as <em>seed</em> allows 
+ control of the generation of the noise pattern. A value of 0
+ means that a different random noise pattern is used for each successive
+ calculation. Any other value
+ allows use of the same noise pattern each time a computation is started.
+ The latter yields better results for videos where the LIC plane
+ slices through a volume.</p>
+<p>
+<a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Phase</span>  
+<div class="portsnapshot"><img src="HxFastLIC_phase.png" /><br /></div>
+<div class="body"><p>This port will only be visible if a complex-valued vector field
+	is connected to the module. It provides a phase slider controlling
+	which part of the complex 3D vectors is visualized.
+	A value of 0 degree corresponds to the real part, while a value of
+	90 degrees corresponds to the imaginary part. Other values yield
+	intermediate vectors</p>
+<p>
+<a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Hide undefined values</span>  
+<div class="portsnapshot"><img src="HxFastLIC_hideUndefinedValues.png" /><br /></div>
+<div class="body"><p>If checked, locations where there is no data value or where 
+ extracted data values are equals to the undefined value are displayed
+ as transparent pixels.</p>
+<p> If a <em>TetraComplexVectorField3</em>, a <em>TetraVectorField3</em>, an <em>EdgeElemVectorField3</em>
+ or an <em>EdgeElemComplexVectorField3</em> is connected to the module,
+ only locations where there is no data value will be discarded.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setNumSubPixels &#123;1|2|3&#125;</span>  
+
+<div class="body"><p>
+	Allows you to change an internal parameter of the LIC algorithm.
+	Since LIC images contain very high spatial frequency components,
+	they are susceptible for aliasing. Aliasing can be almost
+	eliminated by choosing the number of sub-pixels to be 2 or even 3.
+	However, this is achieved at the expense of increased computing
+	time.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">writeTexture &lt;filename&gt;</span>  
+
+<div class="body"><p>
+	This command allows you to write the current LIC texture into a
+	file in raw PPM format.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,63 @@
+#####
+### Product name and version.
+#####
+
+theAppSkin setProductName Amira
+theAppSkin setProductVersion 4.1
+theAppSkin setProductPatchVersion 0
+
+#####
+### Product icons and captions.
+#####
+
+theAppSkin setIcon MainSmall ""
+theAppSkin setIcon Main ""
+theAppSkin setIcon Console ""
+theAppSkin setIcon FileDialog ""
+theAppSkin setIcon Help ""
+theAppSkin setIcon Viewer ""
+
+theAppSkin setCaption Main Amira ""
+theAppSkin setCaption Console Amira ""
+theAppSkin setCaption FileDialog Amira ""
+theAppSkin setCaption Help Amira ""
+theAppSkin setCaption Viewer Amira ""
+
+#####
+### Product splashes.
+#####
+
+theAppSkin setSplash Amira ""
+
+#####
+### Product packages.
+#####
+
+theAppSkin addPackage DeveloperPack AmiraDev "Developer Pack"
+theAppSkin addPackage MeshPack AmiraMesh "Mesh Pack"
+theAppSkin addPackage VeryLargeDataPack AmiraVLD "Very Large Data Pack"
+theAppSkin addPackage QuantificationPack AmiraQuant "Quantification+ Pack"
+theAppSkin addPackage MolecularPack AmiraMol "Molecular Pack"
+theAppSkin addPackage VRPack AmiraVR "VR Pack"
+theAppSkin addPackage TeamWorkPack AmiraTeamWork "TeamWork Pack"
+theAppSkin addPackage ReV4DPack AmiraReV4D "Rev4D Pack"
+theAppSkin addPackage DicomReader AmiraDicomReader "DICOM reader"
+theAppSkin addPackage ResolveRT ResolveRT "Resolve RT"
+theAppSkin addPackage ResolveRTFEI AmiraFEI "Resolve RT - FEI Edition"
+theAppSkin addPackage SkeletonPack AmiraSkel "Skeleton Pack"
+theAppSkin addPackage GeosciencesPack AmiraGeo "Geosciences Pack"
+theAppSkin addPackage GreenPack AmiraGreen "Green Pack"
+theAppSkin addPackage MultiCompAnalysisPack AmiraMultiCompAnalysis "Multi-Component Analysis Pack"
+
+#####
+### Product miscellaneous information.
+#####
+
+theAppSkin setOnlineSupportURL ""
+theAppSkin setContactAddress ""
+theAppSkin setInitFile "Amira.init"
+theAppSkin setEULAFile "AmiraEULA.html"
+theAppSkin setPathToIndexFile "src/amiraKernel/usersguide/doc/index.doc"
+theAppSkin setHelpDir "share/doc/amira"
+theAppSkin setAppFileBaseName amiramain
+

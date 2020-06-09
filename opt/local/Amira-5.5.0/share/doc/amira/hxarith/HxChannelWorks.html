@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ChannelWorks</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ChannelWorks" "reassembles or merges data channels of different inputs" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows conversion between scalar and vector fields. You can,
+for example, combine three scalar fields into one vector field, or extract one
+of the six channels of a complex-valued vector field to obtain a scalar field.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Input1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connects to a field, e.g., a uniform vector field, a uniform
+scalar field, 3D image volume, or field defined on a surface.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Input2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional second input, which accepts the same data types as the first input.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Input3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional third input, which accepts the same data types as the first input.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_output.png" /><br /></div>
+<div class="body"><p>Select the desired output type: scalar field (1 channel), complex-valued
+scalar field (2 channels), vector field (3 channels), color field (4 channels),
+or complex vector field (6 channels).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 1</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel1.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as first output channel. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 2</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel2.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as second output channel. This port
+is only present if the output has more than one channel.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 3</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel3.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as third output channel. This port
+is only present if the output has more than two channels.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 4</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel4.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as fourth output channel. This port
+is only present if the output has more than three channels.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 5</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel5.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as fifth output channel. This port
+is only present if the output has six channels.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channel 6</span>  
+<div class="portsnapshot"><img src="HxChannelWorks_Channel6.png" /><br /></div>
+<div class="body"><p>Select which of the input channels is used as sixth output channel. This port
+is only present if the output has six channels.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

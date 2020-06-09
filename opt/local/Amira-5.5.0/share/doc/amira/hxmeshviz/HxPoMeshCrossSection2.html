@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridCut (Polyhedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "GridCut (Polyhedra)" "displays a colored cross-section of a polyhedral grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>GridCut</em> module is a tool for visualizing a cross section of a
+ polyhedral grid consisting of different materials. Within the cross
+ section the different materials are indicated by their respective
+ colors. The module is derived from <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a>
+ and thus provides the same methods for manipulating the position and
+ orientation of the cross section as this base class.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The polyhedral grid to be visualized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxPoMeshCrossSection2_orientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons to specify the slice orientation. <em>Axial</em> slices are perpendicular to the z-axis, <em>coronal</em> slices are
+ perpendicular to the y-axis, and <em>sagittal</em> slices are
+ perpendicular to the x-axis. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxPoMeshCrossSection2_options.png" /><br /></div>
+<div class="body"><p>If the <em>adjust view</em> toggle is set, the camera of the main viewer
+ is reset each time a new slice orientation is selected. With the <em>rotate</em> toggle you can switch the rotate handle for the cutting
+ plane on and off again. </p>
+<p> If the <em>immediate</em> toggle is set, the slice is
+ updated every time you drag it with the mouse in the 3D viewer.
+ Otherwise only the bounding box of the cutting plane is moved and the
+ update takes place when you release the mouse button.</p>
+<p> The <em>fit to points</em> toggle lets you reset the plane by clicking on
+ at least 3 different points in the scene. After enabling this toggle,
+ you should switch to interaction mode by pressing the ESC key inside the
+ viewer. Then click 3 times at different points on any geometry in the scene. 
+ The plane then will be automatically adjusted to match these points. 
+ The virtual trackball - visible when <em>rotate</em> toggle is active - will be moved 
+ to the center of the picked points.
+ After 3 points have been picked, this toggle is automatically unchecked, 
+ unless you pressed the shift key. 
+ Shift-clicking allows you to select more than 3 points. In this case
+ the plane that best fits the selected points will be computed.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Translate</span>  
+<div class="portsnapshot"><img src="HxPoMeshCrossSection2_translate.png" /><br /></div>
+<div class="body"><p>This slider allows you to select different slices. The slices may also
+ be picked and dragged directly in the 3D viewer.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxPoMeshCrossSection2_selection.png" /><br /></div>
+<div class="body"><p>This port maintains a list of materials to be displayed within the
+ cross section. With the selection menu one can select a single
+ material. The <em>Add</em> button adds the currently selected material to
+ the list so the that is becomes visible and the <em>Remove</em> button
+ removes the material so that is becomes invisible.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+Inherits all commands of <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a>.
+</p></div>
+<p>
+
+
+</p></body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CorrectZDrop</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "CorrectZDrop" "compensates for intensity attenuation in confocal images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module lets you fix artifacts in 3D microscopic images caused by light
+absorption in other slices. If such artifacts are present, the average
+intensity in lower slices seems to be decreased. This so-called <i>z-drop</i> or <i>intensity attenuation</i> can be corrected automatically by
+fitting an exponential curve to the average intensities in each of the slices, or
+manually by providing a user-defined formula.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The image data exhibiting a z-drop artifact. Scalar fields with uniform
+or stacked coordinates as well as <a class="link" href="../hxfield/HxMultiChannelField3.html#A1">multi-channel
+fields</a> are supported.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxCorrectZDrop_mode.png" /><br /></div>
+<div class="body"><p>Lets you select between <em>automatic</em> mode and <em>manual</em> mode.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Expression</span>  
+<div class="portsnapshot"><img src="HxCorrectZDrop_expression.png" /><br /></div>
+<div class="body"><p>This port is only available if <em>manual</em> mode has been selected. It provides
+a text field where you can enter a formula specifying a factor used to
+multiply the intensity values in each slice. Within the formula the
+variable <i>u</i> specifies the slices. <i>u</i> will take the value 0 for
+the first slice and 1 for the last slice. For the other slices it takes
+intermediate values depending on the actual slice location (this makes
+support of stacked coordinates easy). In automatic mode the following
+formula <tt>a*exp(b*u)</tt> will be used, where <tt>a</tt> and <tt>b</tt> are fitted
+automatically. If you first perform an automatic z-drop correction and then
+switch to manual mode, the fitted exponential will be displayed in the port's
+text field.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

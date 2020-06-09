@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.3.2 A Writer for Surfaces and Surface Fields</a></h3>
+<p>For the sake of completeness, a writer for the <em>Trimesh</em> format 
+introduced in <a class="link" href="HxDev-readtrimesh.html#A1">Section 25.2.2</a> is described in this section.
+Remember that the <em>Trimesh</em> format is suitable for storing a triangular
+mesh as well as an arbitrary number of data values defined on the vertices
+of the surface. In <font face="helvetica">Amira</font>, surfaces and data fields defined on surfaces are
+represented by different objects. This also has some implications when
+designing a write routine.
+In our example we actually implement two different write routines, one
+for the surface and one for the surface field. If the user selects the
+surface and exports it using the <tt>Trimesh</tt> writer, the surface mesh 
+as well as all attached data fields will be written to file.
+On the other hand, if the user selects a particular surface field, the
+corresponding surface and just the selected field will be written.</p>
+<p>The source code of the writer can be found in the local <font face="helvetica">Amira</font> directory
+under <tt>packages/mypackage/writetrimesh.cpp</tt>. Remember that the demo
+package must be copied into the local <font face="helvetica">Amira</font> directory before compiling.
+For details refer to <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>. Again, let us start
+by looking at the code:</p>
+<p><br />
+
+<font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Write routine for the Trimesh file format
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;hxcore/HxMessage.h&gt;
+#include &lt;hxsurface/HxSurface.h&gt;
+#include &lt;hxsurface/HxSurfaceField.h&gt;
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+static
+int writetrimesh(HxSurface* surface,
+    McDArray&lt;HxSurfaceField*&gt; fields, const char* filename)
+{
+    FILE *f = fopen(filename, "w");
+
+    if (!f) {
+        theMsg-&gt;ioError(filename);
+        return 0;
+    }
+
+    int i,j,k;
+    McDArray&lt;McVec3f&gt;&amp; points = surface-&gt;points;
+    McDArray&lt;Surface::Triangle&gt;&amp; triangles = surface-&gt;triangles;
+
+    // Write number of points and number of triangles
+    fprintf(f, "%d %d\n", points.size(), triangles.size());
+        
+    // Write point coordinates
+    for (i=0; i&lt;points.size(); i++) {
+        McVec3f&amp; v = points[i];
+        fprintf(f, "%g %g %g\n", v[0], v[1], v[2]);
+    }
+
+    // Write point indices of all triangles
+    for (i=0; i&lt;triangles.size(); i++) {
+        int* idx = triangles[i].points;
+        fprintf(f, "%d %d %d\n", idx[0]+1, idx[1]+1, idx[2]+1);
+    }
+
+    // If there are data fields write them out too.
+    if (fields.size()) {
+        for (j=0; j&lt;fields.size(); j++)
+            fprintf(f, "%d ", fields[j]-&gt;nDataVar());
+        fprintf(f, "\n");
+
+        for (i=0; i&lt;points.size(); i++) {
+            for (j=0; j&lt;fields.size(); j++) {
+                int n = fields[j]-&gt;nDataVar();
+                float* v = &amp;fields[j]-&gt;dataPtr()[i*n];
+                for (k=0; k&lt;n; k++)
+                    fprintf(f, "%g ", v[k]);
+            }
+            fprintf(f, "\n");
+        }
+    }
+
+    fclose(f); // done
+    return 1;
+}
+
+MYPACKAGE_API
+int writetrimesh(HxSurface* surface, const char* filename)
+{
+    // Temporary array of surface data fields
+    McDArray&lt;HxSurfaceField*&gt; fields;
+
+    // Check if there are data fields attached to surface
+    for (int i=0; i&lt;surface-&gt;downStreamConnections.size(); i++) {
+        HxSurfaceField* field =
+            (HxSurfaceField*) surface-&gt;downStreamConnections[i];
+        if (field-&gt;isOfType(HxSurfaceField::getClassTypeId()) &amp;&amp;
+            field-&gt;getEncoding() == HxSurfaceField::OnNodes)
+            fields.append(field);
+    }
+
+    // Write surface and all attached data fields
+    return writetrimesh(surface, fields, filename);
+}
+
+MYPACKAGE_API
+int writetrimesh(HxSurfaceField* field, const char* filename)
+{
+    // Check if data is defined on nodes
+    if (field-&gt;getEncoding() != HxSurfaceField::OnNodes) {
+        theMsg-&gt;printf("Data must be defined on nodes.");
+        return 0;
+    }
+
+    // Store pointer to field in dynamic array
+    McDArray&lt;HxSurfaceField*&gt; fields;
+    fields.append(field);
+
+    // Write surface and this data field
+    return writetrimesh(field-&gt;surface(), fields, filename);
+}
+</pre><p><font size="2"></font></p>
+<p>In the upper part of the code, first a static utility method is defined
+which takes three arguments: a pointer to a surface, a dynamic array
+of pointers to surface fields, and a file name. This is the function that
+actually writes the data to a file. Once you have understood the <em>Trimesh</em> reader presented in <a class="link" href="HxDev-readtrimesh.html#A1">Section 25.2.2</a>, it should be no
+problem to follow the writer code too.</p>
+<p>In the lower part of the code, two write routines mentioned above are defined,
+one for surfaces and the other one for surface fields. Since these routines 
+are to be exported for external use, we need to apply the package macro <tt>MYPACKAGE_API</tt>, at least on Windows.</p>
+<p>Let us now look more closely at the surface writer. This routine first
+collects all surface fields attached to the surface in a dynamic array.
+This is done by scanning <tt>surface-&gt;downStreamConnections</tt> which
+provides a list of all objects attached to the surface. The class type of
+each object is checked using the method <tt>isOfType</tt>. This sort of
+dynamic type-checking is the same as in Open Inventor. If a surface field
+has been found and if it contains data defined on its nodes, it is appended to
+the temporary array <tt>fields</tt>. The surface itself, as well as the collected
+fields, are then written to file by calling the utility method defined in
+the upper part of the writer code.
+The second write routine, the one adapted to surface fields, is 
+simpler. Here a dynamic array of fields is used too, but this array is
+filled with data representing the original surface field only. Once this has
+been done, the same utility method can be called as in the first case.</p>
+<p>Although actually two write routines have been defined, only one entry
+in the package resource file is required. This entry looks as follows
+(see <tt>mypackage/share/resources/mypackage.rc</tt>):
+<font size="2"></font></p><pre>
+dataFile -name "Trimesh Demo Format"    \
+    -ext "trimesh"                      \
+    -type "HxSurface"                   \
+    -type "HxSurfaceField"              \
+    -save "writetrimesh"                \
+    -package "mypackage"
+</pre><p><font size="2"></font></p>
+<p>In order to compile and execute the write, please follow the instructions
+given in <a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling and Debugging)</a>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

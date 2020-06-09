@@ -1,0 +1,13 @@
+################################################################################
+#
+# Resource file of custom package hxvevo
+#
+################################################################################
+
+
+dataFile -name    "Vevo Raw Image" \
+         -option  "rdi" \
+         -ext     "rdi,rdb" \
+         -load    "HxVevoReader" \
+         -type    "HxUniformScalarField3" \
+         -package "hxvevo"

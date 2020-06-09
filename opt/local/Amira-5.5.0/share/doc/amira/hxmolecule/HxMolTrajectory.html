@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolTrajectory</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Data" "MolTrajectory" "represents a set of molecular structures of the same molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>An object of type <em>MolTrajectory</em> represents a series of molecular
+configurations. A trajectory can be created by loading a file
+containing a trajectory, or it can be attached to an object of type
+<a class="link" href="HxMolTrajectoryBundle.html#A1">MolTrajectoryBundle</a>, 
+extracting one of the trajectories contained
+in that bundle.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Bundle</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The trajectory may be connected to a <i>trajectory bundle</i>. If so,
+ the <em>Trajectory</em> port will appear in the user interface of the
+ data object which enables you to control which member of the
+ bundle this trajectory represents. 
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Trajectory</span>  
+<div class="portsnapshot"><img src="HxMolTrajectory_trajectory.png" /><br /></div>
+<div class="body"><p>The <i>Trajectory</i> port is visible only if the connection port
+ <em>Bundle</em> is connected to a trajectory bundle. The menu lets you
+ select one of the trajectories contained in the bundle.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<a name="A4"></a><h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getTrajectoryName</span>  
+
+<div class="body"><p>
+ Returns the name of the trajectory.</p>
+<p><b>Timestep editing commands:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumTimeSteps</span>  
+
+<div class="body"><p>
+ Returns the number of time steps in the trajectory.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getCoordinate &lt;stepIx&gt; &lt;atomIx&gt;</span>  
+
+<div class="body"><p>
+Returns the coordinate of atom &lt;atomIx&gt; of timestep &lt;stepIx&gt;.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCoordinate &lt;stepIx&gt; &lt;atomIx&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>
+Sets the coordinate of atom &lt;atomIx&gt; of time step &lt;stepIx&gt;.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeTimestep &lt;stepIx&gt;</span>  
+
+<div class="body"><p>
+Removes stepIx'th timestep.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeTimestepRange &lt;firstStepIx&gt; &lt;lastStepIx&gt;</span>  
+
+<div class="body"><p>
+Removes all timesteps starting with the &lt;firstStepIx&gt;'th end ending with the &lt;lastStepIx&gt;'th.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">restrictToTimestepRange &lt;firstStepIx&gt; &lt;lastStepIx&gt;</span>  
+
+<div class="body"><p>
+Restricts trajectory to timesteps within the range &lt;firstStepIx&gt; and &lt;lastStepIx&gt;.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">appendTrajectory &lt;trajectory2&gt;</span>  
+
+<div class="body"><p>
+Appends all timesteps of a trajectory of given name in the object pool.
+This only works if both trajectories have the same topologies and observables.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">splitByObservable &lt;observableIx&gt;</span>  
+
+<div class="body"><p>
+Splits the trajectory by creating a trajectory for each different value found in the observable.
+Each new trajectory will contain all timesteps which had the specific observable value.
+Return the name of the new trajectory bundle object containing all trajectories.</p>
+<p><b>Topology editing commands:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addHydrogens</span>  
+
+<div class="body"><p>
+Add hydrogens until the valences of all atoms are saturated.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addMMFFParameterization</span>  
+
+<div class="body"><p>
+Adds parameters of MMFF94 force field.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeWater</span>  
+
+<div class="body"><p>
+Removes all water molecules and unbonded oxygens and hydrogens.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addHydrogens</span>  
+
+<div class="body"><p>
+Add hydrogens until the valences of all atoms are saturated.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeHydrogens</span>  
+
+<div class="body"><p>
+Removes hydrogens.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeNonPolarHydrogens</span>  
+
+<div class="body"><p>
+Removes hydrogens on non polar heavy atoms.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">generateSmiles</span>  
+
+<div class="body"><p>
+Returns SMILES string of molecule.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">assignKekuleBondOrders</span>  
+
+<div class="body"><p>
+Converts all aromatic bond orders to single and double to create a kekule structure.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">assignNonKekuleBondOrders</span>  
+
+<div class="body"><p>
+Reverses the kekule structure assignment.
+No return value.</p>
+<p><b>Observables commands:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumObservables</span>  
+
+<div class="body"><p>
+Returns number of observables.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getObservableNames</span>  
+
+<div class="body"><p>
+Returns the names of all observables as a list.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getObservableIx &lt;obsName&gt;</span>  
+
+<div class="body"><p>
+Returns index of obervable with given name. Returns 0 if no such observable exists.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getObservableName &lt;obsIx&gt;</span>  
+
+<div class="body"><p>
+Returns name of obervable with given index.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addFloatObservable &lt;name&gt;</span>  
+
+<div class="body"><p>
+Adds a new float observable with the given name. Initial values will be 0.
+Returns index.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addIntegerObservable &lt;name&gt;</span>  
+
+<div class="body"><p>
+Adds a new integer observable with the given name. Initial values will be 0.
+Returns index.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setObservableValue &lt;obsIx&gt; &lt;stepIx&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>
+Sets value of &lt;stepIx&gt;'th timestep of observable with index &lt;obsIx&gt;
+to value. If stepIx is 0 the value will be set for all timesteps.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getObservableValue &lt;obsIx&gt; &lt;stepIx&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>
+Returns value of &lt;stepIx&gt;'th timestep of observable with index &lt;obsIx&gt;.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">sortByObservable &lt;obsIx&gt; [a/d]</span>  
+
+<div class="body"><p>
+Sorts timesteps of the trajectory so that the values of the given trajectory
+are in ascending (a) or descending order. The sort order is an optional argument
+and is ascending.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeObservableRange &lt;obsIx&gt;</span>  
+
+<div class="body"><p>
+Returns range (minimum and maximum) of values of given observable.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeObservableStatistics &lt;obsIx1&gt; [&lt;obsIx2&gt;]</span>  
+
+<div class="body"><p>
+Computes variance and mean of the given observable. If a second observable is
+specified it will also compute the correlation and covariance between the two
+observables.</p>
+<p><b>Alignment:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alignTimestep &lt;stepIx&gt; &lt;alignToStepIx&gt;</span>  
+
+<div class="body"><p>
+Aligns coordinates timestep &lt;stepIx&gt; to coordinates of timestep &lt;alignToStepIx&gt;
+by minimizing RMSD. No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alignTimesteps &lt;alignToStepIx&gt;</span>  
+
+<div class="body"><p>
+Aligns coordinates of all timesteps to coordinates of timestep &lt;alignToStepIx&gt;
+by minimizing RMSD. No return value.</p>
+<p><b>Clustering commands:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clusterTimestepsKMeans &lt;clusterNumber&gt; [observableName]</span>  
+
+<div class="body"><p>
+Applies K-Means clustering to the timesteps of the trajectory with 
+the rmsd between the coordinates of two timesteps used as distance metric.
+The parameter &lt;clusterNumber&gt; determines how many clusters will be created.
+The command will generate an integer observable in the range of 
+[1...clusterNumber] containing the cluster index of each timestep. 
+If no observable name is given, the name clusterIx will be used.
+The K-Means algorithm is non deterministic.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clusterTimestepsQT &lt;clusterRadius&gt; &lt;minMemberNum&gt; [observableName]</span>  
+
+<div class="body"><p>
+Applies QT clustering to the timesteps of the trajectory with 
+the rmsd between the coordinates of two timesteps used as distance metric.
+Unlike K-Means clustering, QT clustering does not have a predefined cluster number.
+Instead the parameter &lt;clusterRadius&gt; determines the rmsd threshold for a cluster
+and the larger this radius, the larger the clusters will be and the smaller the number of 
+clusters.
+To avoid a large number of small clusters and focus on significant clusters the parameter 
+&lt;minMemberNum&gt; restricts the clustering to clusters which have this minimum number of members.
+The command will generate an integer observable in the range of 
+[0...clusterNumber] containing the cluster index of each timestep whereby 0 means that the
+timestep was not assigned to any cluster. If no observable name is given, the name clusterIx 
+will be used. The QT algorithm is deterministic. 
+QT-Clustering is singificantly more computationally demanding than K-Means.
+The latter algorithms should be thus preferred for large trajectories.
+No return value.</p>
+<p><b>Miscellaneous commands:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getGlobalWeight</span>  
+
+<div class="body"><p>
+ Returns the global weight of the trajectory, which is the
+ probability of the molecule to be in the metastable conformation
+ (conformational ensemble) represented by the trajectory.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setGlobalWeight</span>  
+
+<div class="body"><p>
+ Sets the global weight.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">loadIntoMemory</span>  
+
+<div class="body"><p>
+Makes sure that all coordinates of the Trajectory are stored in local memory.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

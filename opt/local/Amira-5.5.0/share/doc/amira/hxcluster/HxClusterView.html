@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ClusterView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ClusterView" "visualizes a point cluster or parts of it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes data objects of type <a class="link" href="HxCluster.html#A1">Cluster</a>.
+ The vertices of the cluster may be rendered using semi-transparent
+ points or using textured plates. Both points and plates may be
+ colored according to any data variable defined in the cluster. Vertices
+ of the cluster may be selected or deselected by drawing a contour in
+ the viewer window or by specifying an arithmetic filter expression.
+ Finally, it is possible to display bonds between neighboring points.
+ This is useful, for example, if the points represent atoms in a crystal
+ lattice.</p>
+<p> In plates mode (see below) individual points may be deselected by
+ shift-clicking them. Clicking them without the shift key pressed
+ causes their ID to be printed in the console window.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>	The point cluster to be visualized.</p>
+</div></div>
+<div class="hxconnection_default">
+ <span class="headline">Colormap</span>  
+
+<div class="body"><p>The colormap used for pseudo-coloring. The alpha channel of the
+ colormap will be correctly taken into account unless the option
+ <em>opaque</em> has been selected. However, note that many default
+ colormaps are completely opaque. In this case, use the
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a> to make them transparent.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxClusterView_color.png" /><br /></div>
+<div class="body"><p>An option menu containing all data variables which can be used for
+ pseudo-coloring. The data variables' symbols are displayed in
+ brackets following the names. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxClusterView_options.png" /><br /></div>
+<div class="body"><p>The following options can be set:</p>
+<p> <em>Plates</em> activates the textured plates mode. If this mode is
+ active, each selected vertex is represented by a little sphere. For
+ large numbers of points a significant amount of time may be
+ required each time new colors are set. By default, the plates mode
+ is deactivated. Instead, simple points are rendered. The point size
+ is constant regardless of the distance of a point from the
+ camera.</p>
+<p> <em>Filter</em> causes a text field to be shown, which can be used to
+ specify an arithmetic expression for selecting a subset of points.</p>
+<p> <em>Opaque</em> influences the way point primitives are drawn. 
+ By default, anti-aliased semi-transparent points are rendered. If the
+ opaque option is set, transparencies will be ignored. Opaque
+ rendering is faster but gives less attractive results. In addition, you
+ can't hide certain points by making them more transparent.</p>
+<p> <em>Bonds</em> enables the display of bonds between neighboring
+ points. If necessary, connectivity information is computed
+ automatically. This may take some time, especially for large data
+ sets.</p>
+<p> <em>Scale plates</em> enables scaling of plates by a data variable. The
+ data variables' symbols are displayed in brackets following the names.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Filter</span>  
+<div class="portsnapshot"><img src="HxClusterView_filter.png" /><br /></div>
+<div class="body"><p>This port allows you specify an arithmetic filter expression. The
+ filter expression is evaluated for every point. Only points for
+ which a non-zero result is obtained are drawn. The filter
+ expression may contain any arithmetic and logical operator defined in
+ the C programming language. All symbols listed in the color menu
+	may be used in the filter expression. In addition, the symbols
+	<em>x</em>, <em>y</em>, and <em>z</em> are defined. These symbols indicate
+	the coordinates of a 3D point. For example, to select all
+ points with positive x-coordinates and with an energy. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Point size</span>  
+<div class="portsnapshot"><img src="HxClusterView_pointSize.png" /><br /></div>
+<div class="body"><p>Specifies the point size in pixels. Only visible if point mode is
+ activated, i.e., if no spheres are shown.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Scale data</span>  
+<div class="portsnapshot"><img src="HxClusterView_scaleData.png" /><br /></div>
+<div class="body"><p>Selects the data variable used for scaling plates. This port is
+ visible if option <em>plates</em> and option <em>scale plates</em> are
+ enabled.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Sphere scale</span>  
+<div class="portsnapshot"><img src="HxClusterView_sphereScale.png" /><br /></div>
+<div class="body"><p>Allows you to adjust the size of spheres shown if option <em>plates</em> has been selected. The default sphere radius is computed
+ from the bounding box of the data set. If option <em>scale plates</em> is
+ enabled, the size is computed as the data variable selected
+ in <em>scale data</em> multiplied by <em>sphere scale</em>.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxClusterView_action.png" /><br /></div>
+<div class="body"><p>	The <em>Export</em> button creates a new point cluster containing all
+	selected points of the input cluster together with the
+	corresponding data variables. </p>
+<p>	After you press the <em>Select</em> button, you can draw a contour in
+	the viewer window in order to deselect certain points. By default,
+	all points inside the contour are deselected. If you keep the
+	Ctrl key pressed down when starting to draw the contour, all points
+	outside the contour are deselected. Using the Alt key allows you
+	to define straight-line segments. In order to be visible, a point
+ must pass the filter test (see above) and the contour selection
+ test. Both options are independent of each other, i.e., if you
+ change the filter, the current contour selection remains valid.</p>
+<p> The <em>Reset</em> button resets contour selection mode. All points
+ passing the filter test become visible.</p>
+<p> The <em>Undo</em> button undoes the effect of the last interactive
+ contour selection operation.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>setBondColor &lt;color&gt;</tt></span>  
+
+<div class="body"><p>Specifies the color used for drawing bonds between neighboring
+ points. The color may be specified by either an RGB triple in the range
+ 0...1 or by a common X11 color name, e.g., <em>red</em> or <em>blue</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setBondWidth &lt;width&gt;</tt></span>  
+
+<div class="body"><p>This command allows you to change the width of the lines
+ representing the bonds between neighboring points. By default,
+ lines are drawn one pixel wide.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

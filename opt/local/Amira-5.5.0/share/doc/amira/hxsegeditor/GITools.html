@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Segmentation Tools</a></h3>
+<p>Several segmentation tools are provided allowing you to select areas in the
+current slice for subsequent edit operations. A tool is activated by
+clicking on its icon with the left mouse button. By default, selected areas
+are drawn in transparent red color. The opacity of the red color can be
+modified using a dialog under the <em>Edit/Preferences</em> menu.
+Alternatively, selected areas can be visualized using the same draw styles
+as ordinary labels. The different draw styles are listed under the popup menu 
+clicking the right mouse button over the selected colour in the 
+<em>Label List</em> (see also <a class="link" href="GIMaterialList.html#A1">Manipulating the Material List</a>. 
+However, in most cases the default transparent
+display is most appropriate because then selected areas cannot be mistaken for
+labeled regions. If the middle mouse button is used the mouse cursor takes 
+on the shape of a hand (only on the 2D slices), then the tool lets you 
+translate the current slice or rendered volume. </p>
+<p>You can also select a certain data range to be used as a mask for the 
+segmentation tools. The mask allows you to focus your work on a specific 
+range of the gray-values. This is very useful for brush, lasso and 
+thresholding segmentation (see below). To enable the masking, check the 
+<em>Enable masking</em> box in the <em>Display and Masking</em> 
+<a class="link" href="GIFourViewer.html#A1">area</a>.</p>
+<p>Once a segmentation tool is activated, certain actions can be performed in
+one of the viewer windows using the mouse. The operation of most of the
+tools can be modified by pressing the <em>Ctrl</em> or the <em>Shift</em> key.
+<em>Ctrl</em> typically deselects voxels instead of selecting them, while
+<em>Shift</em> adds voxels to the selection instead of replacing it. The
+descriptions of the individual tools provide more details.</p>
+<p><img src="gi-pick.png" /> <b>Pick &amp; Move</b></p>
+<p>This tools does two things. First, it lets you select a connected region
+assigned to one particular material by clicking on an image voxel with
+the left mouse button. If the <em>select all</em> toggle is active, all voxels
+belonging to the same material as the clicked voxel will be selected,
+either in 3D or in the current slice only, depending on the value of the
+<a class="link" href="GIEditButtons.html#A4">3D toggle</a>. If the <em>Ctrl</em> key is held down, voxels will be deselected.</p>
+<p>If the mouse is over an already selected pixel, the mouse cursor takes on
+the shape of a hand. Then the tool lets you translate the current
+selection. By pressing down the <em>Shift</em> key you can rotate the 
+current selection.
+However, note that this might give strange results for pixels with an aspect ratio different from one
+(for example in frontal or sagittal slices in a label field with stacked coordinates).
+</p>
+<p>When <em>All slices</em> is checked, your selection will apply to all slices,
+not just the current slice. Currently, in 3D
+ mode no undo is available. Therefore, be careful when activating <em>All slices</em>. Usually, it is advisable to deactivate the toggle again after
+ completing a particular 3D operation.</p>
+<p><img src="gi-brush.png" /> <b>Brush</b></p>
+<p>If this tool is activated, you can select regions by painting voxels with
+the left mouse held down. The size of the brush can be modified via a
+slider in the tool's control panel. For common smaller sizes dedicated
+push buttons are provided. Note that the size is specified in screen
+pixels, not in image pixels. If the center of an image pixel is covered by
+the brush, that pixel is selected. If the <em>Ctrl</em> key is held down, 
+pixels are deselected instead of being selected. If the middle mouse button 
+is used the mouse cursor takes on the shape of a hand. Then the tool lets you 
+translate the current slice. If the <em>Hide cursor</em> option is selected, 
+the cursor is hidden while moving over the current slice. </p>
+<p>It is also possible to fence an area defined with line segments
+by pressing <em>Alt</em>, and clicking successively to points with the left
+mouse button (holding down the <em>Alt</em> key all the time). Successive
+points will be connected with straight line segments. To finish interaction,
+release the <em>Alt</em> key and click a last time. The contour is then closed,
+and the lines traced over with the brush. </p>
+<p>The right mouse button is a flood fill tool. For example, you may surround
+a region in the image by drawing along its border and then click into the
+middle of the currently unselected interior part to fill it. Again the
+<em>Ctrl</em> key inverts the operation, i.e., it deselects connected parts of
+the selection.</p>
+<p>If the <em>Enable masking</em> option is selected, the brush will paint only 
+pixels whose values fall between those in the range slider.</p>
+<p>The <em>Square brush</em> option will paint, as the name suggests, a square region 
+instead of the default circular region. All of the other options will work with 
+the square brush if they are selected, like the limited range, etc.</p>
+<p><img src="gi-lasso.png" /> <b>Lasso</b></p>
+<p>The <em>Lasso</em> lets you define an area by generating a closed contour
+curve in 2D or 3D. Usually, if the <em>Freehand</em> button is selected,
+you draw such a curve freehand with the left mouse
+button pressed, but it is also possible to fence an area in the slice with line segments
+by pressing <em>Alt</em>, and clicking successively to points with the left
+mouse button (holding down the <em>Alt</em> key all the time). Successive
+points will be connected with straight line segments. To finish interaction,
+release the <em>Alt</em> key and click a last time. The contour is then closed
+and filled automatically.</p>
+<p>When the <em>Auto trace</em> option is enabled (this is the default), the line
+segments are automatically fitted to 2D image edges. Click with the left mouse
+button to define a starting point. Dragging the mouse after releasing the
+button a contour curve automatically fitted to the closest image edge is
+drawn. Further mouse clicks mark fixed points on the contour. Contour
+parts drawn before the latest mouse click remain in place. Close the
+contour by clicking with the middle mouse button.</p>
+<p>The underlying algorithm called <em>intelligent scissors</em> works by finding
+the shortest path in a cost matrix which is computed from the image's
+gradient image. If the option <em>Trace edges</em> is switched off, then the
+image itself is interpreted as a cost matrix. Disabling this option is
+useful for images where object boundaries already appear as isolated bright
+lines.</p>
+<p><em>2D Shape:</em> If the <em>Ellipse</em> or <em>Rectangle</em> buttons are selected,
+the lasso tool can be used to select an elliptic or a rectangular region in one
+of the 2D viewers. The <em>Auto trace</em> option is disabled for these shapes. 
+If the <em>Alt</em> key is pressed, the shape starting point is the center instead
+of the upper left corner.</p>
+<p><em>3D Mode:</em> These buttons apply to the behavior of the lasso when used in the
+3D viewer. If <em>Inside</em> mode is selected, lasso operations affect voxels
+inside the contoured region, while <em>Outside</em> mode does the same on voxels
+outside the contoured region (for the 2D viewers the lasso works always in
+<em>Inside</em> mode).
+In the 3D viewer the default operation is to replace selected voxels if,
+<em>Inside</em> mode is enabled and to deselect selected voxels, if <em>Outside</em>
+mode is enabled. Press <em>Shift</em> to select all voxels outside the contour.</p>
+<p>The default operation in the 2D viewers is replacing a selection, i.e. any
+contour drawn replaces an existing selection.
+Press <em>Shift</em> while drawing a contour to extend an existing selection. Press
+<em>Ctrl</em> to substract from an existing selection.</p>
+<p>All the operations described above can be constrained to the range of the masking
+slider, if the <em>Enable masking</em> option is selected.</p>
+<p><img src="gi-magic.png" /> <b>Magic Wand</b></p>
+<p>This tool performs a so-called region growing either in 2D or in 3D. Clicking with
+the left mouse button on a voxel selects the largest connected area that
+contains the voxel itself and all voxels with gray values lying inside a
+user-defined range. The range can be specified via two spin boxes shown
+in the tool's control panel. The values of the spin boxes either define
+absolute gray values. It is possible to modify the range even after
+the seed voxel has been selected. </p>
+<p>
+
+
+
+
+
+
+</p>
+<p>The <em>same material only</em> toggle restricts the search to voxels which
+are assigned to the same material as the seed voxel. For example, if the
+seed voxel belongs to <em>Exterior</em>, voxels which are already assigned to
+different materials will not be selected. This is useful to restrict the
+selection to certain parts of the image. Paths out of a region of interest 
+can be obstructed using a blocker region.</p>
+<p>If the <em>fill interior</em> toggle is set, holes inside the selected region
+will be filled automatically. This has the same effect as pressing the
+<em>f</em> key afterwards, which also fills the current selection. Automatic
+filling is only done in 2D mode, but not in 3D mode.</p>
+<p>Finally, the <em>draw limit line</em> button lets you specify additional
+barriers for 2D region growing. After pressing this button you can draw
+arbitrary polylines in the viewer window. Voxels covered by such a limit
+line will not be considered for region growing. Instead of pressing the
+limit line button you can also press the <em>Ctrl</em> key to temporarily
+enter the limit line mode. Existing limit lines can be deleted by clicking
+on them with the <em>Ctrl</em> key being pressed.</p>
+<p>Note that all seed points together with the corresponding range values
+and limit lines are stored in the parameter section of the label field.
+This makes it possible to easily correct a selection at a later time.</p>
+<p>When <em>All slices</em> is checked, your selection will apply to all slices,
+not just the current slice. Currently, in 3D
+ mode no undo is available. Therefore, be careful when activating <em>all slices</em>. Usually, it is advisable to deactivate the toggle again after
+ completing a particular 3D operation.</p>
+<p>If the <em>Enable masking</em> option is selected, this tool will select only 
+pixels whose values fall between those in the range slider.</p>
+<p></p>
+<p>
+
+
+
+
+
+
+</p>
+<p><img src="gi-threshold.png" /> <b>Threshold</b></p>
+<p>Selects voxels by threshold segmentation. The minimal and maximal image 
+intensity can be specified in the <em>Display and Masking</em> 
+<a class="link" href="GIFourViewer.html#A1">area</a>.
+When you click the <em>Select</em> button, all voxels falling into the interval are selected. 
+If the <em>Current material only</em> option is activated, only voxels assigned to 
+the current material are selected. If the 3D option is active, the operation 
+is performed in the whole volume, otherwise it is done in the current slice 
+of the active viewer. Note that the <em>Enable masking</em> box has to be checked 
+in order to use this tool.</p>
+<p><img src="gi-blow.png" /> <b>Blowtool</b></p>
+<p>When you click with the left mouse button on a voxel and drag the mouse
+without releasing the button, an initially circle-shaped contour blows up.
+The greater the distance from the initial position of the mouse click,
+the more the contour grows. The contour is designed to grow in areas with
+homogeneous gray values and to stop where gray values change abruptly, i.e.
+at image edges.</p>
+<p>The tolerance field in the <em>option panel</em> controls how sharp the image
+edge has to be in order to stop the contour from growing at each contour
+point. The smaller the tolerance, the sharper the image edge has to be. If
+the tolerance is large, the contour will even stop at weak edges. After you
+release the mouse button, the area within the contour will be marked.</p>
+<p>Before the computation, the image is smoothed using a Gaussian smoothing
+filter. You can change the width of the filter within ranges of 1 (no
+smoothing) to 8 (very broad smoothing). The default value is 4.</p>
+<p></p>
+<p>
+</p></body>
+</html>

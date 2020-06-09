@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+/sbin/ifconfig eth0 down
+/sbin/ifconfig eth0 hw ether 90:b1:1c:3d:e0:7a
+

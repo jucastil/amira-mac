@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HeightField</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "HeightField" "visualizes scalar data in a plane using a height plot" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>HeightField</em> module offers another method for the visualization
+ of scalar data fields defined on regular grids, such as stacks 
+ of tomographic images. 
+The data are visualized by extracting an arbitrary axial, frontal or sagittal slice out of the volume. 
+
+ This slice is represented
+ as a surface for which the heights of the vertices are mapped to the 
+ data, using a tunable scale parameter. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar or color field to be visualized. If an RGBA color field is 
+ connected the vertices of the height field are colored as in the color
+ field. The displacement is computed from the fields grayvalue intensity
+ which is computed using the formula <em>0.3*R+0.59*G+0.11*B</em>.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field used for pseudo-coloring. Only RGBA color fields or
+ scalar fields can be connected. If an RGBA color field is connected, the 
+ colormap is not used and the vertices of the height field are colored
+ according to the RGBA values. If a scalar field is connected, the vertices
+ are colored according the scalar values in the colormap. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used to map data values to colors. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest (not supported).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">DrawStyle</span>  
+<div class="portsnapshot"><img src="HxHeightField_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a>.
+For a description see there.</p>
+
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxHeightField_colormap.png" /><br /></div>
+<div class="body"><p>The colormap used to map data values to colors. </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxCityPlot_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_sliceOrientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the slice orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice Number</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_sliceNumber.png" /><br /></div>
+<div class="body"><p>This slider allows you to select different slices.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxHeightField_scale.png" /><br /></div>
+<div class="body"><p>This slider allows you to select the desired scale for the data-heights
+ mapping. This should be in the range [-1,1].</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

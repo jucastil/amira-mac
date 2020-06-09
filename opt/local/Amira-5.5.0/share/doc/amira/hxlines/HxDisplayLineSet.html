@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LineSetView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LineSetView" "displays a line set object as is or via 3D tubes" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes data objects of type <a class="link" href="HxLineSet.html#A1">LineSet</a>.
+ Individual lines may be displayed in wireframe mode. Alternatively,
+ simple shapes like triangles or squares may be extruded along the
+ lines. In this way true three-dimensional tubes are obtained.
+ Additional features of <em>LineSetView</em> are pseudo-coloring and the
+ display of little spheres at each line vertex.</p>
+<p> In order to colorize, scale, and twist the displayed lines,
+ it is possible to use one of the <em>data variables</em>:
+ those are all additional data values of the line set object given per vertex
+ and the connected scalar fields. The latter will be sampled at each line vertex
+ when it comes to displaying it.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The line set to be displayed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to an object providing a region-of-interest.
+ Only line segments inside this region will be visualized.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ScalarField1</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to a scalar field which can be used to influence coloring, scaling, twisting, etc.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ScalarField2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to a scalar field which can be used to influence coloring, scaling, twisting, etc.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ScalarField3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to a scalar field which can be used to influence coloring, scaling, twisting, etc.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Alphamap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Alphamap used for assigning transparency values.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A9"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Shape</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_shape.png" /><br /></div>
+<div class="body"><p>Determines how the lines will be displayed. If <em>Lines</em> is selected,
+ a simple wireframe model will be created. The other menu entries denote
+ 2D objects which will be extruded along the lines in order to obtain
+ three-dimensional tubes.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ScaleMode</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_scaleMode.png" /><br /></div>
+<div class="body"><p>If data variables are available,
+ this menu allows you to select one such variable which will be used to scale
+ the diameter of the three-dimensional tubes. If no additional data
+ values are present, only <em>Constant</em> scaling will be available.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ScaleFactor</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_scaleFactor.png" /><br /></div>
+<div class="body"><p>Additional factor used to adjust the diameter of three-dimensional
+ tubes. This factor has no effect if shape has been set to <em>Lines</em>.</p>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">RotateMode</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_rotateMode.png" /><br /></div>
+<div class="body"><p>Controls the way the three-dimensional tubes can be rotated around their axis.
+ This can only be adjusted if shape has not been set to <em>Lines</em>.</p>
+<p> The first menu is set to <em>No Rotation</em> by default.
+ Setting it to <em>Constant</em> will allow all lines to be rotated with the same speed.
+ Following, there will be one entry for each available data variable.
+ Selecting such an entry influences the rotation as defined with the following two menus.</p>
+<p> The second menu controls the direction and strength of the rotation.
+ With the third menu one can define at which line point the value shall be evaluated.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">RotateFactor</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_rotateFactor.png" /><br /></div>
+<div class="body"><p>Changing the value of this slider causes the lines to rotate. Animating this slider gives best results.</p>
+
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TwistMode</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_twistMode.png" /><br /></div>
+<div class="body"><p>Controls the way the three-dimensional tubes can be twisted around their axis.
+ This can only be adjusted if shape has not been set to <em>Lines</em>.</p>
+<p> The first menu is set to <em>No Twist</em> by default.
+ Setting it to <em>Constant</em> will allow all parts of the line to be twisted the same amount.
+ Following, there will be one entry for each available data variable.
+ Selecting such an entry influences the strength of the twist.</p>
+<p> Selecting <em>Accumulate Twist Values</em> in the second menu
+ causes the selected twist variable to be accumulated along the line before usage.</p>
+<p>
+<a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TwistFactor</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_twistFactor.png" /><br /></div>
+<div class="body"><p>Changing the value of this slider adjusts the amount of twist.</p>
+
+<p>
+<a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ColorMode</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_colorMode.png" /><br /></div>
+<div class="body"><p>If data variables are available,
+ this menu allows you to select one such variable which will be used to
+ look up vertex or segment colors. If <em>No Color</em> has been selected, the lines
+ or tubes will be displayed in uniform default color. This color may be
+ changed using the command <tt>setLineColor</tt>.
+ The following two menus will only be available if coloring has been chosen.</p>
+<p> The second menu controls transparency mapping.
+ Select <em>No Alpha</em> for opaque lines.
+ Select <em>Colormap</em> to use the alpha values of the colormap.
+ If data variables are present, the following entries refer to the alphamap.</p>
+<p> The third menu controls how to assign color values.<br />
+
+ If you select <em>Per Vertex</em> color mode, additional data values are assigned to each vertex. This will generate a smooth coloring along the line in contrast to the following two options of this menu.<br />
+
+ If you select <em>Per Segment Use First</em> color mode, each line segment will be assigned the value of its first vertex, and the last vertex value will be unused.<br />
+
+ If you select <em>Per Segment Use Last</em> color mode, each line segment will be assigned the value of its second vertex, and the first vertex value will be unused.<br />
+</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Spheres</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_spheres.png" /><br /></div>
+<div class="body"><p>By default <em>No Spheres</em> is selected. Changing this selection causes
+ a sphere to be displayed at each line vertex.
+ <em>Constant</em> will display the spheres with a constant radius.
+ Following, there will be one entry for each available data variable.
+ Selecting such an entry causes the sphere radii to
+ be scaled according to the selected variable.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SphereScale</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_sphereScale.png" /><br /></div>
+<div class="body"><p>Additional factor used to adjust the size of the spheres.
+ This factor has no effect if <em>No Spheres</em> is selected.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SphereColor</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_sphereColor.png" /><br /></div>
+<div class="body"><p>Similar to port <em>Color Mode</em>, but affects the sphere colors instead of
+ the line colors.</p>
+<p><a name="A20"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_colormap.png" /><br /></div>
+<div class="body"><p>Optional colormap.</p>
+<p><a name="A21"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alphamap</span>  
+<div class="portsnapshot"><img src="HxDisplayLineSet_alphamap.png" /><br /></div>
+<div class="body"><p>Optional alphamap.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setLineColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+ Lets you adjust the default line color which is used if color mode
+ is set to <em>No Color</em>. The color may be specified as an RGB
+ color triple or as an X11 color name.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSphereColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+ Lets you adjust the default sphere color which is used if sphere
+ color mode is set to <em>No Color</em>. The color may be specified as
+ an RGB color triple or as an X11 color name.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLineWidth &lt;width&gt;</span>  
+
+<div class="body"><p>
+ Lets you adjust the width of the lines when selected shape is <em>Lines</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setStripeColorMapping &lt;mode&gt;</span>  
+
+<div class="body"><p>
+ This has only effect if selected shape is not <em>Lines</em>.
+ Three-dimensional tubes can have stripes with different coloring on them.
+ This enhances the perception of twist and rotation.
+ Setting this mode to 1 enables red stripes along the tubes.
+ Setting this mode to 2 maps the color values according to the colormap onto the stripes.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

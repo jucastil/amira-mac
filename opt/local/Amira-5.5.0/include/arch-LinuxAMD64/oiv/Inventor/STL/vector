@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_VECTOR
+#define  OIV_STL_VECTOR
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

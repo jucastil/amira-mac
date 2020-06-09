@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.1.2 Version 2: Creating a Result Object</a></h3>
+<p>Now that we have a first working version of the module, we can add more
+functionality. First, we want to create a real output data object.
+Then we further want to improve the module by using <font face="helvetica">Amira</font>'s progress
+bar and by providing better default values for the range port. The header
+file of our module will not be affected by all these changes. We merely
+need to add some code in the source file <tt>MyComputeThreshold2.cpp</tt>.</p>
+<p>Let us start with the output data object. In the compute method just before
+the for-loop, we insert the following statements:</p>
+<p><font size="2"></font></p><pre>
+    // Create output with same primitive data type as input:
+    HxUniformScalarField3* output =
+        new HxUniformScalarField3(dims, field-&gt;primType());
+
+    // Output shall have same bounding box as input:
+    output-&gt;coords()-&gt;setBoundingBox(field-&gt;bbox());
+</pre><p><font size="2"></font></p>
+<p>This creates a new instance of type <tt>HxUniformScalarField3</tt> with the
+same dimensions and the same primitive data type as the input data object.
+Since the output has the same bounding box, i.e., the same voxel size as
+the input, we copy the bounding box. Note that this approach will only work
+for fields with uniform coordinates. For other regular coordinate types such
+as stacked or curvilinear coordinates, we refer to <a class="link" href="HxDev-dataregular.html#A1">Section 27.2</a>.
+After the output object has been created, its voxel values are not yet
+initialized. This is done in the inner part of the nested for-loops. The
+method <tt>set</tt>, used for this purpose, automatically performs a cast from
+float to the primitive data type of the output field. In summary, the inner
+part of the for-loop now looks as follows:</p>
+<p><font size="2"></font></p><pre>
+                float value = field-&gt;evalReg(i,j,k);
+                float newValue = 0; 
+
+                if (value&lt;minValue)
+                    belowCnt++;
+                else if (value&gt;maxValue)
+                    aboveCnt++;
+                else newValue = value;
+
+                output-&gt;set(i,j,k,newValue);
+</pre><p><font size="2"></font></p>
+<p>Creating a new data object using the <tt>new</tt> operator will not automatically
+make it appear in the Pool. Instead, we must explicitly register it. 
+In a compute module this can be done by calling the method
+<tt>setResult</tt>:</p>
+<p><font size="2"></font></p><pre>
+    setResult(output); // register result
+</pre><p><font size="2"></font></p>
+<p>This method adds a data object to the Pool if it is not already
+present there. In addition, it connects the object's <em>master</em>
+port to the compute module itself. Like any other connection, this link will
+be represented by a blue line in the Pool. The master port of a data 
+object may be connected to a compute module or to an editor. Such a master
+connection indicates that the data object is controlled by an `upstream'
+component, i.e., that its contents may be overridden by the object it is
+connected to.</p>
+<p><br />
+</p>
+<p>Now that we have created an output object, let us address the progress bar.
+Although for the test data set <tt>lobus.am</tt> our threshold operation does
+
+not take very long, it is good practice to indicate that the application 
+is busy when computations are performed that could take long time on large
+input data. Even better is to show a progress bar, which is not difficult.
+Before the time-consuming part of the compute routine, i.e., before the
+nested for-loops, we add the following line:
+<font size="2"></font></p><pre>
+    // Turn the application into busy state, 
+    // don't activate Stop button.
+    theWorkArea-&gt;startWorkingNoStop("Computing threshold");
+</pre><p><font size="2"></font></p>
+<p>We use the global instance <tt>theWorkArea</tt> of class <tt>HxWorkArea</tt>
+here. The corresponding header file must be included at the beginning of
+the source file. The method turns the application into the `busy' state and
+displays a working message in the status line. As opposed to the method
+<tt>startWorking</tt>, this variant does not activate the stop button. See
+<a class="link" href="HxDev-globals.html#A2">Section </a> for details. When the computation is done, we
+must call
+<font size="2"></font></p><pre>
+    theWorkArea-&gt;stopWorking(); // stop progress bar
+</pre><p><font size="2"></font></p>
+<p>in order to switch off the `busy' state again. Inside the nested for-loops 
+we update the progress bar just before a new 2D slice is processed. This is
+done by the following line of code:</p>
+<p><font size="2"></font></p><pre>
+        // Set progress bar, the argument ranges between 0 and 1.
+        theWorkArea-&gt;setProgressValue((float)(k+1)/dims[2]);
+</pre><p><font size="2"></font></p>
+<p>The value of <tt>(float)(k+1)/dims[2]</tt> progressively increases from zero
+to one during computation. Note that you should not call <tt>setProgressValue</tt> in the inner of the three loops. Each call involves an
+update of the graphical user interface and therefore is relatively
+expensive. It is perfectly okay to update the progress bar several hundred
+times during a computation, but not several hundred thousand times.</p>
+<p><br />
+</p>
+<p>Another slight improvement we have incorporated into the second version of
+our compute module concerns the <tt>range</tt> port. In the constructor
+we have set new initial values for the minimum and maximum fields. While
+both values are 0 by default, we now set them to 30 and 200, respectively:</p>
+<p><font size="2"></font></p><pre>
+    // Set default value for the range port:
+    portRange.setValue(0,30);  // min value is 30
+    portRange.setValue(1,200); // max value is 200
+</pre><p><font size="2"></font></p>
+<p>You may now test this second version of the compute module by loading the
+test data set <tt>lobus.am</tt> from <font face="helvetica">Amira</font>'s <tt>data/tutorials</tt> directory.
+
+Attach the <tt>ComputeThreshold2</tt> module to it. To better appreciate the
+progress bar, try to resample the input data, for example to 512x512x100,
+and connect the compute module to the resampled data set. However, be sure
+that you have enough main memory installed on your system.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CurvedSlice</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CurvedSlice" "visualizes scalar fields on curved slices" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>CurvedSlice</em> module lets you display arbitrarily curved slices through a 3D scalar field or along a curve for a 2D field.
+A 3D scalar field having a dimension equal to 1 along one axis is treated like a 2D field. 
+Three mapping methods are available for mapping data values to colors or gray levels.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 2D or 3D field to be visualized. 
+Currently, regular scalar fields and RGBA color fields with uniform or stacked coordinates are supported. 
+For 3D fields, the slice is curved through the field.
+For 2D fields, the whole field is extruded along the curve. </p>
+<p>
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Curve</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Curve defining a fence.
+The curve can be either a BSpline or a LineSet.
+When using a LineSet, a BSpline is automatically created and connected.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used to map data values to colors. This port is ignored
+ when <em>linear</em> or <em>histogram</em> equalized mapping is selected.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Viewer</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_Viewer.png" /><br /></div>
+<div class="body"><p>Extra viewer representing the texture.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mapping type</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_mappingType.png" /><br /></div>
+<div class="body"><p>This option menu controls how scalar values are mapped to screen
+ colors. For <em>linear</em> mapping, a user-defined data
+ window is mapped linearly to black and white. If <em>histogram</em>
+ is selected, an adaptive histogram equalization technique is
+ applied. This method attempts to show all features of the data, even
+ if a wide range of values is covered. Finally, <em>colormap</em>
+ can be used to activate pseudo-coloring.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Data Window</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_linearRange.png" /><br /></div>
+<div class="body"><p>This port is displayed if <em>linear</em> mapping is selected. It allows you
+ to restrict the range of visible data values (brightness and contrast). Values below the lower
+ bound are mapped to black, while values above the upper bound are 
+ mapped to white.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast limit</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_contrastLimit.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>histogram</em> equalization is selected.
+ The number determines the contrast of the resulting image. 
+The higher the value, the higher the contrast in the resulting image.
+A value of zero means that contrast will not be limited at all. </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_colormap.png" /><br /></div>
+<div class="body"><p>This port is displayed if <em>colormap</em> is selected. Choose a colormap
+to map data to colors.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_transparency.png" /><br /></div>
+<div class="body"><p>This radio box port determines the transparency of the slice. 
+<em>None</em> means that the slice is fully opaque. <em>Binary</em> means that black parts are 
+fully transparent while other parts are opaque. <em>Alpha</em> means that opacity is 
+taken as is. If a colormap is used for visualization, opacity values are taken from there. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sampling</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_sampling.png" /><br /></div>
+<div class="body"><p>This port provides four choices for specifying the texture resolution:</p>
+<p> <i>coarse: </i> lowest resolution. 
+For 3D fields, 128x128.
+For 2D fields, size-of-field divided by 8.</p>
+<p> <i>medium: </i> medium resolution.
+For 3D fields, 256x256. 
+For 2D fields, size-of-field divided by 4.</p>
+<p> <i>fine: </i> intermediate resolution.
+For 3D fields, 512x512. 
+For 2D fields, size-of-field divided by 2.</p>
+<p> <i>finest: </i> highest resolution. 
+For 3D fields, 1024x1024. 
+For 2D fields, size-of-field.</p>
+<p>For 2D data fields, selecting <em>finest</em> resolution ensures that the texture and the field have the same resolution.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Profile</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_profile.png" /><br /></div>
+<div class="body"><p>This port is only shown for 2D fields, and specifies the coordinate relation between the profile and the 2D field.</p>
+<p> <i>(x,y)<tt>-&gt;</tt>(X,Y):</i> coords of profile correspond to (x,y) values of field.</p>
+<p> <i>(x,y)<tt>-&gt;</tt>(Y,X):</i> coords of profile correspond to (y,x) values of field.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice direction</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_SliceDirection.png" /><br /></div>
+<div class="body"><p>This radio box port specifies the slice orientation.</p>
+<p> <i>x, y, or z:</i> slice is extruded along the corresponding axis.</p>
+<p> <i>automatic:</i> slice direction is computed using all points of the curve. 
+The computed slice direction is used for the entire profile. </p>
+<p> <i>adaptive:</i> slice direction on each profile point is computed with the normal at the point.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxCurvedSlice_Action.png" /><br /></div>
+<div class="body"><p>Creates a new curve object.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">createImage &lt;image-base-name&gt; </span>  
+
+<div class="body"><p>This command creates a 2D image from the slice and adds it
+to the Pool. The image base name can be omitted.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.8 Adding a Write Routine</a></h2>
+<p>A write routine is a global C++ function which takes a pointer to some
+data object and writes the data to a file in a certain file format.
+The details are explained in <a class="link" href="HxDev-writer.html#A1">Section 25.3</a>. In order to create the
+template of a new write routine, the name of the routine must first be
+specified (see <a class="link" href="#A2">Figure 187</a>). The name must be a valid C++
+name. It must not contain blanks or any other special characters.
+</p><div style="text-align:center"><a name="A2"></a><a href=dev7.png.html><img width=375 src="dev7.png" /></a><br />
+<div class="caption">
+<b>Figure 187:</b>
+Creating the template of a write routine.</div>
+
+
+</div><p></p>
+<p>In addition, the name of the file format and the preferred file name
+extension must be specified. Before saving a data object, both the
+name and the extension will be displayed in the file format menu of
+the <font face="helvetica">Amira</font> file browser.</p>
+<p>Finally, the C++ class name of the data object to be saved must be chosen
+as well as the package this class is defined in. Some important data
+objects such as a <tt>HxUniformScalarField3</tt> or a <tt>HxSurface</tt> are
+already listed in the corresponding combo box. However, any other class,
+including custom classes, may be specified here. Instead of the name of a
+data class, even the name of an interface class such as <tt>HxLattice3</tt>
+may be used (see <a class="link" href="HxDev-reglattice.html#A1">Section 27.2.1</a>).</p>
+<p>After you press <em>OK</em>, a new file <tt>&lt;name&gt;.cpp</tt> will be created in the
+package directory, where <tt>&lt;name&gt;</tt> denotes the name of the write
+routine. In addition, the write routine will be registered in the package
+resource file. </p>
+<p>Remember, that after you have added a new write routine to a package you
+need to recreate the build system files before you can compile it. Details
+are described in <a class="link" href="HxDev-devcreatebuildsystem.html#A1">Section 24.9</a>.</p>
+<p>
+
+</p></body>
+</html>

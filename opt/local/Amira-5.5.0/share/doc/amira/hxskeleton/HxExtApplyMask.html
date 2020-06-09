@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ApplyMask</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "ApplyMask" "applies a mask to a LargeDiskData object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be used to segment a LargeDiskData file block by block.
+It allows you to apply a mask to the LargeDiskData file in order to remove 
+or add parts.</p>
+<p>Attach it to the LargeDiskData file containing the labels and attach a 
+Labelfield containing the mask to the second input connection. </p>
+<p>After selecting which materials in the Labelfield describe regions to be 
+added (set to material 1) in the LargeDiskData and which regions should be 
+deleted (set to background), press the <em>Apply</em> button.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The connection to the LargeDiskData object.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Mask</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The connection to a Labelfield containing the mask.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Add</span>  
+<div class="portsnapshot"><img src="HxExtApplyMask_add.png" /><br /></div>
+<div class="body"><p>Select the material describing the region which will be set to 1 in the
+LargeDiskData object.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Delete</span>  
+<div class="portsnapshot"><img src="HxExtApplyMask_delete.png" /><br /></div>
+<div class="body"><p>Select the material describing the region which will be set to 0 in the
+LargeDiskData object.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,232 @@
+# ------------------------------------------------------
+#
+#   PNM formats
+#
+# ------------------------------------------------------
+
+dataFile -name "PNM"                  \
+    -ext ".pgm,.ppm,.pbm"             \
+    -option "ppm"                     \
+    -header {^P[1-6]}                 \
+    -load "readPPM"                   \
+    -multisave "writePPM"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -loadInOwnThread true             \
+    -dso "libhximio.so"               \
+    -lda true
+
+# ------------------------------------------------------
+#   PNG format
+# ------------------------------------------------------
+
+dataFile -name "PNG"                    \
+    -ext ".png"                         \
+    -option "png"                       \
+    -header {\0211PNG\r\n\0032\n}       \
+    -load "readPNG"                     \
+    -multisave "writePNG"               \
+    -type "HxRegScalarField3"           \
+    -type "HxRegColorField3"            \
+    -type "HxLattice"                   \
+    -check { ( ([$PRIMARY hasInterface HxRegScalarField3] 
+            || [$PRIMARY hasInterface HxRegColorField3]) 
+            && [$PRIMARY coordType]<3)      
+            || ([$PRIMARY hasInterface HxLattice] 
+            && [$PRIMARY getTypeId] != "HxVolumeDataObject") } \
+    -loadInOwnThread true             \
+    -dso "libhximio.so"               \
+    -lda true
+
+# ------------------------------------------------------
+#   BMP format
+# ------------------------------------------------------
+
+dataFile -name "BMP"                  \
+    -ext ".bmp"                       \
+    -option "bmp"                     \
+    -load "readBMP"                   \
+    -multisave "writeBMP"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -loadInOwnThread true             \
+    -dso "libhximio.so"               \
+    -lda true
+# ------------------------------------------------------
+#   TIF format
+# ------------------------------------------------------
+
+# this is the correct regex for TIF, but Qt does not support the |
+#    -header {^(II\* |MM \*)}          \
+
+dataFile -name "TIFF"            \
+    -option "tif"                \
+    -header {^[IM][IM]\*}        \
+    -ext ".tif,.tiff,.TIF,.TIFF" \
+    -load "readTIF"              \
+    -dso "libhximio.so"          \
+    -loadInOwnThread true        \
+    -lda true
+
+dataFile -name "2D Tiff" -ext tif     \
+    -multisave "writeTIF"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -dso "libhximio.so"               \
+    -lda true
+
+dataFile -name "3D Tiff" -ext tif     \
+    -save "writeTIF3D"                \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -dso "libhximio.so"
+
+# ------------------------------------------------------
+#   SGI format
+# ------------------------------------------------------
+
+dataFile -name "SGI-RGB"              \
+    -option "sgi"                     \
+    -ext ".rgb,.sgi,.bw"              \
+    -load "readSGI"                   \
+    -multisave "writeSGI"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -loadInOwnThread true             \
+    -dso "libhximio.so"               \
+    -lda true
+
+# ------------------------------------------------------
+#   JPEG format
+# ------------------------------------------------------
+
+dataFile -name "JPEG"                 \
+    -option "jpg"                     \
+    -ext ".jpeg,.jpg,.JPG,.JPEG"      \
+    -load "readJPG"                   \
+    -multisave "writeJPG"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -loadInOwnThread true             \
+    -dso  "libhximio.so"              \
+    -lda true
+
+# ------------------------------------------------------
+#   Leica Microscope Data
+# ------------------------------------------------------
+
+dataFile -name "Leica Slice Series" \
+    -option "leica"                 \
+    -ext ".info"                    \
+    -load "hxReadLeicaSlices"       \
+    -loadInOwnThread true           \
+    -dso "libhximio.so"
+
+dataFile -name "Leica Image File - LIF" \
+    -option "lif"                       \
+    -ext ".lif"                         \
+    -load "hxReadLIF"                   \
+    -dso "libhximio.so"
+
+# ------------------------------------------------------
+#   New Leica format
+# ------------------------------------------------------
+
+dataFile -name "Leica Binary" \
+    -header "^IIII"           \
+    -ext lei -option lei      \
+    -load "hxReadLeica"       \
+    -dso "libhximio.so"
+
+
+# ------------------------------------------------------
+#  Zeiss Vision Image (ZVI) format
+# ------------------------------------------------------
+
+dataFile -name "Zeiss Vision Image - ZVI" \
+    -option "zvi"                         \
+    -ext ".zvi"                           \
+    -load "hxReadZVI"                     \
+    -loadInOwnThread true                 \
+    -dso "libhximio.so"
+
+# ------------------------------------------------------
+#   EPS format
+# ------------------------------------------------------
+
+dataFile -name "EPS"                  \
+    -option eps -ext eps              \
+    -multisave "writeEPS"             \
+    -type "HxRegScalarField3"         \
+    -type "HxRegColorField3"          \
+    -check { [$PRIMARY coordType]<3 } \
+    -dso "libhximio.so"
+
+
+# ------------------------------------------------------
+#   Stacked slices
+# ------------------------------------------------------
+
+dataFile -name "Stacked-Slices"    \
+    -header "Amira Stacked Slices" \
+    -option "stackedslices"        \
+    -load "hxReadStackedSlices"    \
+    -loadInOwnThread true          \
+    -dso "libhximio.so"
+
+# ------------------------------------------------------
+#   BIORAD data
+# ------------------------------------------------------
+
+dataFile -name "Bio-Rad Image File" \
+    -ext ".pic,.PIC"                \
+    -option "biorad"                \
+    -load "readPIC"                 \
+    -loadInOwnThread true           \
+    -dso "libhximio.so"
+
+# ------------------------------------------------------
+#   ANALYZE data
+# ------------------------------------------------------
+
+dataFile -name "Analyze 7.5 data" \
+    -ext ".hdr"                   \
+    -option "analyze"             \
+    -load "readAnalyze"           \
+    -save "saveAnalyze"           \
+    -type "HxUniformScalarField3" \
+    -dso "libhximio.so"
+
+dataFile -name "Analyze AVW data"                                              \
+    -ext ".avw"                                                                \
+    -header "AVW_"                                                             \
+    -option "avw"                                                              \
+    -load "readAnalyzeAVW"                                                     \
+    -save "writeAnalyzeAVW"                                                    \
+    -type "HxLattice3"                                                         \
+    -check { [$PRIMARY nDataVar]==1 || [$PRIMARY hasInterface HxColorField3] } \
+    -dso "libhximio.so"
+
+dataFile -name "Stacked Slices as Lattice" \
+    -header "Amira Stacked Slices as"      \
+    -load "HxStackedSlicesLattice::read"   \
+    -loadInOwnThread true                  \
+    -package "hximio"
+
+# ------------------------------------------------------
+#   Olympus FluoView 1000 (OIB & OIF) format
+# ------------------------------------------------------
+
+if { [regexp "Win(32|64)VC(8|9)" [app uname]] } {
+    dataFile -name "Olympus FluoView 1000" \
+        -option "oib"                      \
+	-ext ".oib,.oif"                   \
+	-load "hxReadFluoView1000"         \
+	-dso "libhximio.so"
+}

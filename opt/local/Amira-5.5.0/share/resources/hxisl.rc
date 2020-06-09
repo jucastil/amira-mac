@@ -1,0 +1,28 @@
+# ----------------------------------------------------------------------
+#   Kometen Vectorfield package 
+# ----------------------------------------------------------------------
+
+module -name "DisplayISL" \
+    -primary "HxVectorField3" \
+    -class "HxDisplayISL" \
+    -category "Display" \
+    -dso "libhxisl.so"
+
+# module -name "AdditionalBox" \
+#     -primary "HxDisplayISL" \
+#     -class "HxSeedProbeSurface" \
+#     -category "Main" \
+#     -dso "libhxisl.so"
+
+module -name "SeedSurface" \
+    -primary "HxDisplayISL" \
+    -class "HxSeedSurface" \
+    -category "Main" \
+    -dso "libhxisl.so"
+
+module -name "IlluminatedLines" \
+    -primary "HxLineSetInterface" \
+    -class "HxDisplayIL" \
+    -category "Display" \
+    -dso "libhxisl.so"
+

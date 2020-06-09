@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortTime</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortTime" "time slider with subrange buttons and play buttons" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port defines a floating point value like
+ <a class="link" href="../hxcore/HxPortFloatSlider.html#A1">PortFloatSlider</a>. However, the value is
+ typically interpreted as a time value. It can be automatically animated
+ in forward or backward direction, or it can be synchronized with any
+ other object providing a time port, for example a <a class="link" href="HxTime.html#A1">global
+ time object</a>. In order to facilitate this kind of synchronization,
+ <em>PortTime</em> is derived from <a class="link" href="../hxcore/HxConnection.html#A1">Connection</a>. If the
+ port is connected to some other object providing a time port, the value
+ of that port is used, i.e., the time port becomes an alias of the
+ connected time port. The range of the time port as well as its increment
+ (which is relevant for animation) can be edited in a little dialog
+ which is pops up when pressing the right mouse button over the slider.</p>
+<p> In addition to the main button the time slider also provides so-called
+ subrange buttons. These buttons allow you to temporarily restrict the 
+ range of the slider. For animations only this restricted range is
+ considered. The subrange buttons can be set to an exact value via the
+ port's popup dialog or by typing <tt>L &lt;value&gt;</tt> or <tt>R &lt;value&gt;</tt> in
+ the sliders text field. The letters <tt>L</tt> or <tt>R</tt> indicate that the
+ left or right subrange button should be set, and not the main button.</p>
+<p> <img src="HxPortTime.png" /></p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxConnection.html#A1">Connection</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the current time value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the current time value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMinMax</span>  
+
+<div class="body"><p>Returns two numbers indicating the full range of the time port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the range of the time port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSubMinMax</span>  
+
+<div class="body"><p>Returns two numbers indicating the subrange of the time port. The
+ subrange is relevant for animations.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSubMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the subrange of the time port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getIncrement</span>  
+
+<div class="body"><p>Returns the increment of the time port. During animations or when
+ pressing the forward or backward buttons the time value is increased
+ or decreased by the increment.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setIncrement &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the increment of the time port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDiscrete</span>  
+
+<div class="body"><p>Checks if the time port is in discrete mode or not. In discrete mode
+ the time can only take on values <em>min + n*increment</em>, where <em>min</em> is the minimum value of the range, <em>increment</em> is the port's
+ increment value, and <em>n</em> is an integer value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDiscrete &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets discrete mode on or off.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFormat &lt;format&gt;</span>  
+
+<div class="body"><p>Sets the format used for the slider's text field in printf syntax.
+ Typically, the default format is <tt>%g</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTracking &#123;0|1&#125;</span>  
+
+<div class="body"><p>Turns tracking on or off. If tracking is enabled the object the port
+ belongs to is fired permanently while the moving the slider with the
+ mouse. If tracking is off the object is only fired once when the
+ mouse button is released.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">play [-forward|-backward] [-once|-loop|-swing]</span>  
+
+<div class="body"><p>Starts to animate the time value. Additional arguments can be
+ specified for the animation direction (forward or backward) and
+ for the animation mode (play once, loop forever, play forth and back
+ forever). If no arguments are specified forward play and the last
+ animation mode are assumed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">stop</span>  
+
+<div class="body"><p>Stops a running animation.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">step [-f(orward)|-b(ackward)]</span>  
+
+<div class="body"><p>Plays the animation by one time step forward or backward.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setRealTimeDuration &lt;duration_in_seconds&gt;</span>  
+
+<div class="body"><p>This command enables real time mode. In real time mode a full animation
+ cycle takes as long as specified by this command. The increment added
+ to the current time value after each animation step depends on the time
+ required for that step. When real time mode is enabled discrete mode
+ will be automatically disabled.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRealTimeDuration</span>  
+
+<div class="body"><p>Returns the time duration of a full animation cycle in real time mode.
+ If real time mode is disabled, 0 is returned. When the min or max time
+ value is changed while real time mode is enabled the time duration is
+ automatically adjusted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

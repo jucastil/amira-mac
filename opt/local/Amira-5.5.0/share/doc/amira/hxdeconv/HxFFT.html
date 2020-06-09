@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> FourierTransform</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "FourierTransform" "computes a discrete Fourier transform" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module computes a discrete forward or backward Fourier transform from a
+scalar input data set with uniform coordinates. Alternatively, the
+power spectrum, i.e., the squared magnitude of the Fourier transform can be
+computed.
+The origin of the input data set will be ignored by this module. Also,
+instead of being expressed in wave numbers, the bounding box of a
+Fourier transformed data set will be the same as the bounding box of
+the input.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+<p><b>Note:</b> The FourierTransform module currently only supports data
+sizes up to 536.870.911 voxels (including border voxels).</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input data to be Fourier transformed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxFFT_mode.png" /><br /></div>
+<div class="body"><p>Option menu specifying the action to be performed.</p>
+<p>If a real scalar field is connected to the module, three options are
+available, namely <i>forward</i>, <i>forward complex</i>, and <i>power spectrum</i>. If <i>forward</i> is selected, the output is stored
+in a special so-called half-complex format. Such an output can be
+back-transformed, but not many other operations can be performed on it.
+If <i>forward complex</i> is selected, the output will be a complex-valued
+scalar field with the same number of voxels as the input object. Finally,
+if <i>power spectrum</i> is selected, the output is a real-valued scalar
+field with the same number of voxels as the input object containing the
+squared magnitude of the Fourier transform.</p>
+<p>If a complex scalar field in half-complex format is connected, the only
+option is <i>backward</i>, indicating a backward Fourier-transform.</p>
+<p>If an ordinary complex scalar field is connected to the module, the three
+options <i>forward</i>, <i>backward</i>, and <i>power spectrum</i> are
+available. The first two options specify a forward and backward Fourier
+transform, respectively. The output is a complex scalar field with the
+same resolution as the input. If <i>power spectrum</i> is selected, the
+output is a real-valued scalar field with the same number of voxels as the
+input object containing the squared magnitude of the Fourier transform.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

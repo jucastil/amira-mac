@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CheckNetwork</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "CheckNetwork" "detects open ends and branching points of a lineset" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The module detects open ends and branching points with more than 3 branches
+in an attached <a class="link" href="../hxlines/HxLineSet.html#A1">Lineset</a>. It sorts these points and moves a 
+<a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a> object to be centered at one point after
+another. The focus is attracted to the selected point by a red 
+semi transparent sphere.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>LineSet.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">SelectRoi</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Roi (Region of Interest) to be moved.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_info.png" /><br /></div>
+<div class="body"><p>Shows information about the last step.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_options.png" /><br /></div>
+<div class="body"><p>Select <em>long only</em> to ignore short lines.</p>
+<p>If <em>open Surfaces</em> is selected, the module will cut away half of
+each Isosurface attached in some way to the Roi. This may be useful
+to look inside the structure to see the lines you're checking.</p>
+<p><em>ignore Border</em> forces the module to skip points near the
+boundary of the bounding box.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Limits</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_limits.png" /><br /></div>
+<div class="body"><p>Fraction of the length of one side of the bounding box to be
+ignored on each side. 0 means take all, 0.5 ignores everything.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_action.png" /><br /></div>
+<div class="body"><p><em>next unvisited EP</em> jumps to next endpoint.</p>
+<p><em>next unvisited BP</em> jumps to next branching point.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BufferAction</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_bufferAction.png" /><br /></div>
+<div class="body"><p>Each visited point is stored in a buffer and can be visited again.</p>
+<p>Use these buttons to navigate through the buffer.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">OtherAction</span>  
+<div class="portsnapshot"><img src="HxCheckNetworkManually_otherAction.png" /><br /></div>
+<div class="body"><p>Every point already visited is marked in the lineset. 
+<em>clear visited</em> removes these markers.</p>
+<p><em>rm unconn lines</em> keeps only the largest connected component in the
+lineset.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

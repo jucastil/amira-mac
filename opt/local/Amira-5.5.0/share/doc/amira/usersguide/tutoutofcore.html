@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h1><a name="A1">12 <font face="helvetica">Very Large Data Option</font> User's Guide</a></h1>
+<p></p>
+<h2><a name="A2">12.1 Working with out-of-core data files (LDA)</a></h2>
+<p>The out-of-core management tools allow you load and visualize
+data sets larger than the amount of RAM installed on your system, as well as
+convert these data sets into LDA (Large Data Access) files.
+These LDA files can be used to visualize very large data (hundreds of gigabytes), 
+such as seismic or 
+microscopy data, using a limited amount of memory. 
+It is possible to convert original data of the following types: AmiraMesh, RawData, 
+and StackedSlices (stacks of SGI, TIFF, GIF, JPEG, BMP, PNG, JPEG2000, PGX, PNM, and
+RAS raster files).
+LDA data allows subvolume extraction to display parts of the volume, or 
+multi-resolution access to have a full subsampled view or accurate refined local views.</p>
+<p>In particular, the following topics will be discussed in this tutorial:</p>
+<p></p>
+<ol><li>Adjusting the size threshold to allow conversion</li><li>Loading the out-of-core data</li><li>Raw data parameters</li><li>Out-of-core conversion</li><li>Displaying an ortho slice, an oblique slice, and a 3D volume</li>
+</ol><p> </p>
+<p>Please follow the instructions below. Each step builds on the step before.</p>
+<p></p>
+<h3><a name="A3">12.1.1 Tune the Size Threshold to Allow Conversion</a></h3>
+<p>In the <em>Edit</em> menu, select the <em>Preferences</em> item. This opens the <font face="helvetica">Amira</font> <em>Preferences</em> dialog. 
+Please select the <em>LDA</em> tab 
+(see Figure <a class="link" href="#A4">68</a>).
+Using the slider or text field, set the threshold to 32MB.
+When you load a file of file size greater than this threshold, the out-of-core data dialog
+will be displayed.</p>
+<p><b>Note:</b> To see the images as laid out in this tutorial, you should also
+use the <em>Layout</em> tab of the <em>Edit/Preferences</em> menu, and toggle on <em>show
+viewer in top-level window</em>.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=TutOutOfCore_threshold.png.html><img width=450 src="TutOutOfCore_threshold.png" /></a><br />
+<div class="caption">
+<b>Figure 68:</b>
+<font face="helvetica">Amira</font> Preferences, LDA settings</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A5">12.1.2 Load the Out-of-core Data</a></h3>
+<p>Please open the file 3DHEAD.raw using the <em>File/Open Data...</em> menu
+(see Figure <a class="link" href="#A6">69</a>).
+The file is located in data/tutorials/outofcore in the <font face="helvetica">Amira</font> install directory.
+Its size is slightly larger than 32MB, right above the defined threshold.</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=TutOutOfCore_openfile.png.html><img width=450 src="TutOutOfCore_openfile.png" /></a><br />
+<div class="caption">
+<b>Figure 69:</b>
+Open the out-of-core data file</div>
+
+
+</div><p></p>
+<p>The Out-Of-Core data dialog is displayed. Three loading options are displayed 
+(see Figure <a class="link" href="#A7">70</a>):
+</p>
+<ul><li><em>Convert to LDA</em>: convert the file to an LDA file, and then load it.
+
+<ul><li><em>PRO</em>: This builds a multiresolution file allowing full interactive view or local full resolution viewing.</li><li><em>CON</em>: This can be time consuming, with an initial pass and then the true conversion pass.</li>
+</ul></li><li><em>Read from disk</em>: read data blocks from disk, allowing almost continuous disk access.
+
+<ul><li><em>PRO</em>: No need to generate an extra file.</li><li><em>CON</em>: Continuous access to disk. Slow with data sets larger than 4GB.</li>
+</ul></li><li><em>Read in memory</em>: load full data into memory and then access to memory only.
+
+<ul><li><em>PRO</em>: Adapted for average sized data.</li><li><em>CON</em>: Requires as much RAM as your data set size. Usually not applicable for data sets greater than 500MB or 1GB.</li>
+</ul></li>
+</ul><p></p>
+<p>Please select "Convert to LDA". Then, on the next dialog (Destination file),
+specify the LDA destination file. 3DHEAD.lda for instance
+(see Figure <a class="link" href="#A8">71</a>).</p>
+<p><b>Note:</b> An .lda file can be loaded then, without any conversion required.
+</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=TutOutOfCore_conversion.png.html><img width=450 src="TutOutOfCore_conversion.png" /></a><br />
+<div class="caption">
+<b>Figure 70:</b>
+Out-of-Core data dialog</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=TutOutOfCore_savefile.png.html><img width=450 src="TutOutOfCore_savefile.png" /></a><br />
+<div class="caption">
+<b>Figure 71:</b>
+Choose LDA destination file</div>
+
+
+</div><p></p>
+<p>Another option allows you to perform conversion in batch mode so you can run 
+other processes while the conversion is done in the background.</p>
+<p>
+</p>
+<h3><a name="A9">12.1.3 Raw Data Parameters</a></h3>
+<p>As the input data is raw, please fill in the raw data parameters dialog with information 
+as on the following figure
+(see Figure <a class="link" href="#A10">72</a>):</p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=TutOutOfCore_rawparams.png.html><img width=375 src="TutOutOfCore_rawparams.png" /></a><br />
+<div class="caption">
+<b>Figure 72:</b>
+Raw data parameters panel</div>
+
+
+</div><p></p>
+<p>Data type is byte, dimension 431*431*184.</p>
+<p></p>
+<h3><a name="A11">12.1.4 Out-of-core Conversion</a></h3>
+<p>During conversion, the out-of-core conversion progress bar is displayed.
+This conversion is done in two steps. First an initialization step, and then
+the conversion step at about 4MB/s (on a P4 2.6GHz, no SATA disk). 
+You can cancel the process if you wish.</p>
+<p>
+
+
+
+
+
+</p>
+<p>The converted file is now in the Pool ready to be used and connected to other modules.</p>
+<p></p>
+<h3><a name="A12">12.1.5 Display an Orthoslice, an Oblique Slice, and a 3D Volume</a></h3>
+<p>Right-click on the data icon in the Pool. In the Display submenu choose 
+the OrthoSlice module. Repeat these steps for an ObliqueSlice and a Voltex (3D volume).
+You can also display the bounding box of the full volume.</p>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=TutOutOfCore_pool.png.html><img width=375 src="TutOutOfCore_pool.png" /></a><br />
+<div class="caption">
+<b>Figure 73:</b>
+Display modules added</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A14"></a><a href=TutOutOfCore_view.png.html><img width=375 src="TutOutOfCore_view.png" /></a><br />
+<div class="caption">
+<b>Figure 74:</b>
+Network display</div>
+
+
+</div><p></p>
+<p>In order to view this scene with the same settings, after converting 3DHEAD.raw into 3DHEAD.lda (lda 
+file required, with the right name) please load the network 3DHEAD.hx (in the same directory 
+data/tutorials/outofcore).
+
+</p></body>
+</html>

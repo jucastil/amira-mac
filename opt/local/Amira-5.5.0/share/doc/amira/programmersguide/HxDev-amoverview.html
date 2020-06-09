@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.4.1 Overview</a></h3>
+<p>The AmiraMesh API consists of a single C++ class. This class is called
+<tt>AmiraMesh</tt> as is the file format itself. It is defined in the header file
+<tt>include/amiramesh/AmiraMesh.h</tt> located in the <font face="helvetica">Amira</font> root directory. The
+class is designed to completely represent the information stored in an
+AmiraMesh file in memory. When reading a file first an instance of an <tt>AmiraMesh</tt> class is created. This instance can then be interpreted and the data
+contained in it can be copied into a matching <font face="helvetica">Amira</font> data object. Likewise, when
+writing a file, first an instance of an <tt>AmiraMesh</tt> class is created and
+initialized with all required information. Then this instance is written to
+file simply by calling a member method.</p>
+<p>If you look at the header file or at the <tt>AmiraMesh</tt> class documentation,
+you will notice that there are four public member variables called <tt>parameters</tt>, <tt>locationList</tt>, <tt>dataList</tt>, and <tt>fieldList</tt>. These
+variables completely store the information contained in a file. The first
+variable is of type <tt>HxParamBundle</tt>. Like in an <font face="helvetica">Amira</font> data object, it
+is used to store an arbitrary hierarchy of parameters. The other three
+member variables are dynamic arrays of pointers to locally defined classes.
+The most important local classes are <tt>Location</tt> and <tt>Data</tt>, which
+are stored in <tt>locationList</tt> and <tt>dataList</tt>, respectively.</p>
+<p>A <tt>Location</tt> defines the name of a single- or multi-dimensional array. It does
+not store any data by itself. This is done by a <tt>Data</tt> class. Every <tt>Data</tt> class must refer to some <tt>Location</tt>. For example, when writing a
+tetrahedral grid, we may define two different one-dimensional locations, one
+called <em>Nodes</em> and the other one called <em>Tetrahedra</em>. On the nodes we
+define a <tt>Data</tt> instance for storing the x-, y-, and z-coordinates of the
+nodes. Likewise, on the tetrahedra we define a <tt>Data</tt> instance for storing
+the indices of the four points of a tetrahedron.</p>
+<p>As stated in the <tt>AmiraMesh</tt> class documentation, the <em>Data</em> class can
+take a pointer to some already existing block of memory. In this way it is
+prevented that all data must be copied before it is written to file. In order
+to write compressed data, the member method <tt>setCodec</tt> has to be called.
+Currently, two different compression schemes are supported. The first one,
+called <em>HxByteRLE</em>, implements simple run-length encoding on a per-byte
+basis. The second one, called <em>HxZip</em>, uses a more sophisticated
+compression technique provided by the external <em>zlib</em> library. In any case,
+the data will be automatically uncompressed when reading an AmiraMesh file.
+It should be pointed out that the AmiraMesh file format itself merely provides
+a method for storing arbitrary data organized in single- or multi-dimensional
+arrays in a file. It does not specify anything about the semantics of the data.
+Therefore, when reading an AmiraMesh file it is not clear what kind of data
+object should be created from it. To facilitate file I/O of custom data objects,
+the actual contents of an AmiraMesh file are indicated by a special
+parameter called <em>ContentType</em>. For each such type, a special read routine
+is registered. Like an ordinary read routine, an AmiraMesh reader is a global
+function or a static member method of a C++ class. It has the following
+signature:
+<font size="2"></font></p><pre>
+int readMyAmiraMesh(AmiraMesh* m, const char* filename);
+</pre><p><font size="2"></font></p>
+<p>This method is called whenever the <em>ContentType</em> parameter matches the
+the one the read method is registered for. The reader should create
+an <font face="helvetica">Amira</font> data object from the contents of the AmiraMesh class. The filename
+can be used to define the name of the resulting data object. In order to
+register an AmiraMesh read routine, a statement similar to the following one
+must be put into the package resource file:</p>
+<p><font size="2"></font></p><pre>
+amiramesh -ContentType "MyType" \
+    -load "readMyAmiraMesh" \
+    -package "mypackage"
+</pre><p><font size="2"></font></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

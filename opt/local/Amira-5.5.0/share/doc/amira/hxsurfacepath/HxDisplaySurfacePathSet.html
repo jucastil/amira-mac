@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfacePathView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfacePathView" "displays a surface path set" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays a <a class="link" href="HxSurfacePathSet.html#A1">HxSurfacePathSet</a>.
+ </p></div>
+<p></p>
+<p> </p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The module must be connected to a
+ <a class="link" href="HxSurfacePathSet.html#A1">surface path set</a>.
+ </p></div></div>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Point size</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_pointSize.png" /><br /></div>
+<div class="body"><p>This port allows the user to change the size of the displayed
+ control-points in the paths.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Line width</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_lineWidth.png" /><br /></div>
+<div class="body"><p>This port allows the user to change the width of the line segments
+ connecting the nodes in the paths.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Control Point Shape</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_shape.png" /><br /></div>
+<div class="body"><p>This port allows you to choose a display mode for the control
+ points. Two modes are supported: cubes and spheres.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Control Point Color</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_cpColor.png" /><br /></div>
+<div class="body"><p>This port allows changing the color of the displayed control
+ points.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Path Color</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_pathColors.png" /><br /></div>
+<div class="body"><p>This port allows changing the color of the displayed surface
+ paths.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Rendering</span>  
+<div class="portsnapshot"><img src="HxDisplaySurfacePathSet_displayParams.png" /><br /></div>
+<div class="body"><p>This port allows the user to influence the rendering of the lines
+ and the control points of the surface paths. The <em>Lineset
+ offset</em> offsets the lines in viewing direction such that the
+ lines are visible even though they are exactly on the surface.
+ The second value, the <em>CP scale</em>, scales the cubes or spheres
+ representing the control points by the given value. This value is
+ multiplied by the value given by the <em>Point size</em> port.
+ </p></div></div>
+</div>
+<p>
+</p>
+<p>
+</p></body>
+</html>

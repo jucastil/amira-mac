@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">1 Configuring FLEXnet Licensing</a></h2>
+<p>These are basic instructions for configuring FLEXnet licensing.</p>
+<p>They are only applicable if your site has purchased <font face="helvetica">Amira</font> floating licenses
+for use with FLEXnet. The standard <font face="helvetica">Amira</font> licensing does not use FLEXnet,
+so if you are using standard licensing, these instructions do not apply to you.</p>
+<p></p>
+<h3><a name="A2">1.1 Overview</a></h3>
+<p>The FLEXnet software supports a wide array of licensing options. Currently,
+FEI Visualization Sciences Group provides the FLEXnet licensing option to support floating
+licenses. In this scenario, a site purchases a specific number, N, of <font face="helvetica">Amira</font>
+licenses. The FLEXnet license server tracks the licenses being
+used and allows simultaneous use of up to N instances of the <font face="helvetica">Amira</font> software.
+The advantage of this approach is that, unlike standard <font face="helvetica">Amira</font> licensing,
+<font face="helvetica">Amira</font> is not locked to a specific computer, but can be run on any computer
+that can communicate with the license server.</p>
+<p></p><div style="text-align:center"><a href=FloatingLicenses.png.html><img width=525 src="FloatingLicenses.png" /></a><br />
+
+
+</div><p></p>
+<p>A small set of FLEXnet-related files are provided for managing
+the FLEXnet licensing. These files must be copied onto the system to where
+the license server will be run. The license server can be run
+on the same system where <font face="helvetica">Amira</font> is installed, but it doesn't have to be.</p>
+<p>One of the supplied files, <b>lmgrd </b> ("license manager daemon"), is a FLEXnet
+executable that is responsible for starting the vendor daemon, which does
+the actual checking in and out of licenses specific to that vendor. The supplied vendor
+daemon, <b>mcslmd</b> ("FEI Visualization Sciences Group license manager daemon"),
+handles the requests for licenses from the <font face="helvetica">Amira</font> application programs.</p>
+<p>There is a FLEXnet license file that is read by the server.
+This license file contains information indicating which products are
+licensed and how many licenses are allowed for each.</p>
+<p>In addition, each <font face="helvetica">Amira</font> installation has a separate license file which
+indicates the name of the FLEXnet license server.</p>
+<p>The sections below will provide the basic technical details of installing
+and managing a FLEXnet license server.</p>
+<p>For complete technical details regarding FLEXnet itself, see the technical
+documentation provided by Flexera Software (formerly Acresso Software), supplier of the FLEXnet licensing
+technology <a href=http://www.flexerasoftware.com>http://www.flexerasoftware.com</a>:</p>
+<p><a href="http://www.globes.com/support/utilities/flexnet_licensing_end_user_guide.pdf">FLEXnet Licensing End User Guide (pdf)</a></p>
+<p></p>
+<h3><a name="A4">1.2 Getting Started</a></h3>
+<p>The first thing to do is decide on which computer you wish
+to run the FLEXnet license server. This system should be
+"visible" from any system that might want to request a license.
+It should also be highly reliable.</p>
+<p>The server can be installed on a computer on which <font face="helvetica">Amira</font> is
+installed, but it does not have to be.</p>
+<p>It is possible to do FLEXnet licensing in a heterogeneous
+environment. That is, the server and <font face="helvetica">Amira</font> can be running on
+different operating systems. For instance, the FLEXnet server
+could be on a Linux box, with the <font face="helvetica">Amira</font> users running <font face="helvetica">Amira</font> on a
+Windows platform.</p>
+<p>If your site already has a FLEXnet license server running that
+is used for licensing other vendors' products, this may affect
+where and how you decide to configure the <font face="helvetica">Amira</font> license server.
+The FLEXnet documentation from Flexera Software can help you with
+this decision. See, for example, the chapter "Managing Licenses
+from Multiple Vendors" in the <em>FLEXnet Licensing End User Guide</em>.</p>
+<p>For the rest of this discussion, we will assume that you
+will be setting up a license server used only for
+licensing <font face="helvetica">Amira</font>.</p>
+<p>Once you have selected the server machine, <b>if</b> you are not going
+to run the server from the <font face="helvetica">Amira</font> installation directory
+(i.e., from &lt;install_dir&gt;/share/license/flexnet), you will need to
+copy the FLEXnet-related files provided by FEI Visualization Sciences Group to that system
+into an empty directory.</p>
+<p>Suggested server directory name:</p>
+<p> <font face="helvetica">Amira</font>_flexnet</p>
+<p>
+The FLEXnet files are provided in:</p>
+<p> &lt;install_dir&gt;/share/license/flexnet</p>
+<p>
+If you need FLEXnet files for a platform other than the
+one on which you will be running <font face="helvetica">Amira</font>, please contact
+<a class="link" href="#A20">technical support</a>.</p>
+<p>Instructions for installing and configuring the server are
+provided in below.</p>
+<p></p>
+<h3><a name="A5">1.3 Providing License Server Identification Information to FEI Visualization Sciences Group</a></h3>
+<p>In order to generate a FLEXnet license,
+FEI Visualization Sciences Group will need the following information about the system
+on which the license server is running/will run:</p>
+<p></p>
+<ol><li>its host name (or IP address), and</li><li>its host ID (i.e. Ethernet Address)</li>
+</ol><p></p>
+<p>Instructions for capturing this information are given below for <a class="link" href="#A6">UNIX</a> and
+<a class="link" href="#A7">Windows</a>.
+Send this information to the <a class="link" href="#A20">License Administrator</a>. The license will be sent to you via email.
+</p>
+<p>Please also include:
+</p>
+<ul><li>The name and version number of each product for which you are requesting a password.</li><li>Your name and company name.
+</li><li>Your VI Customer ID # (if you know it). If you don't know it, please provide as much identifying information as you can.
+</li><li>Your phone number, FAX number, and email address.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A6">1.3.1 UNIX</a></h4>
+<p></p>
+<ol><li><p>On the system where the server is running/will run,
+in a command shell, go to the directory where the server will be
+installed:</p>
+<pre>
+    cd &lt;server_install_dir&gt;
+</pre></li><li><p>To get the host ID (i.e. Ethernet Address), execute the <em>lmutil</em> program as follows:</p>
+<pre>
+    lmutil lmhostid
+</pre>
+<p>The output will look like:</p>
+<pre>
+    lmutil - Copyright (c) 1989-2010 Flexera Software Europe Ltd. and/or Flexera Software
+    Corporation. All Rights Reserved.
+    The FLEXlm host ID (i.e. Ethernet Address) of this machine is "001422505387"
+</pre></li><li><p>To get the hostname, you can use any of the following commands:</p>
+<pre>
+    uname -a
+    hostname
+    lmutil lmhostid -hostname
+</pre></li><li><p>To get the IP address (optional):</p>
+<pre>
+    lmutil lmhostid -internet
+</pre></li><li>Copy/paste the lmhostid output and the hostname (or IP address) into a mail
+message and send it to the <a class="link" href="#A20">License Administrator</a> as described above.</li>
+</ol><p></p>
+<p></p>
+<h4><a name="A7">1.3.2 Windows</a></h4>
+<p></p>
+<ol><li><p>On the system where the server is running/will run, run <em>LMTOOLS</em>. It should be located in:</p>
+<pre>
+   &lt;server_install_dir&gt;\lmtools.exe
+</pre></li><li><p>Click on the <em>Systems Settings</em> tab.</p>
+<p><img src="SystemSettings.png" /></p>
+
+<ul><li>The <em>Computer/Hostname</em> field contains the required host name.</li><li>The <em>Ethernet Address</em> field contains the required host id.</li><li>The <em>IP Address</em> field contains the optional IP address.</li>
+</ul><p><br />
+</p></li><li>Copy/paste those values into a mail message and send them to the <a class="link" href="#A20">License Administrator</a> as described above.</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A8">1.4 Installing the FLEXnet Server (UNIX)</a></h3>
+<p>At this point, we assume that the FLEXnet files are in their desired location:</p>
+<p></p>
+<ul><li>either in the default location, &lt;install_dir&gt;/share/license/flexnet</li><li>or have been copied to &lt;some_path&gt;/flexnet directory on the system where the server will run.</li>
+</ul><p></p>
+<p>The vendor daemon <em>mcslmd</em> must be in the same directory as <em>lmgrd</em>.</p>
+<p>The command to start the server looks like:</p>
+<p></p><pre>
+   lmgrd -c &lt;server_license_file&gt; -l [+]&lt;debug_log_path&gt;
+</pre><p></p>
+<p>where:</p>
+<p></p>
+<ul><li>&lt;server_license_file&gt; is the full path to the server license file, and</li><li>&lt;debug_log_path&gt; is the path to the debug log file.</li>
+</ul><p></p>
+<p>Prepending the + character the log file name causes log entries to be appended.</p>
+<p>The following is the suggested command to use:</p>
+<p></p><pre>
+   lmgrd -c passwordServer.dat -l +flexnet.log
+</pre><p></p>
+<p>TIP: It can be convenient to set up the server so that it is started
+automatically upon system reboot. This would involve editing
+the system boot script. See the <em>FLEXnet Licensing End User Guide</em>,
+chapter "The License Server Manager" for details.</p>
+<p>
+</p>
+<h3><a name="A9">1.5 Installing the FLEXnet Server (Windows)</a></h3>
+<p>At this point, we assume that the FLEXnet files
+are in their desired location:</p>
+<p></p>
+<ul><li>either in the default location, &lt;install_dir&gt;&#92;share&#92;license&#92;flexnet</li><li>or have been copied to &lt;some_path&gt;&#92;flexnet directory on the system where the server will run.</li>
+</ul><p></p>
+<p>FLEXnet uses a program called <em>lmgrd</em> to manage licenses. On Windows,
+FLEXnet provides a GUI called <em>LMTOOLS</em> that allows one to configure <em>lmgrd</em>
+to run as a service. This is the preferred method of configuring
+FLEXnet and is outlined below.</p>
+<p>NOTE: To configure a license server as a service, you must have Administrator privileges.</p>
+<p>The vendor daemon <em>mcslmd.exe</em> must be in the same directory as <em>lmgrd.exe</em>.</p>
+<p></p>
+<ol><li>Run <em>LMTOOLS</em>.</li><li>Click the <em>Configuration using Services</em> radio button to select it.</li><li><p>Click the <em>Config Services</em> tab.</p>
+<p><img src="image001.png" /></p></li><li><p>In the <em>Service Name</em> field, type the name of the service that you want to define.</p>
+<p>It is recommended that you use the name <em><font face="helvetica">Amira</font> License Manager</em>.</p></li><li><p>In the <em>Path to the lmgrd.exe file</em> field, enter or browse to <em>lmgrd.exe</em> for this license server.</p>
+<p>In many cases the path will be:</p>
+<pre>
+   &lt;install_dir&gt;\share\license\flexnet\lmgrd.exe.
+</pre></li><li><p>In the <em>Path to the license file </em>field, enter or browse to the license file for this license server.</p>
+<p>It is recommended that you copy the server license file to:</p>
+<pre>
+   &lt;install_dir&gt;\share\license\flexnet\passwordServer.dat
+</pre></li><li><p>In the <em>Path to the debug log</em> file, enter or browse to the debug log file that this license server writes.
+For example, <em>FLEXnet.log</em>.</p>
+<p>(Prepending the debug log file name with the + character appends
+logging entries. The default location for the debug log file is
+the C:&#92;WINDOWS&#92;System32 folder. To specify a different location,
+make sure you specify a fully qualified path.)</p>
+<p>For most users, the following should be appropriate:</p>
+<pre>
+   +&lt;install_dir&gt;\share\license\flexnet\flexnet.log
+</pre></li><li>(Optional) Click on the <em>View Log</em> button to display the log file.
+Check that no logging errors occur (i.e., log file is openable
+and it contains readable text).
+Click on the <em>Close Log</em> button to close the log file.</li><li>To ensure that the license service is always running and
+automatically started upon system reboot, it is necessary to set
+the two checkboxes, <em>Use Services</em> and <em>Start Server at Power Up</em>,
+at the bottom of the dialog.</li><li><p>To save the new <font face="helvetica">Amira</font> License Manager service, click the <em>Save Service</em> button.</p>
+<p><img src="image002.png" /></p></li>
+</ol><p></p>
+<p></p>
+<h3><a name="A10">1.6 Starting the Server (Windows)</a></h3>
+<p>Once the license manager service is configured, <em>lmgrd</em> is started
+by starting the service from the LMTOOLS interface:</p>
+<p></p>
+<ol><li>Run <em>LMTOOLS</em> if it is not already running. <em>LMTOOLS</em> appears with the <em>Service/License File</em> tab open.</li><li>Click the <em>Configuration using Services</em> radio button.</li><li><p>Select the service name from the list presented in the selection box.</p>
+<p>If you followed the recommendations above, the service name should be <em><font face="helvetica">Amira</font> License Manager</em>.</p></li><li><p>Click the <em>Start/Stop/Reread</em> tab.</p>
+<p><img src="image003.png" /></p></li><li><p>Start <font face="helvetica">Amira</font> License Manager by clicking the <em>Start Server</em> button.</p>
+<p><img src="image004.png" /></p></li>
+</ol><p></p>
+<p>The <font face="helvetica">Amira</font> License Manager license server should now be started
+and writing its debug log output to
+&lt;install_dir&gt;&#92;share&#92;license&#92;flexnet&#92;flexnet.log.</p>
+<p><b>NOTE</b>: Any time you make a change to the server configuration,
+you should stop the server then restart it in order for the
+changes to take effect.</p>
+<p><b>NOTE</b>: Any time you make a change to the server password file,
+you should use the <em>Start/Stop/Reread</em> tab, and press the <em>ReReadLicenseFile</em>
+button. If the first time you press it, the operation fails,
+wait briefly (a minute or less), and try pressing it again.</p>
+<p></p>
+<h3><a name="A11">1.7 Installing the Server License File</a></h3>
+<p>After sending your license server information to the 
+<a class="link" href="#A20">License Administrator</a>, 
+you will receive an email containing FLEXnet license strings.</p>
+<p>Here's an example server license file:</p>
+<p> SERVER lic_server3 001234567890<br />
+
+ VENDOR mcslmd<br />
+
+ FEATURE Amira mcslmd 5.0 permanent 2 SIGN=D028E0D4127A<br />
+</p>
+<p></p>
+<h4><a name="A12">1.7.1 UNIX</a></h4>
+<p>On UNIX, the server license file is specified when the server is started.</p>
+<p></p>
+<ol><li><p>Decide where you want to place the server license information supplied by the License Administrator.</p>
+<p>Recommended location:</p>
+<pre>
+   &lt;server_install_dir&gt;/passwordServer.dat
+</pre></li><li>Using a text editor, copy the server license strings into that file.</li><li><p>Start the server:</p>
+<pre>
+   lmgrd -c passwordServer.dat -l +flexnet.log
+</pre>
+<p>(See the <a class="link" href="#A8">section above</a> for more information about starting the server.)</p></li>
+</ol><p></p>
+<p></p>
+<h4><a name="A13">1.7.2 Windows</a></h4>
+<p></p>
+<ol><li><p>Decide where you want to place the server license information supplied by the License Administrator.</p>
+<p>Recommended location:</p>
+<pre>
+   &lt;server_install_dir&gt;\passwordServer.dat
+</pre></li><li>Using a text editor, copy the server license strings into that file.</li><li>Run <em>LMTOOLS</em>, click on the <em>Config Services</em> tab, then specify the "path to the license file".</li><li>For this change to take effect, stop and restart the server using the <em>Start/Stop/Reread</em> tab.</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A14">1.8 Installing the Client License Files (All Platforms)</a></h3>
+<p>Each system that might request an <font face="helvetica">Amira</font> license from the FLEXnet license server must have an <font face="helvetica">Amira</font> license file.</p>
+<p>Here's an example client license file:</p>
+<p></p><pre>
+   SERVER XP-PANGOLIN2 ANY
+   USE_SERVER
+</pre><p></p>
+<p>On each client system, copy the client license information to the <font face="helvetica">Amira</font> license file.</p>
+<p>The default (and recommended) location is:</p>
+<p></p><pre>
+   &lt;install_dir&gt;/share/license/password.dat
+</pre><p></p>
+<p>This can be changed by setting the <tt>AMIRA_LICENSE_FILE</tt> environment variable to a new path, including the file name.
+Once this variable is set, <font face="helvetica">Amira</font> automatically looks for the license file in the specified
+location. If <font face="helvetica">Amira</font> cannot find the license file, the user is presented with a dialog that asks for the license information.</p>
+<p><img src="QxLicenseDialogAmira.png" />
+</p>
+<p></p>
+<h3><a name="A15">1.9 Nomad Licensing / Borrowing</a></h3>
+<p>To use a FLEXnet floating license on a system that is not always connected to the license server,
+you will need to "borrow" a license while you are connected to the server, then disconnect
+from the server. This kind of licensing is what we call "nomad" licensing.</p>
+<p>Below are the detailed instructions. We will assume that standard FLEXnet licensing, i.e.,
+not borrowing, is already working correctly.</p>
+<p></p>
+<h4><a name="A16">1.9.1 UNIX</a></h4>
+<p></p>
+<ol><li><p>On the <em>client</em> machine, in a command shell, go to the directory where the FLEXnet utilities are installed.
+By default, these utilities are found on the client machine in: &lt;install_dir&gt;/share/license/flexnet.</p>
+<pre>
+    cd &lt;install_dir&gt;/share/license/flexnet
+</pre></li><li><p>To initiate borrowing, execute the <em>lmutil</em> program on the client as follows:</p>
+<pre>
+   lmutil lmborrow mcslmd &lt;enddate&gt; &lt;time&gt;
+</pre>
+<p> where:</p>
+<p> &lt;enddate&gt; &lt;time&gt; Enddate is the date the license is to be returned in dd-mmm-yyyy format.
+ Time is optional and is specified in 24-hour format (hh:mm)
+ in the FLEXenabled application's local time. If time is
+ unspecified, the checkout lasts until the end of the given end
+ date.</p>
+<p> For example:</p>
+<pre>
+   lmutil lmborrow mcslmd 16-jan-2007 13:00
+</pre></li><li>Start <font face="helvetica">Amira</font>, then use all of the <font face="helvetica">Amira</font> modules that you want to borrow.
+For example, if you want to borrow <font face="helvetica">Mesh Option</font>, do something that requires use of <font face="helvetica">Mesh Option</font>, such as loading
+tutorial file lobus.grid.am and displaying it with GridVolume.
+</li><li>Disconnect from the network.</li><li>Exit <font face="helvetica">Amira</font> and confirm that you can restart it and use all of the borrowed modules.</li>
+</ol><p></p>
+<p>To print information about borrowed features, issue the following command on the machine from which they are borrowed:</p>
+<p></p><pre>
+   lmutil lmborrow -status
+</pre><p></p>
+<p></p>
+<h4><a name="A17">1.9.2 Windows</a></h4>
+<p></p>
+<ol><li>Run <em>LMTOOLS</em> on the <em>client</em> machine. By default, <em>LMTOOLS</em> is found on the
+client machine in: &lt;install_dir&gt;/share/license/flexnet.</li><li>Click on the <em>Borrowing</em> tab.</li><li>Specify a return date.</li><li>Optional, specify the vendor name (mcslmd).</li><li><p>Press the <em>Set Borrow Expiration</em> button.</p>
+<p><img src="image005.png" /></p></li><li>Start <font face="helvetica">Amira</font>, then use all of the <font face="helvetica">Amira</font> modules that you want to borrow.
+For example, if you want to borrow <font face="helvetica">Mesh Option</font>, do something that requires use of <font face="helvetica">Mesh Option</font>, such as loading
+tutorial file lobus.grid.am and displaying it with GridVolume.
+</li><li>Disconnect from the network.</li><li>Exit <font face="helvetica">Amira</font> and confirm that you can restart it and use all of the borrowed modules.</li>
+</ol><p></p>
+<p>You can check how many licenses are checked-in or out by pressing the <em>List Currently Borrowed Features</em> button
+of the <em>Borrowing</em> tab of the <em>LMTOOLS</em> application.</p>
+<p></p>
+<h3><a name="A18">1.10 Additional license controls</a></h3>
+<p>Additional controls can be set directly into the license string. The most important are:
+</p>
+<ul><li>Limit the number of token that can be borrowed:<br />
+
+Examples: The customer want to keep 60 tokens over his 100 tokens, so only 40 tokens can be borrowed.<br />
+
+Add a BORROW_LOWWATER line:<br />
+
+BORROW_LOWWATER <font face="helvetica">Amira</font>	60
+<br />
+<br />
+</li><li>Limit the number of days a token can be borrowed:<br />
+
+Examples: One week (7days x 24hours = 168hours). 
+Add a MAX_BORROW_HOURS line:<br />
+
+MAX_BORROW_HOURS	<font face="helvetica">Amira</font>	168
+<br />
+<br />
+</li><li>Specify who is allowed to borrow:
+	
+<ul><li>a user<br />
+
+ INCLUDE_BORROW	<font face="helvetica">Amira</font> USER Jim</li><li>a group of users<br />
+
+ INCLUDE_BORROW	<font face="helvetica">Amira</font> GROUP project_dev</li><li>a computer<br />
+
+ INCLUDE_BORROW	<font face="helvetica">Amira</font> HOST host_name</li><li>a group of computers<br />
+
+ INCLUDE_BORROW	<font face="helvetica">Amira</font> HOST_GROUP computer_group</li>
+</ul></li><li>Specify who is not allowed to borrow:
+	
+<ul><li>a user<br />
+
+	EXCLUDE_BORROW	<font face="helvetica">Amira</font> USER Jim</li><li>a group of users<br />
+
+	EXCLUDE_BORROW	<font face="helvetica">Amira</font> USER project_dev</li><li>a computer<br />
+
+	EXCLUDE_BORROW	<font face="helvetica">Amira</font> HOST host_name</li>
+</ul></li><li>Defining groups:
+	
+<ul><li>Group of users:<br />
+
+	GROUP project_dev Jim Mike Bob</li><li>Group of computers:<br />
+
+	HOST_GROUP computer_group host1 host2 host3</li>
+</ul></li><li>Reserving tokens:<br />
+
+	Tokens can be reserved for specific users groups or computers.	
+	
+<ul><li>Reserve 10 tokens for an user:<br />
+
+	RESERVE 10 <font face="helvetica">Amira</font> USER Jim</li><li>Reserve 10 tokens for a group of users:<br />
+
+	RESERVE 10 <font face="helvetica">Amira</font> GROUP project_dev</li><li>Reserve 10 tokens for a computer:<br />
+
+	RESERVE 10 <font face="helvetica">Amira</font> HOST host1</li><li>Reserve 10 tokens for a group of computers:<br />
+
+	RESERVE 10 <font face="helvetica">Amira</font> HOST computer_group</li>
+</ul></li><li>Setting Access Permissions:<br />
+
+	You can control who is allowed to use a product using the INCLUDE EXCLUDE commands.
+	
+<ul><li>Who is allowed to use a product:<br />
+
+	INCLUDE <font face="helvetica">Amira</font> USER Jim<br />
+
+	Can be used for GROUP, HOST and HOST_GROUP as described above.</li><li>Who is not allowed to use a product:<br />
+
+	EXCLUDE <font face="helvetica">Amira</font> USER Mike</li>
+</ul></li>
+</ul><p></p>
+<p>
+</p>
+<h3><a name="A19">1.11 Troubleshooting</a></h3>
+<p>Refer to the FLEXnet documentation. The <em>FLEXnet Licensing End
+User Guide</em> contains a troubleshooting appendix. If you need assistance
+getting your FLEXnet licenses installed and operational, please contact
+<a class="link" href="#A20">technical support</a>.</p>
+<p></p>
+<h3><a name="A20">1.12 Contact Information</a></h3>
+<p><b>License Administrator -</b>
+<a href="mailto:vsglicense@fei.com">vsglicense@fei.com</a>
+</p>
+<p><b>Technical Support -</b>
+<a href="mailto:vsghotline@fei.com">vsghotline@fei.com</a>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+</p>
+<h2><a name="A1">4.5 System Requirements</a></h2>
+<p><font face="helvetica">Amira</font> runs on:
+</p>
+<ul><li>Windows XP(Service Pack 3)/Vista/7, 32-bit</li><li>Windows XP(Service Pack 3)/Vista/7 (Intel 64/AMD64 architecture), 64-bit</li><li>Mac OS X 10.5/10.6/10.7 with Intel CPU</li><li>Red Hat Enterprise Linux 5.5 for x86_64 or compatible</li>
+</ul><p></p>
+<p><font face="helvetica">Amira</font> relies on hardware-accelerated OpenGL 3D graphics.
+Please note that if software rendering is used, rendering performance
+may drop significantly, especially for visualization techniques like
+volume rendering.
+Some visualization techniques may also require 3D texturing or programmable shaders, 
+available on recent graphics boards.
+For platform-specific details on hardware acceleration, see below.</p>
+<p><font face="helvetica">Amira</font> requires a display resolution of at least 1024x768
+and at least 15 bits of color depth. We strongly recommend 1280x1024 with 
+24-bit color depth at least.<br />
+</p>
+<p>Apart from 3D graphics hardware, probably the most important system
+parameter is main memory. You should have at least 512 MB, preferably
+2 GB or more. </p>
+<p>The speed of the processor of course is also an important
+parameter. However it is less critical than the graphics system
+and the main memory size. For the PC versions, we recommend
+at least a 2 GHz processor.</p>
+<p></p>
+<h3><a name="A2">4.5.1 Troubleshooting</a></h3>
+<p><font face="helvetica">Amira</font> is a very demanding application that extensively uses high-end
+features. Experience shows that such applications tend to reveal
+instabilities in system hardware, hardware drivers, and the operating
+system. A common problem is insufficient main memory. We recommend you
+configure enough swap memory in addition to physical memory. The
+total amount of virtual memory should be at least 1 GB. 2 GB would be
+even better. Especially on PC platforms, OpenGL drivers today are not always as
+robust as desired. Also, system crashes due to bad memory chips or
+unstable power-supply are not rare. If you experience problems or
+instabilities with <font face="helvetica">Amira</font> on your Windows platform, we recommend that 
+you follow these steps:</p>
+<ol><li>Click on all the demo scripts in the Online User's Guide. If the
+ system crashes, turn off hardware acceleration (choose the <i>extended</i> button from the Windows display settings dialog) and try
+ again. If this eliminates the problem, there is a bug in your OpenGL
+ driver. Try to get a new driver from the web site of the manufacturer
+ of your graphics board.</li><li><p>Try using a different color depth in the Windows display settings
+ dialog. Try 24 or 32 bit.</p></li><li>Load the <tt>lobus.am</tt> data set and visualize it with a Voltex module.
+
+ Turn on the spin rotation (turn it with the mouse in the viewer and
+ release the mouse button while moving the mouse, so that the object
+ continues moving). Let it run overnight (turn off the screen saver).
+ If the system has crashed or frozen the next morning, you probably have
+ a hardware problem.</li>
+</ol><p></p>
+<p>If this does not help, or if a reproducible error occurs on different
+computers, then it might be a bug in the <font face="helvetica">Amira</font> software itself. Please
+report such bugs so that they can be eliminated in the next release
+or a patch can be prepared.</p>
+<p></p>
+<h3><a name="A3">4.5.2 Microsoft Windows</a></h3>
+<p><font face="helvetica">Amira</font> runs on Intel or AMD-based systems with Microsoft Windows
+XP (Service Pack 3), Microsoft Windows Vista, and Microsoft
+Windows 7, 32 bits and 64 bits.</p>
+<p><b>Graphics Hardware:</b> You should use a graphics board with
+OpenGL support and texture mapping capabilities. 
+Some visualization techniques may also require 3D texturing and programmable shaders, 
+available on recent graphics boards.</p>
+<p><b>Note:</b> On Windows Vista/7, you may want to disable Windows Aero for saving hardware resources 
+and achieving best 3D performance with <font face="helvetica">Amira</font>.
+In Control Panel, open <em>Appearance and Personalization</em>, then click <em>Personalization</em>. 
+You can alternatively right-click an empty spot on your desktop and click <em>Personalize</em> in pop-up.
+Click <em>Window Color and Appearance</em>, and then click <em>Open Classic Appearance Properties 
+for More Color Options</em>. Now you can select a <em>Color scheme</em> different from Windows Aero, such as the Windows classic theme.</p>
+<p>In order to add custom extensions to <font face="helvetica">Amira</font> with <font face="helvetica">Developer Option</font> you
+will need Visual Studio 2005 for the 32 bit version of <font face="helvetica">Amira</font>
+and Visual Studio 2008 for the 64 bit version. </p>
+<p>To run the debug version of <font face="helvetica">Amira</font> an installed Visual Studio is
+required.</p>
+<p></p>
+<h3><a name="A4">4.5.3 Linux</a></h3>
+<p>The Linux version of <font face="helvetica">Amira</font> as been developed and tested on Red Hat
+Enterprise Linux 5.5. </p>
+<p>On other Linux distributions this version might not run because
+certain required system libraries are missing or because different
+versions of these libraries are installed. In particular you may need to install 
+<tt>libstdc++.so.5</tt> included in the compat-libstdc++ package (or you may copy it 
+into the <font face="helvetica">Amira</font> installation directory under <tt>lib/arch-Linux...-Optimize/</tt>).</p>
+<p>On Linux, <font face="helvetica">Amira</font> is only available for AMD64 / Intel 64 systems.</p>
+<p><b>Graphics Hardware:</b> <font face="helvetica">Amira</font> works with the current 3D graphics drivers from nVidia and ATI
+under XFree86 4/Xorg. </p>
+<p><b>Notes:</b>
+</p>
+<ul><li>After a standard installation of Linux, 
+hardware acceleration is not necessarily activated, although X-Windows and 
+<font face="helvetica">Amira</font> may work fine. To enable OpenGL hardware acceleration specific drivers 
+may have to be installed. 
+This can dramatically increase rendering performance. 
+Sometimes it is necessary to disable the stencil buffers (by starting <font face="helvetica">Amira</font> 
+with the option -no_stencils) to get acceleration.<br />
+</li><li>On some distribution, you may see incorrect display of some parts of the user interface, 
+such as the segmentation editor. This is a known Qt issue. You can work around this by disabling the composite option in the extension section of your XFree86.conf or Xorg.conf configuration file:<br />
+
+<pre>
+Section "Extensions" 
+     Option      "Composite"     "disable" 
+EndSection 
+</pre></li>
+</ul><p></p>
+<p>In order to add custom extensions to <font face="helvetica">Amira</font> with <font face="helvetica">Developer Option</font> you will need gcc 4.1.x on RHEL 5.</p>
+<p></p>
+<h3><a name="A5">4.5.4 Mac OS</a></h3>
+<p>The Mac version of <font face="helvetica">Amira</font> has been developed and tested on Mac
+OS X 10.5 (Leopard), 10.6 (Snow Leopard), and 10.7 (Lion) running on an Intel CPU.
+This version might not work properly on other Mac OS releases or
+non-Intel CPU Apple platforms.</p>
+<p>In order to add custom extensions to <font face="helvetica">Amira</font> with <font face="helvetica">Developer Option</font> you will need gcc 4.2.x provided by 
+the standard XCode development environment.</p>
+<p><b>Graphics Hardware:</b> <font face="helvetica">Amira</font> works with the current Mac 3D graphics drivers from nVidia 
+and ATI.</p>
+<p>
+
+</p></body>
+</html>

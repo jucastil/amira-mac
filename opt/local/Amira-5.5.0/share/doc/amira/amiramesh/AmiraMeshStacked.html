@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Fields with Stacked Coordinates</a></h3>
+<p>A field with stacked coordinates has uniform pixel spacing in the x and
+ y direction, but slices may be arranged arbitrarily in the z direction.
+ This type of coordinates is commonly used to encode 3D images
+ with non-uniform spacing.</p>
+<p> In order to encode a 3D scalar or vector field with stacked coordinates,
+ you must define a 3D array called <em>Lattice</em> and 1D array called
+ <em>Coordinates</em>. The field's data values are stored at <em>Lattice</em>
+ while the slices' z positions are stored at <em>Coordinates</em>. The
+ coordinate type of the field as well as the bounding box in xy are
+ specified in the parameter section of the AmiraMesh file. Here is an
+ example:</p>
+<p> </p><pre>
+    # AmiraMesh ASCII 1.0
+
+    define Lattice 2 2 3
+    define Coordinates 3
+
+    Parameters {
+        CoordType "stacked",
+        # BoundingBoxXY is xmin xmax ymin ymax
+        BoundingBoxXY 0 1 0 1
+    }
+
+    Lattice { byte Intensity } = @1
+    Coordinates { float z } = @2
+
+    @1
+    0 0 0 0
+    1 1 1 1
+    2 2 2 2
+
+    @2
+    0 0.75 2
+    </pre><p></p>
+<p> Use <tt>float[3]</tt> in order to encode a vector field instead of a
+ scalar field. Likewise, you may modify the field's primitive data
+ type. For example, 3D images are commonly encoded using <tt>byte</tt>
+ or <tt>short</tt>. Instead of <tt>Intensity</tt> you may use any other
+ name in the data definition statement.</p>
+<p> The field's xy bounding box is given by the minimum and maximum x and
+ y coordinates of the <em>grid nodes</em> or pixel centers, not of the
+ pixel boundaries. <font face="helvetica">Amira</font> will always assume the width of a single pixel
+ to be <em>(xmax-xmin)/(dims[0]-1)</em>. For degenerate 3D data sets
+ with one dimension being 1, choose equal minimum and maximum coordinates
+ in that direction.</p>
+<p></p>
+<p>
+</p></body>
+</html>

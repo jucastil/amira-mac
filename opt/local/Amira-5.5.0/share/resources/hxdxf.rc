@@ -1,0 +1,10 @@
+
+dataFile -name "DXF" -option dxf -ext dxf \
+    -save hxSaveDxf -type HxSurface -type HxLineSet \
+    -dso "libhxdxf.so"
+
+dataFile -name "DXF slice-by-slice" \
+    -ext dxf -multisave "hxMultiSaveDxf" \
+    -check { [$PRIMARY hasSliceStructure] } \
+    -type HxLineSet -dso "libhxdxf.so"
+

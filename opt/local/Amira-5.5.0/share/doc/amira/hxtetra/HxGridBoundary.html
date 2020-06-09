@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridBoundary</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "GridBoundary" "shows boundary faces of a tetrahedral grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Grid Boundary</em> module is a tool for visualizing individual faces
+ of a tetrahedral grid. The faces may be colored according to an 
+ arbitrary scalar field. As the name implies, the module extracts
+ boundaries between tetrahedra of different material type. The particular
+ materials to be shown can be selected manually. In some cases two
+ materials may have no common faces and nothing will be seen. However,
+ selecting <em>All</em> as the first material parameter and any other material
+ as the second
+ will show the surface of the second material. Visible faces are
+ stored in an internal buffer similar to the GridVolume module. Likewise,
+ the selection domain can be restricted interactively by adjusting a
+ selection box. Ctrl-clicking on a face makes it invisible.</p>
+<p> If the ColorField port is connected to a scalar field, 
+ an additional colormap
+ port becomes visible and the faces are drawn in pseudo-color mode.
+ By default the colormap port is not connected to any colormap. Therefore
+ the grid appears in a constant color. You can click with the right mouse
+ button over the colormap to get a popup menu of all available colormaps.
+ When a colormap has been connected to the module, the data values at the
+ vertices of the selected triangles are mapped to their associated colors.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxfield/HxTetraGrid.html#A1">tetrahedral grid</a> to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Scalar field used for pseudo-coloring the
+	selected triangles. Pseudo-coloring also requires that a
+	<a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> has been connected to the module.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A colormap is used to map the data values
+	of the optional scalar field. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to an object providing a region-of-interest,
+ e.g., <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. Only triangles inside this region
+ will be visualized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxGridBoundary_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from the 
+	<a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a> 
+	class and therefore the description will be found there.
+	In contrast to other modules derived from the <i>ViewBase</i>
+	class this module does not provide the possibility to 
+	consider vertex and direct normals. The triangles will
+	always be drawn flat.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxGridVolume_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxGridBoundary_colormap.png" /><br /></div>
+<div class="body"><p>This port becomes visible only if a scalar field has been 
+	connected to the <i>ColorField</i> port. For further details
+	see section <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxGridBoundary_buffer.png" /><br /></div>
+<div class="body"><p>The Buffer buttons give you some control of the internal face
+ buffer of the GridBoundary module. Only the faces present in the
+ buffer are displayed according to the current drawing style. The 
+	<em>Add</em> button adds the highlighted faces to the buffer. The 
+	<em>Remove</em> button removes highlighted faces from the buffer. 
+	The <em>Clear</em> button removes all faces from the buffer. The 
+	<em>Hide</em> button deselects all faces but
+ does not change the buffer. See also
+ <a class="link" href="../hxcore/HxPortButtonList.html#A1">PortButtonList</a>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxGridBoundary_materials.png" /><br /></div>
+<div class="body"><p>This port provides two menus where all different
+ materials of the input grid are listed. Faces which belong to the
+ boundary between the selected materials are displayed using a red
+ (highlighted) wireframe in the viewer. 
+	You may crop the faces by turning
+ the viewer into interactive mode and move the green handles of the
+ selection box. Only the faces inside the bounding box can be added to
+ the buffer, also see <a class="link" href="../hxcore/HxPortButtonList.html#A1">PortButtonList</a>.</p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color Mode</span>  
+<div class="portsnapshot"><img src="HxGridBoundary_colorMode.png" /><br /></div>
+<div class="body"><p>Here you may choose among several color modes. For details
+	see the module <a class="link" href="../hxsurftools/HxDisplaySurface.html#A14">SurfaceView</a>.	</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setSelectAllNew &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+ If set to 1 all tetrahedra are selected when a new data set has been
+ connected to the <a class="link" href="#A2">Data port</a>. Useful in a network
+ together with <a class="link" href="../hxtime/HxDynamicFileSeriesCtrl.html#A1">TimeSeriesControl</a>.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

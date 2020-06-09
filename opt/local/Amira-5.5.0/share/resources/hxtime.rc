@@ -1,0 +1,159 @@
+# ----------------------------------------------------------------------
+#   Time package
+# ----------------------------------------------------------------------
+
+module -name "Time" \
+    -class "HxTime" \
+    -category "Main Data" \
+    -package "hxtime"
+
+module -name "DisplayTime" \
+    -primary "HxPortTimeInterface" \
+    -class "HxDisplayValue" \
+    -category "Main" \
+    -package "hxtime"
+
+module -name "DisplayDate" \
+    -primary "HxDateTimeProviderInterface" \
+    -class "HxDisplayDate" \
+    -category "Main" \
+    -package "hxtime"
+
+module -primary "HxObject" \
+    -check { [$PRIMARY canBeAnimated] } \
+    -name "Animate" -priority 0 \
+    -class "HxDynamicParameter" \
+    -package "hxtime" \
+    -category "Main"
+
+module -name "Rotate" \
+    -primary "HxTime" \
+    -class "HxTimeRotate" \
+    -category "Main" \
+    -package "hxtime"
+
+module -name "TransformAnimation" \
+    -primary "HxSpatialData" \
+    -class "HxObjectTransformAnimation" \
+    -category "Animation/Demo"	\
+    -package "hxtime"
+
+proc _HXTIME_CreateTransformDaVinci {TrafoAni bRemoveExistingTrafos} {
+    if {[$TrafoAni setEditMode 0]} {
+        #~ $TrafoAni setIgnoreKeyListChange 1
+
+        if $bRemoveExistingTrafos {$TrafoAni removeAllTransformations}
+        $TrafoAni appendTransform 2 1 "Object Size"
+        $TrafoAni appendTransform 0 2 "Local Object Rotation"
+        $TrafoAni appendTransform 1 3 "Local Object Translation"
+        $TrafoAni appendTransform 1 4 "Depth (z-Slider) and up/down (y-Slider) on Screen"
+        $TrafoAni appendTransform 0 5 "Position on Screen"
+
+        $TrafoAni edit1 setState item 2 0 
+        $TrafoAni scale1 setMinMax 0.00100000004749745 10
+        $TrafoAni scale1 setButtons 0
+        $TrafoAni scale1 setIncrement 0.6666
+        $TrafoAni scale1 setValue 1
+        $TrafoAni scale1 setSubMinMax 0.00100000004749745 10
+        $TrafoAni edit2 setState item 2 0 
+        $TrafoAni degree2 setMinMax -360 360
+        $TrafoAni degree2 setButtons 0
+        $TrafoAni degree2 setIncrement 24
+        $TrafoAni degree2 setValue 0
+        $TrafoAni degree2 setSubMinMax -360 360
+        $TrafoAni axis2 setMinMax 0 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis2 setValue 0 0
+        $TrafoAni axis2 setMinMax 1 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis2 setValue 1 1
+        $TrafoAni axis2 setMinMax 2 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis2 setValue 2 0
+        $TrafoAni edit3 setState item 2 0 
+        $TrafoAni translateX3 setMinMax -10 10
+        $TrafoAni translateX3 setButtons 0
+        $TrafoAni translateX3 setIncrement 1.33333
+        $TrafoAni translateX3 setValue 0
+        $TrafoAni translateX3 setSubMinMax -10 10
+        $TrafoAni translateY3 setMinMax -10 10
+        $TrafoAni translateY3 setButtons 0
+        $TrafoAni translateY3 setIncrement 1.33333
+        $TrafoAni translateY3 setValue 0
+        $TrafoAni translateY3 setSubMinMax -10 10
+        $TrafoAni translateZ3 setMinMax -10 10
+        $TrafoAni translateZ3 setButtons 0
+        $TrafoAni translateZ3 setIncrement 1.33333
+        $TrafoAni translateZ3 setValue 0
+        $TrafoAni translateZ3 setSubMinMax -10 10
+        $TrafoAni edit4 setState item 2 0 
+        $TrafoAni translateX4 setMinMax -10 10
+        $TrafoAni translateX4 setButtons 0
+        $TrafoAni translateX4 setIncrement 1.33333
+        $TrafoAni translateX4 setValue 0
+        $TrafoAni translateX4 setSubMinMax -10 10
+        $TrafoAni translateY4 setMinMax -10 10
+        $TrafoAni translateY4 setButtons 0
+        $TrafoAni translateY4 setIncrement 1.33333
+        $TrafoAni translateY4 setValue 0
+        $TrafoAni translateY4 setSubMinMax -10 10
+        $TrafoAni translateZ4 setMinMax -10 10
+        $TrafoAni translateZ4 setButtons 0
+        $TrafoAni translateZ4 setIncrement 1.33333
+        $TrafoAni translateZ4 setValue -4
+        $TrafoAni translateZ4 setSubMinMax -10 10
+        $TrafoAni edit5 setState item 2 0 
+        $TrafoAni degree5 setMinMax -180 180
+        $TrafoAni degree5 setButtons 0
+        $TrafoAni degree5 setIncrement 24
+        $TrafoAni degree5 setValue 0
+        $TrafoAni degree5 setSubMinMax -180 180
+        $TrafoAni axis5 setMinMax 0 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis5 setValue 0 0
+        $TrafoAni axis5 setMinMax 1 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis5 setValue 1 1
+        $TrafoAni axis5 setMinMax 2 -1.00000001384843e+024 1.00000001384843e+024
+        $TrafoAni axis5 setValue 2 0
+
+        $TrafoAni setEditMode 1
+        $TrafoAni fire
+        #~ $TrafoAni setIgnoreKeyListChange 0
+    }
+}
+
+
+module -name "Settings for 3-segment screen" \
+    -primary "HxObjectTransformAnimation" \
+    -proc {
+            _HXTIME_CreateTransformDaVinci $PRIMARY 1
+    } \
+    -category "Main"
+
+module -name "Settings for 3-segment screen (center object first)" \
+    -primary "HxObjectTransformAnimation" \
+    -proc {
+            if {[$PRIMARY setEditMode 0]} {
+
+                $PRIMARY removeAllTransformations
+                $PRIMARY appendTransform 6 6 "Center"
+                $PRIMARY fire
+                $PRIMARY combineActiveTransformations
+                
+                _HXTIME_CreateTransformDaVinci $PRIMARY 0
+            }
+    } \
+    -category "Main"
+
+module -name "Settings for 3-segment screen (combine existing transform first)" \
+    -primary "HxObjectTransformAnimation" \
+    -proc {
+            if {[$PRIMARY setEditMode 0]} {
+
+                $PRIMARY removeIgnoredTransformations
+                $PRIMARY combineActiveTransformations
+                
+                _HXTIME_CreateTransformDaVinci $PRIMARY 0
+            }
+    } \
+    -category "Main"
+
+
+
+

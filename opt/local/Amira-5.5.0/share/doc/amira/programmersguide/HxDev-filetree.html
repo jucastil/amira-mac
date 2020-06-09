@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">23.3 Structure of the <font face="helvetica">Amira</font> File Tree</a></h2>
+<p>Like the ordinary version, the developer version of <font face="helvetica">Amira</font> (with <font face="helvetica">Developer Option</font>) is installed in
+a single directory called the <em>Amira Root Directory</em>. This directory
+contains all the binaries, shared objects, and resource files required to
+run <font face="helvetica">Amira</font>, as well as all the C++ header files required to compile new
+components. New components themselves are stored independently in the
+<em>Amira Local Directory</em>. Every user may define his/her own local
+<font face="helvetica">Amira</font> directory. The local <font face="helvetica">Amira</font> directory has a structure very similar to
+the Amira Root Directory. In the following two sections the structure of
+these two directories is described in more detail.</p>
+<p></p>
+<h3><a name="A2">23.3.1 The <font face="helvetica">Amira</font> Root Directory</a></h3>
+<p>The contents of the <font face="helvetica">Amira</font> root directory may differ slightly from platform
+to platform. For example, on Windows there will be no subdirectory <tt>lib</tt>. 
+Instead, the compiled shared objects are located under <tt>bin/arch-Win32VC8-Optimize</tt>. 
+The online documentation directory (<tt>share/devref/</tt>) of <font face="helvetica">Amira</font> C++ classes 
+does not exist on Windows. Instead, a compressed archive file <tt>Amira.chm </tt>
+is provided and is accessible by shortcut. This is how a typical <font face="helvetica">Amira</font> installation directory looks like:</p>
+<p><br />
+</p>
+<p><tt>AmiraRoot/ </tt> <font face="helvetica">Amira</font> installation directory <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>bin/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-Win32VC8-Debug/ </tt> <font face="helvetica">Amira</font> debug binaries (Windows only) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>Amiramain.exe </tt> <font face="helvetica">Amira</font> debug executable (Windows only) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-Win32VC8-Optimize/ </tt> <font face="helvetica">Amira</font> binaries (Windows) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>Amiramain.exe </tt> <font face="helvetica">Amira</font> executable (Windows) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>start </tt> <font face="helvetica">Amira</font> start script (Unix) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>include/ </tt> C++ header files <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>make/ </tt> Make environment for Unix systems <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>share/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>resources/ </tt> Resource files of all standard packages <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>devref/ </tt> Documentation of <font face="helvetica">Amira</font> C++ classes <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>doc/ </tt> <font face="helvetica">Amira</font> documentation <br />
+</p>
+<p></p>
+<p></p>
+<h3><a name="A3">23.3.2 The Local <font face="helvetica">Amira</font> Directory</a></h3>
+<p>The local <font face="helvetica">Amira</font> directory contains the source code and object files of
+custom modules, the resource files of custom packages, and the compiled
+custom packages themselves. The packages can be compiled either in a 
+debug version or in an optimized version. The corresponding object files
+and compiled shared objects reside in different subdirectories called
+<tt>arch-*-Debug</tt> and <tt>arch-*-Optimize</tt>, respectively. Here the
+asterisk denotes the particular architecture, e.g., <tt>Win32VC8, Win64VC9</tt> for Windows
+systems or <tt>LinuxAMD64</tt> for Linux platforms.</p>
+<p>In order to create a new local <font face="helvetica">Amira</font> directory the
+<a class="link" href="HxDev-wizard.html#A1">Development Wizard</a> should be used. For details please
+refer to <a class="link" href="HxDev-wizard.html#A1">Section 24</a>. Subdirectories like <tt>AmiraLocal/lib</tt> or <tt>AmiraLocal/share/resources</tt> are created
+automatically the first time a custom package is compiled. Again, the
+contents of the local <font face="helvetica">Amira</font> directory may differ slightly from platform to
+platform. For example, on Windows compiled shared objects are located under
+<tt>bin</tt> instead of <tt>lib</tt>.</p>
+<p><br />
+</p>
+<p><tt>AmiraLocal/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>AmiraLocal.vc80.sln </tt> Visual Studio solution file (Windows) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>GNUmakefile </tt> Global makefile (Unix) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>src/ </tt> Directory containing source code of custom packages <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>mypackage/ </tt> Directory containing source code of one particular package <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>Package </tt> Configuration file used to generate make / project files <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>GNUmakefile </tt> Unix makefile <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>mypackage.vc80.vcproj </tt> Visual Studio project file <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>mypackageAPI.h </tt> Windows storage-class specification <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>MyModule.h </tt> Header file of a custom module <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>MyModule.cpp </tt> Implementation of a custom module <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>MyReader.cpp </tt> Implementation of a custom read routine <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>share/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>resource/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>mypackage.rc </tt> Package resource file <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>product/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>obj/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-*-Debug/ </tt> Object files on Unix (debug version) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-*-Optimize/ </tt> Object files on Unix (optimized) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>lib/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-*-Debug/ </tt> Compiled debug shared objects (Unix) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-*-Optimize/ </tt> Compiled optimized shared objects (Unix) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>bin/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-Win*-Debug/ </tt> Compiled debug binaries (Windows) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>arch-Win*-Optimize/ </tt> Compiled optimized binaries (Windows) <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>share/ </tt> <br />
+
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <tt>resources/ </tt> Package resource files are copied here <br />
+</p>
+<p>
+
+</p></body>
+</html>

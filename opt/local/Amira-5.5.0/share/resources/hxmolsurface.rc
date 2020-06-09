@@ -1,0 +1,26 @@
+# ----------------------------------------------------------------------
+# hxmolsurface package
+# ----------------------------------------------------------------------
+
+dataFile -name "HxMolSurface Format" \
+    -header "AmiraMolSurface" \
+    -load "HxMolSurface::readFromFile" \
+    -dso "libhxmolsurface.so"
+
+module -name "CompMolSurface" \
+    -primary "HxMolecule" \
+    -class "HxCompMolSurface" \
+    -category "Compute" \
+    -dso "libhxmolsurface.so"
+
+module -name "CompMolInterface" \
+    -primary "HxMolecule" \
+    -class "HxCompMolInterface" \
+    -category "Compute" \
+    -dso "libhxmolsurface.so"
+
+module -name "MolSurfaceView" \
+    -primary "HxMolSurface" \
+    -class "HxMolSurfaceView" \
+    -category "Main Display" \
+    -dso "libhxmolsurface.so"

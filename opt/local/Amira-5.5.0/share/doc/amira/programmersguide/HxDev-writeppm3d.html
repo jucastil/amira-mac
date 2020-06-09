@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.3.1 A Writer for Scalar Fields</a></h3>
+<p>In this section we explain how to implement a routine for writing 3D images, 
+i.e., instances of the class <em>HxUniformScalarField3</em>, to a file using the
+PPM3D format introduced in <a class="link" href="HxDev-readppm3d.html#A1">Section 25.2.1</a>. The writer is
+even simpler than the reader. Again, the source code is contained in the
+demo package of <font face="helvetica">Developer Option</font>. Once you have created a local
+<font face="helvetica">Amira</font> directory using the <a class="link" href="HxDev-wizard.html#A1">Development Wizard</a> and
+copied the demo package into that directory, you will find the write
+routine in the local <font face="helvetica">Amira</font> directory under <tt>packages/mypackage/writeppm3d.cpp</tt>. 
+Here it is:</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Sample write routine for the PPM3D file format
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;hxcore/HxMessage.h&gt;
+#include &lt;hxfield/HxUniformScalarField3.h&gt;
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+MYPACKAGE_API
+int writeppm3d(HxUniformScalarField3* field, const char* filename)
+{
+    // For the moment we only want to support byte data
+    if (field-&gt;primType() != McPrimType::mc_uint8) {
+        theMsg-&gt;printf("This format only supports byte data.");
+        return 0; // indicate error
+    }
+
+    FILE* f = fopen(filename, "w"); // open the file
+    
+    if (!f) {
+        theMsg-&gt;ioError(filename);
+        return 0; // indicate error
+    }
+    
+    // Write header:
+    fprintf(f, "# PPM3D\n");
+
+    // Write fields dimensions:
+    const int* dims = field-&gt;lattice.dims();
+    fprintf(f, "%d %d %d\n", dims[0], dims[1], dims[2]);
+
+    // Write dims[0]*dims[1]*dims[2] data values:
+    unsigned char* data =
+        (unsigned char*) field-&gt;lattice.dataPtr();
+
+    for (int i=0; i&lt;dims[0]*dims[1]*dims[2]; i++) {
+        fprintf(f, "%d ", data[i]);
+        if (i%20 == 19) // do some formatting
+            fprintf(f,"\n");
+    }
+        
+    // Close the file.
+    fclose(f);
+    
+    return 1; // indicate success
+}
+</pre><p><font size="2"></font></p>
+<p>At the beginning, the same header files are included as in the reader. <em>HxMessage.h</em> provides the global pointer <em>theMsg</em> which allows us to
+print out text messages in the <font face="helvetica">Amira</font> console window. <em>HxUniformScalarField3.h</em> contains the declaration of the data class to be
+written to the file. Finally, <em>mypackageAPI.h</em> provides import and export
+storage-class specifiers for Windows systems. These are encoded in the
+macro <tt>MYPACKAGE_API</tt>. On Unix systems, this macro is empty and can
+be omitted.
+The signature of a write routine differs from that of a read routine. It
+takes two arguments, namely a pointer to the data object to be written to a
+file, as well as the name of the file. Before a write routine is called, <font face="helvetica">Amira</font>
+always checks if the specified file already exists. If this is the case, the
+user is asked if the existing file should be overwritten. Therefore, such a
+check need not to be coded again in each write routine. Like a read
+routine, a write routine should return 1 on success, or 0 if an
+error occurred and the data object could not be saved.
+The body of the write routine is almost self-explanatory. At the beginning,
+a check is made whether the 3D image really consists of byte data. In
+general, the type of data values of such an image can be 8-bit bytes,
+16-bit shorts, 32-bit integers, floats, or doubles.
+If the image does contain bytes,
+a file is opened and the image contents are written into it. However,
+note that the data object also contains information which cannot be stored
+using our simple PPM3D file format. First of all, this applies to the bounding
+box of the image volume, i.e., the position of the center of the first and
+the last voxel in world coordinates. Also, all parameters of the object
+(defined in the member variable <em>parameters</em> of type <em>HxParamBundle</em>) will be lost if the image is written into a PPM3D file
+and read again.</p>
+<p>Like a read routine, a write routine must be registered in the package
+resource file, i.e., in <tt>mypackage/share/resources/mypackage.rc</tt>. This
+is done by the following statement:
+<font size="2"></font></p><pre>
+dataFile -name "PPM3D Demo Format"    \
+    -save "writeppm3d"                \       
+    -type "HxUniformScalarField3"     \
+    -package "mypackage"
+</pre><p><font size="2"></font></p>
+<p>The option <tt>-save</tt> specifies the name of the write routine. The option
+<tt>-type</tt> specifies the C++ class name of the data objects which can be
+saved using this format. Note that an export format may be registered for
+multiple C++ objects of different type. In this case multiple <tt>-type</tt>
+options should be specified. However, for each type there must be a separate
+write routine with a different signature (polymorphism). For example, if we
+additionally want to register the PPM3D format for objects of type <em>HxStackedScalarField3</em>, we must additionally implement the following
+routine:
+<font size="2"></font></p><pre>
+int writeppm3d(HxStackedScalarField3* field, const char* fname);
+</pre><p><font size="2"></font></p>
+<p>Besides the standard data classes, there are so-called
+<em>interface classes</em> that may 
+be specified with the <tt>-type</tt> option. For example, in this way it is
+possible to implement a generic writer for n-component regular 3D fields.
+Such data is encapsulated by the interface <em>HxLattice3</em>. For more
+information about interfaces, refer to <a class="link" href="HxDev-dataobjs.html#A1">Chapter 27</a>.
+At this point you may try to compile and execute the write routine by
+following the instructions given in
+<a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling and Debugging)</a>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignSequences</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "AlignSequences" "aligns sequences of two molecules to each other" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module aligns the sequences of two molecules to each
+other. Proteins as well as nucleic acids can be aligned. Currently, it
+is not possible to align t-RNA sequences because they contain modified
+bases deviating from the standard data format. The module will be
+adjusted and extended in the near future. The output of the alignment
+is displayed in a separate window. Currently you may choose between
+<em>local</em>, <em>semiglobal</em>, and <em>global</em> alignment. The
+algorithms are based on the Waterman algorithms for pairwise sequence
+alignments using a <em>Blosum</em> weighting matrix for protein sequences
+and a <em>Transition/Transversion</em> weighting matrix for nucleic
+acids. Consider the following three cases to decide which algorithm to
+use:
+</p>
+<ul><li><em>local alignment</em><br />
+
+ The local alignment algorithm is the best algorithm to use if you
+ want to match a short sequence, possibly a subsequence or motif of
+ some molecule, against a long one. You can specify a motif (e.g., a
+ promoter sequence) and search for it in the
+ molecule of interest. Beware, the local alignment algorithm
+ is not useful for aligning two long sequences to each other,
+ e.g., two related proteins. You might end up with a very large number
+ of equally evaluated sequences, fragmenting the molecules in 
+ many pieces. For alignment of two long sequences, you should
+ rather use one of the next two algorithms instead.</li><li><em>global alignment with gap function</em><br />
+ 
+ In this case, you want to match two related long sequences to each
+ other, e.g., two related enzymes. The algorithm matches the whole
+ sequences penalizing long gaps proportionally less than many short 
+ gaps.</li><li><em>semiglobal alignment</em><br />
+
+ If you have no idea about the relationship of your two test molecules,
+ it is best to use the semiglobal algorithm first because it will scan
+ for the possibly best matching parts of your molecules without having
+ to align the whole sequences as with the global algorithm.</li>
+</ul>
+<p>Press the <em>Apply</em> button to compute the alignment and display it.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">MoleculeA</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>First molecule to be aligned.
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">MoleculeB</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Second molecule to be aligned.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSeqAlign_options.png" /><br /></div>
+<div class="body"><p>Toggle the button to show/hide the alignment. This toggle is 
+ sensitive if an alignment exists, i.e., if it has previously been 
+ computed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input</span>  
+<div class="portsnapshot"><img src="HxSeqAlign_input.png" /><br /></div>
+<div class="body"><p>Which sequences should be taken as input for the alignment. 
+ Three options exist:
+ </p>
+<ul><li>molecule A and B.</li><li>molecule A and the specified motif (see below).</li><li>molecule B and the motif.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Motif</span>  
+<div class="portsnapshot"><img src="HxSeqAlign_motif.png" /><br /></div>
+<div class="body"><p>You can specify a motif which will be searched for in a longer
+ sequence. This port appears if one of the last two options is
+ chosen in the <em>Input</em> port.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Align Type</span>  
+<div class="portsnapshot"><img src="HxSeqAlign_alignType.png" /><br /></div>
+<div class="body"><p>You can align proteins as well as ribonucleic acids. Specify the
+ type of molecule in the first pop-up menu. In the second menu you
+ can select one of three algorithms as explained above: <em>local</em>, <em>semiglobal</em>, or <em>global</em> alignment.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Indel</span>  
+<div class="portsnapshot"><img src="HxSeqAlign_indel.png" /><br /></div>
+<div class="body"><p>The sequence alignment algorithm requires Indel parameter. When the 
+ parameter is set to 0, insertion and deletions will not be punished. 
+ The smaller the value gets the less likely it will be that many 
+ deletions will appear in the sequence alignment. The name 
+ insertion/deletion refers to one of the sequences. Deletion in 
+ sequence B can be regarded as insertion in sequence A and vice versa.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">setLimit &lt;value&gt;</span>  
+
+<div class="body"><p> 
+ With this command you restrict the number of alignments computed
+ from one start position of the alignment matrix. The default is
+ 10. 
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<h3><a name="A8">AlignView</a></h3>
+<p><a href=HxSeqAlign_alignView.png.html><img width=450 src="HxSeqAlign_alignView.png" /></a><br /></p>
+<p>For each alignment, its number and additional information are displayed
+in the first line. Currently the information includes the length of the
+alignment, the number of insertions for both sequences, and the
+relative score, i.e., the score divided by the length of the alignment. 
+The latter might be interesting when comparing alignments between 
+homologous sequences.</p>
+<p>The <em>AlignView</em> displays corresponding residues in blue. To
+provide an idea about where in the sequences similarities have been
+found, the rest of the sequence is displayed as well (in red). To find
+out where in the sequence you are, just click at the position within
+the sequence you are interested in. Immediately, the positions for
+both sequences will be shown in the lower-left corner of the
+window. The clicked position will be marked by a black rectangle.</p>
+<p>Apart from just showing alignments, the <em>AlignSequences</em> module
+allows you to add alignments as levels to the aligned molecules. However,
+since there might be a large number of alignments and you might only
+be interested in a few, the window allows you to select alignments. 
+In order to select a single alignment, left-click
+on the row with the label <em>i. Alignment</em>. The label will turn
+black. If you want to select more than one alignment, use the <tt>Ctrl</tt> key. An alignment can be unselected by just clicking on it
+again. All currently selected alignments are highlighted by a black
+frame around the label. Those alignments can be written to the
+molecules by pressing the <em>Accept</em> button. If all alignments are
+desired, press the <em>AcceptAll</em> button.</p>
+<p>When an alignment is written to a molecule as a new level, all letters
+of the sequence that are not matched, i.e., that correspond to a blank,
+are left out. Both molecules will have a new level with exactly the
+same name and length. Thus, those levels can be used by the
+<a class="link" href="HxAlignMolecules.html#A1">AlignMolecules</a> module.</p>
+<p>
+
+</p></body>
+</html>

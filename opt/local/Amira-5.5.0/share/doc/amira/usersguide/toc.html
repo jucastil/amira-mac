@@ -1,0 +1,1817 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+<h1><a name="A1">Table of Contents</a></h1>
+
+<h2>User's Guide</h2>
+<table cellpadding=0 cellspacing=1 border=0>
+<tr>
+<td>1&nbsp;</td>
+<td colspan=3><a class="link" href="intro.html#A1">Introduction</a></td>
+</tr>
+<tr>
+<td></td><td>1.1&nbsp;</td>
+<td colspan=2><a class="link" href="overview.html#A1">Overview</a></td>
+</tr>
+<tr>
+<td></td><td>1.2&nbsp;</td>
+<td colspan=2><a class="link" href="features.html#A1">Features overview</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.1&nbsp;</td>
+<td><a class="link" href="features.html#A2">Data import</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.2&nbsp;</td>
+<td><a class="link" href="features.html#A4">Viewing, navigation, interactivity</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.3&nbsp;</td>
+<td><a class="link" href="features.html#A5">Visualization of 3D Image Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.4&nbsp;</td>
+<td><a class="link" href="features.html#A10">Image processing</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.5&nbsp;</td>
+<td><a class="link" href="features.html#A14">Model reconstruction</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.6&nbsp;</td>
+<td><a class="link" href="features.html#A20">Visualization of 3D models and numerical data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.7&nbsp;</td>
+<td><a class="link" href="features.html#A26">General Data Processing and Data Analysis</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.8&nbsp;</td>
+<td><a class="link" href="features.html#A30">Matlab integration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.9&nbsp;</td>
+<td><a class="link" href="features.html#A31">High Performance Visualization</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>1.2.10&nbsp;</td>
+<td><a class="link" href="features.html#A32">Automation, Customization, Extensibility</a></td>
+</tr>
+<tr>
+<td></td><td>1.3&nbsp;</td>
+<td colspan=2><a class="link" href="extensions.html#A1">Options</a></td>
+</tr>
+<tr>
+<td>2&nbsp;</td>
+<td colspan=3><a class="link" href="first.html#A1">First steps in <font face="helvetica">Amira</font></a></td>
+</tr>
+<tr>
+<td></td><td>2.1&nbsp;</td>
+<td colspan=2><a class="link" href="tutstart.html#A1">Getting Started</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.1.1&nbsp;</td>
+<td><a class="link" href="tutstart.html#A2">Loading Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.1.2&nbsp;</td>
+<td><a class="link" href="tutstart.html#A6">Invoking Editors</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.1.3&nbsp;</td>
+<td><a class="link" href="tutstart.html#A7">Visualizing Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.1.4&nbsp;</td>
+<td><a class="link" href="tutstart.html#A10">Interaction with the Viewer</a></td>
+</tr>
+<tr>
+<td></td><td>2.2&nbsp;</td>
+<td colspan=2><a class="link" href="tutimageio.html#A1">How to load image data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.2.1&nbsp;</td>
+<td><a class="link" href="tutimageio.html#A2">The <font face="helvetica">Amira</font> File Browser</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.2.2&nbsp;</td>
+<td><a class="link" href="tutimageio.html#A4">Reading 3D Image Data from Multiple 2D Slices</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.2.3&nbsp;</td>
+<td><a class="link" href="tutimageio.html#A6">Setting the Bounding Box</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.2.4&nbsp;</td>
+<td><a class="link" href="tutimageio.html#A8">The Stacked Slices file format</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.2.5&nbsp;</td>
+<td><a class="link" href="tutimageio.html#A9">Working with Large Disk Data</a></td>
+</tr>
+<tr>
+<td></td><td>2.3&nbsp;</td>
+<td colspan=2><a class="link" href="tutscalar.html#A1">Visualizing 3D Images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.1&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A2">Orthogonal Slices</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.2&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A4">Simple Data Analysis</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.3&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A6">Resampling the Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.4&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A7">Displaying an Isosurface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.5&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A9">Cropping the Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.3.6&nbsp;</td>
+<td><a class="link" href="tutscalar.html#A11">Volume Rendering</a></td>
+</tr>
+<tr>
+<td></td><td>2.4&nbsp;</td>
+<td colspan=2><a class="link" href="tutseg.html#A1">Segmentation of 3D Images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.4.1&nbsp;</td>
+<td><a class="link" href="tutseg.html#A2">Interactive Image Segmentation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.4.2&nbsp;</td>
+<td><a class="link" href="tutseg.html#A4">Volume and Statistics Measurement</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.4.3&nbsp;</td>
+<td><a class="link" href="tutseg.html#A5">Threshold Segmentation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.4.4&nbsp;</td>
+<td><a class="link" href="tutseg.html#A6">Refining Threshold Segmentation Results</a></td>
+</tr>
+<tr>
+<td></td><td>2.5&nbsp;</td>
+<td colspan=2><a class="link" href="tutsurfrec.html#A1">Surface Reconstruction from 3D Images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.5.1&nbsp;</td>
+<td><a class="link" href="tutsurfrec.html#A2">Extracting Surfaces from Segmentation Results</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.5.2&nbsp;</td>
+<td><a class="link" href="tutsurfrec.html#A3">Simplifying the Surface</a></td>
+</tr>
+<tr>
+<td></td><td>2.6&nbsp;</td>
+<td colspan=2><a class="link" href="tutgridgen.html#A1">Creating a Tetrahedral Grid from a Triangular Surface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.6.1&nbsp;</td>
+<td><a class="link" href="tutgridgen.html#A2">Simplifying the Surface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.6.2&nbsp;</td>
+<td><a class="link" href="tutgridgen.html#A4">Editing the Surface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.6.3&nbsp;</td>
+<td><a class="link" href="tutgridgen.html#A5">Generation of a Tetrahedral Grid</a></td>
+</tr>
+<tr>
+<td></td><td>2.7&nbsp;</td>
+<td colspan=2><a class="link" href="tutlandmarks.html#A1">Warping and Registration Using Landmarks</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.7.1&nbsp;</td>
+<td><a class="link" href="tutlandmarks.html#A2">Displaying Data Sets in Two Viewers</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.7.2&nbsp;</td>
+<td><a class="link" href="tutlandmarks.html#A4">Creating a Landmark Set</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.7.3&nbsp;</td>
+<td><a class="link" href="tutlandmarks.html#A6">Registration via a Rigid Transformation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.7.4&nbsp;</td>
+<td><a class="link" href="tutlandmarks.html#A7">Warping Two Image Volumes</a></td>
+</tr>
+<tr>
+<td></td><td>2.8&nbsp;</td>
+<td colspan=2><a class="link" href="tutregister.html#A1">Registration of 3D image data sets</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.8.1&nbsp;</td>
+<td><a class="link" href="tutregister.html#A2">Basic Manual Registration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.8.2&nbsp;</td>
+<td><a class="link" href="tutregister.html#A3">Automatic Registration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.8.3&nbsp;</td>
+<td><a class="link" href="tutregister.html#A4">Image Fusion</a></td>
+</tr>
+<tr>
+<td></td><td>2.9&nbsp;</td>
+<td colspan=2><a class="link" href="tutalign.html#A1">Alignment of 2D Physical Cross-sections</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.9.1&nbsp;</td>
+<td><a class="link" href="tutalign.html#A2">Basic Manual Alignment</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.9.2&nbsp;</td>
+<td><a class="link" href="tutalign.html#A4">Alignment Via Landmarks</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.9.3&nbsp;</td>
+<td><a class="link" href="tutalign.html#A6">Optimizing the Quality Function</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.9.4&nbsp;</td>
+<td><a class="link" href="tutalign.html#A7">Resampling the Input Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.9.5&nbsp;</td>
+<td><a class="link" href="tutalign.html#A8">Using a Reference Image</a></td>
+</tr>
+<tr>
+<td></td><td>2.10&nbsp;</td>
+<td colspan=2><a class="link" href="tutvectorAmira.html#A1">Visualization of Vector Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.10.1&nbsp;</td>
+<td><a class="link" href="tutvectorAmira.html#A2">Simple Vector Representation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.10.2&nbsp;</td>
+<td><a class="link" href="tutvectorAmira.html#A4">Illuminated Stream Lines</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.10.3&nbsp;</td>
+<td><a class="link" href="tutvectorAmira.html#A6">Animated Particle Plot</a></td>
+</tr>
+<tr>
+<td></td><td>2.11&nbsp;</td>
+<td colspan=2><a class="link" href="tutdemodirector.html#A1">Creating animated demonstrations with DemoMaker and DemoDirector</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.1&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A2">Creating a Network</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.2&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A3">Animating an OrthoSlice Module</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.3&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A4">Activating a Module in the Viewer Window</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.4&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A5">Using a Camera Rotation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.5&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A6">Editing or Removing an Already Defined Event</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.6&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A7">Overlaying the Bone with Skin</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.7&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A8">Using Clipping to Add the Skin Gradually</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.8&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A9">More Comments on Clipping</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.9&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A10">Breaks and Function Keys</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.10&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A11">Loops and Go-to</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.11.11&nbsp;</td>
+<td><a class="link" href="tutdemodirector.html#A12">Storing and Replaying the Animation Sequence</a></td>
+</tr>
+<tr>
+<td></td><td>2.12&nbsp;</td>
+<td colspan=2><a class="link" href="tutmovie01.html#A1">Creating movie files</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.12.1&nbsp;</td>
+<td><a class="link" href="tutmovie01.html#A2">Attaching MovieMaker to a Camera Path</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.12.2&nbsp;</td>
+<td><a class="link" href="tutmovie01.html#A3">Attaching MovieMaker to DemoMaker</a></td>
+</tr>
+<tr>
+<td></td><td>2.13&nbsp;</td>
+<td colspan=2><a class="link" href="tutmatlab.html#A1">Using MATLAB Scripts</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.13.1&nbsp;</td>
+<td><a class="link" href="tutmatlab.html#A2">Lowpass Filtering on Images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.13.2&nbsp;</td>
+<td><a class="link" href="tutmatlab.html#A6">Thresholding on a Volume</a></td>
+</tr>
+<tr>
+<td></td><td>2.14&nbsp;</td>
+<td colspan=2><a class="link" href="tutneuron.html#A1">Introduction to the Filament Editor</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.14.1&nbsp;</td>
+<td><a class="link" href="tutneuron.html#A2">Exploration of the volume data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.14.2&nbsp;</td>
+<td><a class="link" href="tutneuron.html#A4">Automatic extraction of the dendritic tree</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.14.3&nbsp;</td>
+<td><a class="link" href="tutneuron.html#A6">Filament Tracing</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.14.4&nbsp;</td>
+<td><a class="link" href="tutneuron.html#A7">Visualize the network</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.14.5&nbsp;</td>
+<td><a class="link" href="tutneuron.html#A9">Alternative way to extract a network using the Segmentation Editor</a></td>
+</tr>
+<tr>
+<td></td><td>2.15&nbsp;</td>
+<td colspan=2><a class="link" href="tutfusion.html#A1">Introduction to the Multi-planar Viewer</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.15.1&nbsp;</td>
+<td><a class="link" href="tutfusion.html#A2">Exploration of the volume data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.15.2&nbsp;</td>
+<td><a class="link" href="tutfusion.html#A4">Explore two data sets using fusion mode</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>2.15.3&nbsp;</td>
+<td><a class="link" href="tutfusion.html#A6">Manually register two data sets</a></td>
+</tr>
+<tr>
+<td>3&nbsp;</td>
+<td colspan=3><a class="link" href="description.html#A1">Program Description</a></td>
+</tr>
+<tr>
+<td></td><td>3.1&nbsp;</td>
+<td colspan=2><a class="link" href="description.html#A2">Interface Components</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.1&nbsp;</td>
+<td><a class="link" href="filemenu.html#A1">File Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.2&nbsp;</td>
+<td><a class="link" href="editmenu.html#A1">Edit Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.3&nbsp;</td>
+<td><a class="link" href="poolmenu.html#A1">Pool Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.4&nbsp;</td>
+<td><a class="link" href="createmenu.html#A1">Create Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.5&nbsp;</td>
+<td><a class="link" href="viewmenu.html#A1">View Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.6&nbsp;</td>
+<td><a class="link" href="onlinehelp.html#A1">Online Help</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.7&nbsp;</td>
+<td><a class="link" href="mainwin.html#A1">Main Window</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.8&nbsp;</td>
+<td><a class="link" href="viewer.html#A1">Viewer Window</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.9&nbsp;</td>
+<td><a class="link" href="console.html#A1">Console Window</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.10&nbsp;</td>
+<td><a class="link" href="fileBrowser.html#A1">File Dialog</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.11&nbsp;</td>
+<td><a class="link" href="jobqueue.html#A1">Job Dialog</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.12&nbsp;</td>
+<td><a class="link" href="preferences.html#A1">Preferences Dialog</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.13&nbsp;</td>
+<td><a class="link" href="snapshotPrint.html#A1">Snapshot Dialog</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.1.14&nbsp;</td>
+<td><a class="link" href="infodialog.html#A1">System Information Dialog</a></td>
+</tr>
+<tr>
+<td></td><td>3.2&nbsp;</td>
+<td colspan=2><a class="link" href="description.html#A3">General Concepts</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.1&nbsp;</td>
+<td><a class="link" href="classstructure.html#A1">Class Structure</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.2&nbsp;</td>
+<td><a class="link" href="fields.html#A1">Scalar Field and Vector Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.3&nbsp;</td>
+<td><a class="link" href="grids.html#A1">Coordinates and Grids</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.4&nbsp;</td>
+<td><a class="link" href="surfacedata.html#A1">Surface Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.5&nbsp;</td>
+<td><a class="link" href="vertexset.html#A1">Vertex Set</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.6&nbsp;</td>
+<td><a class="link" href="transform.html#A1">Transformations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.7&nbsp;</td>
+<td><a class="link" href="parameters.html#A1">Parameters</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.8&nbsp;</td>
+<td><a class="link" href="shadowing.html#A1">Shadowing</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>3.2.9&nbsp;</td>
+<td><a class="link" href="subapp.html#A1">Sub-application Concept</a></td>
+</tr>
+<tr>
+<td>4&nbsp;</td>
+<td colspan=3><a class="link" href="technical.html#A1">Technical Information</a></td>
+</tr>
+<tr>
+<td></td><td>4.1&nbsp;</td>
+<td colspan=2><a class="link" href="dataimport.html#A1">Data Import</a></td>
+</tr>
+<tr>
+<td></td><td>4.2&nbsp;</td>
+<td colspan=2><a class="link" href="cmdline.html#A1">Command Line Options</a></td>
+</tr>
+<tr>
+<td></td><td>4.3&nbsp;</td>
+<td colspan=2><a class="link" href="variables.html#A1">Environment Variables</a></td>
+</tr>
+<tr>
+<td></td><td>4.4&nbsp;</td>
+<td colspan=2><a class="link" href="startup.html#A1">User-defined start-up script</a></td>
+</tr>
+<tr>
+<td></td><td>4.5&nbsp;</td>
+<td colspan=2><a class="link" href="sysrequirements.html#A1">System Requirements</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.5.1&nbsp;</td>
+<td><a class="link" href="sysrequirements.html#A2">Troubleshooting</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.5.2&nbsp;</td>
+<td><a class="link" href="sysrequirements.html#A3">Microsoft Windows</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.5.3&nbsp;</td>
+<td><a class="link" href="sysrequirements.html#A4">Linux</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.5.4&nbsp;</td>
+<td><a class="link" href="sysrequirements.html#A5">Mac OS</a></td>
+</tr>
+<tr>
+<td></td><td>4.6&nbsp;</td>
+<td colspan=2><a class="link" href="../hxcore/QxLicenseDialog.html#A1"><font face="helvetica">Amira</font> License Manager</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.1&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A2">Contents</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.2&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A3">About Password Protection</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.3&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A4">About the <font face="helvetica">Amira</font> License Manager</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.4&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A6">Troubleshooting</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.5&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A7">Using TGS_LICENSE_DEBUG</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.6&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A10">Contacting the License Administrator</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.6.7&nbsp;</td>
+<td><a class="link" href="../hxcore/QxLicenseDialog.html#A11">Contacting Technical Support</a></td>
+</tr>
+<tr>
+<td></td><td>4.7&nbsp;</td>
+<td colspan=2><a class="link" href="notesMac.html#A1">Notes for Mac users</a></td>
+</tr>
+<tr>
+<td></td><td>4.8&nbsp;</td>
+<td colspan=2><a class="link" href="MemLimit3GB.html#A1"><font face="helvetica">Amira</font> and the /3GB switch</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.8.1&nbsp;</td>
+<td><a class="link" href="MemLimit3GB.html#A2">The Problem</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>4.8.2&nbsp;</td>
+<td><a class="link" href="MemLimit3GB.html#A3">How to activate the /3GB switch</a></td>
+</tr>
+<tr>
+<td>5&nbsp;</td>
+<td colspan=3><a class="link" href="scripting.html#A1">Scripting</a></td>
+</tr>
+<tr>
+<td></td><td>5.1&nbsp;</td>
+<td colspan=2><a class="link" href="scripting.html#A2">Introduction</a></td>
+</tr>
+<tr>
+<td></td><td>5.2&nbsp;</td>
+<td colspan=2><a class="link" href="scripting-tcl.html#A1">Introduction to Tcl</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.1&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A2">Tcl Lists, Commands, Comments</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.2&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A3">Tcl Variables</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.3&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A4">Tcl Command Substitution</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.4&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A5">Tcl Control Structures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.5&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A6">User-Defined Tcl Procedures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.2.6&nbsp;</td>
+<td><a class="link" href="scripting-tcl.html#A7">List and String Manipulation</a></td>
+</tr>
+<tr>
+<td></td><td>5.3&nbsp;</td>
+<td colspan=2><a class="link" href="scripting-productInterface.html#A1"><font face="helvetica">Amira</font> Script Interface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.3.1&nbsp;</td>
+<td><a class="link" href="scripting-productInterface.html#A2">Predefined Variables</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.3.2&nbsp;</td>
+<td><a class="link" href="scripting-productInterface.html#A3">Object commands</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>5.3.3&nbsp;</td>
+<td><a class="link" href="cmdGlobal.html#A1">Global Commands</a></td>
+</tr>
+<tr>
+<td></td><td>5.4&nbsp;</td>
+<td colspan=2><a class="link" href="scripting-files.html#A1"><font face="helvetica">Amira</font> Script Files</a></td>
+</tr>
+<tr>
+<td></td><td>5.5&nbsp;</td>
+<td colspan=2><a class="link" href="scripting-menus.html#A1">Configuring Popup Menus</a></td>
+</tr>
+<tr>
+<td></td><td>5.6&nbsp;</td>
+<td colspan=2><a class="link" href="scripting-pickcb.html#A1">Registering pick callbacks</a></td>
+</tr>
+<tr>
+<td>6&nbsp;</td>
+<td colspan=3><a class="link" href="../hxdemogui/demoframework-intro.html#A1">Demo Framework</a></td>
+</tr>
+<tr>
+<td></td><td>6.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxdemogui/demoframework-intro.html#A3">Directory Structure and Files</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>6.1.1&nbsp;</td>
+<td><a class="link" href="../hxdemogui/demoframework-intro.html#A5">Directories and Files in src/</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>6.1.2&nbsp;</td>
+<td><a class="link" href="../hxdemogui/demoframework-intro.html#A9">Data Storage</a></td>
+</tr>
+<tr>
+<td></td><td>6.2&nbsp;</td>
+<td colspan=2><a class="link" href="../hxdemogui/demoframework-intro.html#A12">Selecting Demos</a></td>
+</tr>
+<tr>
+<td></td><td>6.3&nbsp;</td>
+<td colspan=2><a class="link" href="../hxdemogui/demoframework-intro.html#A18">Prerequisites</a></td>
+</tr>
+<tr>
+<td>7&nbsp;</td>
+<td colspan=3><a class="link" href="faq.html#A1">Frequently Asked Questions</a></td>
+</tr>
+<tr>
+<td>8&nbsp;</td>
+<td colspan=3><a class="link" href="copyright.html#A1">Acknowledgments and Copyrights</a></td>
+</tr>
+<tr>
+<td>9&nbsp;</td>
+<td colspan=3><a class="link" href="contact.html#A1">Contact and Support</a></td>
+</tr>
+</table>
+
+<h2>Options</h2>
+<table cellpadding=0 cellspacing=1 border=0>
+<tr>
+<td>10&nbsp;</td>
+<td colspan=3><a class="link" href="../hxmolecule/mol-intro.html#A1"><font face="helvetica">Molecular Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>10.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/moltutorial.html#A1">First Steps with Molecular Visualization in <font face="helvetica">Amira</font></a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.1&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molgettingstarted.html#A1">Getting Started with Molecular Visualization</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.2&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molselection.html#A1">Selection, Labeling, and Masking</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.3&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molalignment.html#A1">Alignment of Molecules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.4&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molsurfaces.html#A1">Molecular Surfaces</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.5&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molseqalign.html#A1">Sequential and Structural Alignment</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.6&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molediting.html#A1">Editing of molecules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.7&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molinterface.html#A1">Molecular Interfaces</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.1.8&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molmeasurement.html#A1">Measurement</a></td>
+</tr>
+<tr>
+<td></td><td>10.2&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/molglobaltclcommands.html#A1">Global commands</a></td>
+</tr>
+<tr>
+<td></td><td>10.3&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/moldatastruct.html#A1">Molecular Data Structures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.3.1&nbsp;</td>
+<td><a class="link" href="../hxmolecule/moldatastruct.html#A2">Internal Structure of Molecules</a></td>
+</tr>
+<tr>
+<td></td><td>10.4&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/moldisplay.html#A1">Displaying Molecules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.4.1&nbsp;</td>
+<td><a class="link" href="../hxmolecule/moldisplay.html#A3">Coloring Molecules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.4.2&nbsp;</td>
+<td><a class="link" href="../hxmolecule/moldisplay.html#A8">Selecting and Filtering atoms</a></td>
+</tr>
+<tr>
+<td></td><td>10.5&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/molpositioning.html#A1">Aligning Molecules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.5.1&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molpositioning.html#A2">Alignment of Trajectories</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.5.2&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molpositioning.html#A8">Mean Distance Alignment</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.5.3&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molpositioning.html#A9">Sequence alignment</a></td>
+</tr>
+<tr>
+<td></td><td>10.6&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/molconf.html#A1">Visualizing Molecular Trajectories and Metastable Conformations</a></td>
+</tr>
+<tr>
+<td></td><td>10.7&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmolecule/molatomexpressions.html#A1">Atom Expressions</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.1&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A2">Overview</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.2&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A4">Grammar</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.3&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A6">Literals</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.4&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A8">Operators</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.5&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A10">Data specifiers</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.6&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A11">Shortcuts</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>10.7.7&nbsp;</td>
+<td><a class="link" href="../hxmolecule/molatomexpressions.html#A13">Further Examples</a></td>
+</tr>
+<tr>
+<td>11&nbsp;</td>
+<td colspan=3><a class="link" href="../hxtracking/HxVR.html#A1"><font face="helvetica">Virtual Reality Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>11.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-general.html#A1"><font face="helvetica">Virtual Reality Option</font> Essentials</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.1.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-general.html#A2"><font face="helvetica">Virtual Reality Option</font> configurations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.1.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-general.html#A3">Immersive interaction and the trackd daemon</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.1.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-general.html#A4">Multiple displays and parallel rendering </a></td>
+</tr>
+<tr>
+<td></td><td>11.2&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-multipipe.html#A1">Using <font face="helvetica">Virtual Reality Option</font> on a multi-pipe system</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.2.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-multipipe.html#A2">Configuration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.2.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-multipipe.html#A3">Starting <font face="helvetica">Amira</font></a></td>
+</tr>
+<tr>
+<td></td><td>11.3&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-cluster.html#A1">Using <font face="helvetica">Virtual Reality Option</font> on a cluster</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A2">Overview</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A3">Requirements</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A4">Preparing cluster slave nodes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.4&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A9">Running <font face="helvetica">Virtual Reality Option</font> on cluster</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.5&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A10">Limitations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.3.6&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-cluster.html#A11">Troubleshooting cluster configurations</a></td>
+</tr>
+<tr>
+<td></td><td>11.4&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-flat.html#A1">Flat Screen Configurations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.4.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-passive.html#A1">Example: A 2-channel Passive Stereo Configuration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.4.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-superwide.html#A1">Example: A Super-wide Configuration with Soft-edge Blending</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.4.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-2x2.html#A1">Example: A Tiled 4-channel 2x2 Monitor Configuration</a></td>
+</tr>
+<tr>
+<td></td><td>11.5&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-immersive.html#A1">Immersive Configurations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.5.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-3dscreen.html#A1">Example: A Workbench Configuration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.5.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-holobench.html#A1">Example: A Holobench Configuration</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.5.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-4cave.html#A1">Example: A 4-side CAVE Configuration</a></td>
+</tr>
+<tr>
+<td></td><td>11.6&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-calibrate.html#A1">Calibrating the Tracking System</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.6.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-calibrate.html#A2">Overview</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.6.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-calibrate.html#A5">Tracking system essentials</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.6.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-calibrate.html#A11">Calibration step by step</a></td>
+</tr>
+<tr>
+<td></td><td>11.7&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-interact.html#A1">3D User Interaction</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-menu.html#A1">The 3D Menu</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.2&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-menucmd.html#A1">User-defined 3D Menu Items</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.3&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-3dcontrols.html#A1">3D Module Controls</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.4&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-navigation.html#A1">Navigation Modes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.5&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-eventprocs.html#A1">Tcl Event Procedures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.7.6&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-mousemode.html#A1">The 2D Mouse mode</a></td>
+</tr>
+<tr>
+<td></td><td>11.8&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-dev.html#A1">Writing <font face="helvetica">Virtual Reality Option</font> Custom Modules</a></td>
+</tr>
+<tr>
+<td></td><td>11.9&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtracking/HxVR-config.html#A1">Config File Reference</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>11.9.1&nbsp;</td>
+<td><a class="link" href="../hxtracking/HxVR-trackemu.html#A1">Tracker Emulator</a></td>
+</tr>
+<tr>
+<td>12&nbsp;</td>
+<td colspan=3><a class="link" href="tutoutofcore.html#A1"><font face="helvetica">Very Large Data Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>12.1&nbsp;</td>
+<td colspan=2><a class="link" href="tutoutofcore.html#A2">Working with out-of-core data files (LDA)</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>12.1.1&nbsp;</td>
+<td><a class="link" href="tutoutofcore.html#A3">Tune the Size Threshold to Allow Conversion</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>12.1.2&nbsp;</td>
+<td><a class="link" href="tutoutofcore.html#A5">Load the Out-of-core Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>12.1.3&nbsp;</td>
+<td><a class="link" href="tutoutofcore.html#A9">Raw Data Parameters</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>12.1.4&nbsp;</td>
+<td><a class="link" href="tutoutofcore.html#A11">Out-of-core Conversion</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>12.1.5&nbsp;</td>
+<td><a class="link" href="tutoutofcore.html#A12">Display an Orthoslice, an Oblique Slice, and a 3D Volume</a></td>
+</tr>
+<tr>
+<td>13&nbsp;</td>
+<td colspan=3><a class="link" href="../hxvisilog/QuantificationPackUG.html#A1"><font face="helvetica">Quantification+ Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>13.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A1">Getting started with <font face="helvetica">Quantification+ Option</font> - Example 1: Measuring volume of pores in a foam sample</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.1&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A2">Loading data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.2&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A6">Processing images with <font face="helvetica">Quantification+ Option</font></a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.3&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A10">Getting more help</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.4&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A11">Binarisation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.5&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A15">Interactive commands</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.6&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A18">Separation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.7&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A20">Analysis</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.8&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A27">Interactive selection</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.9&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A29">Custom measurements</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.10&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A33">Filtering based on measures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.1.11&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-1-basics.html#A36">Scripting</a></td>
+</tr>
+<tr>
+<td></td><td>13.2&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A1">Example 2: Measuring a catalyst </a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.2.1&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A3">Loading data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.2.2&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A6">Object detection</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.2.3&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A11">Distance map</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.2.4&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A15">Measurement</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.2.5&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-2-catalyst.html#A19">Script</a></td>
+</tr>
+<tr>
+<td></td><td>13.3&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-3-pores.html#A1">Example 3: Separating, Measuring, and Reconstructing Individual Objects - Pores in Foam</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.3.1&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-3-pores.html#A3">Automated segmentation with separation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.3.2&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-3-pores.html#A5">Measurements</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>13.3.3&nbsp;</td>
+<td><a class="link" href="../hxvisilog/QuantificationPackUG-3-pores.html#A7">Geometry Reconstruction</a></td>
+</tr>
+<tr>
+<td></td><td>13.4&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-4-diameters.html#A1">Example 4: Further Image Analysis - Distribution of Pore Diameters in Foam</a></td>
+</tr>
+<tr>
+<td></td><td>13.5&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-5-thickness.html#A1">Tutorial 5: Further Image Analysis - Average Thickness of Material in Foam</a></td>
+</tr>
+<tr>
+<td></td><td>13.6&nbsp;</td>
+<td colspan=2><a class="link" href="../hxvisilog/QuantificationPackUG-0-features.html#A1"><font face="helvetica">Quantification+ Option</font> features summary</a></td>
+</tr>
+<tr>
+<td>14&nbsp;</td>
+<td colspan=3><a class="link" href="ResolveRT.html#A1"><font face="helvetica">Microscopy Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>14.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxdeconv/deconv-intro.html#A1">Deconvolution</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.1&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconv-general.html#A1">General remarks about image deconvolution</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.2&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconv-sampling.html#A1">Data acquisition and sampling rates</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.3&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconvtut1.html#A1">Standard Deconvolution Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.4&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconvtut2.html#A1">Blind Deconvolution Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.5&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconvtut3.html#A1">Bead Extraction Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.1.6&nbsp;</td>
+<td><a class="link" href="../hxdeconv/deconv-performance.html#A1">Performance issues and multi-processing</a></td>
+</tr>
+<tr>
+<td></td><td>14.2&nbsp;</td>
+<td colspan=2><a class="link" href="tutmultichannel.html#A1">Working with Multi-Channel Images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.2.1&nbsp;</td>
+<td><a class="link" href="tutmultichannel.html#A2">Loading Multi-Channel Images into <font face="helvetica">Amira</font></a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.2.2&nbsp;</td>
+<td><a class="link" href="tutmultichannel.html#A4">Using OrthoSlice with a MultiChannelField</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.2.3&nbsp;</td>
+<td><a class="link" href="tutmultichannel.html#A7">Using ProjectionView with a MultiChannelField</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.2.4&nbsp;</td>
+<td><a class="link" href="tutmultichannel.html#A9">Using Voltex with a MultiChannelField</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>14.2.5&nbsp;</td>
+<td><a class="link" href="tutmultichannel.html#A11">Saving a MultiChannelField in a Single AmiraMesh File</a></td>
+</tr>
+<tr>
+<td>15&nbsp;</td>
+<td colspan=3><a class="link" href="NeuroOptionUG.html#A1"><font face="helvetica">Neuro Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>15.1&nbsp;</td>
+<td colspan=2><a class="link" href="../hxatlas/tutConvertTalairach.html#A1">Convert to Talairach Coordinates Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.1.1&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutConvertTalairach.html#A2">Load and visualize data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.1.2&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutConvertTalairach.html#A5">Marking the locations of the anterior and posterior commissure and superior part of the midsagittal plane</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.1.3&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutConvertTalairach.html#A6">Verifying and moving landmarks</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.1.4&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutConvertTalairach.html#A8">Transformation into Talairach Coordinates</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.1.5&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutConvertTalairach.html#A10">Applying transformation and resampling data</a></td>
+</tr>
+<tr>
+<td></td><td>15.2&nbsp;</td>
+<td colspan=2><a class="link" href="../hxatlas/tutBrainMap.html#A1">Brain-to-Brain Mapping Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.1&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A2">Download reference brain data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.2&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A3">Load and visualize data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.3&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A6">Manual registration in the Multiplanar Viewer</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.4&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A9">Creating a brain mask</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.5&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A12">Extracting brain-only images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.6&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A14">Automatic affine registration of the brain-only images</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.7&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A16">Reformatting the patient data set to the dimensions of the 
+ reference brain</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.2.8&nbsp;</td>
+<td><a class="link" href="../hxatlas/tutBrainMap.html#A17">Reformatting patient labels to the dimensions of the reference 
+ brain</a></td>
+</tr>
+<tr>
+<td></td><td>15.3&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtensor/tutDTI-DataPreprocess.html#A1">Data Preprocessing Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.3.1&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-DataPreprocess.html#A2">Automated registration and averaging</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.3.2&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-DataPreprocess.html#A3">Common file formats</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.3.3&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-DataPreprocess.html#A4">How to convert mosaic images into volume stacks</a></td>
+</tr>
+<tr>
+<td></td><td>15.4&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtensor/tutDTI-Tensor.html#A1">Diffusion Tensor Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.4.1&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-Tensor.html#A2">Loading image data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.4.2&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-Tensor.html#A3">Tensor computation</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.4.3&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-Tensor.html#A5">Tensor visualization</a></td>
+</tr>
+<tr>
+<td></td><td>15.5&nbsp;</td>
+<td colspan=2><a class="link" href="../hxtensor/tutDTI-FiberTrack.html#A1">Fiber Tracking Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.5.1&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-FiberTrack.html#A2">Perform fiber tracking</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.5.2&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-FiberTrack.html#A3">Separate Fibers into Fiber Bundles</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>15.5.3&nbsp;</td>
+<td><a class="link" href="../hxtensor/tutDTI-FiberTrack.html#A5">Create a label field from a line set</a></td>
+</tr>
+<tr>
+<td>16&nbsp;</td>
+<td colspan=3><a class="link" href="tutskeleton.html#A1"><font face="helvetica">Skeleton Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td>16.1&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A2">Importing your Image Data</a></td>
+</tr>
+<tr>
+<td></td><td>16.2&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A3">Arranging the Bricks</a></td>
+</tr>
+<tr>
+<td></td><td>16.3&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A4">Aligning Bricks</a></td>
+</tr>
+<tr>
+<td></td><td>16.4&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A5">Filtering, Correcting Z-Drop, Resampling</a></td>
+</tr>
+<tr>
+<td></td><td>16.5&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A6">Creating the Large Disk Data</a></td>
+</tr>
+<tr>
+<td></td><td>16.6&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A7">Accessing the Large Disk Data</a></td>
+</tr>
+<tr>
+<td></td><td>16.7&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A8">Computing directly on the Large Disk Data</a></td>
+</tr>
+<tr>
+<td></td><td>16.8&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A9">Region of Interest</a></td>
+</tr>
+<tr>
+<td></td><td>16.9&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A10">Check Network</a></td>
+</tr>
+<tr>
+<td></td><td>16.10&nbsp;</td>
+<td colspan=2><a class="link" href="tutskeleton.html#A11">Coloring a Lineset According to its Depth Value</a></td>
+</tr>
+<tr>
+<td></td><td>16.11&nbsp;</td>
+<td colspan=2><a class="link" href="../hxmulticomp/TutMultiComp.html#A1"><font face="helvetica">Multi-Component Analysis Option</font> User's Guide</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>16.11.1&nbsp;</td>
+<td><a class="link" href="../hxmulticomp/TutMultiComp.html#A2"><font face="helvetica">Multi-Component Analysis Option</font> Tutorial</a></td>
+</tr>
+</table>
+
+<h2>Reference Guide</h2>
+<table cellpadding=0 cellspacing=1 border=0>
+<tr>
+<td>17&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexModule.html#A1">Alphabetic Index of Modules</a></td>
+</tr>
+<tr>
+<td>18&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexComponent.html#A1">Alphabetic Index of Ports</a></td>
+</tr>
+<tr>
+<td>19&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexFileFormat.html#A1">Alphabetic Index of File Formats</a></td>
+</tr>
+<tr>
+<td>20&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexData.html#A1">Alphabetic Index of Data Types</a></td>
+</tr>
+<tr>
+<td>21&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexEditor.html#A1">Alphabetic Index of Editors</a></td>
+</tr>
+<tr>
+<td>22&nbsp;</td>
+<td colspan=3><a class="link" href="HxIndexDemo.html#A1">Alphabetic Index of Demos</a></td>
+</tr>
+<tr>
+<td>23&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-intro.html#A1">Introduction to <font face="helvetica">Developer Option</font></a></td>
+</tr>
+<tr>
+<td></td><td>23.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-overview.html#A1">Overview of <font face="helvetica">Developer Option</font></a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.1.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-overview.html#A2">Packages and Shared Objects</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.1.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-overview.html#A3">Package Resource Files</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.1.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-overview.html#A4">The Local <font face="helvetica">Amira</font> Directory</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.1.4&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-overview.html#A5">External Libraries</a></td>
+</tr>
+<tr>
+<td></td><td>23.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-sysrequirements.html#A1">System Requirements</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.2.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-sysrequirements.html#A2">Windows</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.2.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-sysrequirements.html#A3">Linux</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.2.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-sysrequirements.html#A4">Mac</a></td>
+</tr>
+<tr>
+<td></td><td>23.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-filetree.html#A1">Structure of the <font face="helvetica">Amira</font> File Tree</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.3.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-filetree.html#A2">The <font face="helvetica">Amira</font> Root Directory</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.3.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-filetree.html#A3">The Local <font face="helvetica">Amira</font> Directory</a></td>
+</tr>
+<tr>
+<td></td><td>23.4&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-quickstart.html#A1">Quick Start Tutorial</a></td>
+</tr>
+<tr>
+<td></td><td>23.5&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-compiling.html#A1">Compiling and Debugging</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.5.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compiling.html#A2">Windows Visual Studio 2005/2008</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.5.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compiling.html#A4">Linux</a></td>
+</tr>
+<tr>
+<td></td><td>23.6&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-upgrading.html#A1">Maintaining Existing Code</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.6.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-upgrading.html#A2">Upgrading to <font face="helvetica">Developer Option</font> <font face="helvetica">5</font></a></td>
+</tr>
+<tr>
+<td></td><td></td><td>23.6.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-upgrading.html#A3">Renaming an Existing Package</a></td>
+</tr>
+<tr>
+<td>24&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-wizard.html#A1">The Development Wizard</a></td>
+</tr>
+<tr>
+<td></td><td>24.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devinvoke.html#A1">Starting the Development Wizard</a></td>
+</tr>
+<tr>
+<td></td><td>24.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devamiralocal.html#A1">Setting Up the Local <font face="helvetica">Amira</font> Directory</a></td>
+</tr>
+<tr>
+<td></td><td>24.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devaddpackage.html#A1">Adding a New Package</a></td>
+</tr>
+<tr>
+<td></td><td>24.4&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devaddcomponent.html#A1">Adding a New Component</a></td>
+</tr>
+<tr>
+<td></td><td>24.5&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devordinarymod.html#A1">Adding an Ordinary Module</a></td>
+</tr>
+<tr>
+<td></td><td>24.6&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devcomputemod.html#A1">Adding a Compute Module</a></td>
+</tr>
+<tr>
+<td></td><td>24.7&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devreader.html#A1">Adding a Read Routine</a></td>
+</tr>
+<tr>
+<td></td><td>24.8&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devwriter.html#A1">Adding a Write Routine</a></td>
+</tr>
+<tr>
+<td></td><td>24.9&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-devcreatebuildsystem.html#A1">Creating the Build System Files</a></td>
+</tr>
+<tr>
+<td></td><td>24.10&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-packagefile.html#A1">The Package File Syntax</a></td>
+</tr>
+<tr>
+<td>25&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-fileio.html#A1">File I/O</a></td>
+</tr>
+<tr>
+<td></td><td>25.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-onfileformats.html#A1">On file formats</a></td>
+</tr>
+<tr>
+<td></td><td>25.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-reader.html#A1">Read Routines</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.2.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-readppm3d.html#A1">A Reader for Scalar Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.2.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-readtrimesh.html#A1">A Reader for Surfaces and Surface Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.2.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-readdetails.html#A1">More About Read Routines</a></td>
+</tr>
+<tr>
+<td></td><td>25.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-writer.html#A1">Write Routines</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.3.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-writeppm3d.html#A1">A Writer for Scalar Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.3.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-writetrimesh.html#A1">A Writer for Surfaces and Surface Fields</a></td>
+</tr>
+<tr>
+<td></td><td>25.4&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-amiramesh.html#A1">The AmiraMesh API</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.4.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-amoverview.html#A1">Overview</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.4.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-amwrite.html#A1">Writing an AmiraMesh File</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>25.4.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-amread.html#A1">Reading an AmiraMesh File</a></td>
+</tr>
+<tr>
+<td>26&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-modules.html#A1">Writing Modules</a></td>
+</tr>
+<tr>
+<td></td><td>26.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-compmodule.html#A1">A Compute Module</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.1.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compmodule1.html#A1">Version 1: Skeleton of a Compute Module</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.1.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compmodule2.html#A1">Version 2: Creating a Result Object</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.1.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compmodule3.html#A1">Version 3: Reusing the Result Object</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.1.4&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-compmoduleITK.html#A1">Implement an ITK image to image filter</a></td>
+</tr>
+<tr>
+<td></td><td>26.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-dispmodule.html#A1">A Display Module</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.2.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dispmodule1.html#A1">Version 1: Displaying Geometry</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.2.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dispmodule2.html#A1">Version 2: Adding Color and a Parse Method</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.2.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dispmodule3.html#A1">Version 3: Adding an Update Method</a></td>
+</tr>
+<tr>
+<td></td><td>26.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-plotmodule.html#A1">A Module With Plot Output</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.3.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-plotmodule1.html#A1">A Simple Plot Example</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>26.3.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-plotmodule2.html#A1">Additional Features of the Plot API</a></td>
+</tr>
+<tr>
+<td>27&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-dataobjs.html#A1">Data Classes</a></td>
+</tr>
+<tr>
+<td></td><td>27.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-dataintro.html#A1">Introduction</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.1.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-datahierarchy.html#A1">The Hierarchy of Data Classes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.1.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dataremarks.html#A1">Remarks About the Class Hierarchy</a></td>
+</tr>
+<tr>
+<td></td><td>27.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-dataregular.html#A1">Data on Regular Grids</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.2.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-reglattice.html#A1">The Lattice Interface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.2.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-regcoords.html#A1">Regular Coordinate Types</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.2.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-reglabels.html#A1">Label Fields and the Label Lattice Interface</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.2.4&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-regcolor.html#A1">Color Fields</a></td>
+</tr>
+<tr>
+<td></td><td>27.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-datatetra.html#A1">Unstructured Tetrahedral Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.3.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-tetragrid.html#A1">Tetrahedral Grids</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.3.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-tetradata.html#A1">Data Defined on Tetrahedral Grids</a></td>
+</tr>
+<tr>
+<td></td><td>27.4&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-datahexa.html#A1">Unstructured Hexahedral Data</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.4.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-hexagrid.html#A1">Hexahedral Grids</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.4.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-hexadata.html#A1">Data Defined on Hexahedral Grids</a></td>
+</tr>
+<tr>
+<td></td><td>27.5&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-datamisc.html#A1">Other Issues Related to Data Classes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.5.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dataeval.html#A1">Procedural Interface for 3D Fields</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.5.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dataxform.html#A1">Transformations of Spatial Data Objects</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>27.5.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-dataparam.html#A1">Parameters and Materials</a></td>
+</tr>
+<tr>
+<td>28&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-createdoc.html#A1">Documentation of Modules in <font face="helvetica">Developer Option</font></a></td>
+</tr>
+<tr>
+<td></td><td>28.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-createdoc.html#A2">The Documentation File</a></td>
+</tr>
+<tr>
+<td></td><td>28.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-createdoc.html#A3">Generating the Documentation</a></td>
+</tr>
+<tr>
+<td>29&nbsp;</td>
+<td colspan=3><a class="link" href="../doc2html/d2h-main.html#A1">Documentation Markup Language Reference Guide</a></td>
+</tr>
+<tr>
+<td></td><td>29.1&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-docstructure.html#A1">Document Structure</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.1.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-docstructure.html#A3">Document Header: hxmodule, etc.</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.1.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-docstructure.html#A5">Table of Contents</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.1.3&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-docstructure.html#A6">Sections</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.1.4&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-docstructure.html#A13">Links &amp; Labels</a></td>
+</tr>
+<tr>
+<td></td><td>29.2&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-textstyles.html#A1">Text Styles</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A2">Text Formatting</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A6">Special Text-producing Commands</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.3&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A12">Lists &amp; Enumerations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.4&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A15">FAQ Environment</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.5&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A16">Quotes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.2.6&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-textstyles.html#A17">Verbatim</a></td>
+</tr>
+<tr>
+<td></td><td>29.3&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-imgfigures.html#A1">Displaying Images and Tables</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.3.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-imgfigures.html#A3">Figures</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.3.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-imgfigures.html#A5">&#92;hximage and &#92;hximagescaled</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.3.3&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-imgfigures.html#A8">Tables</a></td>
+</tr>
+<tr>
+<td></td><td>29.4&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-math.html#A2">Math</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.4.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-math.html#A3">Inline</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.4.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-math.html#A4">Equations</a></td>
+</tr>
+<tr>
+<td></td><td>29.5&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-meta.html#A1">Meta-Level Commands</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.5.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-meta.html#A3">Conditions Using &#92;ifdefined</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.5.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-meta.html#A4">Differentiate between PDF and HTML Output</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.5.3&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-meta.html#A5">Include Different Input Files</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.5.4&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-meta.html#A6">Exclude Files</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.5.5&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-meta.html#A7">Comments</a></td>
+</tr>
+<tr>
+<td></td><td>29.6&nbsp;</td>
+<td colspan=2><a class="link" href="../doc2html/d2h-css.html#A1">CSS Attributes</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.6.1&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-css.html#A2">Headlines</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.6.2&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-css.html#A3">Front Page (index.doc)</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.6.3&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-css.html#A4">hx Environments</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>29.6.4&nbsp;</td>
+<td><a class="link" href="../doc2html/d2h-css.html#A10">Tables</a></td>
+</tr>
+<tr>
+<td>30&nbsp;</td>
+<td colspan=3><a class="link" href="../programmersguide/HxDev-other.html#A1">Miscellaneous</a></td>
+</tr>
+<tr>
+<td></td><td>30.1&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-time.html#A1">Time-Dependent Data And Animations</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.1.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-time.html#A2">Time Series Control Modules</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.1.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-time.html#A3">The Class HxPortTime</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.1.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-time.html#A4">Animation Via Time-Out Methods</a></td>
+</tr>
+<tr>
+<td></td><td>30.2&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-globals.html#A1">Important Global Objects</a></td>
+</tr>
+<tr>
+<td></td><td>30.3&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-savenet.html#A1">Save-Network Issues</a></td>
+</tr>
+<tr>
+<td></td><td>30.4&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-version-info.html#A1">Using version information</a></td>
+</tr>
+<tr>
+<td></td><td>30.5&nbsp;</td>
+<td colspan=2><a class="link" href="../programmersguide/HxDev-trouble.html#A1">Troubleshooting</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.5.1&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-trouble.html#A2">Compile-Time Problems</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.5.2&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-trouble.html#A3">Run-Time Problems</a></td>
+</tr>
+<tr>
+<td></td><td></td><td>30.5.3&nbsp;</td>
+<td><a class="link" href="../programmersguide/HxDev-trouble.html#A4">Debugging Problems</a></td>
+</tr>
+</table>
+
+
+</p></body>
+</html>

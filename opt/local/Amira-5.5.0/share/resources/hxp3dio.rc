@@ -1,0 +1,20 @@
+if { ![app hasLicense "WindEdition"] } {
+
+dataFile -name "Plot3D Single Structured" \
+     -option plot3d -ext p3d \
+     -load "hxreadPlot3dSingleStructured" \
+     -dso "libhxp3dio.so"
+
+dataFile -name "Plot3D Multigrid"  \
+         -option plot3dm\
+         -load "HxPlot3DReader::readMultigrid" \
+         -package "hxp3dio"
+
+dataFile -name "Plot3D Grid/Data" -ext p3d \
+     -option plot3d \
+     -save hxWritePlot3D \
+     -type HxLattice3 \
+     -check { [$PRIMARY coordType]==7 } \
+     -dso "libhxp3dio.so"
+
+}

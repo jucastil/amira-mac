@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.5 View Menu</a></h3>
+<p>The <em>View</em> menu provides control over several <em>Viewer</em> options
+affecting the display independent of the <em>Viewer</em> input.</p>
+<p></p>
+<h4><a name="A2">3.1.5.1 Layout</a></h4>
+<p>The <em>Layout</em> button lets you select between one, two, or four 3D
+viewers. All viewers will be placed inside a common window using a default
+layout. If you want to create an additional viewer in a separate window,
+choose <em>Extra Viewer</em>. You may create even more viewers using the
+Tcl command <tt>viewer &lt;n&gt; show</tt>. Using <em>n=4..13</em>, these viewers will be
+placed in separate windows.</p>
+<p></p>
+<h4><a name="A3">3.1.5.2 Background</a></h4>
+<p>The <em>Background</em> button opens the background dialog, allowing you
+to switch between the different background styles <em>uniform</em>,
+<em>gradient</em>, and <em>checkerboard</em>. In addition, the dialog allows
+you to adjust the two colors used by these styles.</p>
+<p>In order to change the background color via the command interface, use the
+viewer commands <tt>viewer &lt;n&gt; setBackgroundColor</tt> and <tt>viewer &lt;n&gt;
+setBackgroundColor2</tt>. The command interface also allows you to place an
+arbitrary raster image into the viewer background (see
+<a class="link" href="cmdViewer.html#A1">Section 5.3.3.1</a>, viewer commands).</p>
+<p></p>
+<h4><a name="A4">3.1.5.3 Transparency</a></h4>
+<p>The <em>Transparency</em> button controls the way of calculating pixel values
+with respect to object transparencies during the rendering process.</p>
+<p></p>
+<ul><li><em>Screen Door:</em>
+ Transparent surfaces are approximated using a stipple pattern.</li><li><em>Add:</em>
+ Additive alpha blending.</li><li><em>Add Delayed:</em>
+ Additive alpha blending with two rendering passes. Opaque objects
+ come first and transparent objects come second.</li><li><em>Add Sorted:</em>
+ Like <em>Add Delayed</em>, but transparent objects are sorted by
+ distances of bounding box centers from the camera and are rendered
+ in back-to-front order.</li><li><em>Blend:</em>
+ Multiplicative alpha blending.</li><li><em>Blend Delayed:</em>
+ Multiplicative alpha blending with two rendering passes. Opaque
+ objects come first and transparent objects come second.</li><li><em>Blend Sorted:</em>
+ Like <em>Blend Delayed</em>, but transparent objects are sorted by
+ distances of bounding box centers from the camera and are rendered
+ in back-to-front order.</li><li><em>Sorted Layers:</em>
+ Uses a fragment-level depth sorting technique, which 
+ gives better results for complex transparent objects. 
+ Multi-Texture, Texture Environment Combine, Depth texture, 
+ and Shadow OpenGL extensions must be supported by your 
+ graphics board. If the graphics board does not support these 
+ extensions, behaves as if <em>Blend Sorted</em> was set.</li><li><em>Sorted Layers Delayed:</em>
+ Like <em>Sorted Layers</em>, but rendering all transparent objects after
+ opaque ones.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A5">3.1.5.4 Lights</a></h4>
+<p>The <em>Lights</em> menu lets you activate different light settings for the
+3D viewer. By default, the viewer uses a single headlight, i.e., a
+directional light pointing in almost the same direction as the camera is
+looking. The headlight can be switched on or off in each viewer via the
+viewer's popup menu. Alternatively, the headlight can be switched on or
+off for all viewers using the headlight toggle in this <em>Lights</em> menu.
+This standard light settings can be restored using the <em>Standard</em>
+button. More light settings can be defined by creating an appropriate file
+in <tt>$AMIRA_ROOT/share/lights</tt>. By default, <font face="helvetica">Amira</font> provides one
+additional light setting including colored lights (<em>BlueRed</em>).
+</p>
+<p>At any time, additional lights can be created via the <em>Create light</em>
+option. Except for the viewer's default headlight, all lights are
+represented by little blue icons in the Pool, just like ordinary
+data objects or modules. In order to make all hidden light icons visible,
+use the <em>Show all icons</em> option. <em>Hide all icons</em> hides the icons
+of all light objects. For more information about <a class="link" href="../hxcore/HxLight.html#A1">lights</a>,
+please refer to the Reference Section of this manual.</p>
+<p></p>
+<h4><a name="A6">3.1.5.5 Fog</a></h4>
+<p>The <em>Fog</em> button introduces a fog effect into the displayed scene and
+controls how opacity increases with distance from the camera. The fog
+effect will only be seen on a <em>uniform</em> background. More fine tuning is
+provided by the <tt>fogRange</tt> <a class="link" href="cmdViewer.html#A1">Viewer command</a>.</p>
+<p></p>
+<ul><li><em>None:</em>
+ No fog effect (default).</li><li><em>Haze:</em>
+ Linear increase in opacity with distance.</li><li><em>Fog:</em>
+ Exponential increase in opacity with distance.</li><li><em>Smoke:</em>
+ Exponential squared increase in opacity with distance.</li>
+</ul><p></p>
+<p></p>
+<p></p>
+<h4><a name="A7">3.1.5.6 Axis</a></h4>
+<p>The <em>Axis</em> button creates an <a class="link" href="../hxcore/HxAxis.html#A1">Axis</a> module named
+<em>GlobalAxis</em> which immediately displays a coordinate frame in the
+viewer window. This button is a toggle, so clicking on it again
+deletes the <em>GlobalAxis</em> module and removes the coordinate frame
+from the viewer window. The axes will be centered at the origin of the
+world coordinate system. You may also create local axes by selecting
+the appropriate entry from a data object's popup menu.</p>
+<p></p>
+<h4><a name="A8">3.1.5.7 Measuring</a></h4>
+<p>The <em>Measuring</em> button creates an instance of a
+<a class="link" href="../hxmeasure/HxMeasureTools.html#A1">Measuring</a> module that lets you measure distances
+and angles on objects within the viewer.</p>
+<p></p>
+<h4><a name="A9">3.1.5.8 Frame Counter</a></h4>
+<p>The <em>Frame Counter</em> toggle lets you switch on a frames-per-second
+counter that will be displayed in the first viewer (viewer 0).
+</p>
+<p></p>
+<h4><a name="A10">3.1.5.9 Console</a></h4>
+<p>The <em>Console</em> toggle lets you switch on or off display of the
+<a class="link" href="console.html#A1">Console window</a>.
+</p>
+<p>
+</p></body>
+</html>

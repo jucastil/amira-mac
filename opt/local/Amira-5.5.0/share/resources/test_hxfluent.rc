@@ -1,0 +1,4 @@
+testClass -class "FluentReaderTest" \
+     -category "Test" \
+     -package "hxfluent"
+

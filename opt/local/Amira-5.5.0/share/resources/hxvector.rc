@@ -1,0 +1,59 @@
+# ----------------------------------------------------------------------
+#  Vector package
+# ----------------------------------------------------------------------
+
+dataClass -name "MagDipol" \
+    -class "HxMagDipol" \
+    -category "Data" \
+    -dso "libhxvector.so"
+
+dataClass -name "LinearVectorField" \
+    -class "HxLinearVectorField3" \
+    -category "Data" \
+    -dso "libhxvector.so"
+
+module -name "StreamSurface" \
+    -primary "HxVectorField3" \
+    -class "HxStreamSurf" \
+    -category "Display"	\
+    -dso "libhxvector.so"
+
+module -name "StreamRibbons" \
+    -primary "HxVectorField3" \
+    -class "HxStreamRibbons" \
+    -category "Display"	\
+    -dso "libhxvector.so"
+
+module -name "VectorProbe" \
+    -primary "HxVectorField3" \
+    -class "HxIcon" \
+    -category "Display" \
+    -dso "libhxvector.so"
+
+module -name "Vectors" \
+    -primary "HxPlanarMod" \
+    -secondary "HxVectorField3 HxComplexVectorField3" \
+    -class "HxVectors" \
+    -check { [$PRIMARY data sourceHasInterface HxVectorField3] || [$PRIMARY data sourceHasInterface HxComplexVectorField3] } \
+    -category "Main" \
+    -dso "libhxvector.so"
+
+module -name "Vectors" \
+    -check { [$PRIMARY nDataVar]==3 || [$PRIMARY nDataVar]==6 } \
+    -primary "HxVectorField3 HxComplexVectorField3 HxField" \
+    -class "HxVectors" \
+    -category "Display" \
+    -dso "libhxvector.so"
+    
+module -name "ConePlot" \
+    -primary "HxVectorField3 HxComplexVectorField3" \
+    -class "HxConePlot" \
+    -category "None" \
+    -dso "libhxvector.so"
+
+module -name "ParticlePlot" \
+    -primary "HxVectorField3" \
+    -class "HxParticlePlot" \
+    -category "Display" \
+    -dso "libhxvector.so"
+

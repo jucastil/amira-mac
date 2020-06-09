@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Transform Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Transform Editor" "translate, rotate, or scale any 3D data object" !>
+<p>&nbsp;<br />
+<img src="HxTransformEditor_Icon.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This editor allows you to add a transformation to a data set or modify
+an existing one. A transformation may be a translation, rotation,
+and scaling, or a combination thereof. The transformation can be edited
+interactively in the 3D viewer using different Open Inventor draggers. </p>
+<p>The <em>Transform Editor</em> also lets you enter transformations numerically.
+This can be done by pressing the <em>Dialog...</em> button which pops up the
+dialog shown in <a class="link" href="#A2">Figure 1</a>.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxTransformEditor_dialog.png.html><img width=375 src="HxTransformEditor_dialog.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Dialog opened by the transform editor.</div>
+
+
+</div>
+<p>The dialog provides text fields to specify the translation, rotation,
+and scaling of the object individually. You can specify absolute
+values, or the object can also be translated, rotated, or scaled incrementally.
+This is done by activating the tab panels <em>Relative Local</em> or <em>Relative Global</em> instead of the default <em>Absolute</em>. The local and
+global tabs differ in the way that the translation, rotation, or scaling is
+applied, namely after an existing transformation (local) or before it
+(global). An alternative way to modify the transformation of a data object
+is to use the Tcl commands provided by <a class="link" href="HxSpatialData.html#A1">SpatialData</a>
+objects.</p>
+<p>Display modules connected to a transformed data set will take the
+transformation into account automatically. Also many, but not all (!),
+compute modules interpret transformations. If you find a module that
+does not operate as expected for a transformed data object, try to apply
+the transformation first using the <em>Apply transform</em> button.</p>
+<p>Most data file formats do not support transformations. Therefore,
+transformations are stored in <font face="helvetica">Amira</font> network scripts only. Keep this in
+mind when working with transformed data objects. It is always possible
+to query and re-apply a transformation using the Tcl commands
+<tt>getTransform</tt> and <tt>setTransform</tt>.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Manipulator</span>  
+<div class="portsnapshot"><img src="HxTransformEditor_manip.png" /><br /></div>
+<div class="body"><p>Lets you choose the Open Inventor dragger used to define the transformation
+in 3D. Make sure to switch the viewer to interaction mode when using the
+draggers (press the arrow button in the upper right corner of the viewer,
+or toggle between viewing mode and interaction mode using the ESC key).
+Details of how to interact with the draggers can be found in the 
+Open Inventor documentation. The <em>Dialog...</em> button pops up the transform
+dialog described above.
+</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Reset</span>  
+<div class="portsnapshot"><img src="HxTransformEditor_reset.png" /><br /></div>
+<div class="body"><p>This port allows you to reset the transformation matrix, or its
+translational, rotational, or scaling components.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxTransformEditor_action.png" /><br /></div>
+<div class="body"><p>This port allows you to undo the last change of the transformation matrix,
+or to redo the last undone operation. In addition, transformations can be
+copied into an internal buffer, and afterwards pasted into the editor
+again. This provides a convenient way to copy a transformation from one
+object to another.</p>
+<p>If the editor is invoked for an object derived from
+<a class="link" href="HxVertexSet.html#A1">VertexSet</a>, a button <em>Apply Transform</em> is shown.
+This button allows you to apply the transformation to the vertices of the
+data object and to reset the object's transformation matrix. This
+operation does not change the visual appearance of the object, but it is
+required, for example, to export the transformed object into a file.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

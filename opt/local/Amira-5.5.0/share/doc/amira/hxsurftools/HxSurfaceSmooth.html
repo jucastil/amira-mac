@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SmoothSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SmoothSurface" "incrementally smoothes a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module smoothes a surface by shifting its vertices. Each vertex
+ is shifted towards the average position of its neighbors.
+ Special care is taken in the case of boundary vertices, for which 
+ not all the neighbors are considered, but only those that are 
+ also on the boundary. In this way sharp boundaries are preserved.</p>
+<p> The smoothing operation is controlled by two tunable parameters: the
+ number of iterations to be performed and a <em>lambda</em> coefficient
+ which should be in the range 0...1 and describes the step for each 
+ iteration.</p>
+<p> Press the <em>Apply</em> button to start the smoothing operation. Pressing
+ <em>Apply</em> button once again causes the result to be smoothed further.
+ The input is only accessed if no result is present. This behavior
+ is different from most other modules but it allows better
+ interactive control of the smoothing operation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface to be smoothed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Parameters</span>  
+<div class="portsnapshot"><img src="HxSurfaceSmooth_parameters.png" /><br /></div>
+<div class="body"><p>	Contains two parameters: <em>Iterations</em> specifies the number of 
+	steps for the smoothing, <em>lambda</em> is a shifting coefficient 
+	which should be in the range (0..1) </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Operation</span>  
+<div class="portsnapshot"><img src="HxSurfaceSmooth_operation.png" /><br /></div>
+<div class="body"><p>Pressing the <em>Reset</em> button restores the original surface,
+ i.e., the input is copied to the output.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

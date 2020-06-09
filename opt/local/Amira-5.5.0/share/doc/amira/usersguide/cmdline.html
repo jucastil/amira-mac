@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.2 Command Line Options</a></h2>
+<p>This section describes the command line options understood by <font face="helvetica">Amira</font>. In
+general, on Unix systems <font face="helvetica">Amira</font> is started via the <tt>start</tt> script
+located in the subdirectory <tt>bin</tt>. Usually, this script will be linked
+to <tt>/usr/local/bin/<font face="helvetica">Amira</font></tt> or something similar. Alternatively, the user
+may define an alias <tt><font face="helvetica">Amira</font></tt> pointing to <tt>bin/start</tt>.</p>
+<p>On Windows systems <font face="helvetica">Amira</font> is usually started via the start menu or via a
+desktop icon. Nevertheless, the <font face="helvetica">Amira</font> executable may also be invoked
+directly by calling <tt>bin/arch-Win32VC8-Optimize/<font face="helvetica">Amira</font>main.exe</tt>. In this
+case, the same command line options as on a Unix system are understood.</p>
+<p>The syntax of <font face="helvetica">Amira</font> is as follows:</p>
+<p>  <tt><font face="helvetica">Amira</font> [options] [files ...]</tt></p>
+<p>Data files specified in the command line will be loaded automatically. In
+addition to data files, script files can also be specified. These scripts
+will be executed when the program starts.</p>
+<p>The following options are supported:</p>
+<p></p>
+<ul><li><tt>-help</tt><br />
+
+ Prints a short summary of command line options.</li><li><tt>-version</tt><br />
+
+ Prints the version string of <font face="helvetica">Amira</font>.</li><li><tt>-no_stencils</tt><br />
+
+ Tells <font face="helvetica">Amira</font> not to ask for a stencil buffer in its 3D graphics windows.
+ This option can be set to exploit hardware acceleration on some low-end
+ PC graphics boards.</li><li><tt>-no_overlays</tt><br />
+
+ Tells <font face="helvetica">Amira</font> not to use overlay planes in its 3D graphics windows. Use
+ this option if you experience problems when redirecting <font face="helvetica">Amira</font> on a
+ remote display.</li><li><tt>-no_gui</tt><br />
+
+ Starts up <font face="helvetica">Amira</font> without opening any windows. This option is useful
+ for executing a script in batch mode.</li><li><tt>-logfile filename</tt><br />
+
+ Causes any messages printed in the <a class="link" href="console.html#A1">console window</a>
+ also to be written into the specified log file. Useful especially in
+ conjunction with the <tt>-no_gui</tt> option.</li><li><tt>-depth_size number</tt><br />
+
+ This option is only supported on Linux systems. It specifies the
+ preferred depth of the depth buffer. The default on Linux systems
+ is 16 bits.</li><li><tt>-style=&#123;windows | motif | cde&#125;</tt>
+ This option sets the display style of <font face="helvetica">Amira</font>'s Qt user interface.</li><li><tt>-debug</tt>
+ This options applies to the developer version only. It causes local
+ packages to be executed in debug version. By default, optimized code
+ will be used.</li><li><tt>-cmd command [-host hostname] [-port port]</tt><br />
+
+ Send Tcl command to a running <font face="helvetica">Amira</font> application. Optionally the
+ host name and the
+ port number can be specified. You must type <tt>app -listen</tt> in the
+ console window of <font face="helvetica">Amira</font> before commands can be received.</li><li><tt>-clusterdaemon</tt><br />
+
+ Start as VR daemon, on a cluster slave node (<font face="helvetica">Virtual Reality Option</font>). This may be replaced by a service. See <a class="link" href="../hxtracking/HxVR-cluster.html#A1">Section 11.3</a>.</li><li><tt>-tclcmd command</tt><br />
+
+ Executes the Tcl command in the startig <font face="helvetica">Amira</font> application.</li>
+</ul><p>
+
+</p></body>
+</html>

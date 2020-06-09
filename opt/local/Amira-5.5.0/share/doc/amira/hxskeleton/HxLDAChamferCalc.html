@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ChamferMap</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "ChamferMap" "computes a chamfer map on a LargeDiskData object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>ChamferMap</em> module performs a distance-map
+calculation on a 3D segmented <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a>
+image. It creates a new LargeDiskData object where
+the value of each point of the foreground represents its shortest
+distance to the background or each background point represents
+the shortest distance to the foreground, depending on the option
+selected in the <em>Map location</em> port.<br />
+</p>
+<p>The chamfer map is first computed with integer values, which causes
+the real values of distances to be scaled by a coefficient (see
+ChamferMapScaleFactor). If you want the units of your chamfer map to be
+the same as the units of your voxels, check the <em>Float exact map</em> box.<br />
+</p>
+<p>For isotropic images, you can choose the dimension and the size of the 
+chamfer mask (its coefficients are pre-calculated). 
+For anisotropic images, however, it first computes the chamfer mask
+coefficients that are most appropriate for the voxel size of your image. 
+For this reason, using a mask wider than 3x3x3 for anisotropic images is
+strongly discouraged. <br />
+</p>
+<p>If the original image is not segmented, it will consider positive
+points as foreground and negative points as background.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p><a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a> (should be segmented).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_filename.png" /><br /></div>
+<div class="body"><p>The result chamfer map will be saved as a <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a>, 
+but with additional parameters in the parameter database: 
+</p>
+<ul><li><b>ChamferMapScaleFactor:</b> factor to scale your chamfer map with 
+ the same units as your voxel units. For example, if the voxel
+ size of your image is expressed in micrometers, divide your
+ distance map by the ChamferMapScaleFactor and you will obtain a
+ chamfer map in micrometers.<br />
+</li><li><b>ChamferMapMaxRelError:</b> gives the max relative error 
+ relative to the exact Euclidean distance.<br />
+</li><li><b>ChamferMapIsExact:</b> is set to 1 if ChamferMapScaleFactor = 1; 
+ is set to 0 otherwise.</li>
+</ul>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mask dimension</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_maskdimension.png" /><br /></div>
+<div class="body"><p>Choose 2D if you want the chamfer map to be computed slice by slice
+without considering the previous and following slices.
+This option is not available for anisotropic images.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mask size</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_masksize.png" /><br /></div>
+<div class="body"><p>The mask size for isotropic images. The wider the 
+chamfer mask, the more precise the chamfer map, but the longer
+it takes to compute. This option is not available for
+anisotropic images.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Map location</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_maplocation.png" /><br /></div>
+<div class="body"><p>This option menu lets you select different map locations:
+</p>
+<ul><li><b>foreground:</b> Compute the minimum distance of each
+ point of the foreground relative to the background <br />
+</li><li><b>background:</b> Compute the minimum distance of each point
+ of the background relative to the foreground <br />
+</li><li><b>both foreground and background:</b> Compute the minimum distance of each
+ point of the foreground relative to the background, with
+ positive values; and the minimum distance of each point of the
+ background relative to the foreground, with negative values.</li>
+</ul>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sign of result image</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_resultImageSign.png" /><br /></div>
+<div class="body"><p>Determines the sign of the points of the foreground if you have chosen <em>foreground</em> 
+in the <em>Map location</em> port, or the sign of the points of the background if you 
+have chosen <em>background</em>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Float exact map</span>  
+<div class="portsnapshot"><img src="HxLDAChamferCalc_floatexactmap.png" /><br /></div>
+<div class="body"><p>Computes a distance map in the same units as the voxel size units. </p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

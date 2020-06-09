@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Movie</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Movie" "movie description object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This data module stores a movie description. The general concept of <font face="helvetica">Amira</font> movies is described
+in the manual section of the <a class="link" href="HxMoviePlayer.html#A1">MoviePlayer</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Master</span>  
+
+<div class="body"><p>If this port is connected to a <a class="link" href="HxMoviePlayer.html#A1">MoviePlayer</a> modules result port, this movie can be used as 
+destination movie during a movie conversion process.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Number of streams</span>  
+<div class="portsnapshot"><img src="HxMovieData_numberOfStreams.png" /><br /></div>
+<div class="body"><p>Select the requested number of streams. After this, the appropriate number of the 
+following file name fields will appear.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stream1</span>  
+<div class="portsnapshot"><img src="HxMovieData_stream1.png" /><br /></div>
+<div class="body"><p>Source specification of the image sequence for stream one. This may be an <font face="helvetica">Amira</font> movie 
+data file ( .amovstream ), a single image file or a sequence of images specified by a wildcard 
+expression. For example specify c:/mymovie/left*.jpg to get all JPEG-images from directory 
+c:/mymovie starting with "left" in the filename. Possible wildcards are * and ?. 
+* matches a sequence of arbitrary characters. ? matches a single character.
+If specifying an <font face="helvetica">Amira</font> movie data file (which is an <font face="helvetica">Amira</font>-specific file containing a series of images) 
+wildcards are not permitted. For experts: to specify
+a whole list of wildcard patterns or single image files edit the <font face="helvetica">Amira</font> movie info file 
+( .amov ).</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stream2</span>  
+<div class="portsnapshot"><img src="HxMovieData_stream2.png" /><br /></div>
+<div class="body"><p>Identical to above for stream number 2.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stream3</span>  
+<div class="portsnapshot"><img src="HxMovieData_stream3.png" /><br /></div>
+<div class="body"><p>Identical to above for stream number 3.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stream4</span>  
+<div class="portsnapshot"><img src="HxMovieData_stream4.png" /><br /></div>
+<div class="body"><p>Identical to above for stream number 4.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="HxMovieData_type.png" /><br /></div>
+<div class="body"><p>Select here how the <a class="link" href="HxMoviePlayer.html#A1">MoviePlayer</a> module has to interpret and render the final image sequence.
+</p>
+<ul><li><em>mono </em> - every image forms a single frame.</li><li><em>stereo </em> - two images form a stereo frame.</li><li><em>stereo(interlaced) </em> - every image forms a stereo frame. The left eye channel
+ is stored in the even lines and the right in the odd lines. Internally the module 
+ resorts the lines to get an image of the type <em>stereo(up/down) </em>.</li><li><em>stereo(up/down) </em> - every image forms a stereo frame. The left eye channel
+ is taken from the upper half of the image and the right from the lower one.</li><li><em>stereo(left/right) </em> - every image forms a stereo frame. The left eye channel
+ is taken from the left half of the image and the right from the right one.</li>
+</ul>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Render method</span>  
+<div class="portsnapshot"><img src="HxMovieData_renderMethod.png" /><br /></div>
+<div class="body"><p>This option affects the playback behavior. If set to <em>GLdraw</em>, the images are copied directly to the <em>OpenGL </em>
+frame buffer by using the function <em>glDrawPixels()</em>. If set to <em>texture</em>, the images are first transferred into an
+<em>OpenGL</em> texture object and then rendered as polygons textured with this texture. If an image was compressed using
+the <em>OpenGL</em> texture compression feature by a preceding movie conversion process, this image gets rendered
+as textured polygon independently of how this port is set. Be warned, that <em>OpenGL </em> texture compression is not
+available for all systems. <em>SGI</em> for example seems to implement it less often in it's <em>OpenGL</em>. On <em>PC</em> systems 
+<em>OpenGL</em> texture compression seems to be a standard, due to the limited bandwidth and memory storage. 
+Which render method performs better depends on the individual hardware and software conditions.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Aspect ratio</span>  
+<div class="portsnapshot"><img src="HxMovieData_aspectRatio.png" /><br /></div>
+<div class="body"><p>Force the aspect ratio of the rendered images to a fixed value. If set to <em>0</em> the aspect 
+ratio is taken from the individual image resolutions.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Swap stereo</span>  
+<div class="portsnapshot"><img src="HxMovieData_swapStereo.png" /><br /></div>
+<div class="body"><p>Swap left and right images for stereo movies.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Flip</span>  
+<div class="portsnapshot"><img src="HxMovieData_flip.png" /><br /></div>
+<div class="body"><p>Flip the movie in X- and/or Y-direction.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max fps</span>  
+<div class="portsnapshot"><img src="HxMovieData_maxFps.png" /><br /></div>
+<div class="body"><p>Limit the playback speed to a maximal value of frames per second. Set this value also if the movie 
+playback looks jerky, that gives the content retrieval more time between the single frames. 
+A value of <em>0</em> disables this feature.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max threads</span>  
+<div class="portsnapshot"><img src="HxMovieData_maxThreads.png" /><br /></div>
+<div class="body"><p>On multiprocessor systems, the image retrieval and decompression is performed by default with as many 
+threads as processors are available. That gives much speed but can hamper other users or tasks on this machine.
+Set this option to a value greater than <em>0</em> (which is to disable limitations) to change the number of retrieval threads.
+Set this to 1 if the movie includes images read by non thread-safe readers.</p>
+</div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

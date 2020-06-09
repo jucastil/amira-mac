@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.2 Data acquisition and sampling rates</a></h3>
+<p>In order to obtain best quality when deconvolving microscopic images some
+fundamental guidelines should be obeyed during image aquisition. Good
+results may be obtained even if some of these guidelines are not followed
+exactly, but in general the chances to get satisfactory results improve if
+they are. Below we discuss the most important recommendations.</p>
+<p></p>
+<h3><a name="A2">Adjusting the Scanned Image Volume</a></h3>
+<p>The region of interest should be centered in the middle of the image
+volume, as the optics of the microscope has usually the least aberrations
+in this region and it helps to avoid possible boundary artifacts, which can
+arise during the deconvolution procedure. 
+Especially for widefield data it is important to
+record a sufficiently large (preferably empty) region below and above the
+actual sample. Ideally, this region should be as large as the sample
+itself. For example, if the sample covers 100 micrometers in the z-direction,
+the scanned image volume should range from 50 micrometers below the sample
+to 50 micrometers above it.
+</p>
+<h3><a name="A3">Choosing the Right Sampling Rate</a></h3>
+<p>The sampling rate is determined by the pixel sizes in the x and y directions as well as
+the distance between two subsequent optical sections, both measured in
+micrometers. Generally speaking, image deconvolution works best if the
+data is apparently oversampled, i.e., if the pixel or optical section
+spacing is smaller than required. 
+The maximal required sampling distance (Nyquist sampling) to avoid ambiguities
+in the data can be obtained from considerations in Fourier-space yielding
+</p>\[
+    d_{xy} = \frac{\lambda}{4\,N\!A},
+\]<p>
+where $$\lambda$$ denotes the wavelength and $$N\!A$$ is the numerical aperture
+of the microscope. Similar considerations yield for the maximal 
+distance between adjacent image planes:
+</p>\[
+    d_z = \frac{\lambda}{2\, n \, (1-\cos (\alpha))},
+\]<p>
+where $$n$$ denotes the refractive index of the object medium and $$alpha$$ the aperture half angle
+as determined by $$N\!A = n\,\sin (\alpha)$$.
+For a confocal microscope, both the in-plane sampling distance and the axial
+sampling distance need to be in theory approximately 2 times smaller.
+However, this requirement is far too strict for most practical cases and even in the widefield case,
+approximately fullfilling the above requirements is often sufficient.
+The total number of optical sections is obtained by dividing the height of
+the image volume by the sampling distance $$d_z$$. It should be mentioned
+that deconvolution also works if the sampling distances are not matched
+rigorously, but matching them improves the chances to get good results. In
+general, oversampling the object is less harmful than undersampling it, with one
+exception: In the case of confocal data, the sampling distance $$d_{xy}$$ should
+not be much smaller than indicated, if the blind deconvolution algorithm or
+the non-blind deconvolution algorithm together with a theoretically
+computed confocal PSF are used. Otherwise the unconstrained Maximum Likelihood
+algorithm and the predominant noise in the data might lead to unsatisfactory
+results.
+</p>
+<h3><a name="A4">Black Level and Saturation</a></h3>
+<p>Before grabbing images from the microscope's camera, the light level should
+be adjusted in such a way that saturated pixels, either black or white
+ones, are avoided. Saturated pixels are pixels which are clamped to either
+black or white because their actual intensity values are outside the range
+of representable intensities. In any case, saturation means a loss of
+information and thus prevents proper post-processing or deconvolution.
+At the same time, a high background level should be avoided 
+because it decreases the
+dynamic range of the imaging system and the deconvolution works worse. 
+This means that empty regions not showing any fluorescence should appear 
+almost black. A background level close to zero
+is especially important when bead measurements are performed in order to extract
+an experimental point spread function. Details are discussed is a separate
+tutorial about <a class="link" href="deconvtut3.html#A1">bead extraction</a>.</p>
+<p>
+
+</p></body>
+</html>

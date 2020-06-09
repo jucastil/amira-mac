@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ApplyTransform</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ApplyTransform" "resamples a transformed image on a new grid or plane" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Every data object in <font face="helvetica">Amira</font> can carry a transformation as described in 
+<a class="link" href="../usersguide/transform.html#A1">Transformations</a>. But only the visualization of a field
+is changed, not the representation in memory. That means if you 
+scale a field with the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a>, 
+dimensions and voxel size will be retained although the size
+seems to be different on 
+the screen. If you rotate a field, the directions of the sampling planes
+will still be parallel to the local axis but no longer parallel to the global
+axis. The module <em>ApplyTransform</em> tries to create a new field in 
+a way that it is displayed like the source field attached to 
+the <em>Data</em> connection but without transformation.</p>
+<p>You can e.g., align one field to another and apply the transformation. 
+Afterward you can directly work with the two fields without having 
+to take into account any transformation.</p>
+<p>There are two different ways to use the module:
+ </p>
+<ul><li>You can sample onto a given reference lattice.</li><li>You can give a plane, e.g., an <a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a>.
+ The result is sampled in planes parallel to the given plane.</li>
+</ul>
+
+<h3><a name="A2">Applying a Transformation</a></h3>
+<p>Proceed as follows: 
+Transform the field with the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a>, the
+<a class="link" href="../hxregistration/HxAffineRegistration.html#A1">Registration</a> module or any other way
+that creates a transformation. If you're satisfied with the
+transformation, attach an ApplyTransform module to the field. Now you have
+to choose some options.</p>
+<p>The <em>Interpolation</em> method:
+ </p>
+<ul><li><em>Nearest Neighbor</em> chooses for every new voxel the value of
+ the voxel in the source field nearest to it.</li><li><em>Standard</em> interpolates linearly between the surrounding
+ voxels.</li><li><em>Lanczos</em> is the slowest but most accurate method that tries
+ to approximate a low-pass filter that is in accordance
+ with the sampling theorem.
+ If you have time and want to get the best result, use this one.</li>
+</ul>
+<p>The <em>Mode</em>: 
+ </p>
+<ul><li><em>cropped</em>: The new field has the same dimensions and size as
+ the source field. It is adjusted to contain as much as possible
+ of the source field.</li><li><em>extended</em>: The new field's size is adjusted to contain all
+ of the original field. To do this, the voxel size or the dimensions
+ have to be changed. If you select this mode, the Preserve port is made
+ visible.</li>
+</ul>
+<p>The <em>Preserve</em> port:
+ </p>
+<ul><li><em>Voxel Size</em>: Adjust the result field's dimensions in a way 
+ that it has the same voxel size as the source field. 
+ <b>Warning</b>: This may lead to huge dimensions.</li><li><em>Dimensions</em>: The result field will have the same dimensions
+ as the source field.</li>
+</ul>
+<p>After choosing the options, press <em>Apply</em> and proceed.</p>
+
+<h3><a name="A3">Sampling Onto a Reference Lattice</a></h3>
+<p>Connect the source field to <em>Data</em>. Connect the reference field 
+to <em>Reference</em>. Choose an <em>Interpolation</em> method. Press <em>Apply</em> 
+and here we go.</p>
+
+<h3><a name="A4">Sampling Parallel to a Given Plane</a></h3>
+<p>Connect the source field to <em>Data</em>. Connect a plane 
+(e.g., <a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a>) to <em>Reference</em>. 
+Choose an <em>Interpolation</em> method. Choose 
+whether the result has the same dimensions (<em>cropped</em>) or the
+result is <em>extended</em> to contain all of the source field.
+Press <em>Apply</em> and the result is created. The result will have a transformation
+attached to it in a way that the sampling planes are displayed parallel to 
+the reference plane. Use the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a> 
+if you want to get rid of the transformation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A5"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The source field. The module operates on any regular 3D field with uniform
+coordinates and an arbitrary number of data components per node.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A regular field with uniform coordinates providing a reference lattice or
+a plane defining a sampling direction.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A7"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxApplyTransform_interpolation.png" /><br /></div>
+<div class="body"><p>The interpolation method that will be used.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxApplyTransform_mode.png" /><br /></div>
+<div class="body"><p>The result can be <em>cropped</em> to have the same properties as the source
+or it will be <em>extended</em> to contain all of the source field.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Preserve</span>  
+<div class="portsnapshot"><img src="HxApplyTransform_preserve.png" /><br /></div>
+<div class="body"><p>If the result is extended, should it keep <em>Voxel Size</em> 
+or the <em>Dimensions</em> of the source.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">PaddingValue</span>  
+<div class="portsnapshot"><img src="HxApplyTransform_paddingValue.png" /><br /></div>
+<div class="body"><p>The value used to fill the new cells when the result is <em>extended</em>.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

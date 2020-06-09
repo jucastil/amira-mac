@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Tools</a></h3>
+<p>This section describes interactive tools for selecting triangles and for
+performing simple edit operations. Only one such tool can be active at a
+time. The active tool determines what effect left mouse button clicks
+have. For each tool there is a separate button contained in the editor's
+tool bar. Independent from the active mouse tool, edges and triangles can
+be picked using the middle mouse button. This causes the ids of the
+picked triangles, edges, and points to be printed on the screen.</p>
+<p></p>
+<ul><li><em>Add tool [A]</em>:<br />
+
+<img src="HxSurfEdit_AddTool.png" /><br />
+Adds highlighted faces to the buffer.
+ <br />
+</li><li><em>Remove tool [R]</em>:<br />
+
+<img src="HxSurfEdit_RemoveTool.png" /><br />
+Removes highlighted faces from the buffer.
+ <br />
+</li><li><em>Clear tool</em>:<br />
+
+<img src="HxSurfEdit_ClearTool.png" /><br />
+Clears highlighted faces or the buffer.
+ <br />
+</li><li><em>Bisect tool [B]</em>:<br />
+
+<img src="HxSurfEdit_SplitTool.png" /><br />
+Subdivides an edge of the surface. A new
+ vertex is inserted at the edge midpoint. Each triangle adjacent to the
+ edge is bisected into two triangles.
+ <br />
+</li><li><p><em>Selection tools</em>:<br />
+
+The following selection tools are available from a pulldown menu
+in the surface editor toolbar.
+Press and hold the button down for at least 1 second to
+display the menu. The most recently selected tool button 
+will be displayed in the surface editor toolbar. </p>
+
+<ul><li><em>Pick tool [P]</em>:<br />
+
+<img src="HxSurfEdit_PickTool.png" /><br />
+A single triangle can be highlighted using a simple
+ mouse click and unhighlighted using a Control-click. If the
+ Shift key is held down, a group of neighboring triangles will be
+ highlighted. If the Shift and Control keys are held down, a group of
+ neighboring triangles will be unhighlighted.
+ <br />
+</li><li><em>Magic wand [M]</em>: <img src="HxSurfEdit_MagicWandTool.png" /><br />
+Allows you to to select a
+ connected group of triangles. Unless the Shift key is held down, the
+ highlight buffer will be cleared before new triangles are highlighted.
+ Control-click causes all selected triangles to be unhighlighted.
+ The behavior of the magic wand tool can be modified using the dialog
+ <em>Magic wand settings...</em> which can be activated from the <em>Surface/Edit</em>
+ menu. This dialog lets you define what triangles are considered to be
+ a connected group. In particular, a crease angle smaller than 180
+ degrees can be chosen. In this case only triangles with roughly the
+ same direction as the clicked triangle will be highlighted. Regardless
+ of these settings, a connected group of highlighted triangles will
+ always be unhighlighted if a highlighted triangle is Control-clicked.
+ <br />
+</li><li><em>Draw tool [D]</em>:<br />
+
+<img src="HxSurfEdit_DrawTool.png" /><br />
+This tool allows you to highlight triangles by
+ drawing a contour in the viewer window. Usually the left mouse button
+ must be held down while the contour is drawn. However, you may hold
+ down the Alt key and release the left mouse button. In this case
+ straight line segments can be defined. Currently the tool selects all
+ triangles inside the contour, i.e., hidden triangles are highlighted
+ too. However, with the magic wand tool backward facing parts of the
+ surface can be easily deselected again using a Control-click.
+ <br />
+</li><li><em>Brush tool [B]</em>:<br />
+
+<img src="HxSurfEdit_BrushTool.png" /><br />
+This tool allows you to highlight triangles using your mouse
+like a paintbrush. Press the left mouse button and select the
+desired triangles. Hold down the Control key to deselect triangles. 
+Right-click to bring up a brush configuration
+dialog which will allow you to specify the brush size and whether
+you want to select visible triangles only. 
+ <br />
+</li><li><em>Pick patches or triangle groups tool</em>:<br />
+
+<img src="HxSurfEdit_PickPatchTool.png" /><br />
+This tool allows you to select patches or triangle groups. Clicking
+on a triangle will select all triangles in the same patch. Control-click
+to deselect the triangles.
+
+ <br />
+</li>
+</ul></li><li><em>Flip tool [F]</em>:<br />
+
+<img src="HxSurfEdit_FlipTool.png" /><br />
+Flips an edge of the surface. Only edges
+ with two adjacent triangles can be flipped, but no boundary edges.
+ Flipping the edge once again restores the original state.
+ <br />
+</li><li><em>Collapse tool [C]</em>:<br />
+
+<img src="HxSurfEdit_CollapseTool.png" /><br />
+Contracts an edge, i.e., moves one vertex
+ of an edge onto the other. For non-boundary edges the operation will
+ reduce the number of triangles by two. The vertex of the edge located
+ more closely to the mouse position will be retained.
+ <br />
+</li><li><em>Translate tool [T]</em>:<br />
+
+<img src="HxSurfEdit_TranslateTool.png" /><br />
+Allows you to pick a vertex of the surface and
+ to translate it. At the picked vertex a point dragger will be
+ shown. The dragger can then be picked and translated. Alternatively
+ another point on the surface can be shift-clicked while the point
+ dragger is shown. This moves the dragger to the new position.</li>
+</ul><p></p>
+<p></p>
+<p>
+</p></body>
+</html>

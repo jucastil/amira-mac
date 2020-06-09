@@ -1,0 +1,29 @@
+################################################################################
+#
+# Resource file of custom package HxElasticSliceReg
+#
+################################################################################
+
+module -name "ElasticSliceReg" \
+    -primary "HxLattice" \
+    -category "None" \
+    -class "HxElasticSliceReg" \
+    -package "hxelasticslicereg"
+
+module -name "ElasticImageStackRegistrationThreaded2" \
+    -primary "HxLattice" \
+    -category "None" \
+    -class "HxElasticImageStackRegistrationThreaded2" \
+    -package "hxelasticslicereg"
+
+module -name "ApplyDisplacement" \
+    -primary "HxLattice" \
+    -category "None" \
+    -class "HxApplyDisplacement" \
+    -package "hxelasticslicereg"
+
+module -name "GridViewEuler" \
+    -primary "HxLattice" \
+    -category "None" \
+    -class "HxGridViewEuler" \
+    -dso "libhxelasticslicereg.so"

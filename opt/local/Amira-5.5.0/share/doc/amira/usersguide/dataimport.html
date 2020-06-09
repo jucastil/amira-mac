@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.1 Data Import</a></h2>
+<p>Usually, one of the first things <font face="helvetica">Amira</font> users want to know is how to import
+their own data into the system. This section contains some advice intended
+to ease this task. </p>
+<p>In the simplest case, your data is already present in a standard file
+format supported by <font face="helvetica">Amira</font>. To import such files, simply use the <em>File
+Load</em> menu. A <a class="link" href="HxIndexFileFormat.html">list of all supported
+formats</a> can be found in the index section of the user's guide. Usually, the
+system recognizes the format of a file automatically by analyzing the file
+header or the filename suffix. If a supported format is detected, the file
+browser indicates the format name.</p>
+<p>Often, <em>3D image volumes</em> are stored slice by slice using standard 2D
+image formats such as TIFF or JPEG. In case of medical images, slices are
+commonly stored in ACR-NEMA or DICOM format. If you select multiple 2D
+slices simultaneously in the file browser, all slices will automatically
+be combined into a single 3D data set. Simultaneous selection is most
+easily achieved by first clicking the first slice and then shift-clicking
+the last one.</p>
+<p>If your data is not already present in a standard file format
+supported by <font face="helvetica">Amira</font> you will have to write your own converter or export
+filter. For many data objects such as 3D images, regular fields, or
+tetrahedral grids <font face="helvetica">Amira</font>'s native <em>AmiraMesh</em> format is most
+appropriate. Using this format you can even represent point sets or
+line segments for which there is hardly any other standard format. The
+<a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A1">AmiraMesh documentation</a> explains the
+file syntax in detail and contains examples of how to encode different
+data objects. One important <font face="helvetica">Amira</font> data type, triangular
+non-manifold surfaces, cannot be represented in a <em>AmiraMesh</em> file
+but has its own file format called
+<a class="link" href="../hxsurface/HxFileFormat_HxSurface.html#A1">HxSurface</a> format.</p>
+<p>Alternatively, with <font face="helvetica">Developer Option</font> a C++ programmer can extend <font face="helvetica">Amira</font> 
+in order to integrate a custom reader or writer.</p>
+<p>Finally, in case of images or regular fields with uniform coordinates
+you may also read <a class="link" href="../hxfield/HxFileFormat_RawData.html#A1">binary raw data</a>. Note
+that for raw data the dimensions and the bounding box of the data
+volume must be entered manually in a dialog box which pops up after
+you have selected the file in the file browser.</p>
+<p>
+</p></body>
+</html>

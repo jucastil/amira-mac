@@ -1,0 +1,23 @@
+testClass -class "McInterfaceTest" \
+     -category "Test" \
+     -package "mclib"
+
+testClass -class "McTypedObjectTest" \
+     -category "Test" \
+     -package "mclib"
+
+testClass -class "McExceptionTest" \
+     -category "Test" \
+     -package "mclib"
+
+testClass -class "McTypeInfoTest" \
+     -category "Test" \
+     -package "mclib"
+
+testClass -class "McODETest" \
+     -category "Test" \
+     -package "mclib"
+
+testClass -class "McMathTest" \
+    -category "Test" \
+    -package "mclib"

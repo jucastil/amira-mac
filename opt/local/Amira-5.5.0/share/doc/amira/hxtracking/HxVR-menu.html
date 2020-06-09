@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.7.1 The 3D Menu</a></h3>
+<p>The <font face="helvetica">Virtual Reality Option</font> 3D menu provides buttons allowing the user to bring up a 3D
+version of the user interface of every object in the Pool. In
+addition it can contain any number of user-defined buttons. These buttons
+can be configured most easily using the 
+<a class="link" href="HxVR-menucmd.html#A1">Tcl interface described in Section 11.7.2</a>.</p>
+<p>By default, the menu also contains a button for activating the
+<a class="link" href="HxVR-mousemode.html#A1">2D mouse mode</a>. This mode lets you control the 2D
+mouse using a 3D input device. In this way also the standard 2D user
+interface of <font face="helvetica">Amira</font> can be used in a VR environment.</p>
+<p>The basic shape of the <font face="helvetica">Virtual Reality Option</font> 3D menu is shown in Figure
+<a class="link" href="#A2">66</a> on the left hand side. The menu can be manipulated
+in the following way:</p>
+<p></p>
+<ul><li>Initially, after activating or reloading an <font face="helvetica">Virtual Reality Option</font> configuration,
+ the 3D menu is hidden. In order to bring up the menu double-click
+ the button of the 3D input device. Alternatively, you may select
+ the 3D menu toggle button of the <font face="helvetica">VRSettings</font> control module.
+ By default the menu will be positioned in the upper left corner of
+ the first screen defined in the <font face="helvetica">Virtual Reality Option</font> config file. You may change
+ the default position by setting the field <em>menuPosition</em> in 
+ the tracker section of the <font face="helvetica">Virtual Reality Option</font> <a class="link" href="HxVR-config.html#A1">config
+ file</a>. There is also a field for setting the default orientation of
+ the menu.</li><li><p>You can move the menu by pointing the wand on the blue header labeled
+ <em>3D menu</em>, clicking the main button of the 3D input device, and
+ then moving the device while keeping the button pressed. When the
+ wand is on the blue header a yellow frame is displayed, indicating
+ that this element has focus.</p>
+<p> If you pop up the menu using the 3D menu toggle, the menu position
+ will be reset to its default. In contrast, if you pop up the menu
+ by double-clicking the 3D mouse button, the menu will be shown at
+ its current position.</p></li><li>In order to hide the menu again, click the red <em>close button</em>
+ at the right side of the blue header element. Double-clicking the
+ 3D input device again pops up the menu at its previous position.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-3dmenu.png.html><img width=450 src="HxVR-3dmenu.png" /></a><br />
+<div class="caption">
+<b>Figure 66:</b>
+<font face="helvetica">Virtual Reality Option</font> scene with 3D menu on the left and 3D user interface
+of the <em>SurfaceView</em> module on the right.</div>
+
+
+</div><p></p>
+<p>The 3D menu will also be available as an ordinary 2D sub-menu under the VR menu 
+of the <font face="helvetica">Amira</font> main window. 
+The 2D menu has the same structure as the 3D menu, and choosing an item from the
+2D menu triggers the same actions as choosing an item from the 3D menu.
+This feature allows you to prepare and test a 3D menu on an ordinary
+desktop computer without an attached tracking system.</p>
+<p>
+</p></body>
+</html>

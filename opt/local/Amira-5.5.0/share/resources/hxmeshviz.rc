@@ -1,0 +1,25 @@
+module -name "GridVolume" \
+    -primary "HxPbMesh3D HxPbScalarField3" \
+    -category "Main Display" \
+    -class "HxPoMeshSkin" \
+    -dso "libhxmeshviz.so"
+
+module -name "FieldCut" \
+    -primary "HxPbScalarField3" \
+    -category "Display" \
+    -class "HxPoMeshCrossSection" \
+    -dso "libhxmeshviz.so"
+
+module -name "GridCut" \
+    -primary "HxPbMesh3D" \
+    -category "Display" \
+    -class "HxPoMeshCrossSection2" \
+    -dso "libhxmeshviz.so"
+
+module -name "Isosurface" \
+    -primary "HxPbScalarField3" \
+    -check { [ $PRIMARY getDataBinding ] == "PER_NODE" } \
+    -category "Display" \
+    -class "HxPoMeshLevelSurf"	\
+    -dso "libhxmeshviz.so"
+

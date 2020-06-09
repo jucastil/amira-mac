@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortFilename</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortFilename" "filename input field and file browser button" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port is used to define a file or directory name. The name may be either
+ manually typed in the text field, or it may be selected using the
+ <font face="helvetica">Amira</font> file browser. The file browser can operate in five modes, one
+ allowing to select any file, one allowing to select one existing
+ file only, one allowing to select multiple existing files, and two modes to
+ specify a load or save directory.
+ However, if the name is typed in manually no check
+ is performed to ensure that the file really exists. Typically the first
+ mode is used for saving while the second and third modes are used for loading.
+ Associated with every filename is a filetype.</p>
+<p> <img src="HxPortFilename.png" />
+ </p>
+<p> This port is used for example by the
+ <a class="link" href="../hxgridgen/HxTetraGen2.html#A5">TetraGen</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getFilename</span>  
+
+<div class="body"><p>Returns the filename or a list of filenames.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getFileType</span>  
+
+<div class="body"><p>Returns the filetype or a list of filetypes.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFilename &lt;filename&gt; &lt;filetype&gt;</span>  
+
+<div class="body"><p>Sets the filename.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFilenames [list &lt;filename1&gt; &lt;filename2&gt; ...] [list &lt;filetype1&gt; &lt;filetype2&gt; ...]</span>  
+
+<div class="body"><p>Sets a list of filenames in <em>multi file</em> mode.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the filename (same as <tt>getFilename</tt>) or a list of filenames.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;filename&gt; &lt;filetype&gt;</span>  
+
+<div class="body"><p>Sets the filename (same as <tt>setFilename</tt> or <tt>setFilenames</tt>
+ in <em>multi file</em> mode).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMode</span>  
+
+<div class="body"><p>Returns 0 if the file browser operates is <em>any file</em> mode, 1 if it
+ operates in <em>existing file</em> mode, or 2 if it operates in 
+ <em>multi file</em> mode. A value of 3 is returned if a directory can be
+ set for loading, a value of 4 if a directory for saving can be
+ selected (see description above).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMode &#123;0|1|2|3|4&#125;</span>  
+
+<div class="body"><p>Sets the mode of the file browser (0 for <em>any file</em>,
+ 1 for <em>existing file</em>, 2 for <em>multiple files</em>,
+ 3 for <em>load directory</em>, 
+ 4 for <em>save directory</em>
+ (see description above).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">registerFileType [&lt;formatname&gt;] [&lt;extension&gt;]</span>  
+
+<div class="body"><p>If the file browser is opened in <em>any file</em> mode, it shows a combo box
+ allowing the user to specify an optional format to be used to save a data set.
+ This command allows you to register format names and optional file extensions
+ which are added to the file type combo box. Calling this command without any
+ arguments removes all previously registered file types.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">exec</span>  
+
+<div class="body"><p>Pops up the file browser. The file browser is opened in modal mode, i.e., the
+ command blocks until the user closed the dialog again. There is no way to
+ close an open file browser using a Tcl command. The method returns 0 if the
+ browser was closed using the cancel button and the port's filename field was
+ not updated. Otherwise it returns 1.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

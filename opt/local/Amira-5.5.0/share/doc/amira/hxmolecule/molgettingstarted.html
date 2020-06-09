@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.1 Getting Started with Molecular Visualization</a></h3>
+<p>In this section you will learn how to</p>
+<p></p>
+<ol><li>load a molecular demo data set into <font face="helvetica">Amira</font>,</li><li>view the molecule with the <em>MoleculeView</em> display module,</li><li>try out various color schemes,</li><li>select atoms in the viewer using the draw tool,</li><li>overwrite color scheme colors for selected atoms.</li>
+</ol><p></p>
+<p></p>
+<h4><a name="A2">10.1.1.1 Loading Data into the System</a></h4>
+<p>In the following introduction we will consider a simple example to
+explain the basic functions of the <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a>
+module. Our example will be a small PDB (Protein Data Bank) structure
+consisting of 932 atoms in 213 residues.</p>
+<p></p>
+<ul><li>Load the file <tt>2RNT.pdb</tt> into the Pool from the
+ directory <tt>data/molecules/pdb</tt>.</li>
+</ul><p> </p>
+<p>A green icon labeled <tt>2RNT.pdb</tt> will appear in the Pool.
+The green icon represents an object of type
+<a class="link" href="HxMolecule.html#A1">Molecule</a>. Click on the green data icon with the
+left mouse button. In the Properties Area below the Pool
+information about the molecule, such as the number of atoms etc., will
+be shown. In addition, other ports named <em>Transformation</em>, <em>Selection Browser</em>, and <em>Transform</em>, can be seen; they will be
+explained in later tutorials.</p>
+<p></p>
+<h4><a name="A3">10.1.1.2 Displaying the Molecule with the MoleculeView Module</a></h4>
+<p>The <em>MoleculeView</em> module is the basic display module for
+visualizing molecules. It allows you to display atoms as plates or
+balls and bonds as lines or cylinders.</p>
+<p></p>
+<ul><li>Click again on the green data icon in the Pool, this time
+ using the right mouse button.</li>
+</ul><p></p>
+<p>A menu, containing several entries and submenus, will appear.</p>
+<p></p>
+<ul><li>Select the entry <em>MoleculeView</em>.</li>
+</ul><p></p>
+<p>A new yellow icon labeled <em>MoleculeView</em> appears in the 
+Pool. Yellow icons, in general, represent display modules, i.e.,
+modules that visualize objects in the viewer. The blue line between
+the icons indicates a connection between the objects. In this case the
+MoleculeView module reads data from the object represented by the green icon
+and visualizes it.</p>
+<p>The molecule is now displayed in the viewer as a wireframe. Using the
+left mouse button you can rotate the object; using the left and middle
+mouse buttons simultaneously you can zoom in and out. For these mouse
+operations to work, the viewer must be in <em>viewing mode</em>, in which
+case the mouse cursor is displayed as a hand.</p>
+<p>Whenever the MoleculeView module is active, the little square on the
+yellow <tt>MoleculeView</tt> icon is orange. You can deactivate the
+module by clicking on the square with the left mouse button.</p>
+<p>We will explore some basic ports of the MoleculeView module.<br />
+
+<em>Mode port:</em> Choose another mode to see both atoms and bonds of
+the molecule, or just atoms. If atoms are shown, use the <em>Atom
+ Radius</em> port to adjust the size of the atoms as desired.<br />
+
+<em>Quality port:</em> If you choose the option <em>correct</em>, you can
+display a correct, i.e. three-dimensional, image of the balls and
+sticks. Consider the trade-off between correct representation and
+slower rendering performance. Use the <em>fast</em> mode if you want to
+display a large molecule. If your graphics hardware is fast enough,
+you can use the <em>correct</em> mode even for
+large molecules.<br />
+
+<em>Complexity port:</em> In order to allow interactive rendering, the
+default complexity of the scene is rather low. In most cases this will
+be sufficient. However, if you want to make screen shots or if you
+have small molecules, you might want to increase the complexity. The
+<em>Complexity</em> port is displayed only if <em>correct</em> quality is
+selected.</p>
+<p></p>
+<h4><a name="A4">10.1.1.3 Changing the Color Scheme</a></h4>
+<p>The MoleculeView module allows the user to color the molecule
+according to levels, for example, atom level, residue level, secondary
+structure level, chain level, or user-defined levels. Each level has a
+number of attributes, the simplest of which is the <em>index</em>
+attribute. The default color scheme is to color the molecule according
+to the atom level's attribute <em>atomic_number</em>, i.e., the atom's
+type.</p>
+<p></p>
+<ul><li>Click the <em>Legend</em> button of the <em>Color</em> port to
+ display a small window decoding the colors you see in the viewer
+ window.</li><li>Choose <em>residues</em> from the first pop-up menu and <em>type</em>
+ from the second menu to color the molecule according to the residue
+ type, here the amino acid type.</li>
+</ul><p></p>
+<p>The default colormap contains a constant color. Thus, currently all
+residues of the molecule have the same color.</p>
+<p></p>
+<ul><li>To change the colormap, right-click on the color bar of the
+ <em>Discrete CM</em> port which has appeared below the <em>Color</em> port
+ and select any other colormap.</li><li>Try out different colormaps to find a map that suits your
+ purposes.</li>
+</ul><p></p>
+<p>Some people prefer the <em>CPK</em> color scheme for atoms and the amino
+acid colors as they are used in the <em>RasMol</em> program.</p>
+<p></p>
+<ul><li>You can set your preferences in the <font face="helvetica">Amira</font> <em>Edit</em> menu by
+ selecting the entry <em>Preferences</em>.</li><li>Press the <em>Molecules</em> tab and set your preferences. Pressing
+ the <em>OK</em> button saves your preferences permanently.</li>
+</ul><p></p>
+<p>Currently only amino acid colors are predefined. Thus, if the molecule
+contains residues other than the standard amino acids, those residues
+will be colored with the default color (black).</p>
+<p></p>
+<h4><a name="A5">10.1.1.4 Using the Draw Tool</a></h4>
+<p>The draw tool appears in <font face="helvetica">Amira</font> in several modules. It enables you to
+select objects or parts of an object by drawing a line in the viewer.</p>
+<p></p>
+<ul><li>Press the <em>Draw</em> button of the <em>Highlighting</em> port and
+ draw a line in the viewer window around the group of atoms you want
+ to select.</li>
+</ul><p></p>
+<p>The atoms that were enclosed by the line will be highlighted. If the
+viewer is the active window, pressing the <tt>d</tt> key is equivalent to
+pressing the <em>Draw</em> button of the <em>Highlighting</em> port.
+</p>
+<ul><li>To unhighlight all atoms, press the <em>Clear</em> button
+ of the <em>Highlighting</em> port.</li><li>Also try using the keys <tt>Ctrl</tt> and <tt>Shift</tt> while drawing
+ a line.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A6">10.1.1.5 Setting Colors for Selected Parts</a></h4>
+<p>The <em>Define Colors</em> port allows you to overwrite colors of the
+color scheme.</p>
+<p></p>
+<ul><li>Select some atoms using the draw tool.</li><li>Press the <em>Set</em> button of the <em>Define Color</em> port.</li><li>Change the current color of the <a class="link" href="../hxcore/QxColorDialog.html#A1">Color
+ Editor</a> and press <em>OK</em>.</li>
+</ul><p></p>
+<p>The previously highlighted atoms should now have the color
+selected in the color editor. This setting will be preserved even if
+the color scheme is changed. Unfortunately, the new setting will
+currently not appear in the color legend.</p>
+<p></p>
+<p>
+</p></body>
+</html>

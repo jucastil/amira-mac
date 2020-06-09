@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LineSet</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "LineSet" "stores polylines with optional data per vertex" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ A <em>LineSet</em> data object is able to store independent line segments
+ of variable length. Optionally, for each vertex one or more scalar
+ data items can be stored. 
+ <em>LineSet</em> objects inherit the vertex set
+ interface, cf. <a class="link" href="../usersguide/vertexset.html#A1">Section 3.2.5</a>.
+ 
+ In order to visualize
+ the line segments of a <em>LineSet</em> object the module
+ <a class="link" href="HxDisplayLineSet.html#A1">LineSetView</a> can be used. <em>LineSets</em> sets
+ can be stored using the <a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A2">AmiraMesh file format</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxVertexSet.html#A1">VertexSet</a>. In particular,
+ the methods <tt>getNumPoints</tt>, <tt>getPoint</tt>, and <tt>setPoint</tt> are
+ inherited.</p>
+
+<div class="hxcommand">
+  <span class="headline">setNumPoints &lt;num&gt;</span>  
+
+<div class="body"><p>Sets the number of points of the line set. The coordinates of new
+ points need to be initialized afterwards using <tt>setPoint</tt>. Care
+ must be taken that only existing points are referenced, i.e., that
+ no point index is bigger than <tt>n-1</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addPoint &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Adds a new point to the line set's vertex array. The new point will
+ not yet be referenced by any line segment. The method returns the
+ index of the new point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumDataValues</span>  
+
+<div class="body"><p>Returns the number of data values per point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumDataValues &lt;num&gt;</span>  
+
+<div class="body"><p>Sets the number of data values per vertex. New data values need
+ to be initialized afterwards using <tt>setData</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumLines</span>  
+
+<div class="body"><p>Returns the number of lines.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLineLength &lt;line&gt;</span>  
+
+<div class="body"><p>Returns the number of points of the specified line.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLineVertex &lt;line&gt; &lt;point&gt;</span>  
+
+<div class="body"><p>Returns the index of point <tt>&lt;point&gt;</tt> of line <tt>&lt;line&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getData &lt;line&gt; &lt;point&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Returns the data value in set <tt>&lt;set&gt;</tt> of point <tt>&lt;point&gt;</tt> of
+ line <tt>&lt;line&gt;</tt>. If <tt>&lt;set&gt;</tt> is omitted the first data value at
+ that point is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setData &lt;line&gt; &lt;point&gt; &lt;value&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Sets the data value in set <tt>&lt;set&gt;</tt> of point <tt>&lt;point&gt;</tt> of
+ line <tt>&lt;line&gt;</tt>. If <tt>&lt;set&gt;</tt> is omitted the first data set is
+ used. Before using this method the number of data sets has to be
+ set using <tt>setNumDataValues</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addLine &lt;p1&gt; [&lt;p2&gt; [&lt;p3&gt; ...]]</span>  
+
+<div class="body"><p>Adds a new line consisting of the points <tt>&lt;p1&gt;</tt>, <tt>&lt;p2&gt;</tt>, <tt>&lt;p3&gt;</tt> ... to the line set. The index of the new line is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deleteLine &lt;line&gt;</span>  
+
+<div class="body"><p>Deletes the specified line without changing the number of points of
+ the line set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deleteAllLines</span>  
+
+<div class="body"><p>Deletes all lines of the line set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeDuplicatePoints [&lt;tolerance&gt;]</span>  
+
+<div class="body"><p>Removes duplicate points in a line set. If tolerance is not
+ specified, only exact matches are considered. Data values are
+ taken from the last occurance of a duplicate vertex.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeLineVertex &lt;line&gt; &lt;point&gt;</span>  
+
+<div class="body"><p>Delete point <tt>&lt;point&gt;</tt> of line <tt>&lt;line&gt;</tt>. The method does not
+ remove the point from the global vertex array even if the point is
+ not referenced by any other line.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addLineVertex &lt;line&gt; &lt;point&gt; [&lt;pos&gt;]</span>  
+
+<div class="body"><p>Adds an additional vertex to line <tt>&lt;line&gt;</tt>. The second argument
+ <tt>&lt;point&gt;</tt> is the index of the referenced point. <tt>&lt;pos&gt;</tt> specifies
+ the position of the new vertex within the line. If this argument is
+ omitted the new vertex will be appended after all other vertices of the line.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">smooth &lt;factor&gt;</span>  
+
+<div class="body"><p>Smoothes the lines by replacing the coordinates of each vertex by the
+ weighted average of its neighboring vertices. The bigger <tt>&lt;scale&gt;</tt>
+ the more are the vertices smoothed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRange</span>  
+
+<div class="body"><p>Returns the min and the max of all data values of the line set.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

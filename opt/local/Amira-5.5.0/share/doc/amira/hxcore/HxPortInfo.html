@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortInfo</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortInfo" "displays a line of text" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port displays a simple single line informational message. It does
+ not allow any user interaction, and thus never causes the owning object
+ and the network to be fired.</p>
+<p> <img src="HxPortInfo.png" /></p>
+<p> This port is used for example by the
+ <a class="link" href="../hxsurface/HxFrameInterpolator.html#A6">Interpolate</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the text displayed by the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;text&gt;</span>  
+
+<div class="body"><p>Sets the text displayed by the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">printf &lt;fmt&gt; &lt;arg1&gt; &lt;arg2&gt; ...</span>  
+
+<div class="body"><p>Sets the text displayed by the port using a C-style printf command. <tt>&lt;fmt&gt;</tt>
+ is a message string which may contain <tt>%s</tt> format specification fields.
+ These fields are substituted by the arguments. Note that only <tt>%s</tt> string
+ type fields must be used, but no numerical format fields like <tt>%d</tt> or
+ <tt>%g</tt>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

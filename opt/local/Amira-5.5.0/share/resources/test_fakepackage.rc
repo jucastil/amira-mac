@@ -1,0 +1,4 @@
+
+testClass -class "HxFakeSimpleClassTest" \
+    -category "IgnoreTest" \
+    -package "fakepackage"

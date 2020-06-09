@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.7 Warping and Registration Using Landmarks</a></h2>
+<p>This is an advanced tutorial. You should be able to load files, interact
+with the <a class="link" href="tutstart.html#A1">3D viewer</a>, and be familiar with the 2-viewer
+layout and the viewer toggles.</p>
+<p>We will transform two 3D objects into each other by first setting
+landmarks on their surfaces and then defining a mapping between the
+landmark sets. As a result we shall see a rigid transformation and a
+warping which deforms one of the objects to match it with the other.
+The steps are: </p>
+<p></p>
+<ol><li>Displaying data sets in two viewers.</li><li>Creating a landmark set.</li><li>Alignment via a rigid transformation.</li><li>Warping two image volumes.</li>
+</ol><p> </p>
+<p></p>
+<h3><a name="A2">2.7.1 Displaying Data Sets in Two Viewers</a></h3>
+<p>The data we will be working with in this tutorial are of the same kind 
+you have already seen before: Two optical lobes of a drosophila's brain.</p>
+<p></p>
+<ul><li>Load the two lobes by executing the script
+ <a href="../../../examples/landmark.hx">share/examples/landmark.hx</a>.</li>
+</ul><p></p>
+<p>This script will load two data sets called <em>lobus.am</em> and <em>lobus2.am</em>. In addition, two isosurface modules connected to each of the
+data sets will be created. In the viewer the two lobes are visualized by
+isosurfaces, the first in yellow and the second in blue. As we can see,
+the lobes are oriented differently. We want to look at each lobe in its
+own viewer.</p>
+<p></p>
+<ul><li>Choose <em>2 Viewers horizontal</em> from the <em>View Layout</em> menu.</li>
+</ul><p></p>
+<p>You can see the two lobes in both viewers.</p>
+<p></p>
+<ul><li>Visualize the first lobe (blue) in the upper viewer and the 
+ second lobe (yellow) in the lower viewer. This is done by deactivating the lower
+ viewer toggle (orange buttons in the icons) of the <em>Isosurface</em> 
+ module and by activating the lower viewer toggle and deactivating the upper viewer toggle 
+ in the <em>Isosurface2</em> module.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutorials_gui13.png.html><img width=450 src="tutorials_gui13.png" /></a><br />
+<div class="caption">
+<b>Figure 24:</b>
+Two lobes visualized with isosurfaces in 2-viewer layout.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A4">2.7.2 Creating a Landmark Set</a></h3>
+<p>Now, let us create a landmark set object. </p>
+<p></p>
+<ul><li>From the main window's <em>Create</em> menu select 
+<em>Data/Landmarks (2 sets)</em></li>
+</ul><p></p>
+<p>in order to create an empty landmark object. A new green icon will show up
+in the Pool. Since we are going to match two objects by means of
+corresponding landmarks we had to select the landmark objects containing
+2 sets of landmarks (<em>Landmarks (2 sets)</em>).</p>
+<p></p>
+<ul><li>Select object <em>Landmarks</em>.</li><li>Launch the <a class="link" href="../hxlandmark/HxLandmarkEditor.html#A1">Landmark Editor</a> by clicking on
+ the Landmark Editor button in the Properties Area.</li>
+</ul><p></p>
+<p>When starting the editor, a <em>LandmarkView</em> module is automatically
+created and connected to the <em>Landmarks</em> data object. As indicated on
+the info line, two empty landmark sets are available now. We use the editor
+to define some markers in both objects. For the following, it is useful to
+push-pin the three ports on the landmark editor. In order to do so, select the
+gray push-pin toggles to the left of the port labels.</p>
+<p></p>
+<ul><li>Right-click on the <em>Landmarks</em> object and add a second <em>LandmarkView</em> module to it.</li><li>Select the first <em>LandmarkView</em> module and choose 
+ <em>Point Set</em>: <em>Point Set 1</em>.</li><li>Shift-select the second <em>LandmarkView</em> module and choose 
+ <em>Point Set</em>: <em>Point Set 2</em>.</li><li>Set the viewer toggles of the two <em>LandmarkView</em> modules in the 
+ same manner as described for the <em>SurfaceView</em> modules previously.
+ <em>LandmarkView</em> should be visible in the upper viewer and <em>LandmarkView2</em>
+ in the lower viewer.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutorials_gui14.png.html><img width=375 src="tutorials_gui14.png" /></a><br />
+<div class="caption">
+<b>Figure 25:</b>
+The image shows how the viewer toggles and <em>Point Set</em> ports
+should be set.</div>
+
+
+</div><p></p>
+<p>Before starting to set landmarks it is helpful to rotate the two lobes
+in their viewers such that they are approximately aligned. This will make it
+easier to locate corresponding features in the two objects and to
+select reasonable positions for landmarks. </p>
+<p></p>
+<ul><li>Rotate the two lobes to align them roughly.</li>
+</ul><p></p>
+<p>Now, we are ready to define and set corresponding landmarks. Select
+the <em>Landmarks</em> object if necessary and choose the option</p>
+<p></p><blockquote>
+<p>
+ <em>Edit mode</em>: <em>Add</em>.
+</p></blockquote>
+<p></p>
+<p>To set corresponding landmarks make sure to activate the <em>Interact</em> mode
+by clicking on the arrow-icon in the toolbar of the main viewer and then simply 
+click first with the left mouse button anywhere on the surface in the first viewer
+and click on the surface in the second viewer subsequently. The landmarks
+are visualized as small spheres, the first landmark in yellow and the corresponding
+landmark in blue. Make sure to always set the first (yellow) landmark on the first 
+(blue) surface and the second (blue) landmark on the second (yellow) surface!</p>
+<p>If you want to change the position of an existing landmark set</p>
+<p></p><blockquote>
+<p>
+ <em>Edit mode</em>: <em>Move</em>
+</p></blockquote>
+<p></p>
+<p>and select the respective landmark (blue or yellow) by clicking on it
+with the left mouse button. Then just click at the desired position.</p>
+<p>You can also delete existing landmarks by setting </p>
+<p></p><blockquote>
+<p>
+ <em>Edit mode</em>: <em>Remove</em>
+</p></blockquote>
+<p></p>
+<p>and clicking on the respective landmark. Both corresponding landmarks (blue
+and yellow) will be removed, no matter which one was selected.</p>
+<p>You should now be able to create several landmarks. You may want to change
+the view of the objects to set landmarks on the back. In case you have
+problems defining landmarks, you may use an existing set of landmarks by
+loading the file <tt>lobus.landmarks.am</tt> from the directory <tt>data/tutorials</tt>.
+Once landmarks have been created, the next step is to transform the two
+objects into each other.</p>
+<p></p>
+<h3><a name="A6">2.7.3 Registration via a Rigid Transformation</a></h3>
+<p>To register one object to the other, connect a <em>LandmarkWarp</em> module to
+the <em>Landmarks</em> object by clicking with the right mouse button on the
+<em>Landmarks</em> icon in the Pool and selecting <em>Compute
+LandmarkWarp</em>.</p>
+<p>We want to perform an alignment of the first lobe to the second.
+Therefore the <em>LandmarkWarp</em> module must be connected to the image
+data of the first lobe (use the right mouse button in the white square 
+of the <em>LandmarkWarp</em> icon).</p>
+<p>The <em>LandmarkWarp</em> module is able to perform several transformations.
+We start with a purely rigid transformation to match the corresponding
+landmarks as well as possible by performing only rotations and translations
+of the first object. To do that choose</p>
+<p></p><blockquote>
+<p>
+ <em>Method</em>: <em>Rigid</em>
+</p></blockquote>
+<p></p>
+<p>in the <em>LandmarkWarp</em> module and make sure that <em>Direction</em> is set to</p>
+<p></p><blockquote>
+<p>
+ <em>Direction</em>: $$1\rightarrow 2$$.
+</p></blockquote>
+<p></p>
+<p>Then press <em>Apply</em> to start the computation. The module creates a
+new data object named <em>lobus.Warped</em>. </p>
+<p>To visualize the result,
+connect the isosurface that was initially connected to the data of the
+first lobe to the result, select it and press the <em>Apply</em> button.</p>
+<p>In order to compare the result with the second lobe, adjust the viewer
+toggle of its <em>Isosurface</em> module to display it in the second
+viewer. You should see that the result of the transformation fits the
+second object quite well.</p>
+<p></p>
+<h3><a name="A7">2.7.4 Warping Two Image Volumes</a></h3>
+<p>Using the rigid transformation the object will not be deformed. To
+perform a deformation and obtain a better fit we can use another
+transformation method of the <em>LandmarkWarp</em> module. Select the
+latter and choose</p>
+<p></p><blockquote>
+<p>
+   <em>Method</em>: <em>Bookstein</em> and press the <em>Apply</em> button.
+</p></blockquote>
+<p></p>
+<p>To visualize the result, the isosurface has to be recomputed. Having
+done that, you can see both the deformed and the second lobe in the
+second viewer. To merely see the resulting deformation, switch off 
+the viewer toggle of the second lobe's <em>Isosurface</em> module. </p>
+<p>You may also attach another isosurface to the
+first lobe to directly compare the original lobe with the deformed
+one. Only a little deformation will be seen because
+the two original objects were rather similar. Using more different
+data sets results in larger deformations.</p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutorials_gui15.png.html><img width=450 src="tutorials_gui15.png" /></a><br />
+<div class="caption">
+<b>Figure 26:</b>
+Result of landmark-based elastic warping using the Bookstein
+method.</div>
+
+
+</div><p> </p>
+<p>
+
+
+
+
+</p></body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VoxelView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "VoxelView" "visualizes connected components in a label field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module can be attached to an <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a>
+ module. It allows you to visualize contiguous 3D regions of a
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> or of some other uniform
+ scalar field with integer values. The regions are selected by clicking
+ onto the <em>OrthoSlice</em> with the middle mouse button. Starting from
+ the selected pixel a 3D flood fill process is performed. Multiple
+ regions can be selected by shift-clicking multiple seeds.</p>
+<p> By default the regions to be visualized are taken from the same
+ input object the <em>OrthoSlice</em> module is attached to. However,
+ optionally an independent scalar field may be connected to the <em>VoxelView</em> module. For example, an <em>OrthoSlice</em> module may be used
+ to visualize a stack of CT images, while a <em>VoxelView</em> attached to
+ it is used to display segmented regions defined in a label field.</p>
+<p> Press the <em>Apply</em> button to hide all selected 3D regions.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Slice</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> module which provides the slice
+ where seed points have to be selected using the middle mouse button.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field. If set contiguous regions of this field will be
+ displayed instead of regions of the field the <em>OrthoSlice</em> module
+ is attached to.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used to color the 3D regions.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxVoxelView_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Dist</span>  
+<div class="portsnapshot"><img src="HxVoxelView_maxDist.png" /><br /></div>
+<div class="body"><p>This port limits the region growing process. At most the given number
+ of slices are considered in upward or downward direction. May be
+ useful on slow machines in order to limit the number of triangles.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxVoxelView_drawStyle.png" /><br /></div>
+<div class="body"><p>Three different draw styles are provided, <em>filled</em>, <em>lines</em>,
+ and <em>points</em>. Due to the regular structure of the voxel data only
+ three different face orientations occur. Thus only three different
+ colors will be used to render the voxel regions.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Floodfill Type</span>  
+<div class="portsnapshot"><img src="HxVoxelView_fill.png" /><br /></div>
+<div class="body"><p>Specifies the kind of flood fill algorithm to be applied (neighbors
+ at faces, faces and edges, or faces, edges, and corners). If <em>take
+ all</em> is selected all voxel with the same value as the seed voxel
+ will be selected and displayed.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Nifti</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Nifti" "Nifti file reader (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Nifti is a file format for the exchange of neuro imaging data.</p>
+<p>With this reader and writer you can import and export files in the Nifti format
+in <font face="helvetica">Amira</font>. Not all possible Nifti formats are supported (see Limitations).</p>
+<p>Nifti data objects can consist of two files, a <tt>.hdr</tt> file
+containing the header information and an <tt>.img</tt> file which contains the raw
+image data. Both files should be in the same directory.</p>
+<p>A dedicated file extension <tt>.nii</tt> for storing the header
+and the data in the same file is available. This is the default
+format for Nifti file export. Optionally, the file can be compressed.
+In order to enable compression for file export, you need to choose
+a file name with the extension <tt>.nii.gz</tt> in the <font face="helvetica">Amira</font> file dialog.</p>
+<p>The reader will scan the data directory for an additional file with
+the extension <tt>.atlas.xml</tt>. This file is assumed to contain additional 
+XML encoded information about the names and colors of materials stored
+in the nifti data file. Such a file will also we written if a LabelField
+is exported as Nifti file.</p>
+<p><b>Limitations:</b>
+</p>
+<ul><li>Only data sets with up to 4 dimensions are supported. nu, nv, nw have to
+be 0 or 1. The time steps are imported as a dynamic time series in <font face="helvetica">Amira</font>.</li><li>Supported data types are: unsigned char, signed short, unsigned short,
+signed int, unsigned int, float, double, RGBA colorfield (read only).</li><li>If the scl_slope variable is defined scl_slope and scl_inter will be used
+to scale the data while reading it. Please note, that this may introduce a loss
+of precision depending on the data type.</li><li>Due to the way coordinates are encoded in a Nifti file, the origin of
+the bounding box of an imported data set will be always set to (0,0,0). Any
+translations will be encoded in the object's transformation matrix.</li><li>Only 3D scalar image with uniform coordinates can be exported in Nifti format.</li><li>Currently only <tt>.nii</tt> and <tt>.nii.gz</tt> files can be exported, but not 
+<tt>.hdr</tt> and <tt>.img</tt> files.</li>
+</ul>
+</div>
+<p>
+
+
+</p></body>
+</html>

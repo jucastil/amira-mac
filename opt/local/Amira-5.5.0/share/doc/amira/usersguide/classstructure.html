@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.1 Class Structure</a></h3>
+<p>In this section we discuss the object-oriented design of <font face="helvetica">Amira</font> in a
+little more detail. You already know that data objects, e.g., gray level
+image data or vector field sets, appear as separate icons in the <em>Pool</em>. You also know that there are certain display modules
+which can be used to visualize the data objects. While some modules
+can be connected to many different data objects, e.g., the <em>Bounding
+Box</em> module, others cannot, e.g., the <em>OrthoSlice</em> module. The latter
+can only be connected to voxel data or to scalar distributions on voxel
+grids. The reason is that internally both are represented as a scalar
+field with uniform Cartesian coordinates. Consequently, the same
+visualization methods can be applied to both. On the other hand, for
+example a volumetric tetrahedral grid model of the object of interest
+usually looks completely different. But since it is also a 3D data object,
+the same <em>Bounding Box</em> module can be connected to it.</p>
+<p>In summary, there are <font face="helvetica">Amira</font> data objects that might be conceived of
+different type, but with respect to mathematical structure, applicability
+of viewing and other processing modules, as well as programming interface
+design have many common properties. Obeying principles of object-oriented
+design, the data types of <font face="helvetica">Amira</font> are organized in class hierarchies where
+common properties are attributed to 'higher up' classes and inherited to
+'derived' classes, as sub-classes of a class are commonly referred to.
+Conceptually each object occurring in <font face="helvetica">Amira</font> is an instance of a class and
+each of its predecessors in the hierarchy that the class belongs to. The
+classes and their hierarchies are defined within <font face="helvetica">Amira</font>. As the user you
+normally deal with instances of classes only. For instance, there is a
+class called "HxObject" with sub-classes "HxData" and "HxModule". "HxData"
+comprises the types of data associated with data objects used for modeling
+the objects of interest, e.g., volumetric tetrahedral grids or surfaces.
+"HxModule" comprises data types that have been assigned to display and
+other processing modules, again in accordance with principles of
+object-oriented design. This is why <font face="helvetica">Amira</font>'s data objects and processing
+modules are commonly referred to as "objects". </p>
+<p>There are also classes in <font face="helvetica">Amira</font> that are not derived from "HxObject" and
+constitute other data types, and there are several independent class
+hierarchies. e.g., there is a class called "HxPort" from which all classes
+supporting the operation and display of interface control elements are
+derived (see section <a class="link" href="mainwin.html#A4">Properties Area</a> and the
+<a class="link" href="HxIndexComponent.html">List of Ports</a> in the index section of the
+user's guide). </p>
+<p>A single class hierarchy is usually figured as an upside-down tree, i.e.
+with the root at the top. Thus the <em>data</em> class tree is the one to
+which the information as to which processing module is applicable to which
+data object is hooked. Its classes reflect the mathematical structure of
+the object models supported by <font face="helvetica">Amira</font>. For example, scalar fields and vector
+fields are such structures and derived from a common "field" class which
+represents a mapping $$R^3 \rightarrow R^n$$. Deriving a sub-class from this
+base class requires a value to be specified for $$n$$.</p>
+<p>At the same time fields defined on Cartesian grids are distinguished from
+fields defined on tetrahedral grids, i.e., this distinction is part of the
+classification scheme that gives rise to branches in the <em>data</em> class
+subtree. In the next section of this chapter you will learn more about the
+<em>data</em> class hierarchy. In the second section we discuss how some data
+types frequently used for various visualization tasks fit into it. </p>
+<p>Internally, all class names begin with a prefix <em>Hx</em>. However, you
+don't have to remember these names unless you want to use the command
+shell to create objects. For example, a bounding box is usually created by
+choosing the <em>BoundingBox</em> item from the pop-up menu of a data object
+that is to be visualized, but you may also create it by typing <tt>create
+HxBoundingBox</tt> in the command window.
+
+</p></body>
+</html>

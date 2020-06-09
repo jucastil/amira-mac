@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridVolume (Hexahedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "GridVolume (Hexahedra)" "visualizes a hexahedral grid or parts of it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>GridVolume</em> module displays an unstructured hexahedral grid, or
+parts of the grid. Optionally an independent scalar field can be
+mapped onto the grid as pseudo-colors. The module behaves almost 
+identical to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> module for
+tetrahedral grids. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Unstructured hexahedral grid to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An arbitrary scalar field used for pseudo-coloring.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used for pseudo-coloring, only used when a color field is
+connected.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The texture field must be an HxUniformColorField3 2D slice. 
+ When connected, the texture is mapped onto the surface geometry along 
+ the texture normal axis. A transformation can be applied to the data to 
+ change the texture projection axis and texture coordinates scale.
+ Note that texture projection override pseudo-color mode.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxHexaView_drawStyle.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxHexaView_colormap.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture wrap</span>  
+<div class="portsnapshot"><img src="HxHexaView_textureWrap.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxHexaView_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxHexaView_buffer.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxHexaView_materials.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color mode</span>  
+<div class="portsnapshot"><img src="HxHexaView_colorMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume documentation</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

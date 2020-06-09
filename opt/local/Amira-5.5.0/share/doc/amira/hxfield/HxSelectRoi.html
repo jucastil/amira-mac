@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SelectRoi</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SelectRoi" "defines a 3D region-of-interest" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module defines a region-of-interest with the shape of an
+axis-aligned 3D box. This box can be used to restrict the output of
+many visualization modules like <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a>,
+<a class="link" href="../hxneuro/HxProjectionView.html#A1">ProjectionView</a>, or all modules derived from
+<a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a>, e.g., <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> or
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>.</p>
+<p>When a <em>SelectRoi</em> is created, a 3D box with green handles is displayed
+in the 3D viewer that can be adjusted interactively. In the
+<em>Pool</em>, the ROI input port of the visualization modules should be 
+connected to the <em>SelectRoi</em> object in order to restrict the visualization.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a 3D data object which defines the maximum size of the
+region-of-interest. Only the bounding box of the data object but not
+the data itself is interpreted by this module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Minimum</span>  
+<div class="portsnapshot"><img src="HxSelectRoi_minimum.png" /><br /></div>
+<div class="body"><p>Minimum x-, y-, and z-coordinates of the region-of-interest.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximum</span>  
+<div class="portsnapshot"><img src="HxSelectRoi_maximum.png" /><br /></div>
+<div class="body"><p>Maximum x-, y-, and z-coordinates of the region-of-interest.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSelectRoi_options.png" /><br /></div>
+<div class="body"><p>If the option <em>show dragger</em> is enabled a tab-box dragger is shown
+which allows you to interactively adjust the region-of-interest in the
+3D viewer.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Draw</span>  
+<div class="portsnapshot"><img src="HxSelectRoi_draw.png" /><br /></div>
+<div class="body"><p>After pressing the <em>restrict</em> button you can draw a contour in the
+viewer window in order to restrict the region-of-interest. However, note
+that although you can draw an arbitrary contour the region-of-interest
+itself still remains a box. The <em>reset</em> button resets the box so that
+is covers the full bounding box of the connected data set.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxSelectRoi_Size.png" /><br /></div>
+<div class="body"><p>Size of data in the region of interest in MBytes</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

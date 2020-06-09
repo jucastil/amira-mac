@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Bio-Rad Confocal Format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "FileFormat" "Bio-Rad Confocal Format" "simple uncompressed format for 3D image stacks (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The Bio-Rad confocal file format is used to store 3D image data from
+confocal microscopy. It essentially consists of a 76 byte header section
+followed by the image data in big endian raw format. <font face="helvetica">Amira</font> recognizes
+Bio-Rad files automatically by the suffix <tt>.pic</tt>. In order to load
+Bio-Rad files from the command line use <tt>load -biorad &lt;filename&gt;</tt>.</p>
+<p>Since the header section of the format doesn't contain full information
+about the voxel size, the bounding box of the 3D image has to be adjusted
+manually for the resulting uniform scalar field using <font face="helvetica">Amira</font>'s
+<a class="link" href="../hxlattice/HxImageCrop.html#A1">crop editor</a>. Note that Bio-Rad confocal files can only
+be read but not be written by <font face="helvetica">Amira</font>.</p>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

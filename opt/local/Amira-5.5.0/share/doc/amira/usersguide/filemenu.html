@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.1 File Menu</a></h3>
+<p>The file menu lets you load and save data objects as well as <font face="helvetica">Amira</font> network
+scripts. In addition, it gives you access to recent files and networks and allows
+you to quit the program. In the following text, all menu entries are
+discussed separately.</p>
+<p></p>
+<h4><a name="A2">3.1.1.1 Open Data</a></h4>
+<p>The <em>Open Data</em> button activates <font face="helvetica">Amira</font>'s <a class="link" href="fileBrowser.html#A1">file dialog</a>
+and lets you import data sets stored in a file. Most file formats supported
+by <font face="helvetica">Amira</font> will be recognized automatically via the file header or the file
+name extension. For each file, the file dialog will display its format. If
+you try to load a file for which the format couldn't be detected
+automatically, an additional dialog pops up asking you to select the format
+manually. You may also manually set the file format for any file by
+selecting the file, activating the file dialog's popup menu using the right
+mouse button, and then choosing the <em>Format...</em> option.</p>
+<p>A list of all <a class="link" href="HxIndexFileFormat.html">supported file formats</a> is
+contained in the reference manual. Hints on how to import your own data
+sets are given in <a class="link" href="dataimport.html#A1">Section 4.1</a>.</p>
+<p>If you select multiple files in the file dialog, all of them will be
+loaded, provided all of them are stored in the same format. 2D images
+stored in separate files usually will be combined into a single 3D data
+object. On the other hand, there are some file formats which cause multiple
+data objects to be created. Finally, you can also import and execute <font face="helvetica">Amira</font>
+network scripts using the <em>Load</em> button.</p>
+<p></p>
+<h4><a name="A3">3.1.1.2 Open Time Series Data</a></h4>
+<p>This button also activates the <a class="link" href="fileBrowser.html#A1">file dialog</a>, but in
+contrast to the ordinary <em>Load</em> option it is assumed that all selected
+files represent different time steps of a single data object. When loading
+such a time series an instance of a <a class="link" href="../hxtime/HxDynamicFileSeriesCtrl.html#A1">TimeSeriesControl</a>
+module is created. This module provides a time slider
+allowing you to adjust the current time step. Whenever a new time step is
+selected the corresponding data file is read, and data objects associated
+with a previous time step are replaced. The module also provides a cache so
+that the data files only need to be read once provided the cache is large
+enough.</p>
+<p></p>
+<h4><a name="A4">3.1.1.3 Save Data</a></h4>
+<p>The <em>Save Data</em> button allows you to save a single modified data object
+again using the same filename previously chosen under <em>Save Data As</em>.
+The button will only be active if the data object to be saved is selected
+and if this data object already has been saved using <em>Save Data As</em>. A
+common application of the <em>Save</em> button is to store intermediate
+results during manual segmentation in <font face="helvetica">Amira</font>'s <a class="link" href="../hxsegeditor/GI.html#A1">image
+segmentation editor</a>.</p>
+<p></p>
+<h4><a name="A5">3.1.1.4 Save Data As</a></h4>
+<p>This button lets you write a data object into a file. To do so you must
+first select the data object (click on the corresponding green data icon).
+Then choose <em>Save Data As</em> to activate <font face="helvetica">Amira</font>'s
+<a class="link" href="fileBrowser.html#A1">file dialog</a>. The file dialog presents a list of all
+formats suitable for saving that data object. Choose the one you like and
+press <em>OK</em>. Note that you must specify the complete file name 
+including the suffix. <font face="helvetica">Amira</font> will not automatically add a suffix to the
+file name. However, it will update the suffix whenever you select a new
+format from the file format list. Also, <font face="helvetica">Amira</font> will ask you before it
+overwrites an existing file. </p>
+<p>Some file formats create multiple files for a single data object. For
+example, each slice of a 3D image data set might be saved as a separate
+raster file. In this case, the file name may contain a sequence of
+hashmarks. This sequence will be replaced by consecutive numbers formatted
+with leading zeros.</p>
+<p>If no file format at all has been registered for a certain type of data
+object, the <em>Save as</em> button will be disabled. It will also be disabled
+if more than one data object is selected in the Pool.</p>
+<p></p>
+<h4><a name="A6">3.1.1.5 New Network</a></h4>
+<p>This button does a <em>Remove all objects</em> so that you can start 
+building a new network in the Pool. It also sets the new
+network name to Untitled.hx.</p>
+<p></p>
+<h4><a name="A7">3.1.1.6 Open Network</a></h4>
+<p>The <em>Open Network</em> button activates <font face="helvetica">Amira</font>'s <a class="link" href="fileBrowser.html#A1">file dialog</a>
+and lets you load a network stored in a file. Network files show up in the
+dialog as being of format "<font face="helvetica">Amira</font> Script". A <em>Remove all objects</em> will be
+done before the new network is loaded so that effectively the new network 
+replaces the old network in the Pool. Currently only files with extension
+.hx can be opened. </p>
+<p>
+
+
+
+
+
+
+
+
+
+
+</p>
+<h4><a name="A8">3.1.1.7 Save Network</a></h4>
+<p>This button allows you to save the complete network of icons and
+connections shown in the Pool. 
+If the network has not been previously saved, you will need to specify the name of
+an <font face="helvetica">Amira</font> network script in the file dialog. When executed, the network
+script restores all data objects and modules as well as the current
+object transformations and the camera settings. The feature is useful for
+resuming work at a point where it was left in a previous <font face="helvetica">Amira</font> run.</p>
+<p>Note that usually all data objects must have been stored in a file in
+order to be able to save the network. If this is not the case, a dialog is
+popped up listing all the data objects that still need to be saved. In the
+dialog you can specify that all required data objects should be saved
+automatically in a separate subdirectory.</p>
+<p>Instead of the option <em><font face="helvetica">Amira</font> script</em> you can also choose <em><font face="helvetica">Amira</font>
+script and data files (pack &amp; go)</em> from the file dialog's format menu. In
+this case <em>all</em> data objects currently loaded will be saved in a
+separate directory. More options affecting the export of network scripts
+can be adjusted in the <a class="link" href="preferences.html#A1">Preferences</a> dialog.</p>
+<p></p>
+<h4><a name="A9">3.1.1.8 Save Network As</a></h4>
+<p>This button works like the <em>Save Network</em> button except that in this
+case you will always need to specify the name of an <font face="helvetica">Amira</font> network script 
+in the file dialog.</p>
+<p></p>
+<p></p>
+<h4><a name="A10">3.1.1.9 Recent Files</a></h4>
+<p>This button can be used to load recently used files. When choosing this menu
+entry a submenu appears listing the five most recent files. If multiple 2D
+images have been loaded this is indicated with the name of the first file
+followed by three periods (...).</p>
+<p></p>
+<h4><a name="A11">3.1.1.10 Recent Networks</a></h4>
+<p>This button can be used to load recently used network scripts. When choosing
+this menu entry a submenu appears listing the five most recent network scripts.</p>
+<p>
+</p>
+<h4><a name="A12">3.1.1.11 Quit</a></h4>
+<p>This button terminates <font face="helvetica">Amira</font>. The current network configuration will be
+lost unless you explicitly save it using <em>Save Network</em>.
+
+</p></body>
+</html>

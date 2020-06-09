@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.2 Scalar Field and Vector Fields</a></h3>
+<p>The most important fields in <font face="helvetica">Amira</font> are three-dimensional ones. These fields
+are defined on a certain domain $$\subseteq {\mathrm R}^3$$. A field can be
+evaluated at any point inside its domain. If the field is defined on a
+discrete grid, this usually involves some kind of interpolation.</p>
+<p></p>
+<h4><a name="A2">3.2.2.1 Scalar Fields</a></h4>
+<p>A 3D scalar field is a mapping $$R^3 \rightarrow R$$. The base class of all
+3D scalar fields in <font face="helvetica">Amira</font> is <em>HxScalarField3</em>. Various sub-classes
+represent different ways of defining a scalar field. There are a number of
+visualization methods for them, for example pseudo-coloring on cutting
+planes, iso-surfacing, or volume rendering. However, many visualization
+modules in <font face="helvetica">Amira</font> rely on a special field representation. Therefore, they
+can only operate on sub-classes of a general scalar field. Whenever a
+given geometry is to be pseudo-colored, any kind of scalar field can be
+used (cf. <a class="link" href="../hxlattice/HxColorwash.html#A1">Colorwash</a>, <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a>,
+<a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a>).</p>
+<p>The class <em>HxTetraScalarField3</em> represents a field which is defined on
+a tetrahedral grid. On each grid vertex a scalar value, e.g., a temperature,
+is defined. Values associated to points inside a tetrahedron are obtained
+from the four vertex values by linear interpolation. This class does not
+provide a copy of the grid itself, instead a reference to the grid is
+provided. This is indicated in the Pool by a line which connects 
+the grid icon and the field icon. As a consequence, a field defined on a
+tetrahedral grid cannot be loaded into the system if the grid itself is not
+already present.</p>
+<p>The class <em>HxRegScalarField3</em> represents a field which is defined on a
+regular Cartesian grid. Such a grid is organized as a three-dimensional
+array of nodes. In the most simple case these nodes are axis-aligned and
+have equal spacings. The coordinates of such a uniform grid can be obtained
+from a simple bounding box containing the origin vector and increments for
+all directions. Stacked coordinates are another example. Here the spacing
+in z-direction between subsequent slices may be different. In any case
+scalar values inside a hexahedral grid cell are obtained from the eight
+vertex values using trilinear interpolation. While the
+<a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module can only be used to visualize scalar
+fields with uniform or stacked coordinates, other modules like 
+<a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a> or <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a>
+work for all scalar fields with regular coordinates. </p>
+<p>Yet another example of a scalar field is the class
+<a class="link" href="../hxfield/HxAnnaScalarField3.html#A1">HxAnnaScalarField3</a>. It represents an
+analytically defined scalar field. To create such a field, select <em>ScalarField</em> from the <em>Create</em> menu of <font face="helvetica">Amira</font>'s main window. You
+have to specify a mathematical expression which is used to evaluate the
+field at each requested position. Up to three other fields can be connected
+to the object. These can be combined to a new scalar field, even if they
+are defined on different grids. </p>
+<p></p>
+<h4><a name="A3">3.2.2.2 Vector Fields</a></h4>
+<p>As for scalar fields <font face="helvetica">Amira</font> provides a number of vector field classes, these
+are derived from the base classes <em>HxVectorField3</em> and <em>HxComplexVectorField3</em>. While ordinary vector fields return a
+three-component vector at each position, complex vector fields return a
+six-component vector. Complex vector fields are used for encoding
+stationary electromagnetic wave pattern as required by some applications.
+Usually complex vector fields are visualized by projecting them into the 
+space of reals using different phase offsets. The <a class="link" href="../hxvector/HxVectors.html#A1">Vectors</a>
+module even allows you to animate the phase offset. In this way a nice
+impression of the oscillating wave pattern is obtained. 
+
+</p></body>
+</html>

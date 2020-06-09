@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.4 Common commands for top-level windows</a></h4>
+<p>These commands are available for all <font face="helvetica">Amira</font> objects which open a separate
+top-level window. In particular, these are the <font face="helvetica">Amira</font> main window (<tt>theMain</tt>), the console window (<tt>theMsg</tt>), and the viewer window (<tt>viewer 0</tt>). For example, you can set or get the position of these windows
+using the corresponding global command followed by <tt>setPosition</tt> or
+<tt>getPosition</tt>.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getFrameGeometry</span>  
+
+<div class="body"><p>Returns the position and size of the window including the window frame.
+ In total four numbers are returned. The first two numbers indicate the
+ position of the upper left corner of the window frame relative to the
+ upper left corner of the desktop. The last two numbers indicate the
+ window size in pixels.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getGeometry</span>  
+
+<div class="body"><p>Returns the position and size of the window without the window frame.
+ In total four numbers are returned. The first two numbers indicate the
+ position of the upper left corner of the window relative to the upper
+ left corner of the desktop. The last two numbers indicate the window
+ size in pixels.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPosition</span>  
+
+<div class="body"><p>Returns the position of the upper left corner of the window including
+ the window frame. This is the same as the first two numbers returned
+ by <tt>getFrameGeometry</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRelativeGeometry</span>  
+
+<div class="body"><p>Returns the position and size of the window including the window frame
+ in relative coordinates. The size of the desktop is (1,1). The position
+ and size of the window is specified by fractional numbers between 0 and
+ 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSize</span>  
+
+<div class="body"><p>Returns the size of the window without the window frame. This is the
+ same as the last two numbers returned by <tt>getGeoemtry</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hide</span>  
+
+<div class="body"><p>Hides the window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCaption &lt;text&gt;</span>  
+
+<div class="body"><p>Sets the window title displayed in the window frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFrameGeometry &lt;x y width height&gt;</span>  
+
+<div class="body"><p>Sets the position and size of the window including the window frame.
+ Four numbers need to be specified, the x- and y-positions, the window
+ width and the window height.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setGeometry &lt;x y width height&gt;</span>  
+
+<div class="body"><p>Sets the position and size of the window without the window frame.
+ Four numbers need to be specified, the x- and y-positions, the window
+ width and the window height.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPosition &lt;x y&gt;</span>  
+
+<div class="body"><p>Sets the position of the upper left corner of the window frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setRelativeGeometry &lt;x y width height&gt;</span>  
+
+<div class="body"><p>Sets the position and size of the window including the window frame
+ in relative coordinates. The size of the desktop is (1,1). The position
+ and size of the window is specified by fractional numbers between 0 and
+ 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSize &lt;width height&gt;</span>  
+
+<div class="body"><p>Sets the size of the window without the window frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">show</span>  
+
+<div class="body"><p>Makes the window visible in normal state. Also raises the window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showMinimized</span>  
+
+<div class="body"><p>Makes the window visible in iconified state.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showMaximized</span>  
+
+<div class="body"><p>Makes the window visible in maximized state.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

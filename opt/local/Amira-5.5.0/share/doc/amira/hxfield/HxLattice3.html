@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Lattice3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Lattice3" "a regular 3D data array which can be indexed by (i,j,k)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This class represents regular 3D data arrays. Every node of a regular
+ data array can be addressed by an index tuple (i,j,k). The data array
+ is characterized by its dimensions (the number of nodes in each
+ direction), the primitive data type (e.g., bytes or shorts), the number
+ of data variables per node, and by its coordinates,
+ compare section <em>Coordinates and Grids</em> in chapter
+ <em>Program Description</em> of the <font face="helvetica">Amira</font> user's guide. 
+ In <font face="helvetica">Amira</font> uniform,
+ stacked, rectilinear, and curvilinear coordinates are supported,
+ compare <a class="link" href="../usersguide/grids.html#A1">Section 3.2.3 (Coordinates and Grids)</a>.
+ 
+ <em>Lattice3</em> is a simple but powerful data type. In particular, all 2D
+ and 3D images in <font face="helvetica">Amira</font> are represented by this type.</p>
+<p> As a technical detail it should be mentioned that in contrast to other
+ data types <em>Lattice3</em> is not a data class by itself, i.e., it is
+ not derived from <a class="link" href="../hxcore/HxData.html#A1">Data</a> or <a class="link" href="../hxcore/HxObject.html#A1">Object</a>.
+ Instead it is a so-called interface class which is used by other
+ classes such as <em>RegScalarField3</em>, <em>RegVectorField3</em>, or <em>RegColorField3</em>. Usually this fact will not be important for end-users,
+ but only for <font face="helvetica">Developer Option</font> users.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Data objects using this class inherit all commands of
+ <a class="link" href="HxField3.html#A1">Field3</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getDims</span>  
+
+<div class="body"><p>Returns three numbers indicating the number of nodes in each direction
+ of the 3D array.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">coordType</span>  
+
+<div class="body"><p>Returns a number indicating the coordinate type of the lattice, 1 =
+ uniform, 2 = stacked, 3 = rectilinear, 7 = curvilinear.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getValue &lt;i&gt; &lt;j&gt; &lt;k&gt;</span>  
+
+<div class="body"><p>Evaluates the field at the index position <tt>&lt;i&gt; &lt;j&gt; &lt;k&gt;</tt>. As many
+ numbers are returned as there are data variables in the lattice.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;i&gt; &lt;j&gt; &lt;k&gt; &lt;value1&gt; [&lt;value2&gt; ...]</span>  
+
+<div class="body"><p>Sets the field values at the index position <tt>&lt;i&gt; &lt;j&gt; &lt;k&gt;</tt>. The
+ number of values specified by this command must match the number of
+ data variables of the field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">swapByteOrder</span>  
+
+<div class="body"><p>Swaps the byte order of the lattice's data values from little endian
+ to big endian or vice versa.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clearSlice &lt;k&gt;</span>  
+
+<div class="body"><p>Sets all values of slice <tt>&lt;k&gt;</tt> to zero.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">exchangeSlices &lt;k1&gt; &lt;k2&gt;</span>  
+
+<div class="body"><p>Swaps the contents of the slices <tt>&lt;k1&gt;</tt> and <tt>&lt;k2&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">crop &lt;imin&gt; &lt;imax&gt; &lt;jmin&gt; &lt;jmax&gt; &lt;kmin&gt; &lt;kmax&gt; [&lt;value&gt;]</span>  
+
+<div class="body"><p>Crops the lattice. The first six arguments specify the index bounds of
+ the subvolume to be cropped. It is possible to enlarge the data set
+ by specifying negative lower bounds or upper bounds exceeding the
+ current size of the lattice. In this case the last slice is replicated
+ unless <tt>&lt;value&gt;</tt> is specified. If this is the case the new slices
+ are initialized with <tt>&lt;value&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">flip &#123;0|1|2&#125;</span>  
+
+<div class="body"><p>Flips the lattice in i-, j-, or k-direction, depending on whether the
+ argument was 0, 1, or 2.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">swapDims &lt;iIdx&gt; &lt;jIdx&gt; &lt;kIdx&gt;</span>  
+
+<div class="body"><p>Performs a kind of rotation about 90 degrees. The arguments tell at
+ which position an index was before, i.e., they must be a permutation
+ of 0, 1, 2. For example, to convert ijk into jki you have to use the
+ arguments <tt>1 2 0</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBoundingBox &lt;xmin&gt; &lt;xmax&gt; &lt;ymin&gt; &lt;ymax&gt; &lt;zmin&gt; &lt;zmax&gt;</span>  
+
+<div class="body"><p>Sets the bounding box of the lattice. The bounding box encloses the
+ centers of all voxels of the lattice (not the complete voxels). In case
+ of stacked, rectilinear, and curvilinear coordinates the coordinates
+ of inner points are scaled appropriately.</p>
+</div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

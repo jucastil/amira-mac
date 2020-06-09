@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.10 File Dialog</a></h3>
+<p>The <em>File Dialog</em> is the user interface component for importing and
+exporting data into and out of <font face="helvetica">Amira</font>. It is used at several places in <font face="helvetica">Amira</font>,
+most prominently by the <em>Load</em>, <em>Save Data As</em>, and <em>Save
+Network</em> items of the main window's <em>File</em> menu.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=filedialog.png.html><img width=450 src="filedialog.png" /></a><br />
+<div class="caption">
+<b>Figure 48:</b>
+<font face="helvetica">Amira</font>'s file dialog.</div>
+
+
+</div><p></p>
+<p>The dialog provides two modes of information, a detail mode and a 
+multi-column mode. In the detail mode, which is active by default,
+some file data are shown next to each filename, namely the file size,
+the file's last modification time, and the file format.
+You may sort the file list according to each of these properties
+by clicking on the particular column's header bar.
+Subdirectories will always be displayed first. In multi-column mode only
+the file name is displayed. You may switch between both modes using the
+tool buttons in the upper right part of the dialog window.</p>
+<p>Most file formats supported by <font face="helvetica">Amira</font> will be recognized automatically,
+either by analyzing the file header or by looking at the file name suffix.
+A list of all <a class="link" href="HxIndexFileFormat.html">supported file formats</a> is
+contained in the reference section of this manual. You may manually
+set the format of a file by means of the dialog's popup menu (see below).</p>
+<p></p>
+<h4><a name="A3">3.1.10.1 Changing Directories</a></h4>
+<p>You can change the current directory by double-clicking a subdirectory in
+the file list or by entering a new directory in the dialog's path list. By 
+default, the path list contains the current directory, the directory
+containing the demo data sets provided with <font face="helvetica">Amira</font>, as well as all directories
+defined by the environment variable <tt>AMIRA_DATADIR</tt>. In 
+<tt>AMIRA_DATADIR</tt> multiple directory names have to be separated by colons
+<tt>[:]</tt> on Unix systems or by semicolons <tt>[;]</tt> on Windows systems.
+In addition, on Windows system the names of the twelve most recently
+visited directories are stored in the path list.</p>
+<p></p>
+<h4><a name="A4">3.1.10.2 Selecting Files</a></h4>
+<p>To select a single file just click on it or type in its name in the file
+name text field. </p>
+<p>In some cases you might want to select more than one file at once, e.g., when
+loading a 3D image data set as a series of single 2D images. You can do
+this by selecting the first file first and then shift-selecting the last
+file. Then all intermediate files will be selected as well. Moreover, you
+may ctrl-click a file in order to toggle its selection state individually.</p>
+<p></p>
+<h4><a name="A5">3.1.10.3 The File Dialog's Popup Menu</a></h4>
+<p>The file dialog provides a popup menu which may be activated by pressing
+the right mouse button over the file list. Among others, this menu lets
+you rename or delete files or directories, provided you have the
+permission to do that. Note that you may only delete empty directories.</p>
+<p>Using the <em>Format</em> option of the popup menu you may manually set the
+format to be used when loading a file into <font face="helvetica">Amira</font>. This option is useful
+if for some reason the wrong format has been detected automatically, or
+if no format at all could be detected. Note however, that any format
+specification set manually will be overwritten when the directory is
+reread the next time.
+
+</p></body>
+</html>

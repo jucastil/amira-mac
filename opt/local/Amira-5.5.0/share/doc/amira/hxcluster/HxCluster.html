@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> Cluster</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Cluster" "represents a set of 3D points with optional data values" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>Data objects of type <em>Cluster</em> are used to represent sets of 3D
+points with additional data variables associated to them. For each point, at
+least the x-, y-, and z-coordinates as well as an additional <em>id</em> are
+stored. The <em>id</em> is an arbitrary number which can be used to identify
+corresponding points in different data sets. Note that the <em>id</em> is to be
+distinguished from the <em>index</em> of each vertex which refers to the internal 
+consecutive numbering of the vertices.</p>
+<p>For each point an arbitrary number of additional data columns may be defined.
+The elements of a data column may be stored as 32-bit floats, as 32-bit
+integers, or as 8-bit characters. Each data column also has a string
+specifying its name. Data columns are consecutively numbered starting with 0.
+Optionally, a symbol may be defined, which is used to
+denote the column in an arithmetic filter expression as provided by the
+modules <a class="link" href="HxClusterView.html#A1">ClusterView</a> and
+<a class="link" href="HxClusterDisplacement.html#A1">ClusterDiff</a>.</p>
+<p>Finally, for each data point one or more text labels can be specified.
+As with data columns, label columns have a name and are consecutively numbered 
+starting with 0. Labels can be displayed using <a class="link" href="HxClusterLabel.html#A1">ClusterStringLabels</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">computeBounds</span>  
+
+<div class="body"><p>Computes the bounding box of the cluster.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeConnectivity</span>  
+
+<div class="body"><p>Computes connectivity information required to display bonds between
+neighboring points. Bond detection does not take into account any
+chemical information. Instead, merely nearest neighbors are
+computed. Each point may have at most 12 such neighbors. In
+addition the length of the longest bond of a point may not be
+larger than 1.4 times the length of the shortest one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addPoint &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Adds a new point to the cluster. The arguments are the three coordinates.
+The new point will be assigned the id 0. The command returns the index
+of the new point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removePoint &lt;index&gt;</span>  
+
+<div class="body"><p>Removes a point from the cluster. The <em>index</em> is passed as argument.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">resetIds</span>  
+
+<div class="body"><p>Resets the ids of all points so that they are equal to the respective
+point indices.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setId &lt;index&gt; &lt;id&gt;</span>  
+
+<div class="body"><p>Sets the id of the point specified by <em>index</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getId &lt;index&gt;</span>  
+
+<div class="body"><p>Returns the id of the point specified by <em>index</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getIndex &lt;id&gt;</span>  
+
+<div class="body"><p>Returns a list of the indices of all points with the specified id.
+This method performs a linear search over all points and thus is slow.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clear</span>  
+
+<div class="body"><p>Deletes all points and sets the number of data columns to zero.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumDataColumns &lt;number_of_columns&gt;</span>  
+
+<div class="body"><p>Set the number of data values that are stored for each point. The number of data columns 
+is passed as argument. If the number is less than the number of existing data columns, trailing
+columns are removed. If the number is greater than the number of existing data columns, empty 
+columns are added.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumDataColumns</span>  
+
+<div class="body"><p>Returns the number of data columns, i.e., the number of data values per point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDataValue &lt;column&gt; &lt;index&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the value of a point in a data column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDataValue &lt;column&gt; &lt;index&gt;</span>  
+
+<div class="body"><p>Returns the value of a point from a data column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDataColumnName &lt;column&gt; &lt;name&gt;</span>  
+
+<div class="body"><p>Sets the name of a data column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDataColumnName &lt;column&gt;</span>  
+
+<div class="body"><p>Returns the name of a data column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumLabelColumns &lt;number_of_columns&gt;</span>  
+
+<div class="body"><p>Create and add label columns. The number of label columns is passed as argument. If the
+number is less than the number of existing label columns, trailing columns are removed. 
+If the number is greater than the number of existing label columns, empty columns are added.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumLabelColumns</span>  
+
+<div class="body"><p>Get the number of labels that are stored for each point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabelValue &lt;column&gt; &lt;index&gt; &lt;string&gt;</span>  
+
+<div class="body"><p>Sets the label of a point in a label column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabelValue &lt;column&gt; &lt;index&gt;</span>  
+
+<div class="body"><p>Returns the label of a point from a label column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabelColumnName &lt;column&gt; &lt;name&gt;</span>  
+
+<div class="body"><p>Sets the name of a label column.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabelColumnName &lt;column&gt;</span>  
+
+<div class="body"><p>Returns the name of a label column.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

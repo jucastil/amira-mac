@@ -1,0 +1,15 @@
+if { ![app hasLicense "WindEdition"] } {
+
+dataFile -name "FIDAP NEUTRAL" \
+    -option fidap \
+    -ext "fnu,FDNEUT" \
+    -load hxReadFidap \
+    -loadInOwnThread true \
+    -package "hxfidap"
+
+module -name "FIDAPControl" \
+    -primary "none" \
+    -class "HxFIDAPControl" \
+    -package "hxfidap"
+
+}

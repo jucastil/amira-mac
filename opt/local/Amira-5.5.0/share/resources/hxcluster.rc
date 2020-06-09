@@ -1,0 +1,64 @@
+
+dataFile -name "PSI Format" \
+    -header {^#.*PSI Format.*} \
+    -option "psi" \
+    -load "HxCluster::readPSI" \
+    -package "hxcluster"
+
+dataClass -name "Cluster" \
+          -class "HxCluster" \
+          -category "Data" \
+          -package "hxcluster"
+
+amiramesh -ContentType HxCluster \
+    -load "HxCluster::readAmiraMesh" \
+    -package "hxcluster"
+
+module -name "ClusterView" \
+    -primary "HxCluster" \
+    -class "HxClusterView" \
+    -category "Main Display" \
+    -package "hxcluster"
+
+module -name "ClusterStringLabels" \
+    -primary "HxCluster" \
+    -check { [$PRIMARY getNumLabelColumns]>0 } \
+    -class "HxClusterLabel" \
+    -category "Display" \
+    -package "hxcluster"
+
+module -name "ClusterDiff" \
+    -primary "HxCluster" \
+    -category "Display" \
+    -class "HxClusterDisplacement" \
+    -package "hxcluster"
+
+module -name "ClusterSample" \
+    -primary "HxCluster" \
+    -category "Compute" \
+    -class "HxClusterSample" \
+    -package "hxcluster"
+
+module -name "ClusterGrep" \
+    -primary "HxCluster" \
+    -class "HxClusterGrep" \
+    -category "Compute" \
+    -package "hxcluster"
+
+module -name "CreateCluster" \
+    -primary "HxVertexSet" \
+    -class "HxCreateCluster" \
+    -category "Compute" \
+    -package "hxcluster"
+
+module -name "ClusterDensity" \
+    -primary "HxVertexSet" \
+    -class "HxClusterDensity" \
+    -category "Compute" \
+    -package "hxcluster"
+
+module -name "ClusterFilter" \
+    -primary "HxCluster" \
+    -class "HxClusterFilter" \
+    -category "Compute" \
+    -package "hxcluster"

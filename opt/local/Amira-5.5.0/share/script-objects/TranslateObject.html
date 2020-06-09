@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML>
+<html>
+<head>
+  <title>Script Object: TranslateObject</title>
+</head>
+
+<BODY LANG="EN" BGCOLOR="#ccd8e9" TEXT="#000000">
+
+<A NAME="A897"><H2>Script Object: TranslateObject</H2></A>
+<! HxIndex: Module "TranslateObject" "animate translation of an object" !>
+
+<H3><FONT COLOR="#800080">Description:</FONT></H3>
+<BLOCKQUOTE>
+
+The <em>TranslateeObject</em> module can be used to animate the
+translation of a <a href=HxSpatialData.html>spatial data object</a>
+between two points, which is done by changing the object's
+<i>transformation</i>, as opposed to manipulating the virtual
+camera. This allows to translate multiple objects in the scene
+independently, which is especially important for animated
+demonstrations.
+
+The most efficient way to create a <em>TranslateObject</em> module is
+to right-click on a spatial data object and select it from the
+<em>Animation/Demo</em> entry in the popup menu.
+
+Using the module is quite simple in conjunction with the <a
+href=HxTransformEditor.html>transform editor</a> of the object to
+be translated. Simply activate the transform editor by clicking on the
+green editor symbol of the object to be translated. You will see some
+kind of manipulator appear in the viewer, allowing you to translate
+the object using the mouse. Translate the object to the desired start
+point, and press the <a href=#currentPos>Set start point</a> button in
+the <em>ObjectTranslate</em> module. The translate the object to the
+desired end point and press the <a href=#currentPos>Set end point</a>
+button. Now you can use the <a href=#time>time slider</a> to animate
+the translation from start to end point.
+
+
+<P>
+</BLOCKQUOTE>
+
+<P>
+<H3><FONT COLOR="#800080">Connections:</FONT></H3>
+<BLOCKQUOTE>
+
+<A NAME="c_data"></A><B>Data</B><TT>[required]</TT><BR>
+The <em>Data</em> port connects the module to the spatial data object
+to be translated.
+<P>
+<A NAME=c_time></A><B>Time</B><TT>[optional]</TT><BR>
+Port <em>Time</em> allows to synchronize with other modules, e.g.
+for using <a href=HxMovieMaker.html><em>MovieMaker</em></a>.
+
+<P>
+</BLOCKQUOTE>
+
+
+<P>
+<H3><FONT COLOR="#800080">Ports:</FONT></H3>
+<BLOCKQUOTE>
+
+<A NAME=time></A><B>Time</B>
+<BR>
+<IMG SRC="img/TranslateObject_time.png"><BR>
+
+The time slider is used to animate the translation. Press the play
+buttons on the left or right of the slider to play backwards or
+forwards, or click anywhere on the slider to jump to the respective
+time step. By right-clicking on the slider and selecting
+<em>Configure</em> you can change the slider increment in order to
+adjust the speed of the animation. (Please note that this increment
+value will have no effect if the <em>TranslateObject</em> module is
+driven by some other module like <em>MovieMaker</em> or
+<em>DemoMaker</em>.) For more details please refer to the <a
+href=HxPortTime.html>time port</a> documentation.
+<P>
+
+<A NAME=startpoint></A><B>Start point</B>
+<BR>
+<IMG SRC="img/TranslateObject_startPoint.png"><BR> Specify the X, Y,
+and Z coordinates of the start point of the translation. This can be
+set automatically by using the object's transform editor and clicking
+on the <i><a href=#action>Set start point</a></i> button.
+
+<P>
+<A NAME=endpoint></A><B>End point</B>
+<BR>
+<IMG SRC="img/TranslateObject_endPoint.png"><BR> Specify the X, Y, and
+Z coordinates of the end point of the translation. This can be set
+automatically by using the object's transform editor and clicking on
+the <i><a href=#action>Set end point</a></i> button.
+
+<P>
+
+<A NAME=currentPos></A><B>Current postion</B>
+<BR>
+<IMG SRC="img/TranslateObject_currentPos.png"><BR>
+<i>Set start point:</i>
+sets the values of the <i>Start point</i> port to the current position
+of the object. Especially useful in conjunction with the object's
+<a href=HxTransformEditor.html>transform editor</a>.<br>
+
+<i>Set end point:</i>
+sets the values of the <i>End point</i> port to the current position
+of the object. Especially useful in conjunction with the object's
+<a href=HxTransformEditor.html>transform editor</a>.<br>
+<p>
+
+<A NAME=options></A><B>Options</B>
+<BR>
+<IMG SRC="img/TranslateObject_options.png"><BR> <i>explicit redraw</i>:
+switching this toggle on will cause the module to explicitly call a
+"viewer redraw" command whenever the value of the time slider and
+translation is changed.
+<P>
+
+
+</BLOCKQUOTE>
+
+<P>
+<hr>
+<a href=../doc/hxscriptobj/HxScriptObject.html>script object documentation</a> for script
+programming.
+
+</BODY>
+</HTML>
+

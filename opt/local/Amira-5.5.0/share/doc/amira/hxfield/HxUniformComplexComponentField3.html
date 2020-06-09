@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComponentField</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ComponentField" "extracts the real or imaginary part of a complex-value field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This class is a special data object which helps you to analyze uniform
+ complex scalar fields. The class itself is a uniform real scalar field.
+ However, it can be attached to a complex scalar field like an ordinary
+ display module. The component field provides an option menu allowing
+ you to select which real quantity should be computed from the complex
+ input values. These real quantities may be visualized using standard
+ modules like <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a>,
+ <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a>, or <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">ComplexField</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Complex scalar field for which a real quantity should be computed. Only float and double are supported as primitive types. Consider using <a class="link" href="../hxarith/HxCastField.html#A1">CastField</a> to convert your data first.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Component Field</span>  
+<div class="portsnapshot"><img src="HxUniformComplexComponentField3_component.png" /><br /></div>
+<div class="body"><p>Specifies the real quantity to be computed. Possible choices are
+ <em>Real Part</em>, <em>Imaginary Part</em>, <em>Magnitude</em>, and <em>Phase</em>. The phase is defined in radians ranging from $$-\pi$$ to
+ $$\pi$$.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

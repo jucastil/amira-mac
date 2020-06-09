@@ -1,0 +1,15 @@
+
+# ------------------------------------------------------
+#
+#   PLY format
+#
+# ------------------------------------------------------
+
+dataFile -name "Stanford PLY"	\
+    -header "^ply"		\
+    -ext ".ply"			\
+    -load "hxReadPly"		\
+    -type "HxSurface"		\
+    -save "hxSavePly"		\
+    -dso "libhxply.so"
+

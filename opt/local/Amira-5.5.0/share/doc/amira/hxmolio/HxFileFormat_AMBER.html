@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AMBER</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "FileFormat" "AMBER" "Assisted Model Building with Energy Refinement format (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ AMBER is a format consisting of three different file formats for storing structures of biomolecules and molecular simulations such a trajectories and its velocities. The three supported file formats are:<br />
+
+</p>
+<ul><li>*.top files: saving the structural information of molecules such as atoms position, their residues. Additional information may be stored here (dihedral angles, meta information on the molecule...). This file can be loaded on its own, since enough information to display the molecule are guaranteed.</li><li>*.crd files: storing for each time step the position of every atom of the molecule. Additional information is included for each time step, such as velocities, energy status... In order to load this file, a name.top file has to be loaded, and the name.md.crd file has to exist (where name is variable). It will be loaded automatically (no need to load the two files simultaneous)</li><li>*.vel files: storing for each time step the velocities of every atom of the molecule. Additional information is included for each time step, such as velocities, energy status... In order to load this file, a name.top file has to be loaded, and the name.md.vel file has to exist (where name is variable). It will be loaded automatically (no need to load the two files simultaneous)</li>
+</ul>
+<p> <b>Supported records</b></p>
+<p> <font face="helvetica">Amira</font> uses all information supplied in a AMBER Structure or Topology
+ file. Following record types can be parsed while reading those files:<br />
+
+ <tt>ATOMS RESIDUES DIHEDRALS ANGLES BONDS USER-DEFINED</tt><br />
+</p>
+<p> Though not all information supplied by the trajectory File is parsed. Only the position of each atom is saved for every time step of the trajectory. </p>
+<p> You can get further information about AMBER at http://amber.scripps.edu/</p>
+</div>
+<p>
+
+
+</p></body>
+</html>

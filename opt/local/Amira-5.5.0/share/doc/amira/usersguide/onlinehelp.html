@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.6 Online Help</a></h3>
+<p><font face="helvetica">Amira</font> user's documentation is available online. You can access it via the
+<em>User's Guide</em> entry of the main window's <em>Help</em> menu. The user's
+guide contains some introductory chapters, as well as a reference section
+containing documentation for specific
+</p>
+<ul><li>modules,</li><li>data types,</li><li>editors,</li><li>file formats,</li><li>and other components.</li>
+</ul><p></p>
+<p>You may access the documentation of any such object via a separate index
+page accessible from the home page of the online help browser. <font face="helvetica">Amira</font> modules
+also provide a question mark button in the Properties Area. Pressing this button
+directly pops up the help browser for the particular module. </p>
+<p>By default, the help browser is displayed in its own top-level
+window, but you can easily integrate it into the console pane. 
+In this case, a tab button allows you to switch between
+the Console and the Help window. To change the way the help browser
+is displayed, use the <em><a class="link" href="preferences.html#A3">Layout</a></em>
+tab of the <em><a class="link" href="preferences.html#A1">Edit/Preferences</a></em> menu.</p>
+<p>Going through the online documents is similar to text handling within any
+other hypertext browser. In fact, the documentation is stored in HTML
+format and can be read with a standard web browser as well. Some specially
+marked (colored and underlined) text items allow you to jump quickly to
+related or referenced topics, where blue items point to unread sections, and
+red items to already viewed sections. Use the <em>Backward</em> and <em>Forward</em> buttons to scroll in the document history and <em>Home</em> to move
+to the first page.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=onlinehelp.png.html><img width=750 src="onlinehelp.png" /></a><br />
+<div class="caption">
+<b>Figure 40:</b>
+<font face="helvetica">Amira</font>'s help window.</div>
+
+
+</div><p></p>
+<p><b>Searching the online documentation</b><br />
+
+The online help browser provides a very simple interface for a content and full text
+search. If you want to search through the complete documentation, enter the desired 
+text into the text field. Pressing CTRL-SHIFT-F moves the focus to this text field 
+and marks all text in this field for quick access. The search will be performed upon 
+pressing the <em>Enter</em> key.</p>
+<p>The search is done by using the complete search phrase. For example, suppose you are 
+looking for information about the <em>surface editor</em>. The output shows the page title 
+where the phrase is contained and a small amount of text surrounding the search phrase.</p>
+<p></p><div style="text-align:center"><a name="A3"></a><img src="findpane.png" /><br />
+<div class="caption">
+<b>Figure 41:</b>
+The <em>Find pane</em>.</div>
+
+
+</div><p></p>
+<p>Searching in a help document is done by entering text in the <em>Find pane</em>. You can
+open it by clicking on the <em>Show find pane</em> icon or by pressing <em>CTRL-F</em>. This function 
+behaves like the content search and looks for the occurrence of the complete phrase you 
+type into the text edit field. Pressing <em>Enter</em>, <em>F3</em> or clicking on <em>next</em> 
+will mark the searched phrase in the text. Another click/keypress takes you to the next 
+occurrence of this phrase. You can search backwards by pressing <em>SHIFT-F3</em> or clicking 
+on <em>prev</em> to find the previous occurrence of the phrase. If the search reaches the 
+upper or lower end of the document, it starts over depending on the search direction.
+Checking the <em>Highlight all</em> check box highlights the searched phrase with a yellow 
+background wherever it is found in the text. Highlighting, if enabled, is maintained 
+when clicking on links.
+The <em>Find pane</em> can be closed by clicking the red X on the pane or by unchecking the 
+<em>Show find pane</em> icon. <b>All searches are case insensitive!</b> <br />
+</p>
+<p><b>Running demo scripts</b><br />
+
+In the demo section of the on-line manual you can easily start any
+demonstration just by clicking on the marked text. The script will be
+loaded and executed immediately. You may interrupt running demo scripts
+by using the stop button in the lower right of the <font face="helvetica">Amira</font> main window.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">help</span>  
+
+<div class="body"><p>Makes the help dialog appear and loads the home page of the
+ online help.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help getZoomFactor</span>  
+
+<div class="body"><p>Returns the zoom factor of the browser.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help setZoomFactor</span>  
+
+<div class="body"><p>Sets the zoom factor of the browser.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help forward</span>  
+
+<div class="body"><p>Go to the next page.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help backward</span>  
+
+<div class="body"><p>Go to the previous page.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help show</span>  
+
+<div class="body"><p>Show the help browser.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help hide</span>  
+
+<div class="body"><p>Hide the help browser.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help search <em>text</em> </span>  
+
+<div class="body"><p>Search the <em>text</em> through the help documents.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help load <em>file.html</em></span>  
+
+<div class="body"><p>Load the specified hypertext document in the file browser. Note
+ that only a subset of HTML is supported.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help source</span>  
+
+<div class="body"><p>Get the address of the current page.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help reload</span>  
+
+<div class="body"><p>Reload the current document.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,79 @@
+# reorder objects in the pool:
+namespace eval hxcore_reorder {
+
+namespace export reorderPool
+
+proc poolSort {obj1 obj2} {
+    if {[lindex [$obj2 getIconPosition] 1] < [lindex [$obj1 getIconPosition] 1]} {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
+# gets all downstream objects that have been visible before
+proc getDownStreamObjs {obj} {
+    set result {}
+    foreach conn [$obj downStreamConnections] {
+        lappend result [lindex $conn 0]
+    }
+    return $result;
+}
+
+proc showIfData {obj} {
+    if {[$obj hasInterface HxData]} {
+        showObj $obj
+        foreach dObj [lsort -command poolSort [getDownStreamObjs $obj]] {
+            showIfData $dObj
+            showObj $dObj
+        }
+    }
+}
+
+proc showObj {obj} {
+    # only show the object if it is in the global allObjects list:
+    global allObjects
+    global allObjectsPositions
+
+    if {[lsearch $allObjects $obj] > -1} {
+        $obj showIcon
+    }
+}
+
+proc reorderPool {} {
+    global redrawInhibit;
+    incr redrawInhibit 1
+
+    global allObjects
+    set allObjects [lsort -command poolSort [all -visible]]
+
+    global allObjectsPositions
+    set allObjectsPositions {}
+
+    foreach obj $allObjects {
+        lappend allObjectsPositions [lindex [$obj getIconPosition] 1];
+        $obj clearVisibleFlag 
+    }
+
+    foreach obj $allObjects {
+        showIfData $obj
+    }
+
+    foreach obj $allObjects {
+        showObj $obj
+    }
+
+    incr redrawInhibit -1
+
+    # force redraw
+    if {[llength $allObjects] > 0} {
+        set firstObj [lindex $allObjects 0]
+        $firstObj setIconPosition [lindex [$firstObj getIconPosition] 0] [lindex [$firstObj getIconPosition] 1]
+    }
+}
+
+}
+
+macroButton -add "Re-Layout" \
+            -color "mediumaquamarine" \
+            -proc { hxcore_reorder::reorderPool;  }

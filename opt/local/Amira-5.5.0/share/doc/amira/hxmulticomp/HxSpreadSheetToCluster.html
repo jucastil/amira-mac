@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SpreadSheetToCluster</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "SpreadSheetToCluster" "creates a points cluster, a tensor cluster or a line set object from a spreadsheet" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module creates a new Cluster or/and a new BoundigBox LineSet from a SpreadSheet. It is assumed that the columns contain a data value for each point.
+</p>
+<ul><li><em>BoundingBoxes:</em> Data for bounding boxes visualization can be created if the input spreadsheet contains columns with the labels <em>CenterX,
+ CenterY, CenterZ, EVector1x, EVector1y, EVector1z, EVector2x, EVector2y, EVector2z, EVector3x, EVector3y, EVector3z, ExtentMin1, ExtentMin2, ExtentMin3, 
+ ExtentMax1, ExtentMax2</em>, and <em>ExtentMax3</em>. The naming scheme is derived 
+ from the module <a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a>. A 
+ <a class="link" href="../hxlines/HxLineSet.html#A1">LineSet</a> object is created which contains the minimal enclosing bounding boxes.</li><li><em>Clusters:</em> Data for point cluster visualization can be created if the input spreadsheet contains columns with the labels <em>Value, CenterX,
+ CenterY, CenterZ</em>. The naming scheme is derived from the module <a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a>. 
+ The cluster dataset can be visualized using <a class="link" href="../hxcluster/HxClusterView.html#A1">ClusterView</a>.</li><li><em>Fill BoundingBoxes Clusters:</em> Data for cluster of ellipsoids visualization can be created if the input spreadsheet contains columns with the labels 
+ <em>Value, CenterX, CenterY, CenterZ, EVector1x, EVector1y, EVector1z, 
+ EVector2x, EVector2y, EVector2z, EVector3x, EVector3y, EVector3z, ExtentMin1, 
+ ExtentMin2, ExtentMin3, ExtentMax1, ExtentMax2</em>, and <em>ExtentMax3</em>. The naming scheme is derived from the module <a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a>. 
+ The cluster dataset can be visualized using <a class="link" href="../hxtensor/HxTensorDisplay.html#A1">TensorDisplay</a>.
+ Typically, option <em>scaling by FA</em> should be disabled and a <em>scale factor</em> 
+ of 1 should be used. The displayed tensors represent the distribution concealed in the Bounding boxes.</li><li><em>Fill DistributionClusters:</em> Data for cluster of ellipsoids visualization can be created if the input spreadsheet contains columns with the labels 
+ <em>Value, CenterX, CenterY, CenterZ, EVector1x, EVector1y, EVector1z, 
+ EVector2x, EVector2y, EVector2z, EVector3x, EVector3y, EVector3z, EValue1, 
+ EValue2, and EValue3</em>. The naming scheme is derived from the module <a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a>. 
+ The cluster dataset can be visualized using <a class="link" href="../hxtensor/HxTensorDisplay.html#A1">TensorDisplay</a>.
+ Typically, option <em>scaling by FA</em> should be disabled and a <em>scale factor</em> 
+ of 1 should be used. The displayed tensors represent the Gaussian distribution oriented in the Eigen vectors directions.</li>
+</ul></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input is a <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">Spreadsheet</a> module.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_output.png" /><br /></div>
+<div class="body"><p>This port can be used to enable the generation of Bounding boxes and/or Clustes.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tensor </span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_tensor.png" /><br /></div>
+<div class="body"><p>Defines the tensor information included in the generated Cluster module.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Table</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_table.png" /><br /></div>
+<div class="body"><p>If a SpreadSheet object with multiple tables is attached, this port will allow the user to select one of the tables.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Value</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_value.png" /><br /></div>
+<div class="body"><p>Specifies the label value used in the label field.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coordinates</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_coordinates.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> coordinates in the SpreadSheet. If the spreadsheet contains columns labeled CenterX, CenterY, or CenterZ these will be taken as presets</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">First direction</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_firstDirection.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> Eigen Vector 1 in the SpreadSheet. If the spreadsheet contains columns labeled EVector1x, EVector1y, or EVector1z these will be taken as presets.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Second direction</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_secondDirection.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> Eigen Vector 2 in the SpreadSheet. If the spreadsheet contains columns labeled EVector2x, EVector2y, or EVector2z these will be taken as presets.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Third direction</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_thirdDirection.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> Eigen Vector 3 in the SpreadSheet. If the spreadsheet contains columns labeled EVector3x, EVector3y, or EVector3z these will be taken as presets.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Extent min</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_ExtentMin.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> Extent Min in the SpreadSheet. If the spreadsheet contains columns labeled ExtentMin1, ExtentMin2, or ExtentMin3 these will be taken as presets.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Extent max</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_ExtentMax.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>x</em>, <em>y</em>, and <em>z</em> Extent Max in the SpreadSheet. If the spreadsheet contains columns labeled ExtentMax1, ExtentMax2, or ExtentMax3 these will be taken as presets.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Eigen values</span>  
+<div class="portsnapshot"><img src="HxSpreadSheetToCluster_EigenValues.png" /><br /></div>
+<div class="body"><p>Specifies the three columns that indentify the <em>1</em>, <em>2</em>, and <em>3</em> Eigen Values in the SpreadSheet. If the spreadsheet contains columns labeled EValue1, EValue2, or EValue3 these will be taken as presets.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

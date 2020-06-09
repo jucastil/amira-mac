@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Advanced Colormap Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Advanced Colormap Editor" "modify the RGBA values of a discrete colormap (Amira 3.1)" !>
+<p>&nbsp;<br />
+<img src="HxAdvancedColormapEditor_Icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ To modify existing <a class="link" href="../hxcolor/HxColormap256.html#A1">colormaps</a> push the edit button 
+ which is visible when the colormap is selected. </p>
+<p> As you can see, there is a menu bar near the
+ top border of the window with the submenus <em>Edit</em>, <em>Mode</em>, and
+ <em>Brush</em>, which will help you to control the behaviour of the colormap
+ editor and to change components of the chosen colormap. 
+ Below the menu bar a so-called "color chart" is displayed. The red,
+ green, and blue lines are the graphs of the <em>color channel</em>
+ components of the colormap. The underlying color model is RGB (at
+ startup). The axes are not shown directly; the x-axis ranges from 
+ the lowest to the highest colormap index and the y-axis from 0.0 to
+ 1.0 according to the RGB model. Thus, a point on a color line indicates
+ the amount of color for the corresponding color channel and color
+ index.
+ You can manipulate the course of a line by setting a brush onto
+ any of its points and moving it up or down.
+ A brush is set by pressing a mouse
+ button, the left one for the red line, the middle one for the green
+ line, and the right one for the blue line.</p>
+<p> Below the color chart a "color bar" is displayed which is a larger
+ version of the one used for display in the colormap port. Its only
+ function is to show you the actual appearance of the modified colormap
+ in a smoother way by linearly interpolating the colors between the 
+ indices.</p>
+<p> The largest area of the editor window is occupied by the "color buttons"
+ which represent the color in every position (index) of the chosen
+ colormap. Each position is called a "color cell". You can set the 
+ <em>focus</em> which is the target index of modifications applicable
+ by the color sliders (see below),
+ and it is also possible to modify the colormap by dragging a
+ color cell. The index of the focus color cell is shown below the
+ color buttons. </p>
+<p>	<br />
+
+	</p><div style="text-align:center"><a name="A2"></a><a href=oldcolormapedit.png.html><img width=315 src="oldcolormapedit.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font> colormap editor</div>
+
+	
+	</div>
+<p> In the lower area of the window there are some "color sliders",
+ one for each color channel by which you can modify color channel
+ values with respect to the focus cell. This means that the values
+ of neighboring cells are affected as well, as you can see in the
+ color chart. The sliders are manipulated by dragging the small
+ triangles; alternatively values in fixed-point format may be entered
+ directly into the text fields to the right of the sliders.</p>
+<p> The last three buttons named <em>OK</em>, <em>Apply</em>, and <em>Cancel</em>
+ are for quitting the editor, applying your changes to the underlying
+ <em>Colormap</em> data object, and quitting the editor without applying
+ your changes.</p>
+<p> Interactive editing of a colormap is facilitated by two user interface
+ elements, the <em>focus</em> and <em>colormap knots</em>.</p>
+<p> <b>Focus:</b> The focus marks the active color cell which can be edited
+ using the color sliders. It is represented by a black-and-white box
+ drawn around the active color cell and by a black vertical line in the
+ color chart. </p>
+<p> You set the focus by clicking with the left mouse button on a colormap
+ entry in the color button panel. A focus cell also gets a <em>knot</em>
+ marker (see below); clicking again on a focus cell removes the knot and
+ places the focus on to the leftmost color cell, just setting the focus
+ to a different cell does not remove a knot.</p>
+<p> <b>Knots:</b> Knots are fixed points in the colormap, i.e., they
+ retain their values while the colormap is being manipulated by snapping
+ (see <em>Menu bar/Edit/Snap</em>) or by dragging the focus. Knots are
+ represented by a small black box with a white surrounding in a color
+ cell and a white vertical line in the color chart. </p>
+<p> You set a knot by setting the focus and remove a knot (with the focus)
+ by clicking another time on a color cell with the focus. The knots on
+ the first and last cells of the colormap cannot be removed. </p>
+
+<h3><a name="A3">Description of the User-interface Elements</a></h3>
+<p>A. <b>Menu Bar</b><br />
+
+ The menu bar consists of the four submenus: <em>Edit</em>, <em>Mode</em>,
+ <em>Brush</em>, and <em>Extras</em>.</p>
+<p> a) <b>Edit Menu</b><br />
+
+ This submenu offers two opportunities for editing the colormap.
+ The first group deals with the undoing and the
+ opposite - redoing - changes you made in the colormap. The second
+ group "snaps" one or more channels, like tightening a rope between
+ the left and right neighboring knots of the focus. </p>
+
+<ul><li><b>Undo:</b>
+ If you think that your last changes to
+	the colormap have been a mistake, this entry lets you take back
+	your last changes. You can easily go back to a point of
+	editing when you were content with the colormap and start
+	editing again. The colormap editor remembers up to 50 of
+	your last changes.</li><li><b>Redo:</b>
+ If you undid too much, this entry undoes the
+	last undo, i.e. re-does the undone changes. This is the reverse
+	function of <em>Undo</em>. You may undo/redo your changes as often
+	you wish, but if you modify the colormap by another function
+	(not <em>Undo/Redo</em>) you lose the opportunity to redo the
+	last undos. <em>Redo</em> is only activated if your last action was
+	invoking <em>Undo</em>.</li><li><b>Snap All:</b>
+ By selecting this entry, all colormap entries will
+	be tightened like a rope ("snapped") between their left and
+	right neighboring knots leaving the knots itself untouched.
+ This means that lines are drawn between all pairs of
+	successive knots for each color channel.
+	This function manipulates all color channels simultaneously.</li><li><b>Snap:</b>
+ This operation behaves much like a local <em>Snap All</em>, i.e., snapping
+	occurs only between the left and the right neighboring knots
+	of the focus by tightening all color channels as if they
+	were ropes between the knots.</li><li><b>Snap Red or Hue:</b>
+ Depending on the chosen color model (see <em>Mode</em>),
+	the first color channel "Red" or "Hue" is snapped between 
+	the left and right neighboring knots of the focus leaving the
+ other color channels untouched. See <em>Snap</em> for an explanation
+	of snapping.</li><li><b>Snap Green or Saturation:</b>
+ Like in <em>Snap Red</em>, this
+	entry manipulates the second color channel between the left
+	and the right knot leaving the other color channels untouched.</li><li><b>Snap Blue or Value:</b>
+ Like in <em>Snap Red</em>, this entry
+	manipulates the third color channel between the left and the
+	right knot leaving the other color channels untouched.</li><li><b>Snap Alpha:</b>
+ This entry is only shown if <em>Show Alpha</em> (see <em>Mode</em>) has been
+ activated. By selecting it, the alpha channel
+	will be locally snapped as described in <em>Snap</em> between the
+	left and the right neighboring knots of the focus leaving
+ the other color channels untouched.</li>
+</ul>
+<p> b) <b>Mode Menu</b><br />
+
+ This menu allows you to select the color model used to modify the
+ colormap. <em>RGB Sliders</em> chooses the RGB model where colors are
+ represented by a red, green, and blue component. <em>HSV
+ Sliders</em> chooses the HSV model where colors are represented by a
+ hue, saturation, and value (intensity) component. In addition, an
+ <em>Immediate Mode</em> toggle is provided. If this toggle is active, all
+ changes are immediately applied to the colormap and downstream modules
+ are immediately fired so that they can update their display.</p>
+<p> c) <b>Brush Menu</b><br />
+
+ This has only relevance for the color chart. Here you can set the brush
+ type used for editing a color channel curve. Four different brushes
+ are supported. Their shapes are visually represented by corresponding
+ icons.</p>
+<p> d) <b>Extras Menu</b><br />
+
+ This menu allows you to replace the whole colormap by one of a set of
+ predefined maps. Currently four such predefined maps are available:
+ a <em>Gray ramp</em> ranging from black to white, a <em>Hue ramp</em>
+ ranging from blue over green and yellow to red, a <em>Hot iron</em>
+ map ranging from red over yellow to white, and a <em>Glow</em> map
+ ranging from black over red and yellow to white. This last map is
+ frequently used in epi-fluorescence microscopy. Two additional options
+ are provided to subdivide the current colormap into a discrete set of
+ colors (<em>Make steps</em>) and to define an alpha curve with a
+ predefined gamma value (<em>Alpha curve</em>). If one of these options is
+ chosen, an additional dialog window pops up, allowing you to perform
+ the appropriate operations.</p>
+<p> B. <b>Color Chart</b><br />
+
+ The color chart shows the graphs of the colormap's color channel
+ components. The red curve shows the first color channel (red or hue),
+ the green curve shows the second channel (green or saturation), the
+ blue curve shows the third channel (blue or value), and the black curve
+ shows the fourth channel (alpha). The knots and the focus are
+ represented by white and black vertical lines, respectively. The left
+ edge of the color chart shows the values of the leftmost index of the
+ colormap and the right edge those of the rightmost index. </p>
+<p> C. <b>Color Bar</b><br />
+
+ Like in the colormap port, this color bar displays a
+ continuous form of the chosen colormap by linearly interpolating
+ the colors between the colormap entries. If <em>Show Alpha</em> is enabled,
+ alpha values are represented by a certain amount of transparency
+ in the colors, i.e., you see the colors translucent over a white
+ and black checkerboard pattern. For an alpha value of 0.0, you see no color
+ information but only the white and black checkerboard; for a value of 1.0
+ you do not see a checkerboard because the colormap entry is not translucent.</p>
+<p> D. <b>Color Buttons</b><br />
+
+ An entry of the color button panel is also called a color cell. Each
+ color cell shows the color associated to a color index without the
+ alpha value. The indices are counted from left to right and from top to
+ bottom. Thus the color cell in the upper left corner shows the color of
+ the leftmost colormap entry and the color cell in the lower right
+ corner shows the color of the rightmost colormap entry. The index of
+ the focus cell is displayed below the color button panel. Just after
+ the index the data value which corresponds to the focus cell is shown
+ in brackets. The data value depends on the current range of the
+ colormap.</p>
+<p> E. <b>Color Sliders</b><br />
+
+ In the lower area of the <em>Colormap Editor</em> window there are four
+ color sliders allowing you to modify the values of the focus cell.
+ Depending on the current color model, the first three sliders are
+ associated to red, green, and blue or to hue, saturation, and value,
+ respectively. The fourth slider always modifies the alpha value. In
+ front of each color slider there is a toggle button. If the toggle is
+ activated, the corresponding color can be edited using the left mouse
+ button in the <em>color chart</em> (see below).</p>
+<p> F. <b>Control Buttons</b><br />
+
+ These three buttons let you choose whether the changes to the colormap
+ should be kept or not. By pressing the <em>OK</em> button the changes made
+ with the editor are written back to the colormap object that you are
+ working on. This action also causes the editor to exit. If you just
+ want to write back the changes without exiting, e.g., if you want to see
+ how your changes take effect, just press the <em>Apply</em> button. If
+ <em>Apply</em> is done in the <em>Immediate</em> mode however, the previous
+ state of the colormap cannot be restored by <em>Cancel</em>.</p>
+<p> If you think that your manipulations have gone totally wrong, you can
+ always decide to keep the old colormap and throw away your changes.
+ This is done by pressing the <em>Cancel</em> button which also closes the
+ editor window. <em>Cancel</em> restores the colormap to the last state
+ when the <em>Apply</em> button was pressed, or to the initial, if <em>Apply</em> was left untouched.</p>
+
+<h3><a name="A4">How to Modify a Colormap</a></h3>
+<p>This section describes how to modify a colormap in various ways.
+ For the effects of invoking the various menu items, see <em>Menu bar</em>.</p>
+<p> A. <b>Using the color chart</b><br />
+
+ A color channel can be edited by modifying the corresponding curve with
+ a brush. Values are increased by approaching the curve from the bottom
+ side with a brush while holding down the left mouse button, and vice
+ versa. Only one curve can be edited at a time. The curve to be edited
+ is determined by the toggle button in front of the four color sliders.
+ For example, if you want to modify the alpha curve, you first have to
+ select the toggle button in front of the alpha slider.</p>
+<p> Four different brushes can be chosen in the <em>Brush</em> menu, namely
+ a small square, a bigger square, a circle, and a diamond. The shape
+ of the brush determines how a curve will be modified when approaching
+ it with the mouse. When the brush touches the curve it moves the color
+ channel up or down (depending from which side it comes) to the first
+ pixel outside the brush's area. Colors are clamped to the channel's
+ minimum and maximum allowed values.</p>
+<p> The new colors are displayed instantaneously in the color bar and in
+ the color buttons. If you modify the focus cell, the color slider
+ corresponding to the curve being edited will also be updated.</p>
+<p> B. <b>Using the color buttons</b><br />
+
+ This item offers you the most opportunities to
+ modify the colormap. You can set the focus, set/unset a knot,
+ or modify a certain region of the colormap by dragging the focus cell.
+ Due to the fact that a focus always exists, a special operation
+ for unsetting the focus is not necessary because you unset a focus
+ simply be setting a new one.</p>
+
+<ul><li><b>Setting the focus:</b>
+ You simply select a focus by clicking
+	once in a non-focus cell. The new focus cell will be surrounded
+	by a black and white border while the border of the old focus
+	cell disappears. The other displays will be refreshed, i.e.
+	the color index displayed below the color buttons will be set
+	to the focus cell's index, the color chart will display a
+	black vertical line in a position corresponding to the new focus
+	cell, and the color sliders will show the color channels'
+	values in the focus cell.
+	As mentioned above you simply unset a focus by setting a new one.</li><li><b>Setting a knot:</b>
+ Because every focus cell must have a knot, you
+	set a knot simply by setting the focus, i.e. by clicking once
+	in a non-focus cell without a knot. The knot appears as a
+	small black box with a white surrounding in the middle of
+	the new focus cell. The color chart displays it with the focus
+	as a black vertical line. If you change the focus, the knot
+	still remains in the color cell but without the focus it is
+	displayed in the color chart as a white vertical line.</li><li><b>Unsetting a knot:</b>
+ You unset a knot by clicking another time
+	into a focus cell. This does two things: First, the knot is
+	removed from the color buttons and the color chart. Second,
+	the focus is set to the first color cell, i.e. to the upper
+	left corner of the color button panel and to the left edge in the
+	color chart.
+	The displays are refreshed, i.e. no small black box in the color
+	cell and no vertical line at the corresponding position in the
+	color chart will be shown.</li><li><b>Dragging the focus cell:</b>
+ When you click the first time in a non-focus cell, you can hold the
+ mouse button (be careful: a click in a focus cell unsets a knot)
+ and drag the focus cell over the color buttons. The corresponding
+ color values will be temporarily copied to its new position and the
+ color channels between the next knots to the left and to the right
+ from the actual position will be snapped i.e. the color channels
+ will be tightened like a rope between the focus and the left or
+ right knot. When you move in a new region between two knots, the old
+ region will be restored and the new region will be affected by
+ snapping. When you release the button, the focus cell's color
+ values (the one which you dragged) will be copied to its last
+ position and the colormap remains in this state, i.e., with the
+ copied color values in the focus cell and the snapped color values
+ between the focus and the left or right knot. While moving the
+ mouse, the color chart is updated appropriately. The color sliders
+ stay the same because the focus cell values remain the same
+ (remember: you drag the focus and copy its cell's values).</li>
+</ul>
+<p> C. <b>Using the color sliders</b><br />
+
+ The color sliders offer you three ways to modify the values associated
+ to the focus cell, either by setting the value explicitly in the text
+ field, by dragging the small triangle, or by clicking somewhere in the
+ slider area. </p>
+<p> All modifications have an effect on the surrounding colormap entries
+ between the next knots to the left and to the right of the focus cell.
+ A modification of a value changes the surrounding colormap entries
+ relative to their distances to the focus. This is similar to raising /
+ lowering a rubber band between the left and right knot in the focus
+ position. You can clearly see the effect by looking at the curves
+ displayed in the color chart. The values and displays are refreshed in
+ the same way as described in the previous sections. </p>
+</div>
+<p></p>
+<p> </p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MeanMolecule</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MeanMolecule" "computes the mean molecule of a molecular trajectory" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes the <em>mean</em> molecule of a molecular
+ trajectory by averaging the atom positions. In order to do this, the
+ molecules need to be transformed to a common coordinate system. This
+ can be done either by aligning all time steps to some reference
+ molecule, or by computing transformations with the
+ <a class="link" href="../hxmolalign/HxPrecomputeAlignment.html#A1">PrecomputeAlignment</a> module.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Molecular trajectory for which the mean molecule should be
+ computed.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlignMaster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>In order to compute the mean molecule, all molecules of the
+ trajectory need to be aligned with respect to a certain molecule.
+ This is done by right-clicking on the white square of the module
+ icon in the <a class="link" href="../usersguide/mainwin.html#A2">Pool</a>, selecting <em>AlignMolecule</em>, and connecting it to a molecule in the Pool. </p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PrecomputedAlignment</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Instead of aligning all time steps of a trajectory to the <em>AlignMaster</em>, you can use a precomputed alignment to align the
+ time steps.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Time Steps</span>  
+<div class="portsnapshot"><img src="HxMeanMolecule_timeSteps.png" /><br /></div>
+<div class="body"><p>Specify the range of molecules used for the computation.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxMolecule_transformation.png" /><br /><img src="HxMolecule_selection.png" /><br /><img src="HxMolecule_selectionInfo.png" /><br /></div>
+<div class="body"><p>The three ports above specify how the molecules are aligned to each
+ other. See the description in the general section on
+ <a class="link" href="../hxmolecule/molpositioning.html#A5">alignment
+ of molecules</a> for a detailed explanation. </p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Option</span>  
+<div class="portsnapshot"><img src="HxMeanMolecule_options.png" /><br /></div>
+<div class="body"><p>Select this option if you want to iteratively improve the 
+ mean molecule.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

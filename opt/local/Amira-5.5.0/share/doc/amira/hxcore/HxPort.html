@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Port</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "Port" "base class of all ports" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is the base class of all ports in <font face="helvetica">Amira</font>.</p>
+<p> Ports are used to interact with an <font face="helvetica">Amira</font> object. There are several
+ different types of ports, e.g., option menus, sliders, or toggle
+ buttons. If an object is selected its ports are displayed in the lower
+ part of the <font face="helvetica">Amira</font> main window, the so-called Properties Area. An object
+ may choose not to display all ports at all times, depending on the
+ internal state of the object. Most ports have a pin, allowing 
+ the port to remain visible even if the object the port belongs to is
+ deselected.</p>
+<p> <a class="link" href="HxConnection.html#A1">Connections</a> are special ports, allowing you specify
+ dependencies between objects. In contrast to other ports connections
+ usually don't have their own user interface, but they are represented
+ by corresponding lines in the Pool.</p>
+<p> Every port provides its own Tcl command interface. This allows script
+ programmers to interact with the port in an automated way. In addition
+ to the commands defined by a port itself, all commands of the
+ port's base class are available (this is the same as for <font face="helvetica">Amira</font> modules
+ and data classes) also. Port commands are called using the following syntax:
+ <font size="0"></font></p><pre>
+    &lt;modulename&gt; &lt;portname&gt; &lt;commandname&gt; [optional parameters]
+    </pre><p><font size="0">
+ </font>
+ In order to get a list of all ports of an object you can use the
+ command <tt>&lt;modulename&gt; allPorts</tt>. In most cases, but not in all
+ cases, the name of a port used in Tcl commands is equal to the port's
+ label as displayed in the graphical user interface, with the only
+ exception that the name usually starts with a lower case letter and
+ that white spaces are omitted.</p>
+<p> Two ports of the same type can be interconnected with the TCL command 
+ <tt>connect</tt>: if a port P0 is connected to a port P1, any new value 
+ applied to P0 is automatically applied to P1, and reverse. The syntax of the 
+ command is: <font size="0"></font></p><pre>
+	&lt;modulename 1&gt; &lt;P0 name&gt; connect &lt; modulename 2&gt; [&lt;P1 name&gt;]
+	</pre><p><font size="0"></font></p>
+<p><font size="0">	</font></p>
+<p>If &lt; P1 name &gt; is not given, the command will take &lt;P0 name&gt; to retrieve the
+port of module 2.</p>
+<p>Available ports for interconnection are of the following type :</p>
+
+<ul><li><tt>HxPortButtonList </tt></li><li><tt>HxPortButtonMenu </tt></li><li><tt>HxPortColorList </tt></li><li><tt>HxPortFloatslider </tt></li><li><tt>HxPortFloatTextN </tt></li><li><tt>HxPortGeneric </tt></li><li><tt>HxPortIntSlider </tt></li><li><tt>HxPortMultiMenu </tt></li><li><tt>HxPortMultiOptions </tt></li><li><tt>HxPortRadioBox </tt></li><li><tt>HxPortRangeSlider </tt></li><li><tt>HxPortTabBar </tt></li><li><tt>HxPortText </tt></li><li><tt>HxPortTextEdit </tt></li><li><tt>HxPortToggleList </tt></li><li><tt>HxPort3DPointList </tt></li>
+</ul>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">help</span>  
+
+<div class="body"><p>Displays all commands available for the port. The same result can be
+ obtained by just calling the port without any command.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isNew</span>  
+
+<div class="body"><p>Returns <tt>1</tt> if the port was changed after the object was fired
+ the last time, and 0 otherwise.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getState</span>  
+
+<div class="body"><p>Returns a string which later on can be used to restore the state of
+ a port using the command <tt>setState</tt>. The format of the state
+ string is not specified and it may be different for each port. Usually
+ the state string contains the same information which is also stored
+ in <font face="helvetica">Amira</font> network files, but not, for example, label strings which might
+ have been modified using the script interface as well.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setState &lt;state-string&gt;</span>  
+
+<div class="body"><p>Restores the state of a port from a string previously obtained using
+ the <tt>getState</tt> command.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel</span>  
+
+<div class="body"><p>Returns the label of the port displayed in the graphical user interface,
+ for example <em>Options:</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel &lt;label&gt;</span>  
+
+<div class="body"><p>Sets the label of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabelWidth</span>  
+
+<div class="body"><p>Returns the width of the port's label in pixels.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabelWidth &lt;width&gt;</span>  
+
+<div class="body"><p>Sets the width of the port's label in pixels, see also <tt>align</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">align &lt;port2&gt; &lt;port3&gt; ...</span>  
+
+<div class="body"><p>Align this and all other ports specified as arguments so that all
+ labels have the same width.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPin</span>  
+
+<div class="body"><p>Check if the port has been pinned or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPin &lt;value&gt;</span>  
+
+<div class="body"><p>Set or unset the port's pin button. If the port is pinned, it will be
+ displayed in the Properties Area even if the owner of the port is deselected.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">touch</span>  
+
+<div class="body"><p>Touch the port to simulate a change of value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">untouch</span>  
+
+<div class="body"><p>Untouch the port so that <tt>isNew</tt> will return 0 the next time even if
+ the port was changed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">object</span>  
+
+<div class="body"><p>Returns the name of the object the port belongs to.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">send</span>  
+
+<div class="body"><p>Fires the object the port belongs to as well as all downstream objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">show</span>  
+
+<div class="body"><p>Shows the port, provided the owning object is selected.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hide</span>  
+
+<div class="body"><p>Hides the object, provided the owning object is selected. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isVisible</span>  
+
+<div class="body"><p>Returns 1 if the port is shown, or 0 if it is hidden.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">reposition &lt;index&gt;</span>  
+
+<div class="body"><p>Changes the position of the port within the object's port list and in
+ the graphical user interface. Note that connection ports are counted too
+ even if they may not have any controls.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isOfType &lt;typeid&gt;</span>  
+
+<div class="body"><p>Checks if this port if of the specified type or derived from it.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTypeId</span>  
+
+<div class="body"><p>Returns the port's type name.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">connect</span>  
+
+<div class="body"><p>Connects the port to another port of the same type.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

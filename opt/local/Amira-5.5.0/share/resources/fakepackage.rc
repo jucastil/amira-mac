@@ -1,0 +1,4 @@
+module -name "FakeModule" \
+    -class "HxFakeModule" \
+    -package "fakepackage"
+

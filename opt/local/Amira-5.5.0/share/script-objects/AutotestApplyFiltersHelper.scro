@@ -1,0 +1,309 @@
+# Amira-Script-Object V3.0
+
+
+$this proc constructor {} {
+
+    global SCRIPTDIR
+    $this script hide
+
+    # The filter selection
+    $this newPortButtonMenu filters 0 14
+    $this filters setOptLabel 0 "Noise reduction minimum"
+    $this filters setOptLabel 1 "Noise reduction maximum"
+    $this filters setOptLabel 2 "Unsharp Masking"
+    $this filters setOptLabel 3 "Edge detection (Laplacian)"
+    $this filters setOptLabel 4 "Noise reduction median"
+    $this filters setOptLabel 5 "Gaussian smoothing"
+    $this filters setOptLabel 6 "Edge detection (Sobel)"
+    $this filters setOptLabel 7 "Equalize"
+    $this filters setOptLabel 8 "Edge preserve smooting"
+    $this filters setOptLabel 9 "Resampling/Low pass"
+    $this filters setOptLabel 10 "Intensity remapping"
+    $this filters setOptLabel 11 "Brightness & Contrast"
+    $this filters setOptLabel 12 "Statistical feature detection"
+    $this filters setOptLabel 13 "Lighten/Darken"
+
+    # The direction selection
+    $this newPortButtonMenu direction 0 4    
+    $this direction setOptLabel 0 "YZ plane"
+    $this direction setOptLabel 1 "XZ plane"
+    $this direction setOptLabel 2 "XY plane"
+    $this direction setOptLabel 3 "3D"
+
+    # The parameters files
+    $this newPortFilename paramfile
+    $this paramfile setLabel "Parameters"
+    $this paramfile setValue "param.scro" 
+
+    # Create the database button
+    $this newPortButtonList createdb 1
+    $this createdb setLabel "CreateDatabase"
+    $this createdb setLabel 0 "Create"
+
+    $this setVar curFilter ""
+    $this setVar folder ""
+
+    $this setVar fresult ""
+    $this setVar aresult ""
+    $this setVar loadData ""
+    $this setVar computeType ""
+    
+    # The apply button
+    $this newPortDoIt action
+}
+
+$this proc destructor {} {
+    $this removeModules
+}
+
+$this proc update {} {
+    $this removeModules
+    $this setVar computeType ""
+}
+
+$this proc initializeFilter {parameter} {
+    [$this getVar curFilter ] filter setValue 0 [$this filters getOptValue]
+    [$this getVar curFilter ] fire
+    [$this getVar curFilter ] filter setValue 1 [$this direction getOptValue]
+    [$this getVar curFilter ] fire
+
+    foreach param [lindex $parameter [[$this getVar curFilter ] filter getValue 1]] {
+        eval [$this getVar curFilter ] $param
+        echo $param
+    }
+    [$this getVar curFilter ] fire
+
+}
+
+$this proc createImageFilter {} {
+
+    $this removeModules
+    $this setVar curFilter [create HxImageFilters {ImageFilter}]
+   
+    # Load the parameters file
+    source [$this paramfile getValue]
+
+    # Set the folder  
+    set platformName [app uname]
+    if {$platformName == "MacX"} {
+        $this setVar folder $macDirectory
+    } elseif {$platformName == "LinuxAMD64"} {
+        $this setVar folder $linDirectory
+   } elseif {$platformName == "Win32VC8"} {
+        $this setVar folder $win32Directory
+    } else {
+        $this setVar folder $winDirectory
+    }
+
+    switch [$this filters getOptValue] {
+        0 {
+            $this setVar filtName minimum
+            $this initializeFilter $minimumParameters
+        }
+        1 {
+            $this setVar filtName maximum
+            $this initializeFilter $maximumParameters
+        }
+        2 {
+            $this setVar filtName unsharpen
+            $this initializeFilter $unsharpenParameters
+        }
+        3 {
+            $this setVar filtName laplacian
+            $this initializeFilter $laplacianParameters
+        }
+        4 {
+            $this setVar filtName median
+            $this initializeFilter $medianParameters
+        }
+        5 {
+            $this setVar filtName gauss
+            $this initializeFilter $gaussianParameters
+        }
+        6 {
+            $this setVar filtName sobel
+            $this initializeFilter $sobelParameters
+        }
+        7 {
+            $this setVar filtName equilize
+            $this initializeFilter $equalizeParameters
+        }
+        8 {
+            $this setVar filtName edgePreserving
+            $this initializeFilter $edgepreservingParameters
+        }
+        9 {
+            $this setVar filtName resampling
+            $this initializeFilter $resamplingParameters
+        }
+        10 {
+            $this setVar filtName remapping
+            $this initializeFilter $remappingParameters
+        }
+        11 {
+            $this setVar filtName brightness
+            $this initializeFilter $brightnessParameters
+        }
+        12 {
+            $this setVar filtName statistical
+            $this initializeFilter $statisticalParameters
+        }
+        13 {
+            $this setVar filtName lighten
+            $this initializeFilter $lightenParameters
+        }
+    }
+
+}
+
+
+$this proc removeModules {} {
+    if {[$this getVar curFilter] != ""} {
+        remove [$this getVar curFilter]
+        $this setVar curFilter ""
+    }
+    if {[$this getVar fresult] != ""} {
+        remove [$this getVar fresult]
+        $this setVar fresult ""
+    }
+    if {[$this getVar aresult] != ""} {
+        remove [$this getVar aresult]
+        $this setVar aresult ""
+    }
+    if {[$this getVar loadData] != ""} {
+        remove [$this getVar loadData]
+        $this setVar loadData ""
+    }
+}
+
+$this proc getFileName { } {
+ 
+    # Create the db filte name
+    set inputData [$this data source]
+    set dbFileName [string trimright [string trimleft [$inputData getLabel] "Data_"] ".am"]
+    set uscore "_"
+    set ext ".am"
+    set type [$this direction getOptValue]
+    set loadName [$this getVar filtName]$dbFileName$uscore$type$ext
+
+    return $loadName
+}
+
+$this proc compute {} {
+    set pcreate [$this createdb wasHit]
+    set paction [$this action wasHit]
+
+    if {$pcreate == "1"} {
+        $this setVar computeType "1"
+    } elseif {$paction == "1"} {
+        $this setVar computeType "2"
+    } else {
+        return
+    }
+    
+    set inputData [$this data source]    
+    if {$inputData == "" } {
+        echo "Error No input data connected!"
+        return
+    }
+    if { [$this getVar computeType] == "2" } {
+        $this filterAndCompare 
+    } else {
+        $this saveDataBase
+    }
+}
+
+$this proc filterAndCompare {} {
+
+    # Create the image filter
+    $this createImageFilter
+
+    # Get the file name
+    set loadName [$this getFileName]
+
+
+    # Load the Data
+    set currentpwd [pwd]
+    cd [$this getVar folder]
+    $this setVar loadData [load $loadName]
+    cd $currentpwd
+
+    # Execute the filtering
+    set inputData [$this data source]  
+    [$this getVar curFilter] data connect $inputData
+
+    $this setVar fresult [ [$this getVar curFilter] action hit; 
+                           [$this getVar curFilter] compute;  
+                           [$this getVar curFilter] getResult
+                         ]
+
+    # Compare
+    set acompare [create HxArithmetic {Arithmetic}]
+    $acompare inputA connect [$this getVar loadData]
+    $acompare inputB connect [$this getVar fresult]
+    $acompare expr0 setState (1-abs(A-B) < 0.0001)*10
+    $acompare resultType setValue 0
+    $acompare resultChannels setValue 1
+    $this setVar aresult [$acompare create]
+    [$this getVar aresult] master connect $acompare
+
+    # Attach a BoundingBox to the result
+    set boundingb [create HxBoundingBox {BoundingBox}]
+    $boundingb data connect [$this getVar aresult]
+    $boundingb fire
+
+    # Attach a Isosurface to the result
+    set isurface [create HxIsosurface {Isosurface}]
+    $isurface data connect [$this getVar aresult]
+    $isurface doIt hit
+    $isurface fire
+
+}
+
+$this proc executeAndSaveFilter {} {
+
+    # Create the image filter
+    $this createImageFilter
+
+    # get The file name
+    set saveName [$this getFileName]
+
+    # Execute the filtering
+    set inputData [$this data source]  
+    [$this getVar curFilter] data connect $inputData
+
+    $this setVar fresult [ [$this getVar curFilter] action hit; 
+                           [$this getVar curFilter] compute;  
+                           [$this getVar curFilter] getResult
+                         ]
+    if {[$this getVar fresult] == ""} {
+        return
+    }
+    # Save the Data
+    set currentpwd [pwd]
+    cd [$this getVar folder]
+    [$this getVar fresult] parameters setValue Filename $saveName
+    [$this getVar fresult] setLabel $saveName
+    $saveName save 
+    $this setVar fresult $saveName
+    cd $currentpwd
+
+}
+
+
+$this proc saveDataBase { } {
+
+    for {set number 0} {$number < 14} {incr number} {
+        for {set type 0} {$type < 4} {incr type}  {
+            
+            $this filters setOptValue $number
+            $this direction setOptValue $type
+            $this fire
+            $this executeAndSaveFilter    
+        }
+    }
+    $this filters setOptValue 0
+    $this direction setOptValue 0
+    $this fire    
+}
+

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceArea</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceArea" "computes the area of a surface or the volume
+enclosed by it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module calculates the area of the individual patches of a surface
+(<em>patch mode</em>). The results are stored in a
+<a class="link" href="HxSpreadSheet.html#A1">spread sheet</a> data object.</p>
+<p>In an alternative mode the area and the enclosed volume of the different
+regions defined in the surface are computed (<em>material mode</em>). In this
+mode the total surface area is twice as large since every triangle
+contributes to two regions. Note that for this mode it is required that
+the surface be closed, i.e., that all regions are completely enclosed by
+triangles. Otherwise, the computed volumes will be incorrect.</p>
+<p>Actually, the volume computation simply sums the signed volumes of all of
+the tetrahedra joining surface triangles to the origin (point with
+coordinates x=0, y=0, z=0). The sign of the volumes depends on triangle
+orientation relative to the origin, so volumes are computed correctly even
+for non convex surfaces. In the case of a closed surface, the result is the
+volume of the enclosed surface. If the surface is not closed, then the
+result can be considered as the volume comprised between the surface
+(triangles) and the origin, which can be still useful depending on your
+purpose.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface to be investigated.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxSurfaceArea_mode.png" /><br /></div>
+<div class="body"><p>Toggles between <em>material mode</em> and <em>patch mode</em>.</p>
+<p>In <em>material mode</em> the resulting spread sheet object contains one row
+for every non-empty region of the surface. Each row contains the name of
+the region, the number of triangles of the region's boundary, the surface
+area of the boundary, as well as the enclosed volume. Usually, for the <em>exterior</em> region the volume is negative.</p>
+<p>In <em>patch mode</em> the resulting spread sheet object contains one row for
+every patch of the surface. Each row contains the patch id, the patch's
+inner region name, the patch's outer region name, the number of triangles
+of the patch, and the surface area of the patch. In the following columns the
+total number of triangles and the total surface area are printed. If the
+surface data structure also contains the surface contour, the surface
+perimeter is displayed. Note that you might have to use the
+<b>recompute</b> command of the <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> module,
+to obtain the contour information.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

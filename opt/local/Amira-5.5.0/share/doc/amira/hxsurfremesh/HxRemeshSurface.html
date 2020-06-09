@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> RemeshSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "RemeshSurface" "remesh surface to create a high
+ quality triangulation" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> 
+ 
+ 
+ This module remeshes triangular surfaces to improve triangle quality.
+ 
+ The module implements two approaches for surface
+ remeshing. The first approach uses explicit regularization of the
+ triangles around a vertex and, therefore, generates
+ triangular surfaces with <em>high regularity</em>. A highly regular
+ mesh is a mesh for which most of its vertices have 6 neighbors.<br />
+
+ The second approach is based on <em>Lloyd relaxation</em> and does not
+ explicitly regularize the vertex connectivity. This approach attempts an 
+ <em>isotropic vertex placement</em> in order to achieve a high triangle 
+ quality.<br />
+
+ The more general approach is that of an <em>isotropic vertex placement</em>, 
+ why it is set the default. However, for smooth surfaces the <em>high regularity</em> objective might also produce very good results.
+ At the end of this module's documentation you see the remeshing results for 
+ both objectives compared to the original surface.</p>
+<p> Note that the algorithm is both time and memory consuming. For
+ example, when remeshing a surface with 1,300,000 triangles, about
+ 2GB of memory will be consumed. The time varies according to the
+ size it will be remeshed to. For example, when remeshing the
+ surface to 50 percent of its original size, it will take about 15
+ minutes.</p>
+<p> Remeshing is started by pressing the <em>Apply</em> button.
+ </p></div>
+<p></p>
+<p> </p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Input surface to be remeshed.</p>
+<p> <a name="A2"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">DensityField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Surface scalar field used for modulating locally vertex density. If no field
+ is connected the curvature is used for weighting the density. See also
+ port <a class="link" href="#A13">Density contrast</a>.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">SurfacePathSet1</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A <a class="link" href="../hxsurfacepath/HxSurfacePathSet.html#A1">surface path set</a> that can be
+ considered while remeshing to preserve certain features. Please
+ also see the <a class="link" href="#A17">Surface path
+ options</a> port. Note that more than one surface path set can be
+ connected to the module. If the first surface path set is
+ connected, a new connection will be created.</p>
+
+</div></div>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Advanced options</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_advancedOptions.png" /><br /></div>
+<div class="body"><p>By default, advanced options are hidden. They will be displayed
+ if the <em>show</em> toggle is checked.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Objective</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_objective.png" /><br /></div>
+<div class="body"><p>This port determines the objective of the remeshing:<br />
+ 
+ <b>High regularity</b>: the remesher tries to generate a mesh such that
+ for most of the vertices the number of neighboring vertices is 6.<br />
+
+ <b>Best isotropic vertex placement</b>: the remesher attempts to generate a 
+ mesh with vertices placed isotropically across the surface. Since vertex
+ placement is modulated by either the curvature or a density field, isotropy
+ of vertex placement will only hold with respect to the modulated vertex 
+ distribution.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Triangle area opt.</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_triangleArea.png" /><br /></div>
+<div class="body"><p>This port lets the user decide how much effort is put into the
+ optimization of the triangle area. The desired triangle area in a
+ certain surface region is a function of the given density. If no
+ <a class="link" href="#A2">density field</a> is given, the
+ curvature field will be used instead, which is computed
+ internally. The goal is to optimize the correct triangle area
+ distribution. If no weighting is used, the areas of all triangles
+ should be similar. The first parameter specifies the number of
+ passes used for optimizing the triangle area. The <em>nAreaSteps</em> parameter specifies the number of steps per pass
+ that are used for optimizing the triangle area by moving the
+ vertices. The last parameter, <em>nEdgeFlips</em> specifies the
+ number of edge flips performed per pass for optimization. The
+ default parameters should be suitable for most applications.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Vertex valence opt.</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_vertexValence.png" /><br /></div>
+<div class="body"><p>This parameter allows specifying the number of passes used for
+ improving the vertex valence, i.e. the regularity. This option is
+ only visible, if the objective is <em>high regularity</em>. A mesh
+ is considered as being regular, if the number of neighbors of each
+ vertex in the mesh is 6. So, the higher the <em>nPasses</em> value,
+ the more the remesher will try to generate a regular mesh.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Triangle quality opt.</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_triangleQuality.png" /><br /></div>
+<div class="body"><p>This parameter specifies the number of passes being used for
+ triangle quality optimization. Here, the objective is to obtain
+ triangles that are as equilateral as possible, i.e. all triangle
+ angles should be similar. This option is only visible, if the
+ objective is <em>high regularity</em>.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lloyd relaxation</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_lloydRelaxation.png" /><br /></div>
+<div class="body"><p>This parameter becomes visible if the objective is <em>best
+ isotropic vertex placement</em>. It determines the number of passes
+ used for relaxing the points. The default should be suitable in
+ most cases.</p>
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Defaults</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_defaults.png" /><br /></div>
+<div class="body"><p>With this button, the user can quickly reset the parameters to the
+ default.</p>
+<p> <a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Desired size</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_desiredSize.png" /><br /></div>
+<div class="body"><p>The values of this port determine the number of vertices and
+ triangles in the final surface. Note, that the actual number of
+ vertices and triangles might be slightly different from this
+ number. The three values in this port influence each other.
+ Setting one of the values will result in a modification of the
+ other values. In regular surfaces, the number of triangles is
+ twice as large as the number of vertices. Hence, setting the
+ number of triangles will result in half the number of vertices.
+ However, it is inherent to the algorithm to consider the number of
+ vertices and not the number of triangles. Hence, the resulting
+ mesh will be closer to the specification of the number of vertices
+ than to that of the number of triangles. The last value is
+ provided for convenience only. It allows setting the percentage
+ of the original mesh size.</p>
+<p> <a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Error thresholds</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_errorThresholds.png" /><br /></div>
+<div class="body"><p>Two error thresholds can be set. Both thresholds are angle
+ thresholds and have a range between -1 and 1. If the error
+ threshold is 1, no changes are allowed, because each remeshing
+ will violate this threshold. If the value is -1, no error will be
+ taken into account. Since the thresholds are given as the cosines
+ of angle thresholds, their range is -1 to 1.<br />
+
+ The <em>smoothness</em> error measures the difference between the
+ vertex normals of neighboring vertices. Hence, a vertex can only
+ be moved if the smoothness criterion is preserved. As a result,
+ regions of the original surface that are not smooth will usually
+ stay as they are.<br />
+
+ The <em>distance</em> error measures the distance between the
+ original and the modified surface in terms of normal distance.
+ Hence, a remeshing step can only get accepted, if the distance
+ between the normals of the original and the remeshed surface is
+ smaller than the given threshold.</p>
+<p> <a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Density contrast</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_densityContrast.png" /><br /></div>
+<div class="body"><p>The density contrast determines the influence of the density field
+ or the surface curvature on the triangle area in certain regions
+ of the surface. It is used as an exponent of the values of the
+ density field, so be careful when choosing a value. A value
+ between 0 and 2 might be appropriate.</p>
+<p> <a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Density range</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_densityRange.png" /><br /></div>
+<div class="body"><p>This is the density range to be taken into account. Values below
+ and above will be clipped.</p>
+<p> <a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolate orig. surface</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_interpolateOrigSurface.png" /><br /></div>
+<div class="body"><p>When the first option, <em>smoothly</em>, is selected, the original
+ surface will be smoothed internally, and this smoothed surface
+ will be used to move the vertices. If the second option is
+ chosen, no interpolation is done and the vertices of the remeshed
+ surface will be exactly on the original piecewise linear surface.</p>
+<p> <a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Remesh options (1)</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_remeshOptions1.png" /><br /></div>
+<div class="body"><p>Contours can either be given by surface paths or implicitly at
+ non-manifold edges. With the first option, these contours can be
+ fixed, which means that no changes are allowed for contours. With
+ the second option, one enables contraction of edges on the
+ contours. Note that this option will only be considered if
+ the first option is not set.</p>
+<p> <a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Surface path options</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_surfacePathOptions.png" /><br /></div>
+<div class="body"><p>The remeshing algorithm can be used in conjunction with surface
+ paths, i.e. the user can specify surface paths which will be
+ considered separately. If the second option is selected, control
+ points, i.e. distinguished vertices on the surface path, will not
+ be moved.</p>
+<p> <a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Remesh options (2)</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_remeshOptions2.png" /><br /></div>
+<div class="body"><p>This option lets the user decide whether the whole surface should
+ be remeshed or whether the remeshing should be restricted to the
+ area around contours, where contours are the borders of patches.</p>
+<p> <a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contour layers</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_contourLayers.png" /><br /></div>
+<div class="body"><p>If the surface should only get remeshed around contours, this
+ parameter enables the user to determine how large the area in
+ number of triangles should be.</p>
+<p> <a name="A20"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Modify result</span>  
+<div class="portsnapshot"><img src="HxRemeshSurface_modifyResult.png" /><br /></div>
+<div class="body"><p>This button allows modifying the result. If one has already
+ remeshed the surface but would like to improve the result, hitting
+ this button allows modifying the surface starting with the
+ previously computed result. This functionality might save a lot
+ of time if only minor changes are desired.</p>
+</div></div>
+</div>
+<p></p>
+<p> </p><div class="hxsection">
+<a name="A21"></a><h3>Examples</h3>
+<div style="text-align:center"><a href=HxRemeshSurface_originalSurface.png.html><img width=750 src="HxRemeshSurface_originalSurface.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Surface before remeshing.</div>
+
+ 
+ </div><div style="text-align:center"><a name="A22"></a><a href=HxRemeshSurface_highRegularity.png.html><img width=750 src="HxRemeshSurface_highRegularity.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Surface remeshing with <em>high regularity</em>.</div>
+
+ 
+ </div><div style="text-align:center"><a name="A23"></a><a href=HxRemeshSurface_isotropicVertexPlacement.png.html><img width=750 src="HxRemeshSurface_isotropicVertexPlacement.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Surface remeshing with <em>best isotropic vertex
+ placement</em>.</div>
+
+ 
+ </div></div>
+<p></p>
+<p>
+
+</p></body>
+</html>

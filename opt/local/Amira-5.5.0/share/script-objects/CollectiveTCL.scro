@@ -1,0 +1,129 @@
+# Amira-Script-Object V3.0
+
+#########################################################################
+#
+# Perform TCL commando on visible/selected/typed modules in object pool
+#
+# author: Hans Lamecker, lamecker@zib.de
+#
+#########################################################################
+
+# constructor is called when scro is instantiated
+$this proc constructor {} {
+
+    # Hide the port script
+    $this script hide
+
+    # TCL command
+    $this newPortText myCommand
+    $this myCommand setLabel "TCL Command"
+    $this myCommand setValue "getTypeId"
+
+    # work on all visible or selected objects
+    $this newPortRadioBox myOptions 3
+    $this myOptions setLabel "Apply to Modules"
+    $this myOptions setLabel 0 "visible"
+    $this myOptions setLabel 1 "selected"
+    $this myOptions setLabel 2 "by type"
+
+    # TypeId for objects to be handelled
+    $this newPortMultiMenu myTypeId 0
+    $this myTypeId setLabel "Type"
+    
+    # action
+    $this newPortDoIt DoIt
+    $this DoIt setLabel 0 "DoIt"
+    $this DoIt setLabel ""
+    $this DoIt setCmd 0 {
+    if [catch {$this executeCommands} msg] {echo $msg}
+    }
+}
+
+#########################################################################
+
+# compute is called whenever the ports of the scro change
+$this proc compute {} {
+    
+    # only show myTypeId if myOptions is toggled adequately
+    if [$this myOptions isNew] {
+        set val [$this myOptions getValue]
+	if {$val==2} {
+            $this scanModules
+            
+	    $this myTypeId show
+	} else {
+	    $this myTypeId hide
+	}
+    }
+}
+
+#########################################################################
+
+# scan all modules for their and and append to myTypeId port
+$this proc scanModules {} {
+    
+    set types [list]
+
+    foreach mod [all] {
+        
+        set type [$mod getTypeId]
+        set idx [ lsearch $types $type ]
+
+        if { $idx!=-1 } { continue }
+        lappend types $type
+    }
+
+    set num [ llength $types ]
+    $this myTypeId setNum 0 $num
+
+    for {set i 0} {$i<$num} {incr i} {
+        $this myTypeId setLabel $i [lindex $types $i]
+    }
+}
+
+#########################################################################
+
+# execute TCL command on all modules
+$this proc executeCommands {} {
+
+    set opt [$this myOptions getValue]
+    set cmd [$this myCommand getValue]
+    
+    set typeIdx [$this myTypeId getValue]
+    set type [$this myTypeId getLabel $typeIdx]
+    
+    # scan all visible modules
+    if {$opt==0} {
+        
+        foreach mod [all -visible] {
+            $this executeCommand $mod $cmd
+        }
+
+    # scan all selected modules
+    } elseif {$opt==1} {
+        
+        foreach mod [all -selected] {
+            $this executeCommand $mod $cmd
+        }
+
+    # scan all modules of type $type
+    } elseif {$opt==2} {
+        
+        foreach mod [all $type] {
+            $this executeCommand $mod $cmd
+        }
+
+    }
+}
+
+#########################################################################
+
+#execute single TCL command
+$this proc executeCommand {mod cmd} {
+    
+    if { [$mod getLabel]==[$this getLabel] } { return }
+    
+    set res [eval "set obj $mod; $mod $cmd"]
+    if { $res!="" } { echo $res }
+    $mod fire
+}

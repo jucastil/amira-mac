@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Alignment Methods</a></h3>
+<p>The four different alignment methods are based on different concepts and thus
+the results
+may differ significantly. However, not only the method decides on the result but the 
+right settings for the method. This page shall help to use the best alignment method 
+and to use the right settings.
+Therefore, the algorithms behind the methods are briefly described. This requires a little background knowledge
+about mathematics.</p>
+<p>
+</p>
+<ul><li><b>Gravity centers:</b> This method calculates a center of gravity of the gray values
+ and the orientation by means of the covariances of the image.</li><li><b>Gray values:</b> This method compares the single gray values of two images. The more pixels of two compared slices have the same
+gray values, the better the alignment will be valued for this method. That means that this method tries to move one slice and calculates the 
+difference of the gray values of both images. If the quality is getting higher after the movement, this method will keep on changing the 
+positions of to slices to each other until a maximum quality according to the above mentioned feature will be reached.</li><li><b>Landmarks:</b> This method is the one that requires most user interaction.
+ The user can define some points, so called landmarks, which will be aligned to each other during the process.
+The method is mostly one of the best because the user decides about on the alignment. The problem of this method is that the user has to 
+set all of these landmarks so that this method is very time-intensive.</li><li><b>Edge detection:</b> This method is an outline-based method. It works in two steps. In the first step the method tries to identify the object
+and clears the surrounding of any noise. If the object is separated from the background, the outlines of the objects in two successive slices will be compared
+and aligned with each other.</li>
+</ul><p></p>
+<p>Two methods allow to define some settings. These settings often decide on the quality of an alignment procedure. Sometimes, unintentional artifacts 
+appear which result from wrong settings. </p>
+<p></p>
+<ul><li><b>Gray values:</b> This is the first method that allows the user to set some parameters. As described above, the alignment compares the 
+gray values of two successive slices. The possible settings are described in the <a class="link" href="HxAlignSlices_menubar.html#A15">Least-squares options window</a>. The scale factor
+ defines if an image is re-scaled before 
+the entire process. This means that the image will be resampled in a <em>scale factor</em>-times coarser resolution. This speeds up the first steps 
+of the process to find a first maximum. If this factor is too large, the editable slice could <em>flee</em> out of the canvas. This is a normal behavior since only 
+points which overlap each other are considered for the calculation of the alignment quality, i.e., if one image moves out of the canvas the quality 
+will be calculated as one hundred percent.</li><li><b>Edge detection:</b> This method has several settings which determin quality and speed of the alignment. As mentioned above, the alignment is divided
+ into two phases. In the first phase, the object must be separated from the background, and in the second phase the rotation of two objects is calculated 
+according to their outlines. The separation of image and background is achieved by using a matrix which decides according to a surrounding if one pixel 
+belongs to the object or the background. The size of the surrounding region is set by the first parameter. The higher this value is, the slower the alignment procedure will be.
+If the background noise is rather small, the matrix size can be set small in order to speed up the alignment procedure. If an image has an high resolution, the 
+image rastering can be set to value greater than one. This speeds up the alignment procedure considerably. If the object has dis-symmetrical outlines,
+the angle-step-size can be set on a higher value. This also speeds up the alignment procedure. If the outlines are symmetrical, it is strongly recommended to set the 
+step size to a small value.</li>
+</ul><p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

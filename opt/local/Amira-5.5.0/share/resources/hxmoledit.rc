@@ -1,0 +1,58 @@
+module -name "BondCalculation" \
+    -primary "HxMolecule" \
+    -class "HxBondCalc" \
+    -category "Compute" \
+    -dso "libhxmoledit.so"
+
+editor -name "Molecule Editor" \
+    -data "HxMolecule" \
+    -class "HxMoleculeEditor" \
+    -icon "HxMoleculeEditor.png" \
+    -dso "libhxmoledit.so"
+
+editor -name "Attribute Editor" \
+    -data "HxMolecule" \
+    -class "HxAttributeEditor" \
+    -icon "HxAttributeEditor.png" \
+    -dso "libhxmoledit.so"
+
+editor -name "Data Editor" \
+    -data "HxMolecule" \
+    -class "HxDataEditor" \
+    -icon "HxDataEditor.png" \
+    -dso "libhxmoledit.so"
+
+editor -name "Bundle Data Editor" \
+    -data "HxMolTrajectoryBundle" \
+    -class "HxBundleDataEditor" \
+    -icon "HxDataEditor.png" \
+    -dso "libhxmoledit.so"
+
+module -name "MolElectrostatics" \
+    -primary "HxMolecule"               \
+    -class "HxMolElectrostatics" \
+    -category "Compute"                  \
+    -dso "libhxmoledit.so"
+
+module -name "MolInterpreter" \
+    -class "HxMolInterpreter" \
+    -dso "libhxmoledit.so"
+
+module -name "NoncovalentInteractionGrid" \
+    -primary "HxMolecule"               \
+    -class "HxNoncovalentInteractionGrid" \
+    -category "Compute"                  \
+    -dso "libhxmoledit.so"
+
+module -name "MolOptimizer" \
+    -primary "HxMolecule"               \
+    -class "HxMolOptimizer" \
+    -category "Compute"                  \
+    -dso "libhxmoledit.so"
+
+module -name "AtomicMolecularDensity" \
+    -primary "HxMolTrajectory HxMolTrajectoryBundle HxMolecule"               \
+    -class "HxCompMolecularDensity" \
+    -category "Compute"                  \
+    -dso "libhxmoledit.so"
+

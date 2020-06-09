@@ -1,0 +1,29 @@
+# ----------------------------------------------------------------------
+#  voltex package
+# ----------------------------------------------------------------------
+
+if { [theAppSkin getProductName] == "Avizo" } {
+  set voltex_prio 8
+} else {
+  set voltex_prio 6
+} 
+
+module -name "Voltex" -priority $voltex_prio \
+    -primary "HxUniformScalarField3 HxUniformColorField3" \
+    -class "HxVoltex" \
+    -category "Display" \
+    -dso "libhxvoltex.so"
+
+module -name "Voltex" -priority 8 \
+    -primary "HxMultiChannelField3" \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1 } \
+    -class "HxVoltex" \
+    -category "Display" \
+    -dso "libhxvoltex.so"
+
+dataFile -name "CLUT" \
+    -option "clut" \
+    -header "Clut1999a" \
+    -load "hxReadCLUT" \
+    -type "HxColormap256" \
+    -dso "libhxvoltex.so"

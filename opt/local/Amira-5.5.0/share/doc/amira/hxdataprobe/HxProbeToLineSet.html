@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ProbeToLineSet</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ProbeToLineSet" "creates a line set object from a LineProbe or SplineProbe" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module can be connected (tight connection) to a
+ <a class="link" href="HxDataProbe.html#A1">LineProbe</a> or <a class="link" href="HxDataProbe.html#A1">SplineProbe</a>
+ module. It saves the probe line or probe spline into a
+ <a class="link" href="../hxlines/HxLineSet.html#A1">LineSet</a> data object.
+ The LineSet contains all points where samples are taken as coordinates and
+ the sampled values as data. Furthermore the spline controlpoints are
+ saved in the parameters of the LineSet. 
+ Press the <em>Apply</em> button to save the current probe line into the LineSet.
+ Since a LineSet can hold more than
+ one line, additional probe lines will be saved whenever the <em>Apply</em> button is
+ pressed.</p>
+<p> If a LineSet is connected to the data port (optional), this LineSet is
+ then copied and the probe lines are saved into the copy.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">SplineProbe</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>This is the controlling SplineProbe or LineProbe module.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Can be optionally connected to a LineSet. A copy of that LineSet is
+ used to save the probe lines.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+
+
+
+</p>
+<p>
+</p>
+<p></p>
+<p>
+
+</p></body>
+</html>

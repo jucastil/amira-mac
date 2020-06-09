@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ParticlePlot</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ParticlePlot" "displays a vector field with particle animation" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ParticlePlot is a replacement for the older <a class="link" href="HxConePlot.html">ConePlot</a> module.
+For compatibility reasons the old ConePlot module is still available.</p>
+<p>This module visualizes scalar vector fields by particles (cones)
+pointing in the direction of the local flow. The placement of
+particles can be done similar to the distribution modes of the
+<a class="link" href="../hxisl/HxDisplayISL.html#A1">DisplayISL</a> module. The particles are animated to
+generate a sequence of objects "walking" through the vector field.
+
+ParticlePlot uses Open Inventor render caching. All animation steps
+are pre-computed and played back by making the appropriate parts of the
+scene visible. This technique requires little CPU computation but larger
+amounts of memory and a fast graphics card. Notice that the first pass
+through the animation may be slow but subsequent render passes speed up.
+To control the overall speed of the animation use the
+<tt>setRealTimeDuration</tt> command of the time slider.</p>
+<p>Note that you must press the <em>Apply</em> button for every change in the
+parameters. Only the objects' <em>Height</em> and <em>Radius</em> are updated without
+you needing to explicitly press the <em>Apply</em> button.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D vector field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A connection to a <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a> module which specifies
+a rectangular region of interest. The seed points will be restricted to
+its region of interest. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Shape data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Supply a custom shape to be replicated instead of the cones. Any
+geometry displayed in <font face="helvetica">Amira</font> can be used.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Distribution</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which can be used to control the distribution
+of seed points.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional scalar field which, if present, will be used for pseudo-coloring.
+Often it is useful to create a scalar field from a vector field using the
+<a class="link" href="../hxarith/HxMagnitude.html#A1">Magnitude</a> module.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> used to encode the color field. If no
+color field is connected, the magnitude of the vector field at each position
+will be used for pseudo-coloring.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Animate</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A time slider which controls the currently shown step of the animation.
+To control the overall speed of the animation use the
+<tt>setRealTimeDuration</tt> command of the time slider.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A7"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Distribute</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_distribute.png" /><br /></div>
+<div class="body"><p>This port provides an option menu specifying how seed points are distributed
+inside the seed box. By default a <em>homogeneous</em> distribution will be used.
+Alternatively, seed points may be distributed according to the vector field's
+magnitude or according to the value of the distribution field, if such a field
+is connected to the module. The <em>equalize</em> option provides a mixture of 
+homogeneous and proportional seed point distribution. </p>
+<p>The <em>regular</em> option distributes the objects at regular intervals
+in the bounding box using the information in the <em>Resolution</em>
+port. For this last setting, the length of integration is set
+initially to 1 in order to restrict the number of cones produced.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_Resolution.png" /><br /></div>
+<div class="body"><p>For proportional and equalized distribute settings, this port specifies the
+resolution at which the vector field will be sampled. If the regular mode
+for the distribution is selected, this port will specify the number of
+objects distributed in the bounding box.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_Colormap.png" /><br /></div>
+<div class="body"><p>A colormap which specifies the pseudo-coloring used. Please note that
+the maximum magnitude detected is printed out by the module after each
+<em>Apply</em> button action.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_Options.png" /><br /></div>
+<div class="body"><p>This port specifies the number of traces computed, the number
+of cones per trace which are displayed at each point in time, and the
+number of steps of the vector field integration.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options2</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_Options2.png" /><br /></div>
+<div class="body"><p>This port specifies the initial step size of the Runge-Kutta solver and
+the height and radius of the cones. If a shape object is attached
+to the module, only the height setting will be used to specify its isotropic
+scaling.</p>
+<p>If you want to change the default data range of each of the <em>Options</em> ports, you
+can use the following Tcl command:<br />
+
+ <tt>ParticlePlot Options setMinMax 2 0 500</tt><br />
+
+which will for example set the minimum and maximum values of the <em>Length</em> 
+text field to 0 and 500.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_threshold.png" /><br /></div>
+<div class="body"><p>This port specifies an expression field similar to the one used in
+<a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a>. The value <tt>x</tt> is defined as the
+magnitude of the vector field evaluated at each position of the field.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Animate</span>  
+<div class="portsnapshot"><img src="HxParticlePlot_Animate.png" /><br /></div>
+<div class="body"><p>A time slider which controls the currently shown step of the animation.
+To control the overall speed of the animation use the
+<tt>setRealTimeDuration</tt> command of the time slider.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">createLineSet</span>  
+
+<div class="body"><p>Generates a line set object from the current particle trace.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getStepsToBlend</span>  
+
+<div class="body"><p>Returns the current number of steps that will be used at the
+begin and end of each particle trace to blend out the objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setStepsToBlend x</span>  
+
+<div class="body"><p>Sets the number of steps that will be used at the begin and end
+of each particle trace to blend out the objects.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

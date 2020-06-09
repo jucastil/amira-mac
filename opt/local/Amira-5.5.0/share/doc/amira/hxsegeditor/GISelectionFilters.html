@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Selection Filters</a></h3>
+<p>Under the <em>Selection</em> button of the menu bar several filters for
+modifying the current selection are provided. These include simple
+morphological operations, smoothing filters, and interpolation tools.</p>
+<p></p>
+<ul><li><b>Grow:</b> This filter performs a morphological dilatation of 
+ the current selection, i.e., the selection is made bigger by one
+ pixel in every direction. The filter can be applied to the current
+ slice only (shortcut is <em>Ctrl +</em>), to all slices (orientation
+ is defined by the active viewer), or to the whole volume.
+ <br />
+</li><li><b>Shrink:</b> This filter performs a morphological erosion of 
+ the current selection, i.e., the selection is made smaller by one
+ pixel in every direction. The filter can be applied to the current
+ slice only (shortcut is <em>Ctrl -</em>), to all slices (orientation
+ is defined by the active viewer), or to the whole volume.
+ <br />
+</li><li><b>Fill:</b> This filter fills the current selection, i.e., it closes
+ all holes in it. The filter can be applied to the current slice only
+ (shortcut is key <em>F</em>), or to all slices (orientation is defined by
+ the active viewer).
+ <br />
+</li><li><b>Smooth:</b> This filter smooths the current selection. Smoothing
+ works by applying a Gauss filter to the binary selection image and
+ then reselecting all pixels with an intensity bigger than 0.5. Usually
+ the filter is applied to a selection computed by the threshold filter
+ or by the magic wand tool. The shortcut for this filter is <em>Ctrl
+ M</em>.<br />
+</li><li><b>Invert:</b> This filter inverts the current selection, i.e.,
+ selected voxels are deselected, while unselected voxels are selected.
+ The filter can be applied in the current slice only or in the whole volume.
+ (The shortcut <em>I</em> works either on the current slice or the whole volume, 
+ depending on the state of the <em>All slices/Current slice</em> radio button 
+ in the <em>Selection</em> area.)
+ <br />
+</li><li><p><b>Snakes...:</b> This filter automatically fits the contour of a
+ selected region to the edges of the image. Edges are regions with a
+ high contrast. </p>
+<p> An additional dialog is opened, which allows you to copy the selection
+ from the current slice into the next or previous slice (up and down
+ arrows). After copying, the snakes algorithm tries to adjust the contour
+ to the gray values in the new slice.</p>
+<p> Clicking on <i>Adjust</i> runs the same algorithm on the current
+ selection in the current slice. This is especially useful to readjust
+ after a manual correction. </p>
+<p> If <i>Extrapolate</i> is switched on, the selection is not only copied
+ to the next slice but extrapolated by taking into account selections in
+ the two previous slices.</p>
+<p> If <i>3DInfo</i> is switched on, a modified snakes algorithm is used
+ which gives better results in the case of relatively equal voxel sizes
+ in all three directions.</p>
+<p> <i>Relax</i> smooths the contour of the current selection.
+ <br />
+</p></li><li><b>Make Ellipse:</b> Pressing this button causes the selected area to
+ be replaced by an ellipse that fits the original selection as well as
+ possible. The filter operates on the current slice of the active viewer.
+ <br />
+</li><li><b>Interpolate:</b> This button interpolates the selection between
+ all slices where areas have been selected manually. Pressing the button
+ again after performing corrections in certain slices will interpolate
+ the selections between all slices where changes have been made. For
+ example, suppose you have selected an object in slice 1 and in slice
+ 10. Pressing the <em>Interpolate</em> button automatically computes a
+ selection in slices 2...9. You may then modify the selection in slice
+ 5, e.g., using the <em>Brush</em> tool. Pressing <em>Interpolate</em> again
+ now interpolates the selection in slices 2...4 and 6...9. The shortcut 
+ for this filter is <em>Ctrl I</em>.
+ <br />
+</li><li><p><b>Wrap:</b> This filter also interpolates the selection. However,
+ a different algorithm based on scattered data interpolation with radial
+ basis functions is applied. The filter always operates in 3D. In
+ contrast to the previous filter, it is possible to start from slices with
+ different orientations, e.g., after selecting slices in each spatial
+ direction (xy, xz, yz) this tool can be used to compute an
+ interpolating selection which wraps up the object whose skeleton is
+ given by the slices.</p>
+<p> <b>Note:</b> Initially no two successive slices with the same orientation must
+ be labeled. Otherwise, an error message is displayed. The tool may
+ take a few seconds to complete its operation. The shortcut for this
+ filter is <em>Ctrl W</em>.</p></li>
+</ul><p></p>
+<p>
+</p></body>
+</html>

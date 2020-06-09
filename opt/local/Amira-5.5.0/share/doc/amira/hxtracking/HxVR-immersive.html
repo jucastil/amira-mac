@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">11.5 Immersive Configurations</a></h2>
+<p>In <font face="helvetica">Virtual Reality Option</font> an immersive configuration differs from a flat screen
+configuration mainly in the way the screens are described in the config
+file. While for a flat screen configuration it was sufficient to specify
+which part of a big 2D virtual screen was covered by each screen, for an
+immersive configuration the true physical coordinates of the screens have
+to be specified. Knowing the exact spatial arrangements of the screens
+has the advantage that correct perspective views can be computed for all
+screens, provided the 3D position of the observer is also known. In
+particular, the different screens no longer need to be arranged in a
+plane. Instead, the screens might be arranged perpendicular to each other
+like in a <em>CAVE</em> or on a <em>Holobench</em>. In fact, <font face="helvetica">Virtual Reality Option</font> supports
+any other oblique arrangement as well.</p>
+<p>Since the 3D position of the observer need to be known in order to compute
+correct perspective views, usually the observer's eye position is tracked in
+an immersive environment. In <font face="helvetica">Virtual Reality Option</font> this so-called <em>head tracking</em> can
+be achieved using a variety of different tracking systems. Instead of
+accessing the tracking system directly an intermediate software layer is
+used, namely the <em>trackd</em> software of Mechdyne. <em>trackd</em> runs as a
+server, communicates with the tracking system, and stores the tracking
+data in a shared-memory areas which then is read by <font face="helvetica">Virtual Reality Option</font>. Using a
+second sensor not only the observer's eye position can be tracked, but
+also the position of a virtual wand, i.e., a kind of pointing or
+interaction device to be held in a hand. For large planar screen
+configurations it sometimes also makes sense to use a virtual wand without
+head tracking. The images then will always be computed for a fixed
+observer's eye position and possible image flicker due to noise in the tracking data is
+avoided, which is an advantage for 3D demonstrations in front of a larger
+audience.</p>
+<p>Obviously, immersive configurations are more difficult to setup than
+flat screen configurations. Besides defining a suitable <font face="helvetica">Virtual Reality Option</font>
+configuration file, also the tracking system and the <em>trackd</em> daemon
+have to be properly initialized. Finally, the tracking system has to
+be calibrated for use with <font face="helvetica">Virtual Reality Option</font>. In the following sections we first want
+to present some example config files for common immersive environments. In
+particular config files for a single-wall workbench, for a double-wall
+Holobench, and for a four-sided CAVE shall be discussed. The process of
+calibrating the tracking system and customizing 3D user interaction is
+described in subsequent sections.</p>
+<p></p>
+<ul><li><a class="link" href="HxVR-3dscreen.html">A Workbench configuration</a></li><li><a class="link" href="HxVR-holobench.html">A Holobench configuration</a></li><li><a class="link" href="HxVR-4cave.html">A CAVE configuration</a></li>
+</ul><p></p>
+<p>
+
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

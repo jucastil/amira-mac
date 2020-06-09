@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.4 Displaying Molecules</a></h2>
+<p></p><div style="text-align:center"><a name="A2"></a><img src="MolViewBondAngle.png" /><br />
+<div class="caption">
+<b>Figure 60:</b>
+MoleculeView (left and middle) and BondAngleView (right)
+ display the molecule simultaneously. 
+ </div>
+
+
+</div><p></p>
+<p>Molecules can be visualized with the <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a>,
+<a class="link" href="../hxmolview/HxBondAngle.html#A1">BondAngleView</a>,
+<a class="link" href="../hxmolview/HxSecStructure.html#A1">SecStructureView</a>, or
+<a class="link" href="../hxmolview/HxTubeView.html#A1">TubeView</a> modules. A sample output of the first two
+modules is shown in <a class="link" href="#A2">Figure 60</a>.</p>
+<p>In addition, there are two modules for generating molecular surfaces.
+The <a class="link" href="../hxmolsurface/HxCompMolSurface.html#A1">CompMolSurface</a> module enables you to
+generate the <i>solvent accessible, solvent excluded</i>, and <i>van
+ der Waals surfaces</i> of a molecule. The
+<a class="link" href="../hxmolsurface/HxCompMolInterface.html#A1">CompMolInterface</a> module can be used to
+generate intra- and intermolecular interfaces, such as between single
+atoms or residues, or between two molecules, respectively.</p>
+<p></p>
+<h3><a name="A3">10.4.1 Coloring Molecules</a></h3>
+<p>The atom-oriented modules <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a>,
+<a class="link" href="../hxmolview/HxBondAngle.html#A1">BondAngleView</a>,
+<a class="link" href="../hxmolconformation/HxConfDensity.html#A1">ConfigurationDensity</a>, and
+<a class="link" href="../hxmolsurface/HxMolSurfaceView.html#A1">MolSurfaceView</a> allow a coloring on a
+per-atom basis, i.e., each atom is assigned a color. Balls in the
+<em>MoleculeView</em> will have the corresponding colors. Sticks will be
+split into halves colored according to their attached atoms. In the
+<em>BondAngleView</em>, atom colors are assigned to the vertices and
+color is interpolated over the triangles.</p>
+<p>To determine the coloring you can choose a level, e.g., atoms,
+residues, secondary structures, or chains. Furthermore, you can choose
+one of the level's attributes. The coloring will then be done
+according to the group's attributes such that all atoms of the same
+group will have the same color.
+</p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxMolView_colorscheme.png" /><br /></div>
+<div class="body"><p>A molecule may be colored according to various schemes. For example,
+each atom of a specific type may have the same color. Another
+possibility is to give all atoms belonging to a certain group the same
+color. The first menu of the <em>Color</em> port specifies the group
+level, e.g., atoms, residues, secondary structures, or chains. The
+second menu allows you to decide which attribute of the
+specified level should be considered to color its groups.<br />
+
+If you press the <em>Legend</em> button, a separate window will be
+opened, which displays a legend of the coloring, i.e. a table
+associating colors with attribute values according to the current
+coloring. Clicking on the text to the right of a color will select all
+atoms with this color.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Continuous CM</span>  
+<div class="portsnapshot"><img src="HxMolView_continuousColormap.png" /><br /></div>
+<div class="body"><p>This colormap is used to map values of float attributes to colors. For
+optimal mapping, the colormap range must be set correctly. By
+default, the range is set to the minimum and maximum values that occur
+using the chosen color scheme, if the button in front of the first
+text field displays a capital "L". The "L" means that the colormap
+uses a <em>local</em> range which allows you to modify the range without
+affecting the range of the same colormap used in other modules. By
+pressing the button you can toggle between <em>local</em> and <em>global</em> range.</p>
+<p>The default colormap has a constant color over the whole range. By
+leaving it constant you give all atoms the same color, which may be
+useful if you want to compare different molecules. For more
+information, see the section on <a class="link" href="../hxcolor/HxPortColormap.html#A1">colormaps</a>.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Discrete CM</span>  
+<div class="portsnapshot"><img src="HxMolView_discreteColormap.png" /><br /></div>
+<div class="body"><p>This colormap is used to map values of discrete attributes, like
+integers and strings, to colors. </p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Define Color</span>  
+<div class="portsnapshot"><img src="HxMolView_defineColor.png" /><br /></div>
+<div class="body"><p>This port can be used to overwrite the standard colors of the selected
+color scheme. With the <em>All</em> button you can set a new color for
+all atoms. The <em>Clear</em> button unsets the user-defined colors for
+all atoms. The <em>Set</em> and <em>Unset</em> buttons operate on the set
+of highlighted atoms. These buttons can be used to set and unset the
+colors of those atoms, respectively.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<h3><a name="A8">10.4.2 Selecting and Filtering atoms</a></h3>
+<p>Various tasks require the selection of atoms in a molecule. The most
+prominent are the alignment of molecules and the selective display of
+molecule parts. <font face="helvetica">Amira</font> offers two selection methods. You can select
+atoms visually via any of the viewing modules. Alternatively,
+selection can be done via the molecule's
+<a class="link" href="QxMolSelectionBrowser.html#A1">selection browser</a>, which can be opened
+by pressing the <a class="link" href="HxMolecule.html#A8">Show</a> button of the
+molecule.</p>
+<p></p>
+<h4><a name="A9">10.4.2.1 Selection of Atoms with a Viewing Module</a></h4>
+<p>The selection of atoms with a viewing module can be done in two ways.
+The first way is by clicking on certain displayed parts of the
+molecule. In general, this will highlight the selected parts. By
+default, the number of atoms that will be affected by a click depends
+on the selected group level of the <a class="link" href="#A4">color
+ port</a>. For example, if the atoms in the viewing module are colored
+according to the <em>residues</em> level, all atoms belonging to the same
+residue as the picked atom will get selected. However, since this is
+very restrictive, you can easily change the selection mode to the most
+common levels, i.e., atoms, residues, secondary structures, and
+chains. In order to choose a certain level for the selection you need
+to press certain keys in advance. <tt>Ctrl-a</tt> chooses the <em>atoms</em> level, a click on an atom will only influence the selection
+for this atom. <tt>Ctrl-r</tt>, <tt>Ctrl-c</tt> and <tt>Ctrl-s</tt> choose <em>residues, chains</em> and <em>secondary_structure</em> levels,
+respectively. To switch back to the default behavior, where coloring
+determines selection, press <tt>Ctrl-d</tt>.</p>
+<p>If you pick another part, the previously highlighted atoms will be
+unhighlighted and the newly selected atoms are highlighted.
+<tt>Ctrl</tt>-clicking a part of the molecule leaves the existing
+selection state of all atoms unchanged except for the newly selected
+atoms. If the selected atoms had been selected before, they will get
+deselected, otherwise they will get selected. On the one hand, this
+allows you to add atoms to the selection, on the other hand it also
+allows you to deselect atoms.</p>
+<p>If you select some group and afterwards select a second one from the
+same level holding down the <tt>Shift</tt>-key all groups between the
+two will also be selected. The <tt>Shift</tt>-key can also be used in
+conjunction with the <tt>Ctrl</tt>-key.</p>
+<p>If you do any selection by clicking in the viewer there will be some
+output in the console window informing you about what you have
+selected, the amount of output can be customized via the <em>Preferences</em> dialog, which is opened by choosing the <em>Preferences</em> entry from the <em>Edit</em> menu. The preferences
+concerning <font face="helvetica">Molecular Option</font> are found on the <em>Molecules</em> tab.
+</p><div class="hxports">
+<a name="A10"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Highlighting</span>  
+<div class="portsnapshot"><img src="HxMolView_highlighting.png" /><br /></div>
+<div class="body"><p>The second way to select parts of the molecule is by using the
+functionality of the <em>Highlighting</em> port.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<ul><li>If you press the <em>Box</em> button, the molecule's bounding box
+ will be displayed. All atoms contained in the box will be
+ highlighted. You can change the size of the box in
+ <a class="link" href="../usersguide/viewer.html#A1">interaction mode</a> by clicking on the highlighted
+ handles (usually in a light green) of the box. Keep the mouse button
+ pressed and drag in the desired direction. Notice that the box will
+ not exceed the molecule's bounding box. You can also move the box
+ within the bounding box by clicking on one of the box's sides.
+ Pressing the <em>box</em> button a second time hides the box.</li><li>After pressing the <em>Draw</em> button, you can draw a line in the
+ viewer window which selects all atoms that are inside the line.
+ Pressing the <tt>Ctrl</tt>-key while drawing inverts the selection.
+ With the <tt>Shift</tt>-key you can remove atoms from the selection.</li><li>The <em>Clear</em>-key deselects all atoms and hides the box if
+ it is visible.</li>
+</ul><p></p>
+<p><a name="A11"></a>
+</p>
+<h4><a name="A12">10.4.2.2 Filtering atoms</a></h4>
+<p>Filtering atoms gives us the ability to hide parts of the molecule for
+a certain module. All viewing modules and some computational modules,
+such as the <a class="link" href="../hxmolsurface/HxCompMolSurface.html#A1">CompMolSurface</a> module, contain a
+<em>filter</em> that keeps track of all atoms of a molecule which are
+currently <i>in use</i>. The term <i>in use</i> means that the module
+will only see the <i>in use</i> atoms and regard all other atoms as
+non-existing. Thus, a viewing module will only display the <i>in
+ use</i> atoms, and the computational module <em>CompMolSurface</em> will
+compute the molecular surface ignoring the <i>not in use</i> atoms.
+Each filter will register itself at the <em>molecule's selection
+ browser</em>, so that you can easily determine the <i>in use</i> atoms of
+a module. For more information about how to do this, see the
+description of the
+<a class="link" href="QxMolSelectionBrowser.html#A5">selection browser</a>.</p>
+<p>In most modules, the filter's <em>Buffer</em> port will be visible, which
+adds to the convenience. The functionality of the <em>Buffer</em> port is
+described below.
+</p><div class="hxports">
+<a name="A13"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxMolView_buffer.png" /><br /></div>
+<div class="body"><p>Pressing <i>Add</i> will append the selected atoms to the <i>in use</i>
+atoms. The <i>Remove</i> button will delete the selected atoms from
+the <i>in use</i> list. <i>Replace</i> will first clear the <i>in use</i>
+list and then add the selected atoms to it. Finally, the <i>All</i> and
+<i>Clear</i> buttons are shortcuts to delete or add all atoms from or
+to the <i>in use</i> list, respectively.
+</p></div></div>
+</div>
+<p>
+The buffer can also be accessed via tcl commands. Each visualization module using a buffer offers the following set of commands:</p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">showAll</span>  
+
+<div class="body"><p>All atoms are shown.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hideAll</span>  
+
+<div class="body"><p>All atoms are hidden.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setVisible</span>  
+
+<div class="body"><p>All selected atoms will be hidden.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addVisible</span>  
+
+<div class="body"><p>All selected atoms will be hidden.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeVisible</span>  
+
+<div class="body"><p>Only selected atoms are shown.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+
+</p>
+<p>
+
+</p></body>
+</html>

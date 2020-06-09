@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LandmarkSet</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "LandmarkSet" "represents 3D markers or pairs of corresponding 3D markers" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This data type represents specific points or markers in 3D space. It
+can be used to flag markers in MRI images, or to specify pairs
+or n-tuples of corresponding points in multiple data sets.</p>
+<p>An empty set of landmarks can be created by typing 
+<tt>create HxLandmarkSet</tt>
+into the <font face="helvetica">Amira</font> console window, cf. <a class="link" href="../usersguide/console.html#A1">Section 3.1.9</a>. 
+</p>
+<p>Individual
+landmarks can be interactively added, repositioned, or removed from a
+landmark set by means of the <a class="link" href="HxLandmarkEditor.html#A1">landmark editor</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setNumSets &lt;n&gt;</span>  
+
+<div class="body"><p>	Sets the number of point sets contained in this data object.
+	Upon creation a landmark set contains one set of points.
+	In order to represent pairs of corresponding points two sets
+ are required.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumSets</span>  
+
+<div class="body"><p>Returns the number of point sets in this data object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPoint &lt;index&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Sets the coordinates of the specified marker <tt>&lt;index&gt;</tt> in
+ a particular set. If <tt>&lt;set&gt;</tt> is omitted the first set is used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPoint &lt;index&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Returns the coordinates of the specified marker <tt>&lt;index&gt;</tt> in
+ a particular set. If <tt>&lt;set&gt;</tt> is omitted the first set is used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOrientation &lt;index&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;rad&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Sets the orientation of the specified marker <tt>&lt;index&gt;</tt> in
+ a particular set. If <tt>&lt;set&gt;</tt> is omitted the first set is used.
+ The orientation is specified by an axis plus an angle of rotation
+ around this axis in radians.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getOrientation &lt;index&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Returns the orientation of the specified marker <tt>&lt;index&gt;</tt> in
+ a particular set. If <tt>&lt;set&gt;</tt> is omitted the first set is used.
+ The orientation is returned as an axis plus an angle of rotation
+ around this axis in radians.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">appendLandmark &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Appends a new marker to the data object. The new marker will have
+ the same coordinates in all sets.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeLandmark &lt;index&gt;</span>  
+
+<div class="body"><p>Removes the specified marker from all sets, reducing the number of
+ points by one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">swapSets [&lt;set1&gt; &lt;set2&gt;]</span>  
+
+<div class="body"><p>Exchanges the coordinates of the specified sets. If no arguments
+ are given the first and the second set are swapped, provided both
+ sets exist.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeRigidTransform [&lt;src-set&gt; &lt;dst-set&gt;]</span>  
+
+<div class="body"><p>Computes a rigid transformation which moves the points of the first
+ set as close as possible onto the points of the second set (the sum
+ of the squared distances between corresponding points is minimized).
+ The result is returned as a 4x4 transformation matrix, which for
+ example can be used to transform some other data object using the
+ <tt>setTransform</tt> command.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeLinearTransform [&lt;src-set&gt; &lt;dst-set&gt; &lt;transform-type&gt;]</span>  
+
+<div class="body"><p>Computes the linear transformation that moves the points of the first
+ set as close as possible onto the points of the second set (the sum of
+ the squared distances between corresponding points is minimized). The
+ result is returned as a 4x4 transformation matrix, which, for example,
+ can be used to transform some other data object using the <tt>setTransform</tt> command. The possible types of linear transformations,
+ specified by <tt>&lt;transform-type&gt;</tt>, are: 0=rigid (default),
+ 1=rigid+iso-scale, 2=affine.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">translateCoords &lt;x&gt; &lt;y&gt; &lt;z&gt; [&lt;set&gt;]</span>  
+
+<div class="body"><p>Translate the landmarks of the specified set by the given displacement
+ vector. If <tt>&lt;set&gt;</tt> is omitted the landmarks in all sets are
+ translated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">scaleCoords [-center &lt;x&gt; &lt;y&gt; &lt;z&gt;] &lt;xscale&gt; [&lt;yscale&gt; &lt;zscale&gt;] [&lt;set&gt;]</span>  
+
+<div class="body"><p>Scales the coordinates of the landmarks in the specified set. If <tt>&lt;set&gt;</tt>
+ is omitted the landmarks in all sets are scaled. The optional argument
+ <tt>-center</tt> defines the center of the scaling operation. If no center
+ is specified the origin (0,0,0) will be used.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

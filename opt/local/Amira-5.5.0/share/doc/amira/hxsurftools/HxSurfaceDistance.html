@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceDistance</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceDistance" "computes the distance between two triangulated surfaces" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes several different distance measures
+ between two triangulated surfaces. For each vertex of one 
+ surface it computes the closest point on the other surface.
+ From the histogram of these values the following measures
+ are computed:
+ </p>
+<ul><li>mean distance</li><li>standard deviation from the mean distance</li><li>root mean square distance</li><li>maximum distance (Hausdorff distance)</li><li>medial distance</li><li>area deviation: percentage of area that deviates
+ more than a given threshold</li>
+</ul><p>
+ By using an oct-tree structure the computation is sped up,
+ but may fail when two surfaces are too different in their
+ shape or location.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">surface1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Any triangulated surface</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">surface2</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Any other triangulated surface</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Direction</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_direction.png" /><br /></div>
+<div class="body"><p>The distance measures are asymmetric. Thus one can
+ compute them from surface 1<tt>-&gt;</tt>2 or vice versa 2<tt>-&gt;</tt>1. One way to 
+ get symmetric measures is to join the histograms from both
+ directions into a single histogram (Two-sided option). Note
+ that the two-sided option takes twice as long to compute
+ as its one-sided counterparts.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Consider</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_consider.png" /><br /></div>
+<div class="body"><p>When computing the closest points, one can chose to respect
+ either patches or patches and contours. This means that closest
+ points from any patch/contour will be restricted to lie on the same
+ patch/contour of the other surface. Isolated points can be considered 
+ or not in the surface computation.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximal distance</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_maxDist.png" /><br /></div>
+<div class="body"><p>Value for the distance to be used when no closest point could
+ be computed. This can happen when surfaces are too far apart or
+ too different in their shape.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">AboveThreshold</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_aboveThreshold.png" /><br /></div>
+<div class="body"><p>Threshold value for the computation of the area deviation.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_output.png" /><br /></div>
+<div class="body"><p>Optional output of the vectors from each point on one surface
+ to their associated closest points on the other surface, or
+ only their magnitude (distance option).</p>
+
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_info.png" /><br /></div>
+<div class="body"><p>Resulting distance measures will be displayed here: 
+ mean, standard deviation, root mean square, and maximum.</p>
+<p> <a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Info2</span>  
+<div class="portsnapshot"><img src="HxSurfaceDistance_info2.png" /><br /></div>
+<div class="body"><p>Resulting distance measures will be displayed here:
+ median, area deviation. If the connected surfaces have
+ the same number of nodes, the root mean square distance
+ between two vertices with the same index will be computed
+ as well. This is of interest when you have computed 
+ correspondences by some other method than the closest
+ points computation.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

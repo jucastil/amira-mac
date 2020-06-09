@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Vectors</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Vectors" "visualizes a vector field by drawing arrows in a plane" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is a so-called <em>overlay module</em> which can be attached to
+ any module defining a cutting plane, e.g.
+ <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> or <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a>.
+ Inside this plane a 3D vector field can be visualized using a
+ regular array of vector arrows.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D vector field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The module which defines the cutting plane where the arrows are
+	placed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional colormap used for pseudo-coloring.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Seeds</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Seed positions for vector arrows. If a <a class="link" href="../hxcore/HxVertexSet.html#A1">VertexSet</a> is connected
+ to this port, the vertices are used as seed positions for the vector arrows.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxVectors_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxVectors_resolution.png" /><br /></div>
+<div class="body"><p>Provides two text inputs defining the resolution of the regular
+	array of vector arrows in the plane's local x- and y-direction.
+	The larger these values are the more arrows are displayed.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxVectors_scale.png" /><br /></div>
+<div class="body"><p>Scaling factor used to control the length of the vector arrows.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ScaleZ</span>  
+<div class="portsnapshot"><img src="HxVectors_scaleZ.png" /><br /></div>
+<div class="body"><p>Scaling factor used to control the z-coordinate of the vector arrows.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxVectors_mode.png" /><br /></div>
+<div class="body"><p>This port provides the following toggle buttons.</p>
+<p>	<em>Projection:</em> If this option is set then 3D vectors are
+ projected into the current plane. Otherwise, the arrows will
+ indicate the true direction of the vector field.</p>
+<p>	<em>Constant:</em> If this option is set then all arrows will be of
+ equal length. Otherwise, the length of the arrows is chosen to
+ be proportional to vector magnitude.</p>
+<p>	<em>Arrows:</em> If this option is set then true arrows will be
+ displayed. Otherwise, only simple line segments will be drawn.</p>
+<p>	<em>Points:</em> If this option is set then a little dot will be drawn
+ at the bottom of an arrow. This is useful to highlight a
+ sampling point at locations where the vector magnitude is so low
+ that the arrow vanishes completely.</p>
+<p> <em>Absolute scale:</em> If this option is set then vector length are
+ mapped directly to physical space. If not set, a data-dependent
+ scaling is performed first.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colorize</span>  
+<div class="portsnapshot"><img src="HxVectors_colorMode.png" /><br /></div>
+<div class="body"><p>An option menu allowing to control how arrows are colored. In order
+	to see an effect a colormap must be connected to the module.
+	If <em>Magnitude</em> is chosen then the vector magnitude is used to lookup
+	a color from the colormap. If <em>Normal component</em> is chosen then
+	color denotes the signed length of the vector component
+	perpendicular to the cutting plane. This length is positive
+	if the vector points upwards or negative if the vector points
+	downwards. Finally, if <em>Parallel component</em> is chosen then
+	<em>color</em> denotes the length of the vector component tangential
+	to the plane. This length will always be greater or equal than zero.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Phase</span>  
+<div class="portsnapshot"><img src="HxVectors_phase.png" /><br /></div>
+<div class="body"><p>This port will only be visible if a complex-valued vector field
+	is connected to the module. It provides a phase slider controlling
+	which part of the complex 3D vectors is visualized by the arrows.
+	A value of 0 degree corresponds to the real part, while a value of
+	90 degrees corresponds to the imaginary part. The display can be
+ animated with respect to the phase by the <em>cycle</em> button,
+	this way polarization properties of the field can be revealed or
+	wave phenomena become visible.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setLineWidth &lt;value&gt;</span>  
+
+<div class="body"><p>
+	Allows to change the line width of the arrows. By default arrows
+	are drawn two pixels wide.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

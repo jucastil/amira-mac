@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Demo GUI</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Demo GUI" "GUI of Amira's framework for managing demos" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>Demo GUI</em> is a special-purpose system for managing
+demos. Demos to be selected with the 
+Demo GUI must have been previously prepared as described in the
+<a class="link" href="demoframework-intro.html#A2"><font face="helvetica">Demo Framework</font></a> documentation.</p>
+<p>To use the Demo GUI, you must set the environment variable
+$<tt>AMIRA_DEMOS</tt> &nbsp;to the directory which contains the prepared
+demos. Within <font face="helvetica">Amira</font> you will find an item <em>Local Demos</em> in the
+<em>Help</em> menu. If this item is inactive (grayed out), 
+$<tt>AMIRA_DEMOS</tt> &nbsp;is not set. If no valid demos are found in the
+specified directory, an error popup will be displayed.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxDemoGUI_Menu.png.html><img width=330 src="HxDemoGUI_Menu.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font> Help menu with Demo GUI item</div>
+
+
+</div>
+<p>The Demo GUI window consists of two tabs:</p>
+
+<dl>
+<dt>Preselection tab:</dt>
+<dd> On this tab you can perform a filter operation on all
+demos available in your demos directory. The filter result is shown in the
+right list.<br />
+</dd>
+<dt>Selection tab:</dt>
+<dd> Here you can select the demos you want to use for your
+presentation from the filter result (The content of the right list of the 
+preselection tab is identical with the left list shown on the selection tab).<br />
+</dd>
+</dl>
+
+<h3><a name="A3">Preselection tab</a></h3>
+<p><a name="A4"></a>
+On the preselection tab you can select your desired attributes from the 
+attributes checkbox tree on the left and the result of your search will 
+be shown in the right list. If you alter your search query the result list 
+will be updated automatically.</p>
+<div style="text-align:center"><a name="A5"></a><a href=HxDemoGUI_Preselection_Tab.png.html><img width=375 src="HxDemoGUI_Preselection_Tab.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Preselection tab with the result of the filter operation on the right</div>
+
+
+</div>
+
+<h3><a name="A6">Selection tab</a></h3>
+<p><a name="A7"></a>
+The selection tab contains two lists:</p>
+
+<dl>
+<dt>Left List:</dt>
+<dd> List of all available demos. Here the demos are
+ organized according to the directory structure under
+ $<tt>AMIRA_DEMOS</tt>.
+ To expand, i.e., to go down in the directory structure, click
+ on the <tt>+</tt> icon. Demos can be expanded up to the level of steps.<br />
+</dd>
+<dt>Right List:</dt>
+<dd> List of all selected demos. If you selected
+ and added a demo at a higher level (a group of demos),
+ they are expanded up to the demo level on the left list.<br />
+</dd>
+</dl>
+<p>To select demos, click with the left mouse button
+on a demo on the left list and add it with
+the <em>Add</em> button to the right list, the selection list. 
+Once a demo has been put into the right list, it can be selected again
+and then it is possible to change its position within the list
+(<em>Up</em>/<em>Down</em> buttons) or remove it again.
+Steps within a demo may be deleted, for example, to shorten a demo.</p>
+<p>For more information about a particular demo, just click with
+the right mouse button on a demo on either the left or right list.
+A popup window containing some information and thumbnail images will appear.</p>
+<div style="text-align:center"><a name="A8"></a><a href=HxDemoGUI_Selection_Tab.png.html><img width=375 src="HxDemoGUI_Selection_Tab.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Selection tab with one selected demo</div>
+
+
+</div>
+
+<h3><a name="A9">Starting Demos</a></h3>
+<p><a name="A10"></a>
+The three toggles below the tabs may be used as follows:
+</p>
+<dl>
+<dt>full screen:</dt>
+<dd> If on, the demos are displayed in a full screen viewer.
+ Since the <font face="helvetica">Amira</font> main window is obscured, it is only possible to steer
+ the demos with the help of the 
+ <a class="link" href="../scriptobjects/DemoSequence.html#A11">function keys</a>.
+<br />
+</dd>
+<dt>stereo:</dt>
+<dd> This toggle is only activated if the current machine or
+ graphics card has OpenGL stereo capabilities. If set, the <font face="helvetica">Amira</font> script
+ for the demos contains a Tcl variable STEREO which in turn is used by
+ the underlying individual demo scripts to switch stereo on or off.
+<br />
+</dd>
+<dt>html:</dt>
+<dd> If this item is checked and the <em>Start</em> button has been pressed,
+ the <font face="helvetica">Amira</font> help window pops up and the selected demos can be started and 
+ steered also from this window.</dd>
+</dl>
+<p>The <em>Create</em>, <em>Start</em>, and <em>Quit</em> buttons provide the following
+functionality:</p>
+
+<dl>
+<dt>Create:</dt>
+<dd><p> Creates a network with only the
+ <a class="link" href="../scriptobjects/DemoSequence.html#A1">DemoSequence</a>
+ and the DemoStatusDisplay module. In this state you can save the network
+ in order to use the compiled demo later on.
+ To really start the demo, press the <em>Start</em> button in the
+ <a class="link" href="../scriptobjects/DemoSequence.html#A6">DemoSequence</a> module or see below in
+ Figure <a class="link" href="#A11">4</a></p>
+<p> In addition, a directory <tt>selection</tt> is created under the
+ $<tt>AMIRA_DEMOS</tt> &nbsp;directory which contains the selected demos in
+ the same ways as is done by the
+ <a class="link" href="demoframework-intro.html#A17">prepareDemos.tcl</a>
+ commandline tool.
+<br />
+</p></dd>
+<dt>Start</dt>
+<dd>: Creates the network for the first selected demo and starts its
+ first step.
+<br />
+</dd>
+<dt>Quit:</dt>
+<dd> Exit the Demo GUI window.
+<br />
+</dd>
+</dl>
+<div style="text-align:center"><a name="A11"></a><a href=HxDemoGUI_DemoSequence.png.html><img width=375 src="HxDemoGUI_DemoSequence.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+<a class="link" href="../scriptobjects/DemoSequence.html#A1">DemoSequence GUI</a></div>
+
+
+</div>
+
+<h3><a name="A12">Rearrange Demos</a></h3>
+<p><a name="A13"></a>
+After the selected demos have been executed, or a demo network compiled with
+either the Demo GUI or the command-line tool has been loaded, 
+you may start the Demo GUI again by selecting the item in <font face="helvetica">Amira</font>'s
+<em>Help</em> menu, then rearrange the previously selected demos. </p>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

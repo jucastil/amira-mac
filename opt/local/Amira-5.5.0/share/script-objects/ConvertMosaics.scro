@@ -1,0 +1,78 @@
+# Amira-Script-Object v3.0
+
+#
+# This script converts a set of mosaic images into volumes. The script
+# assumes that dimesnions and voxel size of the volumes are stored in the
+# DICOM section of the data objects
+#
+# (C) 2012, Visualization Sciences Group (VSG) SAS
+# Johannes Schmidt-Ehrenberg, Robert Brandt.
+#
+
+
+$this script hide
+
+#$this setValue scriptPath ${SCRIPTDIR}
+
+$this proc constructor {} {
+    $this newPortFilename files
+    $this files setLabel {Mosaic files}
+# allow to add muliple files
+    $this files setMode 2
+    $this newPortDoIt action
+}
+
+$this proc compute {} {
+    
+    global env
+    
+    if { ![$this action wasHit] } {
+        return
+    }
+
+    set mosaics [$this files getValue]
+    if { $mosaics == "" } {
+        echo "Error: no files specified"
+            return
+    }
+
+    if { [ info exists env(AMIRA_MHT_STEREOTAXIS) ] } {
+        set oldMHT $env(AMIRA_MHT_STEREOTAXIS)      
+    }
+    set env(AMIRA_MHT_STEREOTAXIS) 1
+    
+    $this setVar TimeSeriesControl [create HxDynamicFileSeriesCtrl]
+    eval [concat {[$this getVar TimeSeriesControl] init -loadCmd {load -dicom $FILENAME} } $mosaics] 
+    [$this getVar TimeSeriesControl] fire
+    [$this getVar TimeSeriesControl] time setValue 0
+    [$this getVar TimeSeriesControl] time setIncrement 1
+    [$this getVar TimeSeriesControl] time animationMode -once
+    [$this getVar TimeSeriesControl] fire
+
+    set numMosaics [ expr 1 + [ lindex [ [$this getVar TimeSeriesControl] time getMinMax ] 1 ] ]
+
+    for { set i 0} { $i < $numMosaics } { incr i } {
+        [$this getVar TimeSeriesControl] time setValue $i
+        [$this getVar TimeSeriesControl] fire
+        set splitter [ create HxSplitLattice ]
+        $splitter data connect [ [$this getVar TimeSeriesControl] getResult ]
+        $splitter fire
+        $splitter doIt hit
+        $splitter fire
+        [$splitter getResult] setLabel Result$i
+        remove $splitter
+    }
+    remove [ [$this getVar TimeSeriesControl] getResult ]
+    remove [$this getVar TimeSeriesControl]
+
+    if { [ info exists oldMHT ] } {
+        set env(AMIRA_MHT_STEREOTAXIS) $oldMHT
+    } else {
+        array unset env AMIRA_MHT_STEREOTAXIS
+    }
+}
+
+
+
+
+

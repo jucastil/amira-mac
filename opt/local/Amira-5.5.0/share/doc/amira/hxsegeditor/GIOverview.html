@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Overview of the Segmentation Editor</a></h3>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=gi-theGi.png.html><img width=675 src="gi-theGi.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+The Image Segmentation Editor.</div>
+
+
+</div><p></p>
+<p>In order to activate the segmentation editor, press the Segmentation Editor 
+icon in the sub-application toolbar or the button of a selected <em>Label Field</em>. 
+Then an instance of the editor will
+be created and a new window as shown in <a class="link" href="#A2">Figure 1</a> pops up.
+The major parts of this new window are:</p>
+<p></p>
+<ul><li><b>Data area:</b> Two drop-down menus show the loaded Image Data and 
+Label Field. You can load new data and label files directly from the menu bar.
+To create a new label field click on the <em>New</em> button.</li><li><b>Material List:</b> In the central part of the editor window a
+list of materials is presented. Here you can add, remove, and rename 
+materials, and you can select the current material. For each material you can
+turn on/off the 3D and 2D view.</li><li><b>View, Selection and Display:</b> Below the material list several 
+settings for viewing, voxel selection and masking are available. The settings 
+control how the selected voxels are displayed, and activate also the mask for 
+rapid region selection.</li><li><b>Tool Box:</b> Several tools for interactive
+manipulation of the segmentation can be selected here. Depending on the
+currently selected tool additional widgets show up in the options frame.</li><li><b>Info Area:</b> Below the tool box some basic information like the
+current cursor position or the material under the cursor is displayed.</li><li><b>Menu Bar:</b> From the menu bar additional tools and filters
+can be accessed. Menu entries with dots (...) after the name open an 
+additional dialog window.</li><li><b>Image Viewer(s):</b> The biggest part of the window is covered by
+one or four image viewers, displaying the labels and the current selection
+in differently oriented slices.</li>
+</ul><p></p>
+<p>By default, the viewer is displayed in 1-viewer or 2-viewer mode. 
+If you prefer to work with one larger view rather than four smaller views,
+click on the <em>Layout1</em> button in the viewer toolbar. To cycle through 
+each of the four views, press the <em>Layout1</em> button repeatedly. To return to 
+4-viewer mode, press the <em>Layout4</em> button.</p>
+<p>
+<b>Basic principle of interactive segmentation</b></p>
+<p>The basic idea of interaction in the segmentation editor is to first <em>select</em> some voxels and then to <em>assign</em> them to the <em>active
+material</em>. The simplest way of selecting pixels is to simply draw with the
+mouse when the <em>Brush</em> or the <em>Lasso</em> tool is active (see below for
+details). Selected pixels are displayed in red.</p>
+<p>To add selected pixels to the active material, click the "+" button. The
+active material is the material, which is currently selected in the
+material list. New materials can be added by pressing the <em>New</em> button
+above the material list. Every pixel can only be assigned to one material.</p>
+<p>Note that even with the advanced tools provided in <font face="helvetica">Amira</font>, image
+segmentation can be a time-consuming process! Due to limited main-memory
+and for performance reasons, there is only a limited undo space for 2D and 3D 
+interaction. Therefore it is
+highly recommended to <em>frequently save the label field</em> during the
+process of segmentation.</p>
+<p>To get started it might be a good idea, to choose the
+<a class="link" href="../demorecon/recon.html#A1">image segmentation demo</a>
+
+
+from the Users Guide's demo section and start by
+modifying an existing label field.</p>
+<p><b>The menu bar </b></p>
+<p>Two segmentation-specific menus are added to <font face="helvetica">Amira</font>'s main menu bar:
+<em>Segmentation</em> and <em>Selection</em>. The
+entries of the <a class="link" href="GISelectionFilters.html#A1">Selection</a> menu are described in a separate
+section below. Menu entries with dots (...) after their name open an
+additional dialog.</p>
+<p>The items of the <em>Segmentation</em> menu are described here:
+</p>
+<ul><li><b>Undo:</b> This entry undoes the last operation. 
+ Successive invocation of <em>undo</em> is
+ possible, allowing you to undo several operations. Note that for memory and
+ performance reasons, 3D operations can not be undone. Therefore it is
+ highly recommended to frequently save the label field.</li><li><b>Orientation:</b> You can use this to select the orientation of the
+ active viewer. You can also flip the x, y, or z coordinates of all of the 
+ viewers.</li><li><b>Current Viewer:</b> You can select the active viewer. To activate a 
+viewer you can always just click it.</li><li><b>MaterialStatistics:</b> This entry brings up a dialog which lists
+the results computed by the MaterialStatistics module on the current
+data set and segmentation. For an explanation of the modes, see the
+documentation of the <a class="link" href="../hxstatistics/HxTissueStatistics.html#A1">MaterialStatistics</a> module.</li><li><b>Fill holes:</b> Invokes a label filter. See 
+<a class="link" href="GILabelFilters.html#A1">Label filters</a> for more details.</li><li><b>Remove islands...:</b> Invokes a label filter. See 
+<a class="link" href="GILabelFilters.html#A1">Label filters</a> for more details.</li><li><b>Smooth labels...:</b> Invokes a label filter. See 
+<a class="link" href="GILabelFilters.html#A1">Label filters</a> for more details.</li>
+</ul><p></p>
+<p>The <em>Selection</em> menu provides a number of filters and
+operators, which modify the current selection. They are described in the 
+ <a class="link" href="GISelectionFilters.html#A1">Selection filters</a> section in details. 
+ Menu entries with dots (...) after their name open an
+additional dialog.</p>
+<p>
+</p><div style="text-align:center"><a name="A3"></a><a href=GI_Preferences.png.html><img width=675 src="GI_Preferences.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The Preferences of the Segmentation Editor.</div>
+
+
+</div><p></p>
+<p>It is possible to specify various preferences in the <em>Edit/Preferences</em> 
+menu of the menu bar. </p>
+<p></p>
+<ul><li><b>3D Draw Style:</b> How the currently selected materials are displayed
+in the 3D viewer window, when the checkbox in the Material List is selected.</li><li><b>Points1</b>, <b>Points2</b>, <b>Solid:</b> These radio buttons allow you to
+choose the draw style used for drawing the currently selected voxels in the 3D viewer
+window.</li><li><b>Selection Draw Style:</b> How the currently selected materials are displayed
+in the 2D viewer window.</li><li><b>Transparent</b>, <b>Contour</b>, <b>Hatched</b>, <b>Dotted</b>, <b>Light Dots:</b> 
+These radio buttons allow you to choose the default draw style used for 
+drawing the currently selected voxels in the 2D viewer windows.</li><li><b>Opacity:</b> Set the opacity of the displayed regions 
+in the 2D viewer window.</li>
+</ul><p></p>
+<p></p>
+<p>
+</p></body>
+</html>

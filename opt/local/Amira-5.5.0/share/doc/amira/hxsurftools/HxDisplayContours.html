@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ContourView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ContourView" "displays boundary contours of a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays contours of a surface. Contours are typically
+computed automatically and they are defined to be the boundaries of
+patches. If a surface contains no contours, this module will not
+display anything. You can automatically compute contours by using the 
+<tt>recompute</tt> command of the <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a>.</p>
+<p>This module is mostly useful for developers.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The underlying surface data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">SelectBy</span>  
+<div class="portsnapshot"><img src="HxDisplayContours_SelectBy.png" /><br /></div>
+<div class="body"><p>Currently there are two selection modes in order to choose contours:</p>
+<p> <i>Material: </i> Choose contours with respect to bordering materials.
+ <i>Index: </i> Choose contours according to their index.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxDisplayContours_Materials.png" /><br /></div>
+<div class="body"><p>Display contours adjacent to all specified materials. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Index</span>  
+<div class="portsnapshot"><img src="HxDisplayContours_ContourNum.png" /><br /></div>
+<div class="body"><p>Choose index of contour to display. If -1 is chosen, all contours will be
+shown.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

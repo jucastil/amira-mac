@@ -1,0 +1,167 @@
+# ----------------------------------------------------------------------
+#   Camera package
+# ----------------------------------------------------------------------
+
+dataClass -name "Mosaic" \
+    -class "HxMosaic" \
+    -category "Data" \
+    -dso "libhxskeleton.so"
+
+amiramesh -ContentType HxMosaic \
+    -load "HxMosaic::readAmiraMesh" \
+    -dso "libhxskeleton.so"
+
+module -name "DisplayMosaic" \
+       -primary "HxMosaic" \
+       -class "HxDisplayMosaic" \
+       -category "Main Display" \
+       -dso "libhxskeleton.so"
+
+module -name "MosaicToLargeDiskData" \
+       -primary "HxMosaic" \
+       -class "HxMosaicToDiskData" \
+       -category "Convert" \
+       -dso "libhxskeleton.so"
+
+module -name "AutoSkeleton" \
+       -primary "HxExternalData HxUniformLabelField3 HxUniformScalarField3" \
+       -class "HxExtAutoSkeleton" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "CenterlineTree" \
+       -primary "HxLattice" \
+       -class "HxTEASAR" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+
+module -name "Smooth" \
+       -primary "HxSpatialGraphInterface" \
+   	   -class "HxSmoothLine" \
+   	   -category "Compute"	\
+   	   -dso "libhxskeleton.so"
+
+module -name "Smooth" \
+       -primary "HxLineSet" \
+   	   -class "HxSmoothLine" \
+   	   -category "Compute"	\
+   	   -dso "libhxskeleton.so"
+
+module -name "ScanconvertNeuronTree" \
+       -primary "HxSpatialGraph" \
+   	   -class "HxScanconvertNeuronTree" \
+   	   -category "Compute"	\
+   	   -dso "libhxskeleton.so"
+
+module -name     "FindBlebs" \
+       -check { [__isProduct "ZIBAmira"] } \
+       -primary  "HxUniformScalarField3" \
+       -class    "HxFindBlebs" \
+       -category "Skeleton" \
+       -dso      "libhxskeleton.so" 
+
+module -name "TraceLines" \
+       -primary "HxExternalData HxUniformLabelField3" \
+       -class "HxExtTraceLines" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "Thinner" \
+       -primary "HxExternalData HxUniformLabelField3" \
+       -class "HxExtThinner" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "EvalOnLines" \
+       -primary "HxSpatialGraphInterface" \
+       -class "HxExtEvalOnLines" \
+       -category "Compute" \
+       -dso "libhxskeleton.so"
+
+module -name "Threshold" \
+       -primary "HxExternalData" \
+       -class "HxExtLabelVoxel" \
+       -category "Compute" \
+       -dso "libhxskeleton.so"
+
+module -name "ApplyTemplate" \
+       -primary "HxExternalData" \
+       -class "HxExtApplyTemplate" \
+       -category "Compute" \
+       -dso "libhxskeleton.so"
+
+module -name "DistanceMapSkeleton" \
+       -primary "HxExternalData  HxUniformLabelField3" \
+       -class "HxExtDistanceMap" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "ApplyMask" \
+       -primary "HxExternalData" \
+       -class "HxExtApplyMask" \
+       -category "Compute" \
+       -dso "libhxskeleton.so"
+
+module -name "ChamferMap" \
+       -primary "HxExternalData HxLDAfile" \
+       -class "HxLDAChamferCalc" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "RadiusHistogram" \
+       -primary "HxSpatialGraphInterface" \
+       -class "HxVesselRadiusHisto" \
+       -category "Measure" \
+       -dso "libhxskeleton.so"
+
+module -name "CheckNetwork" \
+       -primary "HxNeuronTree" \
+       -class "HxCheckNetworkManually" \
+       -category "Skeleton" \
+       -dso "libhxskeleton.so"
+
+module -name "AlignBlocks" \
+       -primary "HxMosaic" \
+       -class "HxAlignBlocks" \
+       -category "Compute" \
+       -dso "libhxskeleton.so"
+
+dataFile -name "MicroVisu3D ASCII" \
+       -option "mv3d" \
+       -ext "mv3d" \
+       -save "writeMV3D" \
+       -type "HxSpatialGraphInterface" \
+       -dso "libhxskeleton.so"
+
+dataFile -name "MicroVisu3D ASCII" \
+       -option "mv3d" \
+       -ext "mv3d" \
+       -load "readMV3D" \
+       -loadInOwnThread true \
+       -dso "libhxskeleton.so"
+
+# register ApplyTemplateToMosaic script-object
+module  -name "ApplyTemplate" \
+        -primary "HxMosaic" \
+        -category "Compute" \
+        -proc { 
+                set that [load $AMIRA_ROOT/share/script-objects/ApplyTemplateToMosaic.scro];
+                if { [exists $PRIMARY] } {
+                    $that data connect $PRIMARY;
+                    $that fire;
+                }
+           }
+
+module -name "MergeMosaic" \
+       -primary "HxMosaic" \
+       -class "HxMergeMosaic" \
+       -category "Compute" \
+       -package "hxskeleton"
+
+module -name "DOThinner2" \
+       -primary "HxUniformScalarField3" \
+       -class "HxDOThinner2" \
+       -category "Skeleton" \
+       -package "hxskeleton"
+

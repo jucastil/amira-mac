@@ -1,0 +1,265 @@
+# ----------------------------------------------------------------------
+# hxmolio package
+# ----------------------------------------------------------------------
+
+###################
+# write methods
+###################
+
+
+dataFile \
+    -name    "AMF"\
+    -ext     "amf"\
+    -save    "saveAMFMolecule"\
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so" 
+        
+dataFile \
+    -name    "AMF"\
+    -ext     "amf"\
+    -save    "saveAMFTrajectory"\
+    -type    "HxMolTrajectory" 		  \
+    -dso     "libhxmolio.so" 
+
+dataFile \
+    -name    "AMF"\
+    -ext     "amf"\
+    -save    "saveAMFTrajectoryBundle"\
+    -type    "HxMolTrajectoryBundle" 		  \
+    -dso     "libhxmolio.so" 
+
+dataFile \
+    -name    "AMF"\
+    -ext     "amf"\
+    -save    "saveAMFMoleculeBundle"\
+    -type    "HxMoleculeBundle" 		  \
+    -dso     "libhxmolio.so" 
+
+dataFile \
+    -name    "ZMF"               \
+    -ext     "zmf" \
+    -save    "writeHxMoleculeToZMF"      \
+    -type    "HxMolecule"                 \
+    -dso     "libhxzibmolfile.so"
+
+dataFile \
+    -name    "ZMF"               \
+    -ext     "zmf" \
+    -save    "writeHxMolTrajectoryToZMF"      \
+    -type    "HxMolTrajectory"            \
+    -dso     "libhxzibmolfile.so"
+dataFile \
+    -name    "ProteinDataBank"\
+    -ext     "pdb"\
+    -save    "HxMolIOWizard::savePDBHxMolecule"\
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "ProteinDataBank"\
+    -ext     "pdb"\
+    -save    "HxMolIOWizard::savePDBHxMolTrajectory"\
+    -type    "HxMolTrajectory" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "UniChem"\
+    -ext     "uni"\
+    -header  "VERSION UNICHEM"\
+    -save    "HxMolIOWizard::saveUniChemHxMolecule"\
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Tripos_SYBYL_MOL2"\
+    -ext     "mol2"\
+    -save    "HxMolIOWizard::saveTriposHxMolecule"\
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Tripos_SYBYL_MOL2"\
+    -ext     "mol2"\
+    -save    "HxMolIOWizard::saveTriposHxMolTrajectoryBundle"\
+    -type    "HxMolTrajectoryBundle" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "MDL_ISIS_SDF"\
+    -ext     "sdf"\
+    -save    "HxMolIOWizard::saveMDLHxMolecule"\
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "MDL_ISIS_SDF"\
+    -ext     "sdf"\
+    -save    "HxMolIOWizard::saveMDLHxMolTrajectory"\
+    -type    "HxMolTrajectory" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "MDL_ISIS_MOL2"\
+    -ext     "sdf"\
+    -save    "HxMolIOWizard::saveMDLHxMolTrajectoryBundle"\
+    -type    "HxMolTrajectoryBundle" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Gromacs"               \
+    -ext     "" \
+    -save    "HxMolIOWizard::saveGROMACSHxMolTrajectory"      \
+    -type    "HxMolTrajectory" 		  \
+    -dso     "libhxmolio.so"
+    
+dataFile \
+    -name    "Gromacs"               \
+    -ext     "" \
+    -save    "HxMolIOWizard::saveGROMACSHxMolecule"      \
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Gromacs_SINGLE"               \
+    -ext     "" \
+    -save    "HxMolIOWizard::saveGROMACS_SINGLEHxMolTrajectory"      \
+    -type    "HxMolTrajectory" 		  \
+    -dso     "libhxmolio.so"
+    
+dataFile \
+    -name    "Gromacs_SINGLE"               \
+    -ext     "" \
+    -save    "HxMolIOWizard::saveGROMACS_SINGLEHxMolecule"      \
+    -type    "HxMolecule" 		  \
+    -dso     "libhxmolio.so"
+
+###################
+# read methods
+###################
+
+dataFile \
+    -name    "Amira Mol File"\
+    -option  "amf"\
+    -ext     "amf,AMF,amf.gz,AMF.GZ"\
+    -header  "<AMF"\
+    -load    "readAMF"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "ProteinDataBank"\
+    -option  "pdb"\
+    -ext     "pdb,PDB"\
+    -load    "HxMolIOWizard::loadPDB"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "UniChem"\
+    -ext     "uni,UNI"\
+    -header  "VERSION UNICHEM"\
+    -load    "HxMolIOWizard::loadUniChemHxMolecule"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Tripos_SYBYL_MOL2"\
+    -option  "mol2"\
+    -ext     "mol2,MOL2"\
+    -load    "HxMolIOWizard::loadTripos"\
+    -loadInOwnThread "false"            \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "MDL_ISIS_SDF"\
+    -option  "sdf"\
+    -ext     "sdf,SDF"\
+    -load    "HxMolIOWizard::loadMDL"\
+    -loadInOwnThread "false"         \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "VDEMolecularData"\
+    -header  {[0-9]+ atoms follow}\
+    -load    "HxMolIOWizard::loadVDEHxMolTrajectory"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "CHARMM_Trajectory"\
+    -ext     "psf,dcd,PSF,DCD"\
+    -load    "HxMolIOWizard::loadDCDHxMolTrajectory"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "NWChem" \
+    -option  "nwchem" \
+    -ext     "trj,TRJ" \
+    -load    "MolTrajectoryNWChem::read" \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Gromacs" \
+    -option  "gromacs" \
+    -ext     "gro,GRO,top,TOP,trr,TRR" \
+    -load    "HxMolIOWizard::loadGROMACS" \
+    -dso     "libhxmolio.so"
+        
+dataFile \
+    -name    "MoleculeBundleFile" \
+    -ext     "bnd,BND" \
+    -load    "HxMolIOWizard::loadMolTrajBundleIO" \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "MOLCADScalarField"\
+    -ext     "cnt,CNT"\
+    -load    "readMOLCAD"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "CCP4_MAP"               \
+    -ext     "ccp,ccp4,CCP,CCP4" \
+    -load    "readCCP4Map"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Molecular Amber" \
+    -ext     "top,TOP" \
+    -load    "HxMolIOWizard::loadAMBERHxMolTrajectory" \
+    -loadInOwnThread "false"                           \
+    -dso     "libhxmolio.so"
+
+dataFile \
+	-name	"RNAML" \
+	-ext	"xml" \
+	-load	"readxml" \
+	-dso	"libhxmolio.so"
+
+dataFile \
+    -name    "APBS Field"\
+    -ext     "dx"\
+    -header  "# Data from APBS"\
+    -load    "readAPBSField"\
+    -loadInOwnThread "false" \
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "CONGEN Field"\
+    -ext     "phi"\
+    -load    "readCONGENField"\
+    -dso     "libhxmolio.so"
+
+dataFile \
+    -name    "Autogrid Field"\
+    -ext     "map"\
+    -header  "GRID_PARAMETER_FILE"\
+    -load    "readAutogridField"\
+    -dso     "libhxmolio.so"
+
+if { ![app hasLicense "WindEdition"] } {
+
+dataFile \
+    -name    "XYZ" \
+    -option  "xyz" \
+    -ext     "xyz" \
+    -load    "HxMolIOWizard::loadXYZHxMolTrajectory" \
+    -dso     "libhxmolio.so"
+
+}

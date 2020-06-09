@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+</p><div class="generic_head"><h2><a name="A1"> Access LargeDiskData</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Access LargeDiskData" "load a block from a LargeDiskData object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module is deprecated. Please use <a class="link" href="../hxlatticecompat/HxLatticeAccess.html#A1">LatticeAccess</a> instead.</p>
+<p> This kind of module is attached to a <a class="link" href="HxExternalData.html#A1">LargeDiskData</a> object.
+ provides an interface to select a subblock of the large volume which is stored
+ on disk only.</p>
+<p> You may select the volume either by typing in numbers to the ports or by using the 
+ blue dragger in the viewer.</p>
+<p> Additionally, it is possible to request a lower resolution of the data. Dependent on
+ the file format other resolutions are stored on disk and might be accessed rather fast or
+ they are calculated on the fly which might take some time.</p>
+<p> After selecting a volume you might press the <em>Apply</em> button. An <font face="helvetica">Amira</font> field
+ object is created and filled with the data from disk. You can now use all 
+ standard <font face="helvetica">Amira</font> visualization techniques on this subblock.</p>
+<p> If you check <em>auto-refresh</em>, you might change the selected volume and an 
+immediate reload is started. This might be useful to easily explore a large volume.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the <a class="link" href="HxExternalData.html#A1">LargeDiskData</a> object.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a> is connected it will define the subvolume to be loaded.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxExternalDataAccess_info.png" /><br /></div>
+<div class="body"><p>Indicates the size of the block to be loaded.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BoxMin</span>  
+<div class="portsnapshot"><img src="HxExternalDataAccess_boxMin.png" /><br /></div>
+<div class="body"><p>The position of the lower corner of the block. Printed as a lattice index.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BoxSize</span>  
+<div class="portsnapshot"><img src="HxExternalDataAccess_boxSize.png" /><br /></div>
+<div class="body"><p>The size of the block to be loaded. The size is in lattice indices in the base resolution. 
+The numbers will not change if you select subsampling but the real size of the block to 
+be loaded will change. This is indicated in the <em>Info</em> port.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxExternalDataAccess_options.png" /><br /></div>
+<div class="body"><p>Hides the dragger and/or enables subsampling.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Subsample</span>  
+<div class="portsnapshot"><img src="HxExternalDataAccess_subsample.png" /><br /></div>
+<div class="body"><p>Type in the number of voxels to be averaged in each dimension. </p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

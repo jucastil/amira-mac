@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceView" "displays a whole surface or parts of it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module allows you to visualize triangular surfaces, i.e., data
+ objects of type <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a>. Derived from the generic
+ <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a> class, the module provides an internal
+ buffer of visible triangles. You can add triangles to this buffer by
+ means of two special option menus. For example, if your surface
+ contains regions R1 and R2, you may first highlight all triangles
+ separating these two regions by choosing R1 and R2 in port
+ <i>Materials</i>. Highlighted triangles are displayed in red wireframe.
+ By pressing button <i>Add</i> of port
+ <a class="link" href="#A9">Buffer</a> highlighted triangles can be
+ added to the internal buffer, which causes them to be displayed in
+ their own colors. You may restrict highlighting by means of an
+ adjustable box. In order to resize the box pick one of the green
+ handles at the corners of the box. Highlighted triangles may also be
+ removed from the buffer by pressing button <i>Remove</i>. In addition,
+ individual triangles may be removed from the buffer by <i>shift-clicking</i> them.</p>
+<p> <b>Note:</b> This module makes use of recent OpenGL features (OpenGL
+ 2.0 and higher) in order to achieve maximum performance. If the
+ graphics card does not support those features or if artifacts
+ occur, a <i>Legacy rendering mode</i> can be enabled in the
+ <i>Rendering Tab</i> of the <a class="link" href="../usersguide/Preferences.html">Preferences
+ Dialog</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Scalar field to be visualized via pseudo-coloring. The field will be evaluated 
+ at the vertex positions of the surface and a color will be mapped onto the 
+ surface using the colormap connected to connection port <em>Colormap</em>.
+ The field may be either of type <em>HxScalarField3</em> or of type 
+ <em>HxSurfaceScalarField</em>. In addition to scalar surface fields also 3 and 
+ 4-component surface fields are supported. In this case, the field components 
+ are directly interpreted as RGB or RGBA values. The values should range from 0 
+ to 1.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring (see <em>Color Field</em>). To change the colormap
+ right-click the colormap window or reconnect (drag) the blue connection line
+ with another colormap data object. To change the port's default color double-
+ (left-)click the colormap window and select a color from the
+ <a class="link" href="../hxcore/QxColorDialog.html#A1">ColorDialog</a>. See also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port allows to connect a 2D image that will be mapped onto the surface
+ as a texture. The image must be a single slice of type 
+ <a class="link" href="../hxfield/HxRegColorField3.html#A1">ColorField</a>.
+ A transformation can be applied to the texture image in order to change the 
+ texture projection axis and texture coordinates scale. Note that texture 
+ projection overrides pseudo-color mode.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a> module defining a region of interest.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A7"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a>
+ class and therefore the description will be found there.</p>
+
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_colormap.png" /><br /></div>
+<div class="body"><p>This port becomes visible only if a scalar field has been connected to
+ the <a class="link" href="#A3">ColorField</a> port.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_buffer.png" /><br /></div>
+<div class="body"><p>This port lets you <i>add</i> and <i>remove</i> highlighted triangles
+ (being displayed in red wireframe) to an internal buffer. For a
+ further description and for the functionality of each of the port
+ buttons see <a class="link" href="../hxsurface/HxViewBase.html#A3">ViewBase</a>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection mode</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_selectionMode.png" /><br /></div>
+<div class="body"><p>This port lets you specify whether you want to highlight triangles
+ on the basis of their associated material, their patch ID,
+ or their boundary ID.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Patch</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_Patch.png" /><br /></div>
+<div class="body"><p>This port is visible if <em>Selection mode</em> is <em>Patch</em>.
+ It allows you to highlight triangles having the specified
+ patch ID. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Boundary id</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_BoundaryId.png" /><br /></div>
+<div class="body"><p>This port is visible if <em>Selection mode</em> is <em>BoundaryID</em>.
+ It allows you to highlight triangles having the specified
+ boundary ID.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_materials.png" /><br /></div>
+<div class="body"><p>This port is visible if <em>Selection mode</em> is <em>Material</em>. It offers two 
+ pull-down menus each listing all <em>Materials</em> defined in the surface. Since 
+ each triangle exactly interfaces two <em>Materials</em>, triangles can be selected 
+ by choosing the appropriate pair of <em>Materials</em> in those menus. 
+ When triangles are selected they are highlighted in red wireframe.
+ In addition, you may restrict the set of highlighted triangles by adjusting
+ size and position of the dragger box. Use port 
+ <a class="link" href="../hxsurface/HxViewBase.html#A3"><i>Buffer</i></a> to add or remove highlighted triangles 
+ to/from the internal buffer.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colors</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_colorMode.png" /><br /></div>
+<div class="body"><p>There are several different color modes:
+ </p>
+<ul><li><i>normal: </i> The surface is colored according to the color
+ of the enclosed material.</li><li><i>mixed: </i> Both sides of a triangle are colored in the same
+ color, which is a mixture of the colors of the two sides in <i>normal</i> mode.</li><li><i>twisted: </i> For each triangle the front and back colors are 
+ exchanged relative to <i>normal</i> mode.</li><li><i>boundary ids: </i> Color denotes the boundary ids of the triangles.
+ For each boundary id a separate color can be defined in the surface's
+ parameter section. Boundary ids can be set and removed using the
+ <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a>.</li><li><i>same: </i> The material with the largest index determines the color
+ of both sides of the triangle. The material index is defined by the
+ order of the material in the material list in the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>.</li><li><i>constant: </i> Both sides of a triangle have the same color which, can
+ be specified in the <em>Colormap</em> port.</li><li><i>patch: </i> All triangles of a patch have the same random color on
+ both sides.</li>
+</ul>
+</div></div>
+<div class="hxport">
+ <span class="headline">BaseTrans</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_baseTrans.png" /><br /></div>
+<div class="body"><p>This port is visible if <em>transparent</em> has been chosen as the draw
+ style. It allows you to control the overall transparency of the surface 
+ object. Move the slider from fully opaque (0) to completely transparent (1)
+ to achieve the desired appearance.
+ It is also possible to control the transparency of materials individually. 
+ To do so, you need to create a parameter <em>transparency</em> in the 
+ <em>Material</em> bundle of the surface object's parameter section. If such a
+ parameter exists, the transparency of the material is set exactly to this 
+ value when the slider is set to 0.5. Moving the slider thus modulates the
+ <em>base transparency</em>, with greater values making it more transparent and
+ smaller values making it more opaque.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">VR-Mode</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_VRMode.png" /><br /></div>
+<div class="body"><p>This port is only available in VR mode (see <font face="helvetica">Virtual Reality Option</font> documentation). It
+ allows you to choose how to interact with the surface using the 3D
+ wand. In <em>query</em> mode information about the clicked point is
+ displayed similar to what is displayed in standard <font face="helvetica">Amira</font> when clicking
+ onto a surface with the middle mouse button. The other modes are <em>select patches</em>, <em>highlight patches</em>, <em>select triangles</em>, and
+ <em>highlight triangles</em>.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TextureWrap</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_textureWrap.png" /><br /></div>
+<div class="body"><p>Wrap mode used for the texture projection on the surface when a texture is applied to the surface. There are two wrap modes:
+ <i>Repeat: </i> The texture is repeated outside its 0-1 texture coordinate range.
+ <i>Clamp: </i> Clamps texture coordinates to lie within 0-1 range.
+ This port is hidden if there is nothing connected to the <em>Texture</em> connection port.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

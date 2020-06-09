@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.2.2 A Reader for Surfaces and Surface Fields</a></h3>
+<p>Now that you know what a read routine looks like in principle, let us
+consider a more complex example. In this section we discuss a read
+routine which creates more than one data object. In particular, we want to
+read a triangular surface mesh from a file. In addition to the surface
+description, the file may also contain data values for each vertex of the
+surface. Data defined on a surface mesh are represented by separate classes 
+in <font face="helvetica">Amira</font>. Therefore, the reader must first create a data object representing
+the surface only. Then appropriate data objects must be created for each 
+surface field.
+Again, the file format is quite simple and has been invented for the purpose
+of this example. We call it the <em>Trimesh</em> format. It is a simple ASCII
+format without any header. The first line contains the number of points and
+the number of triangles. Then the x-, y-, and z-coordinates of the points
+are listed. This section is followed by triangle specifications consisting
+of three point indices for each triangle, point count starts at one.
+The next section is for vertex data, starting with a line that contains 
+an arbitrary number of integers. Each integer indicates that there is a 
+data field with a certain number of variables defined on the surface's
+vertices, e.g., 1 for a scalar field or 3 for a vector field. The data
+values for each vertex follow in separate lines. Here is a small example
+containing a single scalar surface field:
+<font size="2"></font></p><pre>
+4 2
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+1.0 1.0 0.0
+1 2 4
+1 4 3
+1
+0.0
+0.0
+1.0
+1.0
+</pre><p><font size="2"></font></p>
+<p>You can find the full source code of the reader in the local <font face="helvetica">Amira</font>
+directory under <tt>packages/mypackage/readtrimesh.cpp</tt>. Remember that
+the demo package must have been copied into the local <font face="helvetica">Amira</font> directory
+before compiling. For details, refer to <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>. Let 
+us now look at the complete read routine before discussing the details:</p>
+<p><br />
+
+<font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Read routine for the Trimesh file format
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;McStringTokenizer.h&gt;
+#include &lt;hxcore/HxMessage.h&gt;
+#include &lt;hxsurface/HxSurface.h&gt;
+#include &lt;hxsurface/HxSurfaceField.h&gt;
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+MYPACKAGE_API int readtrimesh(const char* filename)
+{
+    FILE* fp = fopen(filename, "r");
+
+    if (!fp) {
+        theMsg-&gt;ioError(filename);
+        return 0;
+    }
+
+    // 1. Read the surface itself
+
+    char buffer[256];
+    fgets(buffer,256,fp); // read first line
+
+    int i, j, k, nPoints=0, nTriangles=0;
+    // Get number of points and triangles
+    sscanf(buffer, "%d %d", &amp;nPoints, &amp;nTriangles);
+
+    if (nPoints&lt;0 || nTriangles&lt;0) {
+        theMsg-&gt;printf("Illegal number of points or triangles.");
+        fclose(fp);
+        return 0;
+    }
+
+    HxSurface* surface = new HxSurface; // create new surface
+    surface-&gt;addMaterial("Inside",0); // add some materials
+    surface-&gt;addMaterial("Outside",1);
+
+    HxSurface::Patch* patch = new HxSurface::Patch;
+    surface-&gt;patches.append(patch); // add patch to surface
+    patch-&gt;innerRegion = 0;
+    patch-&gt;outerRegion = 1;
+
+    surface-&gt;points.resize(nPoints);
+    surface-&gt;triangles.resize(nTriangles);
+
+    for (i=0; i&lt;nPoints; i++) { // read point coordinates
+        McVec3f&amp; p = surface-&gt;points[i];
+        fgets(buffer,256,fp);
+        sscanf(buffer, "%g %g %g", &amp;p[0], &amp;p[1], &amp;p[2]);
+    }
+
+    for (i=0; i&lt;nTriangles; i++) { // read triangles
+        int idx[3];
+        fgets(buffer,256,fp);
+        sscanf(buffer, "%d %d %d", &amp;idx[0], &amp;idx[1], &amp;idx[2]);
+
+        Surface::Triangle&amp; tri = surface-&gt;triangles[i];
+        tri.points[0] = idx[0]-1; // indices should start at zero
+        tri.points[1] = idx[1]-1;
+        tri.points[2] = idx[2]-1;
+        tri.patch = 0;
+    }
+
+    // Add all triangles to the patch
+    patch-&gt;triangles.resize(nTriangles);
+    for (i=0; i&lt;nTriangles; i++)
+        patch-&gt;triangles[i] = i;
+
+    // Add surface to Pool
+    HxData::registerData(surface,filename);
+
+    // 2. Check if file also contains data fields
+
+    fgets(buffer,256,fp);
+    McStringTokenizer tk(buffer);
+    McDArray&lt;HxSurfaceField*&gt; fields;
+
+    while (tk.hasMoreTokens()) { // are there any numbers here ?
+        int n = atoi(tk.nextToken());
+        // Create field with desired number of components
+        HxSurfaceField* field = HxSurfaceField::create(surface,
+            HxSurfaceField::OnNodes, n);
+        fields.append( field );
+    }
+
+    if (fields.size()) {
+        // Read data values for all fields
+        for (i=0; i&lt;nPoints; i++) {
+            fgets(buffer,256,fp);
+            tk = buffer;
+            for (j=0; j&lt;fields.size(); j++) {
+                int n = fields[j]-&gt;nDataVar();
+                float* v = &amp;fields[j]-&gt;dataPtr()[i*n];
+                for (k=0; k&lt;n; k++)
+                    v[k] = atof(tk.nextToken());
+            }
+        }
+
+        // Add all fields to Pool
+        for (i=0; i&lt;fields.size(); i++) {
+            HxData::registerData(fields[i], NULL);
+            fields[i]-&gt;composeLabel(surface-&gt;getName(),"data");
+        }
+    }
+
+    fclose(fp); // close file and return ok
+    return 1;
+}
+</pre><p><font size="2"></font></p>
+<p>The first part of the read routine is very similar to the PPM3D reader
+outlined in the previous section. Required header files are included, the
+file is opened, the number of points and triangles are read, and a
+consistency check is performed.</p>
+<p>Then an <font face="helvetica">Amira</font> surface object of type <em>HxSurface</em> is created. The class
+<em>HxSurface</em> has been devised to represent an arbitrary set of
+triangles. The triangles are organized into <em>patches</em>. A patch can
+be thought of as the boundary between two volumetric regions, an "inner"
+and an "outer" region. Therefore, for each patch an inner region and an
+outer region should be defined. In our case, all triangles will be inserted
+into a single patch. After this patch has been created and initialized, the
+number of points and triangles is set, i.e., the dynamic arrays <em>points</em> and <em>triangles</em> are resized appropriately.
+Next, the point coordinates and the triangles are read. Each triangle is
+defined by the three points it consists of. The point indices start at one
+in the file but should start at zero in the <em>HxSurface</em> class.
+Therefore all indices are decremented by one. Once all triangles have been
+read, they are inserted into the patch we have created before. The surface
+is now fully initialized and can be added to the Pool by calling
+<em>HxData::registerData</em>.</p>
+<p>The second part of the read routine is reading the data values. First, we
+check how many data fields are defined and how many data variables each field
+has. In order to parse this information, we use the utility class
+<em>McStringTokenizer</em>. This class returns blank-separated parts of a
+string one after the other. For more information about this and other
+utility classes refer to the online reference documentation of <font face="helvetica">Developer Option</font>.
+For each group of data variables, a corresponding surface field is created.
+The fields are temporarily stored in the dynamic array <em>fields</em>.
+Instead of directly calling the constructor of the class <em>HxSurfaceField</em>, the static method <em>HxSurfaceField::create</em> is used.
+This method checks the number of data variables and automatically creates
+an instance of a subclass such as <em>HxSurfaceScalarField</em> or <em>HxSurfaceVectorField</em>, if this is possible. In principle, surface fields
+may store data on a per-node or a per-triangle basis. Here we are dealing
+with vertex data, so we specify the encoding to be <em>HxSurfaceField::OnNodes</em> in <em>HxSurfaceField::create</em>.
+Finally, the data values are read into the surface fields created
+before. Afterwards, all the fields are added to the Pool
+by calling <em>HxData::registerData</em> again. In order to define a useful
+name for the surface fields, we call the method <em>composeLabel</em>. This
+method takes a reference name, in this case the name of the surface, and
+replaces the suffix by some other string, in this case "data". <font face="helvetica">Amira</font>
+automatically modifies the name so that it is unique. Therefore we can
+perform the same replacement for all surface fields.
+Like any other read routine, our <em>Trimesh</em> reader must be registered in
+the package resource file before it can be used. This is done by the
+following statement in <tt>mypackage/share/resources/mypackage.rc</tt>:</p>
+<p><font size="2"></font></p><pre>
+dataFile -name "Trimesh Demo Format"    \
+    -ext "trimesh,tm"                   \
+    -load "readtrimesh"                 \
+    -package "mypackage"
+</pre><p><font size="2"></font></p>
+<p>Most of the options of the <tt>dataFile</tt> command have already been
+explained in the previous section. However, in contrast to the PPM3D format,
+the <em>Trimesh</em> format cannot be identified by its file header.
+Therefore, we use the <tt>-ext</tt> option to tell <font face="helvetica">Amira</font> that all files with
+file name extensions <em>trimesh</em> or <em>tm</em> should be opened using the
+<em>Trimesh</em> reader.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

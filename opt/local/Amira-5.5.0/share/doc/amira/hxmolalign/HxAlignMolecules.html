@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignMolecules</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "AlignMolecules" "aligns two arbitrary molecules to each other" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module enables you to align two arbitrary molecules to each
+ other. However, the molecules need to fulfill one precondition: they
+ both must have (at least) one level, the <em>align level</em>, with the
+ same name and an equal number of groups. The algorithm works as
+ follows: for each group of the first molecule all its atoms attract
+ all atoms of its corresponding group of the other molecule, whereby
+ the correspondence is established by the index of the group in the
+ <em>align level</em>. One possibilities to create such levels is by using
+ the module <a class="link" href="HxSeqAlign.html#A1">AlignSequences</a>.</p>
+<p> The algorithm works iteratively. Starting from an arbitrary position,
+ a force and a rotation are calculated at each step resulting from
+ the attraction forces of the atoms. The algorithm stops if the
+ transformation from one step to another is smaller than some
+ epsilon. The alignment found is not necessarily the global minimum of
+ the sum of distances between the corresponding atoms. However, it will
+ always be a local minimum.</p>
+<p> If the global minimum is prominent, it can be assumed that this
+ minimum will be found from each starting position. In order to find
+ out whether there exist other equally good local alignments, it is 
+ possible to compute alignments starting from 20 different
+ positions. The different alignments will be stored in a list. You
+ can then compare the alignments visually as well as by the
+ distance between the two molecules. </p>
+<p> Press the <em>Apply</em> button to compute the alignment and transform 
+ the second molecule.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">MoleculeA</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>First molecule to which the second molecule will be aligned.
+ </p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">MoleculeB</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Second molecule to be aligned to the first one.
+ </p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Slave</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>You can connect any data object to this port. The same
+ transformation that is applied to the second molecule will be
+ applied to this data object as well.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Align Mode</span>  
+<div class="portsnapshot"><img src="HxAlignMolecules_mode.png" /><br /></div>
+<div class="body"><p>Use this port to select alignment mode. </p>
+<p> 'Mean squared dist' tries to align molecules in the least squared 
+ sense, i.e. the module tries to optimize the transformations such that 
+ the sum of squared distances of the atoms in both molecules is minimal. 
+ Note that large distances are punished much higher when this 
+ alignment mode is selected.</p>
+<p> 'Mean dist' tries to find transformations such that the sum of 
+ distances becomes minimal. </p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxAlignMolecules_options.png" /></div>
+<div class="body">
+<ul><li><em>multiple transforms</em>: If this toggle is <em>not</em>
+ selected, a local minimum will be found starting from the
+ current positions of the molecules. If the toggle is selected,
+ molecule B will be translated such that the centers of the
+ molecules according to the groups found in the <em>Align Level</em>
+ are at the same position. Starting from this position, 20
+ rotations will be applied to molecule B, and these new positions
+ will be used as starting points for the alignment.</li><li><em>show alignment</em>: If this option is set, you can observe
+ the alignment process visually. Otherwise, only the final
+ alignment will be shown.</li>
+</ul>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transforms</span>  
+<div class="portsnapshot"><img src="HxAlignMolecules_transforms.png" /><br /></div>
+<div class="body"><p>If you compute the alignment with the <em>multiple transforms</em> toggle
+ switched on, this slider appears. Once the computation is finished,
+ i.e., for all 20 starting positions at which the alignment was
+ computed, you can
+ step through all alignments that differ by an epsilon. The epsilon can
+ be set by the command <em>setEpsilon</em>. Notice that if there
+ is only one local alignment, it can be assumed that it is
+ also the global one. However, there is no guarantee.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Align Level</span>  
+<div class="portsnapshot"><img src="HxAlignMolecules_alignLevel.png" /><br /></div>
+<div class="body"><p>Select the level which is used for alignment.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Custom align level</span>  
+<div class="portsnapshot"><img src="HxAlignMolecules_portCustomAlignLevel.png" /><br /></div>
+<div class="body"><p>Apart from using computed alignment levels you can also create a custom level
+ interactively. <em>New level</em>
+ will create a new level in both molecules with the name 
+ <em>custom_align_&lt;index&gt;</em>.
+ You can remove the currently active custom alignment level with 
+ <em>remove level</em>. You add groups which will be aligned by selecting one 
+ or multiple atoms in each of the
+ molecules and clicking on <em>add group</em>. The number of atoms does not 
+ necessarily need to be the same, their center of gracity will be 
+ used for alignment. 'Clear Groups' removes all groups of the 
+ currently selected custom alignment level.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getEpsilon</span>  
+
+<div class="body"><p> 
+ Prints the current epsilon that is used for comparison of the
+ transformations.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setEpsilon &lt;value&gt;</span>  
+
+<div class="body"><p>
+ Set epsilon to value, which should be smaller than 1.0. Check
+ the current epsilon before setting a new one with the command
+ <em>getEpsilon</em>.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

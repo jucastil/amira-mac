@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2> Multi Component Analysis</h2> <ul class="entry_classification"><li>Demo</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Demo" "Multi Component Analysis" !>
+<p></p><blockquote>
+
+<p>In biomedical imaging it is sometimes required to measure and quantify multiple objects such as cells, vesicles, or puncta. The network scripts on this page demonstrate how such an analysis can be performed. A tutorial explaining how these networks are generated is available <a class="link" href="TutMultiComp.html#A2">here</a>.</p>
+<p>The data we show here are cell bodies of neurons from the rat cortex imaged with a confocal microscope. The data are kindly provided by Marcel Oberlaender and Bernd Sakmann, Max Planck Florida Institute.</p>
+<p>The first network demonstartes how to get a binary segmentation of the cell bodies, separate clusters of cell bodies and label them individually. For binary segmentation the <em>LocalThreshold</em> module is employed. Separation and labeling is done with the <em>WatershedSegmentation</em> module.</p>
+<p><img src="demomulticomp_ThresholdAndLabelling.png" />
+<a href="../../../demo/multicomp/ThresholdAndLabelling.hx">Labeled cells</a> <br />
+</p>
+<p>Besides basic measurements of volume and position, the sample of cell bodies can be analysed with respect to local density. This requires the cell bodies be represented as a point cloud or <a class="link" href="../hxcluster/HxCluster.html#A1">Cluster</a>. Using module <em>ClusterDensity</em> the local density of cells can be calculated for each node of the cluster and visualized false color coded.</p>
+<p><img src="demomulticomp_ClusterDensity.png" />
+<a href="../../../demo/multicomp/ClusterDensity.hx">Cell density</a> <br />
+</p>
+<p>With module <em>ShapeAnalysis</em> it is possible to extract shape parameters from the labeled regions. The extracted parameters are nicely visualized with ellipsoids using module <em>TensorDisplay</em>.</p>
+<p><img src="demomulticomp_ShapeAnalysis.png" />
+<a href="../../../demo/multicomp/ShapeAnalysis.hx">Shape analysis</a> <br />
+</p>
+<p>This network shows how to filter a spreadsheet object and how the filtered spreadsheet may be used to extract a filtered version of the label image. The result of the filter operation is viszualized with the surface recontruction of the filterd label image. Adjust the range of the histogram sliders shown in the Properties area and wait a little bit until the network has updated.</p>
+<p><img src="demomulticomp_FilteredSurfaces.png" />
+<a href="../../../demo/multicomp/FilteredSurfaces.hx">Surface reconstruction of filtered label field</a> <br />
+</p>
+</blockquote>
+<p>
+
+</p></body>
+</html>

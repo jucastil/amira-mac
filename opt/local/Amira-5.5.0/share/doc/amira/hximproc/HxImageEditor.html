@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Digital Image Filters</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Digital Image Filters" "apply standard image processing filters" !>
+<p>&nbsp;<br />
+<img src="HxImageEditor_icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This editor provides digital image filters for 3D
+ image data sets, such as smoothing, unsharp masking, and morphological
+ operations. Some filters operate in 3D while others are applied
+ to two-dimensional slices. In the latter case, the orientation of
+ the 2D slices can be selected via an option menu. Press the <em>Apply</em> 
+ button to start the computation.</p>
+<p> <b>Note</b> All image filters are executed using multithreaded computation. See the <a class="link" href="../usersguide/Preferences.html">Edit/Preferences</a> to select the number of cores to be used.</p>
+<p> Currently, the following filters are supported:</p>
+
+<ul><li><a class="link" href="#A3">Noise reduction minimum filter</a></li><li><a class="link" href="#A5">Noise reduction maximum filter</a></li><li><a class="link" href="#A7">Unsharp masking</a></li><li><a class="link" href="#A9">Laplacian edge detection filter</a></li><li><a class="link" href="#A11">Noise reduction median filter</a></li><li><a class="link" href="#A13">Gaussian smoothing filter</a></li><li><a class="link" href="#A15">Sobel edge detection filter</a></li><li><a class="link" href="#A17">Equalize filter</a></li><li><a class="link" href="#A19">Edge-Preserving filter</a></li><li><a class="link" href="#A21">Non-local means filter</a></li><li><a class="link" href="#A35">Resampling/Low pass filter</a></li><li><a class="link" href="#A37">Intensity remapping filter</a></li><li><a class="link" href="#A39">Brightness/Contrast filter</a></li><li><a class="link" href="#A41">Statistical feature detection filter</a></li><li><a class="link" href="#A43">Lighten/Darken filter</a></li>
+</ul>
+<div style="text-align:center"><a name="A2"></a><a href=imagefilters.png.html><img width=525 src="imagefilters.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Editor for applying digital image filters.</div>
+
+ 
+ </div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Filter</span>  
+
+<div class="body"><p>Specifies the filter and its domain.
+ It allows you select whether the filter should be applied to the XY, XZ,
+ or YZ slices or to the entire three-dimensional image. Depending on the
+ selected filter, additional ports will be visible.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+
+<div class="body"><p>The <em>Undo</em> button allows you to undo the last filter operation.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+ <a name="A3"></a>
+</p>
+<h3><a name="A4">Noise reduction minimum filter (Minimum)</a></h3>
+<p>This filter replaces the value of a pixel by the smallest value
+ of neighboring pixels covered by an NxN mask. The size of the mask can
+ be adjusted via the input field <em>kernel size</em>. A value of 3 denotes
+ a 3x3 mask (3x3x3 in 3D). If applied to a binary 
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a>, the minimum filter implements 
+ a so-called erosion operation. It reduces the size of a segmented 
+ region by removing pixels from its boundary.</p>
+<p> <a name="A5"></a>
+</p>
+<h3><a name="A6">Noise reduction maximum filter (Maximum)</a></h3>
+<p>This filter replaces the value of a pixel by the largest value
+ of neighboring pixels covered by an NxN mask. The size of the mask can
+ be adjusted via the input field <em>kernel size</em>. A value of 3 denotes
+ a 3x3 mask (3x3x3 in 3D). If applied to a binary 
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label
+ field</a>, the maximum filter implements a so-called dilation operation. It
+ enlarges the size of a segmented region by adding pixels to its
+ boundary.</p>
+<p> <a name="A7"></a>
+</p>
+<h3><a name="A8">Unsharp masking</a></h3>
+<p>This filter sharpens an image using an unsharp mask. The 
+ unsharp mask is computed by a Gaussian filter of size <em>kernel size</em>. </p>
+<p> Then, the smoothed image is subtracted from the original image such that
+ only high contrast remains.
+ The weighted difference of the original image (weight: $$\frac{c}{2c-1}$$ ) and 
+ the blurred image (weight: $$\frac{1-c}{2c-1}$$ ) is calculated afterwards using 
+ the <em>sharpness parameter c</em>. It determines the relation between the original 
+ and blurred image, effectively controlling the amount of sharpness. The parameter $$c$$ 
+ can be adjusted via a text input field and should be in the range 
+ of 0.6 to 0.8. A value of 1 leaves the image unchanged.</p>
+<p> <a name="A9"></a>
+</p>
+<h3><a name="A10">Laplacian edge detection filter (Laplacian zero-crossing)</a></h3>
+<p>This filter is a rotation invariant edge detection
+ filter. The algorithm finds zero crossings of the second
+ derivative, i.e., changes of the sign of the first derivative 
+ of the "image function" which may indicate an edge.</p>
+<p> <a name="A11"></a>
+</p>
+<h3><a name="A12">Noise reduction median filter (Median)</a></h3>
+<p>This filter is a simple edge-preserving smoothing filter. It may
+ be applied prior to segmentation in order to reduce the amount of noise
+ in an image. The filter works by sorting pixels covered by
+ an NxN mask according to their gray value. The center pixel is then
+ replaced by the median of these pixels, i.e., the middle entry of the
+ sorted list. The size of the pixel mask may be adjusted via the text
+ field labeled <em>kernel size</em>. A value of 3 denotes a 3x3 or mask
+ (3x3x3 in 3D). An odd value is required.</p>
+<p> <a name="A13"></a>
+</p>
+<h3><a name="A14">Gaussian smoothing filter (Gauss)</a></h3>
+<p>The Gaussian filter smoothes or blurs an image by performing a convolution
+ operation with a Gaussian filter kernel. The text fields labeled <em>kernel size</em> allow you to change the size of the convolution kernel
+ in each dimension. A value of 3 denotes a 3x3 kernel (3x3x3 in 3D).
+ The minimum kernel size is 1 which means that the image is not blurred
+ at all in that direction. The text fields labeled <em>sigma rel</em> allow
+ you to adjust the width of the Gauss function relative to the kernel size.</p>
+<p> <a name="A15"></a>
+</p>
+<h3><a name="A16">Sobel edge detection filter</a></h3>
+<p>The Sobel-Filter is a rotation variant edge detection filter.
+ It convolutes the image with 4 different filter kernels representing
+ horizontal, vertical, and two diagonal orientations. Each kernel
+ is constituted of a combination of Gaussian smoothing and 
+ the differentiation in the proper orientation.</p>
+<p> <a name="A17"></a>
+</p>
+<h3><a name="A18">Equalize filter (Histogram)</a></h3>
+<p>This filter performs a so-called <em>contrast limited adaptive histogram
+ equalization (CLAHE)</em> on the data set. The CLAHE algorithm partitions
+ the images into <em>contextual regions</em> and applies the histogram
+ equalization to each one. This evens out the distribution of used
+ gray values and thus makes hidden features of the image more visible.
+ Parameter <em>Contrast Limit</em> determines the contrast limit for the
+ CLAHE algorithm.</p>
+<p> <b>Note</b> that in the 3D mode the computation is not multithreaded so it can take a rather long time
+ if the data is large. A faster preview is always possible by switching to
+ the 2D mode.</p>
+<p> <a name="A19"></a>
+</p>
+<h3><a name="A20">Edge-Preserving smoothing</a></h3>
+<p>This is a smoothing filter that models the physical process of diffusion.
+ Similar to the Gaussian filter, it smoothes out the difference between
+ gray levels of neighboring voxels. This can be interpreted as a
+ diffusion process in which energy between voxels of high and low energy (gray value)
+ is leveled. In contrast with the Gaussian
+ filter, it does not smear out the edges because the diffusion is reduced or
+ stopped in the vicinity of edges. Thus, edges are preserved.</p>
+<p> <b>Note</b> that in the 3D mode the computation is not multithreaded so it can take a rather long time
+ if the data is large. A faster preview is always possible by switching to
+ the 2D mode.</p>
+<p> The stop <em>time</em> determines how long the diffusion runs. The longer it runs,
+ the smoother the image becomes. The <em>time step</em> determines how accurately
+ this process is sampled.</p>
+<p> The <em>contrast</em> parameter determines how much the diffusion process depends
+ on the image gradient, i.e., how much the smoothing is stopped near edges.
+ A value of 0 makes the diffusion independent of the image gradient and smoothes
+ out the edges, a large value prevents smoothing in all edge-like regions.</p>
+<p> In order to make the diffusion process more stable, the image is prefiltered
+ by a Gaussian filter with parameter <em>sigma</em>. All features of size <em>sigma</em>
+ are removed. This allows noise to be removed from the image. But a too large value
+ may also remove relevant features. </p>
+<p>
+ <a name="A21"></a>
+</p>
+<h3><a name="A22">Non-local means filter</a></h3>
+<p>This module implements the windowed non-local means algorithm for
+ denoising scalar volume data. The original non-local means
+ algorithm did not use a search window, but compared each voxel with
+ each other voxel. Of course, this leads to very long running times
+ which are unfeasible. Hence, in general a windowed version of the
+ non-local means algorithm, as implemented in this module, is used.</p>
+<p> In order to determine the new value for the current voxel, the
+ algorithm compares the neighborhoods of all voxels in a given search
+ window with the neighborhood of the current voxel. The similarity
+ between the neighborhoods determines the weight with which the value
+ of a voxel in the search window will influence the new value of the
+ current voxel. The final weights are determined by applying a Gauss
+ kernel to the similarity values.</p>
+<p> The non-local means algorithm works most effectively if the noise
+ present in the data set is white noise. This is the assumption
+ behind the algorithm. If this can be assumed, the non-local means
+ algorithm will naturally preserve most features present in the
+ image, even small and thin ones. However, the algorithm must not be
+ confused with a feature enhancement algorithm, such as edge
+ enhancement. If edge enhancement is required, it is suggested to
+ run non-local means filtering first followed by edge enhancement.
+ This should give the best results.</p>
+<p> This module implements a CPU and a GPU version of the non-local
+ means algorithm for 2D, that is in each slice, and for 3D. While
+ the results of the 3D version are slightly better, the 2D version
+ is much faster and gives similar results. The module can manage
+ data partitioning so the data can be processed even if it does not
+ fit entirely in GPU memory, and also in order to avoid system
+ timeouts that may apply on GPU used for display. For more
+ details, see the explanations about CUDA Device, Options and
+ Partition size ports.</p>
+<p> <b>Note:</b> The GPU version of the algorithm requires a fairly
+ new NVidia graphics board in order to run with adequate speed. It
+ is recommended to use a graphics board of the latest generation.</p>
+<p> For more information about the algorithm itself see:</p>
+<p> A. Buades, B. Coll., and J.M. Morel, A non local algorithm for image
+ denoising, in Proc. Int. Conf. Computer Vision and Pattern
+ Recognition (CVPR), 2005, vol. 2, pp. 60-65.</p>
+<p> </p><div class="hxports">
+<a name="A23"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Search Window</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_searchWindow.png" /><br /></div>
+<div class="body"><p>Search window size. The algorithm looks for matches within this
+ area around each point. The value represents the diameter of the
+ search window area in number of voxels. The larger the search window
+ is, the better are usually the results. But the size of the search
+ window also effects the running time significantly. The larger the
+ search window, the longer the run
+ time. This value has to be set to a large enough value so that
+ similar structures can be found within the search window area. Too
+ small values will result in simple blurring of the image because
+ there is not enough structural information within the 
+ search window area. A search window size of 21 is usually a good
+ choice.</p>
+<p> <a name="A24"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Local Neighborhood</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_neighborhood.png" /><br /></div>
+<div class="body"><p>Size of the neighborhood window. The influence of the each point in
+ the search window on the base point is weighted by comparing the
+ neighborhood window of this point with the neighborhood window of
+ the base point of the search window. The value represents the
+ diameter of the neighborhood area in number of voxels, and affects
+ the quality of the 
+ result as well as the run time. If this value is either much
+ smaller or much larger than fine structures in the data the
+ algorithm shows little or no effect at all. The large this value,
+ the longer the run time.</p>
+<p> <a name="A25"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Similarity Value</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_similarityValue.png" /><br /></div>
+<div class="body"><p>The similarity value determines the similarity weight assigned to
+ each voxel in the search window. The larger the value, the higher
+ the weight assigned to a voxel. As result, the larger the value,
+ the more the resulting image will be smoothed. In mathematical
+ terms, the squared similarity value is proportional to the standard
+ deviation of the assumed Gaussian noise of the image. The
+ similarity value does not affect the calculation time. To achieve
+ similar results with the 2D and 3D implementations, the similarity
+ value must be larger when using the 2D implementation.</p>
+<p> <a name="A26"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Adaptive</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_adaptive.png" /><br /></div>
+<div class="body"><p>Adaptive choice of lambda. If adaptive is set to true, lambda will
+ be adjusted for each voxel using the standard deviation of each
+ search window. This accounts for different contrast levels across
+ the data set. It is generally recommended to use the adaptive mode.</p>
+<p> <a name="A27"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Device</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_device.png" /><br /></div>
+<div class="body"><p>Choose whether the CPU or the GPU (CUDA device) is used for
+ calculation. On modern graphics cards, the GPU calculation is
+ generally much faster than the CPU calculation, even if run on
+ several processors. </p>
+<p> <a name="A28"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">CUDA device</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_cudaDevice.png" /><br /></div>
+<div class="body"><p>This port shows the list of available CUDA devices. The devices
+ that have no kernel timeouts are first in the list. Note that if
+ there is only one CUDA device and no other graphic card, the
+ computation time is limited to approximately 5 seconds if it uses
+ hardware acceleration at the same time. On Windows this is
+ generally the case; on Linux you can use SSH-tunneling and/or VNC on
+ a machine not running any X server to use your local machine for
+ graphics output. If the computation time exceeds 5 seconds, the
+ module might terminate the computation raising a CUDA error. 
+ To avoid timeouts, please enable <em>automatic partition size</em> in
+ the <em>Options</em> port.</p>
+<p> <a name="A29"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_info.png" /><br /></div>
+<div class="body"><p>This port is only visible if no CUDA device is available. In this
+ case it displays a message that no CUDA device is available.</p>
+<p> <a name="A30"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of Threads</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_numThreads.png" /><br /></div>
+<div class="body"><p>This port is visible if the selected device is CPU and multithreaded
+ calculation is available. The port allows the user to set the
+ number of threads used for the calculation.</p>
+<p> <a name="A31"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_options.png" /><br /></div>
+<div class="body"><p>If this option is selected, a sensible partition size will be
+ automatically determined. Switching off this option might result in
+ a CUDA error due to too large block sizes.</p>
+<p> <a name="A32"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Partition size</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_partitionSize.png" /><br /></div>
+<div class="body"><p>This port is only visible if the selected device is GPU. This value
+ allows the user to scale the blocks that are being sent to the
+ graphics card. If this value is 1, the block size is chosen 
+ small enough to run the algorithm on the GPU.
+ When computing NLM on a single GPU, however, it might be necessary
+ to reduce the block size further to allow the computation for a
+ single block to be finished within 5 seconds. This can be done with
+ this parameter. A heuristic tries to find a good value for this
+ parameter. If you think the parameter is too small, then you can 
+ manually tune it. This, however, may result in CUDA driver crashes
+ which will require restarting the application.</p>
+<p> <a name="A33"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">GPU Memory</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_GPUMemory.png" /><br /></div>
+<div class="body"><p>This port displays the usable size of the memory on the CUDA device.</p>
+<p> <a name="A34"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max. Block Size</span>  
+<div class="portsnapshot"><img src="ImFilterNonLocalMeans_maxBlockSize.png" /><br /></div>
+<div class="body"><p>This port displays the maximum block size currently used. This
+ value is determined by the partition size and other constraints.</p>
+</div></div>
+</div>
+<p></p>
+<p> <a name="A35"></a>
+</p>
+<h3><a name="A36">Resampling/Low pass filter (Lanczos, Phase 0)</a></h3>
+<p>This filter can be used to sharpen images. It performs a
+ convolution with a Lanczos kernel:</p>
+<p> </p>\[
+    f(x) = \frac{\sin(\pi x) \sin(2\pi x)}{2\pi^2 x^2},\; |x|<2
+    \]<p></p>
+<p> The kernel size in each dimension can be adjusted using the parameter
+ inputs <em>kernel size</em>. A value of 3 denotes a 3x3x3 kernel. Odd
+ values are required.</p>
+<p> Parameter <em>Sigma</em> determines the effective size of the Lanczos
+ function. For large values of sigma the effect of the filter will be
+ a smoothing rather than a sharpening.</p>
+<p><a name="A37"></a>
+</p>
+<h3><a name="A38">Intensity remapping filter (Sigmoid)</a></h3>
+<p>This filter operates on single voxels (kernel size 1) and
+is used to raise a specific intensity range. This is useful
+as a preprocessing step in image segmentation. The intensity
+range is described by its center $$\beta$$ and it width $$\alpha$$.
+The target image range is given by the interval [<em>min, max</em>].</p>
+<p></p>\[
+f(z) =  (max-min) \cdot 
+(1 + \exp( - \frac {z-\beta} {\alpha}))^{-1}
+ + min 
+ \]<p>
+</p>
+<p>
+<a name="A39"></a>
+</p>
+<h3><a name="A40">Brightness and contrast filter</a></h3>
+<p>This filter modifies the image brightness by adding an
+offset to the image values. The contrast is modified
+by multiplying the difference from the voxel values to the
+average image intensity ($$x_{av}$$).
+</p>\[
+f(x) = x_{av} + \mbox{Contrast} \cdot (x + \mbox{Brightness} - x_{av}),
+\]<p>
+where
+</p>\[
+x_{av} = \mbox{Brightness} + Image_{min} + \frac{(Image_{max}-Image_{min})}{2}
+\]<p></p>
+<p>
+<a name="A41"></a>
+</p>
+<h3><a name="A42">Statistical feature detection filter (Moments)</a></h3>
+<p>This filter calculates the $$n$$-th centralized moment of the data in a
+gliding window. The centralized moments of order $$n$$ are defined by:
+</p>\[
+f(x) = \frac{1}{N-1} \sum_{i=0}^{N} {(x_i - \bar{x})^n}.
+\]<p>
+The second moment ($$n=2$$) is therefore the local variance in the
+data. For some data sets this can be used to mask out noisy regions 
+or to detect edges.</p>
+<p>Because of the $$n$$-th power involved in the computation, you may want to
+use <a class="link" href="../hxarith/HxCastField.html#A1">CastField</a> to do a conversion of your data set
+to floats or doubles first.
+</p>
+<p>
+<a name="A43"></a>
+</p>
+<h3><a name="A44">Lighten/Darken filter (Gamma correction)</a></h3>
+<p>A gamma characteristic is a power-law relationship that approximates the relationship between
+ the encoded luminance in a display system and the actual desired image brightness. With this nonlinear 
+relationship, equal steps in encoded luminance correspond to subjectively approximately equal steps in brightness.
+Computer graphics systems that require a linear relationship between these quantities use gamma correction.</p>
+<p>Specifying a large value <i>Gamma</i> leads to darker images. The <i>Range</i> specifies the 
+intensity values that correspond to black and white. Intensity values outside this range
+are clipped off.</p>
+<p>
+
+
+
+</p></body>
+</html>

@@ -1,0 +1,396 @@
+# Amira-Script-Object V3.0 -*-Tcl-*-
+#
+#############################################################################
+# ParallelMovieMaker.scro
+# Distribute generation of image sequence in parallel on a multiple machines 
+# (e.g. PC cluster)
+# This script  object can distribute tasks to Amira "slaves" 
+# with "app listen" and "app send" TCL commands. 
+#
+# WARNING: This can create security holes. 
+# Do not use this unless behind a firewall and if you know what you are doing. 
+# 
+# Version: 1b
+# Author: Daniel Lichau (dlichau@mc.com)
+#############################################################################
+# Allows to:
+#   -	Define slave nodes
+#   -	Kill/restart Amira instances on slaves
+#   -	Load job script on slaves
+#   -	Define options: output path, time step range, ...
+#   -	Start generating image sequence
+#   -	Get timing information
+# TODO
+#   - secure restart/load
+#   - time port
+#   - ssh vs /pdsh
+#   - automatic save of job network
+#   - SLURM/SVA integration - Slave list from SVA script
+# 
+
+
+# debug setting
+#clear
+# $this script show
+# end debug settings
+
+
+$this proc killAmira { slaveIndex } {
+    set slaveName [lindex [$this slaveHostnames getValue] $slaveIndex]
+    if {[catch {set slavePid [$this getVar slavePid($slaveIndex)] } ] } {
+	echo No registered slave process for # $slaveIndex
+	return
+    }
+    if [regexp Win32 [app uname]] {
+	system "taskkill /PID $slavePid /F"
+    } else {
+	if {$slaveName == "localhost"} {
+	    system "kill -9 $slavePid"
+	} else {
+	    system "ssh $slaveName kill -9 $slavePid"
+	}
+    }
+    $this setVar saveBackgroundMode [viewer getBackgroundMode]
+}
+
+$this proc startAmira {slave display slaveIndex} {
+    global AMIRA_ROOT
+
+    if [regexp Win32 [app uname]] {
+	if {$slave != "localhost"} { 
+	    echo Remote slave not supported on Windows; 
+	    return 
+	}
+	system "set DISPLAY=$display && \
+		set AMIRA_MASTER_PORT=[app port] && \
+		set AMIRA_MASTER_NAME=[app hostname] && \
+		set AMIRA_SLAVE_NAME=$slave && \
+		set AMIRA_SLAVE_PORT=[expr [app port] + $slaveIndex + 1] && \
+		set AMIRA_SLAVE_INDEX=$slaveIndex && \
+		set AMIRA_MASTER_MODULE=[$this getLabel] && \
+		start [info nameofexecutable] -no_overlays -no_stencils $AMIRA_ROOT/share/script-objects/ParallelMovieMakerInit.hx"    
+    } else {
+	if {$slave != "localhost"} { 
+	    set remoteCommand "ssh $slave"
+	} else {
+	    set remoteCommand "sh -c"
+	}
+	system "$remoteCommand \"export DISPLAY=$display; \
+		export AMIRA_MASTER_PORT=[app port]; \
+		export AMIRA_MASTER_NAME=[app hostname]; \
+		export AMIRA_SLAVE_NAME=$slave; \
+		export AMIRA_SLAVE_PORT=[expr [app port] + $slaveIndex + 1]; \
+		export AMIRA_SLAVE_INDEX=$slaveIndex; \
+		export AMIRA_MASTER_MODULE=[$this getLabel]; \
+		${AMIRA_ROOT}/bin/start -no_overlays -no_stencils $AMIRA_ROOT/share/script-objects/ParallelMovieMakerInit.hx \" & "    
+    }
+}
+
+$this proc constructor {} {
+    global this
+
+    $this setNoRemoveAll 1
+
+#    $this script hide
+
+    # Let Amira listen commands from socket port. 
+    $this setVar savePort [app port]
+    if {[app port] == -1} {
+	app listen
+    }
+    $this setVar saveBackgroundMode [viewer getBackgroundMode]
+
+    $this newPortText slaveHostnames 
+    $this slaveHostnames setValue { localhost  }
+
+    $this newPortButtonList slaveInstances 4
+    $this slaveInstances setLabel "Slaves"
+    $this slaveInstances setLabel 0 "(re)start"
+    $this slaveInstances setCmd   0 { $this restartAllslaveInstances }
+
+    $this slaveInstances setLabel 1 kill
+    $this slaveInstances setCmd   1 { $this killAllslaveInstances }
+
+    $this slaveInstances setLabel 2 "(re)load script"
+    $this slaveInstances setCmd   2 { $this loadJobScript }
+
+    $this slaveInstances setLabel 3 "start script"
+    $this slaveInstances setCmd   3 { $this startJobScript }
+
+    $this slaveInstances setSensitivity 1 0
+    $this slaveInstances setSensitivity 2 0
+    $this slaveInstances setSensitivity 3 0
+
+    $this newPortFilename jobScript 
+    $this jobScript setValue  /tmp/test.hx
+
+    $this newPortFilename outputImages 
+    $this outputImages registerFileType "JPEG images" "jpg"  1
+    $this outputImages registerFileType "TIFF images" "tif"  1
+    $this outputImages registerFileType "PNG images" "png"  1
+    $this outputImages registerFileType "RGB images" "sgi"  1
+
+    $this outputImages setValue /tmp/output-####.jpg
+
+    $this newPortIntTextN timeSteps 2
+    $this timeSteps setValue 0 1
+    $this timeSteps setLabel 0 "start"
+    $this timeSteps setValue 1 10
+    $this timeSteps setLabel 1 "total"
+
+    $this newPortIntTextN resolution 2
+    $this resolution setValue 0  [lindex [viewer getSize] 0 ]
+    $this resolution setValue 1  [lindex [viewer getSize] 1 ]
+    $this resolution setLabel 0 X
+    $this resolution setLabel 1 Y
+
+    $this newPortToggleList jobStatus 1
+    $this jobStatus hide
+
+    $this updateSlavesList
+
+    $this newPortText slavesDisplay
+    #    $this slavesDisplay setValue "[app hostname]:34.0"
+    $this slavesDisplay setValue ":0.0"
+
+    $this newPortInfo info
+    $this info setValue "..."
+    $this info hide
+
+    $this newPortToggleList options 3
+
+    $this options setValue 0 1
+    $this options setLabel 0 offscreen
+    $this options setValue 1 1
+    $this options setLabel 1 "bg image"
+    $this options setValue 2 1
+    $this options setLabel 2 "interleave"
+
+	$this newPortToggleList options2 1
+	$this options2 setLabel 0 "no output"
+	$this options2 setValue 0 0
+	$this options2 hide
+	
+    $this newPortDoIt Run
+    $this Run setLabel "Run"
+
+
+}
+
+$this proc restartAllslaveInstances {} {
+    $this resetJobStatus	
+    set slaveNames [$this slaveHostnames getValue]
+    echo Killing and restarting [theAppSkin getProductName] on slaves $slaveNames...
+    $this slaveInstances setSensitivity 2 0
+    $this slaveInstances setSensitivity 3 0
+    for {set slaveIndex 0} {$slaveIndex < [llength $slaveNames]} {incr slaveIndex} {
+	$this killAmira $slaveIndex
+	set slave [lindex $slaveNames $slaveIndex] 
+	$this startAmira $slave [$this slavesDisplay getValue] $slaveIndex
+	echo Restarting [theAppSkin getProductName] on $slave $slaveIndex...
+    }
+    $this setVar numDone 0
+    $this setVar saveBackgroundMode [viewer getBackgroundMode]
+}
+
+$this proc killAllslaveInstances {} {
+    set slaveNames [$this slaveHostnames getValue]
+    echo Killing [theAppSkin getProductName] on slaves $slaveNames
+    for {set slaveIndex 0} {$slaveIndex < [llength $slaveNames]} {incr slaveIndex} {
+	$this killAmira $slaveIndex
+    }
+    $this slaveInstances setSensitivity 2 0
+    $this slaveInstances setSensitivity 3 0
+    $this setVar saveBackgroundMode [viewer getBackgroundMode]
+}
+
+$this proc loadJobScript {} {
+    set slaveNames [$this slaveHostnames getValue]
+    echo "Loading script..."
+    $this slaveInstances setSensitivity 3 0
+    $this resetJobStatus
+    set slaveIndex 0
+    foreach slave $slaveNames {
+	if [catch { set port [$this getVar slavePort($slaveIndex)] } ] {
+	    echo $slave not started or did not answer yet ?
+	}
+	if [catch {app send "ParallelMovieMaker_load [$this jobScript getValue]" $slave $port  } ] {
+	    echo Slave $slave port $port not (yet) ready !
+	    return;
+	}
+	incr slaveIndex
+    }
+    $this setVar numDone 0
+}
+
+$this proc startJobScript {} {
+    echo "starting jobs on slaves..."
+    $this info setValue "..."
+    $this setVar totalReport 0
+    set startIndex [$this timeSteps getValue 0]
+    set slaveNames [$this slaveHostnames getValue]
+    set numSlaves [llength $slaveNames]
+    set numSteps [$this timeSteps getValue 1]
+    set stepPerSlave [ expr  $numSteps / $numSlaves ]
+    set remaining [ expr $numSteps % $numSlaves ]
+    echo Running on $numSlaves slaves  $stepPerSlave per slave + remaining $remaining steps
+    
+    $this resetJobStatus
+    $this setVar lastImage [expr $startIndex - 1] 
+    for {set i $startIndex} {$i< [expr $startIndex + $numSteps]} {incr i} {
+	$this setVar imageFileReady($i) ""
+    }
+    set slaveIndex 0
+
+    if {[$this options getValue 2]  == 1 } {
+	# interleaved images
+	set incStep $numSlaves
+	# [expr $startIndex + $slaveIndex]
+    } else {
+	set incStep 1
+    }
+    $this setVar startTime [clock clicks -milliseconds]
+    
+    foreach slave $slaveNames {
+	set numSteps $stepPerSlave
+	if {$slaveIndex < $remaining } { incr numSteps }
+	
+	echo starting $numSteps steps start $startIndex interleave $incStep on slave $slave
+	set resolutionX [$this resolution getValue 0]
+	set resolutionY [$this resolution getValue 1]
+	app send "ParallelMovieMaker_run $slaveIndex $startIndex $numSteps $incStep [$this outputImages getValue] $resolutionX $resolutionY [$this options getValue 0] [$this options getValue 1] [$this options2 getValue 0]" $slave [$this getVar slavePort($slaveIndex)]
+
+	incr slaveIndex
+	if {$incStep == 1} {
+	    incr startIndex $numSteps	    
+	} else {
+	    incr startIndex
+	}
+    }
+    $this setVar numDone 0
+    $this slaveInstances setSensitivity 3 0
+}
+
+$this proc destructor {} {
+    viewer setBackgroundMode [$this getVar saveBackgroundMode]
+    set oldPort [$this getVar savePort]
+    if { $oldPort != [app port]} {
+	app close
+	if {$oldPort != -1} {
+	    app listen $oldPort
+	}
+    }
+    $this killAllslaveInstances
+}
+
+$this proc reportSlaveStarted {slave slaveIndex port processId} {
+    $this setVar slavePort($slaveIndex) $port
+    $this setVar slavePid($slaveIndex) $processId
+    echo [theAppSkin getProductName] restarted on $slave, slave using port [$this getVar slavePort($slaveIndex)]
+    $this setVar numDone [expr [$this getVar numDone] + 1]
+    if {[$this getVar numDone] == [llength [$this slaveHostnames getValue]]} {
+	$this slaveInstances setSensitivity 1 1
+	$this slaveInstances setSensitivity 2 1
+    }
+}
+
+$this proc updateSlavesList {} {
+    set slaveNames [$this slaveHostnames getValue]
+    
+    $this jobStatus setNum [llength $slaveNames]
+
+    set i 0
+    foreach n $slaveNames {
+	$this jobStatus setLabel $i :$n
+	incr i
+    }
+}
+
+$this proc resetJobStatus {} {
+    set i 0
+    set slaveNames [$this slaveHostnames getValue]
+    foreach slave $slaveNames {
+	$this jobStatus setValue $i 0
+	incr i
+    }
+}
+
+$this proc reportError { slaveIdent msg } {
+    echo Error on slave ${slaveIdent}: $msg
+}
+
+$this proc reportLoadedScript { slaveIdent } {
+    echo Slave ${slaveIdent}: loaded script
+    $this setVar numDone [expr [$this getVar numDone] + 1]
+    if {[$this getVar numDone] == [llength [$this slaveHostnames getValue]]} {
+	$this slaveInstances setSensitivity 3 1
+    }
+
+
+}
+
+$this proc reportImageDone { slaveIndex imageIndex filename } {
+    echo done image $slaveIndex $imageIndex 
+	$this setVar imageFileReady($imageIndex) $filename
+	
+	for {set next [expr [$this getVar lastImage] + 1 ] } \
+		{ ($next < [expr [$this timeSteps getValue 0] + [$this timeSteps getValue 1]]) && ([set ready [$this getVar imageFileReady($next)]] != "") } \
+		{ incr next } {
+		viewer 0 setBackgroundImage $ready
+		#	echo display image $ready
+		viewer 0 redraw
+		$this setVar lastImage $next
+	}
+}
+
+$this proc reportJobDone { slaveIndex } {
+    $this jobStatus setValue $slaveIndex 1
+    set numSteps [$this timeSteps getValue 1]
+    viewer setBackgroundMode [$this getVar saveBackgroundMode]
+    echo job done [lindex  [$this slaveHostnames getValue] $slaveIndex]
+    $this setVar totalReport [expr [$this getVar totalReport] + 1 ]
+    if {[$this getVar totalReport] == [llength [$this slaveHostnames getValue]]} {
+	set time [expr ([clock clicks -milliseconds] - [$this getVar startTime])/1000.] 
+	$this info setValue "Elapsed $time seconds, [expr $time / $numSteps] seconds per step, with [llength [$this slaveHostnames getValue]] slaves, $numSteps steps"  
+	echo [$this info getValue]
+	$this resetJobStatus
+    }
+    $this setVar numDone [expr [$this getVar numDone] + 1]
+    if {[$this getVar numDone] == [llength [$this slaveHostnames getValue]]} {
+	$this slaveInstances setSensitivity 3 1
+    }
+
+}
+
+$this proc update {} {
+    if [$this slaveHostnames isNew] {
+	$this updateSlavesList
+    }
+    
+    if [$this options isNew] {
+		$this options setSensitivity 1 [$this options getValue 0]
+		if { [$this options getValue 0] == 0 } {
+			$this options setValue 1 0
+		}
+    }
+}
+
+$this proc compute {} {
+    global AMIRA_ROOT
+
+    if [$this options isNew] {
+	if {[$this options getValue 1]  == 1 } {
+#	    $this setVar saveBackgroundMode [viewer getBackgroundMode]
+	} else {
+	    viewer setBackgroundMode [$this getVar saveBackgroundMode]
+	}
+    }
+
+    if {[$this Run isNew] } {
+	$this startJobScript
+    }
+
+}
+
+echo ParallelMovieMaker.scro loaded
+

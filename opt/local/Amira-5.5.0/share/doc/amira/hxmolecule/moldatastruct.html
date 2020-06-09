@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.3 Molecular Data Structures</a></h2>
+<p>Several molecular file formats including, for example, PDB, Tripos,
+and UniChem, can be read and written by <font face="helvetica">Molecular Option</font>, other file formats,
+such as CHARMM, can only be read. The information read from the data
+files will be stored in different types of objects: <em>Molecule</em>,
+<em>MolTrajectory</em>, and <em>MolTrajectoryBundle</em>.</p>
+<p><b>Molecule.</b> Single molecular configurations are represented as
+data objects of type <a class="link" href="HxMolecule.html#A1">Molecule</a>. This kind of object
+can either be created by loading a file containing a single molecular
+structure or by attaching it to an object of type
+<a class="link" href="HxMolTrajectory.html#A1">MolTrajectory</a>, in which case it will act as a
+projector, extracting one of the trajectory's 'time steps', i.e., a
+single structure.</p>
+<p><b>Trajectory.</b> The <a class="link" href="HxMolTrajectory.html#A1">MolTrajectory</a> data
+structure represents a series of molecular configurations of the same
+molecule. Again two cases are possible. Either the trajectory is
+loaded directly from a file. Or it can be attached to an object of
+type <em>MolTrajectoryBundle</em>, extracting one of the trajectories
+contained in that bundle.</p>
+<p><b>Bundle of trajectories.</b> A trajectory bundle reflects the case
+of a file containing more than one molecular trajectory. If such a
+file is loaded into <font face="helvetica">Amira</font>, an object of type <em>MolTrajectoryBundle</em> will be created. A single trajectory can be
+accessed by attaching a <a class="link" href="HxMolTrajectory.html#A1">MolTrajectory</a> object.</p>
+<p></p>
+<h3><a name="A2">10.3.1 Internal Structure of Molecules</a></h3>
+<p>An object of data type <a class="link" href="HxMolecule.html#A1">Molecule</a> contains
+information about the structure of a molecule and the atomic
+coordinates of one of its configurations. The mandatory part of
+structural information concerns the number and types of all atoms
+contained in the molecule. All the topological information is
+organized in levels which are cliques of groups. Each group contains
+other groups or atoms. The simplest example is the level <em>bonds</em>,
+which consists of groups of two atoms.</p>
+<p>Some levels can build hierarchies. For example, a residue consists of
+a number of atoms, and a couple of residues may form a secondary
+structure. These levels and groups can be defined by file readers or
+interactively via <a class="link" href="HxMolecule.html#A10">Tcl commands</a>.</p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DisplayColormap</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DisplayColormap" "displays a colormap legend" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows you to position a colormap icon in the 3D viewer.
+This is useful, for example, to produce snapshots that contain an explanation
+of what specific colors mean. Note that although colormaps are ordinary
+data objects in <font face="helvetica">Amira</font>, they often are hidden by default. Use the <em>Pool/Show Object</em>
+menu of the main window to display their icons in the Pool. 
+For better results, use a 1x1 tiling for the snapshot.</p>
+<div style="text-align:center"><p>
+<img src="HxDisplayColormap.png" />
+</p></div></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The colormap to be displayed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Histogram</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The histogram to be displayed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_options.png" /><br /></div>
+<div class="body"><p>This port provides the following four toggles:
+</p>
+<ul><li><b>custom text:</b> Enable or disable custom text (see below).</li><li><b>vertical:</b> Vertical orientation instead of horizontal.</li><li><b>relative size:</b> Change size of colormap when viewer size changes.</li><li><b>transparent background:</b> If off, render background rectangle.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_position.png" /><br /></div>
+<div class="body"><p>Position of colormap in viewer relative to lower left corner. If one of the
+numbers is negative, it is interpreted relative to upper right corner.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_size.png" /><br /></div>
+<div class="body"><p>Length and width of the colormap in pixels. If the option <em>relative
+size</em> has been selected, the length and width are interpreted relative
+to a window size of 1000x800. If the actual viewer window is smaller (or larger),
+then the displayed colormap will be smaller (or larger).</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Custom Text</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_labels.png" /><br /></div>
+<div class="body"><p>This is only available if the <em>custom text</em> option is selected. You may
+specify a space-separated list of values to be displayed. In
+addition, you may specify a text string that is displayed instead of the number
+by using the '/' character. The example in the image above has been
+generated using this text: <tt>-8/cold 50/hot</tt>, which displays "cold" at
+value -8 and "hot" at the value 50 (the colormap in this case ranges from
+-8 to 50). If the label text contain blanks, you must enclose
+the text in double quotes, e.g., <tt>100/"very hot"</tt>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Title</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_title.png" /><br /></div>
+<div class="body"><p>This port holds the title of the colormap.
+By default, this port contains an empty string.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Histogram Options</span>  
+<div class="portsnapshot"><img src="HxDisplayColormap_histogramOptions.png" /><br /></div>
+<div class="body"><p>Defines the position of the histogram.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getFontSize</span>  
+
+<div class="body"><p>
+ Returns the current font size.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFontSize &lt;points&gt;</span>  
+
+<div class="body"><p>
+ Changes the font size. The default font size is 14 points.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBGColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+ Sets the color of the background rectangle which is drawn
+ when the transparent background toggle is off.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;color&gt;</span>  
+
+<div class="body"><p>
+ Sets the color of the text.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

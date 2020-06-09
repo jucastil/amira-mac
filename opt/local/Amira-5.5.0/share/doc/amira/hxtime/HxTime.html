@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Time</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Time" "provides a time value for other modules" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Modules such as <a class="link" href="HxDynamicFileSeriesCtrl.html#A1">Time Series Control</a> or
+other data objects dealing with time-dependent data provide a time port,
+i.e., a special slider which also can be animated. Multiple such modules
+can be synchronized by connecting them to one global <em>Time</em> object.
+The time object provides the same functionality as the time port in the
+modules themselves. In fact, the time value can be changed in both the
+time port or in an upstream time object. A time object can be created by
+choosing <em>Time</em> from the main window's <em>Create</em> menu.
+Alternatively, it can be created by choosing <em>Create time</em> from the
+popup menu of a time port (press the right mouse button over a time slider
+in order to activate this menu).</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+<p>
+
+<a name="A3"></a>
+</p>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to an upstream time object. Usually there will only be one
+ instance of a time object and this port will not be connected.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxTime_time.png" /><br /></div>
+<div class="body"><p>This slider specifies the current time value. Additional settings can
+ be modified via a popup menu which is activated by pressing the right
+ mouse button over the slider. The inner buttons proceed one step in
+ backward or forward direction, respectively. The outer buttons
+ activate animation mode. The popup menu lets you choose between simple
+ animation (play once) and two endless modes (loop and swing).
+ Animation is always restricted to a subrange of the whole time
+ interval. The subrange can be controlled graphically via the two upper
+ arrow buttons. All settings can also be adjusted in a configure dialog
+ which can be activated via the popup menu, too.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PointWrap</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "PointWrap" "generates a surface from a set of 3D points" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This algorithm performs a surface reconstruction from a set of unorganized
+ points. It models a <em>probe sphere</em>, that is being 'dropped' onto and
+ then 'rolled over' the set of points. Every three points the sphere rests
+ on during this tour become a triangle in the resulting surface. The
+ result is (almost) guaranteed to be an oriented manifold.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input point set.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Probe Radius</span>  
+<div class="portsnapshot"><img src="HxPointWrap_probeRadius.png" /><br /></div>
+<div class="body"><p>This slider specifies the radius of the probe sphere. It is only relevant
+ if the module is run in the fixed radius mode and when looking for an
+ initial triangle. If the algorithm is unable to find an initial
+ triangle try increasing this value.</p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Search Axis</span>  
+<div class="portsnapshot"><img src="HxPointWrap_searchAxis.png" /><br /></div>
+<div class="body"><p>The direction the probe is initially dropped from to find a starting
+ triangle. If no such triangle can be found, try a different axis.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Probe Mode</span>  
+<div class="portsnapshot"><img src="HxPointWrap_probeMode.png" /><br /></div>
+<div class="body"><p>	Here you can choose the probe radius to be fixed throughout the whole
+ computation or to adapt it to local feature size. <em>Adaptive</em> 
+	probe size is faster than <em>fixed</em> probe size and gives better 
+	details on point sets that are relatively 'well behaved'. 
+	However, it is less robust.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Enlargement</span>  
+<div class="portsnapshot"><img src="HxPointWrap_enlargement.png" /><br /></div>
+<div class="body"><p>If the algorithm is run in <em>adaptive</em> probe size mode the local probe size
+ might be too small to find any more triangles. If that happens, the
+ size is enlarged by this factor and the local search is restarted.</p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaxIterations</span>  
+<div class="portsnapshot"><img src="HxPointWrap_maxIterations.png" /><br /></div>
+<div class="body"><p>The iterative process described under <em>Enlargement</em> is repeated no 
+ more times than the number specified with this slider.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

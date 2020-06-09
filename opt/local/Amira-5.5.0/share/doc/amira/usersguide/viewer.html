@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.8 Viewer Window</a></h3>
+<p>The 3D viewer plays a central role in <font face="helvetica">Amira</font>. Here all geometric objects are
+shown in 3D space. The 3D viewer offers powerful and fast interaction
+techniques. It can be regarded as a virtual camera which can be moved to an
+arbitrary position within the 3D scene. The left mouse button is used to
+change the view direction by means of a virtual trackball. The middle mouse
+button is used for panning, while the left and the middle mouse button
+pressed together allow you to zoom objects.</p>
+<p>The following controls can be used:</p>
+<p></p>
+<ul><li>hold down left mouse button and move mouse pointer to rotate the camera around it's current focal point (the focal point can be changed by doing a seek operation)
+<br />
+</li><li>hold middle mouse button to pan <br />
+</li><li>hold down left + middle mouse button to zoom / dolly, or CTRL + middle mouse button, or CTRL + SHIFT + the left mouse button <br />
+</li><li>hold right mouse button opens the popup menu <br />
+</li><li>press 's' key, then pick with the left mouse button to seek <br />
+</li><li>press 'space' key to view all the 3D scene <br />
+</li><li>press 'ESC' key to switch to and from 'interaction' mode and 'trackball' mode <br />
+</li>
+</ul><p></p>
+<p>The virtual trackball controlled by the left mouse button allows for 
+free rotation of the camera. The camera trackball, displayed by default
+in the lower right corner of the viewer, is used for constrained 
+rotation: rotation of the camera about the screen-aligned 
+X, Y, or Z axes. Click on the vertical wheel (it becomes red when
+you select it) and move the mouse
+up/down (while left mouse button is pressed) to rotate about the X axis. 
+Click on the horizontal wheel (it becomes
+green when you select it)
+and move the mouse left/right (while the left mouse button is pressed) 
+to rotate about the Y axis. Click on the third wheel (it becomes blue) and move
+the mouse up/down (with pressed left mouse button) to
+rotate about the Z axis.
+
+
+
+</p>
+<p>A 3D compass indicating the current camera viewing direction may be displayed
+in one of the corners of the display. It is an indicator
+only, you cannot use it to control the viewing direction.</p>
+<p>The <em>Edit/Preferences/Layout</em> dialog can be used to control the
+visibility, auto-hide option, and position of the trackball and the compass.</p>
+<p>Sometimes you need to manipulate objects directly in the 3D viewer. For
+example, this technique, called 3D interaction, is used by the
+<a class="link" href="../hxcore/HxTransformEditor.html#A1">transform editor</a>. You can switch on this editor
+with the transform editor button in the properties of a data object.
+The editor provides special
+draggers that can be picked and translated or rotated in order to specify
+the transformation of a data object. Before you can interact with these
+draggers, you must switch the viewer into <em>interaction 
+mode</em>. This is done by clicking on the arrow
+button in the upper left corner. If the viewer is in interaction mode, the
+mouse cursor will be an arrow instead of a hand symbol. You can use the
+<tt>[ESC]</tt> key in order to quickly switch between interaction mode and
+viewing mode. If the viewer is in interaction mode, use the <tt>[Alt]</tt> key
+to temporarily switch to viewing mode.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=viewer.png.html><img width=450 src="viewer.png" /></a><br />
+<div class="caption">
+<b>Figure 46:</b>
+<font face="helvetica">Amira</font>'s viewer window provides a virtual trackball for easy
+navigation, as well as a camera trackball (lower right) for constrained rotation.
+</div>
+
+
+</div><p>
+</p>
+<p>More than one viewer can be active at a time. Standard screen layouts with
+one, two, or four viewers can be selected via the <a class="link" href="viewmenu.html#A1">View
+menu</a>. Additional viewers can be created using the Tcl command <tt>viewer
+&lt;n&gt; show</tt>, where <tt>&lt;n&gt;</tt> is an integer number between 0 and 13. While
+viewers 0 to 3 will be placed in a common panel window, viewers 4 to 13 will
+create their own top-level window. For more specific control, the viewer
+provides an extensive command set, which is documented in
+<a class="link" href="cmdViewer.html#A1">Section 5.3.3.1</a>.</p>
+<p>The toolbar of the main viewer window provides several buttons and controls,
+allowing you for example to switch between viewing mode and interaction mode, 
+to choose certain orientations, or to take snapshots.
+The precise meaning of these controls is described below.</p>
+<p>
+<b>Interact:</b> <br />
+ 
+<img src="viewer_interact.png" /> <br />
+ 
+Switches the viewer into interaction mode. You can also use
+the <tt>[ESC]</tt> key to toggle between viewing mode and interaction mode.<br />
+</p>
+<p>
+<b>Trackball:</b> <br />
+ 
+<img src="viewer_trackball.png" /> <br />
+ Switches the viewer into viewing mode. You can also use the
+<tt>[ESC]</tt> key to toggle between interaction mode and viewing mode.
+The left mouse button is used to
+change the view direction by means of a virtual trackball.<br />
+</p>
+<p>
+<b>Translate:</b> <br />
+
+<img src="viewer_translate.png" /> <br />
+ 
+Same as <em>Trackball</em> except that the left mouse button is used for 
+panning (translation).<br />
+</p>
+<p>
+<b>Zoom:</b> <br />
+
+<img src="viewer_zoom.png" /> <br />
+ Same as <em>Trackball</em> except that in this mode vertical motion of 
+the left mouse button controls zooming.<br />
+</p>
+<p>
+<b>Rotate:</b> <br />
+ 
+<img src="viewer_rotate.png" /> <br />
+ Rotates the camera
+around the current view direction. By default, a clockwise rotation of
+one degree is performed. If the Shift key is pressed while clicking, a
+90 degree rotation is done. If the Ctrl key is pressed, the rotation
+will be counterclockwise.<br />
+</p>
+<p>
+<b>Seek:</b> <br />
+
+<img src="viewer_seek.png" /> <br />
+ Pressing the seek button and then clicking on an arbitrary object in the
+scene causes the object to be moved into the center of the viewer window.
+Moreover, the camera will be oriented parallel to the normal direction at
+the selected point. Seeking mode may also be activated by pressing the <tt>[S]</tt> key in the viewer window.<br />
+</p>
+<p>
+<b>Home:</b> <br />
+ 
+<img src="viewer_home.png" /> <br />
+ Resets camera to the home position.<br />
+</p>
+<p>
+<b>Set Home:</b> <br />
+ 
+<img src="viewer_sethome.png" /> <br />
+ Sets the current position as the new home position.<br />
+</p>
+<p>
+<b>Perspective/Ortho:</b> <br />
+ 
+<img src="viewer_perspective.png" /> <img src="viewer_ortho.png" /> 
+<br />
+ Toggles between a perspective and an orthographic camera. By default, a
+perspective camera is used. You may want to use an orthographic camera
+in order to measure distances or to exactly align objects in 3D space.
+<b>Note:</b> Only one of these buttons will be visible 
+at a time, the button indicating the currently active camera type.
+<br />
+</p>
+<p><b>View All:</b> <br />
+ 
+<img src="viewer_viewall.png" /> or <img src="viewer_viewall_med.png" />
+<br />
+ Repositions the camera so that all objects become
+visible. The orientation of the camera will not be changed.
+<b>Note:</b> The first button is seen if <em>technical</em> naming or the 
+geoscience template has been selected in 
+the <em>Edit/Preferences/Layout</em> dialog, the second button 
+will be displayed if <em>medical</em> naming has been selected.<br />
+
+</p>
+<p><b>YZ-, XY- and XZ-Views:</b> <br />
+ 
+<img src="viewer_viewYZ.png" /> <img src="viewer_viewXY.png" /> <img src="viewer_viewXZ.png" />
+or <img src="viewer_viewYZ_med.png" /> <img src="viewer_viewXY_med.png" /> <img src="viewer_viewXZ_med.png" /> 
+<br />
+ Adjusts the camera according to the specified viewing direction. The
+viewing direction is parallel to the coordinate axis perpendicular to
+the specified coordinate plane. Medical doctors are used to viewing series
+of tomographic images parallel to the XY-plane with the y-axis pointing
+downwards. This convention is followed by the XY-button. The opposite view
+direction is used if the Shift key is pressed.
+<b>Note:</b> The first set of buttons is seen if <em>technical</em> naming has been selected in 
+the <em>Edit/Preferences/Layout dialog</em>, the second set of buttons 
+will be displayed if <em>medical</em> naming has been selected. They correspond to
+axial, coronal, and sagittal views respectively.
+</p>
+<p></p>
+<p>
+<b>Stereo:</b> <br />
+
+<img src="viewer_stereo.png" /> <br />
+ Allows you to enable or disable stereo viewing, as well as specify
+various stereo viewing parameters via the 
+<em>Stereo Preferences</em> dialog.<br />
+
+</p>
+<p>
+<b>Measuring:</b> <br />
+
+<img src="viewer_measure_2Drule.png" /> <img src="viewer_measure_3Drule.png" />
+<img src="viewer_measure_2Dangle.png" /> <img src="viewer_measure_3Dangle.png" />
+<img src="viewer_measure_anno2d.png" />
+<img src="viewer_measure_anno.png" /> <br />
+ Pressing this button creates an instance of a
+<a class="link" href="../hxmeasure/HxMeasureTools.html#A1">Measuring</a> module that lets you measure distances
+and angles on objects within the viewer. Clicking on the down arrow will
+display a menu of measuring tools to chose from: <em>2D line</em>, <em>3D line</em>, <em>2D angle</em>,
+<em>3D angle</em>, <em>2D annotation</em> and <em>3D annotation</em>. See the Measuring module's
+documentation for details. <b>Note:</b> Only one of these buttons will be visible 
+on the toolbar at a time, the button of
+the measuring tool most recently accessed from the viewer toolbar.
+<br />
+</p>
+<p>
+<b>Snapshot:</b> <br />
+ 
+<img src="viewer_snapshot.png" /> <br />
+ Takes a snapshot of the current rendering area and saves it in a file. The
+filename as well as the desired output format must be entered through
+the <a class="link" href="snapshotPrint.html">Snapshot dialog</a>. Snapshots may also be taken
+using the <a class="link" href="cmdViewer.html#A1">viewer command</a> <tt>snapshot</tt>.<br />
+</p>
+<p>
+<b>Layout:</b> <br />
+
+<img src="viewer_layout1.png" />
+<img src="viewer_layout2V.png" /> <img src="viewer_layout2H.png" /> <img src="viewer_layout4.png" /> 
+<br />
+ Selects the viewer layout: a single view, two viewers side-by-side, 
+two viewers stacked, or four viewers.<br />
+</p>
+<p>
+<b>Fullscreen:</b> <br />
+
+<img src="viewer_fullscreen.png" /> <br />
+ Selects fullscreen mode. In this mode, the viewer occupies the entire screen and
+no other windows will be visible. To exit fullscreen mode, click the right mouse
+button and uncheck <em>Fullscreen</em> in the popup menu.<br />
+</p>
+<p>
+In addition to these buttons, the <font face="helvetica">Amira</font> viewers provide an extensive set of
+<a class="link" href="cmdViewer.html#A1">Tcl commands</a>, which are listed in <a class="link" href="cmdViewer.html#A1">Section 5.3.3.1</a>.</p>
+<p>
+
+
+
+</p></body>
+</html>

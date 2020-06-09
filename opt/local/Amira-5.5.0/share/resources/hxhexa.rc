@@ -1,0 +1,46 @@
+
+module -name GridVolume \
+    -class HxHexaView \
+    -primary "HxHexaGrid HxHexaScalarField3" \
+    -category "Main Display" \
+    -dso "libhxhexa.so"
+
+module -name BoundaryIDs \
+    -class HxHexaBoundaryIds \
+    -primary "HxHexaGrid" \
+    -category Display \
+    -dso "libhxhexa.so"
+
+module -name HexToTet \
+    -class HxHexToTet \
+    -primary "HxHexaGrid" \
+    -category Compute \
+    -dso "libhxhexa.so"
+
+module -name TetToHex \
+    -class HxTetToHex \
+    -primary "HxTetraGrid" \
+    -category Compute \
+    -dso "libhxhexa.so"
+
+module -name HexaQuality \
+    -primary "HxHexaGrid" \
+    -category "Main Compute" \
+    -class "HxHexaQuality" \
+    -dso "libhxhexa.so" 
+
+module -name HexaQuality \
+    -primary "HxHexaView" \
+    -category "Main Compute" \
+    -class "HxHexaQuality" \
+    -dso "libhxhexa.so" \
+    -check { [$PRIMARY data source] != "" }
+
+if {[theAppSkin getProductName] != "Amira"} {
+    module -name "GridView"\
+           -class "HxBlockStructuredGridView"\
+           -primary "HxBlockStructuredGrid"\
+           -category "Display"\
+           -package "hxhexa"
+}
+

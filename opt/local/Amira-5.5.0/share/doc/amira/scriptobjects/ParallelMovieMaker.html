@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p><div class="generic_head"><h2><a name="A1"> ParallelMovieMaker</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ParallelMovieMaker" "distributes generation of images in parallel" !>
+<p>This script module can be used to create an animation consisting of a series of 2D images in TIFF, JPEG, or PNG format, generated in parallel by instances of <font face="helvetica">Amira</font> running on several 'slave' machines (typically a cluster of PCs with graphics board). This module - running on the 'master' machine - can start or kill automatically the slave <font face="helvetica">Amira</font> instances. This requires that the user can connect to slave systems via ssh without needing a password (you may also customize a copy of this script module with your preferred remote command). This module also communicates with <font face="helvetica">Amira</font> instances by using commands <a class="link" href="../usersguide/cmdApp.html#A1">app listen, app send</a>.</p>
+<p>WARNING: Using this module can create security holes, as it makes <font face="helvetica">Amira</font> listen commands sent to socked ports. Do not use this unless behind a firewall and if you know what you are doing.</p>
+<p>This modules requires to provide the filename of an animation script, which can be obtained for instance by saving a network containing a <a class="link" href="../hxtime/HxTime.html#A1">time module</a>. The first module with a time port that as no upstream connection with another time module will be used to control the animation. The animation script can be then loaded on every slave. When starting the animation, the image sequence is split across the slaves: the time value will be set iteratively on each slave (depending on interleave policy), the network is fired so that other objects can adjust themselves, and a snapshot is saved.</p>
+<p>As the input files and output directory can be accessed in parallel, it is recommended for best performance to have these files located either on a fast shared storage or on a local storage of each slave system. 
+</p><div class="hxdescription">
+<h3>Description</h3>
+
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Slave hostnames</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_slaveHostnames.png" /><br /></div>
+<div class="body"><p>List of slave hostnames.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slaves</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_slaveInstances.png" /><br /></div>
+<div class="body">
+<ul><li><i>restart:</i> Starts or restarts <font face="helvetica">Amira</font> instances (kill and restart).</li><li><i>kill:</i> Kills <font face="helvetica">Amira</font> instances started by this module.</li><li><i>Load or reload script:</i> makes <font face="helvetica">Amira</font> instance load the job script <i>start script</i>: start animation.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Job script</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_jobScript.png" /><br /></div>
+<div class="body"><p>Animation script filename.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output images</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_outputImages.png" /><br /></div>
+<div class="body"><p>The name of the resulting image file(s). In order to write a series of TIFF, JPEG, or PNG files, specify a filename with the suffix .tif, .jpg, or .png. The filename should contain a series of hash marks ####. The hash marks will be replaced by the actual frame number. You can also choose the output format via the file dialog which pops up when the Browse button is pressed. If no filename is specified, no movie can be created.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time steps</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_timeSteps.png" /><br /></div>
+<div class="body"><p>The start step and the number of steps (number of saved images).</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_resolution.png" /><br /></div>
+<div class="body"><p>This is the requested resolution for the generated images (see below offscreen option). It initialized to the size of the viewer when this script module is created or reloaded.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slaves display</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_slavesDisplay.png" /><br /></div>
+<div class="body"><p>This is passed as DISPLAY environment variable to the slave instances of <font face="helvetica">Amira</font>. It can be used for instance for checking what is actually displayed on the slaves, including the messages output to the slave's <font face="helvetica">Amira</font> console.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="ParallelMovieMaker_options.png" /><br /></div>
+<div class="body">
+<ul><li><i>offscreen:</i> If selected, offscreen snapshots are generated using the specified resolution (offscreen rendering). Otherwise, direct snapshots of the viewer are saved. See <a class="link" href="../usersguide/viewer.html#A1">viewer command</a> snapshot. The viewer window will be tentatively resized to required resolution, however this may fail if the viewer is defined in layout preferences as a top level window. Then the default resolution of the viewer will be used. Notice also that offscreen rendering may be different from viewer rendering as different graphics capabilities or limitations or driver issues can be involved.</li><li><i>bg image:</i> Display image sequence as background image (see viewer command setBackgroundImage). This may be used for control.</li><li><i>interleave:</i> When selected, the image sequence is interleaved across slaves so that each slave generate an image closest to each other, for instance 2 slaves will generate in turn images 1,3,5... and 2,4,6... Otherwise, each slave generates a contiguous sequence of images (1,2,3... - n,n+1,n+2) In some case this option can impact performance. Interleave mode can also limit latency for control display with the background image option.</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

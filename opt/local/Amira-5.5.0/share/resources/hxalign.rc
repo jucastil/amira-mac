@@ -1,0 +1,17 @@
+# ----------------------------------------------------------------------
+#   Align package
+# ----------------------------------------------------------------------
+
+module -name "AlignSlices" \
+    -primary "HxUniformScalarField3 HxStackedScalarField3 HxUniformColorField3 HxLattice" \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -category "Compute"	\
+    -class "HxAlignSlices" \
+    -package "hxalign"
+
+
+# -----------------------------------------------
+#   Plug-in mechanism for autmatic align methods
+# -----------------------------------------------
+set hxalign_autoalignmethod_plugins [list];
+

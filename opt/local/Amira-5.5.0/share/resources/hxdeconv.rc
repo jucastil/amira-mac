@@ -1,0 +1,34 @@
+module -name "FourierTransform" \
+    -primary "HxUniformComplexScalarField3 HxUniformScalarField3" \
+    -class "HxFFT" \
+    -category "Deconv" \
+    -package "hxdeconv"
+
+module -name "Convolution" \
+    -primary "HxUniformScalarField3" \
+    -class "HxConvolution" \
+    -category "Deconv" \
+    -package "hxdeconv"
+
+module -name "Deconvolution" \
+    -primary "HxUniformScalarField3" \
+    -class "HxDeconvolution" \
+    -category "Deconv" \
+    -package "hxdeconv"
+
+module -name "PSFGen" \
+    -class "HxPSFGen" \
+    -package "hxdeconv"
+
+module -name "BeadExtract" \
+    -primary "HxUniformScalarField3 HxLandmarkSet" \
+    -class "HxBeadExtract" \
+    -category "Deconv" \
+    -package "hxdeconv"
+
+module -name "DataPreprocess" \
+    -primary "HxUniformScalarField3" \
+    -class "HxDataPreprocess" \
+    -category "Deconv" \
+    -package "hxdeconv"
+

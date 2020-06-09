@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Object</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Object" "base class of all data objects and modules" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ All <font face="helvetica">Amira</font> objects represented by icons in the Pool are derived
+ from this base class. The class provides some basic Tcl commands
+ allowing to select or deselect on object, or to show or hide its icons.
+ The class is not of interest for end users, but only for script
+ programmers and developers.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">hasInterface &lt;typename&gt;</span>  
+
+<div class="body"><p>Checks if the object provides an interface matching the specified
+ type. For more information about interfaces please refer to the
+ <font face="helvetica">Amira</font> Programmer's Guide.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">duplicate</span>  
+
+<div class="body"><p>Duplicates the object and returns the name of the duplicated
+ object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showIcon</span>  
+
+<div class="body"><p>Makes the object's icon visible.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hideIcon</span>  
+
+<div class="body"><p>Hides the object's icon. Although the object is no longer displayed
+ the object itself is still contained in the Pool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">iconVisible</span>  
+
+<div class="body"><p>Checks if the object's icon is visible or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">select</span>  
+
+<div class="body"><p>Selects the object, so that the ports are shown in the Properties Area.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deselect</span>  
+
+<div class="body"><p>Deselects the object, hiding the ports in the Properties Area.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel &lt;name&gt;</span>  
+
+<div class="body"><p>Renames the object. If another object with the same name already
+ exists, the specified name is modified so that it becomes unique.
+ In any case, the new name of the object is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">fire</span>  
+
+<div class="body"><p>Updates the object and all downstream objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">compute</span>  
+
+<div class="body"><p>Updates the object by calling its update and compute methods. In
+ contrast to <tt>fire</tt> downstream objects are not updated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">allPorts</span>  
+
+<div class="body"><p>Returns a list of all <a class="link" href="HxPort.html#A1">ports</a> of an object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">connectionPorts</span>  
+
+<div class="body"><p>Returns a list of all <a class="link" href="HxConnection.html#A1">connection ports</a> of an object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">downStreamConnections</span>  
+
+<div class="body"><p>Returns a list of all objects connected to this object. For each object
+ also the name of the corresponding connection port is reported. That
+ is, each element of the returned list in turn is a list containing the
+ the name of the connected object and the name of the connection port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setIconPosition &lt;x&gt; &lt;y&gt;</span>  
+
+<div class="body"><p>Sets the position of the object's icon in the Pool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getIconPosition</span>  
+
+<div class="body"><p>Returns the position of the object's icon in the Pool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clipGeom &lt;PlaneModule&gt;</span>  
+
+<div class="body"><p>Causes all geometry display of the object to be clipped by the
+ plane defined by <tt>&lt;PlaneModule&gt;</tt>. For example, a plane module is
+ any module derived from <a class="link" href="HxArbitraryCut.html#A1">Arbitrary Cut</a>. The
+ geometry of an object might be clipped by up to six clipping
+ planes. Also see <tt>unclipGeom</tt> below.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">unclipGeom &lt;PlaneModule&gt;</span>  
+
+<div class="body"><p>Undo the effect of the <tt>clipGeom</tt> command described above.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPickable &lt;bool&gt;</span>  
+
+<div class="body"><p>Defines if a rendering module is pickable.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">destroy</span>  
+
+<div class="body"><p>The object is removed, as well as certain dependent objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTypeId</span>  
+
+<div class="body"><p>Returns the type name of the object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help</span>  
+
+<div class="body"><p>Displays all commands specific to that object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel &lt;name&gt;</span>  
+
+<div class="body"><p>Changes the name of the object to <tt>&lt;name&gt;</tt>. If already some
+ other object with the same name exists, <tt>&lt;name&gt;</tt> will be
+ automatically modified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setViewerMask &lt;mask&gt;</span>  
+
+<div class="body"><p>This command is used to show a possible 3D output of the object in
+ certain viewer windows and to hide it in other viewers. The bits in
+ <tt>&lt;mask&gt;</tt> controls the viewers, e.g., a mask value of 2 shows the
+ output in viewer 1 and hides it in viewer 0.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

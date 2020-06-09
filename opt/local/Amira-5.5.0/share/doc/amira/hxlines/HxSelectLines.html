@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SelectLines</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SelectLines" "filters a line set by regions of interest, arithmetic expressions, or label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module extracts a subset of lines or line segments from a given line set 
+ object. The lines can be selected by one or
+ more regions of interest <em>SelectROI</em>, by one to three materials in a 
+ connected label field, or by an expression which is evaluated on the data
+ values of the vertices of the lines.</p>
+<p> Press the <em>Apply</em> button to start the computation and generate a new line set object.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The lines set to be filtered.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Label field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A label field with a number of materials. You can select up to
+ three materials from the label field and only lines that connect
+ all three materials will be copied to the output.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Region of interest01</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A region of interest. Lines need to go through this
+ region to be copied to the output.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Region of interest02</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A second region of interest. More region of interest ports will
+ be added to the model at run-time as long as new <em>SelectROI's</em> are
+ connected.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSelectLines_Info.png" /><br /></div>
+<div class="body"><p>This port appears if the <em>statistics</em> check box is marked. The
+ port presents minimum and maximum values for each data dimension
+ per vertex.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSelectLines_Options.png" /><br /></div>
+<div class="body"><p>Select <em>Expressions</em> to make the <em>Expression</em> port visible. Select
+ <em>Input statistics</em> to make the <em>Info</em> port visible. The values displayed
+ in the <em>Info</em> port
+ will be evaluated each time, so disabling this option will speed up the computation
+ of the line sets.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxSelectLines_Materials.png" /><br /></div>
+<div class="body"><p>This port is visible if a label field is connected to the module.
+ It allows the user to select up to three materials from the label
+ field. Only lines that touch each material are copied to the output.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Expression</span>  
+<div class="portsnapshot"><img src="HxSelectLines_Expression.png" /><br /></div>
+<div class="body"><p>Enter an expression which is evaluated on the data per vertex of each
+ line. Only vertices for which the expression returns true are copied to the
+ output. This will increase the number of lines as one line of the input 
+ may be split into several line fragments of the output.</p>
+<p> The variable for each data dimension is named &lt;dataN&gt; where N is
+ the number of dimension starting with 0. An expression like data0&gt;0.5
+ will therefore copy only line segments to the output where the first data
+ value of a point along the line is greater than 0.5.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

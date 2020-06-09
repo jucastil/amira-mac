@@ -1,0 +1,39 @@
+
+module -name "Isosurface" -priority 9 \
+    -primary "HxRegScalarField3 HxBlockStructuredScalarField3" \
+    -class "HxIsosurface" \
+    -dso "libhxiso.so" \
+    -category "Display"
+
+module -name "Isosurface" -priority 9 \
+    -primary "HxTetraScalarField3" \
+    -class "HxIsoTetra"	\
+    -dso "libhxiso.so" \
+    -category "Display"
+
+module -name "Isosurface" -priority 9 \
+    -primary "HxHexaScalarField3" \
+    -class "HxIsoHexa"	\
+    -dso "libhxiso.so" \
+    -category "Display"
+
+module -name "Isolines" \
+    -primary "HxScalarField3" \
+    -category "Display" \
+    -class "HxIsolines" \
+    -dso "libhxiso.so"
+
+module -name "Isolines" \
+    -primary "HxPlanarMod" \
+    -secondary "HxScalarField3" \
+    -category "Main" \
+    -check { [$PRIMARY data sourceHasInterface HxScalarField3] } \
+    -class "HxIsolines" \
+    -dso "libhxiso.so" 
+
+module -name "AnnotatedIsolines" \
+    -primary "HxScalarField3" \
+    -category "None" \
+    -class "HxAnnotatedIsolines" \
+    -dso "libhxiso.so"
+	

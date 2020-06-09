@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_EXCEPTION
+#define  OIV_STL_EXCEPTION
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

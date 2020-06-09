@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortChannelConfig</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortChannelConfig" "data range and colormap port for multi-channel fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is a special port used exclusively by
+ <a class="link" href="HxMultiChannelField3.html#A1">multi-channel fields</a>. There
+ is one such port for each channel of a multi-channel field.
+ Derived from <a class="link" href="../hxcore/HxConnection.html#A1">connection</a>, this port
+ manages the link to the actual channel object. In addition,
+ it provides two text fields allowing the user to define
+ a data range used for mapping the channel data to gray values.
+ The channel's colormap can be set using the colormap port. This port is
+ not available for script objects.</p>
+<p> <img src="HxPortChannelConfig.png" /></p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxConnection.html#A1">Connection</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getMinValue</span>  
+
+<div class="body"><p>Returns the lower value of the channel's data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinValue &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the lower value of the channel's data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxValue</span>  
+
+<div class="body"><p>Returns the upper value of the channel's data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMaxValue &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the upper value of the channel's data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColor</span>  
+
+<div class="body"><p>Returns the channel's color as an RGB tuple of floating point
+ values. (obsolete)</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;color&gt;</span>  
+
+<div class="body"><p>Sets the channel's color. The color can be specified either as
+ a tuple of three RGB integer values in the range 0...255, or as a
+ tuple of three RGB floating point values in the range 0...1, or
+ as a text string (e.g., <tt>blue</tt> or <tt>red</tt>). (obsolete)</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,127 @@
+module -name "RefineTetras" \
+    -primary "HxTetraGrid" \
+    -category "Compute" \
+    -class "HxRefineTetras" \
+    -dso "libhxtetra.so" 
+
+module -name "RelabelTetras" \
+    -primary "HxTetraGrid" \
+    -secondary "HxUniformLabelField3 HxStackedLabelField3" \
+    -category "Compute" \
+    -class "HxRelabelTetras" \
+    -dso "libhxtetra.so" 
+
+module -name "GridBoundary" \
+    -primary "HxTetraGrid HxTetraScalarField3" \
+    -category "Display" \
+    -class "HxGridBoundary" \
+    -dso "libhxtetra.so"
+
+module -name "GridVolume" \
+    -primary "HxTetraGrid HxTetraScalarField3" \
+    -category "Main Display" \
+    -class "HxGridVolume" \
+    -dso "libhxtetra.so"
+
+module -name "BoundaryConditions" \
+    -primary "HxTetraGrid" \
+    -category "Display" \
+    -class "HxBoundaryConditions" \
+    -dso "libhxtetra.so"
+
+module -name "AssignBoundaryConditions" \
+    -primary "HxTetraGrid" \
+    -secondary "HxSurface" \
+    -category "Compute" \
+    -class "HxAssignBoundaryConditions" \
+    -dso "libhxtetra.so"
+
+module -name "GridCut" -color "lightsalmon" \
+    -primary "HxTetraGrid" \
+    -category "Display" \
+    -class "HxGridCut" \
+    -dso "libhxtetra.so"
+
+module -name "SurfaceCut" -color "lightsalmon" \
+    -primary "HxSurface" -priority 5 \
+    -category "Display" \
+    -class "HxSurfaceCut" \
+    -dso "libhxtetra.so"
+
+module -name "FieldCut" -color "lightsalmon" \
+    -primary "HxTetraScalarField3" \
+    -category "Display" \
+    -class "HxFieldCut"	 \
+    -dso "libhxtetra.so"
+
+module -name "DoseVolume" \
+    -check { [__isProduct "Avizo"] == 0 } \
+    -primary "HxGridVolume" \
+    -secondary "HxTetraScalarField3" \
+    -category "Main" \
+    -class "HxCalcVolume" \
+    -dso "libhxtetra.so" 
+
+module -name "TetraQuality" \
+    -primary "HxTetraGrid" \
+    -category "Main Compute" \
+    -class "HxTetraQuality" \
+    -dso "libhxtetra.so" 
+
+module -name "TetraQuality" \
+    -primary "HxGridVolume" \
+    -category "Main Compute" \
+    -class "HxTetraQuality" \
+    -dso "libhxtetra.so" \
+    -check { [$PRIMARY data source] != "" }
+
+module -name "TetraCombine" \
+    -primary "HxTetraGrid" \
+    -secondary "HxTetraGrid" \
+    -category "Compute" \
+    -class "HxTetraCombine" \
+    -dso "libhxtetra.so" 
+
+# module -name "ShowContours" \
+#     -primary "HxUniformLabelField3" \
+#     -category "Display" \
+#     -class "HxShowContours" \
+#     -dso "libhxtetra.so" 
+
+module -name "Intersect"  -color "lightsalmon" \
+    -primary "HxPlanarMod"  \
+    -category "Main"  \
+    -class "HxOverlayGrid" \
+    -dso "libhxtetra.so"
+
+module -name "Intersect" -color "lightsalmon" \
+    -primary "HxSurface HxTetraGrid" \
+    -category "Display" \
+    -class "HxOverlayGrid" \
+    -dso "libhxtetra.so"
+
+module -name "GridToSurface" \
+    -primary "HxTetraGrid" \
+    -category "Compute" \
+    -class "HxTetraToSurface" \
+    -dso "libhxtetra.so"
+
+module -name "TetraVectors" \
+    -primary "HxGridVolume HxGridBoundary" \
+    -secondary "HxVectorField3 HxComplexVectorField3" \
+    -class "HxDisplayTetraVectors" \
+    -category "Main"    \
+    -dso "libhxtetra.so"
+
+module -name "TetraVectors" \
+    -primary "HxTetraVectorField3 HxTetraComplexVectorField3" \
+    -class "HxDisplayTetraVectors" \
+    -category "Display"    \
+    -dso "libhxtetra.so"
+
+module -name "SampleScalarField" \
+    -primary "HxTetraGrid" \
+    -secondary "HxScalarField3" \
+    -class "HxSampleToTetraGrid" \
+    -category "Compute" \
+    -dso "libhxtetra.so"

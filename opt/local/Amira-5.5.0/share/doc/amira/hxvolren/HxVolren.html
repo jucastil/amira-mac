@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Volren</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Volren" "direct volume rendering of 3D images with shading effects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Direct Volume Rendering is a very intuitive
+ method for visualizing 3D scalar fields. Each point in a data volume
+ is assumed to emit and absorb light. The amount and color of
+ emitted light and the amount of absorption is determined from the
+ scalar data by using a <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> which includes
+ alpha values. Default colormaps for volume rendering are provided
+ with the distribution and can be edited using the
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a>. Then the resulting projection 
+ from the "shining" data volume is computed (see also <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a>).</p>
+<p> The Volren module provides several visualization techniques: 
+shaded and classical texture-based volume rendering (VRT), maximum intensity projection (MIP), 
+and digitally reconstructed radiograph (DRR). 
+The standard VRT and the its shaded version enable a direct 3D visualization 
+with flexible color and transparency colormaps with virtual lighting effects 
+for better rendering of complex spatial structures and enhancing fine detail.
+The MIP rendering allows the visualization of the highest or lowest intensity 
+in a data volume along the current line of sight. The DRR simulates a 
+radiograph display from arbitrary views using the loaded volume data. 
+Furthermore, the Volren module enables you to render segmented regions at 
+the same time with different colormaps. A LabelField can be attached to the 
+Volren and each material of the label list can be rendered separately. 
+In order to optimize the performance, the image volumes are represented at 
+lower resolution in case of interactive rendering. For relatively large image 
+volumes, you can also switch to a constant "Low Resolution" mode (see below). 
+Volren is built for use with popular graphics accelerator technology such as 
+the NVIDIA Quadro FX(TM) graphics boards. </p>
+<p> <em>Notes and Limitations</em>
+ </p>
+<ul><li>On some systems a significant slowdown can occur if the
+ data set is larger than the available texture memory (which is
+ typically 4 - 16 MB). In this case select the option <em>LowRes only</em> (see below).</li><li>When two or more <em>Volren</em> modules are used to render intersecting volumes
+ (multivolume rendering), some rendering inaccuracies may occur.
+ In case of multivolume rendering the supported combinations of modes are 
+ one MIP together with one MIP or one VRT with one VRT (see below <em>Mode</em>).
+ Other modes and combinations may lead to incorrect visual results.</li><li>The <em>Apply</em> button is enabled only when the rendering must be recomputed.</li>
+</ul>
+
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalarfield to be visualized. Alternatively an RGBA data volume
+ (Colorfield) can be connected. In this case no colormap is used, but
+ the color and opacity values are taken directly from the data.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Labels</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Input <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> to be rendered.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Roi</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest, like <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. 
+ If such a module is connected, only the selected part of the volume will be displayed.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">RoiCornerCut</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a <a class="link" href="HxCornerCut.html#A1">CornerCut</a> module providing a cutting box 
+ positioned at a specified corner of the bounding box. If such a module is 
+ connected, the selected corner region of the volume will be not displayed.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color1, Color2, Color3, ...</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p><a class="link" href="../hxcolor/HxColormap256.html#A1">Colormaps</a> used to visualize the data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Tabs</span>  
+<div class="portsnapshot"><img src="HxVolren_tabs.png" /><br /></div>
+<div class="body"><p><em>Main Settings</em>. The parameters used for the shading and transparency 
+ effects, and the rendering modes 
+are displayed in this tab. </p>
+<p><em>Transfer Functions</em>. In this tab you can add or manipulate the Volren colormaps. 
+This is particularly useful when a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a> is 
+rendered together with the volume data.
+ In this case, several different colormaps could be used at the same time 
+ (see Materials tab below). Pressing the <em>New</em> button creates a new colormap which can
+ be controlled by its <em>Option</em>, <em>Color</em>, and <em>AlphaScale</em> ports. 
+To delete a colormap just press the <em>Delete</em> button.</p>
+<p><em>Materials</em>. When a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> object is 
+attached to the Volren module, the material list is shown in this tab. 
+For each material, a new port is opened. Clicking on the colormap icon allows you 
+to select a colormap from the list in the <em>Transfer Functions</em> tab (see above).
+ To create and use a new colormap, it is necessary to generate it directly in 
+ the <em>Transfer Functions</em> tab and to select it in the Materials tab. 
+ By activating the option <em>Constant</em>, the material volume will be rendered 
+ using a constant color instead of a colormap.
+ To modify the color, click on the color icon. Note that if a volume data set 
+ is connected to the Volren, only <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> objects 
+ of the same volume size can be connected.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxVolren_Color.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha scale</span>  
+<div class="portsnapshot"><img src="HxVolren_AlphaScale.png" /><br /></div>
+<div class="body"><p>A global factor to change the overall opacity of the object independent of the data value. </p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxVolren_commonMode.png" /><br /></div>
+<div class="body"><p><em>VRT</em>. Texture-based volume rendering, with optional shading effects.
+ If <em>VRT</em> is selected the <em>Shading</em> port is activated. </p>
+<p> <em>DRR</em>. Digitally reconstructed radiograph. This technique simulates a 
+ radiograph from arbitrary views using the loaded data. If this mode is selected, the 
+ <em>Gamma</em> port is shown.</p>
+<p> <em>MIP</em>. Maximum intensity projection. When this option is selected, 
+ the brightest data value along each ray of sight is displayed instead of the 
+ result of the emission absorption model. This mode is especially useful for 
+ very sparse data sets, for example, angiographic data or images of neurons.</p>
+<p> <em>LowRes only</em>. The image volumes are rendered always at lower resolution. 
+ For relatively large image volumes select this mode to optimize the computational efficiency.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gamma</span>  
+<div class="portsnapshot"><img src="HxVolren_commonDRRGamma.png" /><br /></div>
+<div class="body"><p>This port controls the shape of the transfer function when <em>DDR</em> mode is selected. 
+The opacity value is taken to be proportional to the data values. The smaller 
+the gamma value is, the more prominent regions with small data values will be.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Shading</span>  
+<div class="portsnapshot"><img src="HxVolren_Shading.png" /><br /></div>
+<div class="body"><p>This port is shown if <em>VRT</em> is selected in port <em>Mode</em>. 
+If <em>None</em> is selected, no shading effects are visualized. 
+With <em>Diffuse</em> and <em>Specular</em>, two pre-set shading effects are activated. 
+Option <em>Diffuse</em> simulates a diffuse light source, while <em>Specular</em> simulates 
+a specular one. 
+The option <em>User-defined</em> opens the <em>Coefficients</em> port to specify the lighting parameters.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coefficients</span>  
+<div class="portsnapshot"><img src="HxVolren_Coefficients.png" /><br /></div>
+<div class="body"><p>This port is enabled when the <em>User-defined</em> option in port <em>Shading</em> is selected. 
+In this port you can specify the parameters of the light source.
+<em>Ka</em>, <em>kd</em> and <em>ks</em> are the coefficients for ambient, diffuse, and specular components
+of the illuminating light. 
+To set the color of the light source, click on the <em>light</em> color icon.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Light Angle</span>  
+<div class="portsnapshot"><img src="HxVolren_LightAngle.png" /><br /></div>
+<div class="body"><p>This port is enabled when Diffuse, Specular, or User-defined 
+options are selected in the <em>Shading</em> port. This port controls 
+the position of the simulated light source.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Light Angle Yaw</span>  
+<div class="portsnapshot"><img src="HxVolren_shadingLightAngleYaw.png" /><br /></div>
+<div class="body"><p>This port is enabled when option <em>User-defined</em> in the 
+port <em>Light Angle</em> is selected. It allows you
+to displace the light source on a horizontal semi circle around the volume data.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Light Angle Pitch</span>  
+<div class="portsnapshot"><img src="HxVolren_shadingLightAnglePitch.png" /><br /></div>
+<div class="body"><p>This port is enabled when the User-defined option in the Light Angle port is selected. It allows
+you to displace the light source on a vertical semi circle around the volume data.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

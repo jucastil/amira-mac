@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2> 3D Models for Medical Treatment Planning</h2> <ul class="entry_classification"><li>Demo</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Demo" "3D Models for Medical Treatment Planning" !>
+<p></p><blockquote>
+<p>
+ In modern medicine the application of advanced therapeutic methods
+ involves an increasing amount of planning that is done with the aid of
+ computers, e.g., in cancer therapy where the problem of locating a tumor
+ arises. For such purposes often a geometric patient model is necessary
+ that represents certain regions of interest within the patient's body.</p>
+<p> Geometric patient models are usually constructed from a series of
+ axis-aligned computer-tomographic (CT) or magnetic-resonance (MRI) scan
+ images. <font face="helvetica">Amira</font> is able to read such images in DICOM or ACR-NEMA format,
+ which is the standard format in radiology. A stack of CT images can
+ be easily visualized using a number of <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a>
+ modules. In order to get a 3-dimensional impression of the patient the
+ skin surface or the bones can also be extracted using the
+ <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> module.</p>
+<p> <img src="med_ctstack.png" />
+ <a href="../../../demo/medical/ctstack.hx">Image stack</a> <br />
+</p>
+<p> <img src="med_isosurface.png" />
+ <a href="../../../demo/medical/isosurface.hx">Skin surface</a> <br />
+</p>
+<p> Constructing such a geometric patient model first requires a
+ segmentation step which in most cases has to be carried out
+ interactively. <font face="helvetica">Amira</font> provides a number of powerful semi-automatic tools
+ which simplify this task. After every voxel has been labeled, boundary
+ faces between neighboring tissue compartments can be extracted.
+ The resulting surfaces may have non-manifold topology.</p>
+<p> <img src="med_gi.png" />
+ <a href="../../../demo/medical/gi.hx">Image segmentation</a> <br />
+</p>
+<p> <img src="med_surf.png" />
+ <a href="../../../demo/medical/surf.hx">Boundary surfaces</a> <br />
+</p>
+<p> A tetrahedral patient model can be visualized in several ways. The
+ <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> module lets you select individual
+ tetrahedrons of a model. You may select tetrahedrons corresponding to a
+ particular type of tissue using the <em>Material</em> menu. You can also add
+ or remove single tetrahedrons by clicking on them with the left mouse
+ button (switch to interaction mode in the viewer by pressing ESC, keep
+ the Ctrl key pressed down to remove a tetrahedron). Similarly, the
+ <a class="link" href="../hxtetra/HxGridBoundary.html#A1">GridBoundary</a> module allows you to look at the
+ boundary between regions of different tissue type. You may also slice
+ the model across a cutting plane, this is provided by the
+ <a class="link" href="../hxtetra/HxGridCut.html#A1">GridCut</a> module.</p>
+<p> <img src="med_tetra.png" />
+ <a href="../../../demo/medical/tetra.hx">Tetrahedral grid (<font face="helvetica">Mesh Option</font> required)</a> <br />
+</p>
+<p> <img src="med_gridcut.png" />
+ <a href="../../../demo/medical/gridcut.hx">Oblique slice (<font face="helvetica">Mesh Option</font> required)</a> <br />
+</p>
+<p> To make scalar fields visible several different methods can be used,
+ e.g., slicing, pseudo-coloring, isosurface display, or direct volume
+ rendering. Below a simulated temperature distribution defined on
+ a tetrahedral patient model is visualized by means of pseudo-colors
+ mapped onto the grid model, as well as by an isosurface combined with
+ volume rendering (<a class="link" href="../hxsplats/HxSplats.html#A1">(cell projection algorithm)</a>.</p>
+<p> <img src="med_pseudocolor.png" />
+ <a href="../../../demo/medical/pseudocolor.hx">Pseudo-color display (<font face="helvetica">Mesh Option</font> required)</a> <br />
+</p>
+<p> <img src="med_splats.png" />
+ <a href="../../../demo/medical/splats.hx">Isosurface, volume rendering (<font face="helvetica">Mesh Option</font> required)</a></p>
+</blockquote>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

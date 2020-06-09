@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">5.2 Introduction to Tcl</a></h2>
+<p>This chapter gives a brief introduction to the Tcl scripting language.
+If you are familiar with Tcl you can skip this section. However, please
+notice that instead of the <tt>puts</tt> command, you should use <tt>echo</tt> for
+output to the <font face="helvetica">Amira</font> console.</p>
+<p>This chapter is not intended to cover all details of the language.
+For a complete documentation or reference manual of the Tcl language,
+refer to a text book like <em>Tcl and the Tk Toolkit</em> by <em>John K.
+Ousterhout</em>, the creator of Tcl. Like many other books about Tcl, this
+also covers the Tk GUI toolkit. Note that Tk is not used in <font face="helvetica">Amira</font>.</p>
+<p>Alternatively you can easily find Tcl documentation and reference
+manuals on the internet e.g., at <tt>www.scriptics.com</tt>, or looking up
+keywords like <tt>Tcl tutorial</tt> or <tt>Tcl documentation</tt> with a
+search engine like <tt>www.google.com</tt>.</p>
+<p>When you type Tcl commands into the <font face="helvetica">Amira</font> console, they will be
+executed as soon as the return key is pressed. Use the completion and
+history functions provided by the <font face="helvetica">Amira</font> console, as described in
+<a class="link" href="console.html#A1">Section 3.1.9 (console window)</a>.</p>
+<p></p>
+<h3><a name="A2">5.2.1 Tcl Lists, Commands, Comments</a></h3>
+<p>First, please note that Tcl is case sensitive: <tt>set</tt> and <tt>Set</tt>
+are not the same. </p>
+<p>A Tcl command is a space-separated list of words. The first word
+represents the command name, all further words are treated as
+arguments to that command. As an example, try the <font face="helvetica">Amira</font>-specific
+command <tt>echo</tt>, which will print all its arguments to the <font face="helvetica">Amira</font>
+console. Try typing</p>
+<p></p><pre>
+  echo Hello World
+</pre><p></p>
+<p>This will output the string <i>Hello World</i>. Note that Tcl commands
+can be separated by a semi-colon (;) or a newline character. If you
+want to execute two successive <tt>echo</tt> commands, you can do it this
+way:</p>
+<p></p><pre>
+  echo Hello World ; echo Hello World2
+</pre><p></p>
+<p>or like this:</p>
+<p></p><pre>
+  echo Hello World
+  echo Hello World2
+</pre><p></p>
+<p>Instead of a command, you can also place a comment in Tcl code. A
+comment starts with a hash character (<tt>#</tt>) and is ended by the
+next line break:</p>
+<p></p><pre>
+  # this is a comment
+  echo Hello World
+</pre><p></p>
+<p></p>
+<h3><a name="A3">5.2.2 Tcl Variables</a></h3>
+<p>In Tcl, variables can be used. A variable represents a certain state or
+value. Using Tcl code, the value of the placeholder can be queried,
+defined, and modified. To define a variable use the command</p>
+<p></p><pre>
+  set name value
+</pre><p></p>
+<p>e.g. </p>
+<p></p><pre>
+  set i 1
+  set myVar foobar
+</pre><p></p>
+<p>Note that in Tcl internally all variables are of string type. Since
+the set command requires exactly one argument as the variable value,
+you have to quote values that contain spaces:</p>
+<p></p><pre>
+  set Output "Hello World"
+</pre><p>
+or
+</p><pre>
+  set Output {Hello World}
+</pre><p></p>
+<p>In order to substitute the value of a variable with name <i>varname</i>, a
+$ sign has to be put in front of that name. The expression $varname will 
+be replaced by the value of the variable. After the above definitions,</p>
+<p></p><pre>
+  echo $Output
+</pre><p></p>
+<p>would print </p>
+<p></p><pre>
+  Hello World
+</pre><p></p>
+<p>in the console window, and</p>
+<p></p><pre>
+  echo "$i.) $Output"
+</pre><p></p>
+<p>would yield the output <i>1.) Hello World</i>. Note that variable
+substitution is performed for strings quoted in <tt>"</tt>, while it is not
+done for strings enclosed in braces &#123;&#125;. Even newline characters
+are allowed in a &#123; &#125; enclosed string. Note however that it is not
+possible to type in multi-line commands into the <font face="helvetica">Amira</font> console.</p>
+<p></p>
+<h3><a name="A4">5.2.3 Tcl Command Substitution</a></h3>
+<p>To do mathematical computations in Tcl, you can use the command
+<tt>expr</tt> which will evaluate its arguments and return the
+value of the expression. Examples are:</p>
+<p></p><pre>
+  expr 5 / ( 7 + 3) 
+  expr $i + 1
+</pre><p></p>
+<p>In order to use the result of a command like <tt>expr</tt> for further
+commands, an important Tcl mechanism has to be used: command
+substitution, denoted by brackets []. Any list enclosed in brackets []
+will be executed as a separate command first, and the [...] construct
+will be replaced with the <i>result</i> of the command. This is similar
+to the `...` construct in Unix command shells. For example, in order
+to increase the value of the variable i by one you can use:</p>
+<p></p><pre>
+  set i [expr $i + 1]
+</pre><p></p>
+<p>Of course, command expressions can be arbitrarily nested. The order of
+execution is always from the innermost bracket pair to the outermost one:</p>
+<p></p><pre>
+  echo [expr 5 * [expr 7 + [expr 3+3]]]
+</pre><p></p>
+<p></p>
+<h3><a name="A5">5.2.4 Tcl Control Structures</a></h3>
+<p>Further important language elements are <tt>if-else</tt> constructs, <tt>for</tt> loops and <tt>while</tt> loops. These constructs typically are
+multi-line constructs and therefore can not be typed conveniently into
+the <font face="helvetica">Amira</font> console. If you want to try the examples shown below, write
+them into a file like <tt>C:\test.txt</tt> by using a text editor of
+your choice, and execute the file by typing</p>
+<p></p><pre>
+  source C:\test.txt
+</pre><p></p>
+<p>We start with the <tt>if-then</tt> mechanism. It is used to execute some
+code <i>conditionally</i>, only if a certain <i>expression</i> evaluates
+to "true" (meaning a value different from 0):</p>
+<p></p><pre>
+  set a 7
+  set b 8
+  if {$a &lt; $b} {
+      echo "$a is smaller than $b"
+  } elseif {$a == $b} {
+      echo "$a equals $b"
+  } else {
+      echo "$a is greater than $b"
+  }
+</pre><p></p>
+<p>The <tt>elseif</tt> and <tt>else</tt> parts are optional. Multiple <tt>elseif</tt> parts can be used, but only a single <tt>if</tt> and <tt>else</tt>
+part.</p>
+<p>Another important construct is the conditional loop. Like the <tt>if</tt>
+command, it is based on checking a conditional expression. In contrast
+to <tt>if</tt>, the conditional code is executed multiple times, as long
+as the expression evaluates to true:</p>
+<p></p><pre>
+  for {set i 1} {$i &lt; 100} {set i [expr $i*2]} {
+      echo $i
+  }
+</pre><p></p>
+<p>In fact this code is identical to: 
+</p><pre>
+  set i 1
+  while {$i &lt; $100} {
+      echo $i
+      set $i [expr $i * 2]
+  }
+</pre><p></p>
+<p>Both loops would produce the output <i>1, 2, 4, 8, 16, 32, 64</i>.</p>
+<p>If you want to execute a loop for all elements of a list, there is
+another very convenient command for that:
+</p><pre>
+  foreach x {1 2 4 8 16 32 64} {
+    echo $x
+  }
+</pre><p></p>
+<p>This will generate the same output as the previous example. Note that 
+the expression enclosed in braces is a space-separated list of words.</p>
+<p>
+</p>
+<h3><a name="A6">5.2.5 User-Defined Tcl Procedures</a></h3>
+<p>A new function or procedure is defined in Tcl using the <tt>proc</tt>
+command. Proc takes two arguments: a list of argument names and the
+Tcl code to be executed. Once a procedure is defined, it can be used
+just like any other Tcl command:</p>
+<p></p><pre>
+  proc computeAverageA {a b} {
+      return [expr ($a+$b)/2.0]
+  }
+  proc computeAverageB {a b c} {
+      return [expr ($a+$b+$c)/3.0]
+  }
+  echo "average of 2 and 3: [computeAverageA 2 3]"
+  echo "average of 2,3,4: [computeAverageB 2 3 4]"
+</pre><p></p>
+<p>As you can see in the example, the argument list defines the names for
+local variables that can be used in the body of the procedure (e.g.
+<tt>$a</tt>). The <tt>return</tt> command is used to define the result of
+the procedure. This result is the value that is used in the command
+bracket substitution <tt>[]</tt>.</p>
+<p>If you want to define a procedure with a flexible number of arguments,
+you must use the special argument name <tt>args</tt>. If the argument
+list contains just this word, the newly defined command will accept an
+arbitrary number of arguments, and these arguments are passed as a
+<i>list</i> called <tt>args</tt>:</p>
+<p></p><pre>
+  proc computeAverage args {	
+      set result 0
+      foreach x $args {
+          set result [expr $result + $x]
+      }
+      return [expr $result / [llength $args]]
+  }
+</pre><p></p>
+<p>In this example, the <tt>llength</tt> command returns the number of
+elements contained in the <tt>args</tt> list.</p>
+<p>Note that the variable <tt>result</tt> defined in the procedure has <i>local</i> scope, meaning that it will not be known outside the body of
+the procedure. Also, the value of globally defined variables is not
+known within a procedure unless that global variable is declared
+using the keyword <tt>global</tt>:</p>
+<p></p><pre>
+  set x 3
+  proc printX {} {
+      global x
+      echo "the value of x is $x"
+  }
+</pre><p></p>
+<p>There is much more to be said about procedures, e.g., concerning
+argument passing, evaluation of commands in the context outside of the
+procedure, and so on. Please refer to a Tcl reference book for these
+advanced topics.</p>
+<p>
+</p>
+<h3><a name="A7">5.2.6 List and String Manipulation</a></h3>
+<p>Finally, at the end of this brief Tcl introduction, we come back to
+the concept of lists. Basically everything in Tcl is constructed
+using lists, so it is very important to know the most important list
+manipulation commands as well as to understand some subtle details. </p>
+<p>Here is an example of how to take an input list of numbers and
+construct an output list in which each element is twice as big as the
+corresponding element in the input list:</p>
+<p></p><pre>
+  set input [list 1 2 3 4 5]
+  set output [list]
+  foreach element $input {
+    lappend output [expr $element * 2]
+  }	
+</pre><p></p>
+<p>You can think of lists as simple strings in which the list elements
+are separated by spaces. This means that you can achieve the same
+result as in the previous example without using the list commands:</p>
+<p></p><pre>
+  set input "1 2 3 4 5"
+  set output ""
+  foreach element $input {
+    append output "[expr $element * 2] "
+  }	
+</pre><p></p>
+<p>The <i>append</i> command is similar to <i>lappend</i>, but it just adds
+a string at the end of an existing string. List manipulation becomes
+much more involved when you start nesting lists. Nested lists are
+represented using nested pairs of braces, e.g.</p>
+<p></p><pre>
+  set input {1 2 {3 4 5 {6 7} 8 } 9} 
+  foreach x $input { 
+    echo $x 
+  }
+</pre><p></p>
+<p>The result of this command will be 
+</p><pre>
+  1 
+  2 
+  3 4 5 {6 7} 8
+  9
+</pre><p></p>
+<p>Please note that Tcl will automatically <i>quote</i> strings that are
+not single words when constructing a list. Here is an example:</p>
+<p></p><pre>
+  set i [list 1 2 3]
+  lappend i "4 5 6"
+  echo $i 
+</pre><p></p>
+<p>will yield the output</p>
+<p></p><pre>
+  1 2 3 {4 5 6}
+</pre><p></p>
+<p>You can use the <i>lindex</i> command to access a single element of a
+list. <i>lindex</i> takes two arguments: the list and the index number
+of the desired element, starting with 0:</p>
+<p></p><pre>
+  set i [list a b c d e]
+  echo [lindex $i 2]
+</pre><p></p>
+<p>will yield the result <tt>c</tt>.
+
+</p></body>
+</html>

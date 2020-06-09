@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DistanceMap</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "DistanceMap" "computes a 3D distance field from a binary image" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a 3D distance field of a 3D object. Each 
+ voxel will be assigned a value depending on the distance to the 
+ nearest object boundary. The boundary voxels of the object are assigned a 
+ value of zero whereas the assigned value increases as the 
+ distance increases.</p>
+<p> To use this module it must be connected to a uniform label field 
+ where each voxel with a nonzero value is assumed to belong to the 
+ object.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Labelfield from which the distance map is computed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceMap_type.png" /><br /></div>
+<div class="body"><p>You may either choose a true Euclidean distance metric or an approximation
+based on a 3x3x3 chamfer metric. The latter is much faster to compute and 
+accurate enough for most applications.
+Single Seeded computes a distance map which expresses the distance
+from a single seed point rather than from the boundary. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Chamfer Weights</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceMap_chamferMetric.png" /><br /></div>
+<div class="body"><p>This port is only available in chamfer mode.
+Different chamfer metrics are available. The 1-2-3 metric is 
+equivalent to only considering a 6-neighborhood when propagating
+the distance value, whereas the 3-4-5 considers a 26-neighborhood
+and is a better approximation of the Euclidean distance metric.
+Float also corresponds to a 26-neighborhood but the resulting 
+field will have float data type instead of short int. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Region</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceMap_region.png" /><br /></div>
+<div class="body"><p>This port is not available in Single Seeded mode.
+ Choose in which region the distance field will be 
+ computed: 
+ </p>
+<ul><li><b>Inside:</b> Inside the object (outside will be set 
+	to zero).</li><li><b>Outside:</b> Outside the object (inside will be 
+	set to zero).</li><li><b>Both (unsigned):</b> Inside and outside the 
+	object. A positive distance is computed whether 
+	the position is inside or outside the object.</li><li><b>Both (signed):</b> The distance value will be negative 
+	at a position inside the object and positive outside the 
+	object.</li>
+</ul>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceMap_seed.png" /><br /></div>
+<div class="body"><p>This port is only available in Single Seeded mode.
+Specifies the seed point for the distance map in world coordinates.
+You can use a dragger to adjust it.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">1 Brain Perfusion Tutorial</a></h2>
+<p>This tutorial describes how to perform a brain perfusion analysis with Amira. Brain perfusion is a standard diagnostic method to obtain quantitative measures of the blood flow in the brain. This technique is usually applied to detect strokes but can be equally applied to time dependent scans of other tissue.</p>
+<p>Blood arrives in the brain by major arteries carrying oxygen, glucose, and other substances important for the functioning of brain tissue. The blood reaches the cells through a dense capillary network and leaves the brain again via large veins. Any disturbance of the blood flow can lead to neurological dysfunction or, in extreme cases like a stroke, to cell death. Brain perfusion imaging is used to help answer questions about when to intervene with a surgical procedure and what tissue is at risk.</p>
+<p>This tutorial will cover the following steps:
+</p>
+<ul><li>Load the perfusion time series and create a mask.</li><li>Extract an arterial input function and a venous output function.</li><li>Compute the mean transit time, the cerebral blood volume, and the cerebral blood flow.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A2">1.1 Load the perfusion time series</a></h3>
+<p>During a perfusion scan the patient brain is continuously imaged for about 1 minute using either a CT or MR scanner. A contrast agent is administered and after a couple of seconds, the arrival of the contrast agent in the brain is visible by a change in contrast.</p>
+<p></p>
+<ul><li>From the <font face="helvetica">Amira</font> main menu select <em>File/Open Time Series Data</em>.</li><li>In the <em>Load Time Series Data</em> dialog select all files in directory <tt>data/tutorials/Perfusion</tt>. Select the <em>Load</em> button to load them into the <font face="helvetica">Amira</font> workspace.</li>
+</ul><p></p>
+<p>The first volume of the time series is loaded together with a <em><a class="link" href="../hxtime/HxDynamicFileSeriesCtrl.html#A1">TimeSeriesControl</a></em> module. The <em>TimeSeriesControl</em> module lets the user select a particular time step using its <em>Time</em> slider.</p>
+<p>Each volume consists of two slices only. This is considered normal for a CT perfusion scan because, due to the slow speed of the scanner, a continued scan of the patient brain can only be done for a small number of slices.</p>
+<p></p>
+<ul><li>Attach a <em>Display&rarr;OrthoSlice</em> module to the green data icon.</li><li>Move the <em>Time</em> slider in <em>TimeSeriesControl</em> and observe how the image intensity in the middle cerebral artery reaches a maximum at time step 18. Afterwards the contrast agent is washed out of the brain again and the image intensity drops to its initial level.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">1.2 Create a mask</a></h3>
+<p>The area of interest for the analysis is the brain tissue that is supplied by the capillary network. Together with the major blood vessels its brightness first increases and later decreases over time. Perfusion analysis will help us to obtain qualitative and quantitative measurements for this process.</p>
+<p>In order to restrict the analysis to the brain region of interest a brain mask needs to be created.
+</p>
+<ul><li>Select the first time step by setting the <em>Time</em> slider in <em>TimeSeriesControl</em> to 0.</li><li>Right-click the <em>LEWIS-ANON-TODD-1.am</em> data icon and select from <em>Labelling&rarr;Label Field</em>. This opens the Segmentation Editor.</li><li>In the <em>Display and Masking</em> histogram slider set a range of 0 to 120. This range selects the soft-tissue for a CT data scaled in Hounsfield units.</li><li>Use the Magic Wand tool to select the brain tissue in slice 1 and 2.</li><li>Assign the selections to the <em>Inside</em> material by clicking the (+) button in the <em>Selection</em> section on the left side of the Segmentation Editor interface.</li><li>Exit the Segmentation Editor by clicking the <em>Object Pool</em> button of the sub-application task bar.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A4">1.3 Extract an arterial and a venous output function</a></h3>
+<p>The perfusion analysis is performed by the compute module <a class="link" href="HxComputePerfusion.html#A1">ComputePerfusion</a> that can be accessed through the right-click menu of a <em>TimeSeriesControl</em>.</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutPerfusion-PlacementAIF.png.html><img width=600 src="tutPerfusion-PlacementAIF.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Locations to click on for sampling input and output functions for ComputePerfusion.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Right-click the <em>TimeSeriesControl</em> module and selct <em>Compute&rarr;<a class="link" href="HxComputePerfusion.html#A1">ComputePerfusion</a></em>.</li><li>Connect the <em>Mask</em> connection port of <em>ComputePerfusion</em> with the generated label field.</li>
+</ul><p></p>
+<p><em>ComputePerfusion</em> needs to know how much blood arrives in the brain over time. An approximation of the total inflow of blood can be obtained from the time-intensity function of one of the feeding arteries of the brain. A common choice for this is the middle cerebral artery (MCA), which is visible in the medial frontal part of the slice displayed by <em>OrthoSlice</em>.</p>
+<p></p>
+<ul><li>Set the <em>Time</em> slider in <em>TimeSeriesControl</em> to 18. This should display a phase with close to maximal intensity in the MCA.</li><li>Click the <em>Select AIF</em> button in the Properties of <em>ComputePerfusion</em> to place the location of the arterial input function.</li><li>In the viewer, change from <em>Trackball</em> to <em>Interact</em> navigation by selecting the arrow icon in the viewer tool bar.</li><li>With the middle mouse button click onto a point on the slice corresponding to the MCA.</li>
+</ul><p>
+<em>ComputePerfusion</em> will create a spreadsheet object that is connected with a <em>PlotSpreadSheet</em> module. The time-intensity curve is displayed in a 2D overlay on the 3D viewer.
+</p>
+<ul><li>Click the <em>Select VOF</em> button first and then click with the middle mouse button onto a point on the slice corresponding to the superior sagittal sinus which is a large vein in the back of the head.</li>
+</ul><p>
+The time-intensity function sampled at the new location is added to the plot. Since the vein is considerably larger than the artery, smaller partial volume effects result in a greater overall intensity. The shape of the curve, however, should be similar to that of the arterial input function but with delayed onset.
+For a correct placement of the arterial and venous functions refer to Figure <a class="link" href="#A5">1</a>.</p>
+<p></p>
+<ul><li>Click <em>Apply</em> in <em>ComputePerfusion</em> to generate 3 maps corresponding to the mean transit time (MTT), the cerebral blood volume (CBV), and the cerebral blood flow (CBF).</li>
+</ul><p></p>
+<p>The results may be visualized with an <em>OrthoSlice</em> module using the <em>perfusion.cmap</em> color map. If necessary, load the color map using <em>Edit</em> (button of port <em>Colormap</em>) &rarr; <em>Options</em> &rarr; <em>Load colormap ...</em> in directory <tt>data/colormaps/</tt>. 
+The following figures demonstrate how the maps should look like.</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=tutPerfusion-MTTmap.png.html><img width=600 src="tutPerfusion-MTTmap.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Mean Transit Time (MTT) map</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutPerfusion-CBVmap.png.html><img width=600 src="tutPerfusion-CBVmap.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Cerebral Blood Volume (CBV) map</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutPerfusion-CBFmap.png.html><img width=600 src="tutPerfusion-CBFmap.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+Cerebral Blood Flow (CBF) map</div>
+
+
+</div><p>
+
+</p></body>
+</html>

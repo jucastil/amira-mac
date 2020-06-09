@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortColorList</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortColorList" "buttons for specifying solid colors" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides one or more color buttons which can be used
+ to define a constant color. Colors can be easily edited using 
+ the <font face="helvetica">Amira</font> color dialog which is popped up when one of the color
+ buttons is pushed.</p>
+<p> <img src="HxPortColorList.png" /></p>
+<p> This port is used for example by the
+ <a class="link" href="HxAxis.html#A6">Axis</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">setColor &lt;index&gt; &lt;color&gt;</span>  
+
+<div class="body"><p>Sets the color of button <tt>&lt;index&gt;</tt>. The color can be specified either as
+ a tuple of three RGB integer values in the range 0...255, or as a tuple of three
+ RGB floating point values in the range 0...1, or as a text string (e.g., <tt>blue</tt>
+ or <tt>red</tt>).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColor &lt;index&gt;</span>  
+
+<div class="body"><p>Returns the color of button index as an RGB tuple of three floating point numbers
+ in the range 0...1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setAlpha &lt;index&gt; &lt;alpha&gt;</span>  
+
+<div class="body"><p>Sets the alpha value of button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getAlpha &lt;index&gt;</span>  
+
+<div class="body"><p>Returns the alpha value of button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>Sets the label of button <tt>index</tt> of the port's label, if only one argument
+ is specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the label of button <tt>index</tt> or the port's label, if no argument is
+ specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumButtons &lt;number&gt;</span>  
+
+<div class="body"><p>Sets the number of color buttons of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumButtons</span>  
+
+<div class="body"><p>Returns the number of color buttons of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setContinuousMode &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables continuous mode. If continuous mode is activated the owning
+ module is fired permanently when changing a color using the color dialog.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getContinuousMode</span>  
+
+<div class="body"><p>Checks whether continuous mode is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setAlphaEnabled &#123;0|1&#125;</span>  
+
+<div class="body"><p>If alpha is enabled, the dialog shows the alpha channel and allows to change it.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getAlphaEnabled</span>  
+
+<div class="body"><p>Cheks whether the alpha channel is editable.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

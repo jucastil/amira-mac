@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ShapeAnalysis</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "ShapeAnalysis" "computes shape statistics for labelled regions" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p> 
+This module computes the shape parameters of regions in the attached input 
+data. A region is defined as a group of voxels which have the same data value. 
+The module can be connected to a label field (or any other scalar field 
+containing label data). As output a spreadsheet is computed that contains the 
+following information for each detected region:</p>
+
+<ul><li><em>Value:</em> The label of the region.</li><li><em>Volume:</em> The volume of 
+ the region in units of the voxel size.</li><li><em>CenterX, CenterY, CenterZ:</em> The components of the center of mass. 
+ A weighting of 1 per voxel is assumed if no secondary <i>Field</i> data set is 
+ connected. If a <i>Field</i> data set is connected the densities in that field 
+ are used as mass.</li><li><em>Anisotropy:</em> 1 minus the ratio of the smallest to the largest 
+ eigenvalue of the covariance matrix. Measures a region's deviation from a 
+ spherical shape.</li><li><em>Elongation:</em> The ratio of the medium and the largest eigenvalue of 
+ the covariance matrix. Elongated objects will have small values close to 0.</li><li><em>Flatness:</em> The ratio of the smallest and the medium eigenvalue of the 
+ covariance matrix. Flat objects have small values close to 0.</li><li><em>EValue1, EValue2, EValue3:</em> The eigenvalues of the covariance matrix 
+ in descending order.</li><li><em>EVector1x, EVector1y, EVector1z:</em> Normalized eigenvector 1.</li><li><em>EVector2x, EVector2y, EVector2z:</em> Normalized eigenvector 2.</li><li><em>EVector3x, EVector3y, EVector3z:</em> Normalized eigenvector 3.</li><li><em>ExtentMin1, ExtentMin2, ExtentMin3, ExtentMax1, ExtentMax2, 
+ ExtentMax3:</em> The extent of the data in the direction of the largest, medium, 
+ and smallest eigenvectors of the covariance matrix. These values are computed 
+ as dot-products of the eigenvectors with the voxel coordinates for each region 
+ and correspond to the extent of the minimum enclosing bounding box.</li><li><em>Iii:</em> Principal moments of inertia measuring the moment of inertia 
+ around the i-axis when the object is rotated around the i-axis.</li><li><em>Iij | i!=j:</em> Products of inertia measuring the moment of inertia 
+ around the i-axis if the object is rotated around the j-axis.</li><li><em>Mass:</em> If a data set is connected to the <i>Field</i> port this value 
+ is the sum of the intensities for each region of interest, otherwise the 
+ values stored are the number of voxels per region.</li><li><em>Area:</em> This value is the sum of voxel surfaces that are on the outside 
+ of each connected component.</li><li><em>Bounday:</em> Some components of the image volume might be intersected 
+ by the <i>Bounding Box</i> of the image volume. This value is the sum of voxels 
+ that are at this boundary. These voxels don't have a neighboring voxel within the volume
+ and the component might not be fully within the image.</li>
+</ul>
+<p>Additionally, the spreadsheet contains a table with summary entries for the 
+mean volume, the mean elongation, the mean flatness, and the mean orientation 
+(with their standard deviations).</p>
+<p>The spreadsheet can be filtered for various aspects using the module 
+<a class="link" href="../hxstatistics/HxSpreadsheetFilter.html#A1">SpreadsheetFilter</a>. Furthermore, with this module 
+the data can be prepared for different kinds of visualizations. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>As input a uniform scalar field with integer elements is required. This could be
+a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> or any other 
+<a class="link" href="../hxfield/HxUniformScalarField3.html#A1">Scalar Field</a> with byte, short, ushort or int32 
+resolution in which the values represent labels of regions. Examples are the 
+output of <a class="link" href="../hxstatistics/HxConnectedComponentAnalysis.html#A1">ConnectedComponents</a> or a 
+<a class="link" href="HxWatershedSegmentation.html#A1">watershed segmentation</a>.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be optionally connected to a gray value image. The field should be 
+of type <a class="link" href="../hxfield/HxUniformScalarField3.html#A1">HxUniformScalarField3</a>. If a data set is
+connected, its values multiplied with the voxel volume will be used as weight
+for the computation of the center of mass and the inertia tensor. If no input is 
+provided the weight for each voxel is assumed to be 1. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Number of objects</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_numberOfObjects.png" /><br /></div>
+<div class="body"><p>Displays the number of regions.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mean volume</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_meanVolume.png" /><br /></div>
+<div class="body"><p>Displays the mean volume of all regions.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mean anisotropy</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_meanAnisotropy.png" /><br /></div>
+<div class="body"><p>Displays the mean anisotropy of all regions.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mean elongation</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_meanElongation.png" /><br /></div>
+<div class="body"><p>Displays the mean elongation of all regions.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mean flatness</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_meanFlatness.png" /><br /></div>
+<div class="body"><p>Displays the mean flatness of all regions.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mean orientation</span>  
+<div class="portsnapshot"><img src="HxShapeAnalysis_meanOrientation.png" /><br /></div>
+<div class="body"><p>Displays the mean orientation of all regions.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

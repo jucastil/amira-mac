@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.4.2 Data Defined on Hexahedral Grids</a></h3>
+<p>In most applications, you will not only have to deal with a single
+hexahedral grid, but also with
+data fields defined on it, for example scalar fields (e.g.
+temperature) or vector fields (e.g., flow velocity). <font face="helvetica">Amira</font> provides special
+classes for these data modalities, namely <tt>HxHexaScalarField3</tt>, <tt>HxHexaVectorField3</tt>, <tt>HxHexaComplexScalarField3</tt>, <tt>HxHexaComplexVectorField3</tt>, and <tt>HxHexaField3</tt> (see class
+hierarchy in <a class="link" href="HxDev-datahierarchy.html#A1">Section 27.1.1</a>).</p>
+<p>As for fields defined on tetrahedral grids, the actual information is
+stored in a special member variable called <em>data</em>, which is of
+type <tt>HxHexaData</tt>. <tt>HxHexaData</tt> is a so-called interface, i.e.
+derived from <tt>HxInterface</tt>. The <em>data</em> variable
+provides transparent access to data fields defined on hexahedral grids
+regardless of the actual number of data components the field has. In order
+to access the interface without knowing the actual type of input
+object within a module, you may use the following statement:</p>
+<p><font size="2"></font></p><pre>
+    HxHexaData* data = (HxHexaData*)
+        portData.source(HxHexaData::getClassTypeId());
+    if (!data) return;
+</pre><p><font size="2"></font></p>
+<p>Data on hexahedral grids must always be of type <tt>float</tt>. The data
+values may be stored in three different ways, indicated by the encoding
+type defined in <tt>HxHexaData</tt>:</p>
+<p></p>
+<ul><li><tt>PER_HEXA</tt>: One data vector is stored for each hexahedron.
+ The data are assumed to be constant inside the hexahedron.</li><li><tt>PER_VERTEX</tt>: One data vector is stored for each vertex of the
+ grid. The data are interpolated trilinearly inside a hexahedron.</li><li><tt>PER_HEXA_VERTEX</tt>: Eight separate data vectors are stored for
+ each hexahedron. The data are also interpolated trilinearly.</li>
+</ul><p></p>
+<p>The last encoding scheme is useful for modeling discontinuous fields. In
+order to evaluate a field at an arbitrary location in a transparent way,
+<font face="helvetica">Amira</font>'s procedural data interface should be used. This interface is
+described in <a class="link" href="HxDev-dataeval.html#A1">Section 27.5.1</a>.</p>
+<p>Like <tt>HxLattice3</tt>, the class <tt>HxHexaData</tt> provides a static method
+<tt>create</tt> which can be used to create a matching data field, e.g., an
+object of type <tt>HxHexaScalarField3</tt>, from an existing instance of
+<tt>HxHexaData</tt>. The <tt>HxHexaData</tt> object will not be copied but will
+be directly put into the field object. Therefore it may not be deleted
+afterwards. Also see <a class="link" href="HxDev-reglattice.html#A1">Section 27.2.1</a>.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_NUMERIC
+#define  OIV_STL_NUMERIC
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

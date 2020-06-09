@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DisplayDate</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DisplayDate" "displays a date value in the 3D viewer" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays the value of a time object which can provide time 
+ as a calendar date. This is useful for animations which shall contain an 
+ illustration of date.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Object which provides current date.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_position.png" /><br /></div>
+<div class="body"><p>	Position of the date icon with respect to the lower left corner of
+ the screen. If negative values are entered the icon is positioned
+ relative to the right and/or top of the screen.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colors</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_color.png" /><br /></div>
+<div class="body"><p>	The colors of the various parts of the icon can be set here.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_options3.png" /><br /></div>
+<div class="body"><p>	This port adjusts additional settings influencing the drawing.</p>
+
+<ul><li><b>frame</b> Draw a frame around the date icon.</li><li><b>solid</b> Fill the icon's background.</li>
+</ul>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point size</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_pointSize.png" /><br /></div>
+<div class="body"><p>	This port adjusts the size of the text being drawn.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Display</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_display.png" /><br /></div>
+<div class="body"><p>	Select the parts of the date value (date, time) to be displayed. </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Date format</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_dateFormat.png" /><br /></div>
+<div class="body"><p>	Choose the format for the date part. When a custom format 
+	is specified, these expressions may be used:	
+	</p>
+<ul><li><b>d</b> the day as number without a leading zero (1-31)</li><li><b>hdd</b> the day as number with a leading zero (01-31)</li><li><b>hddd</b> the abbreviated localized day name (e.g. 'Mon'..'Sun'). Uses QDate::shortDayName().</li><li><b>hdddd</b> the long localized day name (e.g. 'Monday'..'Sunday'). Uses QDate::longDayName().</li><li><b>hM</b> the month as number without a leading zero (1-12)</li><li><b>hMM</b> the month as number with a leading zero (01-12)</li><li><b>hMMM</b> the abbreviated localized month name (e.g. 'Jan'..'Dec'). Uses QDate::shortMonthName().</li><li><b>hMMMM</b> the long localized month name (e.g. 'January'..'December'). Uses QDate::longMonthName().</li><li><b>hyy</b> the year as two digit number (00-99)</li><li><b>hyyyy</b> the year as four digit number (1752-8000)</li>
+</ul>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time format</span>  
+<div class="portsnapshot"><img src="HxDisplayDate_timeFormat.png" /><br /></div>
+<div class="body"><p>	Choose the format for the time part. When
+	a custom format is specified, these expressions may be used:
+	</p>
+<ul><li><b>h</b> the hour without a leading zero (0..23 or 1..12 if AM/PM display)</li><li><b>hh</b> the hour with a leading zero (00..23 or 01..12 if AM/PM display)</li><li><b>m</b> the minute without a leading zero (0..59)</li><li><b>mm</b> the minute with a leading zero (00..59)</li><li><b>s</b> the second whithout a leading zero (0..59)</li><li><b>ss</b> the second with a leading zero (00..59)</li><li><b>z</b> the milliseconds without leading zeroes (0..999)</li><li><b>zzz</b> the milliseconds with leading zeroes (000..999)</li><li><b>AP</b> use AM/PM display. AP will be replaced by either "AM" or "PM".</li><li><b>ap</b> use am/pm display. ap will be replaced by either "am" or "pm".</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

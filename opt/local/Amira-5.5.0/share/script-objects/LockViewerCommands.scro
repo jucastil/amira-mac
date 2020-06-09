@@ -1,0 +1,126 @@
+# Amira-Script-Object V3.0
+#
+# LockViewerCommands.scro
+#
+# Replace the "viewer" command by a wrapper that will lock 
+#   some of the sub-commands.
+#
+# Version: 0.1a
+# Author:  Hartmut Schirmacher
+#
+
+# "constructor" is called when the object is instantiated
+$this proc constructor {} {
+
+    # ID for this scro
+    $this setVar scroTypeLockViewerCommands 1
+
+    global __ViewerWrapperModule
+
+    # if there is already another viewer wrapper active,
+    #   we cannot start again
+    if [info exists __ViewerWrapperModule] {
+	global __ViewerWrapperModule
+	$this newPortInfo info
+	$this info setLabel "Warning:"
+	$this info setValue "$__ViewerWrapperModule is already active"
+	$this setVar active 0
+	return
+    }
+
+    # remember that we do this
+    $this setVar active 1
+    
+    # establish wrapper
+    echo "establishing wrapped viewer commands"
+    $this defineWrapper
+    rename viewer __viewer
+    rename __ViewerWrapper viewer
+    set __ViewerWrapperModule $this
+
+    $this newPortToggleList lock 6
+    $this lock setLabel "Lock:"
+    $this lock setLabel 0 "bg"
+    $this lock setLabel 1 "size"
+    $this lock setLabel 2 "pos"
+    $this lock setLabel 3 "stereo"
+    $this lock setLabel 4 "deco"
+    $this lock setLabel 5 "cam"
+    foreach x {0 1 2 3 4} {$this lock setValue $x 1}
+    
+    
+    # do not remove this module with remove -all
+    $this setNoRemoveAll 1
+}
+
+
+
+# "destructor" is called when the object is removed or restarted
+$this proc destructor {} {
+    if [$this getVar active] {
+	echo "re-establishing default viewer commands"
+	rename viewer __ViewerWrapper
+	rename __viewer viewer
+	global __ViewerWrapperModule
+	unset __ViewerWrapperModule
+    }
+}
+
+# "compute" is called whenever the scro's GUI is touched
+$this proc compute {} {
+    # nothing to be done here
+}
+
+$this proc defineWrapper {} {
+
+    # dummy function for locking viewer commands
+    proc __ViewerWrapper args {
+	
+	# emergency: if the module has been destroyed, undo wrapping
+	global __ViewerWrapperModule
+	if {![exists $__ViewerWrapperModule]} {
+	    # execute command as usual
+	    set cmd [concat [list __viewer] $args]
+	    set result [eval $cmd]
+	    
+	    # undo wrapping
+	    echo "$__ViewerWrapperModule destroyed:"
+	    echo "  re-establishing default viewer commands"
+	    rename viewer __ViewerWrapper
+	    rename __viewer viewer
+	    
+	    # exit
+	    return $result
+	}
+	
+	# "viewer cmd ..." or "viewer 0 cmd ..."?
+	set cmd [lindex $args 0]
+	if {[string first $cmd "01234567"] >= 0} {
+	    set cmd [lindex $args 1]
+	}
+	
+	# list of sub-commands to be distinguished
+	set commands {setBack* setSize setPos* setStereo 
+	    setDeco* setCam*}
+	
+	# differentiate between the different commands
+	set i -1
+	foreach mycmd $commands {
+	    incr i
+	    # check if this command should be locked or not
+	    if [$__ViewerWrapperModule lock getValue $i] {
+		# check if this is the current command
+		if [string match $mycmd $cmd] {
+		    echo "command locked: viewer $args"
+		    return 
+		}
+	    }
+	}
+	
+	# all other commands are executed as usual
+	set cmd [concat [list __viewer] $args]
+	return [eval $cmd]
+	
+    }
+}
+

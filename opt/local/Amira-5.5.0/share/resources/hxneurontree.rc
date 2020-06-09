@@ -1,0 +1,25 @@
+# ----------------------------------------------------------------------
+# hxneurontree package
+# ----------------------------------------------------------------------
+
+
+amiramesh -ContentType HxNeuronTree \
+    -load "HxNeuronTree::readAmiraMesh" \
+    -dso "libhxneurontree.so"
+
+
+dataFile -name "Neuron" \
+    -option "dat" \
+    -ext "dat" \
+    -save "writeGeometryForNeuron" \
+    -type "HxNeuronTree" \
+    -package "hxneurontree"
+
+
+dataFile -name "Limex" \
+    -option "structure" \
+    -ext "structure" \
+    -save "writeGeometryForLimex" \
+    -type "HxNeuronTree" \
+    -package "hxneurontree"
+

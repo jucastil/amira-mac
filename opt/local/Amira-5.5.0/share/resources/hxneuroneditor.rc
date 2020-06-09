@@ -1,0 +1,16 @@
+
+subApplication -name "Filament Editor" -icon "SubAppFilamentEditor.png" \
+    -class "HxNeuronEditorSubApp" \
+    -package "hxneuroneditor"
+
+# ----------------------------------------------------------------------------
+#   Filament editor Plug-in mechanism 
+# ----------------------------------------------------------------------------
+if { [info exists hxneuroneditorplugins] == 0} {
+	set hxneuroneditorplugins [list];
+}
+
+lappend hxneuroneditorplugins {StandardTools  QxStandardTools_init_plugin  hxneuroneditor}
+lappend hxneuroneditorplugins {SelectionTools QxSelectionTools_init_plugin hxneuroneditor}
+
+lappend hxneuroneditorplugins {SemiAutomaticTracingTools QxSemiAutomaticTracingToolsNodeEdgeStepper_init_plugin hxneuroneditor}

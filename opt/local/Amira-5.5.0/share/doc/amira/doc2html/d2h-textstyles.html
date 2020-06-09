@@ -1,0 +1,1266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p>
+<h2><a name="A1">29.2 Text Styles</a></h2>
+<p></p>
+<h3><a name="A2">29.2.1 Text Formatting</a></h3>
+<p></p>
+<h4><a name="A3">29.2.1.1 Size</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#123;&#92;tiny TEXT&#125; </td>
+<td align=left>
+ &lt;font size="0"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;scriptsize TEXT&#125; </td>
+<td align=left>
+ &lt;font size="1"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;footnotesize TEXT&#125; </td>
+<td align=left>
+ &lt;font size="2"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+
+&#123;&#92;small TEXT&#125; </td>
+<td align=left>
+ &lt;font size="2"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;large TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+1"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;Large TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+2"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;LARGE TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+3"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;huge TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+4"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;Huge TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+5"&gt;TEXT&lt;/font&gt; </td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;HUGE TEXT&#125; </td>
+<td align=left>
+ &lt;font size="+6"&gt;TEXT&lt;/font&gt; 
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>Commands like &#123;&#92;scriptsize TEXT&#125; may also be
+combined with text markup commands, e.g., &#123;&#92;em
+&#92;sf &#92;scriptsize TEXT&#125;.</p>
+<p><br />
+
+</p>
+<h4><a name="A4">29.2.1.2 Markup (bold, italic etc.)</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;textbf&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;b&gt;TEXT&lt;/b&gt; </td>
+<td align=left>
+ <b>bold</b></td>
+</tr><tr><td align=left>
+
+ 
+&#92;textit&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;i&gt;TEXT&lt;/i&gt; </td>
+<td align=left>
+ <i>italic</i></td>
+</tr><tr><td align=left>
+
+ 
+&#92;texttt&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;tt&gt;TEXT&lt;/tt&gt; </td>
+<td align=left>
+ <tt>typewriter</tt></td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;bf TEXT&#125; </td>
+<td align=left>
+ &lt;b&gt;TEXT&lt;/b&gt; </td>
+<td align=left>
+ <b>bold</b></td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;it TEXT&#125; </td>
+<td align=left>
+ &lt;i&gt;TEXT&lt;/i&gt; </td>
+<td align=left>
+ <i>italic</i></td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;tt TEXT&#125; </td>
+<td align=left>
+ &lt;tt&gt;TEXT&lt;/tt&gt; </td>
+<td align=left>
+ <tt>typewriter</tt></td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;em TEXT&#125; </td>
+<td align=left>
+ &lt;em&gt;TEXT&lt;/em&gt; </td>
+<td align=left>
+ <em>emphasis</em> (usually italic)</td>
+</tr><tr><td align=left>
+
+ 
+&#123;&#92;sf TEXT&#125; </td>
+<td align=left>
+ &lt;font face=''Arial,Helvetica''&gt;<br />
+TEXT&lt;/font&gt; </td>
+<td align=left>
+ different font for Product Names, e.g., <font face="Arial,Helvetica">Amira</font>
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>Commands like &#123;&#92;em TEXT&#125; may also be combined,
+even together with text size commands, e.g., &#123;&#92;em &#92;sf
+&#92;scriptsize TEXT&#125;.</p>
+<p>
+</p>
+<h4><a name="A5">29.2.1.3 Alignment</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;center&#125; TEXT &#92;end&#123;center&#125; </td>
+<td align=left>
+ &lt;div style="text-align:center"&gt; TEXT &lt;/div&gt;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;flushleft&#125; TEXT &#92;end&#123;flushleft&#125; </td>
+<td align=left>
+ &lt;div style="text-align:left"&gt; TEXT &lt;/div&gt;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;flushright&#125; TEXT &#92;end&#123;flushright&#125; </td>
+<td align=left>
+ &lt;div style="text-align:right"&gt; TEXT &lt;/div&gt;
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><br />
+
+</p>
+<h3><a name="A6">29.2.2 Special Text-producing Commands</a></h3>
+<p></p>
+<h4><a name="A7">29.2.2.1 Product-specific Abbreviations</a></h4>
+<p>All product names may be abbreviated.</p>
+<p> 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;AmiraVR </td>
+<td align=left>
+ &lt;font face=&#92;"helvetica&#92;"&gt;<br />
+Virtual Reality Option&lt;/font&gt; </td>
+<td align=left>
+ different font</td>
+</tr><tr><td align=left>
+
+ 
+&#92;ProductNamePlain </td>
+<td align=left>
+ Amira </td>
+<td align=left>
+ same font as usual</td>
+</tr><tr><td align=left>
+
+ 
+&#92;ProductNameTT </td>
+<td align=left>
+ &lt;tt&gt;Amira&lt;/tt&gt; </td>
+<td align=left>
+ in typewriter font
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p> The following product names are available. Note that they are case-sensitive:</p>
+<p>&#92;amira
+&#92;AmiraDemo
+&#92;AmiraDev
+&#92;AmiraDicomReader
+&#92;AmiraFEI
+&#92;AmiraLD
+&#92;AmiraMesh
+&#92;AmiraMol
+&#92;AmiraNeuro
+&#92;AmiraQuant
+&#92;AmiraSkel
+&#92;AmiraVLD
+&#92;AmiraVR 
+&#92;ProductMajorVersion
+&#92;ProductName
+&#92;ProductNamePlain
+&#92;ProductNameTT
+&#92;ProductVersion
+&#92;ResolveRT
+&#92;ResolveRTSKEL
+&#92;VRmodule</p>
+<p>
+</p>
+<h4><a name="A8">29.2.2.2 Environment Variables</a></h4>
+<p>Every command that starts with &#92;hx... is checked to see if
+it is an environment variable. To display the name <tt>AMIRA_LOCAL</tt>, the command &#92;hxlocal
+should be used. </p>
+<p> 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;hxENVVAR </td>
+<td align=left>
+ &lt;tt&gt; ENVVAR &lt;/tt&gt; </td>
+<td align=left>
+ if ENVVAR is a known variable</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxOTHER </td>
+<td align=left>
+ &#92;hxOTHER </td>
+<td align=left>
+ syntax warning: unknown command
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+The following environment variables are used by <font face="helvetica">Amira</font>:</p>
+<p>&#92;hxburoot &rarr; AMIRABU_ROOT <br />
+
+&#92;hxcheckfreeram &rarr; AMIRA_CHECK_FREERAM <br />
+
+&#92;hxcomdesynctimeout &rarr; AMIRA_COM_DESYNC_TIMEOUT <br />
+
+&#92;hxcomlog &rarr; AMIRA_COM_LOG <br />
+
+&#92;hxcomresynctimeout &rarr; AMIRA_COM_RESYNC_TIMEOUT <br />
+
+&#92;hxdata &rarr; AMIRA_DATA <br />
+
+&#92;hxdatadir &rarr; AMIRA_DATADIR <br />
+
+&#92;hxdebug &rarr; AMIRA_DEBUG <br />
+
+&#92;hxdebugfuncfilter &rarr; AMIRA_DEBUG_FUNC_FILTER <br />
+
+&#92;hxdebuglevel &rarr; AMIRA_DEBUG_LEVEL <br />
+
+&#92;hxdebugpackagefilter &rarr; AMIRA_DEBUG_PACKAGE_FILTER <br />
+
+&#92;hxdeconvnumthreads &rarr; AMIRA_DECONV_NUM_THREADS <br />
+
+&#92;hxdefaultvisual &rarr; AMIRA_DEFAULTVISUAL <br />
+
+&#92;hxdemos &rarr; AMIRA_DEMOS <br />
+
+&#92;hxdicomjpegbase &rarr; AMIRA_DICOM_JPEG_BASE <br />
+
+&#92;hxexecarch &rarr; AMIRA_EXEC_ARCH <br />
+
+&#92;hxfakebutton &rarr; AMIRA_FAKEBUTTON <br />
+
+&#92;hxforcefluentdialog &rarr; AMIRA_FORCE_FLUENT_DIALOG <br />
+
+&#92;hxforcenoborder &rarr; AMIRA_FORCE_NOBORDER <br />
+
+&#92;hxforcevolumeviz &rarr; AMIRA_FORCE_VOLUMEVIZ <br />
+
+&#92;hxginocog &rarr; AMIRA_GI_NOCOG <br />
+
+&#92;hxhostname &rarr; AMIRA_HOSTNAME <br />
+
+&#92;hxinitfile &rarr; AMIRA_INIT_FILE <br />
+
+&#92;hxjoblogfile &rarr; AMIRA_JOB_LOG_FILE <br />
+
+&#92;hxlicensefile &rarr; AMIRA_LICENSE_FILE <br />
+
+&#92;hxlocal &rarr; AMIRA_LOCAL <br />
+
+&#92;hxmesa &rarr; AMIRA_MESA <br />
+
+&#92;hxmeshdebug &rarr; AMIRAMESH_DEBUG <br />
+
+&#92;hxmhtstereotaxis &rarr; AMIRA_MHT_STEREOTAXIS <br />
+
+&#92;hxmolroot &rarr; AMIRAMOL_ROOT <br />
+
+&#92;hxmultisample &rarr; AMIRA_MULTISAMPLE <br />
+
+&#92;hxmultithread &rarr; AMIRA_MULTITHREAD <br />
+
+&#92;hxnetworkdrivedir &rarr; AMIRA_NETWORKDRIVE_DIR <br />
+
+&#92;hxnocontextsharing &rarr; AMIRA_NO_CONTEXT_SHARING <br />
+
+&#92;hxnoindex &rarr; AMIRA_NO_INDEX <br />
+
+&#92;hxnoindexthread &rarr; AMIRA_NO_INDEX_THREAD <br />
+
+&#92;hxnolicensemessage &rarr; AMIRA_NO_LICENSE_MESSAGE <br />
+
+&#92;hxnomultithread &rarr; AMIRA_NO_MULTITHREAD <br />
+
+&#92;hxnooverlays &rarr; AMIRA_NO_OVERLAYS <br />
+
+&#92;hxnospacemouse &rarr; AMIRA_NO_SPACEMOUSE <br />
+
+&#92;hxnosplashscreen &rarr; AMIRA_NO_SPLASH_SCREEN <br />
+
+&#92;hxnumrecentfiles &rarr; AMIRA_NUM_RECENTFILES <br />
+
+&#92;hxoutofcoremanagement &rarr; AMIRA_OUTOFCORE_MANAGEMENT <br />
+
+&#92;hxroot &rarr; AMIRA_ROOT <br />
+
+&#92;hxshowglerrors &rarr; AMIRA_SHOW_GL_ERRORS <br />
+
+&#92;hxsmallfont &rarr; AMIRA_SMALLFONT <br />
+
+&#92;hxspacemouse &rarr; AMIRA_SPACEMOUSE <br />
+
+&#92;hxstereoondefault &rarr; AMIRA_STEREO_ON_DEFAULT <br />
+
+&#92;hxteamworkavatar &rarr; AMIRA_TEAMWORK_AVATAR <br />
+
+&#92;hxtecplotusetimeseries &rarr; AMIRA_TECPLOT_USE_TIME_SERIES <br />
+
+&#92;hxtexmem &rarr; AMIRA_TEXMEM <br />
+
+&#92;hxtranslationfile &rarr; AMIRA_TRANSLATION_FILE <br />
+
+&#92;hxuservideomemamount &rarr; AMIRA_USER_VIDEO_MEM_AMOUNT <br />
+
+&#92;hxvrcaliblog &rarr; AMIRAVR_CALIB_LOG <br />
+
+&#92;hxvrconfigspath &rarr; AMIRA_VR_CONFIGS_PATH <br />
+
+&#92;hxxshm &rarr; AMIRA_XSHM <br />
+
+&#92;hxziehmreconstruction &rarr; AMIRA_ZIEHM_RECONSTRUCTION <br />
+
+<br />
+</p>
+<p></p>
+<h4><a name="A9">29.2.2.3 Special Characters</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;&#123; </td>
+<td align=left>
+ &#123; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;&#125; </td>
+<td align=left>
+ &#125; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;&#8204;$ </td>
+<td align=left>
+ $ </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;tcl </td>
+<td align=left>
+ Tcl </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;textregistered </td>
+<td align=left>
+ &amp;reg; </td>
+<td align=left>
+ &reg;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;quad </td>
+<td align=left>
+ </td>
+<td align=left>
+ outputs a single space</td>
+</tr><tr><td align=left>
+
+ 
+&#92;qquad </td>
+<td align=left>
+ </td>
+<td align=left>
+ outputs a single space</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxrightarrow </td>
+<td align=left>
+ &amp;rarr; </td>
+<td align=left>
+ &rarr;  </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxleftarrow </td>
+<td align=left>
+ &amp;larr; </td>
+<td align=left>
+ &larr;  </td>
+</tr><tr><td align=left>
+
+ 
+&#92;textasciicircum </td>
+<td align=left>
+ ^ </td>
+<td align=left>
+ circumflex</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxpipe </td>
+<td align=left>
+ | </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxdegree </td>
+<td align=left>
+ &amp;deg; </td>
+<td align=left>
+ &deg; </td>
+</tr><tr><td align=left>
+
+ 
+&#92;AA </td>
+<td align=left>
+ &amp;#8491; </td>
+<td align=left>
+ &#8491;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;^ </td>
+<td align=left>
+ ^ </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;- </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ command has no effect</td>
+</tr><tr><td align=left>
+
+ 
+&#92;'a </td>
+<td align=left>
+ &amp;aacute; </td>
+<td align=left>
+ works also for e,i,o,u</td>
+</tr><tr><td align=left>
+
+ 
+&#92;`a </td>
+<td align=left>
+ &amp;agrave; </td>
+<td align=left>
+ works also for e,i,o,u</td>
+</tr><tr><td align=left>
+
+ 
+&#92;' <i>or</i> ' </td>
+<td align=left>
+ ' </td>
+<td align=left>
+ single quote</td>
+</tr><tr><td align=left>
+
+
+&#92;" <i>or</i> " <i>or</i> "&#8204;' <i>or</i> "&#8204;` <i>or</i> '&#8204;" <i>or</i> `&#8204;" <i>or</i> &#92;textquotedbl </td>
+<td align=left>
+ " </td>
+<td align=left>
+ double quote</td>
+</tr><tr><td align=left>
+
+ 
+&#92;backslash </td>
+<td align=left>
+ &#92; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;textbackslash </td>
+<td align=left>
+ &#92; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;# </td>
+<td align=left>
+ # </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;textvisiblespace </td>
+<td align=left>
+ &#9251; </td>
+<td align=left>
+ visible space</td>
+</tr><tr><td align=left>
+
+ 
+&#92;_ </td>
+<td align=left>
+ _ </td>
+<td align=left>
+ underscore</td>
+</tr><tr><td align=left>
+
+ 
+&lt; </td>
+<td align=left>
+ &amp;lt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&gt; </td>
+<td align=left>
+ &amp;gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;% </td>
+<td align=left>
+ % </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&tilde; </td>
+<td align=left>
+ &amp;nbsp; </td>
+<td align=left>
+ non-breaking space</td>
+</tr><tr><td align=left>
+
+ 
+&#92;zerolengthspace </td>
+<td align=left>
+ &amp;#8204; </td>
+<td align=left>
+ zero-length space</td>
+</tr><tr><td align=left>
+
+ 
+&#92;&tilde; </td>
+<td align=left>
+ &amp;tilde; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;&amp; </td>
+<td align=left>
+ &amp;amp; </td>
+<td align=left>
+ &amp;</td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p></p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;textasciitilde </td>
+<td align=left>
+ &amp;tilde; </td>
+<td align=left>
+ &tilde;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;mu <i>or</i> &#92;textmu <i>or</i> &micro; </td>
+<td align=left>
+ &amp;micro; </td>
+<td align=left>
+ &micro;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;lambda </td>
+<td align=left>
+ &amp;lambda; </td>
+<td align=left>
+ &lambda; </td>
+</tr><tr><td align=left>
+
+ 
+&#92;sigma </td>
+<td align=left>
+ &amp;sigma; </td>
+<td align=left>
+ &sigma; </td>
+</tr><tr><td align=left>
+
+ 
+[ </td>
+<td align=left>
+ [ </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+] </td>
+<td align=left>
+ ] </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#123; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ syntax error if no closing brace found</td>
+</tr><tr><td align=left>
+
+ 
+&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ syntax error if no opening brace found
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h4><a name="A10">29.2.2.4 Non-breaking Space for Text Indention</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;hxbl </td>
+<td align=left>
+ &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxbbl </td>
+<td align=left>
+ &amp;nbsp; &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxbbbl </td>
+<td align=left>
+ &amp;nbsp; &amp;nbsp; &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxbbbbl </td>
+<td align=left>
+ &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxbbbbbl </td>
+<td align=left>
+ &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxtenbl </td>
+<td align=left>
+ &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;indent</s> </td>
+<td align=left>
+ </td>
+<td align=left>
+ The command has no effect.</td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;noindent</s> </td>
+<td align=left>
+ </td>
+<td align=left>
+ The command has no effect.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h4><a name="A11">29.2.2.5 Newlines</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;newline </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;tabularnewline </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;&#92; </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;smallskip </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;medskip </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;bigskip </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;newpage </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;vspace </td>
+<td align=left>
+ &lt;br /&gt; </td>
+<td align=left>
+ optional parameters are ignored</td>
+</tr><tr><td align=left>
+
+ 
+&#92;n </td>
+<td align=left>
+ &#92;n </td>
+<td align=left>
+ no effect on output, only improves .html readability</td>
+</tr><tr><td align=left>
+
+ 
+&#92;n&#92;n </td>
+<td align=left>
+ &lt;/p&gt; &lt;p&gt; </td>
+<td align=left>
+ start new paragraph (&#92;n&#92;n means: an
+empty line)
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><br />
+
+</p>
+<h3><a name="A12">29.2.3 Lists &amp; Enumerations</a></h3>
+<p></p>
+<h4><a name="A13">29.2.3.1 List Types</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;enumerate&#125; <br />
+&#92;item TEXT1<br />
+&#92;item TEXT2<br />
+&#92;end&#123;enumerate&#125; </td>
+<td align=left>
+ &lt;ol&gt; <br />
+&lt;li&gt; TEXT1 &lt;/li&gt;<br />
+&lt;li&gt; TEXT2 &lt;/li&gt;<br />
+ &lt;/ol&gt; </td>
+<td align=left>
+ Items have numbers</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;itemize&#125; <br />
+&#92;item TEXT1<br />
+&#92;item TEXT2<br />
+&#92;end&#123;itemize&#125; </td>
+<td align=left>
+ &lt;ul&gt; <br />
+&lt;li&gt; TEXT1 &lt;/li&gt;<br />
+&lt;li&gt; TEXT2 &lt;/li&gt; <br />
+&lt;/ul&gt; </td>
+<td align=left>
+ Items have symbols</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;description&#125; <br />
+&#92;item[DESCR1] TEXT1<br />
+&#92;item[DESCR2] TEXT2<br />
+&#92;end&#123;description&#125; </td>
+<td align=left>
+ &lt;dl&gt;<br />
+&lt;dt&gt; DESCR1 &lt;/dt&gt; <br />
+&lt;dd&gt; TEXT1 &lt;/dd&gt;<br />
+&lt;dt&gt; DESCR1 &lt;/dt&gt; <br />
+&lt;dd&gt; TEXT1 &lt;/dd&gt;<br />
+&lt;/dl&gt; </td>
+<td align=left>
+ Items have custom description
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>Lists of different types may be nested inside each other. Using &#92;item
+or &#92;item[] in the wrong environment is not recommended,
+and gives a parse warning or error (but is rendered anyway).</p>
+<p>
+</p>
+<h4><a name="A14">29.2.3.2 Items</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;item TEXT </td>
+<td align=left>
+ &lt;li&gt; TEXT &lt;/li&gt; </td>
+<td align=left>
+ Simple item</td>
+</tr><tr><td align=left>
+
+ 
+&#92;item&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;li&gt; TEXT &lt;/li&gt; </td>
+<td align=left>
+ Simple item</td>
+</tr><tr><td align=left>
+
+ 
+&#92;item[TEXT_1] TEXT_2 </td>
+<td align=left>
+ &lt;dt&gt; TEXT_1 &lt;/dt&gt;
+&lt;dd&gt; TEXT_2 &lt;/dd&gt; </td>
+<td align=left>
+ Item with special caption</td>
+</tr><tr><td align=left>
+
+  
+&#92;item[TEXT_1]&#123;TEXT_2&#125; </td>
+<td align=left>
+ &lt;dt&gt; TEXT_1 &lt;/dt&gt;
+&lt;dd&gt; TEXT_2 &lt;/dd&gt; </td>
+<td align=left>
+ Item with special caption
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>Items may contain &#92;n&#92;n to indicate that
+a new paragraph begins. In this case, the item is automatically enclosed
+in &lt;p&gt;...&lt;/p&gt; tags.</p>
+<p><br />
+</p>
+<p></p>
+<h3><a name="A15">29.2.4 FAQ Environment</a></h3>
+<p>There is an &#123;faq&#125; environment, which is used for usersguide/doc/faq.doc.
+ Every new &#123;faq&#125; environment resets the section counter,
+so that one may first write down only the questions, and give the
+answers in the next &#123;faq&#125; environment, which automatically gets the
+same enumeration. Usage example:<br />
+</p>
+<p>&#92;begin&#123;faq&#125; </p>
+<p>&#92;faqsection&#123;HEADLINE_A&#125; </p>
+<p>&#92;faqitem&#123;&#92;link&#123;q1&#125;&#123;QUESTION_1&#125;&#125;</p>
+<p>&#92;faqitem&#123;&#92;link&#123;q2&#125;&#123;QUESTION_2&#125;&#125;</p>
+<p>&#92;faqsection&#123;HEADLINE_B&#125; </p>
+<p>&#92;faqitem&#123;&#92;link&#123;q3&#125;&#123;QUESTION_3&#125;&#125;</p>
+<p>&#92;end&#123;faq&#125; </p>
+<p>[...]</p>
+<p>&#92;begin&#123;faq&#125; </p>
+<p>&#92;faqsection&#123;HEADLINE_A&#125; </p>
+<p>&#92;hxlabel&#123;q1&#125; </p>
+<p>&#92;faqitem&#123;QUESTION_1&#125; ANSWER_1 </p>
+<p>&#92;hxlabel&#123;q2&#125; </p>
+<p>&#92;faqitem&#123;QUESTION_2&#125; ANSWER_2 </p>
+<p>&#92;faqsection&#123;HEADLINE_B&#125; </p>
+<p>&#92;hxlabel&#123;q3&#125; </p>
+<p>&#92;faqitem&#123;QUESTION_3&#125; ANSWER_3 </p>
+<p>&#92;end&#123;faq&#125;<br />
+</p>
+<p> 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;faq&#125; <br />
+TEXT <br />
+&#92;end&#123;faq&#125; </td>
+<td align=left>
+ &lt;ol&gt; TEXT &lt;/ol&gt; </td>
+<td align=left>
+ Environment that allows FAQ items</td>
+</tr><tr><td align=left>
+
+ 
+&#92;faqsection&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h3&gt;TEXT&lt;/h3&gt; </td>
+<td align=left>
+ Starts a new section of FAQ items</td>
+</tr><tr><td align=left>
+
+ 
+&#92;faqitem&#123;TEXT1&#125; TEXT2 </td>
+<td align=left>
+ &lt;li&gt;<br />
+&lt;b&gt;TEXT1&lt;/b&gt; &lt;br/&gt; <br />
+TEXT2 <br />
+&lt;/li&gt; </td>
+<td align=left>
+ Inserts an FAQ item. TEXT1 is the question, TEXT2 is the answer. The answer
+may be set in braces, or may be omitted.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h3><a name="A16">29.2.5 Quotes</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;quote&#125; TEXT &#92;end&#123;quote&#125; </td>
+<td align=left>
+ &lt;blockquote&gt; TEXT &lt;/blockquote&gt; </td>
+<td align=left>
+ Cite some text
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h3><a name="A17">29.2.6 Verbatim</a></h3>
+<p></p>
+<h4><a name="A18">29.2.6.1 Verbatim Inline </a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;verb*TEXT* </td>
+<td align=left>
+ &lt;tt&gt;TEXT&lt;/tt&gt; </td>
+<td align=left>
+ Verbatim text without starting a new paragraph
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>The * stands for an arbitrary character that indicates the beginning
+and end of the verbatim environment. The text between the * is copied
+directly to the output without parsing any LaTeX commands it may contain.
+HTML code inside the text is escaped.</p>
+<p>
+</p>
+<h4><a name="A19">29.2.6.2 Verbatim Paragraphs</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;verbatim&#125;<br />
+TEXT <br />
+&#92;end&#123;verbatim&#125; </td>
+<td align=left>
+ &lt;pre&gt;TEXT&lt;/pre&gt; </td>
+<td align=left>
+ Verbatim text inside its own paragraph
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>The text is copied directly to the output without parsing any LaTeX
+commands it may contain. HTML code inside the text is escaped.</p>
+<p>
+</p></body>
+</html>

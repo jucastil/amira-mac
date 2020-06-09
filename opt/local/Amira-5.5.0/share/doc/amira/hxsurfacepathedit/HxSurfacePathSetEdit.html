@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Surface Path Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Surface Path Editor" "create paths on surfaces" !>
+<p><img src="HxSurfacePathEditor.png" /></p>
+<p> </p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This editor allows creating and editing <a class="link" href="../hxsurfacepath/HxSurfacePathSet.html#A1">paths</a> on
+ triangular surfaces. Surface paths can currently be used only to measure 
+ distances on surfaces. To do so, right-click the surface object and
+ select <em>CreateSurfacePath</em> from the -&gt;<em>Measure</em> sub-menu. This 
+ creates a new <a class="link" href="../hxsurfacepath/HxSurfacePathSet.html#A1">SurfacePathSet</a> and automatically 
+ opens the <em>Surface Path Editor</em>.
+
+ Note that the following operations can only be applied, if the
+ editor is selected in the <em>Pool</em>. In this way, you may interact with the 
+ surface in the usual manner when deselecting the editor.</p>
+<p> The basic operations are:
+ </p>
+<ul><li><b>Creating a path</b>: Press Shift and left-click on the
+ surface. A path can only be created if no other path is selected.
+ Paths can be deselected by left-clicking onto the surface.</li><li><b>Adding a node to a selected path</b>: Press Shift and
+ left-click on the surface. A node can only be added to a path if
+ it is the only selected path. The node will always be added
+ after the last added node.</li><li><b>Inserting a node into a selected path</b>: Press
+ 'I' and left-click on the path at the point where you
+ want to insert the node. The path must be the only selected
+ path.</li><li><b>Selecting a path</b>: Left-click on the path.</li><li><b>Selecting a node</b>: Left-click on the node. A path
+ must be selected to select one of its nodes.</li><li><b>Selecting more than one path</b>: Press 'S' and
+ left-click on the next path you also want to select.</li><li><b>Deselecting a selected path</b>: Press 'S' and
+ left-click on the path.</li><li><b>Moving a selected node</b>: Press Shift and left-click on
+ the point of the surface you want to move the node to.</li><li><b>Delete selected items </b>: Press 'D' or the Delete
+ button. If a node is
+ selected, it will be deleted. Else all selected paths will be
+ deleted.</li>
+</ul>
+<p>Once a <em>SurfacePathSet</em> with one or more surface paths has been created
+ their length can be queried by selecting a path and read its length from 
+ port <em>Info</em>. If multiple paths are to be measured at once the 
+ <em>SurfacePathSet</em> can be converted to a <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> 
+ object using <em>Compute</em>-&gt;<a class="link" href="../hxspatialgraph/CastHxLineSetToHxSpatialGraph.html#A1">LineSetToSpatialGraph</a>
+ and then analyzed using a <a class="link" href="../hxspatialgraph/HxSpatialGraphStats.html#A1">SpatialGraphStatistics</a>
+ module.
+</p>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_info.png" /><br /></div>
+<div class="body"><p>This port informs the user about a selected path, if a single path
+ is selected. If no path yet exists, the user is also informed how
+ to create a new path.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Advanced options</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_advancedOptions.png" /><br /></div>
+<div class="body"><p>By default, advanced options are hidden. They will be displayed
+ if the <em>show</em> toggle is checked.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Connector</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_connector.png" /><br /></div>
+<div class="body"><p>Select a strategy to connect two points. Several different
+ connectors exist. Choose one from the list below.
+ </p>
+<ul><li><b>Dijkstra</b>: connects two nodes using nodes computed
+ with Dijkstra's shortest path algorithm. The path will therefore
+ only cover edges and vertices of the surface. Note that if a
+ surface scalar field is connected to the surface, the Dijkstra
+ connector will use the edge weights provided by this scalar
+ field instead of the edge lengths.</li><li><b>TriangleDijkstra</b>: connects two nodes using nodes
+ computed with Dijkstra's shortest path algorithm. In contrast to
+ the <em>Dijkstra</em> connector, the intermediate nodes generated
+ by this connector lie in the middle of the surface edges. The
+ segments cross the triangles, hence the name <em>TriangleDijkstra</em>.</li><li><b>PlaneCut</b>: uses the two triangle normals of the points
+ that are to be connected to compute a plane. This plane is
+ intersected with the surface and the shortest connection of the
+ points within this intersection is taken as path. The plane is
+ chosen such that the angle between the two surface normals and
+ the plane are equal.</li><li><b>Geodesic</b>: computes the shortest geodesic path
+ between two points. The used algorithm is extremely slow. If
+ time restrictions are not critical, prefer this geodesic
+ connector, otherwise try one of the following three connectors.</li><li><b>P2PGeodesic</b>: like Geodesic but runs a little faster.</li><li><b>ApproxGeodesic</b>: an approximation of the
+ Geodesic algorithm that runs a lot faster.</li><li><b>LocallyShortest</b>: computes a geodesic between the two
+ points. However, it might not be the shortest one, but only the
+ locally shortest one.</li><li><b>NonManifold</b>: computes path along non-manifold edges
+ of surface. A path can only be computed if the control points
+ belong to the same non-manifold.
+</li>
+</ul>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Control point type</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_controlPointType.png" /><br /></div>
+<div class="body"><p>When a new control point is created by Shift-clicking onto the surface, the
+ control point will be of the type that is selected here. If <em>Vertex</em> is
+ chosen, then the control point will be created on the nearest vertex on the
+ surface, for <em>Edge</em> the nearest point on the closest edge will
+ be chosen.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_action.png" /><br /></div>
+<div class="body"><p><b>Undo</b>: Undoes an editing step.<br />
+
+ <b>Redo</b>: Redoes an operation after <em>undo</em>.<br />
+
+ <b>Delete Path(s)</b>: Delete all selected paths. The user can
+ select all paths by pressing the <em>Select all</em> button.<br />
+
+ <b>Delete Vertex</b>: Delete the selected vertex.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Path operations (1)</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_pathOperations1.png" /><br /></div>
+<div class="body"><p><b>Close</b>: Connects the start and end node of the active
+ path. As there is no last node, nodes cannot be appended to a
+ closed path.<br />
+
+ <b>Open</b>: If the selected path is closed it is either
+ opened on the selected node or, if no node is selected, it is
+ opened at the node that was the last node before the path was
+ closed. If the selected path is already open and a node in this
+ path is selected, the path is split in two at this node.<br />
+
+ <b>Reverse</b>: Reverses the active path. After reversing a path,
+ new nodes will be appended at the beginning and not at the
+ end of the reversed path.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Path operations (2)</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_pathOperations2.png" /><br /></div>
+<div class="body"><p><b>Merge</b>: Merge tries to connect endpoints of selected paths
+ and make them one path.<br />
+
+ <b>Entangle</b>: Computes a node for each point of intersection of
+ line segments in the path set. If two nodes of the paths are
+ similar or equal in coordinate and type, they are replaced by a
+ single node. Entangled nodes can be moved like normal nodes, but
+ when moving them, all paths that belong to it are changed as well.<br />
+
+ <b>Untangle</b>: Opposite to <em>Entangle</em>. If a node occurs in more
+ than one path it is duplicated once for each path.<br />
+
+ <b>Split at Intersections</b>: If two paths not only intersect in
+ one point, but in a line segment, fix removes the overlapping part
+ of one of the paths and splits them into two at these points. In
+ the resulting path set, all paths only intersect in points.</p>
+
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Surface operations</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_surfaceOperations.png" /><br /></div>
+<div class="body"><p><b>Import Surface Contours</b>: Creates paths along the boundary of
+ surface patches.<br />
+
+ <b>Patchify</b>: Decomposes surface into several patches if surface
+ paths completely surround regions on the surface. If the path
+ nodes do not lie on vertices only, this operation cannot be
+ applied directly. Using the <em>Snap to edges</em> button, the user
+ can convert the path into a vertex path for which patchification
+ can be applied.
+</p>
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Path selection</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_pathSelection.png" /><br /></div>
+<div class="body"><p>Select and deselect all paths. Since most operations work on
+ selected paths only, these buttons enable the user to quickly
+ select all paths. Deselection is equally important.</p>
+<p> <a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select path</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_selectPath.png" /><br /></div>
+<div class="body"><p>Select a specific path by setting the respective path id. A value
+ of -1 deselects all paths.</p>
+<p> <a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select CP</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_selectCP.png" /><br /></div>
+<div class="body"><p>Select a specific control point of the selected path by setting
+ the control point id. A value of -1 deselects all control points.</p>
+<p> <a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Path operations (3)</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_pathOperations3.png" /><br /></div>
+<div class="body"><p><b>Smooth path</b>:
+ This option smooths a path, whereby the end nodes will be fixed.<br />
+
+ <b>Snap path to edges</b>:
+ Snap transforms nodes that are near another node type, i.e. edge
+ or vertex, into this type. If, for example, a triangle-node is
+ very close to an edge, then it is moved to the closest point on
+ the edge and becomes an edge-node. Here, very close means, the
+ difference of the coordinates of the nodes is smaller than <em>epsilon</em>, where the epsilon can be defined using the <em>Snap
+ epsilon</em> port. A triangle-node can become an edge or vertex
+ node and an edge-node can become a vertex-node but not vice versa.
+ Snapping paths to vertex nodes is necessary to directly allow
+ patchification of the surface using the surface path.</p>
+<p> <a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Snap epsilon</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_snapEpsilon.png" /><br /></div>
+<div class="body"><p>Defines the epsilon for snapping nodes to their nearest edges or
+ vertices.</p>
+<p> <a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Snap epsilon mode</span>  
+<div class="portsnapshot"><img src="HxSurfacePathSet_snapEpsilonMode.png" /><br /></div>
+<div class="body"><p>When converting nodes to other types one can compare the absolute
+ or relative coordinates. When this port is set to <em>world</em>, the
+ epsilon is interpreted as an absolute value and when snapping,
+ world-coordinates are compared. Else the snap-method compares
+ barycentric coordinates.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

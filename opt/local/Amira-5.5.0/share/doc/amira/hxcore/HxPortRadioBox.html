@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortRadioBox</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortRadioBox" "buttons for selecting one item from many choices" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides multiple toggle buttons with a radio behavior, i.e.,
+ only one button can be switched on at a time. Thus the port facilitates
+ a one-of-many choice. For a larger number of possible choices usually a
+ combo box as provided by <a class="link" href="HxPortMultiMenu.html#A1">PortMultiMenu</a> is more
+ suitable.</p>
+<p> <img src="HxPortRadioBox.png" /></p>
+<p> Modules using this port are for example
+ <a class="link" href="../hxlattice/HxOrthoSlice.html#A11">OrthoSlice</a> or
+ <a class="link" href="../hxdataprobe/HxDataProbe.html#A7">SplineProbe</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the index of the button currently being selected.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;index&gt;</span>  
+
+<div class="body"><p>Selects button <tt>&lt;index&gt;</tt> and deselects the previously selected
+ button.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;index&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>If only one argument is given, this command sets the port's label.
+ If two arguments are given, this command sets the label of radio
+ button <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;index&gt;]</span>  
+
+<div class="body"><p>If no arguments are given, this command returns the port's label. If
+ one argument is given, this command returns the label of radio button
+ <tt>&lt;index&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity &lt;index&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables radio button <tt>&lt;index&gt;</tt>. A disabled button is
+ grayed out and cannot be selected interactively.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity &lt;index&gt;</span>  
+
+<div class="body"><p>Checks whether radio button <tt>&lt;index&gt;</tt> is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNum</span>  
+
+<div class="body"><p>Returns the total number of radio buttons of the port.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.9 Sub-application Concept</a></h3>
+<p>Beside visualization modules, the user interface enable an easier and 
+faster swap between application areas. With the user-friendly "sub-application" 
+concept several dedicated components are accessible as independent applications 
+assembled together into the general Amira platform. Each component provides its 
+own specific interface, its dedicated tools and visualization options. 
+Since switching between different components takes place through a simple toolbar, 
+the user can explore and approach complex data sets using dedicated tools in the 
+sub-applications, and keep a clear overview in the general purpose framework.
+To access the sub-application a toolbar is available in the upper-left corner of the main window.</p>
+<p>
+The following components are currently sub-applications:</p>
+<p></p>
+<ul><li>Object Pool</li><li>Segmentation Editor</li><li>Filament Editor (requires <font face="helvetica">Microscopy Option</font>)</li><li>Multi-planar Viewer</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=subapp_toolbar.png.html><img width=450 src="subapp_toolbar.png" /></a><br />
+<div class="caption">
+<b>Figure 51:</b>
+The Sub-application Toolbar.</div>
+
+
+</div><p>
+
+Technically, the sub-applications shall be registered dynamically in Amira .rc 
+files like standard modules. The DLL providing a sub-application are
+loaded at run-time when the sub-application is opened.
+
+</p></body>
+</html>

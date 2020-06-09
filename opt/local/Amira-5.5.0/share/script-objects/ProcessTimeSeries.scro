@@ -1,0 +1,135 @@
+# Amira-Script-Object v3.0
+
+$this script hide
+
+$this proc constructor {} {
+    global env
+
+    $this newPortDoIt doit
+    $this newPortMultiMenu output 1
+    
+    $this newPortInfo info
+    $this info setValue "Make sure \"auto-refresh\" is checked in compute module!"
+
+    #echo $env(TMP)
+    if { [ info exists env(TMP) ] } {
+        set tmpdir $env(TMP)      
+    } else {set tmpdir ""}
+    
+    $this newPortFilename dir
+    $this dir setLabel "Temp. dir."
+    
+    if {$tmpdir != ""} {
+       $this dir hide
+       $this dir setValue $tmpdir  
+    }
+
+    $this newPortConnection timeS HxDynamicFileSeriesCtrl
+    
+    $this newPortConnection result HxDynamicFileSeriesCtrl
+}
+
+$this proc update {} {
+    # update list of data objects
+    set tmp [all HxData]
+    set objs []
+    for { set i 0 } { $i < [llength $tmp] } { incr i } {
+	     if { [[lindex $tmp $i] iconVisible] } {
+	       lappend objs [lindex $tmp $i]
+	     }
+    }
+    set tmp $objs
+
+    set val [$this output getValue 0]
+    $this output setNum 0 [llength $tmp]
+    for { set i 0 } { $i < [llength $tmp] } { incr i } {
+       $this output setLabel 0 $i [lindex $tmp $i]
+    }
+    $this output setValue $val
+    
+    if { [$this data isNew] } {
+       set bla [$this data source]
+       for { set i 0 } { $i < [$this output getNum 0]} { incr i } {
+          set label [$this output getLabel 0 $i]
+          if { $bla == $label } {
+             $this output setValue 0 $i
+             $this data connect $label
+             break;
+          }
+       }
+    }
+
+    $this data connect [$this output getLabel 0 [$this output getValue 0]]
+
+    $this setVar selection [lindex $tmp $val]
+    #echo [$this getVar selection]
+    
+}
+
+$this proc compute {} {
+    set tsc [$this timeS source]
+    if { $tsc == "" || [$tsc getTypeId] != "HxDynamicFileSeriesCtrl" } {
+       return
+    }    
+    
+    if { ![$this doit wasHit] } {
+       return
+    }
+    if { $tsc == "" || [$tsc getTypeId] != "HxDynamicFileSeriesCtrl" } {
+       echo "Error: connect a TimeSeriesCtrl module to the input of this script"
+       return
+    }    
+
+    set data [$this data source]
+    if { $data == "" } {
+       echo "Error: could not find an output object"
+       return
+    }
+    
+    set dir [$this dir getValue]
+    if { $dir == "" || ![file isdirectory $dir] } {
+       echo "Error: Directory does not exist"
+	     return
+    }
+
+    # now create a new output series, look for some temporary memory
+    set files []
+    set name $data
+    set originalTimePoint [$tsc time getValue]
+    for { set i 0 } { $i <= [lindex [$tsc time getMinMax] 1] } { incr i } {
+       $tsc time setValue $i
+	     $tsc fire
+	     set data [$this data source]
+	     if { $data == "" } {
+	        echo "Error: could not find an output object"
+	        return
+	     }
+	     set fn [format "%s%04d" $name $i]
+	     $data save AmiraMesh $dir/$fn
+	     lappend files $dir/$fn
+    }
+    $tsc time setValue $originalTimePoint
+    $tsc fire
+
+    set tsc2 [$this result source]
+    if { $tsc2 == "" } { 
+       set tsc2 [create HxDynamicFileSeriesCtrl]   
+    } else {
+       set da [$tsc2 getResult]
+       echo "result of $tsc2 is \"$da\""
+       if { $da != "" } {
+          remove $da
+       } 
+    }
+    set tsc2 [$tsc2 setLabel "TimeSeriesControl"]
+    $tsc2 fire
+    
+    set cmd "$tsc2 init -loadCmd \{load \"\\\$FILENAME\"\} "
+    foreach u $files {
+	     set cmd "$cmd \\\n \"$u\""
+    }
+    echo $cmd
+    eval $cmd
+    # remember the output
+    $this result connect $tsc2
+}

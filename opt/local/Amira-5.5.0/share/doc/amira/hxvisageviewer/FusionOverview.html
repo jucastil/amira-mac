@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Overview of the Multiplanar Viewer</a></h3>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=fusionViewer-theFV.png.html><img width=675 src="fusionViewer-theFV.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+The Multi-planar Viewer.</div>
+
+
+</div><p></p>
+<p>The Multi-planar Viewer is activated by pressing the Multiplanar Viewer button in the 
+sub-application task bar. This will change the layout of the main and viewer 
+window as shown in <a class="link" href="#A2">Figure 1</a>. The main components of this layout are 
+the viewer (MPR+3D viewer), the user interface to control the visualization, 
+the toolbox, and information area.</p>
+<p><b>The MPR+3D viewer</b><br />
+
+By default, the viewer is displayed in 4-viewer mode. 
+If you prefer to work with one larger view rather than four smaller views,
+double-click on the viewer of your choice. To switch back to 4-viewer mode just 
+double-click on the single viewer again. Right-clicking on a viewer 
+activates the context-menu through which you can access tools and visualization options.</p>
+<p><b>The User Interface</b>
+</p>
+<ul><li><p><b>Data Selectors</b>: In the upper part of the main window two data 
+selectors allow selecting the primary and secondary image volumes to be 
+displayed. The pull-down menus will list all compatible data objects that are
+available in Amira's workspace (<b>Pool)</b>). We define the terms "Primary" and "Overlay" in the 
+ context of the Multiplanar Viewer as:</p>
+
+<ul><li><b>Primary</b> - Reference data set. This data set will be considered our principal data set
+ to which a secondary data set could be eventually compared or registered. 
+ In the context of PET/CT fusion, the CT data set would be used as reference 
+ data set as it provides the best anatomical reference.</li><li><b>Overlay</b> - Secondary data set, which could be compared or registered to the Primary.</li>
+</ul></li><li><p><b>2D Settings</b>: controls for the colormap settings, the Primary-Overlay ratio 
+(or the Alpha transparency if just one data set is displayed), 
+the thickness and rendering mode of the thick slice in the 2D viewers.
+Thick slice rendering Modes:</p>
+
+<ul><li><b>MIP</b> - Maximum intensity projection. The brightest 
+data value along each ray of sight in the thick slice is displayed. 
+This mode is especially useful for very sparse data sets, for example, 
+angiographic data or images of neurons.</li><li><b>MinIP</b> - Minimum intensity projection. Same as MIP but with the darkest value.</li><li><b>Average</b> - The average data value along each ray in the thick slice is calculated and displayed.</li>
+</ul></li><li><p><b>3D Settings</b>: same as 2D Settings but applied to the 3D viewer. Volume Rendering Modes: </p>
+
+<ul><li><b>VRT</b> - Texture-based volume rendering, with optional shading effects. 
+If VRT is selected the user can optionally set the light effect to "normal", "diffuse", or "specular".</li><li><b>MIP</b> - Maximum intensity projection. The brightest data value along each ray of sight is displayed 
+instead of the result of the emission absorption model. If MIP is selected the 
+user can optionally set the visualization effect to "normal" or "inverse".</li><li><b>3D MPR button</b> - Turns on/off the MPR in the 3D viewer.</li>
+</ul></li><li><b>Label Field</b>: In the central part of the editor window boxes allow 
+to select the LabelField object to be visualized. This port refers to the Primary data set; 
+to be activated the loaded LabelField must to have the same dimensions as the Primary data set. If the 
+port is activated and the checked, the materials will be listed in the window below.
+You can optionally turn on/off the 3D rendering, select a constant color for rendering, or 
+fade the labeled voxels.</li>
+</ul><p></p>
+<p><b>The Toolbox</b><br />
+
+Below the label window, a toolbox provides access for the registration 
+tools. Depending on the currently selected tool the 
+area below the tool bar will show additional controls. The registration tools are activated only 
+if the Primary and the Overlay are both available and the tools are applied to the Overlay data set.
+Two tabs are available in the toolbox: the Automatic and the Manual Registration.</p>
+<p><img src="AutoRegistr.png" /> <b>Automatic Registration</b><br />
+
+The interface and the functionalities of the Automatic Registration tools are the same 
+as the <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">AffineRegistration</a> module. Please see its documentation for a complete description and tutorial.
+In additon the <em>Monitor</em> toggle allows the user to track the actual registration progress.</p>
+<p><img src="CorrectRegistr.png" /><b>Transform Editor Options</b><br />
+</p>
+<p>The interface and the functionality of the Transform Editor Options
+corresponds to the dialog of the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a>. Please refer to the Transform Editor documentation for a complete description.</p>
+<p><b>Information Area</b><br />
+</p>
+<p>At the bottom of the control panel a status area informs the user about 
+the data being visualized.</p>
+<p>
+</p></body>
+</html>

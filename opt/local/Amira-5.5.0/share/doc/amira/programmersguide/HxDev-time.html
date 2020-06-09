@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">30.1 Time-Dependent Data And Animations</a></h2>
+<p>This section covers some more advanced topics of <font face="helvetica">Developer Option</font>, namely the handling
+of dynamic data sets and the implementation of animated compute tasks. Before
+reading the section you should at least know how to write ordinary IO routines
+and modules.</p>
+<p></p>
+<h3><a name="A2">30.1.1 Time Series Control Modules</a></h3>
+<p>In general, the processing of time-dependent data sets is a challenging
+task in 3D visualization. Usually not all time steps of a dynamic data
+series can be loaded at once because of insufficient main memory. Even if all
+time steps would fit into memory it is usually not a good idea to load every
+time step as a separate object in <font face="helvetica">Amira</font>. This would result in a large
+number of icons in the Pool. The selection between different time
+steps would become difficult.</p>
+<p>A better solution comprise special-purpose control modules. An example
+is the <a class="link" href="../hxtime/HxDynamicFileSeriesCtrl.html#A1">time series control module</a> described
+in the user's guide. This module is created if a time series of data
+objects each stored in a separate file is imported via the <em>Load time
+series...</em> option of the main window's file menu. Instead of loading all
+time steps together the control module loads only one time step at once.
+The current time step can be adjusted via a time slider. When a new time
+step is selected the data objects associated with the previous one are
+replaced.</p>
+<p>If you want to support a file format where multiple time steps are stored in a
+common file, you can write a special time series control module for that
+format. For each format a special control module is needed because seeking for
+a particular time step inside the file of course is different for each format.
+For convenience, you may derive a control module for a new format from the
+class <em>HxDynamicDataControl</em> contained in the package <em>hxtime</em>.
+This base class provides a time slider and a virtual method <tt>newTimeStep(int k)</tt> which is called whenever a new new time step is to
+be loaded. In contrast to the standard time series control module in most
+other control modules data objects should be created only once. If a new
+time step is selected existing objects should be updated and reused instead
+of replacing them by new objects. In this way the burden of disconnecting
+and reconnecting down-stream objects is avoided.</p>
+<p></p>
+<h3><a name="A3">30.1.2 The Class HxPortTime</a></h3>
+<p>In principal, an ordinary float slider (<em>HxPortFloatSlider</em>) can be
+used to adjust the time of a time series control module or of some other
+time-dependent data object. However, in many cases the special-purpose
+class <em>HxPortTime</em> defined in the package <em>hxtime</em> is more
+appropriate. This class can be used like an ordinary float slider but it
+provides many additional features. The most prominent one is the possibility
+to auto-animate the slider. In addition, <em>HxPortTime</em> can be connected
+to a global time object of type <a class="link" href="../hxtime/HxTime.html#A1">HxTime</a>. In this way multiple
+time-dependent modules can be synchronized. In order to create a global
+time object, choose <em>Time</em> from the main window's <em>Create</em>
+menu.</p>
+<p>Another feature of <em>HxPortTime</em> is that the class is also an interface,
+i.e., it is derived from <em>HxInterface</em> (compare 
+<a class="link" href="HxDev-dataremarks.html#A1">Section 27.1.2</a>). In this way it is possible to write modules which
+can be connected to any object containing an instance of <em>HxPortTime</em>.
+An example is the <em>DisplayTime</em> module. In order to access the
+time port of a source object the following C++ dynamic cast construct
+should be used:</p>
+<p><font size="2"></font></p><pre>
+    HxPortTime* time = dynamic_cast&lt;HxPortTime*&gt;(
+        portData.source(HxPortTime::getClassTypeid()));
+</pre><p><font size="2"></font></p>
+<p>In the previous section we discussed how time-dependent data could be
+imported using special-purpose control modules. Another alternative is
+to derive a time-dependent data object from an existing static one. An
+example of this is the class <em>MyDynamicColormap</em> contained in the
+demo package of <font face="helvetica">Developer Option</font>. Looking at the header file <tt>packages/mypackage/MyDynamicColormap.h</tt> in the local <font face="helvetica">Amira</font> directory you
+notice that this class is essentially an ordinary
+colormap with an additional time port. Here is the class declaration:</p>
+<p><font size="2"></font></p><pre>
+    class MYPACKAGE_API MyDynamicColormap : public HxColormap
+    {
+        HX_HEADER(MyDynamicColormap);
+
+      public:
+        // Constructor.
+        MyDynamicColormap();
+
+        // This will be called when an input port changes.
+        virtual void compute();
+
+        // The time slider
+        HxPortTime portTime;
+
+        // Implements the colormap
+        virtual void getRGBA1(float u, float rgba[4]) const;
+    };
+</pre><p><font size="2"></font></p>
+<p>The implementation of the dynamic colormap is very simple too (see the
+file <tt>MyDynamicColormap.cpp</tt>). First, in the constructor the time slider
+is initialized:</p>
+<p><font size="2"></font></p><pre>
+    portTime.setMinMax(0,1);
+    portTime.setIncrement(0.1);
+    portTime.setDiscrete(0);
+    portTime.setRealTimeFactor(0.5*0.001);
+</pre><p><font size="2"></font></p>
+<p>The first line indicates that the slider should go from 0 to 1. The increment
+set in the next line defines by what amount the time value should be changed if
+the backward or the forward button of the slider is pressed. The next line
+unsets the discrete flag. If this flag is on, the slider value always would be
+an integer multiple of the increment. Finally, the so-called real-time factor
+is set. Setting this factor to a non-zero value implies that the slider
+is associated with physical time in animation mode. More precisely, the number
+of microseconds elapsed since the last animation update is multiplied with
+the real-time factor. Then the result is added to the current time value.</p>
+<p>In order to see the module in action compile the demo package, start <font face="helvetica">Amira</font>
+(use the <tt>-debug</tt> option or the debug executable if you compiled in debug mode), and choose
+<em>DynamicColormap</em> from the main window's <em>Create</em> menu.
+Attach a <em>DisplayColormap</em> module to the colormap and change the
+value of the colormap's time slider. Animate the slider. The speed of
+the animation can be adjusted by resetting the value of the real-time
+factor using the Tcl command <tt>DynamicColormap time setRealTimeFactor</tt>.</p>
+<p></p>
+<h3><a name="A4">30.1.3 Animation Via Time-Out Methods</a></h3>
+<p>In some cases you might want certain methods to be called in regular intervals
+without using a time port. There are several ways to do this. First, you could
+use the Open Inventor class <tt>SbTimerSensor</tt> or related classes. Another
+possibility would be to use the Qt class <tt>QTimer.</tt> However, both methods 
+have the disadvantage that the application
+can get stuck if too many timer events are emitted at once. In same cases
+it could even be impossible to press the stop button or some other button
+for turning off user-defined animation. For this reason <font face="helvetica">Amira</font> provides its
+own way off registering time-out methods. The relevant methods are implemented
+by the class <tt>HxController</tt>. Suppose, you have written a module with a
+member method called <tt>timeOut</tt>. If you want this method to be called
+automatically once in a second, you can use the following statement:</p>
+<p><font size="2"></font></p><pre>
+    theController-&gt;addTimeOutMethod(
+	this,(HxTimeOutMethod)timeOut,1000);
+</pre><p><font size="2"></font></p>
+<p>In order to stop the animation again, use</p>
+<p><font size="2"></font></p><pre>
+    theController-&gt;removeTimeOutMethod(
+	this,(HxTimeOutMethod)timeOut);
+</pre><p><font size="2"></font></p>
+<p>Instead of using a member method of an <font face="helvetica">Amira</font> object class, you can also
+register an arbitrary static function using the method <tt>addTimeOutFunction</tt>
+of class <tt>HxController</tt>. The corresponding remove method is called
+<tt>removeTimeOutFunction</tt>. For more information, see the reference
+documentation of <tt>HxController</tt>.</p>
+<p>The <font face="helvetica">Developer Option</font> demo package contains the module <tt>MyAnimateColormap</tt> which
+makes use of the above time-out mechanism. The source code of the module
+again is quite easy to understand. After compiling the demo package, you
+can attach to module under the name <em>DoAnimate</em> to an existing colormap.
+The colormap then is modified and copied. After pressing the animate toggle
+of the module the output colormap is shifted automatically at regular
+intervals. Note that in this example the <tt>fire</tt> method of the module
+is used as time-out method. <tt>fire</tt> invokes the modules <tt>compute</tt>
+method and also updates all down-stream objects.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

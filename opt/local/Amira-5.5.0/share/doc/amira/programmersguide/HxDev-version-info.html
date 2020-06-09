@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">30.4 Using version information</a></h2>
+<p>It is sometimes useful to know the <font face="helvetica">Amira</font> version when compiling
+a module. For example, a module may be capable of using features of a
+newer <font face="helvetica">Amira</font> version but could also working with an older version
+(possibly with a limited functionality). To write such-version
+dependent code, a special header file, <tt>hxcore/version.h</tt>, should be
+included.</p>
+<p>It contains a define that indicates the current version of
+<font face="helvetica">Amira</font> coded in one number and additionally as separate defines
+for <i>major</i>, <i>minor</i>, and <i>patch</i> version. The
+following example is taken from Amira 5.4.1:
+<font size="2"></font></p><pre>
+#define PRODUCT_VERSION 50401
+#define PRODUCT_VERSION_MAJOR 5
+#define PRODUCT_VERSION_MINOR 4
+#define PRODUCT_VERSION_PATCH 1
+</pre><p><font size="2">
+</font></p>
+<p>Let's assume that Amira 5.4 has a exciting new function <tt>foo()</tt>
+that can be used in the <tt>compute()</tt> method of class
+<tt>Bar</tt> if available. The code could look like the
+following:
+<font size="2"></font></p><pre>
+#include &lt;hxcore/version.h&gt;
+//...
+
+void Bar::compute()
+{
+//...
+#if PRODUCT_VERSION &gt;= 50400
+    foo();
+#else
+    // do something similar
+#endif
+//...
+}
+</pre><p><font size="2">
+</font></p>
+<p><b>Note:</b> Older versions of <font face="helvetica">Amira</font> do not contain the file
+<tt>hxcore/version.h</tt>. To write version-dependent code with
+older versions, you would need create this file manually.
+
+</p></body>
+</html>

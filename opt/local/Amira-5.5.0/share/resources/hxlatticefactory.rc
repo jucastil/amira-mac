@@ -1,0 +1,7 @@
+# ----------------------------------------------------------------------
+# hxlatticefactory
+# ----------------------------------------------------------------------
+
+# set HxLatticeFactory_memLimit 1000000000
+# set HxLatticeFactory_forceType HxDiskData
+set HxLatticeFactory_prefDiskType HxDiskData

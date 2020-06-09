@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SpatialData</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "SpatialData" "base class of data objects embedded in 3D space" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ In <font face="helvetica">Amira</font> all data objects embedded in 3D space are derived from this
+ class. Every spatial data object provides a 3D bounding box as well as
+ an optional transformation matrix. The transformation matrix allows the
+ user to translate, rotate, or scale the object and the geometry of any
+ display modules attached to it. Transformations can be defined
+ interactively using the <a class="link" href="HxTransformEditor.html#A1">Transform Editor</a>,
+ animated using a <a class="link" href="../hxtime/HxObjectTransformAnimation.html#A1">TransformAnimation</a> module,
+ or modified from a script using the Tcl commands described below.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxData.html#A1">Data</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getBoundingBox</span>  
+
+<div class="body"><p>Returns the bounding box of the data object. The bounding box consists
+ of 6 values denoting the xmin, xmax, ymin, ymax, zmin, and zmax
+ coordinates in that order. For data objects defined by a set of
+ discrete points like <a class="link" href="../hxcluster/HxCluster.html#A1">point clusters</a>,
+ <a class="link" href="../hxsurface/HxSurface.html#A1">surfaces</a>, tetrahedral or
+ hexahedral grids, the bounding box is the smallest
+ box containing all points. For 3D images it is the smallest box
+ containing all voxel centers, but not all voxels as is.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTransform [-d]</span>  
+
+<div class="body"><p>Returns the transformation matrix of the data object. The
+ transformation matrix is a 4x4 matrix which can be applied to a 3D
+ vector in homogeneous coordinates. It encodes a translation, rotation,
+ and scaling operation. If the <tt>-d</tt> option is specified, the
+ transformation matrix is returned in <em>decomposed</em> form, i.e.,
+ the translation, rotation, and scaling operations are separated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTransform [&lt;a11&gt; &lt;a12&gt; ... &lt;a44&gt;]</span>  
+
+<div class="body"><p>Sets the transformation matrix of the data object. If no arguments
+ are given the transformation is reset to the identity matrix.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getInverseTransform</span>  
+
+<div class="body"><p>Returns the inverse transformation of the data object as a 4x4 matrix.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTranslation</span>  
+
+<div class="body"><p>Returns the translation part of the decomposed transformation matrix
+ of the object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTranslation [&lt;x&gt; &lt;y&gt; &lt;z&gt;]</span>  
+
+<div class="body"><p>Sets the translation part of the decomposed transformation matrix
+ of the object. If no arguments are given the translation part is reset
+ to zero.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRotation</span>  
+
+<div class="body"><p>Returns the rotation part of the decomposed transformation matrix
+ of the object. Four numbers are returned. The first three numbers denote
+ the axis of rotation. The fourth number denotes the angle of rotation
+ in degrees (0...360). </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setRotation [-center &lt;x&gt; &lt;y&gt; &lt;z&gt;] &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;degrees&gt;</span>  
+
+<div class="body"><p>Sets the rotation part part of the decomposed transformation matrix
+ of the object. The rotation is specified by a rotation axis and an
+ angle of rotation. The optional argument <tt>center</tt> can be used to
+ specify the center of rotation.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getScaleFactor</span>  
+
+<div class="body"><p>Returns the scaling part of the decomposed transformation matrix
+ of the object. Three numbers are returned, denoting the scaling in x-,
+ y-, and z-direction.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setScaleFactor [&lt;x&gt; &lt;y&gt; &lt;z&gt;]</span>  
+
+<div class="body"><p>Sets the scaling part of the decomposed transformation matrix
+ of the object. If no arguments are given the scaling part is reset
+ to unity.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">translate [-l|-w] &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Translates the object by modifying its transformation matrix. The
+ optional argument <tt>-l</tt> indicates that the translation is applied
+ in local coordinates (after the existing transformation). This is the
+ default. The optional argument <tt>-w</tt> indicates that the translation
+ is applied in world coordinates (before the existing transformation).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">rotate [-lx|ly|-lz|-wx|-wy|-wz| [-l|-w] &lt;x&gt; &lt;y&gt; &lt;z&gt;] &lt;degrees&gt;</span>  
+
+<div class="body"><p>Rotates the object by modifying its transformation matrix. The object
+ can be rotated around the local x-, y-, or z-axis or around the world
+ x-, y-, or z-axis (as indicated by the arguments <tt>-lx</tt> to <tt>-wza</tt>).
+ Alternatively, the object can be rotated around a user-specified axis
+ in either local or world coordinates. <tt>degrees</tt> specifies the angle
+ of rotation in degrees (0...360).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">scale [-l|-w] &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Scales the object by modifying its transformation matrix. The
+ optional argument <tt>-l</tt> indicates that the scaling is applied
+ in local coordinates (after the existing transformation). This is the
+ default. The optional argument <tt>-w</tt> indicates that the scaling
+ is applied in world coordinates (before the existing transformation).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">multTransform [-l|-r] &lt;a11&gt; &lt;a12&gt; ... &lt;a44&gt;</span>  
+
+<div class="body"><p>Multiplies the current transformation matrix with the specified matrix.
+ The arguments <tt>-l</tt> and <tt>-r</tt> indicate whether the matrix
+ should be multiplied from left or from right. Multiplication from left
+ means that the matrix is applied to the objects local coordinates.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasUndefinedValue</span>  
+
+<div class="body"><p>Indicates if an undefined has been set or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getUndefinedValue</span>  
+
+<div class="body"><p>Return the undefined value. If <em>hasUndefinedValue</em> returns 0, the result
+ of this command is undefined.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setUndefinedValue &lt;undefinedValue&gt;</span>  
+
+<div class="body"><p>Set the undefined value. 
+ This method should be called immediately after having read associated data. 
+ Normally, the reader should do this job.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasDataWindow</span>  
+
+<div class="body"><p>Indicates if a data window has been set or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDataWindow &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Set the data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeDataWindow</span>  
+
+<div class="body"><p>Remove the data window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRange [-d|-w]</span>  
+
+<div class="body"><p>This method is provided here for convenience because many spatial data objects 
+ (although not all) contain data values for which min/max values can be computed. 
+ If such data is available the minimum and maximum data component is computed. 
+ For fields with more than one data variable, for example vector fields, 
+ this is not the magnitude range of the field. 
+ Details of the behavior might depend the specialization of this module and would be noted there.<br />
+
+ If the spatial data object didn't contain any data, result values are 1 0 
+ (The minimum value will be greater than the maximum).<br />
+
+ The optional argument <tt>-d</tt> indicates that the returned values do not include
+ the undefined value.<br />
+
+ The optional argument <tt>-w</tt> indicates that the returned values 
+ correspond to the data window. If no data window is found, 
+ the returned values correspond to the raw data range. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">touchMinMax</span>  
+
+<div class="body"><p>This method is provided here for
+ convenience because many spatial data objects (although not all)
+ contain data values for which min/max values can be computed.
+ Invalidates cached min and max values.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

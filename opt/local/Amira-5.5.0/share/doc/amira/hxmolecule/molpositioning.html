@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.5 Aligning Molecules</a></h2>
+<p>To compare the structures of several molecules it is necessary to
+bring them into a suitable geometric arrangement relative to each
+other, because their absolute positions in the common coordinate
+system are generally meaningless. By arranging the molecules in
+various different ways, you can investigate various aspects.</p>
+<p></p>
+<h3><a name="A2">10.5.1 Alignment of Trajectories</a></h3>
+<p><font face="helvetica">Molecular Option</font> offers a reusable component for the alignment of molecules. It
+appears in several modules, e.g., <a class="link" href="HxMolecule.html#A1">Molecule</a>,
+<a class="link" href="../hxmolconformation/HxConfDensity.html#A1">ConfigurationDensity</a> and
+<a class="link" href="../hxmolconformation/HxMeanMolecule.html#A1">MeanMolecule</a>. Here, we will give an overview
+of the available functionality.</p>
+<p>Two connection ports are supplied: 
+</p><div class="hxconnections">
+<a name="A3"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">AlignMaster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>To compute an alignment relative to a reference molecule, this port
+must be connected to the reference.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PrecomputedAlignment</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be connected to an alignment precomputed by using the module
+<a class="link" href="../hxmolalign/HxPrecomputeAlignment.html#A1">PrecomputeAlignment</a>.
+</p></div></div>
+</div>
+<p>
+The control of the alignment is done via three ports, as described
+below:
+</p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Transformation</span>  
+<div class="portsnapshot"><img src="HxMolecule_transformation.png" /><br /></div>
+<div class="body"><p>This port allows you to specify how the molecule should be aligned.
+The possible options are:
+</p>
+<dl>
+<dt>none:</dt>
+<dd> Atom coordinates are left as they are. <br />
+</dd>
+<dt>center of gravity:</dt>
+<dd> The molecule is positioned to the coordinate 
+ center (center of gravity) by applying a translation.<br />
+</dd>
+<dt>align to master:</dt>
+<dd> This mode requires a master molecule to be
+ connected to the <a class="link" href="#A3">AlignMaster</a> port which
+ is used as a reference to which other molecules, the <em>slaves</em>,
+ are aligned. We consider correspondences between atoms from the
+ reference molecule, i.e. <em>master</em>, and atoms from the molecule
+ to be aligned, i.e. <em>slave</em>. The alignment is done by minimizing
+ the sum of squared distances between all corresponding atoms. <br />
+</dd>
+<dt>precomputed:</dt>
+<dd> This option is only enabled if the
+ <a class="link" href="#A4">PrecomputedAlignment</a>
+ connection port is connected to an alignment object that has been
+ previously computed. If <em>precomputed</em> is chosen, the
+ transformation will be taken directly from this object.<br />
+</dd>
+<dt>external:</dt>
+<dd> This option indicates that the molecule's global
+ transform has been explicitly set, e.g., via the Tcl command <em>setTransform</em> or by using the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform
+ Editor</a>.</dd>
+</dl>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select</span>  
+<div class="portsnapshot"><img src="HxMolecule_selection.png" /><br /></div>
+<div class="body"><p>This port becomes important if <em>align to master</em> is selected. It
+gives control over the atoms in the slave and the master that are used
+for the alignment. In the general case master and slave molecules are
+different, i.e. their numbers of atoms differ, and an alignment
+requires an explicit specification of pairs of atoms. This can be done
+by highlighting atoms in both molecules via the
+<a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a> module and then pressing the <em>in
+ both</em> button. Depending on whether the option menu is set to <em>Set</em> or <em>Add</em>, the highlighted atoms will either replace an
+existing list of selected atoms or otherwise will be appended to it.
+The matching between atoms in the two molecules is defined by their
+order of selection.</p>
+<p>The buttons <em>all</em>, <em>in slave</em>, and <em>in master</em> offer
+shortcuts for the frequent case of slave and master having the same
+number of atoms including the assumption that their order defines a
+natural matching. The easiest way is to use all atoms by pressing <em>all</em>. Selection of a subset can be done by highlighting in either
+the slave or the master and then pressing <em>in slave</em>, or <em>in
+ master</em>, which will use the selected atoms in the respective
+molecule for the other molecule, too.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxMolecule_selectionInfo.png" /><br /></div>
+<div class="body"><p>If <em>align to master</em> is selected, this port displays the existing
+state of selection that is used to compute the alignment. Possible
+forms are:
+</p>
+<dl>
+<dt>empty:</dt>
+<dd> No atoms are selected. At least three are necessary for
+ an alignment.<br />
+</dd>
+<dt>all atoms:</dt>
+<dd> Master and slave have the same number of atoms and
+ all are used for the alignment.<br />
+</dd>
+<dt>0, 5, 6:</dt>
+<dd> A list of indices implies that master and slave have
+ the same number of atoms and identical subsets have been selected.<br />
+</dd>
+<dt>0 &rarr; 7, 5 &rarr; 6, 6 &rarr; 5:</dt>
+<dd> A list of
+ index pairs (master&nbsp;index &rarr; slave&nbsp;index) indicates a matching
+ resulting from individual selections in master and slave.</dd>
+</dl></div></div>
+</div>
+<p></p>
+<p></p>
+<h3><a name="A8">10.5.2 Mean Distance Alignment</a></h3>
+<p>Apart from the above mentioned alignment procedure, there exists a
+module that allows you to align two molecules by using the
+<em>mean distance</em> criterion instead of the <em>mean squared
+ distance</em>. See <a class="link" href="../hxmolalign/HxAlignMolecules.html#A1">AlignMolecules</a> for more
+information.</p>
+<p></p>
+<h3><a name="A9">10.5.3 Sequence alignment</a></h3>
+<p><font face="helvetica">Molecular Option</font> allows you to <a class="link" href="../hxmolalign/HxSeqAlign.html#A1">align the sequences</a> of two
+molecules. Three algorithms are available for use depending on the
+kind of data and your needs: local, semi-global, and global alignment.
+The algorithms work both for proteins and ribonucleic acids, whereas
+t-RNA molecules are currently not supported because they contain
+modified bases. This module can be very helpful when used in
+conjunction with the <a class="link" href="../hxmolalign/HxAlignMolecules.html#A1">AlignMolecules</a> module.</p>
+<p>
+
+
+</p>
+<p>
+
+</p></body>
+</html>

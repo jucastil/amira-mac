@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.3.2 Additional Features of the Plot API</a></h3>
+<p>The `pointer to curve' objects returned by the <tt>putData</tt> call can be used
+to access the curve directly, i.e., to manipulate its attributes. The most
+important attributes of curve objects are:
+</p>
+<ul><li>Color, represented by a RGB values between 0 and 1. Can be set by
+ calling:<br />
+<tt>curve-&gt;setAttr("color", r, g, b);</tt></li><li>Line width, represented by an integer number. Can be set by
+ calling:<br />
+<tt>curve-&gt;setAttr("linewidth", linewidth);</tt></li><li>Line type, represented by an integer number. Available line types are
+ 0=no line, 1=line, 2=dashed, 3=dash-dotted, and 4=dotted. Can be set by
+ calling:<br />
+<tt>curve-&gt;setAttr("linetype", type);</tt></li><li>Curve type, represented by an integer number. Available curve types
+ are 0=line curve, 1=histogram, 2=marked line, 3=marker. Can be set by
+ calling:<br />
+<tt>curve-&gt;setAttr("curvetype", type);</tt></li>
+</ul><p></p>
+<p>For each attribute corresponding <tt>getAttr</tt> methods are available. In order to access the axis of the `easy plot' window, you must call
+<font size="2"></font></p><pre>
+    PzAxis* axis = plot-&gt;getTheAxis();
+</pre><p><font size="2"></font> 
+Don't forget to include the corresponding header file <tt>PzAxis.h</tt>.</p>
+<p>
+The color, line width, and line type attributes of the curves apply to axes as well. Besides this, there are some more methods to change the appearance of axes:
+<font size="2"></font></p><pre>
+    // Set the range of the axes
+    float xmin = 0.0, xmax = 1.0;
+    float ymin = 0.0, ymax = 1.0;
+    axis-&gt;setMinMax(xmin, xmax, ymin, ymax);
+
+    // Set the label of an axis
+    axis-&gt;setLabel(0, "X Axis");
+    axis-&gt;setLabel(1, "Y Axis");
+</pre><p><font size="2"></font></p>
+<p>If you are not satisfied with the size of the plot window and you don't want to change it using the mouse every time, just call <tt>setSize</tt> right after creating the plot window:
+<font size="2"></font></p><pre>
+    plot-&gt;setSize(width, height);
+</pre><p><font size="2"></font> 
+As you would expect, the methods <tt>getMinMax</tt>, <tt>getLabel</tt> and <tt>getSize</tt> are also available with the same parameter list as their <tt>set</tt> counterparts. </p>
+<p>Finally, it is also possible to have a legend or a grid in the plot. In this case more arguments must be specified in the constructor of <tt>PzEasyPlot</tt>: 
+<font size="2"></font></p><pre>
+     int withLegend = 1;
+     int withGrid = 0;
+     plot = new PzEasyPlot("Area per slice",
+        withLegend, withGrid);
+</pre><p><font size="2"></font>
+Like the axis, the legend and the grid are internally represented by separate objects of type <tt>PzLegend</tt> and <tt>PzGrid</tt>. You can access these objects by calling the methods <tt>getTheLegend</tt> and <tt>getTheGrid</tt>. Details about the member methods of these objects are listed in the class reference documentation.
+</p></body>
+</html>

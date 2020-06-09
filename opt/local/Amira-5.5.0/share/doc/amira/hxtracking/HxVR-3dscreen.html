@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.5.1 Example: A Workbench Configuration</a></h3>
+<p>A single-screen 3D projection system is often called an immersive
+workbench. The actual projection screen can either be in up-right position,
+or it can be oriented like the surface of a table. Of course, any other
+orientation is possible too. There are even devices like the Barco Baron
+with can be arbitrarily tilted between fully horizontal and fully vertical
+position. For <font face="helvetica">Virtual Reality Option</font> there is no difference between these configurations,
+as long as the tracking system is calibrated in the right way.
+Traditionally a workbench is driven by a CRT projector using active
+stereo. However, today also passive stereo systems based on two LCD or DLP
+projectors become more common. In the config file below we assume that
+an active stereo system is used, or that a passive stereo system is
+connected via an appropriate signal splitter. This means that the workbench
+can be used with any standard stereo-capable graphics computer. No
+dual-head or multi-pipe computer is necessary. An example of a
+single-screen workbench is shown in Figure <a class="link" href="#A2">64</a>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-3dscreen.png.html><img width=450 src="HxVR-3dscreen.png" /></a><br />
+<div class="caption">
+<b>Figure 64:</b>
+A single-screen 3D projection system.</div>
+
+
+</div><p></p>
+<p>An <font face="helvetica">Virtual Reality Option</font> config file for driving a single-screen immersive workbench
+with a tracked 3D input device but without head tracking is listed below.
+Instead of actually tracking the observer's eye position in this case
+a fixed default camera position is used. This can be useful for
+demonstrations in front of small or medium-size groups, since it produces
+less fidget images. In addition, it saves a second sensor for the
+tracking system.</p>
+<p><font size="2"></font></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Workbench"
+        lowerLeft       0 0 0
+        lowerRight      170 0 0
+        upperRight      170 130 0
+        upperLeft       0 130 0
+        cameraMode      ACTIVE_STEREO
+    }
+    SoTracker {
+        server          "4147:4148"
+        autoConnect     TRUE
+        wandTrackerId   0
+        headTrackerId   -1
+        defaultCameraPosition 85 65 140
+        defaultObjectPosition 85 65 0
+        referencePoints [0 0 0,170 0 0,170 130 0,0 130 0]
+    }
+}
+</pre><p><font size="2"></font></p>
+<p></p>
+<h4><a name="A3">Single screen configuration</a></h4>
+<p>In the <em>SoScreen</em> section of the config file the physical coordinates
+of the four corners of the workbench are defined. This can be done using an
+arbitrary right-handed coordinate system with arbitrary units. In this case
+the coordinates might be specified in centimeters. The origin of the
+coordinate system was chosen in the lower left corner of the screen. By
+default, a full-screen graphics window is opened when activating this
+configuration. The field <em>cameraMode</em> indicates that the graphics
+window should be opened in active stereo mode by default.</p>
+<p></p>
+<h4><a name="A4">Tracking system configuration</a></h4>
+<p>In the <em>SoTracker</em> section of the config file the tracking system is
+described. First the shared memory ids of the trackd daemon as specified
+in the <em>trackd.conf</em> file are listed.<br />
+ 
+The syntax is <tt>Id-of-controller-reader:Id-of-tracker-reader</tt>.
+For more information about
+setting up trackd please refer to section <a class="link" href="HxVR-calibrate.html#A1">11.6</a>.
+The <em>autoConnect</em> field indicates that a connection to the trackd
+server should be established automatically as soon as the configuration is
+activated. <em>wandTrackerId</em> denotes the trackd sensor id of the 3D input
+device. Head tracking is disabled by setting <em>headTrackerId</em> to -1.
+Instead the default camera position set in the line below is used. This
+position must be specified using the same coordinate system as the screen.
+In this case the camera is located 140 cm in front of the screen's center.
+The default object position is the position where the scene is placed
+by default (or whenever a <em>view all</em> request comes from the viewer).</p>
+<p>At the end of the config file four reference points are specified, namely
+the four corners of the screen. Before the configuration can be actually
+used, the tracking system has to be calibrated (see section
+<a class="link" href="HxVR-calibrate.html#A1">11.6</a>). This is done by placing the input device at the
+reference points and clicking an input button. Once the tracking system is
+calibrated, the config file should be written by clicking the <em>write
+config</em> button of the <font face="helvetica">VRSettings</font> control module. The new config file will
+contain the same information listed above, but in addition it will also
+contain some calibration data, e.g., the transformation between raw tracker
+coordinates and screen coordinates.</p>
+<p></p>
+<p>
+</p></body>
+</html>

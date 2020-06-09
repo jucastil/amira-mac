@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.3 Coordinates and Grids</a></h3>
+<p><font face="helvetica">Amira</font> currently supports two important grid types, namely grids with
+hexahedral structure (regular grids), and unstructured tetrahedral grids.
+Other types, e.g., unstructured grids with hexahedral cells or
+block-structured grids will be added in future releases of <font face="helvetica">Amira</font>.</p>
+<p></p>
+<h4><a name="A2">3.2.3.1 Regular Grids</a></h4>
+<p>A regular grid consists of a three-dimensional array of nodes. Each node
+may be addressed by an index triple <em>(i,j,k)</em>. Regular grids are
+further distinguished according to the kind of coordinates being used. The
+most simple case comprises <em>uniform</em> coordinates, where all
+cells are assumed to be rectangular and axis-aligned. Moreover, the grid
+spacing is constant along each axis. A grid with <em>stacked</em> coordinates
+may be imagined as a stack of uniform 2D slices. However, the distance
+between neighboring slices in z-direction may vary. In case of <em>rectilinear</em> coordinates the cells are still aligned to the axes, but the
+grid spacing may vary from cell to cell. Finally, in case of <em>curvilinear</em> coordinates each node of the grid may have arbitrary
+coordinates. Grids with curvilinear coordinates are often used in fluid
+dynamics because they have a simple structure but still allow for accurate
+modeling of complex shapes like rotor blades or airfoils.</p>
+<p></p>
+<h4><a name="A3">3.2.3.2 Tetrahedral Grids</a></h4>
+<p>The <em>TetraGrid</em> class represents a volumetric grid composed of many
+tetrahedrons. Such grids can generally be used to perform finite-element
+simulations, e.g., E-field simulations.</p>
+<p>A considerable amount of information is maintained in a <em>TetraGrid</em>.
+For each vertex a 3D coordinate vector is stored. For each tetrahedron the
+indices of its four vertices are stored as well as a number indicating the
+segment the tetrahedron belongs to as obtained by a segmentation procedure.
+Beside this fundamental information a number of additional variables are
+stored in order for the grid being displayed quickly. In particular all
+triangles or faces are stored separately together with six face indices for
+each tetrahedron. In addition for each face pointers to the two
+tetrahedrons it belongs to are stored. This way the neighborhood
+information can be obtained efficiently.</p>
+<p>When simulating E-fields using the finite-element method, the edges of a
+grid need to be stored explicitly, because vector or Whitney
+elements are used. These elements and its corresponding coefficients are
+defined on a per-edge basis. When a grid is selected information on the
+number of its vertices, edges, faces, and tetrahedrons is displayed.
+
+</p></body>
+</html>

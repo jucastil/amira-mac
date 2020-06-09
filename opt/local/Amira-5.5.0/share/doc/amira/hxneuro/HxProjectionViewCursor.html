@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ProjectionViewCursor</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ProjectionViewCursor" "adds a 3D cursor to a ProjectionView module" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module can be attached to a
+<a class="link" href="HxProjectionView.html#A1">Projection View</a> module. It visualizes a 3D
+location on all three planes. The location is specified by picking (i.e.
+clicking on) any geometry, like an isosurface, in the viewer. If one of the
+three planes of the <em>Projection View</em> itself is picked the module will
+search for the brightest pixel to determine the missing coordinate.
+However, this will only work if a scalar field is connected to the <em>Projection View</em>, but not for color fields or multi-channel fields.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>This module is attached directly to a ProjectionView module.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxProjectionViewCursor_color.png" /><br /></div>
+<div class="body"><p>Color of sphere and circles.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxProjectionViewCursor_options.png" /><br /></div>
+<div class="body"><p>If the 3D sphere option is selected, a sphere is shown
+at the 3D position of the selected location. Otherwise
+only the three projections of the sphere are shown.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxProjectionViewCursor_size.png" /><br /></div>
+<div class="body"><p>Radius of sphere and circles in percent of the bounding box diagonal length.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">LandMarkSet</span>  
+<div class="portsnapshot"><img src="HxProjectionViewCursor_landmarkSet.png" /><br /></div>
+<div class="body"><p>This port can be used to export the current cursor position into a
+<a class="link" href="../hxlandmark/HxLandmarkSet.html#A1">landmark set data object</a>. Such an object will
+be created automatically the first the <em>Add</em> button is pressed.
+After that you can modify the cursor position and append the new
+position to the landmark set by pressing the <em>Add</em> button again.
+The <em>Clear</em> button removes all landmarks stored in the landmark
+set data object.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

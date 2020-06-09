@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Axis</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Axis" "displays axes in local or global coordinates" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Axis</em> module displays a coordinate frame. If the module is
+ attached to an input data object, the coordinate frame is adapted to
+ the bounding box of the input object. Otherwise, global axes centered
+ at the origin of the world coordinate system are displayed. For
+ convenience the <em>View</em> menu of the main window contains a toggle
+ button labelled <em>GlobalAxis</em>. Activating this toggle automatically
+ creates an <em>Axis</em> module in the Pool.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Data object the axes should be adapted to.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Axis</span>  
+<div class="portsnapshot"><img src="HxAxis_axis.png" /><br /></div>
+<div class="body"><p>This port lets you select for which direction axes should be drawn.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxAxis_options.png" /><br /></div>
+<div class="body"><p>This port provides three toggles: If <em>arrows</em> is set, arrows
+ are drawn at the top of each axis. If <em>text</em> is set, labeled
+ ticks are drawn indicating the coordinate values. If <em>grid</em>
+ is set, a coordinate raster is drawn between every pair of visible
+ axes.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Thickness</span>  
+<div class="portsnapshot"><img src="HxAxis_thickness.png" /><br /></div>
+<div class="body"><p>Lets you adjust the thickness of the axes.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colors</span>  
+<div class="portsnapshot"><img src="HxAxis_color.png" /><br /></div>
+<div class="body"><p>Provides buttons for changing the colors of different parts of
+ the geometry. By default, the x-, y-, and z-axes are drawn in
+ red, green, and blue, respectively.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Titles</span>  
+<div class="portsnapshot"><img src="HxAxis_axisNames.png" /><br /></div>
+<div class="body"><p>This port lets you edit axis names. Default axis names are <em>x</em>, <em>y</em>, <em>z</em>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Font</span>  
+<div class="portsnapshot"><img src="HxAxis_font.png" /><br /></div>
+<div class="body"><p>This port lets you specify the font and font attributes used when displaying text.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getBoundingBox</span>  
+
+<div class="body"><p>Returns the bounding box of the volume enclosed by the axes.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBoundingBox &lt;xmin&gt; &lt;xmax&gt; &lt;ymin&gt; &lt;ymax&gt; &lt;zmin&gt; &lt;zmax&gt;</span>  
+
+<div class="body"><p>Lets you change the bounding box of the axis module. Once the
+ bounding box has been set automatically, the box will not be
+ updated automatically anymore, unless the <tt>setBoundingBox</tt>
+ command is issued again with no arguments.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

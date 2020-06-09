@@ -1,0 +1,136 @@
+####################################################################
+##### DEFAULT ICONS
+####################################################################
+
+theTreeViewIconsMgr setIcon HxDirectory Default TVDefDirectory
+theTreeViewIconsMgr setIcon HxData Default TVDefData
+theTreeViewIconsMgr setIcon HxModule Default TVDefDisplay
+theTreeViewIconsMgr setIcon HxCompModule Default TVDefCompute
+theTreeViewIconsMgr setIcon HxSettingsModule Default TVDefSettings
+theTreeViewIconsMgr setIcon HxConvertToLargeDiskData Default TVDefCompute
+theTreeViewIconsMgr setIcon HxScriptObject Default TVDefScriptObject
+theTreeViewIconsMgr setIcon HxIvData Default TVDefIv
+theTreeViewIconsMgr setIcon HxIvDisplay Default TVDefIv
+theTreeViewIconsMgr setIcon HxField3 Default TVDefStackedData
+theTreeViewIconsMgr setIcon HxDynamicFileSeriesCtrl Default TVDefTime
+theTreeViewIconsMgr setIcon HxDynamicDataCtrl Default TVDefTime
+theTreeViewIconsMgr setIcon HxDataProviderController Default TVDefTime
+theTreeViewIconsMgr setIcon HxDisplayTime Default TVDefTime
+theTreeViewIconsMgr setIcon HxDisplayValue Default TVDefTime
+theTreeViewIconsMgr setIcon HxPlanarMod Default TVDefSlice
+theTreeViewIconsMgr setIcon HxClusterDisplacement Default TVDefSlice
+theTreeViewIconsMgr setIcon HxGridView Default TVDefSlice
+theTreeViewIconsMgr setIcon HxViewCursor Default TVDefSlice
+theTreeViewIconsMgr setIcon HxVoltex Default TVDefVolRend
+theTreeViewIconsMgr setIcon HxVolPro Default TVDefVolRend
+theTreeViewIconsMgr setIcon HxVolumeRender Default TVDefVolRend
+theTreeViewIconsMgr setIcon HxSplats Default TVDefVolRend
+theTreeViewIconsMgr setIcon HxSelectRoi Default TVDefSelectRoi
+theTreeViewIconsMgr setIcon HxSelectROILDM Default TVDefSelectRoi
+theTreeViewIconsMgr setIcon HxBoundingBox Default TVDefBoundingBox
+theTreeViewIconsMgr setIcon HxDisplayMosaic Default TVDefBoundingBox
+theTreeViewIconsMgr setIcon HxAxis Default TVDefAxis
+theTreeViewIconsMgr setIcon HxScale Default TVDefAxis
+theTreeViewIconsMgr setIcon HxViewBase Default TVDefSurface
+theTreeViewIconsMgr setIcon HxIsosurfaceRender Default TVDefSurface
+theTreeViewIconsMgr setIcon HxSurface Default TVDefSurfaceData
+theTreeViewIconsMgr setIcon HxVectorField3 Default TVDefVectorFieldData
+theTreeViewIconsMgr setIcon HxDisplayColormap Default TVDefDisplayColormap
+theTreeViewIconsMgr setIcon HxMeasureTools Default TVDefMeasuring
+theTreeViewIconsMgr setIcon HxAnnotation Default TVDefAnnotation
+theTreeViewIconsMgr setIcon HxStereoTestPattern Default TVDefAnnotation
+theTreeViewIconsMgr setIcon HxClusterLabel Default TVDefAnnotation
+theTreeViewIconsMgr setIcon HxMolLabel Default TVDefAnnotation
+theTreeViewIconsMgr setIcon HxMovie Default TVDefMovie
+theTreeViewIconsMgr setIcon HxMovieData Default TVDefMovie
+theTreeViewIconsMgr setIcon HxMovieMaker Default TVDefMovie
+theTreeViewIconsMgr setIcon HxMoviePlayer Default TVDefMovie
+theTreeViewIconsMgr setIcon HxDisplayISL Default TVDefFlow
+theTreeViewIconsMgr setIcon HxDisplayIL Default TVDefFlow
+theTreeViewIconsMgr setIcon HxSeedProbeSurface Default TVDefFlow
+theTreeViewIconsMgr setIcon HxSeedSurface Default TVDefFlow
+theTreeViewIconsMgr setIcon HxStreamRibbons Default TVDefFlow
+theTreeViewIconsMgr setIcon HxDisplaySurfaceVectors Default TVDefFlow
+theTreeViewIconsMgr setIcon HxDisplayTetraVectors Default TVDefFlow
+theTreeViewIconsMgr setIcon HxIcon Default TVDefFlow
+theTreeViewIconsMgr setIcon HxVectors Default TVDefFlow
+theTreeViewIconsMgr setIcon HxSurfaceLIC Default TVDefFlow
+theTreeViewIconsMgr setIcon HxTensorDisplay Default TVDefFlow
+theTreeViewIconsMgr setIcon HxHistogram Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxTetraQuality Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxCalcVolume Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxVesselRadiusHisto Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxDataProbe Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxMeasurement Default TVDefHistogram
+theTreeViewIconsMgr setIcon HxDisplayVertices Default TVDefPointView
+theTreeViewIconsMgr setIcon HxClusterView Default TVDefPointView
+theTreeViewIconsMgr setIcon HxDisplayLandmarks Default TVDefPointView
+theTreeViewIconsMgr setIcon HxDisplayLineSet Default TVDefLineView
+theTreeViewIconsMgr setIcon HxIsolines Default TVDefIsolines
+theTreeViewIconsMgr setIcon HxSurfaceIsolines Default TVDefIsolines
+theTreeViewIconsMgr setIcon HxProjectionView Default TVDefProjectionView
+theTreeViewIconsMgr setIcon HxStandardView Default TVDefStandardView
+theTreeViewIconsMgr setIcon HxMolecule Default TVDefMoleculeData
+theTreeViewIconsMgr setIcon HxMolObservables Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxMolTrajectoryBundle Default TVDefMoleculeData
+theTreeViewIconsMgr setIcon HxMolTrajectory Default TVDefMoleculeData
+theTreeViewIconsMgr setIcon HxMoleculeBundle Default TVDefMoleculeData
+theTreeViewIconsMgr setIcon HxHBondView Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxMolBaseDisplayModule Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxMolView Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxBondAngle Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxSecStructure Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxTubeView Default TVDefMolecule
+theTreeViewIconsMgr setIcon HxTracking Default TVDefVR
+theTreeViewIconsMgr setIcon HxShowConfig Default TVDefVR
+theTreeViewIconsMgr setIcon HxSound Default TVDefSound
+theTreeViewIconsMgr setIcon HxLight Default TVDefLight
+theTreeViewIconsMgr setIcon HxContrast Default TVDefSettings
+theTreeViewIconsMgr setIcon HxSliceTrajectory Default TVDefSettings
+theTreeViewIconsMgr setIcon HxDynamicParameter Default TVDefAnimate
+theTreeViewIconsMgr setIcon HxWellsSettings Default TVDefSettings
+theTreeViewIconsMgr setIcon HxWellTopsSettings Default TVDefSettings
+
+####################################################################
+##### SEISMIC ICONS
+####################################################################
+
+theTreeViewIconsMgr setIcon HxModule Seismic TVSeiDisplay
+theTreeViewIconsMgr setIcon HxVoltex Seismic TVSeiVolRend
+theTreeViewIconsMgr setIcon HxVolPro Seismic TVSeiVolRend
+theTreeViewIconsMgr setIcon HxVolumeRender Seismic TVSeiVolRend
+theTreeViewIconsMgr setIcon HxSplats Seismic TVSeiVolRend
+theTreeViewIconsMgr setIcon HxInline Seismic TVSeiSeismicSlice
+theTreeViewIconsMgr setIcon HxCrossline Seismic TVSeiSeismicSlice
+theTreeViewIconsMgr setIcon HxTimeSlice Seismic TVSeiSeismicSlice
+theTreeViewIconsMgr setIcon HxFenceSlice Seismic TVSeiFenceSlice
+theTreeViewIconsMgr setIcon HxFaultSticks Seismic TVSeiFaultsSticks
+
+####################################################################
+##### SEISMIC Well ICONS
+####################################################################
+
+theTreeViewIconsMgr setIcon HxWellData Seismic TVSeiWellData
+theTreeViewIconsMgr setIcon HxWellDisplay Seismic TVSeiWellDisplay
+theTreeViewIconsMgr setIcon HxWellLogsData Seismic TVSeiWellLogsData
+theTreeViewIconsMgr setIcon HxGlobalLogsSetting Default TVSeiWellLog3Display
+theTreeViewIconsMgr setIcon HxGlobalLogsCurveSetting Default TVSeiWellLog3Display
+theTreeViewIconsMgr setIcon HxWellLog3DDisplay Seismic TVSeiWellLog3Display
+theTreeViewIconsMgr setIcon HxWellTopsData Seismic TVSeiWellTopsData
+theTreeViewIconsMgr setIcon HxWellTopDisplay Seismic TVSeiWellTopDisplay
+
+
+
+####################################################################
+##### AVIZO WIND ICONS
+####################################################################
+
+theTreeViewIconsMgr setIcon HxScalarField3Interface Default TVDefStackedData
+theTreeViewIconsMgr setIcon HxVectorField3Interface Default TVDefVectorFieldData
+theTreeViewIconsMgr setIcon HxUnstructuredMeshGridView Default TVDefSurface
+theTreeViewIconsMgr setIcon HxUnstructuredMeshSurfaceView Default TVDefSurface
+theTreeViewIconsMgr setIcon HxUnstructuredMeshVectors Default TVDefFlow
+theTreeViewIconsMgr setIcon HxUnstructuredMeshIsoSurface Default TVDefSurface
+theTreeViewIconsMgr setIcon HxUnstructuredMeshCrossSection Default TVDefSlice
+theTreeViewIconsMgr setIcon HxUnstructuredBoundariesView Default TVDefSurface
+theTreeViewIconsMgr setIcon HxUnstructuredMeshOutline Default TVDefBoundingBox

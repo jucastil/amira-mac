@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Splats</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Splats" "volume rendering for data on tetrahedral grids" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module visualizes scalar fields defined on tetrahedral grids
+ using a direct volume rendering technique called cell projection
+ splatting. The principle of this method is to display a kind of
+ semi-transparent clouds. The higher the data values the brighter and
+ more opaque these clouds are. Often, meaningful results are obtained if
+ this technique is used in conjunction with a standard
+ <a class="link" href="../hxiso/HxIsoTetra.html#A1">isosurface module</a>.</p>
+<p> In order to get correct results for linearly varying functions a
+ special texture mapping technique is applied. On machines where texture
+ mapping is not supported in hardware this might be quite slow. As an
+ alternative untextured splats may be used. However, in this case the
+ scalar field is assumed to be constant in each tetrahedron. To
+ obtain such a piecewise constant function the vertex values of each
+ tetrahedron are averaged. As a consequence artificial discontinuities
+ might be observed.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The tetrahedral scalar field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap is used for pseudo-coloring the clouds.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Alpha Scale</span>  
+<div class="portsnapshot"><img src="HxSplats_alphaScale.png" /><br /></div>
+<div class="body"><p>A global factor used to change the overall transparency of the
+ individual splats. Higher values produce denser clouds.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gamma</span>  
+<div class="portsnapshot"><img src="HxSplats_gamma.png" /><br /></div>
+<div class="body"><p>This value determines how the function value between the min and
+ max values of port <em>Range</em> will be mapped to opacity and color.
+ If the gamma value is 1 a linear mapping will be used. If the gamma
+ value is smaller than 1 the overall appearance of the cloud gets
+ more opaque. If the gamma value is bigger than 1 the cloud gets
+ more transparent.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxSplats_range.png" /><br /></div>
+<div class="body"><p>Data range. Regions where the function value is below the min value 
+ will be completely transparent. Likewise, regions where the function
+ value is above the max value will be opaque.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxSplats_interpolation.png" /><br /></div>
+<div class="body"><p>Lets you select the type of splats being used. <em>Constant</em>
+ enables untextured splats. <em>Linear</em> enables textured splats.
+ The latter setting will be able to correctly display linearly
+ varying scalar fields.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Optical Model</span>  
+<div class="portsnapshot"><img src="HxSplats_opticalModel.png" /><br /></div>
+<div class="body"><p>Switches between different optical models: only light emission or 
+ emissive and absorptive light model or absorbing light only.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxSplats_colormap.png" /><br /></div>
+<div class="body"><p>In case a colormap is connected to the splats module, this
+	colormap will be shown here.
+	If no colormap is connected to the module the port's default
+	color is used. To change this color, click into the color
+	bar with the left mouse button. This will bring up the color
+	selection dialog. To connect the port to a colormap, use the
+	popup menu under the right mouse button.
+	See also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>setColor &lt;color&gt;</tt></span>  
+
+<div class="body"><p><br />
+
+ Lets you define the base color of the volume rendered clouds. On
+ default an orange color will be used (0.8 0.6 0.1). The color may
+ be specified by either an RGB triple in range 0...1 or by a common
+ X11 color name, e.g., <em>green</em>.
+</p></div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

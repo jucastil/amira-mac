@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.8 Shadowing</a></h3>
+<p>Real time shadow casting is enabled through the Edit/Preferences/Rendering menu.</p>
+<p>Once enabled, most of display modules can cast or receive shadows. <br />
+
+Different modes are available, and switching from one to another is possible by clicking on the shadow icon of a display module</p>
+<p></p>
+<ul><li><tt>No Shadows </tt> the displayed shape neither cast or receive shadows <img src="HxModuleNoShadows.png" /></li><li><tt>Cast Shadows </tt> the displayed shape only cast shadows <img src="HxModuleCastShadows.png" /></li><li><tt>Receive shadows </tt> the displayed shape only receive shadows <img src="HxModuleReceiveShadows.png" /></li><li><tt>Cast &amp; Receive shadows</tt> the displayed shape both cast and receive shadows <img src="HxModuleCastAndReceiveShadows.png" /></li>
+</ul><p> </p>
+<p>Restrictions: <br />
+</p>
+<p>At least the Multi-Texture and Texture Environment Combine OpenGL extensions must be supported by your graphics board. Otherwise no shadows will be computed. These extensions are now standard in OpenGL 1.3 and later. <br />
+</p>
+<p>The Shadow and Depth Texture OpenGL extensions (standard in OpenGL 1.4) are used if they are available and generally improve performance. <br />
+</p>
+<p>Some aliasing artifacts can appear if you zoom in very close to the scene. You can then increase the quality in the preferences dialog. <br />
+</p>
+<p>Transparent objects are treated as follows, depending on the transparency type: <br />
+
+</p>
+<ul><li><tt>Screen door:</tt> fully compatible</li><li><tt>Add, Blend :</tt> transparent objects cast a shadow and are shadowed but the shadow intensity doesn't depend on the transparency value (the same shadow is displayed for full transparent shapes and opaque shapes).</li><li><tt>All other modes :</tt> incompatible with shadowing.</li>
+</ul><p></p>
+<p>
+</p></body>
+</html>

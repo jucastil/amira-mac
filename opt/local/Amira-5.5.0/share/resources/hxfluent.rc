@@ -1,0 +1,39 @@
+if { ![app hasLicense "WindEdition"] } {
+
+# ------------------------------------------------------
+#
+#   RAMPANT, FLUENT/UNS, TGrid, and preBFC format
+#
+# ------------------------------------------------------
+
+dataFile -name "FLUENT / UNS"	\
+    -header {^[(][0-1].*[)].*$} \
+    -option fluent -ext  cas    \
+    -load "hxReadFluent"	\
+    -type "HxSurface"		\
+    -type "HxTetraGrid"         \
+    -type "HxHexaGrid"          \
+    -dso "libhxfluent.so"
+
+}
+
+if { ![app hasLicense "FEAWriters"] } {
+
+dataFile -name "FLUENT / UNS"	\
+    -ext  cas    \
+    -type "HxSurface"		\
+    -type "HxTetraGrid"         \
+    -type "HxHexaGrid"          \
+    -save "hxSaveFluent"        \
+    -dso "libhxfluent.so"
+
+dataFile -name "FLUENT / UNS Binary"   \
+    -header {^[(][0-1].*[)].*$} \
+    -option fluent -ext  cas    \
+    -type "HxSurface"           \
+    -type "HxTetraGrid"         \
+    -type "HxHexaGrid"          \
+    -save "hxSaveFluentBinary"        \
+    -dso "libhxfluent.so"
+                                
+}

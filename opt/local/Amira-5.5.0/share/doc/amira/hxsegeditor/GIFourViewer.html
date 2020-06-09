@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Working in 4-viewer Mode</a></h3>
+<p>Initially, in each 2D image of the image segmentation editor the current
+slice with colored contours surrounding the different segments is shown.
+Near the bottom of the image you find a slider to control which slice of the 3D
+volume is currently displayed. The slice number and the total number of slices
+is displayed in textual form at the top of each 2D slice window. 
+The orientation of the slice can be changed via the menu entry <em>View Orientation</em> in the menu bar.
+In medical notation XZ denotes an axial slice, XZ a frontal slice, and YZ a sagittal slice.
+</p>
+<p>A viewer
+can be made the active viewer by clicking in the viewer itself. The last
+window you worked in will be active. Be careful
+when clicking into the image in 3D mode. If the <em>Pick</em> tool or the 
+<em>Magic Wand</em> tool is active the resulting selection operation may
+take some time to compute. 
+Use <em>Segmentation/Undo</em> to remove any unwanted selections.
+All 2D operations like the "+" or "-" are always
+performed in the active viewer, i.e., the slice and orientation of the
+active viewer will be considered.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=GI-DisplayMasking.png.html><img width=675 src="GI-DisplayMasking.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+The Display and Masking area</div>
+
+
+</div><p></p>
+<p><b>The 3D viewer</b></p>
+<p>The lower-right viewer is an independent viewer where several special 
+segmentation actions and selections are supported. You can activate the 
+3D rendering of the data by clicking the <em>3D Volume Rendering</em> button
+of the <em>Display and Masking</em> area. Whereas the <em>3D MPR</em> button
+is a tri state button alternating the rendering of the 3D MPR slices from opaque
+to transparent and finally to turned off, by pushing the button repeatedly.
+Within the <em>Display and Masking</em> area you can also turn on/off the crosshair
+of the MPR, set the colormap and the 3D rendering window. The crosshair button
+activates the crosshair tool. It simply displays a crosshair in all three orthogonal viewers.
+The colors denote the different directions
+(red=x-axis, green=y-axis, blue=z-axis). You can click and grab 
+one of the axes or their crossing point. The checkbox <em>Enable masking</em> 
+enables the masking of the data, which 
+is a useful feature for several <a class="link" href="GITools.html#A1">segmentation tools</a>.</p>
+<p>By default, the current selection will be displayed in the 3D viewer as a 
+point cloud. After each change of the current selection 
+(i.e., after each brush stroke), the display will be updated. 
+On slower computers or for very large data sets, this may become slow. 
+Deselect the <a class="link" href="GIEditButtons.html#A4">Show in 3D toggle</a> to disable display of 
+the highlighted region in the 3D viewer. In the 
+<a class="link" href="GIMaterialList.html#A1">Material List</a>, toggle the 2D and 3D checkboxes to 
+switch the material visible or invisible in the 3D viewer.</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=GI-ZoomDataWin.png.html><img width=675 src="GI-ZoomDataWin.png" /></a><br />
+<div class="caption">
+<b>Figure 5:</b>
+The Zoom and Data Window area</div>
+
+
+</div><p></p>
+<p><b>Using the zoom buttons</b></p>
+<p>The zoom buttons control the size of the image. An info line on the right
+hand side of the buttons shows the current zoom factor. For example a zoom
+of 2:1 means that 2 pixels on the screen correspond to one pixel of the
+original data set (magnification), while 1:4 would mean that four pixels
+of the data set correspond to one pixel on the screen. If the pixel size
+is not the same in all dimensions, the zoom factor belongs to the
+horizontal direction only, to maintain the correct aspect ratio of the
+voxels. If the <em>Current viewer</em> button is selected then the zoom buttons only 
+apply to the currently active viewer.</p>
+<p><b>Data range, histogram, and colormaps</b></p>
+<p>The histogram displays the distribution of values in the image. 
+Use the sliders below it to adjust the data range for the display.
+You can adjust the range by clicking and dragging the right and left edges
+of the slider bar. You can adjust the entire range at once by clicking and
+dragging the center of the slider bar, which will adjust the brightness. 
+The range slider can be dragged beyond the minimum and maximum values of 
+the image, causing the histogram to rescale accordingly. 
+If the <em>Current viewer</em> button is checked, then
+the slider changes the data window of the currently active viewer only.</p>
+<p>The colormap of the image can be changed from the default gray ramp 
+to another colormap by pressing the <em>Select colormap</em> button. </p>
+<p></p>
+<p>
+</p></body>
+</html>

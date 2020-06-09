@@ -1,0 +1,636 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DemoDirector</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DemoDirector" "creates a series of animations for replay" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>Using the <i>DemoMaker</i> module together with the <i>DemoDirector</i>
+GUI, you can create an animated sequence of operations, e.g., for
+automatically running demonstrations or for advanced movie
+recording. Select <i>Create &rarr; Animation/Demos &rarr; DemoMaker</i> from the menu
+to add a DemoMaker module to the Pool. The DemoDirector's user
+interface shares the space with the console window of
+<font face="helvetica">Amira</font>. You can switch between DemoDirector and the console
+window by clicking on the respective text in the console area's frame.</p>
+
+<h3><a name="A2">Defining and storing a demo sequence</a></h3>
+<p>The demo sequence is a set of <i>events</i> over a time range
+represented by the DemoDirector's timeline. A wide range of such
+events can be defined, e.g., switching a toggle value on or off,
+varying the numerical value of some other module's port over time, and
+defining breaks to interrupt the automatic demo sequence.</p>
+<p>The start and end time of a demo are depicted by blue lines which
+restrict the timeline left and right. The "current time" of the demo
+is visualized with a red line. All three elements can be moved with
+the mouse.</p>
+<p>You can create new events using the <em>New event</em> dialog, which is
+accessible via the <i>New event...</i> button in the DemoDirector
+area. After clicking the button a dialog window appears which contains
+a tree view. The tree view shows all currently loaded modules (except
+the DemoMaker itself) at the first level and the available events for
+each module at the second and third level. You choose a new event
+either by selecting it and clicking on the <em>Ok</em> button or by
+double-clicking the event. If necessary the list of the currently
+available events will be refreshed at invocation of the dialog. This
+may take a few seconds if the pool contains many modules. You can also
+trigger refreshing the list manually by clicking the <em>Update event
+ list</em> button. Such a manual update is necessary, e.g., after changing
+the viewer layout in order to get correct viewer mask entries in the
+event list.</p>
+<p>Once you have selected the right element (or a different event type
+like a pause, break, go-to, or an arbitrary Tcl command) from the <i>New event</i> dialog, a new event is created at the current time's
+position and additional ports will show up in the Properties area,
+depending on the type of the selected element (e.g., numeric, toggle,
+button, ...). Using these ports, you can define the value to which the
+selected GUI element will be set at that time (see
+<a class="link" href="#A7">example</a> below).</p>
+<p>Once a part of the desired event sequence is defined, simply store it
+by choosing <i>File/Save Network...</i> from the menu. The demo in its
+current state will be saved along with the rest of the Pool. When
+saving the network, make sure the current time slider is in the
+desired starting position.</p>
+
+<h3><a name="A3">Working with events</a></h3>
+<p>You can select an event by clicking on it with the mouse. Selected
+events are marked with a blue border. All values of the currently
+selected event are displayed in the Properties area and can be changed
+there.</p>
+<p>If you hover over an event for a short time you will see a tooltip
+with all the event's relevant information.</p>
+<p>You can change the point in time at which an event should be triggered
+by moving the event with the mouse horizontally within the
+timeline. Whenever the event is close to another event it jumps to the
+other one's trigger time and snaps. Snapped events are marked with red
+lines. Snapping can be disabled by pressing the Shift key while moving
+events.</p>
+<p>The starting time and end time of events depicting a duration can be
+changed in the same way. The mouse cursor alters its shape in order to
+indicate whether the whole event would be moved or the starting time
+or the end time. </p>
+<p>Multiple events can be selected with a selection rectangle. The
+starting point of a selection rectangle is determined by pressing the
+left mouse button within the timeline (but not in the scale area, see
+below). The rectangle is then created by moving the mouse while
+keeping the mouse button pressed. After releasing the mouse button all
+events inside the rectangle are selected. With the Ctrl key pressed
+the newly selected events are added to the existing
+selection. Otherwise previously selected events are
+deselected. Individual events can be added to or removed from the
+selection by clicking on them while the Ctrl key is pressed.</p>
+<p>The left and right border of interval events can be selected
+separately. Event borders can be added to a selection or removed from a
+selection just as described above.</p>
+<p>The timeline can be moved by pressing the left mouse button at the
+scale area and then moving the mouse. Furthermore, the timeline is
+moved automatically whenever an event reaches the timeline window's
+left or right border while moving it.</p>
+<p>The vertical positioning of events is calculated
+automatically. Recalculation is done whenever two events overlap each
+other. In all other cases the arrangement will not change automatically
+in order to not confuse the user. Rearranging can be triggered by
+clicking with the right mouse button at the timeline's
+background. This can be useful to condense the events in the timeline
+after major changes or after zooming in. Zooming can be done with the
+buttons labeled <em>+</em> and <em>-</em></p>
+
+<h3><a name="A4">Deleting events</a></h3>
+<p>Selected events can be deleted by either pressing the Del key or using
+the context menu, which is accessible by pressing the right mouse
+button on an event.</p>
+<p><a name="A5"></a>
+</p>
+<h3><a name="A6">Playing a demo sequence</a></h3>
+<p>Playing a demo sequence can be controlled with the buttons below the
+timeline:</p>
+<div style="text-align:center"><p>
+<a href=hxdemodirector-controls.png.html><img width=375 src="hxdemodirector-controls.png" /></a>
+</p></div>
+<p>For playing the demo, simply press the play button (triangle pointing
+to the right) or press the corresponding function key <tt>F4</tt>. The
+sequence will run from the current time step to the end of the demo,
+or to the next break as defined by the user (see
+<a class="link" href="#A17">Defining a break</a> below). The play button
+will change into a stop button, and pressing that button or pressing
+the <tt>F3</tt> function key immediately stops playing. If the demo stops
+at a user-defined break, continue it by again clicking the play button
+or pressing <tt>F4</tt>.</p>
+<p>If the demo is stopped at the beginning or at some user-defined break,
+you can jump to the point of the next break, or to the end of the demo
+by clicking on the play button while the Ctrl key is pressed (or use
+the function key <tt>F10</tt>).</p>
+<p>Similarly, clicking on the play backward button while the Ctrl key is
+pressed (or the function key <tt>F9</tt>) jumps to the previous break or to
+the very beginning of the event sequence. Once you have jumped to the
+right step of the demo, simply press play or <tt>F4</tt> again to play it
+from there.</p>
+<p>If you press the jump right button (triangle pointing to the right
+together with a vertical line at its tip) the current time slider
+jumps to the end of the demo. If you hold down the Ctrl key while
+clicking the button, the slider jumps to the rightmost event, and with
+the Shift key pressed the timeline jumps to the right boundary without
+changing the current time slider's position. The jump left button
+works correspondingly.</p>
+<p>Press the step forward button (triangle pointing to the right together
+with a vertical line at its base) to step one time step forward.</p>
+<p>If the event sequence is running too fast or too slow, you can adjust
+its speed using the <i>Configure</i> dialog, accesible through the
+rightmost button (with the small rectangle). Note that the playback
+speed can only be adjusted for the complete time range at once. If you
+want to change the speed of only a part of the sequence, you must do
+so by adjusting the time range of the corresponding event entries.</p>
+<p><a name="A7"></a>
+</p>
+<h3><a name="A8">Usage Example</a></h3>
+<p>Here is a small example to demonstrate the way <i>DemoMaker</i> works.</p>
+<p>Load <tt>lobus.am</tt> from the <tt>tutorials</tt> subdirectory of the
+<font face="helvetica">Amira</font> installation directory. Connect an <i>OrthoSlice</i>
+module and an <i>Isosurface</i> module. Create a <i>DemoMaker</i> by
+selecting it from the <i>Create/Animation/Demo</i> menu.</p>
+<p>Now your network should look similar to this:</p>
+<div style="text-align:center"><p>
+<a href=HxDemoDirector_example.png.html><img width=525 src="HxDemoDirector_example.png" /></a>
+</p></div>
+<p>All available user interface ports of the modules in the Pool should
+now appear in the <i>New event</i> dialog (accessible via
+DemoDirector's <em>New event...</em> button). If not, press the <i>Update event list</i> button.</p>
+<p>Now select <i>OrthoSlice/Slice Number</i> in the
+dialog:</p>
+<div style="text-align:center"><p>
+<a href=HxDemoDirector_example01.png.html><img width=412 src="HxDemoDirector_example01.png" /></a>
+</p></div>
+<p>Fields for specifying start/end values and start/end time
+appear. Enter <tt>0</tt> and <tt>43</tt> as start and end values and move
+the event with the mouse to position <tt>5</tt> and adjust its end time
+to <tt>30</tt>:</p>
+<div style="text-align:center"><p>
+<a href=HxDemoDirector_example02.png.html><img width=525 src="HxDemoDirector_example02.png" /></a>
+</p></div>
+<p>Press the play button to see the demo sequence just specified. You
+should see the <i>OrthoSlice</i> plane moving during the time range
+from 5 to 30, but nothing happening in the time range from 30 to
+100.</p>
+<p>Now select a threshold of 70 in the <i>Isosurface</i> module and
+press <i>Apply</i> to make the surface appear in the viewer. </p>
+<p>Now select <i>Isosurface/Viewer mask/Viewer 0</i> from the <i>New
+ event</i> dialog, select <i>on</i> as the toggle value and move the
+event to <tt>30</tt> to determine its trigger
+time:</p>
+<div style="text-align:center"><p>
+<a href=HxDemoDirector_example03.png.html><img width=525 src="HxDemoDirector_example03.png" /></a>
+</p></div>
+<p>Jump back to <tt>0</tt> by clicking on the jump left button. You should
+see that when jumping back (from later than 30 to earlier than 30) the
+<i>Isosurface</i> is switched off. Then play the demo from the
+beginning, and you see that the surface is switched on right after the
+OrthoSlice is moved.</p>
+<p>As another exercise you can create a camera path (select <i>Create/CameraPath</i> or <i>Create/CameraRotate</i> from the menu and
+edit the camera path to your liking. Then select <i>CameraPath/Time</i>
+or <i>CameraRotate/Time</i> in the <i>New event</i> dialog. Now the
+start/end value refers to the value of the camera time slider. Enter
+the minimum and maximum values of that time slider. Move the event's
+start and endpoint to 5 and 30:</p>
+<div style="text-align:center"><p>
+<a href=HxDemoDirector_example04.png.html><img width=525 src="HxDemoDirector_example04.png" /></a>
+</p></div>
+<p>Now you see that in parallel to the events defined before, the camera
+path is applied to the scene. Note that you can execute only parts of
+a camera path, or concatenate multiple paths this way. However,
+multiple camera paths cannot be used in parallel.</p>
+
+<h3><a name="A9">Loading existing networks</a></h3>
+<p>The way <font face="helvetica">Amira</font> stores DemoMaker objects in network files
+changed slightly in order to incorporate the DemoDirector. Old
+network files are converted automatically to the new format, but saved
+networks cannot be used with older versions of <font face="helvetica">Amira</font>.</p>
+<p>The DemoDirector is always connected to a single DemoMaker
+object. When a network is loaded which contains more than one
+DemoMaker, the other DemoMakers act as in previous versions of
+<font face="helvetica">Amira</font> (see <a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMakerClassic</a>
+documentation). But it is reasonable to only use one DemoMaker and
+ merge all events from other DemoMakers.</p>
+<p>For this purpose the events have first to be exported from the other
+DemoMakers. This is done by enabling the <em>options</em> toggle in the
+<em>Functions</em> row and then using the <em>SaveEventList</em> button in
+the <em>Options (advanced)</em> row (in the properties area). A proper
+file name can be set before in the row <em>Event list file</em>. The
+created event list can then be imported into the DemoDirector's
+DemoMaker in the same way. Using the <em>LoadEvenList</em> replaces all
+existing events, using <em>AppendEventList</em> keeps them.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A10"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Functions</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_functions.png" /><br /></div>
+<div class="body"><p>Activate/deactivate <i>DemoMaker</i>, and show
+optional parts of the <i>DemoMaker</i> user interface, such as some
+option ports and some ports for editing the time line. 
+</p>
+<ul><li><i>active:</i> activate/deactivate this module. When deactivated,
+ the module will not define any function keys and not manipulate 
+ objects in the Pool.</li><li><i>options:</i> display option ports (see <i>Options (1)</i> 
+ - <i>Options (3)</i> below).</li>
+</ul>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options (1)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_options.png" /><br /></div>
+<div class="body"><p>This port is only shown when the <i>options</i> toggle of the
+<i>Functions</i> port is enabled. 
+</p>
+<ul><li><i>skip break:</i> do not stop at user-defined
+ breaks when playing the demo sequence.</li><li><i>skip pause:</i> do not execute user-defined pause events 
+ (no waiting time).</li>
+</ul>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options (2)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_moreOpt1.png" /><br /></div>
+<div class="body"><p>This port is only shown when the <i>options</i> toggle of the 
+<i>Functions</i> port is enabled.
+</p>
+<ul><li><i>auto start:</i> lets the demo start automatically when the
+ network containing the <i>DemoMaker</i> module is loaded.</li><li><i>function keys:</i> when toggled off, no function keys
+ (F3/F4/F9/F10) will be defined when the network containing the
+ <i>DemoMaker</i> module is loaded.</li>
+</ul>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options (3)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_moreOpt2.png" /><br /></div>
+<div class="body"><p>This port is only shown when the <i>options</i> toggle of the 
+<i>functions</i> port is enabled.
+</p>
+<ul><li><i>explicit redraw:</i> when toggled on, for each time step the
+active viewers are explicitly called to perform a redraw. If toggled
+off, <font face="helvetica">Amira</font>'s <i>auto redraw</i> feature is used. If in some cases
+the desired event sequence is not properly displayed in the viewer,
+try toggling <i>explicit redraw</i> on.</li><li><i>debug:</i> when toggled on, the actual Tcl commands that are
+executed during the demo sequence are output to the <font face="helvetica">Amira</font>
+console. This will significantly slow down the graphical display, but
+can be used for understanding what exactly happens in the demo
+sequence.</li><li><i>wait screen:</i> enable a waiting image to be displayed during
+ jumps on the time line. This is only useful if jumping takes 
+ considerable amount of time, e.g. for very long event sequences. 
+ If enabled, the <i>Waiting image</i> port will appear below this 
+ option for specifying the waiting screen image file.</li>
+</ul>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options (advanced)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_optionsAction.png" /><br /></div>
+<div class="body"><p>This port is only shown when the <i>options</i> toggle of the 
+<i>functions</i> port is enabled.
+</p>
+<ul><li><i>SaveEventList:</i> Saves a list of all events of the DemoDirector
+in a file given in the <i>Event list file</i> port.</li><li><i>LoadEventList:</i> Loads a list of events which are given in a file
+you can choose in the <i>Event list file</i> port. All existing events are
+replaced.</li><li><i>AppendEventList:</i> As <i>LoadEventList</i> this loads a list of
+events from a given file. But it keeps existing events.</li>
+</ul>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Event list file</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_eventListFile.png" /><br /></div>
+<div class="body"><p>This port is only shown when the <i>options</i> toggle of the 
+<i>functions</i> port is enabled. Here you can choose the file to load
+or save event lists.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Waiting image</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_waitImg.png" /><br /></div>
+<div class="body"><p>If the <i>wait screen</i> option is enabled, this port is used to specify 
+the file name of the waiting screen image. The image will be displayed 
+during jumps on the time slider.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Additional Ports</span>  
+
+<div class="body"><p>Additional ports will appear in the <i>DemoMaker</i> module, depending on the type of event the user has
+chosen in the DemoDirector. These ports are listed in the following
+section, grouped by GUI element types.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A17"></a><h3>Defining a break</h3>
+<p>
+
+Selecting <i>*Break, continue on keypress</i> from the <i>New event</i>
+dialog lets you insert a break in the demo sequence. When playing, the
+demo will stop at that point. See <a class="link" href="#A5">playing a
+ demo sequence</a> above.</p>
+
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>Defines the point in time (on the time slider) at which the break
+is inserted.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A18"></a><h3>Defining a pause</h3>
+<p>
+
+Selecting <i>*Pause, waiting time</i> from the <i>New event</i> dialog
+lets you insert a pause, where the demo will stop and wait for a
+user-defined amount of time. Please note that such a pause will not be
+executed if <i>DemoMaker</i> is driven by a <i>MovieMaker</i> object. In
+such a case, you must insert a pause by adjusting the events
+accordingly.</p>
+
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>Defines the starting point of the pause on the time slider.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Waiting duration</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_waitingTime.png" /><br /></div>
+<div class="body"><p>Defines the waiting time in seconds. Please note that this time is
+taken in addition to the time defined by the left and right boundary
+slider in the DemoDirector.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A19"></a><h3>Defining a go-to</h3>
+<p>
+
+Selecting <i>*Go-to, jump to user-specified time step</i> from the GUI
+element menu lets you jump from the one point in the demo sequence to
+another point. For example, you can simply define an endless loop by
+jumping back to some previous time step. You can end the loop by
+pressing the stop button or <tt>F3</tt> (see
+<a class="link" href="#A5">playing a demo sequence</a> above).</p>
+
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>This defines the point in time at which the go-to
+is inserted.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Time to jump to</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_gotoTime.png" /><br /></div>
+<div class="body"><p>This defines the point in time which the go-to will jump to. 
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A20"></a><h3>Defining a toggle</h3>
+<p>
+
+Toggle events can toggle certain GUI elements between the two states
+<i>on</i> and <i>off</i>. Examples for toggle values are the
+different options in a <a class="link" href="../hxcore/HxPortToggleList.html#A1">ToggleList
+port</a>, or the orange <i>viewer mask</i> toggle(s) present in
+every data object or display module (to switch the display of the
+module in the viewer on and off).</p>
+
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>This defines the point in time (on the timeline) at which the value
+is toggled. </p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Toggle to value</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_toggleValue.png" /><br /></div>
+<div class="body"><p>This defines the value (on or off) to which the selected GUI element
+is set at the defined trigger time, if the demo sequence is played
+forwards. When playing or jumping backwards, the inverse value is
+used.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A21"></a><h3>Defining a button press</h3>
+<p>
+
+Button events emulate the pressing of a button or executing certain
+events with no parameters. Examples for buttons elements are the
+<a class="link" href="../hxcore/HxPortButtonList.html#A1">ButtonList port</a>, or inverting
+the orientation of a clipping plane.</p>
+
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>This defines the point in time (on the timeline) at which the button 
+is pressed or other event is taken.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Modifier keys</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_modifKeys.png" /><br /></div>
+<div class="body"><p>This defines whether <i>DemoMaker</i> should emulate that
+<tt>Shift</tt>, <tt>Ctrl</tt>, or <tt>Alt</tt> is held down at the
+time when the button is pressed. The meaning of these modifier keys
+depends on the module defining the button to be pressed.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A22"></a><h3>Defining a select event</h3>
+<p>
+
+Select events are used to set a port's value to one of a set of
+choices as offered by a <a class="link" href="../hxcore/HxPortMultiMenu.html#A1">selection menu</a> or a
+<a class="link" href="../hxcore/HxPortRadioBox.html#A1">radio box</a>.</p>
+
+<div class="hxsection">
+ <span class="headline">Change from/to value</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_selectValue.png" /><br /></div>
+<div class="body"><p>This defines from which old value to which new value the port will be
+switched at the specified trigger time. When playing or jumping
+backwards, the two values will used inversely.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Trigger time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_triggerTime.png" /><br /></div>
+<div class="body"><p>This defines the point in time (on the timeline) at which the port
+is set to a new selection value.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A23"></a><h3>Defining a numeric event</h3>
+<p>
+
+Numeric events are used to vary a port's numerical value from a start
+value to an end value over time. Examples for numeric ports are
+<a class="link" href="../hxcore/HxPortIntSlider.html#A1">numerical sliders</a> or
+<a class="link" href="../hxcore/HxPortIntTextN.html#A1">numerical text fields</a>.</p>
+
+<div class="hxsection">
+ <span class="headline">Start/end value</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_startEndValue.png" /><br /></div>
+<div class="body"><p>The two fields of this port define from which start value to which end
+value the value of the event will be varied. </p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Start/end time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_startEndTime.png" /><br /></div>
+<div class="body"><p>This defines the time range (on the timeline) during which the port
+value will be varied from the start value to the end value specified
+above. When playing or jumping backwards, the value will be varied
+from the end value to the start value.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A24"></a><h3>Defining a Tcl command</h3>
+<p>
+
+When selecting <i>*Tcl command</i> from the <i>New event</i> dialog, you
+can insert arbitrary Tcl commands into the demo sequence. Furthermore,
+like for <a class="link" href="#A23">numeric events</a>, the command can be
+parameterized by one or more numeric values that will be varied
+between user-defined start and end values.</p>
+
+<div class="hxsection">
+ <span class="headline">Tcl command</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_command.png" /><br /></div>
+<div class="body"><p>Text field for typing the desired Tcl command. Within the command,
+special placeholders <tt>%0%</tt>, <tt>%1%</tt>, <tt>%2%</tt>, ... can
+be used that will be replaced by numeric values. The start and end
+values for these placeholders are defined in the ports described
+below.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Start value(s)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_startVector.png" /><br /></div>
+<div class="body"><p>If the numeric placeholder <tt>%0%</tt> is used in the
+<i>Command</i> field, specify the start value for this
+placeholder. If multiple placeholders are used (e.g. <tt>%0%</tt> and
+<tt>%1%</tt>), specify space-separated start values for all of
+the employed placeholders.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">End value(s)</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_endVector.png" /><br /></div>
+<div class="body"><p>If the numeric placeholder <tt>%0%</tt> is used in the
+<i>Command</i> field, specify the end value for this
+placeholder. If multiple placeholders are used (e.g. <tt>%0%</tt> and
+<tt>%1%</tt>), specify space-separated end values for all of
+the employed placeholders.</p>
+</div></div>
+<div class="hxsection">
+ <span class="headline">Start/end time</span>  
+<div class="portsnapshot"><img src="HxDemoDirector_startEndTime.png" /><br /></div>
+<div class="body"><p>This defines the time range (on the timeline) during which the
+specified Tcl command will be executed, with the placeholders replaced
+by values between the specified start and end values.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+The following commands are methods of the <i>DemoMaker</i> script
+object. They can be called externally by first specifying the name of
+the script object (e.g. DemoMaker), followed by a space and the name
+of the method. Example: <tt>DemoMaker play</tt> starts playing the
+demo sequence.</p>
+
+<div class="hxcommand">
+  <span class="headline">play</span>  
+
+<div class="body"><p>start playing the time slider at its current 
+time step. This function is called when pressing <tt>F4</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">stop</span>  
+
+<div class="body"><p>stop playing the time slider. This function is called
+when pressing <tt>F3</tt>. Also called the <i>stop callback</i> (see
+below). </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">jumpNext</span>  
+
+<div class="body"><p>jump to the next user-defined break, or to the
+end of the demo. This function is called when pressing <tt>F10</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">jumpPrev</span>  
+
+<div class="body"><p>jump to the previous user-defined break, or to
+the start of the demo. This function is called when pressing
+<tt>F9</tt>. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">jump &lt;breakidx&gt;</span>  
+
+<div class="body"><p>jump to user-defined break. If <tt>&lt;breakidx&gt;</tt>
+is 0, this command will move to the beginning of the demo. Otherwise
+it will be jumped to the <tt>&lt;breakidx&gt;</tt>'th break.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setEndCallback &lt;cmd&gt;</span>  
+
+<div class="body"><p>sets an internal callback function to
+the specified Tcl code <tt><tt>&lt;cmd&gt;</tt></tt>. This code will be executed only
+once when DemoMaker reaches the end of the timeline. Call with an
+empty string to disable the callback.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">writeDescriptionFile</span>  
+
+<div class="body"><p>opens a file dialog, where you can
+specify a file to which the description file should be saved. The
+description file is an xml-file containing several predefined xml-tags
+describing the demo. Most important of these tags are the commands to
+step through the demo. The description file is used to automatically
+generate demosequence files and html pages for steering the demo.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxsection">
+<a name="A25"></a><h3>DemoMaker tips and limitations</h3>
+<p>
+
+Although the <i>DemoMaker</i> module is quite powerful, some things
+should be noticed, and there are some known limitations that are
+listed here for convenience. If you find further important limitations
+or bugs, please report them to our hotline as a bug or feature request.</p>
+
+<ul><li>The <i>*Load network</i> event type for loading a different
+network file is currently not implemented.</li><li>For <i>button event</i>, "snapping" a button to
+automatic update mode is not supported yet.</li><li>GUI elements that are part of a <a class="link" href="../hxcore/HxPortGeneric.html#A1">Generic
+port</a> are not properly represented in the <i>New event</i> dialog
+of the DemoDirector.</li><li>If a <i>DemoMaker</i> module is renamed (e.g. by selecting
+<i>Edit / Rename...</i> from the menu), the function keys
+<tt>F3/F4/F9/F10</tt> will no longer work. However, simply disabling
+and re-enabling the <i>function keys</i> option in
+<i>DemoMaker</i> helps.</li><li>If you rename or remove modules after defining events with
+<i>DemoMaker</i>, then events involving these modules will generate
+errors. Please properly arrange your network before using DemoMaker.</li><li>You cannot control DemoMaker/DemoDirector with a GlobalTime
+object (in order to synchronize several objects). As a workaround
+you can control the time ports of these objects by adding them
+to the DemoDirector.</li>
+</ul></div>
+<p></p>
+<p>
+
+</p></body>
+</html>

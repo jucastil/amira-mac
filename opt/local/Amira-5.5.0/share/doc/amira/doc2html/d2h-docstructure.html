@@ -1,0 +1,990 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p><br />
+
+</p>
+<h2><a name="A1">29.1 Document Structure</a></h2>
+<p>The <font face="helvetica">Amira</font> documentation is split up into .doc and .tex files. Both of them contain plain text
+(the .doc extension is not related to Microsoft Word in this case).</p>
+<p>The .doc files usually contain
+documentation for a single resource (module, port, file format, data type, editor, or demo).
+This information is later automatically added to the alphabetic reference guide by doc2html. 
+Therefore, these .doc files must include a <a class="link" href="#A2">header</a> that tells doc2html what 
+kind of resource they describe. They may also be used for other general purposes if the header is omitted. 
+In this case the files are also auto-detected but nothing is added to the alphabetic reference guide.</p>
+<p>The .tex files are not detected automatically by doc2html. They should not have any
+header, and must be <a class="link" href="d2h-meta.html#A5">included</a> manually inside one of the .doc/.tex files that <a class="link" href="#A12">references</a>
+them.</p>
+<p>The purpose of this construction is that it should be possible to add new documentation resources without
+having to include them from another existing file. Any .doc file that is located in a package
+subdirectory is automatically found and translated by doc2html, and is immediately
+available in the <font face="helvetica">Amira</font> Help Browser. This is especially useful when
+the user wishes to document his own resources, and to integrate them into the official
+<font face="helvetica">Amira</font> documentation: The official .doc/.tex files are not delivered to customers
+so there would be no possibility to include the new files anywhere.</p>
+<p>
+<a name="A2"></a>
+</p>
+<h3><a name="A3">29.1.1 Document Header: hxmodule, etc.</a></h3>
+<p>A .doc file document header must specify the package name using &#92;hxpackname&#123;PACKAGENAME&#125;.
+It must also mention what <a class="link" href="#A4">kind of an object</a> this file documents:
+a module, an editor, a component, a file format, a demo, an extension,
+or data. The header may contain a label name, which
+can later be used as the target of a link. Thus, the document structure
+is:
+<br />
+
+ 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;hxpackname &#123;PACKAGENAME&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ Replace PACKAGENAME by the <font face="helvetica">Amira</font> Option this file belongs to, usually amira or e.g., amiraMol. No output
+is rendered. The package name is needed for the alphabetic reference guide.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;OBJECTTYPE&#125; <br />
+&#123;PARAMETER1&#125;&#123;...&#125;... </td>
+<td align=left>
+ Headline </td>
+<td align=left>
+ Describes the object that is documented here. See <a class="link" href="#A4">Section 29.1.1.1</a> for a list of object types. </td>
+</tr><tr><td align=left>
+
+ 
+&#92;label&#123;LABELNAME&#125; <em>or</em> <br />
+&#92;hxlabel&#123;LABELNAME&#125; </td>
+<td align=left>
+ &lt;a name = LABELNAME/&gt; </td>
+<td align=left>
+ Label name. It will later be the target for linking to this file.
+Using &#92;label or &#92;hxlabel makes no difference
+in <em>this</em> case.</td>
+</tr><tr><td align=left>
+
+ 
+DOCUMENT CONTENT </td>
+<td align=left>
+ Content </td>
+<td align=left>
+ The document content is parsed here.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;end&#123;OBJECTTYPE&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ Does not output anything, and is not needed for doc2html - but it
+must be there when building the PDF docs.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p><br />
+</p>
+<p>
+ The three header commands may occur in arbitrary order.
+They should be the first lines of the document, and must
+not contain anything but whitespace between them.</p>
+<p>
+</p>
+<h4><a name="A4">29.1.1.1 Object Types</a></h4>
+<p>The following object types can be documented in .doc files. One of
+the commands is deprecated, and some of them are no longer supported in doc2html.</p>
+<p><br />
+
+
+ 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+Object type </td>
+<td align=left>
+ parameter1 </td>
+<td align=left>
+ parameter2 </td>
+<td align=left>
+ Status </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+<s>&#92;begin&#123;hxcomponent&#125;</s> </td>
+<td align=left>
+ <s>&#123;componentName&#125;</s> </td>
+<td align=left>
+ <s>-none-</s> </td>
+<td align=left>
+ available (deprecated) </td>
+<td align=left>
+ Describe a component</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxcomponent2&#125; </td>
+<td align=left>
+ &#123;component&#125; </td>
+<td align=left>
+ &#123;component Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a component</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxdemo&#125; </td>
+<td align=left>
+ &#123;demoName&#125; </td>
+<td align=left>
+ -none- </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a demo</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxextension&#125; </td>
+<td align=left>
+ &#123;extensionName&#125; </td>
+<td align=left>
+ -none- </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe an extension</td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;begin&#123;hxmodule&#125;</s> </td>
+<td align=left>
+ <s>&#123;moduleName&#125;</s> </td>
+<td align=left>
+ <s>-none-</s> </td>
+<td align=left>
+ not available </td>
+<td align=left>
+ No longer supported</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxmodule2&#125; </td>
+<td align=left>
+ &#123;moduleName&#125; </td>
+<td align=left>
+ &#123;module Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a module</td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;begin&#123;hxeditor&#125;</s> </td>
+<td align=left>
+ <s>&#123;editorName&#125;</s> </td>
+<td align=left>
+ <s>-none-</s> </td>
+<td align=left>
+ not available </td>
+<td align=left>
+ No longer supported</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxeditor2&#125; </td>
+<td align=left>
+ &#123;editorName&#125; </td>
+<td align=left>
+ &#123;editor Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe an editor</td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;begin&#123;hxfileformat&#125;</s> </td>
+<td align=left>
+ <s>&#123;fileformatName&#125;</s> </td>
+<td align=left>
+ <s>-none-</s> </td>
+<td align=left>
+ not available </td>
+<td align=left>
+ No longer supported</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxfileformat2&#125; </td>
+<td align=left>
+ &#123;fileformatName&#125; </td>
+<td align=left>
+ &#123;fileformat Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a file format</td>
+</tr><tr><td align=left>
+
+ 
+<s>&#92;begin&#123;hxdata&#125;</s> </td>
+<td align=left>
+ <s>&#123;dataName&#125;</s> </td>
+<td align=left>
+ <s>-none-</s> </td>
+<td align=left>
+ not available </td>
+<td align=left>
+ No longer supported</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxdata2&#125; </td>
+<td align=left>
+ &#123;dataName&#125; </td>
+<td align=left>
+ &#123;data Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe data</td>
+</tr><tr><td align=left>
+
+
+&#92;begin&#123;glslshader&#125; </td>
+<td align=left>
+ &#123;shaderName&#125; </td>
+<td align=left>
+ -none- </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a GLSL shader</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxzibtutproj&#125; </td>
+<td align=left>
+ &#123;projectName&#125; </td>
+<td align=left>
+ &#123;project Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a ZIB project tutorial</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxzibtutpub&#125; </td>
+<td align=left>
+ &#123;publicationName&#125; </td>
+<td align=left>
+ &#123;publication Description&#125; </td>
+<td align=left>
+ available </td>
+<td align=left>
+ Describe a ZIB publication tutorial
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+</p>
+<p></p>
+<h3><a name="A5">29.1.2 Table of Contents</a></h3>
+<p>Note: The following commands should be used only for the official <font face="helvetica">Amira</font> documentation. When used
+while documenting custom <font face="helvetica">Amira</font> resources in the <tt>AMIRA_LOCAL</tt> directory, they may work unpredictably (or not at all).<br />
+</p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;chapterblock &#123;CHAPTERNAME&#125; </td>
+<td align=left>
+ &lt;h1&gt;&lt;a name=...&gt;<br />
+CHAPTERNAME &lt;/a&gt;&lt;/h1&gt; </td>
+<td align=left>
+ Used only in usersguide/&#8204;index.doc to start a new chapter.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;tableofcontents </td>
+<td align=left>
+ Table of contents </td>
+<td align=left>
+ Used only in usersguide/toc.doc to render the table of contents.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;AmiraBaseExtensions </td>
+<td align=left>
+ List of Amira Options </td>
+<td align=left>
+ Used only in usersguide/toc.doc to list all available Amira Options.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxpublication </td>
+<td align=left>
+ &lt;! HxHelpHint: "publication based module" !&gt; </td>
+<td align=left>
+ Generate an HTML comment to note a related reference that need not be displayed.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+<br />
+</p>
+<p></p>
+<h3><a name="A6">29.1.3 Sections</a></h3>
+<p></p>
+<h4><a name="A7">29.1.3.1 LaTeX Style Chapters and Sections</a></h4>
+<p>Chapters, sections, and subsections will be visible in the table of contents.<br />
+</p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;chapter&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h1&gt;&lt;a name=...&gt;<br />
+ TEXT &lt;/a&gt;&lt;/h1&gt; </td>
+<td align=left>
+ Start a new chapter.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;section&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h2&gt;&lt;a name=...&gt;<br />
+ x TEXT &lt;/a&gt;&lt;/h2&gt; </td>
+<td align=left>
+ Start a new section. It gets a new auto-generated section number. </td>
+</tr><tr><td align=left>
+
+ 
+&#92;subsection&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h3&gt;&lt;a name=...&gt;<br />
+ x.y TEXT &lt;/a&gt;&lt;/h3&gt; </td>
+<td align=left>
+ Start a new subsection. It gets a new auto-generated subsection number. </td>
+</tr><tr><td align=left>
+
+ 
+&#92;subsubsection&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h4&gt;&lt;a name=...&gt;<br />
+ x.y.z TEXT &lt;/a&gt;&lt;/h4&gt; </td>
+<td align=left>
+ Start a new subsubsection. It gets a new auto-generated subsubsection
+number. </td>
+</tr><tr><td align=left>
+
+ 
+&#92;section*&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h2&gt;&lt;a name=...&gt;<br />
+ TEXT &lt;/a&gt;&lt;/h2&gt; </td>
+<td align=left>
+ Start a new section.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;subsection*&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h3&gt;&lt;a name=...&gt;<br />
+ TEXT &lt;/a&gt;&lt;/h3&gt; </td>
+<td align=left>
+ Start a new subsection.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;subsubsection*&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;h4&gt;&lt;a name=...&gt;<br />
+ TEXT &lt;/a&gt;&lt;/h4&gt; </td>
+<td align=left>
+ Start a new subsubsection.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<h4><a name="A8">29.1.3.2 &#123;hxports&#125;, &#123;hxcommands&#125; etc. Sections</a></h4>
+<p>These hx sections should be used to document properties of the current
+object - e.g., ports should be described inside an hxports section. It is not allowed to use hx commands
+like &#92;hxport outside an &#123;hxports&#125; environment. See
+the next section for <a class="link" href="#A9">usage and translation details</a>. The following 
+hx sections are available:</p>
+<p>
+ 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;hxcommands&#125;
+TEXT
+&#92;end&#123;hxcommands&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"hxcommands"&gt; &lt;h3&gt;<br />
+Commands: &lt;/h3&gt;&#92;n
+TEXT
+&lt;/div&gt; </td>
+<td align=left>
+ Describe the Tcl commands of the object. Each command is started
+by the &#92;hxcommand&#123;COMM_NAME&#125; command. The following
+TEXT should describe the command further.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxdescription&#125;
+TEXT
+&#92;end&#123;hxdescription&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"hxdescription"&gt; &lt;h3&gt;<br />
+Description: &lt;/h3&gt;&#92;n
+TEXT
+&lt;/div&gt; </td>
+<td align=left>
+ TEXT should describe the functionality of the object.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxconnections&#125;
+TEXT
+&#92;end&#123;hxconnections&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"hxconnections"&gt; &lt;h3&gt;<br />
+Connections: &lt;/h3&gt;&#92;n
+TEXT
+&lt;/div&gt; </td>
+<td align=left>
+ Describe the connections of the object. Each connection is started
+by the &#92;hxconnection&#123;CONN_NAME&#125; command. The following
+TEXT should describe the connection further.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxports&#125;
+TEXT
+&#92;end&#123;hxports&#125; </td>
+<td align=left>
+ &lt;h3&gt; &lt;div class&#8204;="hxports"&gt;<br />
+Ports: &lt;/h3&gt;&#92;n
+TEXT
+&lt;/div&gt; </td>
+<td align=left>
+ Describe the ports of the object. Each port is started by the &#92;hxport&#123;PORT&#125;
+command. The following TEXT should describe the port further.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxsection&#125;
+&#123;SECTIONNAME&#125;
+TEXT
+&#92;end&#123;hxsection&#125; </td>
+<td align=left>
+ &lt;h3&gt; &lt;div class=&#8204;"hxsection"&gt;<br />
+SECTIONNAME: &lt;/h3&gt;&#92;n
+TEXT
+&lt;/div&gt; </td>
+<td align=left>
+ Start a section that looks like the ones above, but has a custom title.</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><a name="A9"></a>
+</p>
+<h4><a name="A10">29.1.3.3 &#92;hxport, &#92;hxcommand etc. Usage</a></h4>
+<p>Commands like &#92;hxport can only be used inside an &#123;hxports&#125;
+environment. If it is used outside, a parse warning is generated.
+If it is used in the wrong environment, like &#92;hxport
+inside &#123;hxconnections&#125;, no warning is given and the &#92;hxport
+command is automatically treated as if it was an &#92;hxconnection
+command. In fact, translation of these &#92;hxport etc.
+commands only depends on the section type they are in, so we just
+call them <em>&#92;hxitem</em> in this section. The syntax
+of an &#92;hxitem is as follows. Commands in brackets [&nbsp;]
+are optional. The asterisk (*) indicates an arbitrary number of repetitions of this command:</p>
+<p><br />
+</p>
+<p>&#92;begin &#123;SECTIONTYPE&#125; <br />
+</p>
+<p>&#92;hxitem &#123;HEADLINE&#125; [ &#123;ADDENDUM&#125; ] <br />
+
+[ &#92;hximage &#123;IMAGE1&#125; ]* <br />
+
+TEXT <br />
+</p>
+<p>&#92;end &#123;SECTIONTYPE&#125;</p>
+<p><br />
+</p>
+<p>Translation depends on the section type, the addendum, and
+the presence of port snapshots. 
+</p>
+<ul><li>The addendum is used to indicate if an hxconnection is required or
+optional, so ADDENDUM may be "required",
+"optional", "unused",
+or empty (in this case braces can be omitted). Any LaTeX commands other than simple text are removed from the addendum
+to ensure a standardized markup via CSS. If we are currently inside an &#123;hxconnections&#125;
+environment, the following &lt;div&gt; tags will be generated: "hxconnection_required",
+"hxconnection_optional", or "hxconnection_unused". If
+we are not inside &#123;hxconnections&#125;, the addendum has no influence
+on the tags but is displayed only as text. See <a class="link" href="#A11">below</a> for a usage example.</li><li>When describing a port, port snapshots may be added. Any &#92;hximage
+found between the &#92;hxitem and the following text is
+considered to be a snapshot image and therefore put into &lt;div class="portsnapshot"&gt;
+tags. Note that this does not apply for &#92;hximagescaled,
+which will never be detected as portsnapshot (would not make sense
+to resize snapshots).</li>
+</ul><p></p>
+<p> 
+<a name="A11"></a>
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;hxconnections&#125;<br />
+<em>&#92;hxitem</em>&#123;Data&#125;&#123;required&#125;<br />
+Description goes here<br />
+&#92;end&#123;hxconnections&#125; </td>
+<td align=left>
+ &lt;div class="hxconnections"&gt;<br />
+ &lt;div class="hxconnection_required"&gt;<br />
+ &lt;span class="hxconnection_headline"&gt;<br />
+ Data<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;span class="connectiontype"&gt;<br />
+ required<br />
+ &lt;/span&gt;<br />
+ &lt;p&gt;<br />
+ Description goes here<br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+&lt;/div&gt; 
+</td>
+</tr><tr><td align=left>
+
+<br />
+&#92;begin&#123;hxports&#125;<br />
+&#92;<em>hxitem</em>&#123;Portname&#125;<br />
+&#92;hximage&#123;snapshot1&#125;<br />
+&#92;hximage&#123;snapshot2&#125;<br />
+Description goes here<br />
+&#92;end&#123;hxports&#125; </td>
+<td align=left>
+ &lt;div class="hxports"&gt;<br />
+ &lt;div class="hxport"&gt;<br />
+ &lt;span class="hxport_headline"&gt;<br />
+ Portname<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;div class="portsnapshots"&gt;<br />
+ &lt;img ....snapshot1...&gt;<br />
+ &lt;img ....snapshot2...&gt;<br />
+ &lt;/div&gt;<br />
+ &lt;p&gt;<br />
+ Description goes here<br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+&lt;/div&gt;
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<p><br />
+</p>
+<p>Occasionally one may wish to end an &#92;hxport, insert a headline,
+and then start the next &#92;hxport. But without further precautions
+the headline would still be included in the &lt;div&gt;
+tags of the previous port, which would not look nice. The solution
+is to put an &#92;endhxitem at the position where the last
+port should end.</p>
+<p></p>
+<p>This example illustrates the problem:</p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;hxports&#125;<br />
+<em><u>Headline1</u></em><br />
+&#92;<em>hxitem</em>&#123;Portname1&#125;<br />
+text1<br />
+<em><u>Headline2</u></em><br />
+&#92;<em>hxitem</em>&#123;Portname2&#125;<br />
+text2<br />
+&#92;end&#123;hxports&#125; </td>
+<td align=left>
+ &lt;div class="hxports"&gt;<br />
+<em><u>Headline1</u></em><br />
+ &lt;div class="hxport"&gt;<br />
+ &lt;span class="hxport_headline"&gt;<br />
+ Portname1<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;p&gt;<br />
+ text1<br />
+ <em><u>Headline2</u></em><br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+ &lt;div class="hxport"&gt;<br />
+ &lt;span class="hxport_headline"&gt;<br />
+ Portname2<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;p&gt;<br />
+ text1<br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+&lt;/div&gt; </td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p>
+<br />
+</p>
+<p>This is the recommended solution:</p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;hxports&#125;<br />
+<em><u>Headline1</u></em><br />
+&#92;<em>hxitem</em>&#123;Portname1&#125;<br />
+text1<br />
+<b>&#92;endhxitem</b><br />
+<em><u>Headline2</u></em><br />
+&#92;<em>hxitem</em>&#123;Portname2&#125;<br />
+text2<br />
+
+&#92;end&#123;hxports&#125; </td>
+<td align=left>
+ &lt;div class="hxports"&gt;<br />
+<em><u>Headline1</u></em><br />
+ &lt;div class="hxport"&gt;<br />
+ &lt;span class="hxport_headline"&gt;<br />
+ Portname1<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;p&gt;<br />
+ text1<br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+<em><u>Headline2</u></em><br />
+ &lt;div class="hxport"&gt;<br />
+ &lt;span class="hxport_headline"&gt;<br />
+ Portname2<br />
+ &lt;/span&gt;<br />
+ &lt;/a&gt;<br />
+ &lt;p&gt;<br />
+ text1<br />
+ &lt;/p&gt;<br />
+ &lt;/div&gt;<br />
+&lt;/div&gt; 
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><br />
+
+<a name="A12"></a>
+</p>
+<h3><a name="A13">29.1.4 Links &amp; Labels</a></h3>
+<p>Doc2html internally stores a list of labels that can be used as link
+targets, i.e.,&nbsp;every &lt;a name=... /&gt; tag in all files can be referenced
+from any other file. 
+</p>
+<ul><li>To define a custom label anywhere in the text, use &#92;hxlabel. This command
+prints out the &lt;a name=... /&gt; tag and registers the new label in the
+internal label list.</li><li>The &#92;label command yields no output, but merely registers
+the last &lt;a name=... /&gt; tag that was outputted by another function
+to the internal list. The only functions that generate this output
+themselves are &#92;chapter, &#92;section, &#92;subsection,
+&#92;subsubsection, and &#92;figure. When linking to a 
+&#92;label, the chapter or figure number is automatically added to the linking text. 
+Therefore, if an &#92;hxlabel 
+is used instead of a &#92;label, links to this label will be displayed
+without the chapter number. For usage
+examples, see below.</li><li>A link to a label can be set by several commands, which all take
+a link target and the text to be displayed as link. The
+commands are &#92;link and &#92;hxref (which
+do exactly the same), and the ref commands: &#92;ref, &#92;tref,
+&#92;reft, and &#92;treft. When building the PDF docs,
+the ref commands display the number of the linked chapter together with the given text, 
+while the other commands simply display the target name in italic letters without a number.
+To link to a chapter, use &#92;tref&#123;Chapter&#125;&#123;LABELNAME&#125;.</li><li>An external URL can be linked using &#92;URL. External
+links may not work in the Amira online help, but do work if the docs
+are displayed in a web browser.</li>
+</ul><p>
+<br />
+
+</p>
+<h4><a name="A14">29.1.4.1 Labels</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ <br />
+&#92;label&#123;NAME&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ Add a label to the internal collection of labels. This command can
+only be called when a new chapter/section/.. begins, or inside a figure. 
+The NAME is then stored as internal reference.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hxlabel&#123;NAME&#125; </td>
+<td align=left>
+ &lt;a name=...&gt;&lt;/a&gt; </td>
+<td align=left>
+ Define a custom label. It is automatically added to the internal collection
+of labels. </td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p></p>
+<p> If an &#92;hxlabel is combined with e.g., a &#92;begin&#123;hxsection&#125;
+or similar section types, the order of the commands is not important:<br />
+</p>
+<p>&#92;begin&#123;hxsection&#125;&#123;Defining a break&#125; </p>
+<p>&#92;hxlabel&#123;DemoMaker_break&#125;</p>
+<p>text </p>
+<p>&#92;end&#123;hxsection&#125;<br />
+</p>
+<p> is the same as<br />
+</p>
+<p>&#92;hxlabel&#123;DemoMaker_break&#125; </p>
+<p>&#92;begin&#123;hxsection&#125;&#123;Defining a break&#125; </p>
+<p>text </p>
+<p>&#92;end&#123;hxsection&#125;<br />
+</p>
+<p> but the second variant should be preferred for performance
+reasons.
+<br />
+</p>
+<h4><a name="A15">29.1.4.2 Links</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;link&#123;TARGET&#125;&#123;TEXT&#125; <em>or</em> <br />
+&#92;hxref&#123;TARGET&#125;&#123;TEXT&#125; 
+</td>
+<td align=left>
+ &lt;a class="link" <br />
+href="TARGET"&gt;<br />
+TEXT &lt;/a&gt; </td>
+<td align=left>
+ Link to a target label, or to a file.
+If the label does not exist, the target is assumed to be a file, and
+the .html extension is then added automatically. &#92;hxref
+and &#92;link are the same. Example: &#92;link&#123;HxColormap&#125; &#123;Colormap&#125;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;ref&#123;TARGET&#125;&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;a class="link" <br />
+href="TARGET"&gt;<br />
+TEXT &lt;/a&gt; </td>
+<td align=left>
+ Link to a target label.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;tref&#123;TEXT&#125;&#123;TARGET&#125; </td>
+<td align=left>
+ &lt;a class="link" <br />
+href="TARGET"&gt;<br />
+TEXT&#9251;&lt;/a&gt; </td>
+<td align=left>
+ e.g., &#92;tref&#123;Section&#125; &#123;SecCmdLine&#125;
+(puts a space behind the text)</td>
+</tr><tr><td align=left>
+
+ 
+&#92;reft&#123;TARGET&#125;&#123;TEXT&#125; </td>
+<td align=left>
+ &lt;a class="link" <br />
+href="TARGET"&gt;<br />
+&#9251; TEXT&lt;/a&gt; </td>
+<td align=left>
+ e.g., &#92;reft&#123;Section&#125; &#123;SecCmdLine&#125;
+(puts a space before the text)</td>
+</tr><tr><td align=left>
+
+ 
+&#92;treft&#123;TEXT_1&#125; &#123;TARGET&#125; &#123;TEXT_2&#125; </td>
+<td align=left>
+ &lt;a class="link" <br />
+href="TARGET"&gt;<br />
+TEXT_1&#9251; TEXT_2&lt;/a&gt; </td>
+<td align=left>
+ e.g., &#92;treft&#123;Section1&#125; &#123;Headlinetext&#125;<br />
+&#123;SecCmdLine&#125;
+(puts a space between both texts)</td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p>
+<br />
+
+</p>
+<h4><a name="A16">29.1.4.3 URLs</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;URL&#123;TARGET&#125; </td>
+<td align=left>
+ &lt;a href=TARGET&gt; <br />
+TARGET&lt;/a&gt; </td>
+<td align=left>
+ Link to the external URL. Using mailto: is also allowed.<br />
+&#92;URL&#123;example.com&#125;<br />
+&#92;URL&#123;mailto:abc@&#8204;example.com&#125;</td>
+</tr><tr><td align=left>
+
+ 
+&#92;URL[TEXT]&#123;TARGET&#125; </td>
+<td align=left>
+ &lt;a href=TARGET&gt; <br />
+TEXT&lt;/a&gt; </td>
+<td align=left>
+ Link to the external URL using an alternative link description. Using
+mailto: is also allowed. <br />
+&#92;URL[linkname] &#123;example.com&#125;<br />
+&#92;URL[mail]&#123;mailto:abc@&#8204;example.com&#125;
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+<br />
+</p>
+<p>
+</p></body>
+</html>

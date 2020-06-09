@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.5.3 Parameters and Materials</a></h3>
+<p>For every data object an arbitrary number of attributes or parameters
+can be defined. The parameters are stored in a member variable <tt>parameters</tt> of type <tt>HxParamBundle</tt>. The header file of the class
+<tt>HxParamBundle</tt> is located in the subdirectory <tt>kernel/amiramesh</tt>.
+<tt>HxParamBundle</tt> is derived from the base class <tt>HxParamBase</tt>.
+Another class derived from <tt>HxParamBase</tt> is <tt>HxParameter</tt>. This
+class is used to actually store a parameter value. A parameter value may be
+a string or an n-component vector of any primitive data type supported in
+<font face="helvetica">Amira</font> (byte, short, int, float, or double). The bundle class <tt>HxParamBundle</tt> may hold an arbitrary number of <tt>HxParamBase</tt> objects,
+i.e., parameters or other bundles. In this way parameters may be ordered
+hierarchically.</p>
+<p>Many data objects such as label fields, surfaces, or unstructured finite
+element grids make use of the concept of a <tt>material</tt> list. Material
+parameters are
+stored in a special sub-bundle of the object's parameter bundle called <em>Materials</em>. In order to access all material parameters of such an object, 
+the following code may be used:</p>
+<p><font size="2"></font></p><pre>
+  HxParamBundle* materials = field-&gt;parameters.materials();
+  int nMaterials = materials-&gt;nBundles();
+
+  for (int i=0; i&lt;nMaterials; i++) {
+      HxParamBundle* material = materials-&gt;bundle(i);
+      const char* name = material-&gt;name();
+      theMsg-&gt;printf("Material[%d] = %s\n", name);
+  }
+</pre><p><font size="2"></font></p>
+<p>The class <tt>HxParamBundle</tt> provides several methods for looking up
+parameter values. All these <em>find</em>-methods return 0 if the requested
+parameter could not be found. For example, in order to retrieve the value
+of a one-component floating point parameter called <em>Transparency</em>, the
+following code may be used:</p>
+<p><font size="2"></font></p><pre>
+  float transparency = 0;
+  if (!material-&gt;findReal("Transparency",transparency))
+      theMsg-&gt;printf("Transparency not defined, using default");
+</pre><p><font size="2"></font></p>
+<p>In order to add a new parameter or to overwrite the value of an existing
+one, you may use one of several different <em>set</em>-methods, for example:</p>
+<p><font size="2"></font></p><pre>
+  material-&gt;set("Transparency",transparency);
+</pre><p><font size="2"></font></p>
+<p>Many modules check whether a color is associated to a particular 'material'
+in the material list of a data object. If this is not the case, the color 
+or some other value is looked up in the global material database <font face="helvetica">Amira</font>
+provides. This database is represented by the class <tt>HxMatDatabase</tt>
+defined in <tt>kernel/Amira</tt>. It can be accessed via the global pointer
+<tt>theDatabase</tt>. Like an ordinary data object, the database has a member
+variable <tt>parameters</tt> of type <tt>HxParamBundle</tt> in order to store
+parameters and materials. In addition, it provides some convenience
+methods, for example <tt>getColor(const char* name)</tt>, which returns the
+color of a material, defining a new one if the material is not yet
+contained in the database.
+
+</p></body>
+</html>

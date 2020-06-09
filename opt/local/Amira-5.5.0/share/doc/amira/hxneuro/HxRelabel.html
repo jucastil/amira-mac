@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Relabel</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Relabel" "synchronizes material IDs or merges multiple label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module sorts the materials in a
+<a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> according to the material list of a
+template. Materials which are only present in the template are added. If
+materials are found in the input, which are not present in the template, a
+warning is issued.</p>
+<p>The module is also capable of merging multiple label fields of the
+same size. This is useful if different parts of the same data set
+have been segmented independently. If corresponding voxels in the
+input are assigned different materials, which are both different from
+Exterior, the last input will be used. If the option <i>Conflict
+Material</i> is checked, such voxels will be assigned to a new material
+named <i>MergeConflict</i>.</p>
+<p>This module can be used to fill a new, empty label field with
+materials from a previous segmentation.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Input LabelField.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Data2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Additional LabelField to be merged with the first one.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Data3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Additional LabelField to be merged with the first two ones.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Template</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>LabelField with the template material list. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxRelabel_options.png" /><br /></div>
+<div class="body"><p>The <b>verbose</b> flag produces some information on the actual mapping.
+If the <b>Modify Input</b> option is chosen, the input data set itself
+is modified instead of duplicating it, do not use this option
+on a data set, while an editor is active. If the <b>Conflict Material</b>
+option is chosen in a merging action, voxels with different materials
+in the input data sets are assigned to a special material called <em>MergeConflict</em>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

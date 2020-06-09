@@ -1,0 +1,149 @@
+# ------------------------------------------------------
+# Command for registering new image filters
+#
+# Syntax: imageFilters -name -
+#
+# ------------------------------------------------------
+
+editor -name "Digital Filters" \
+   -data "HxRegScalarField3" \
+   -data "HxUniformScalarField3"\
+   -class "HxImageVisionEditor" \
+   -icon "HxImageFilterEditor.png" \
+   -dso "libhximproc.so"
+
+module -name "ImageFilters" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -dso "libhximproc.so"
+
+module -name "ComputeAlphaChannel" \
+    -primary "HxUniformColorField3" \
+    -class "HxComputeAlphaChannel" \
+    -category "ImageFilters" \
+    -dso "libhximproc.so"
+
+module -name "Gaussian Smoothing" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 5; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Resampling/Low Pass" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 9; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Edge Detection (Sobel)" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 6; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Unsharp Masking" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 2; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Noise Reduction Minimum" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 0; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Noise Reduction Maximum" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 1; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Noise Reduction Median" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 4; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Edge detection (Laplacian)" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 3; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Edge-Preserving Smoothing" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 8; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"
+
+module -name "Noise Reduction Non-Local Means" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 14; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"
+
+module -name "Equalize" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 7; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Brightness/Contrast" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 11; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Intensity Remapping" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 10; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Statistical Feature Detection" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 12; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so"  
+
+module -name "Lighten/Darken" \
+    -primary "HxUniformScalarField3" \
+    -class "HxImageFilters" \
+    -category "ImageFilters" \
+    -proc {$this filter setValue 13; $this filter setMenuSensitivity 0 0} \
+    -dso "libhximproc.so" 
+
+module -name     "NormalizeImage" \
+    -primary  "HxUniformScalarField3" \
+    -class    "HxNormalizeImage" \
+    -category "Compute" \
+    -dso  "libhximproc.so"
+
+module -name  "CannyEdgeDetector" \
+    -primary  "HxUniformScalarField3" \
+    -class    "HxCanny2D" \
+    -category "Compute" \
+    -package  "hximproc"
+
+module -name     "BlockFaceCorrection" \
+       -primary  "HxRegScalarField3" \
+       -category "Compute" \
+       -class    "HxCorrectBlockFace" \
+       -dso      "libhximproc.so"
+

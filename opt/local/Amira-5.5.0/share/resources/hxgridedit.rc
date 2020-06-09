@@ -1,0 +1,10 @@
+# ----------------------------------------------------------------------
+#   hxgridedit package
+# ----------------------------------------------------------------------
+
+editor -name "GridEditor" \
+   -icon "HxGridEditor.png" \
+   -data "HxTetraGrid" \
+   -class "HxGridEdit" \
+   -dso "libhxgridedit.so"
+

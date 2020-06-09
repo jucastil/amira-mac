@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Time-Dependent Data</a>
+</h2> <ul class="entry_classification"><li>Demo</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Demo" "Time-Dependent Data" !>
+<p></p><blockquote>
+<p>
+ In case of time-dependent data often each time-step is stores
+ in a separate file. In <font face="helvetica">Amira</font> such time series can be easily imported
+ using the <em>Load Time Series...</em> option of the file menu (see
+ <a class="link" href="../usersguide/filemenu.html#A3">Section 3.1.1.2</a>). This option creates
+ a <a class="link" href="../hxtime/HxDynamicFileSeriesCtrl.html#A1">time series control</a> module,
+ which provides a time slider and actually loads and caches the
+ desired time steps. The first two demos in this section illustrate
+ the use of this module. In the first case the slices of a
+ 3D image stack are interpreted as separate time steps. In the second
+ case six frames of a 3D dynamic quantum mechanical simulation of
+ a proton's wave function in an argon cluster are shown.</p>
+<p> The third demo illustrates how complex operations can be performed
+ using <a class="link" href="../hxscriptobj/HxScriptObject.html#A1">script objects</a>. In this case a script
+ object is used to interpolate linearly between the individual frames
+ of the argon cluster data set.</p>
+<p> <img src="HxTime_demo1.png" />
+ <a href="../../../demo/time/demo1.hx">3D image stack interpreted as time series</a> <br />
+
+ <img src="HxTime_demo2.png" />
+ <a href="../../../demo/time/demo2.hx">Argon cluster (dynamic quantum mechanical simulation)</a> <br />
+
+ <img src="HxTime_demo3.png" />
+ <a href="../../../demo/time/demo3.hx">Argon cluster interpolated via a script-object</a> <br />
+
+</p></blockquote>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

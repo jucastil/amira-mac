@@ -1,0 +1,9 @@
+amiramesh -ContentType HxDiskData \
+    -load "HxDiskData::readAmiraMesh" \
+    -dso "libhxdiskdata.so"
+
+module -name "ConvertToLargeDiskData" \
+    -primary "" \
+    -category "Data" \
+    -class "HxConvertToDiskData" \
+    -package "hxdiskdata"

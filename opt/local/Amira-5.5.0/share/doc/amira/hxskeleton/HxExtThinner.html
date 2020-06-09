@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Thinner</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "Thinner" "Thins a labelfield to its skeleton voxels" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The module takes a labelfield as input. It removes voxel by voxel from
+the segmented object until only a string of connected voxels remains.
+<em>Thinner</em> is also used internally by the 
+<a class="link" href="HxExtAutoSkeleton.html#A1">AutoSkeleton</a> module.</p>
+<p>Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Labelfield to be processed. Can be a regular <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>
+or of type <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a> in which case the output is of the 
+same type.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Distmap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Distance map of the labelfield.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxExtThinner_filename.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is attached to a LargeDiskData object.
+Specify here the name of the output file.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Temp filename</span>  
+<div class="portsnapshot"><img src="HxExtThinner_tempFilename.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is attached to a LargeDiskData object.
+Specify here the name of a temporary file needed by the algorithm.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Extended Options</span>  
+<div class="portsnapshot"><img src="HxExtThinner_extendedOptions.png" /><br /></div>
+<div class="body"><p>Check this box to get extended options.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Len of ends</span>  
+<div class="portsnapshot"><img src="HxExtThinner_lenOfEnds.png" /><br /></div>
+<div class="body"><p>The value in this field is given in terms of voxels and controls the module's 
+sensitivity to generate branch points. The higher the value the lower the sensitivity.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max iterations</span>  
+<div class="portsnapshot"><img src="HxExtThinner_maxIterations.png" /><br /></div>
+<div class="body"><p>Enter the number of iterations of the thinning algorithm. In the case of complex data
+set this port to non-zero values to prevent extraordinary computation times. A value of
+0 means that the maximum number of iterations is controlled automatically. </p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

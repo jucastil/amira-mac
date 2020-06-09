@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AnnaVectorField3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "AnnaVectorField3" "vector field defined by analytical expressions" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This data class represents a user-defined 3D vector field based on 
+ an arithmetic expression. It provides ports <em>X</em>, <em>Y</em>, <em>Z</em> by which
+ arithmetic expressions can be entered that define the component
+ mappings with respect to Cartesian coordinates x, y, and z.
+ The (default) domain is the unit cube, thus for each point (x,y,z) in
+ it, the associated vector (X,Y,Z) is given by scalar functions X(x,y,z), 
+ Y(x,y,z), and Z(x,y,z) which can be specified by the user in the same
+ way as a function for a <a class="link" href="HxAnnaScalarField3.html#A1">HxAnnaScalarField3</a>
+ data object.</p>
+<p> The range of vector magnitudes, defined as Euclidean vectors lengths,
+ is indicated as <em>Magnitude</em>.</p>
+<p> A data object of type <em>HxAnnaVectorField2</em> has three additional
+ input ports named <em>InputA</em>, <em>InputB</em>, <em>InputC</em> that can be 
+ connected to other data objects representing scalar or vector fields.
+ There are some predefined variables for referencing
+ such connected data objects in the arithmetic expressions, namely
+ <em>a</em>, <em>b</em>, <em>c</em> for scalar fields and <em>ax</em>, <em>ay</em>,
+ <em>az</em>, <em>bx</em>, <em>by</em>, <em>bz</em>, <em>cx</em>, <em>cy</em>, <em>cz</em>
+ for x-, y-, and z-components respectively of vector fields. This way a vector
+ field depending on other scalar and/or vector fields can be
+ defined. Whenever an evaluation of the three expressions is triggered
+ to compute the vector associated to a point (x,y,z), each of the
+ variables mentioned that occurs in them will be substituted by the
+ corresponding input values at the same point (x,y,z). For instance
+ the component values of a vector associated to a single point may be
+ obtained by attaching a <a class="link" href="../hxdataprobe/HxDataProbe.html#A1">PointProbe</a> module to the
+ <em>HxVectorField3</em> data object, entering the point's coordinates by 
+ the <em>Coord</em> port of that module and setting the <em>Vector</em> toggle
+ to <em>all</em>.</p>
+<p> If inputs contain undefined values, each of them will be used during
+ the expression evaluation. If an undefined value is found, 0 will be used
+ during this evaluation instead of the real undefined value.
+ Therefore, the undefined value isn't propagated to the result.</p>
+<p> An expression consists of variables and mathematical and logical
+ operators, the syntax is basically the same as for C expressions.
+ The following variables are always defined:
+ </p>
+<ul><li><b>x</b> - the x-coordinate of the current point</li><li><b>y</b> - the y-coordinate of the current point</li><li><b>z</b> - the z-coordinate of the current point</li>
+</ul>
+<p> If a scalar data object is connected to any of the ports
+ <em>InputA</em>, <em>InputB</em>, <em>InputC</em> a corresponding variable
+ for access to the data values is also defined, namely:
+ </p>
+<ul><li><b>a</b> - the values of input object A</li><li><b>b</b> - the values of input object B</li><li><b>c</b> - the values of input object C</li>
+</ul>
+<p> 
+ If a vector data object is connected to any of the ports
+ <em>InputA</em>, <em>InputB</em>, <em>InputC</em> corresponding component
+ variables for access to the data values are also defined, namely:
+ </p>
+<ul><li><b>ax, ay, az</b> - the xyz vector components of input object A</li><li><b>bx, by, bz</b> - the xyz vector components of input object B</li><li><b>cx, cy, cz</b> - the xyz vector components of input object C</li>
+</ul>
+<p> 
+ The same C style mathematical and logical operators as well as built-in
+ functions that are available for arithmetic expressions can be used here,
+ see <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> module description.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">InputA</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar or vector field.
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">InputB</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional second scalar or vector field.
+<a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">InputC</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional third scalar or vector field.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">X</span>  
+<div class="portsnapshot"><img src="HxAnnaVectorField3_x.png" /><br /></div>
+<div class="body"><p>Input field for arithmetic expression defining the x-component field
+ values.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Y</span>  
+<div class="portsnapshot"><img src="HxAnnaVectorField3_y.png" /><br /></div>
+<div class="body"><p>Input field for arithmetic expression defining the y-component field
+ values.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Z</span>  
+<div class="portsnapshot"><img src="HxAnnaVectorField3_z.png" /><br /></div>
+<div class="body"><p>Input field for arithmetic expression defining the z-component field
+ values.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Domain</span>  
+<div class="portsnapshot"><img src="HxAnnaVectorField3_Domain.png" /><br /></div>
+<div class="body"><p>This port is only visible if other fields are connected as input a, b or c. These
+ input fields might not be defined everywhere. If set to <em>unrestricted</em> the field
+ can be evaluated everywhere, a value of 0 is used for the input fields of a, b or c if
+ evaluated outside their domain. If set to <em>dependent field</em>, the field is only evaluated
+ inside all domains of the dependent fields a,b and c.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

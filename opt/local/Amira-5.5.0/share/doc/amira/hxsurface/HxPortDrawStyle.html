@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortDrawStyle</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortDrawStyle" "drawstyle option menu and popup menu" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is a special port for adjusting the drawstyle of display
+ modules derived from <a class="link" href="HxViewBase.html#A1">ViewBase</a>. The port provides
+ a combo box (option menu) offering the following drawstyles:</p>
+
+<ul><li>outlined</li><li>shaded</li><li>lines</li><li>points</li><li>transparent</li>
+</ul>
+<p> In addition, the port allows you to set additional options via a popup
+ menu which is activated by pressing the <em>more options</em> button.
+ For a detailed description of these options please refer to the
+ documentation of <a class="link" href="HxViewBase.html#A1">ViewBase</a>. This port is not
+ available for script objects.</p>
+<p> <img src="HxPortDrawStyle.png" /></p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the index of the current draw style.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;index&gt;</span>  
+
+<div class="body"><p>Sets the current draw style. The draw styles are indexed in the same
+ order as they appear in the combo box, i.e., 0=outlined, 1=shaded,
+ 2=lines, 3=points, 4=transparent.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isTexture</span>  
+
+<div class="body"><p>Checks if 1D textures for pseudo-coloring are enabled (as opposed
+ to Gouraud shading).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTexture &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables 1D textures for pseudo-coloring.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNormalBinding</span>  
+
+<div class="body"><p>Returns an index describing the current normal binding mode.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNormalBinding &#123;0|1|2&#125;</span>  
+
+<div class="body"><p>Sets the normal binding. The indices have the following meaning:
+ 0=triangle normals, 1=vertex normals, 2=direct normals (computed
+ using a crease angle criterion, compare <a class="link" href="HxViewBase.html#A1">ViewBase</a>).</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

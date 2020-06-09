@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MorphologicalSeparation</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "MorphologicalSeparation" "Separates objects that touch each other into distinct label" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module attempts to separate similarly sized objects that touch each other. The input to the module should be an already segmented label field. Objects are identified by their connectivity and their label number. The objects are separated based on morphological shape. New labels are introduced for all found objects.</p>
+<p>The module generates a new field of the same type as the input field. Use CastField to map the input to short or integer if more than 255 objects should be detected.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect a segmented dataset which can be either a label field or another field of primitive type char, short, or int.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Voxel number</span>  
+<div class="portsnapshot"><img src="HxSeparateMorpho_VoxelNumber.png" /><br /></div>
+<div class="body"><p>Enter the minimum and maximum number of voxels of a connected component that this module should attempt to split. The maximum number can be 0, in which case it is ignored.</p>
+
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

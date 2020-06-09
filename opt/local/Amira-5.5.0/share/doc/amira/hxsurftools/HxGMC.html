@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceGen</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceGen" "reconstructs 3D models from label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a triangular approximation of the interfaces
+ between different material types in a
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> with either uniform or stacked
+ coordinates. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ The resulting surfaces can be non-manifold surfaces.
+ In earlier releases of <font face="helvetica">Amira</font> this module was called GMC.</p>
+<p> Depending on the resolution of the incoming LabelField the resulting
+ triangular surface may have a huge amount of triangles. Therefore
+ it is often recommended to start with a downsampled version
+ of the LabelField, e.g., with a resolution of 128x128 pixels per slice. 
+ During
+ the resampling process the <a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module will
+ create or update the probability information of the LabelField. This
+ way the loss of information caused by the resampling process will be
+ minimized. The SurfaceGen module can use the probability information to
+ generate smoother surfaces.</p>
+<p> Press the <em>Apply</em> button to start the surface extraction. 
+ Depending on the size of the LabelField the algorithm requires up 
+ to a minute to finish.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>LabelField from which the interfaces should be extracted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Smoothing</span>  
+<div class="portsnapshot"><img src="HxGMC_smoothing.png" /><br /></div>
+<div class="body"><p>This port controls the way in which the module generates a smooth
+surface. If set to <i>none</i>, no sub-voxel weights are used and the
+resulting surface will look staircase-like. If set to <i>existing
+weights</i>, then pre-computed weights are used; such weights can be
+generated with the resample module or the smoothing filter in the
+image segmentation editor. The options <i>constrained smoothing</i> and <i>unconstrained smoothing</i> generate sub-voxel weights, such that the
+surface is naturally smooth; in the <i>constrained smoothing</i>
+mode, the module guarantees that no label be modified: any two voxel
+centers that have been labeled differently before the smoothing are
+separated by the generated surface afterwards. This
+is not necessarily the case for every small detail in the
+unconstrained case. The amount of smoothing can be controlled via the
+Tcl interface. Type</p>
+<p><tt>SurfaceGen setVar SmoothKernelSize &lt;value&gt;</tt> </p>
+<p>into the <font face="helvetica">Amira</font> console, to change the default, which is 5 for the
+unconstrained and 4 for the constrained case. The values currently cannot
+be larger than 9 but are not limited to integer variables. Note that setting
+this variable only applies to the actual SurfaceGen module. For further modules
+SurfaceGen2 etc the command has to be repeated.</p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxGMC_options.png" /><br /></div>
+<div class="body"><p>This port provides two toggles. </p>
+<p>	The first toggle, <i>add border</i>, ensures that the
+	resulting surfaces will be closed, even if some regions extend
+	up to the boundary of the LabelField. Closed surfaces are required
+	if a tetrahedral grid is to be generated later on.</p>
+<p> If <i>compactify</i> is enabled, an algorithm similar to the
+ <i>compactify</i> option of the <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> 
+ module will be applied, and up to 50% less points and triangles 
+ will be produced. Alternatively, you can apply an edge-contraction 
+ technique to reduce the number of triangles. See the description 
+ of the port <i>Minimal Edge Length</i> below for a more detailed 
+ explanation.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Border</span>  
+<div class="portsnapshot"><img src="HxGMC_border.png" /><br /></div>
+<div class="body"><p>This port will only be visible if <i>add border</i> has been
+ selected. It provides two toggle buttons labeled <i>adjust
+ coords</i> and <i>extra material</i>.</p>
+<p> It the first option is selected points belonging to triangles
+ adjacent to boundary voxels will be moved exactly onto the nearest
+ boundary face of the bounding box. In this way the resulting
+ surface appears to be sharply cut off at the boundaries.</p>
+<p> The second toggle indicates that triangles adjacent to boundary
+ voxels will be inserted into separate patches. The outer region of
+ these patches will be called <i>Exterior2</i>. If the toggle is off
+ no such extra material will be created. Instead, the boundary is
+ assumed to be labeled with 0, which usually corresponds to <i>Exterior</i>.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Minimal edge length</span>  
+<div class="portsnapshot"><img src="HxGMC_minEdgeLength.png" /><br /></div>
+<div class="body"><p>A non-vanishing value indicates that short edges of the final
+ surface should be contracted in order to increase triangle
+ quality as well as to decrease the number of triangles. The value
+ of the port indicates the minimal allowed edge length relative
+ to the size of a unit grid cell. By default, values between 0
+ and 0.8 can be entered. Typically, a value of 0.4 already yields
+ good results. However, note that intersections may be introduced
+ during edge contraction. If you want to avoid this try to use
+ the <a class="link" href="HxSimplifier.html#A1">simplification editor</a>. The editor applies
+ some special strategies in order to ensure topological consistency.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Smooth material</span>  
+<div class="portsnapshot"><img src="HxGMC_smoothMaterial.png" /><br /></div>
+<div class="body"><p>On default, the value of this port is <i>none</i>. If you change it to the 
+name of a material, a smooth surface will be generated for the selected 
+material. Otherwise, the surfaces of all materials will show some 
+'ridges' at contours incident on 3 or more materials.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Material</span>  
+<div class="portsnapshot"><img src="HxGMC_materialList.png" /><br /></div>
+<div class="body"><p>On default, this port is invisible. It can be made visible via the Tcl 
+command</p>
+<p><tt>SurfaceGen showMaterialList</tt> </p>
+<p>On default, the value of the port is <i>All</i>. If you change it to the 
+name of a material, only the surface of the selected material will be 
+extracted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

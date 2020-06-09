@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.4.2 Example: A Super-wide Configuration with Soft-edge Blending</a></h3>
+<p>Super-wide images with two times a standard monitor's resolution can be
+displayed using two projectors and a low-end dual-head graphics adapter. 
+However, often it is very
+desirable to have an overlap between the two projected images in order to hide 
+at best the transition between the projected images. In the
+overlap region one image softly fades out from full intensity to black,
+while the other image fades in from black to full intensity. This technique
+is called <em>soft-edge blending</em> (compare Figure
+<a class="link" href="#A2">63</a>). With soft-edge blending the border between
+the two projected images becomes almost invisible. <font face="helvetica">Virtual Reality Option</font> is able to
+generate two partially overlapping images. In addition, the soft-edge can
+be computed in software, yet some projectors or external blending units support this directly in hardware. 
+With these features perfect full-screen demos can
+be presented on a super-wide projection system.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-superwide.png.html><img width=450 src="HxVR-superwide.png" /></a><br />
+<div class="caption">
+<b>Figure 63:</b>
+Sketch of a super-wide projection system with soft-edge blending.</div>
+
+
+</div><p></p>
+<p></p>
+<h4><a name="A3">Dual-head wide desktop configuration</a></h4>
+<p>We assume that the dual-head graphics computer is configured so that the
+left half of the desktop is output on one channel and the right half is
+output on the other channel. We further assume that there is a 20 percent
+overlap between the projected images of the two projectors. Here is the
+<font face="helvetica">Virtual Reality Option</font> configuration file:</p>
+<p></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Left half"
+        channelOrigin   0 0
+        channelSize     0.5 1
+        tileOrigin      0 0
+        tileSize        0.6 1
+        softEdgeOverlap [ 0, 0.2, 0, 0 ]
+        softEdgeGamma   [ 0, 1.2, 0, 0 ]
+    }
+    SoScreen {
+        name            "Right half"
+        channelOrigin   0.5 0
+        channelSize     0.5 1
+        tileOrigin      0.4 0
+        tileSize        0.6 1
+        softEdgeOverlap [ 0.2, 0, 0, 0 ]
+        softEdgeGamma   [ 0, 1.2, 0, 0 ]
+    }
+}
+</pre><p></p>
+<p>The fields <em>channelOrigin</em> and <em>channelSize</em> indicate that the
+two windows exactly cover the left half and the right half of the desktop.
+The fields <em>tileOrigin</em> and <em>tileSize</em> indicate that both screens
+display an area of 0.6 times the width of the full tiled window. The
+first screen displays the left half of that window, the second screen
+displays the right half. </p>
+<p></p>
+<h4><a name="A4">How to compute tileOrigin and tileSize fields ?</a></h4>
+<p>The fields tileOrigin and tileSize define to the portion of the full view volume, i.e. of the total virtual big screen, to be mapped onto a specific screen.
+Therefore, if <em>width</em> is the pixel width of one projector, <em>overlap</em> the amount of overlapping pixels, and <em>n</em> the number of projectors, the total pixel width of the screen is:<br />
+
+<em>total</em> = (<em>width</em> - <em>overlap</em>)*(<em>n</em>-1) + <em>width</em><br />
+
+Then:<br />
+
+tileSize x = <em>width</em> / <em>total</em><br />
+
+tileOrigin x = <em>screen-index</em> * (<em>width</em> - <em>overlap</em>) / <em>total</em><br />
+</p>
+<p></p>
+<h4><a name="A5">Soft-edge blending fields</a></h4>
+<p>The field <em>softEdgeOverlap</em> specifies the
+relative width of the soft-edge region at the left, right, bottom, and top
+border of the screen. For the first screen there is a 20 percent soft-edge
+region at the right border, for the second screen there is a 20 percent
+soft-edge region at the left border. </p>
+<p>Finally, the field <em>softEdgeGamma</em>
+specifies the gamma factor for the soft-edge region. The gamma factor
+determines how the fading from full intensity to black is done. A gamma
+factor of one means a linear transition in terms of RGB values. However,
+since RGB values are usually not mapped linearly to light intensity by
+the video projector often a decrease of overall light intensity is observed
+in the overlap region. In order to compensate for this a gamma factor
+larger than one can be used. </p>
+<p>In order to facilitate the initial calibration of a super-wide projection
+system with soft-edge blending the <font face="helvetica">VRSettings</font> module provides a
+special-purpose Tcl command <em>setSoftEdge</em>. This command is used
+in the following way:</p>
+<p><font size="2"></font></p><pre>
+    VRSettings setSoftEdge -g &lt;gamma&gt; &lt;overlap&gt; [&lt;overlap&gt;...]
+</pre><p><font size="2"></font></p>
+<p>This command automatically creates a two-screen configuration similar
+to the one above. However, the correct values for <em>tileSize</em>,
+<em>tileOrigin</em>, and <em>softEdgeOverlap</em> are computed automatically
+from the relative overlap value. By gradually adapting this value the
+correct settings for a given but unknown setup of the projection system
+can be easily found.</p>
+<p>
+</p>
+<h4><a name="A6">Curved screen displays</a></h4>
+<p>Tiled display configurations are most often fine for curved displays, which are then handled like flat displays. 
+Immersive display configuration fitting the actual screen geometry is required for using stereo with head tracking. 
+Projection onto cylindrical or semi-spherical surfaces may also introduce some barrel-shaped distortions. Some special warping hardware can compensate such distortion.</p>
+<p>
+</p></body>
+</html>

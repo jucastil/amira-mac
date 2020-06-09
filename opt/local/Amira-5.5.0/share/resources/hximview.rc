@@ -1,0 +1,6 @@
+module -name    StandardView    \
+    -primary    "HxRegScalarField3 HxRegColorField3" \
+    -check      { ( [__isProduct "Amira"] || [__isProduct "ZIBAmira"] ) && [$PRIMARY coordType]<=2 } \
+    -class      "HxStandardView"\
+    -category   "Display"       \
+    -package    "hximview"

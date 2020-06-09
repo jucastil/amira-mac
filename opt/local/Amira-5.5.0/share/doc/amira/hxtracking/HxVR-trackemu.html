@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.9.1 Tracker Emulator</a></h3>
+<p>The <em>Tracker Emulator</em> provides emulation of a 3D positioning device with 
+two spatial sensors and two buttons. To activate it, type the word <em>test</em>
+into the tracker port of the <a class="link" href="HxTracking.html#A1"><font face="helvetica">VRSettings</font> control module</a> and press
+the <em>connect</em> button. After that the user interface dialog of the tracker 
+emulator appears.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-trackemu.png.html><img width=300 src="HxVR-trackemu.png" /></a><br />
+<div class="caption">
+<b>Figure 67:</b>
+The tracker emulators user interface dialog.</div>
+
+
+</div><p></p>
+<p>As mentioned before, the emulator emulates two spatial sensors designated as <em>sensor0</em> 
+and <em>sensor1</em>. For each of these sensors the position is changeable by three sliders, 
+one for each direction. Alternatively, as well as to reach positions of greater distance
+than the sliders allow, one can type the values directly into the text entry fields to the 
+right of the slider.</p>
+<p>The sensor's rotation can be changed by selecting one of the main axes as the rotation axis and
+then further adjusting the rotation angle around this axis using the slider or the entry 
+field. To perform an additional rotation, simply select a different rotation axis and angle.
+The rotations are performed cumulatively. The current rotation doesn't affect the orientation
+of the main rotation axes. The rotation center is always the current sensor position.
+To set the sensor's rotation to the initial unrotated state, press the <em>Reset</em> button.</p>
+<p>In the buttons section one can toggle the emulated button's state. As long as the checkbox 
+is checked, the emulated button is "down". If it's unchecked, the emulated button is "up".
+
+</p></body>
+</html>

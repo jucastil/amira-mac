@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> BondAngleView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "BondAngleView" "displays bond angles of a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>BondAngleView</em> offers an alternative to the <em>MoleculeView</em>. This viewing module, however, does not display
+ atoms and bonds but, as the name suggests, bond angles, i.e., for
+ every three atoms connected by two bonds a triangle will be shown.
+ The vertex colors are linearly interpolated across the triangle.
+ Apart from coloring the molecule as is done in the
+ <a class="link" href="HxMolView.html#A1">MoleculeView</a>, the bond angles can be colored
+ according to a specified color field, e.g., the electrostatic
+ potential, and a colormap. Here, in addition to interpolating the
+ colors, texture mapping can be applied which interpolates the
+ texture coordinates.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p><a class="link" href="../hxmolecule/HxMolecule.html#A1">Molecule</a> to be visualized.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Scalar field that can be displayed on the bond angle by
+ pseudo-coloring.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap needed in conjunction with the color field.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Continuous CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap that is used to map values of float attributes to
+ colors.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Discrete CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap that is used to map values of discrete attributes, like
+ integers and strings, to colors.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A7"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxBondAngle_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from the <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a> module. </p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxBondAngle_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxBondAngle_colormap.png" /><br /></div>
+<div class="body"><p>This port becomes visible only if a scalar field has been connected
+ to the color field port.</p>
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxBondAngle_transparency.png" /><br /></div>
+<div class="body"><p>If the draw style is set to <em>transparent</em>, this port lets you
+ configure the degree of transparency.</p>
+<p> <a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color Mode</span>  
+<div class="portsnapshot"><img src="HxBondAngle_colorMode.png" /><br /></div>
+<div class="body"><p>Allows you to switch between <em>normal</em> coloring mode and coloring
+ according to a scalar field.</p>
+<p> <a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxBondAngle_colorscheme.png" /><br /><img src="HxBondAngle_continuousColormap.png" /><br /><img src="HxBondAngle_discreteColormap.png" /><br /><img src="HxBondAngle_defineColor.png" /><br /><img src="HxBondAngle_highlighting.png" /><br /><img src="HxBondAngle_buffer.png" /><br /></div>
+<div class="body"><p>For an explanation of the four ports above, see the description in
+ the general section on <a class="link" href="../hxmolecule/moldisplay.html#A4">display of
+ molecules</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,800 @@
+# AmiraMesh 3D ASCII 2.0
+
+Parameters {
+    Materials {
+        Medulla {
+            Name "LeftMedulla RightMedulla",
+            Color 1 0.6 0.1
+        }
+        Lobula {
+            Name "LeftLobula RightLobula",
+            Color 0.35 0.61 1
+        }
+        LobulaPlate {
+            Name "LeftLobulaPlate RightLobulaPlate",
+            Color 0.1 1 0.4
+        }
+        MushroomBody {
+            Color 1 0.8 0.1
+        }
+        EllipsoidBody {
+            Color 0.13 0.75 0.69
+        }
+        PrCerBridge {
+            Color 1 0.17 0.27
+        }
+        Faecherkoerper {
+            Color 1 0.75 0.69
+        }
+        AntennalLobe {
+            Name "LeftAntennalLobe RightAntennalLobe",
+            Color 1 0.17 0.27
+        }
+        Noduli {
+            Color 1 0 0
+        }
+        US-Ganglion {
+            Color 0.14 0.59 0.76
+        }
+        Fat {
+            Name "LowWaterContent Fett",
+            DielectricConstant 10,
+            ElectricConductivity 0.04,
+            Color 0.712703 0.684922 0.297622,
+            Density 900,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.21,
+            Perfusion 20,
+            TLowForPerfusion 37,
+            THighForPerfusion 45,
+            PerfusionAtTLow 5,
+            PerfusionAtTHigh 20,
+            MaximalTemperature 44,
+            MeshSize 3
+        }
+        Target {
+            Name "Tumor Tumour",
+            DielectricConstant 80,
+            ElectricConductivity 0.8,
+            Color 0.85 0.1 0.4,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.642,
+            Perfusion 8,
+            TLowForPerfusion 37,
+            THighForPerfusion 42,
+            PerfusionAtTLow 5,
+            PerfusionAtTHigh 8,
+            MaximalTemperature 50,
+            MeshSize 2
+        }
+        Bladder {
+            Name "Blase",
+            DielectricConstant 78,
+            ElectricConductivity 0.6,
+            Color 0.610811 0.610811 0.610811,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.6,
+            Perfusion 15,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Kidney {
+            Name "Niere Nieren",
+            DielectricConstant 83,
+            ElectricConductivity 1,
+            Color 0.515625 0.315496 0.252441,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.577,
+            Perfusion 400,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Liver {
+            Name "Leber",
+            DielectricConstant 78,
+            ElectricConductivity 0.6,
+            Color 0.335631 0.207672 0.238304,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.64,
+            Perfusion 100,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Muscle {
+            Name "HighWaterContent Muskel",
+            DielectricConstant 80,
+            ElectricConductivity 0.8,
+            Color 0.945455 0.318988 0.321717,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.642,
+            Perfusion 30,
+            TLowForPerfusion 37,
+            THighForPerfusion 45,
+            PerfusionAtTLow 5,
+            PerfusionAtTHigh 30,
+            MaximalTemperature 44,
+            MeshSize 2.5
+        }
+        Bone {
+            Name "Knochen",
+            DielectricConstant 9,
+            ElectricConductivity 0.02,
+            Color 0.410811 0.430811 0.510811,
+            Density 1600,
+            HeatCapacitance 1000,
+            ThermalConductivity 0.436,
+            Perfusion 10,
+            MaximalTemperature 44,
+            MeshSize 2
+        }
+        Aorta {
+            Name "Arteries Vessels Arterien Gefaesse",
+            DielectricConstant 78,
+            ElectricConductivity 0.86,
+            Color 0.699639 0.281342 0.325842,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.506,
+            Perfusion 500,
+            MaximalTemperature 44,
+            MeshSize 2
+        }
+        Intestine {
+            Name "Darm",
+            DielectricConstant 78,
+            ElectricConductivity 0.6,
+            Color 0.795918 0.555869 0.124673,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.55,
+            Perfusion 50,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Heart {
+            Name "Herz",
+            DielectricConstant 80,
+            ElectricConductivity 0.67,
+            Color 0.95 0.2 0.1,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.642,
+            Perfusion 60,
+            MaximalTemperature 44,
+            MeshSize 2
+        }
+        Spleen {
+            Name "Milz",
+            DielectricConstant 110,
+            ElectricConductivity 0.8,
+            Color 0.65 0.43 0.25,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.577,
+            Perfusion 60,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Lung {
+            Name "Lunge",
+            DielectricConstant 35,
+            ElectricConductivity 0.71,
+            Color 0.3 0.5 1,
+            Density 500,
+            HeatCapacitance 1000,
+            ThermalConductivity 0.2,
+            Perfusion 20,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Pancreas {
+            DielectricConstant 110,
+            ElectricConductivity 0.8,
+            Color 0.48 0.43 0.25,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.577,
+            Perfusion 60,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Stomach {
+            Name "Magen",
+            DielectricConstant 110,
+            ElectricConductivity 0.8,
+            Color 0.9 0.5 0,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.577,
+            Perfusion 60,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Abdomen {
+            DielectricConstant 36,
+            ElectricConductivity 0.55,
+            Color 0.8 0.4 0.12,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.55,
+            Perfusion 35,
+            MaximalTemperature 42,
+            MeshSize 2
+        }
+        Veins {
+            Name "Venen",
+            DielectricConstant 78,
+            ElectricConductivity 0.86,
+            Color 0.57 0.21 0.85,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.506,
+            Perfusion 500,
+            MaximalTemperature 44,
+            MeshSize 2
+        }
+        Bolus {
+            DielectricConstant 78,
+            ElectricConductivity 0,
+            Color 0.2 0.7 1,
+            MaximalTemperature 44,
+            MeshSize 2.5
+        }
+        Air {
+            Name "Exterior Background Shell Luft",
+            DielectricConstant 1,
+            ElectricConductivity 0,
+            Color 0.7 0.8 0.8,
+            MaximalTemperature 44,
+            MeshSize 5
+        }
+        Phantom {
+            DielectricConstant 78,
+            ElectricConductivity 0.55,
+            Color 0.7 0.5 0.1,
+            MeshSize 3
+        }
+        Saltwater {
+            Name "Salzwasser",
+            DielectricConstant 78,
+            ElectricConductivity 0.8,
+            Color 0.15 0.4 1,
+            Density 1000,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.642,
+            Perfusion 0.1,
+            MaximalTemperature 50,
+            MeshSize 2
+        }
+        Bubbles {
+            DielectricConstant 1,
+            ElectricConductivity 0,
+            Color 0.7 0.8 0.8,
+            Density 100,
+            HeatCapacitance 3500,
+            ThermalConductivity 0.1,
+            Perfusion 0.1,
+            MaximalTemperature 44,
+            MeshSize 2
+        }
+        Plastic {
+            DielectricConstant 2.8,
+            ElectricConductivity 0,
+            Color 0.6 0.6 0.7,
+            MaximalTemperature 44,
+            MeshSize 2.5
+        }
+        Cingulum {
+            Color 0 0 1
+        }
+        Fornix {
+            Color 0.4 1 1
+        }
+        CorpusMamillare {
+            Color .2 0 1
+        }
+        FascOccipitoFrontSup {
+            Color 0.6 0.2 1
+        }
+        FascLongitudinalis {
+            Color 1 0.8 1
+        }
+        TractusCorticoSpinalis {
+            Color 1 0 0
+        }
+        CorpusGeniculatumLaterale {
+            Color 1 0.6 0
+        }
+        RadiatioOptica {
+            Color 1 1 0
+        }
+        CorpusCallosum {
+            Color 1 1 0.8
+        }
+        RadiatioAcustica {
+            Color 0.8 1 0.2
+        }
+        CorpusGeniculatumMediale {
+            Color 0 1 0
+        }
+        FascOccipitoFrontInf {
+            Color 0.8 0.4 0
+        }
+        FascUncinatus {
+            Color 0.596 0.2 0
+        }
+    }
+    Chemistry {
+        atoms {
+            Hydrogen {
+                Id 1,
+                ShortName "H",
+                Radius 1.2,
+                Color 0.561 0.694 0.8
+                CPKColor 1.0 1.0 1.0
+            }
+            Lithium {
+                Id 3,
+                ShortName "Li",
+                Radius 1,
+                Color 0.376 0.345 0
+                CPKColor 0.7 0.13 0.13
+            }
+            Beryllium {
+                Id 4,
+                ShortName "Be",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Boron {
+                Id 5,
+                ShortName "B",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.0 1.0 0.0
+            }
+            Carbon {
+                Id 6,
+                ShortName "C",
+                Radius 1.7,
+                Color 0.016 0.878 0
+                CPKColor 0.78 0.78 0.78 
+            }
+            Nitrogen {
+                Id 7,
+                ShortName "N",
+                Radius 1.5,
+                Color 0.031 0.016 1
+                CPKColor 0.56 0.56 1.0
+            }
+            Oxygen {
+                Id 8,
+                ShortName "O",
+                Radius 1.4,
+                Color 1 0 0
+                CPKColor 0.94 0.0 0.0
+            }
+            Fluor {
+                Id 9,
+                ShortName "F",
+                Radius 1.35,
+                Color 0.498 0.729 0.427
+                CPKColor 0.85 0.65 0.13
+            }
+            Natrium {
+                Id 11,
+                ShortName "Na",
+                Radius 1,
+                Color 0.137 0.133 0.494
+                CPKColor 1.0 0.08 0.58
+            }
+            Magnesium {
+                Id 12,
+                ShortName "Mg",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.13 0.55 0.13
+            }
+            Aluminium {
+                Id 13,
+                ShortName "Al",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.5 0.5 0.56
+            }
+            Silicon {
+                Id 14,
+                ShortName "Si",
+                Radius 1,
+                Color 1 0 0.004
+                CPKColor 0.85 0.65 0.13
+            }
+            Phosphor {
+                Id 15,
+                ShortName "P",
+                Radius 1.9,
+                Color 0.827 0 0.757
+                CPKColor 1.0 0.65 0.0
+            }
+            Sulfur {
+                Id 16,
+                ShortName "S",
+                Radius 1.85,
+                Color 1 0.878 0
+                CPKColor 1.0 0.78 0.2
+            }
+            Chlorine {
+                Id 17,
+                ShortName "Cl",
+                Radius 1.8,
+                Color 0.04 0.827 0.282
+                CPKColor 0.0 1.0 0.0
+            }
+            Potassium {
+                Id 19,
+                ShortName "K",
+                Radius 1,
+                Color 0.58 0.18 0.004
+                CPKColor 1.0 0.08 0.58
+            }
+            Calcium {
+                Id 20,
+                ShortName "Ca",
+                Radius 1,
+                Color 0.157 0.647 0.639
+                CPKColor 0.5 0.5 0.56
+            }
+            Scandium {
+                Id 21,
+                ShortName "Sc",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Titanium {
+                Id 22,
+                ShortName "Ti",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.5 0.5 0.56
+            }
+            Vanadium {
+                Id 23,
+                ShortName "V",
+                Radius 1.71,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Chromium {
+                Id 24,
+                ShortName "Cr",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.5 0.5 0.56
+            }
+            Manganese {
+                Id 25,
+                ShortName "Mn",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.5 0.5 0.56
+            }
+            Iron {
+                Id 26,
+                ShortName "Fe",
+                Radius 1,
+                Color 0.004 0.576 0.647
+                CPKColor 1.0 0.65 0.0
+            }
+            Cobalt {
+                Id 27,
+                ShortName "Co",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Nickel {
+                Id 28,
+                ShortName "Ni",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.65 0.16 0.16 
+            }
+            Copper {
+                Id 29,
+                ShortName "Cu",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 0.65 0.16 0.16 
+            }
+            Zinc {
+                Id 30,
+                ShortName "Zn",
+                Radius 1,
+                Color 0.902 0.565 0.176
+                CPKColor 0.65 0.16 0.16 
+             }
+            Germanium {
+                Id 32,
+                ShortName "Ge",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Arsenic {
+                Id 33,
+                ShortName "As",
+                Radius 2,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Selenium {
+                Id 34,
+                ShortName "Se",
+                Radius 2,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Bromine {
+                Id 35,
+                ShortName "Br",
+                Radius 1.95,
+                Color 0.184 0.671 0
+                CPKColor 0.65 0.16 0.16 
+            }
+            Rubidium {
+                Id 37,
+                ShortName "Rb",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Strontium {
+                Id 38,
+                ShortName "Sr",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Indium {
+                Id 49,
+                ShortName "In",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Tin {
+                Id 50,
+                ShortName "Sn",
+                Radius 1,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Antimony {
+                Id 51,
+                ShortName "Sb",
+                Radius 2.2,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Tellerium {
+                Id 52,
+                ShortName "Te",
+                Radius 2.2,
+                Color 1 1 1
+                CPKColor 1.0 0.08 0.58
+            }
+            Iodine {
+                Id 53,
+                ShortName "I",
+                Radius 2.15,
+                Color 0 1 0
+                CPKColor 1.0 0.08 0.58
+            }
+        }
+        residues {
+            ASP {
+                RASMOLColor 0.9 0.04 0.04
+            }
+            GLU {
+                RASMOLColor 0.9 0.04 0.04
+            }
+            CYS {
+                RASMOLColor 0.9 0.9 0.0
+            }
+            MET {
+                RASMOLColor 0.9 0.9 0.0
+            }
+            LYS {
+                RASMOLColor 0.08 0.35 1.0
+            }
+            ARG {
+                RASMOLColor 0.08 0.35 1.0
+            }
+            SER {
+                RASMOLColor 1.0 0.59 0.0
+            }
+            THR {
+                RASMOLColor 1.0 0.59 0.0
+            }
+            PHE {
+                RASMOLColor 0.2 0.2 0.67
+            }
+            TYR {
+                RASMOLColor 0.2 0.2 0.67
+            }
+            ASN {
+                RASMOLColor 0.0 0.87 0.87
+            }
+            GLN {
+                RASMOLColor 0.0 0.87 0.87
+            }
+            GLY {
+                RASMOLColor 0.92 0.92 0.92
+            }
+            LEU {
+                RASMOLColor 0.06 0.51 0.06
+            }
+            VAL {
+                RASMOLColor 0.06 0.51 0.06
+            }
+            ILE {
+                RASMOLColor 0.06 0.51 0.06
+            }
+            ALA {
+                RASMOLColor 0.78 0.78 0.78
+            }
+            TRP {
+                RASMOLColor 0.71 0.35 0.71
+            }
+            HIS {
+                RASMOLColor 0.51 0.51 0.82
+            }
+            PRO {
+                RASMOLColor 0.86 0.59 0.51
+            }
+        }        
+        SimulationParameters {
+            general_paramter {
+                Environment "continuum",
+                Frequency_of_output "1.",
+                Frequency_of_neighbor_calculation "100.",
+                First_cut_off "5.",
+                Observables "torsions",
+                Minimal_box_edge_distance "12.8",
+                Grid_dimension "65."
+            }
+            monte_carlo_paramter {
+                Hmc_strategy "hmc",
+                Number_of_slots "1.",
+                Number_of_monte_carlo_steps "1.",
+                Convergence_of_markov_chains "1.001"
+            }
+            dynamics_parameter {
+                Number_of_dynamics_steps "1.",
+                Time_step "0.001000000"
+            }
+            physics_paramter {
+                Temperature "1000.",
+                Solvent_dielectric_constant "80."
+            }
+        }
+    }
+    BoundaryIds {
+        Id1 {
+            Id 1,
+            Type "Dirichlet",
+            Value 37
+        }
+        Id2 {
+            Id 2,
+            Type "Neumann",
+            Info "body cut planes",
+            Value 0
+        }
+        Id3 {
+            Id 3,
+            Type "Cauchy",
+            Info "body bolus",
+            HeatTransferCoeff 45,
+            BolusTemperature 25
+        }
+        Id4 {
+            Id 4,
+            Type "Cauchy",
+            HeatTransferCoeff 45,
+            BolusTemperature 43
+        }
+        Id5 {
+            Id 5,
+            Type "Cauchy",
+            Info "body air",
+            HeatTransferCoeff 15,
+            BolusTemperature 25
+        }
+        Id6 {
+            Id 6,
+            Type "Dirichlet",
+            Value 55
+        }
+        Fluent-wall {
+            Id 3,
+            Info "Fluent wall"
+        }
+        Fluent-pressure-inlet {
+            Id 4,
+            Info "Fluent pressure inlet"
+        }
+        Fluent-pressure-outlet {
+            Id 5,
+            Info "Fluent pressure outlet"
+        }
+        Fluent-symmetry {
+            Id 7,
+            Info "Fluent symmetry"
+        }
+        Fluent-periodic-shadow {
+            Id 8,
+            Info "Fluent periodic shadow"
+        }
+        Fluent-pressure-far-field {
+            Id 9,
+            Info "Fluent pressure far field"
+        }
+        Fluent-velocity-inlet {
+            Id 10,
+            Info "Fluent velocity inlet"
+        }
+        Fluent-periodic {
+            Id 12,
+            Info "Fluent periodic"
+        }
+        Fluent-fan {
+            Id 14,
+            Info "Fluent fan"
+        }
+        Fluent-mass-flow-inlet {
+            Id 20,
+            Info "Fluent mass flow inlet"
+        }
+        Fluent-bc-interface {
+            Id 24,
+            Info "Fluent bc interface"
+        }
+        Fluent-outflow {
+            Id 36,
+            Info "Fluent outflow"
+        }
+    }
+    ParameterInfo {
+        BolusTemperature "Temperature of water bolus [degree Celsius]",
+        Color "RGB color triple, component range 0...1",
+        Density "Mass density [kg/m^3]",
+        DielectricConstant "Real part of relative dielectric constant (dimensionless) at approximately 90 MHz",
+        ElectricConductivity "Electric conductivity [S/m] at approximately 90 MHz",
+        HeatCapacitance "Heat capacitance [Ws/kg/K]",
+        ThermalConductivity "Thermal conductivity [W/m/K]",
+        Perfusion "Perfusion [ml/100g/min]",
+        TLowForPerfusion "lower bound of temperature range [degree Celsius] where perfusion changes",
+        THighForPerfusion "upper bound of temperature range [degree Celsius] where perfusion changes",
+        PerfusionAtTLow "perfusion [ml/100g/min] at lower temperature bound",
+        PerfusionAtTHigh "perfusion [ml/100g/min] at upper temperature bound",
+        MaximalTemperature "Maximal allowed temperature [degree Celsius]",
+        BloodTemperature "Blood temperature [degree Celsius]",
+        BloodHeatCapacitance "Blood heat capacitance [Ws/kg/K]",
+        BloodDensity "Blood mass density [kg/m^3]"
+    }
+    Edges 0.1 0.2 0.3,
+    Exterior 0.8 0.5 0.4,
+    BloodDensity 1000,
+    BloodHeatCapacitance 3500,
+    BloodTemperature 37
+}
+
+

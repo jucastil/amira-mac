@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DisplayTime</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DisplayTime" "displays a time value in the 3D viewer" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module displays the value of a time object in the 3D viewer using a
+textual or iconic representation. This is useful for for animations which
+shall contain an illustration of time. Four major styles are available:
+plain text, a round clock, a horizontal time bar, or a vertical time bar.</p>
+<p>This module should be connected to a <a class="link" href="HxTime.html#A1">Time</a> object. In this
+case the current time is visualized. If no <a class="link" href="HxTime.html#A1">Time</a> object is
+connected, an arbitrary value which can be set using the commands of the
+port <a class="link" href="#A4">value</a> can be shown.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The time object to be displayed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_options.png" /><br /></div>
+<div class="body"><p>This port chooses between the four major draw styles.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options2</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_options2.png" /><br /></div>
+<div class="body"><p>This port adjusts additional settings influencing the drawing. The last
+ three options are disabled for the <em>text only</em> draw style.</p>
+
+<ul><li><b>frame</b> Draw a frame around the time icon.</li><li><b>solid</b> Fill the icon's background.</li><li><b>value text</b> Show value together with time icon.</li><li><b>filled value</b> Fill space between zero and value.</li><li><b>custom text</b> Whether or not custom text should be displayed
+ (see below).</li>
+</ul>
+</div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_position.png" /><br /></div>
+<div class="body"><p>Position of the time icon with respect to the lower left corner of
+ the screen. If negative values are entered the icon is positioned
+ relative to the right and/or top of the screen.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_size.png" /><br /></div>
+<div class="body"><p>Specifies the length of the horizontal or vertical time bar (in pixels)
+ and relative thickness of the bars. If a clock is drawn <em>length</em>
+ refers to the diagonal, while <em>thickness</em> is ignored. For text only
+ display both values are ignored.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Colors</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_color.png" /><br /></div>
+<div class="body"><p>The colors of the various parts of the icon can be set here.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Custom Text</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_labels.png" /><br /></div>
+<div class="body"><p>This is only available if <em>custom text</em> option is selected. You may
+specify a space separated list of values, that shall be displayed.
+Alternatively you may specify a text, which is displayed instead of the
+number, by using the '/' character. The syntax is the same as for the
+<a class="link" href="../hxcolor/HxDisplayColormap.html#A7">Display Colormap</a> module.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Format</span>  
+<div class="portsnapshot"><img src="HxDisplayValue_format.png" /><br /></div>
+<div class="body"><p>The format for displaying the time value (printf syntax of the C
+ programming language).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Value</span>  
+
+<div class="body"><p>This port is always hidden. It can be used to specify a time
+ value when no time object is connected (via the Tcl interface).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>setFontSize &lt;points&gt;</tt></span>  
+
+<div class="body"><p>
+Changes the font size. The default font size is 28 points for text only
+displays and 14 points otherwise.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Voltex</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Voltex" "texture-based direct volume rendering of 3D images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Direct Volume Rendering is a very intuitive
+ method for visualizing 3D scalar fields. Each point in a data volume
+ is assumed to emit and absorb light. The amount and color of
+ emitted light and the amount of absorption is determined from the
+ scalar data by using a <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> which includes
+ alpha values. Default colormaps for volume rendering are provided
+ with the distribution and can be edited using the
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a>.
+ Then the resulting projection from the "shining" data volume
+ is computed.</p>
+<p> This module provides you with a hardware accelerated implementation,
+ which uses 2D or 3D texture hardware, to allow for real-time
+ rendering. Note that this currently is not supported by all graphics
+ hardware. </p>
+
+<p> Note that on some systems a significant slowdown can occur if the
+ data set is larger than the available texture memory (which
+ typically is 4 - 16 MB).</p>
+<p> Press the <em>Apply</em> button to start the computations necessary to display 
+ the volume. Most parameter changes require pressing this button again.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalarfield to visualized. Alternatively an RGBA data volume
+ (Colorfield) can be connected. In this case no colormap is used, but
+ the color and opacity values are taken directly from the data. As a
+ third mode the module can operate on
+ <a class="link" href="../hxfield/HxMultiChannelField3.html#A1">multi-channel fields</a>. Here the transfer
+ function for each channel is computed automatically based on the
+ channels native color, the channels data range, and the value of the
+ Gamma port (see below).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest, like
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. If such a module is connected,
+ only the selected part of the volume will be displayed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used to visualize the data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxVoltex_options.png" /><br /></div>
+<div class="body"><p><i>mip</i> stands for <i>maximum intensity projection</i>. 
+ When this option is selected, the brightest data value
+ along each ray of sight is displayed instead of the result of the 
+ emission absorption model described above. This mode is
+ especially useful for very "sparse" data sets, for example:
+ angiographic data or images of neurons.</p>
+<p> <i>color table</i> enables a transfer function lookup for monochrome data when <i>RGBA</i> lookup mode is on.
+ When this option is activated only a quarter of the texture memory is needed 
+ for RGBA rendering and the color table and its range can 
+ be modified in real-time (i.e. without pressing <em>Apply</em>).
+ Note that due to incomplete OpenGL implementations some graphics
+ boards which claim to support color tables, they do not. If you 
+ see artifacts or only plain white cubes, disable this option.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxVoltex_range.png" /><br /></div>
+<div class="body"><p>This port is only available if the module operates on a 3D scalar field
+and no colormap is connected. In this case data values are mapped
+ according to this range. Values smaller than the minimum are mapped
+ to completely transparent (no absorption and no emission).
+ Values larger than the maximum appear completely opaque and emit the maximum
+ amount of light. Values in between are mapped proportionally.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lookup</span>  
+<div class="portsnapshot"><img src="HxVoltex_lookup.png" /><br /></div>
+<div class="body"><p>Only available if a colormap is connected. In <i>Alpha</i> mode, the colormap's alpha value is used for both
+ absorption and emission. In <i>LumAlpha</i> mode, the colormap's
+ alpha value is used for absorption, while the luminance is taken
+ for (uncolored) emission. In <i>RGBA</i> mode, colored images
+ are generated by using all four channels of the colormap.</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxVoltex_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gamma</span>  
+<div class="portsnapshot"><img src="HxVoltex_gamma.png" /><br /></div>
+<div class="body"><p>Controls the shape of the transfer function when multi-channel fields
+ are visualized. The opacity value is taken to be $$ \alpha =
+ x^\gamma$$, $$x = 0\dots 1$$ (proportional to data values). The smaller
+ the gamma value is, the more
+ prominent regions with small data values will be.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha scale</span>  
+<div class="portsnapshot"><img src="HxVoltex_alphaScale.png" /><br /></div>
+<div class="body"><p>A global factor to change the overall transparency of the object
+ independent of the data value.</p>
+<p> 
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of slices</span>  
+<div class="portsnapshot"><img src="HxVoltex_slices.png" /><br /></div>
+<div class="body"><p>Only available in 3D texture mode. The larger this number, the better
+ the image quality and the less the rendering performance. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture mode</span>  
+<div class="portsnapshot"><img src="HxVoltex_texture2D3D.png" /><br /></div>
+<div class="body"><p><i>2D</i> texture mode requires some
+ precomputation time but also works on machines which do not support
+ hardware accelerated 3D texturing, e.g., SGI O2.
+ <i>3D</i> mode needs less setup time and sometimes provides superior
+ quality on high-end machines.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Downsample</span>  
+<div class="portsnapshot"><img src="HxVoltex_downsample.png" /><br /></div>
+<div class="body"><p>You can specify integer downsample factors to reduce the size of the
+data set on-the-fly. e.g., downsampling by 2 in each direction would decrease
+the size of the data set by a factor of 8. This can dramatically improve 
+rendering performance.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">showSlices &#123;0|1&#125;</span>  
+
+<div class="body"><p>If set to 1, the slices used to display the volume are drawn
+ outlined instead of full textured. This mode is mainly useful for
+ debugging.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setInterpol &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables linear interpolation of texture values. If
+ linear interpolation is disabled a nearest neighbor lookup is
+ performed. By default, linear interpolation is enabled. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getInterpol</span>  
+
+<div class="body"><p>Checks if linear texture interpolation is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColorTableInterpol &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables linear interpolation within the color table. The
+ setting will be ignored if color table mode is off or if color table
+ rendering is done using paletted textures. The default value is on.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColorTableInterpol</span>  
+
+<div class="body"><p>Checks if linear color table interpolation is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColorTableMode &#123;0|1|2|3|4&#125;</span>  
+
+<div class="body"><p>Sets the type of OpenGL extension used for color table mode.
+ The modes are encoded as follows:<br />
+
+ 0 = Don't use any extension, turning off color table mode.<br />
+
+ 1 = GL_SGI_texture_color_table.<br />
+
+ 2 = GL_EXT_paletted_texture.<br />
+
+ 3 = GL_NV_fragment_program.<br />
+
+ 4 = GL_ARB_fragment_program.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColortableMode</span>  
+
+<div class="body"><p>Returns the type of OpenGL extension used for color table mode. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">doBricking &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables bricking in 3D texture mode. If bricking is
+ enabled the volume is rendered in smaller blocks even if it's size 
+ exceeds predefined size.
+ The predefined size is by default 0.8 times the assumed texture memory size which
+ depends on the hardware and operating system and is obtained by <font face="helvetica">Amira</font> 
+ on program startup.
+ The texture memory size assumed by <font face="helvetica">Amira</font> can be modified by setting the 
+ environment variable <tt>AMIRA_TEXMEM</tt> &nbsp;(in megabytes). 
+ To alter the predefined size factor of 0.8, one may set a different value 
+ in the Tcl variable <em>voltexTextureAmount</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">verbose &#123;0|1&#125;</span>  
+
+<div class="body"><p>If value is 1 additional message for debugging are printed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

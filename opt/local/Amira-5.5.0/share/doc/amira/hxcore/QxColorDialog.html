@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Color Dialog</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Color Dialog" "GUI component for defining a color value" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Color Dialog</em> provides an interface for selecting colors. It
+ pops up whenever a single color is to be changed in <font face="helvetica">Amira</font>. The dialog
+ provides several different interface components: a menu bar, color
+ sliders, default color cells, a color picker, and five buttons.</p>
+<div style="text-align:center"><a name="A2"></a><a href=colordialog.png.html><img width=375 src="colordialog.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font> color dialog</div>
+
+ 
+ </div>
+<p> The menu bar allows you to set some options for working with the color
+ dialog. The sliders (and the corresponding text fields and arrow
+ buttons) let you choose a color by hue, saturation, and value (HSV), or
+ by the levels of red, green, and blue (RGB). The color picker allows
+ you to pick a color by sight. Moreover, you can choose a predefined
+ color from a palette of custom colors cells. The buttons are used to
+ apply or reset changes and to quit the dialog. A detailed description
+ of the interface components is given below.</p>
+<p> <b>Menu Bar:</b> The menu bar holds two popup menus: the <em>Edit</em> and
+ the <em>Options</em> menu. There are two items in the <em>Edit</em> menu allowing
+ you to toggle between different editing modes: the <em>Immediate
+ Mode</em> and <em>WYSIWYG Mode</em>.</p>
+<p> If <em>Immediate Mode</em> is selected, each modification of the color to
+ be changed is effective immediately, e.g., if you are changing the
+ background color of the 3D viewer and <em>Immediate Mode</em> is active,
+ the effect of every slider or picker operation can be observed directly
+ in the viewer.</p>
+<p> The <em>WYSIWYG Mode</em> (meaning <em>what you see is what you get</em>)
+ determines the background of the color sliders. If <em>WYSIWYG Mode</em>
+ is active, the background of a slider shows a color range representing
+ how the current color would change by moving this slider.</p>
+<p> You have the option of displaying and manipulating two different
+ combinations of sliders: RGB and HSV. The <em>Options</em> menu holds two items
+ representing these two combinations. Selecting <em>RGB Sliders</em>
+ provides controls over RGB color space. Selecting <em>HSV sliders</em>
+ provides sliders to manipulate the HSV color space.</p>
+<p> <b>Color Sliders:</b> The color sliders present the color range in hue,
+ saturation, value (HSV) or red, green, blue (RGB) color spaces. If the
+ color to be changed has an alpha component, an additional slider is
+ automatically displayed. Each slider controls one color component. The
+ color sliders are visible depending on the user selection in the <em>Options</em>
+ menu. Each of the color sliders is accompanied by a text edit field
+ to view the exact value of the current color component and to set its
+ numerical value. The component values are always in the range from 0 to
+ 1. </p>
+<p> On the left side of each slider (except the alpha slider) an additional
+ check button is displayed allowing you to select one color
+ component to control the appearance and functionality of the color
+ picker.</p>
+<p> <b>Color Cells:</b> The color cells are subdivided into three different
+ groups: One cell named <em>Current Color</em> displays the color depending
+ on the current settings. Each color manipulation is shown by this cell
+ immediately. The cell named <em>Old Color</em> displays the original color
+ the dialog has been invoked with. The old color does not change until
+ current setting are applied by activating the <em>Apply</em> button. The
+ other cells labeled <em>Custom Colors</em> provide a user-defined palette
+ for storing colors. The custom colors stay resident between successive
+ color dialog popups. </p>
+<p> The <em>Drag and Drop mechanism</em> is applied to store and restore
+ colors. The colors can be copied arbitrarily between all cells (except
+ that a color cannot be stored to the old color cell). To drag and
+ drop a color
+ </p>
+<ol><li>move your mouse cursor on top of a color cell (source),</li><li>press down on the left mouse button and keep it pressed,</li><li>move your mouse cursor on top of another cell (destination),</li><li>release the mouse button.</li>
+</ol>
+<p> <b>Buttons:</b> The four buttons named <em>OK</em>, <em>Apply</em>, <em>Reset</em> and <em>Cancel</em> are for quitting the dialog and applying the
+ changes to the underlying color (OK), applying the changes without
+ quitting (Apply), resetting the current color to the old color, i.e.
+ discarding last changes (Reset), and quitting the dialog without
+ applying the changes (Cancel). The fifth button named <em>Help</em> is for
+ displaying this documentation in the <font face="helvetica">Amira</font> help window.</p>
+<p> <b>Color Picker:</b> The Color Picker provides visual selection of a
+ color. Depending on the selected color component (selecting using the radio
+ button on the left side of each slider), the two other components of the
+ color can be set with the picker. One component corresponds to the
+ vertical extent of the color picker and the other to the horizontal.
+ The selected component cannot be changed with the picker. To select a
+ color using the color picker
+ </p>
+<ol><li>Move your mouse cursor on top of the color picker.</li><li>Press down on the left mouse button and move your mouse. While
+ moving the mouse around the current color is set to the color
+ at the mouse position.</li><li>Release the mouse when you are done.</li>
+</ol></div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

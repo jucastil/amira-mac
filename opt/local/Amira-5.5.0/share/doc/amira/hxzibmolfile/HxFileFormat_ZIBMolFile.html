@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> ZIB Molecular File Format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "FileFormat" "ZIB Molecular File Format" "structured molecular file format (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>zmf</em> file format is a structured file format developed for
+ exchanging molecular data. </p>
+
+<p> 
+ This description is divided into two parts. First we describe the
+ general and context-independent file structure. Second,
+ we explain our structuring conventions for molecular data.</p>
+
+<h3><a name="A2">Structured Files</a></h3>
+<p>A structured file consists of a header and two sections: a plain
+ text section describing the file's structure, and a binary section
+ containing the actual data:</p>
+<pre>
+    STRUCTURED FILE V0.1 BINARY_BE MOLECULE_TRAJECTORY
+    TYPE
+    struct {
+        atoms : array of struct {
+            id         : integer*4;
+            name       : string;
+            mass       : real*4;
+            properties : integer*4[8];
+        };
+    };
+    DATA;
+        ......... binary data ...........
+</pre>
+<p> The file structure is similar to a structured data type in C
+ or PASCAL. There are two composite data types (<tt>array</tt> and
+ <tt>struct</tt>), and three elementary data types (<tt>integer</tt>,
+ <tt>real</tt>, and <tt>string</tt>). Finally there exists a special type
+ (<tt>extern</tt>) for including other structured files.</p>
+<p> <tt>struct</tt> contains named fields of arbitrary heterogeneous
+ type.</p>
+<p> <tt>array</tt> contains numbered fields of the same type. Arrays are
+ one-dimensional only. Their size can either be specified in the
+ type declaration (Example: <tt>array[3] of integer</tt>) or in the
+ data section.</p>
+<p> <tt>real</tt> and <tt>integer</tt> contain numerical, possibly
+ multi-dimensional, data. The number of bytes in an element may be
+ specified using "*n". At the moment only 4-byte types are allowed.
+ The rank (number of dimensions) must be specified in the type
+ declaration. The number of elements in each dimension may be
+ specified in the type declaration or in the data section
+ (indicated by "."). Example: <tt>integer*4[4,.,3]</tt>.</p>
+<p> <tt>string</tt> contains ASCII data of arbitrary length. Again the
+ length can be specified in the type declaration (Example: <tt>string*22</tt>) or in the data section.</p>
+<p> <tt>extern</tt> is a special kind of a <tt>string</tt>. The length must
+ be specified in the data section. The string is interpreted as a
+ structured file whose contents should appear as part of the
+ current file structure.</p>
+<p> The data section is written as follows:</p>
+<p> <tt>struct</tt>: The individual members are written in the given
+ order.</p>
+<p> <tt>array</tt>: The elements are simply written one after another. If
+ the array size is unspecified, it is written in front of the array
+ as a 4-byte integer.</p>
+<p> <tt>string</tt> and <tt>extern</tt>: The data is written byte by byte.
+ If the size is unspecified in the data type, it is prepended as a
+ 4-byte integer.</p>
+<p> <tt>real</tt> and <tt>integer</tt>: Individual elements are written in
+ the format specified in the file header (big endian or little
+ endian). Floating point numbers are in IEEE format. Matrices are
+ written in FORTRAN order. If any dimension is unspecified in the
+ data type, it is written as a 4-byte integer before the data. If
+ more than one dimension is unspecified, they (and only they) are
+ written before the data in their natural order. If a dimension is
+ specified in the data type, it is never written in the data.
+ Example:
+<font size="0"></font></p><pre>
+  integer[2,.,4] = [ [ [1,2,3,4], ...
+  [5,6,7,8], [9,10,11,12] ], 
+  [ [13,14,15,16], ...
+  [17,18,19,20], [21,22,23,24] ] ]
+</pre><p><font size="0">
+</font>
+ is written as a sequence of 4-byte integers. 
+<font size="0"></font></p><pre>
+  3 1 13 5 17 9 21 2 14 6 18 ...
+  10 22 3 15 7 19 11 23 4 16 ...
+  8 20 12 24 
+</pre><p><font size="0">
+</font>
+ The leading 3 specifies the dimension unspecified in the data
+ type. The 24 numbers that follow it are the entries of the array.</p>
+
+<h3><a name="A3">Molecular Data - A Minimal File</a></h3>
+<p>When reading a structured file containing molecular data, <font face="helvetica">Amira</font> expects
+ the file structure to have certain elements. Moreover the file may
+ have arbitrary additional elements, which will be ignored. The
+ minimal structure a molecular data file must supply is:
+</p><pre>    
+    struct {
+        molecules : array of struct{
+            name : string;
+            groupings : struct {
+                atoms : array of struct{
+                    id : integer*4;
+                    type : integer*4;
+                    name : string;
+                };
+            };
+            trajectory : array of struct{
+                coordinates : real*4[3,.];
+            };
+        };
+        typbase : struct {
+            atoms : array of struct{
+                id : integer*4;
+                name : string;
+                number : integer*4;
+                radius : real*4;
+            };
+        };
+    };
+</pre>
+<p> In the following we will use a notation inspired by C to denote
+ elements of the structure. A <tt>struct</tt>'s field will be
+ specified as the <tt>struct</tt> followed by a "." and the name of
+ the field. For array elements we will write the array followed by
+ brackets ("[]"). For example, "molecules[].groupings.atoms[].id"
+ means the field "id" in an element of the <tt>array</tt> "atoms"
+ which is a field of the <tt>struct</tt> "groupings" which is a field
+ of an element of the <tt>array</tt> "molecules". </p>
+<p> The overall type of the file is a <tt>struct</tt> containing the
+ fields <em><b>molecules</b></em> and <em><b>typbase</b></em>. <em><b>molecules</b></em>
+ is an <tt>array</tt> of elements, each of which describes a molecule.
+ <em><b>molecules[].name</b></em> contains the name of the molecule.</p>
+<p> <em><b>molecules[].groupings</b></em> specifies the topology of the
+ molecule, i.e., which atoms it contains. Every element of <em><b>molecules[].groupings.atoms</b></em> describes one atom of the molecule.
+ <em><b>atoms[].id</b></em> is a unique numerical identifier. <em><b>atoms[].type</b></em> is a numerical reference to a field in the <em><b>typebase</b></em> described below. <em><b>atoms[].name</b></em> is a textual
+ identifier unique with respect to all atoms. It is used to specify
+ this atom on the command line.</p>
+<p> <em><b>molecules[].trajectory</b></em> is an array with every element
+ describing one time step of a molecule trajectory. <em><b>trajectory[].coordinates</b></em> has the same number of elements as
+ <em><b>molecules[].groupings.atoms</b></em> and every element specifies a
+ position for the corresponding atom.</p>
+<p> <em><b>typbase</b></em> is structured analogously to <em><b>molecules[].groupings</b></em>. Corresponding to <em><b>molecules[].groupings.atoms</b></em>, the array <em><b>typbase.atoms</b></em>
+ holds information common to atoms of the same type. Specifically, the
+ type information of an atom is stored in the <em><b>molecules[].groupings.atoms[].type</b></em>'th element of <em><b>typbase.atoms</b></em>. </p>
+<p> <em><b>typbase.atoms[].id</b></em> holds a numerical identifier that
+ should be identical to the element index. <em><b>typbase.atoms[].name</b></em> is a textual label for making the types
+ user transparent. <em><b>typbase.atoms[].number</b></em> and <em><b>typbase.atoms[].radius</b></em> are the atomic number and radius of an
+ atom having this type.</p>
+
+<h3><a name="A4">Bonds</a></h3>
+<p>Bonds can be specified by adding an array named <em><b>bonds</b></em> to
+ <em><b>molecules[].groupings</b></em>:
+</p><pre>
+                bonds : array of struct{
+                    id : integer*4;
+                    type : integer*4;
+                    components : integer*4[2];
+                    index : integer*4;
+                };
+</pre>
+<p> <em><b>bonds[].id</b></em> is a unique numerical identifier which should
+ be greater than any value specified in <em><b>atoms[].id</b></em>.
+ Analogous to <em><b>atoms[].type</b></em> for atoms, <em><b>bonds[].type</b></em>
+ specifies a numerical type for every bond, although this information
+ is not yet interpreted by <font face="helvetica">Amira</font>. The array <em><b>bonds[].components</b></em>
+ holds the numerical identifiers of the two atoms connected by the
+ bond. <em><b>bonds[].index</b></em> finally indicates if it is a single
+ (1), double (2), triple (3), or an aromatic bond (4). The value 8
+ indicates a bond of unknown type.</p>
+
+<h3><a name="A5">Molecular Data - A Big Example</a></h3>
+<p>The information stored in the described file format can be divided
+ into different degrees of generality. Information stored in
+ <em><b>typbase</b></em> is specific to the molecular force field used in
+ the calculations leading to a molecular trajectory. It would be
+ redundant to store this information in every file for which the
+ same molecular force field was used. Thus it can be stored in an
+ extra file, which is then referenced by an <tt>extern</tt>
+ declaration.</p>
+<p> A similar mechanism applies if more than one trajectory is
+ calculated for the same molecule. The topological information
+ about atoms making up the molecule and bonds connecting them will
+ be the same for all the trajectories. On the other hand, we do not
+ want a file for every single molecule topology. Thus our
+ trajectory can reference another file containing a multitude of
+ molecular topologies and just supply the time steps itself.</p>
+<p> The following is an example realizing these concepts:</p>
+<p> <b>trajectory file:</b>
+</p><pre>
+    struct {
+        typbase   : extern;
+        molecules : array of struct{
+            id           : integer*4;
+            observations : struct {
+                global_obs    : string[.];
+            };
+            text         : string[.];
+            name         : string;
+            molbase      : extern;
+            trajectory   : array of struct{
+                global_obs    : real*4[.];
+                coordinates   : real*4[3,.];
+            };
+        };
+    };
+</pre>
+<p> <b>molbase file:</b>
+</p><pre>
+    struct {
+        typbase   : extern;
+        molecules : array of struct{
+            id           : integer*4;
+            observations : struct {
+                global_obs    : string[.];
+            };
+            text  : string[.];
+            name  : string;
+            groupings      : struct {
+                atoms         : array of struct{
+                    id         : integer*4;
+                    type       : integer*4;
+                    name       : string;
+                };
+                bonds         : array of struct{
+                    id         : integer*4;
+                    components : integer*4[2];
+                    type       : integer*4;
+                    index      : integer*4;
+                };
+                dihedrals     : array of struct{
+                    id         : integer*4;
+                    components : integer*4[4];
+                    type       : integer*4;
+                };
+                residues      : array of struct{
+                    id         : integer*4;
+                    name       : string;
+                    remark     : string;
+                    type       : integer*4;
+                    from_id    : integer*4;
+                    to_id      : integer*4;
+                };
+            };
+            trajectory     : array of struct{
+                coordinates   : real*4[3,.];
+            };
+        };
+    };
+</pre>
+<p> <b>typbase file:</b>
+</p><pre>
+    struct {
+        atoms   : array of struct{
+            id           : integer*4;
+            type         : integer*4;
+            name         : string;
+            number       : integer*4;
+            periodic_row : integer*4;
+            mass         : real*4;
+            charge       : real*4;
+            partial_bond_charge_increment : real*4[2];
+            radius       : real*4;
+            N_i          : real*4;
+            A_i          : real*4;
+            g_i          : real*4;
+            alpha        : real*4;
+            datyp        : string;
+            properties   : integer*4[8];
+            equivalence  : integer*4[4];
+        };
+    };
+</pre>
+<p> Some yet undescribed features appear in this example. The first is
+ the possibility to supply scalar observables corresponding to the
+ single time steps. Possible values are different energies like
+ kinetic and potential energy. The names of the observables are
+ read from <em><b>molecules[].observations.global_obs[]</b></em> in the
+ trajectory file. Their values are stored in <em><b>molecules[].trajectory[].global_obs[]</b></em>.</p>
+<p> Besides <em><b>bonds</b></em>, the file can contain arbitrary groups of
+ atoms or groups of groups. These groups are organized in levels
+ which appear here as the elements of <em><b>molecules[].groupings</b></em>. </p>
+<p> Every level is an array whose elements describe the particular
+ groups. Every group is a struct with the fields <em><b>id</b></em> and
+ <em><b>type</b></em>, and also fields specifying the contents of the group.
+ <em><b>id</b></em> is numerical identifier unique over all groups
+ specified for the molecule. Specifically, the identifiers in one level
+ should be consecutively numbered and bigger than all the identifiers
+ used in the preceding levels.</p>
+<p> There are two ways of specifying a group. The general way is to
+ specify all elements explicitly. In that case, the group contains a
+ field <em><b>components[]</b></em> containing the ids of all elements of
+ the group. If the elements of a group cover a consecutive sequence
+ of ids, it is sufficient to specify only the first and the last
+ id. In that case the group contains the fields <em><b>from_id</b></em>
+ and <em><b>to_id</b></em>.</p>
+<p> <em><b>dihedrals</b></em> are groups of four atoms
+ connected by three bonds like a chain. Every such group defines
+ two intersecting planes. The angle of intersection is called a
+ <em>dihedral angle</em> or <em>torsion angle</em>. For performance
+ reasons <font face="helvetica">Amira</font> will read <em>dihedrals</em> only if the molecule has
+ less than 500 atoms. Torsion angles can be displayed with the
+ <a class="link" href="../hxmolview/HxMolView.html#A8">MoleculeView</a>.</p>
+<p> <em><b>residues</b></em> are groups representing the building blocks of a
+ complex molecule, for example the amino acids of a protein. All
+ groupings can be used to color the molecule in the
+ <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a> or in the
+ <a class="link" href="../hxmolview/HxBondAngle.html#A1">BondAngleView</a> using the general
+ <a class="link" href="../hxmolecule/moldisplay.html#A3">coloring facilities</a>.</p>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

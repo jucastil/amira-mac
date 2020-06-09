@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortSharedColormap</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortSharedColormap" "interface to a colormap object that propagates the colormap to downstream objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides a connection to a <a class="link" href="HxColormap256.html#A1">colormap</a>
+ object. Like the <a class="link" href="HxPortColormap.html#A1">PortColormap</a>, this port 
+ has a user interface and the contents of the connected colormap as well as
+ its range are shown. The port also has an Edit context menu (that pops up 
+ when pressing the right mouse
+ button over the colormap area of the port).</p>
+<p> In contrast to the <tt>PortColormap</tt>, the shared port 
+ has the property to propagate the colormap connected to an object to all 
+ other objects that have a PortColormap 
+ and that are connected to the object possessing the shared port.</p>
+<p> If a colormap is connected to the object, it appears in the port. Otherwise, 
+ only the Edit button is visible. The Edit context menu items are similar to the 
+ ones in the <tt>PortColormap</tt>, except for the <em>Disable colormap</em> item,
+ which leaves the object connected to no colormap. There is no concept of <em>Constant</em>
+ colormap for the <tt>PortSharedColormap</tt>.</p>
+<p> <img src="HxPortSharedColormap.png" /></p>
+<p> <b>See also:</b>
+ <a class="link" href="HxPortColormap.html#A1">PortColormap</a>,
+ <a class="link" href="HxColormap256.html#A1">Colormap</a>,
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">ColormapEditor</a></p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPortColormap.html#A1">PortColormap</a>.
+</p></div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

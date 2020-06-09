@@ -1,0 +1,21 @@
+if { ![app hasLicense "WindEdition"] } {
+
+dataFile -name "I-DEAS Universal File" \
+    -option "unv" -ext "unv"  \
+    -load "HxReadUniversal"   \
+    -type "HxSurface"         \
+    -type "HxTetraGrid"       \
+    -type "HxHexaGrid"        \
+    -save "hxSaveIdeas"       \
+    -dso "libhxideas.so"
+
+dataFile -name "I-DEAS Universal File (Vectorfield)" \
+-option "unv2" -ext "unv"  \
+-load "HxReadUniversal2"   \
+-type "HxSurface"         \
+-type "HxTetraGrid"       \
+-type "HxHexaGrid"        \
+-save "hxSaveIdeas"       \
+-dso "libhxideas.so"
+
+}

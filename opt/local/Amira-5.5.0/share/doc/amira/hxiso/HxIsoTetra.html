@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Isosurface (Tetrahedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Isosurface (Tetrahedra)" "shows isosurfaces for scalar fields on tetrahedral grids" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes an isosurface for a scalar field defined
+ on a three-dimensional tetrahedral grid. 
+ 
+ 
+ 
+ 
+ 
+ 
+ The triangulation inside a tetrahedron exactly matches
+ a linearly interpolated field.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar field defined on a tetrahedral grid.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>See port <a class="link" href="HxIsoHexa.html#A3">ColorField</a>
+	in section <i>Isosurface (Hexahedra)</i>.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>See port <a class="link" href="HxIsoHexa.html#A8">Colormap</a>
+	in section <i>Isosurface (Hexahedra)</i>.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The texture field must be an HxUniformColorField3 2D slice. 
+ When connected, the texture is mapped onto the surface geometry along 
+ the texture normal axis. A transformation can be applied to the data to 
+ change the texture projection axis and texture coordinates scale.
+ Note that texture projection override pseudo-color mode.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PointProbe</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If this port is connected to a <i>PointProbe</i> module
+	as isovalue the value at a certain point within the	
+	scalar field will be chosen. For details see
+	<a class="link" href="../hxdataprobe/HxPointProbe.html#A1">PointProbe</a>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxIsoTetra_drawStyle.png" /><br /></div>
+<div class="body"><p>The draw style port is inherited from class <i>ViewBase</i>.
+	For a description of this port see 
+	<a class="link" href="../hxsurface/HxViewBase.html#A2">there</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxIsoTetra_colormap.png" /><br /></div>
+<div class="body"><p>See port <a class="link" href="HxIsoHexa.html#A4">Colormap</a> in
+	section <i>Isosurface (Hexahedra)</i>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxIsoTetra_threshold.png" /><br /></div>
+<div class="body"><p>Determines the value used for isosurface computation.
+	The slider is automatically adjusted to cover the whole range
+	of data values. If the threshold value is changed the 
+	computation of the new isosurface is immediately invoked.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxIsoTetra_buffer.png" /><br /></div>
+<div class="body"><p>To use this port, you must first create a dragger. To do so, 
+type the command <tt>Isosurface showBox</tt>. Then the
+buffer port must be enabled explicitly with the command
+<tt>Isosurface buffer show</tt>. For a detailed description see
+the <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a> documentation.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TextureWrap</span>  
+<div class="portsnapshot"><img src="HxIsoTetra_textureWrap.png" /><br /></div>
+<div class="body"><p>Wrap mode used for the texture projection on the surface. There are two wrap modes:
+ <i>Repeat: </i> The texture is repeated outside its 0-1 texture coordinate range.
+ <i>Clamp: </i> Clamps texture coordinates to lie within 0-1 range.
+ This port is hidden if there is nothing connected to the <em>Texture</em> connection port.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxIsosurface_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.10 The Package File Syntax</a></h2>
+<p>The Package file contains information about a local package. From
+this file Visual Studio project files or GNUmakefiles can be generated.
+The Package file is a Tcl file. It defines a set of Tcl variables
+indicating things like the name of the package, dependent libraries,
+or additional files to be copied when building the package. The default
+Package file created by the Development Wizard looks as follows:</p>
+<p><font size="2"></font></p><pre>
+  set PACKAGE {mypackage}
+
+  set LIBS {
+      hxplot hxtime hxsurface hxcolor hxfield
+      hxcore amiramesh mclib oiv tcl
+  }
+
+  set SHARE {
+      share/resources/mypackage.rc
+  }
+</pre><p><font size="2">
+</font></p>
+<p>In most cases the default file works well and need not to be modified.
+However, in order to accomplish special tasks the default values of the
+variables can be changed or additional variables can be defined. Here
+is a detailed list describing the meaning of the different variables:</p>
+<p></p>
+<h3><a name="A2">PACKAGE</a></h3>
+<p>The variable <tt>PACKAGE</tt> indicates the name of the package. This should
+be the same as the name of the package directory. The package name must not
+contain any characters other than letters or digits.</p>
+<p></p>
+<h3><a name="A3">LIBS</a></h3>
+<p>Lists all libraries the package depends on. By default, the most common
+<font face="helvetica">Amira</font> packages are inserted here. You can modify this list as needed.
+For example, if you want to link against a library called <em>foo.lib</em>
+on Windows or <em>libfoo.so</em> on Unix, you should add <em>foo</em> to <tt>LIBS</tt>. </p>
+<p>In addition to a real library name you may use the following aliases
+in the <tt>LIBS</tt> variable:</p>
+<p><br />
+
+<tt><font size="2">oiv</font></tt> - for the Open Inventor libraries<br />
+
+<tt><font size="2">tcl</font></tt> - for the Tcl library<br />
+
+<tt><font size="2">opengl</font></tt> - for the OpenGL library<br />
+
+<tt><font size="2">qt</font></tt> - for the Qt library
+<br />
+</p>
+<p>If you want to link against a library only on a particular platform, you
+can set a dedicated variable <tt>LIBS-arch</tt>, where <tt>arch</tt> denotes the
+platform. You may further distinguish between the debug and release
+version of the code. Here is an example:
+<font size="2"></font></p><pre>
+  set LIBS {mclib amiramesh schedule hxz qt oiv opengl tcl}
+  set LIBS-Unix {hxgfxinit}
+  set LIBS-Win32 {hxgfxinit}
+  set LIBS-Win32VC8-Debug {msvcrtd mpr}
+  set LIBS-Win32VC8-Optimize {msvcrt mpr}
+</pre><p><font size="2">
+</font>
+</p>
+<h3><a name="A4">SHARE</a></h3>
+<p>Lists all files which should be copied from the package directory into the
+local <font face="helvetica">Amira</font> directory. By default, only the package resource file will
+be copied. However, you may add additional files here if necessary. Instead
+of explicit file names you may use wildcards. These will be resolved using
+the standard Tcl command <tt>glob</tt>. For example, if you have some demo
+scripts in your package you could copy them in the following way:</p>
+<p><font size="2"></font></p><pre>
+  set SHARE {
+      share/resources/mypackage.rc
+      share/demo/mydemos/*.hx
+  }
+</pre><p><font size="2">
+</font></p>
+<p>As for the <tt>LIBS</tt> variable you may append an arch string here, i.e.,
+<tt>SHARE-arch</tt>. The files then will only be copied on the specified
+platforms.</p>
+<p></p>
+<h3><a name="A5">INCLUDES</a></h3>
+<p>This variable may contain a list of additional include paths. These
+paths are used by the compiler to locate header files. By default, the
+include path is set to <tt>$AMIRA_ROOT/include</tt>, <tt>$hxroot/include/oiv</tt>,
+<tt>$AMIRA_LOCAL/src</tt>, and the local package directory.</p>
+<p></p>
+<h3><a name="A6">COPY</a></h3>
+<p>This may contain a list of files which are copied from a location other
+than the local package directory. You need to specify the name of the
+target file followed by the name of the destination file relative to the
+local <font face="helvetica">Amira</font> directory. For example, you may want to copy certain data
+files from some archive into the <font face="helvetica">Amira</font> directory. This can be achieved
+in the following way.</p>
+<p><font size="2"></font></p><pre>
+  set COPY {
+      D:/depot/data/28523763.dcm data/test
+      D:/depot/data/28578320.dcm data/test
+      D:/depot/data/28590591.dcm data/test
+  }
+</pre><p><font size="2">
+</font></p>
+<p>As for the <tt>LIBS</tt> variable you may append an arch string here, i.e.,
+<tt>COPY-arch</tt>. The files then will only be copied on the specified
+platforms. A common application is to copy external libraries required
+on a particular platform into the <font face="helvetica">Amira</font> directory.</p>
+<p></p>
+<h3><a name="A7">SRC</a></h3>
+<p>This variable specifies the source code files to be compiled for the
+package. The default value of this variable is</p>
+<p><font size="2"></font></p><pre>
+  set SRC {*.cpp *.c}
+</pre><p><font size="2">
+</font></p>
+<p>This means, that By default all .cpp and .c files in the local package
+directory will be compiled. Sometimes you may want to replace this default
+by an explicit list of source files.</p>
+<p>Again, you may append an arch string to the <tt>SRC</tt> variable, so that
+certain files will only be compiled on a particular platform.</p>
+<p></p>
+<h3><a name="A8">INCSRC</a></h3>
+<p>This variable specifies the header files to be included into the package
+project file. The default value of this variable is</p>
+<p><font size="2"></font></p><pre>
+  set INCSRC {*.h *.hpp}
+</pre><p><font size="2">
+</font></p>
+<p>This means that by default all .h and .hpp files in the local package
+directory will be considered.</p>
+<p>Again, you may append an arch string to the <tt>INCSRC</tt> variable, so that
+certain header files will only be considered on a particular platform.</p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TridelityView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "TridelityView" "Tridelity autostereoscopic display driver" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The autostereoscopic displays are special display screens that allow 
+many different types of content to be seen spatially in 3D. The major 
+innovation with autostereoscopic displays compared to other stereo 
+display technologies is that the 3D viewing becomes possible without 
+special glasses. This is achieved by the application of optical 
+technologies which ensure that each eye of the viewer sees a slightly 
+different perspective. </p>
+<p>Once the correct display is detected Amira uses the <em>Tridelity</em> 
+display as a full screen rendering area. </p>
+<p>The following displays are currently supported:</p>
+<p><em>MV1900</em><br />
+
+Size: 19"<br />
+
+Panel resolution: 1280x1024 <br />
+
+Number of views: 5 <br />
+
+Ideal viewing distance: 1.5 m <br />
+</p>
+<p><em>MV2700</em><br />
+
+Size: 27"<br />
+
+Panel resolution: 1920x1200 <br />
+
+Number of views: 5 <br />
+
+Ideal viewing distance: 2.5 m <br />
+</p>
+<p><em>MV4200</em><br />
+
+Size: 42"<br />
+
+Panel resolution: 1920x1080<br />
+
+Number of views: 5<br />
+
+Ideal viewing distance: 3.5 m <br />
+</p>
+<p><em>MV5700</em><br />
+
+Size: 57"<br />
+
+Panel resolution: 1920x1080<br />
+
+Number of views: 5<br />
+
+Ideal viewing distance: 3.5 m <br />
+</p>
+<p><em>SL2400</em><br />
+
+Size: 24"<br />
+
+Panel resolution: 1920x1200 <br />
+
+Number of views: 2 <br />
+
+Ideal viewing distance: 0.75 m <br />
+</p>
+<p>For more information, please refer to the <em>Tridelity</em> homepage (www.tridelity.com).</p>
+<p><b>Setup</b>
+</p>
+<ul><li>Windows: The <em>Tridelity</em> display must be configured as a secondary
+display in extended desktop mode.</li><li>Linux: The <em>Tridelity</em> display must be configured as a separate X
+screen with Xinerama enabled.</li>
+</ul>
+<p><b>Important notes</b>
+</p>
+<ul><li>If the <em>Tridelity</em> viewer is not updated, 
+you need to reposition the Amira application window such that the viewer 
+has an overlap of at least one pixel with the <em>Tridelity</em> screen.</li><li>The rendering performance in the autostereoscopic screen depends on the 
+performance of your graphics card. Rendering may be slow on older graphics
+cards.</li><li>If an area on the <em>Tridelity</em> display is not updated correctly,
+reducing the quality should help.</li><li>Currently the <em>Tridelity</em> viewer offers no 
+direct interaction. Thus camera navigation has to be 
+performed in <em>viewer 0</em>.</li><li>Only the scene visualized in <em>viewer 0</em> will be 
+visualized in the <em>Tridelity</em> viewer.</li>
+</ul>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Eye dist</span>  
+<div class="portsnapshot"><img src="HxTridelity_eyedist.png" /><br /></div>
+<div class="body"><p>Sets the stereo offset (the distance between the eyes).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Focal plane</span>  
+<div class="portsnapshot"><img src="HxTridelity_focalplane.png" /><br /></div>
+<div class="body"><p>Sets the stereo balance (the position of the zero parallax plane).
+This determines whether objects will be seen in front of the screen or behind it. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Quality</span>  
+<div class="portsnapshot"><img src="HxTridelity_quality.png" /><br /></div>
+<div class="body"><p>Sets the rendering quality (the size of the offscreen render targets). 
+Low rendering quality will result in a higher frame rate.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Display type</span>  
+<div class="portsnapshot"><img src="HxTridelity_displaytype.png" /><br /></div>
+<div class="body"><p>See supported displays above.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">View</span>  
+<div class="portsnapshot"><img src="HxTridelity_view.png" /><br /></div>
+<div class="body"><p>Enable/disable the <em>Tridelity</em> viewer.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolOptimizer</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MolOptimizer" "Applies an energy minimization to a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module optimizes the coordinates of a molecule by minimizing its MMFF94 force field energy.</p>
+<p> To be able to start the minimization the MMFF parameterization needs to be available as attributes of the
+ molecule. MMFF94 parameters can be computed with the MoleculeEditor or with the molecule tcl command addMMFFParameterization.</p>
+<p> The computation will create a MolTrajectory containing each minimization timestep. The trajectory will also contain
+ a float observable with the name 'energy' which contains the total MMFF94 energy value (in kJ/mol) for each step. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule that is optimized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Method</span>  
+<div class="portsnapshot"><img src="HxMolOptimizer_portMethod.png" /><br /></div>
+<div class="body"><p>Method defines the minimization method used. 
+ SD (steepest descent) is a first order gradient method following the negative gradient at each step. BFGS (Broyden-Fletcher-Goldfarb-Shanno) is a second order gradient method which works well for small molecules but will fail
+ for large ones because of its $$n^{2}$$ storage requirements. CG (conjugate gradient) is a second order gradient method which has less storage demand than BFGS and is therefor better suited for larger molecules with the tradeoff of 
+ slower convergence. All three methods are local minimizers, i.e. they will find the closest local minimum.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Fixed</span>  
+<div class="portsnapshot"><img src="HxMolOptimizer_portFixed.png" /><br /></div>
+<div class="body"><p>With the fixed port the user can set the current selection of atoms as fixed during the minimization. Fixed atoms will not move but still influence the atoms surrounding them.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Steps</span>  
+<div class="portsnapshot"><img src="HxMolOptimizer_portMaxSteps.png" /><br /></div>
+<div class="body"><p>The maximum number of steps during the minimization. The minimization will be terminated after this step except if another termination criteria is reached.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Cutoff</span>  
+<div class="portsnapshot"><img src="HxMolOptimizer_portCutoff.png" /><br /></div>
+<div class="body"><p>Cutoff is the nonbonded cutoff distance in Angstrom.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Min Diff</span>  
+<div class="portsnapshot"><img src="HxMolOptimizer_portMinDiff.png" /><br /></div>
+<div class="body"><p>The minimum difference of energies (in kJ/mol) between two consecutive steps. When the difference becomes smaller the minimization will be terminated. </p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,5 @@
+set LIBSALIAS {
+    Amira {LIBS {hxcore}}
+    amiracom {LIBS {hxcom}}
+}
+

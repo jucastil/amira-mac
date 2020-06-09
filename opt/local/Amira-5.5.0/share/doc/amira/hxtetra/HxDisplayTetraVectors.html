@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TetraVectors</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TetraVectors" "visualizes a tetra vector field as whole or in parts" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This display module can be attached to a <a class="link" href="HxGridVolume.html#A1">GridVolume</a>
+or a <a class="link" href="HxGridBoundary.html#A1">GridBoundary</a> module
+as well as to a 3D vector field defined on a tetrahedral grid.
+In the latter case all vectors are displayed. Otherwise
+the vector field is displayed on the surface nodes or on all nodes of the
+selected tetrahedra (<em>GridVolume</em>) or triangles (<em>GridBoundary</em>).</p>
+<p> The vector representation can be done using simple <em>lines</em> or
+<em>arrows</em>. 
+The vector lines/arrows can be colored using a colormap taking the magnitude
+of the vectorfield in to account. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D tetrahedral vector field to be visualized. TetraVectors can only visualize vectors defined on the vertices (nodes) of tetrahedrons. If the vectors are defined on the tetrahedrons themselves, TetraVectors cannot be attached to the data.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">PortModule</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxGridVolume.html#A1">GridVolume</a> or <a class="link" href="HxGridBoundary.html#A1">GridBoundary</a>
+master module.</p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional colormap used for coloring the magnitude of the vectors.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplayTetraVectors_colormap.png" /><br /></div>
+<div class="body"><p>Choose a colormap to control how lines/arrows are colored. In order
+to see an effect the colormap must be connected to the module.
+The vector magnitude is used to lookup a color from the colormap. </p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxDisplayTetraVectors_scale.png" /><br /></div>
+<div class="body"><p>Scaling factor used to control the length of the vector lines/arrows.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayTetraVectors_mode.png" /><br /></div>
+<div class="body"><p><em>Constant:</em> If this option is set then all lines/arrows will be of
+equal length. Otherwise, the length is chosen to be proportional to vector
+magnitude.</p>
+<p> <em>Arrows:</em> Choose between simple lines and arrows</p>
+<p> <em>Points:</em> If this option is set then a little dot will be drawn at the
+bottom of an arrow. This is useful to highlight a point at
+locations where the vector magnitude is so low that the arrow vanishes
+completely.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Show</span>  
+<div class="portsnapshot"><img src="HxDisplayTetraVectors_show.png" /><br /></div>
+<div class="body"><p><em>All Vectors:</em> If this radio option is on the vectors from
+all nodes are displayed.</p>
+<p> <em>On Surface:</em> Only those vectors are displayed which lie on the surface
+of the selected boundaries.</p>
+<p> <em>In Volume:</em> All vectors of all selected tetrahedrons are shown.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Phase</span>  
+<div class="portsnapshot"><img src="HxDisplayTetraVectors_phase.png" /><br /></div>
+<div class="body"><p>This port will only be visible if a complex-valued vector field
+is connected to the module. It provides a phase slider controlling
+which part of the complex 3D vectors is visualized by the arrows.
+A value of 0 degree corresponds to the real part, while a value of
+90 degrees corresponds to the imaginary part. The display can be
+animated with respect to the phase by the <em>cycle</em> button,
+this way polarization properties of the field can be revealed or
+wave phenomena become visible.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setLineWidth &lt;value&gt;</span>  
+
+<div class="body"><p>
+ Allows to change the line width of the arrows. By default arrows
+ are drawn two pixels wide.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPointSize &lt;value&gt;</span>  
+
+<div class="body"><p>
+ Allows to change the size of the points at the bottom of the arrows.
+ By default points are drawn two pixels wide.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLogScale 0|1</span>  
+
+<div class="body"><p>
+ Switches logarithmic scaling on or off.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

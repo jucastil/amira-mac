@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputeTensor</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "ComputeTensor" "computes a symmetric second order tensor from diffusion-weighted images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module computes a symmetric second order (diffusion) tensor from a 
+set of $$N$$ ($$N \geq 7$$) diffusion weighted images. The images must be 
+loaded into memory first and are connected as inputs to 
+this module. The module will attempt to read the gradient direction
+from the parameter section of the attached data files. The user might
+supply known gradient directions if this extraction fails.</p>
+<p>The gradient information must be entered into the gradient ports for
+each attached gradient measurement. The first connected data object is 
+assumed to be the data object without gradient information
+(b0). Usually this is a dataset with higher brightness compared to 
+the gradient weighted images. The module only supports a single b0
+volume. If more b0 volumes are available they should be averaged prior
+to using this module.</p>
+<p>If the necessary input data objects do not fit into the available main memory,
+consider using the <a class="link" href="HxComputeTensorOutOfCore.html#A1">ComputeTensorOutOfCore</a>
+module. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">S0</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>This port must be connected to the data set representing the
+measurement without Gradient (b0). </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">S1,...,S7</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>These ports
+must be connected to the gradient weighted images. Further connection ports
+will be generated dynamically, when these first seven ports are all connected. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Diffusion weighting factor</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_diffusionweightingfactor.png" /><br /></div>
+<div class="body"><p>The diffusion weighting factor used in this study.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_Options.png" /><br /></div>
+<div class="body"><p>If the <i>smoothing</i> option is enabled, two more ports will allow you to 
+request a Gaussian 
+filtering of the raw data prior to the computation of the tensor field.
+The <i>correct oblique</i> option will enable a correction of the gradient 
+directions that are read from the input data if an oblique slice scan
+is detected. If the gradient directions are already corrected, this 
+option should remain off.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_Size.png" /><br /></div>
+<div class="body"><p>This port is visible only if smoothing is enabled. It specifies the size of the Gaussian kernel used for smoothing.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sigma</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_Sigma.png" /><br /></div>
+<div class="body"><p>This port is visible only if smoothing is enabled. It specifies the variance used by the Gaussian filter for smoothing.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buttons</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_buttons.png" /><br /></div>
+<div class="body"><p>This port supports the workflow of the ComputeTensor module.
+</p>
+<ul><li><i>Attach selected data</i>: The ComputeTensor module needs to be
+ connected to many gradient weighted image dataset all loaded into
+ Amira. Select the loaded gradient weighted images in the object pool
+ and press this button. All selected datasets will be added as
+ gradient weighted images.</li><li><i>Import gradients</i>: The gradient for each gradient weighted
+ image can be imported into the user interface from a text file. The
+ file should contain the gradients as single lines with 3 components
+ each. After pressing this button the gradients are displayed in the
+ gradient ports of this module.</li><li><i>Store gradients in files</i>: Gradients specified in the user
+ interface can be permanently stored in the data objects of the
+ pool. This button will add the gradient to each gradient weighted
+ image as a parameter entry called <i>DTIGradient</i>. If a data set
+ with such an entry is connected to ComputeTensor its value is used as
+ gradient.</li>
+</ul>
+
+<p>
+<a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">G1,G2,...</span>  
+<div class="portsnapshot"><img src="HxComputeTensor_G1.png" /><br /></div>
+<div class="body"><p>Ports allow you to supply user-defined Gradients which are used for
+the computation of the diffusion tensor. The order of these ports 
+corresponds to the order of the data objects connected to the module.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

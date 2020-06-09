@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> BeadExtract</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "BeadExtract" "computes an approximate point spread function from bead image(s)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module can be used to
+resample and average the image of one or multiple beads, i.e., fluorescing
+sub-resolution microspheres, thereby obtaining an approximation of a point
+spread function (PSF) required for non-blind deconvolution.
+The module must be connected to the image data set containing the measured
+beads as well as to a landmark set indicating the center positions of all
+beads to be resampled and averaged. The whole process of obtaining a point
+spread function from a bead measurement is described in a separate
+<a class="link" href="deconvtut3.html#A1">tutorial on bead extraction</a>. Please refer
+to this tutorial for more information on how to use the module.
+Press the <em>Apply</em> button to actually extract the beads with the center 
+of the resulting data set corresponding to the current positions of the 
+landmarks. The image volume around every landmark is
+extracted and resampled using a Lanczos filter (compare the
+<a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module). The resampled bead images are
+then added to the result object. The final PSF is not normalized.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a uniform image data set containing measured beads.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Landmarks</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a landmark set indicating the center positions of the beads
+to be resampled and averaged.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxBeadExtract_info.png" /><br /></div>
+<div class="body"><p>Displays the number of beads to be resampled and averaged.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxBeadExtract_resolution.png" /><br /></div>
+<div class="body"><p>Specifies the number of voxels of the final PSF image to be generated.
+If a PSF image is connected as a result object to this module, the port
+becomes insensitive and the number of voxels of the result object are used.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Voxel size</span>  
+<div class="portsnapshot"><img src="HxBeadExtract_voxelSize.png" /><br /></div>
+<div class="body"><p>Specifies the voxel size of the final PSF image to be generated in
+micrometers. If a PSF image is connected as a result to this module, the
+port becomes insensitive and the voxel size of the result object is used.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Preprocess</span>  
+<div class="portsnapshot"><img src="HxBeadExtract_preprocess.png" /><br /></div>
+<div class="body"><p><i>Adjust centers:</i> If this button is pressed, the landmark positions
+of the data set connected to port <a class="link" href="#A3">Landmarks</a>
+are shifted to the center of gravity of the corresponding bead. It is
+required that the initial landmark positions be inside the bead images
+and that neighboring beads do not overlap significantly. Otherwise
+incorrect center positions may be computed.</p>
+<p><i>Estimate size:</i> If this button is pressed, the desired number of voxels
+of the final PSF image specified in port
+<a class="link" href="#A4">Resolution</a> are computed automatically.
+Before this is done the beads' center positions already should have been
+adjusted. The estimate is computed by determining the extent of the biggest
+spot around any landmark. Again, it is required that neighboring beads do
+not overlap significantly. The <i>Estimate size</i> button becomes
+insensitive if a result object is connected to the module. In this case
+always the size of the existing PSF image will be used.</p>
+<p><i>Undo:</i> Undoes the effect of any of the previous two buttons. For
+example, if wrong center positions have been computed after pressing <i>Adjust centers</i>, the original landmark positions can be restored using the
+<i>Undo</i> button.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> StackedLabelField3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "StackedLabelField3" "labeled volume with stacked coordinates" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Data objects of type <em>LabelField</em> are used to represent the result
+ of a segmentation applied to a 3D image volume.</p>
+<p> A <em>LabelField</em> is a regular cubic grid with the same dimensions as
+ the underlying image volume. For each voxel it contains a label
+ indicating the region that the voxel belongs to. Use module
+ <a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a> to create a <em>LabelField</em> from an
+ image data stack. You can manually modify a <em>LabelField</em> using
+ <font face="helvetica">Amira</font>'s image editor <a class="link" href="../hxsegeditor/GI.html#A1">GI</a>.</p>
+<p> In addition to the labels themselves a <em>LabelField</em> may also contain <em>weights</em> indicating the degree of confidence of the label assignment
+ made for each voxel. Such weights are calculated automatically when you
+ choose option <i>sub-voxel accuracy</i> in
+ <a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a>, when you apply the <em>smoothing
+ filter</em> of <a class="link" href="../hxsegeditor/GI.html#A1">GI</a>, or when you resample a <em>LabelField</em> to a
+ smaller resolution using the <a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module.</p>
+<p> You can visualize a <em>LabelField</em> by attaching an
+ <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module to it. If a <em>LabelField</em>
+ contains weights, the port <i>Primary Array</i> allows you to choose
+ whether the labels or the probabilities are to be displayed.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<a name="A3"></a>
+<div class="hxconnection_unused">
+ <span class="headline">Master</span> <span class="connectiontype">[unused]</span> 
+
+<div class="body"></div></div>
+<div class="hxconnection_required">
+ <span class="headline">ImageData</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the image data that the segmentation results refer to.
+	You cannot connect this port to an image object with
+	dimensions different from that of the <em>LabelField</em>, except the
+	<em>LabelField</em> has been newly created via the <em>Create</em> menu.
+	In this case, the LabelField will be resized so that it matches the
+	dimensions of the image object.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Primary Array</span>  
+<div class="portsnapshot"><img src="HxStackedLabelField3_primary.png" /><br /></div>
+<div class="body"><p>An option menu which only appears if the <em>LabelField</em> contains
+	weights. In this case the menu lets you select whether the labels
+	or the weights are the primary data array.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">hasMaterial &lt;name&gt;</span>  
+
+<div class="body"><p>
+	Returns true if the specified material is defined in the material
+ section of the <em>LabelField</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">makeColormap</span>  
+
+<div class="body"><p>
+ Creates a new <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> object in <font face="helvetica">Amira</font>'s 
+ Pool, containing the default colors of all materials of the <em>LabelField</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">relabel</span>  
+
+<div class="body"><p>
+	Computes new labels so that the materials are numbered in
+ consecutive order starting from 0.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deleteAltData</span>  
+
+<div class="body"><p>
+	Deletes the weight information if it is present.</p>
+</div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

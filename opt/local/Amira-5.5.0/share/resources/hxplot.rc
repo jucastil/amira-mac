@@ -1,0 +1,145 @@
+#
+# This procedure sets all colours to black or white (as appropriate).
+# It can be called via the Config menu of the plot main window.
+#
+# Procedures with names having a '.plotconfig' extension create an item
+# in the Config menu of the plot main window.
+#
+# Besides that the procedure generates a new procedure which resets
+# all colours to the previous settings. It deletes itself after invocation.
+#
+proc BlackOnWhite.plotconfig { {pname ""} } {
+    global thePlot AMIRA_ROOT
+
+    if { [string compare $pname ""] != 0 } {
+        set thePlot $pname
+    }
+    if { ![info exists AMIRA_ROOT] } {
+        set thePlot ""
+    } elseif { ![info exists thePlot] } {
+        return
+    }
+
+    # create new procedure to reset the black&white settings
+
+    set Reset "proc Reset-BlackOnWhite.plotconfig { {pname \"\"} } { "
+    append Reset "global thePlot AMIRA_ROOT; "
+    append Reset "if {[string compare $pname ""] != 0} { set thePlot \$pname }; "
+    append Reset "if { ![info exists AMIRA_ROOT] } { set thePlot \"\" } "
+    append Reset "elseif { ![info exists thePlot] } { return }; "
+    set bgcol [eval $thePlot getBackgroundColor]
+    append Reset "eval $thePlot setBackgroundColor " $bgcol "; "
+
+    # sets the background to white
+    eval $thePlot setBackgroundColor white
+
+    # the following loop checks all plot objects and sets the appropriate
+    # attributes to get a black&white plot
+    #
+    set ol [eval $thePlot getObjects]
+    foreach po $ol {
+       set poType [eval $thePlot {$po} getType]
+       switch -glob $poType {
+          PzAnnotation
+            { # get previous settings to create Reset configuration
+              set fillbg [eval $thePlot {$po} getAttr fillbackground]
+	      append Reset "eval $thePlot {$po} setAttr fillbackground "
+              append Reset $fillbg "; "
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr fillbackground 0
+              eval $thePlot {$po} setAttr color black
+            }
+          Pz*Area
+            { # get previous settings to create Reset configuration
+              set fillbg [eval $thePlot {$po} getAttr fillbackground]
+	      append Reset "eval $thePlot {$po} setAttr fillbackground "
+              append Reset $fillbg "; "
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              # set to b&w
+              if { [eval $thePlot {$po} getAttr fillbackground] } {
+                  eval $thePlot {$po} setAttr color white
+              } else {
+                  eval $thePlot {$po} setAttr color black
+              }
+            }
+          Pz*Axis   
+            { set agrid "Grid@"; append agrid $po
+              # get previous settings to create Reset configuration
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              set col [eval $thePlot {$po} getAttr labelcolor-0]
+              append Reset "eval $thePlot {$po} setAttr labelcolor-0 " $col "; "
+              set col [eval $thePlot {$po} getAttr labelcolor-1]
+              append Reset "eval $thePlot {$po} setAttr labelcolor-1 " $col "; "
+              set col [eval $thePlot {$agrid} getAttr color]
+              append Reset "eval $thePlot {$agrid} setAttr color " $col "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr labelcolor-0 black
+              eval $thePlot {$po} setAttr labelcolor-1 black
+              eval $thePlot {$po} setAttr color black
+              eval $thePlot {$agrid} setAttr color black
+            }
+          PzCurve    
+            { # get previous settings to create Reset configuration
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              set col [eval $thePlot {$po} getAttr markercolor]
+              append Reset "eval $thePlot {$po} setAttr markercolor $col" "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr color black
+              eval $thePlot {$po} setAttr markercolor black
+            }
+          PzErrorbar 
+            { # get previous settings to create Reset configuration
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              set col [eval $thePlot {$po} getAttr errorbarcolor]
+             append Reset "eval $thePlot {$po} setAttr errorbarcolor " $col "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr color black
+              eval $thePlot {$po} setAttr errorbarcolor black
+            }
+          PzLegend 
+            { # get previous settings to create Reset configuration
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              set col [eval $thePlot {$po} getAttr labelcolor]
+              append Reset "eval $thePlot {$po} setAttr labelcolor " $col "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr color black
+              eval $thePlot {$po} setAttr labelcolor black
+            }
+          default 
+            { # get previous settings to create Reset configuration
+              set col [eval $thePlot {$po} getAttr color]
+              append Reset "eval $thePlot {$po} setAttr color " $col "; "
+              # set to b&w
+              eval $thePlot {$po} setAttr color black
+            }
+       }
+    }
+    eval $thePlot update
+
+    append Reset "eval $thePlot update; "
+    append Reset "rename Reset-BlackOnWhite.plotconfig \"\"; "
+    append Reset "}"
+
+    if { [info procs Reset-BlackOnWhite.plotconfig] == "" } {
+        eval $Reset
+    }
+}
+
+module -name "ViewerPlot" \
+    -primary "HxPlotWindowInterface" \
+    -class "HxPlot2Viewer" \
+    -category "Main" \
+    -dso "libhxplot.so"
+
+module -name "FieldPlot" \
+    -primary "HxPlotWindowInterface" \
+    -class "HxPlot2ColorField" \
+    -category "Main" \
+    -dso "libhxplot.so"

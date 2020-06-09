@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HexaGrid</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "HexaGrid" "unstructured finite-element mesh composed of hexahedrons" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ A data object of type <em>HexaGrid</em> represents an unstructured
+ finite-element grid composed of hexahedrons. The geometric information
+ is stored in terms of vertices, edges, faces, and hexahedrons. 
+ Like a <a class="link" href="HxUniformLabelField3.html#A1">LabelField</a> with its uniform hexahedral
+ grid structure a hexahedral grid also contains a 'dictionary' of
+ different material types or regions. In addition to the material names
+ the dictionary may contain colors and other parameters related to
+ material properties.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">hasMaterial &lt;name&gt;</span>  
+
+<div class="body"><p>
+ Returns true if the specified material is defined in the material
+ section of the <em>HexaGrid</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasDuplicatedNodes</span>  
+
+<div class="body"><p>
+ Returns the number of duplicated nodes, i.e., nodes with exact
+ identical coordinates. Such nodes may be used in order to represent
+ discontinuous piecewise linear fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeDuplicatedPoints</span>  
+
+<div class="body"><p>
+ Removes all duplicated points from the grid. No field object must
+ be connected to the grid.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">add &lt;othergrid&gt;</span>  
+
+<div class="body"><p>
+ Copies all vertices and hexahedrons from an other hexahedral grid
+ into this one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeHexa &lt;n&gt;</span>  
+
+<div class="body"><p>
+ Marks the hexahedral cell specified by <tt>&lt;n&gt;</tt> as obsolete.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">cleanUp</span>  
+
+<div class="body"><p>
+ Removes all obsolete hexahedrons from the grid.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">fixOrientation</span>  
+
+<div class="body"><p>
+ Fixes the orientation of all hexahedrons so that the enclosed volume
+ is positive.
+</p></div></div>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

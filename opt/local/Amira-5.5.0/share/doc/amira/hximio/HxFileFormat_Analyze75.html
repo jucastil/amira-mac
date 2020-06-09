@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Analyze 7.5</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Analyze 7.5" "3D image data with separate header file (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This format was used by older versions of the Analyze medical imaging
+software system. Today it has been widely replaced by the
+<a class="link" href="HxFileFormat_AnalyzeAVW.html#A1">AnalyzeAVW</a> format. The format is used
+to store 3D medical images. The actual image data and the header
+information are stored in two different files. In order to import
+the data in <font face="helvetica">Amira</font>, you must select just the header file in the
+<font face="helvetica">Amira</font> file browser. The header file is recognized by the extension <tt>.hdr</tt>. If it has some other extension, you must manually select
+the file format via the file browser's popup menu.</p>
+<p>The header file contains the dimensions of the 3D image, the voxel size,
+and the primitive data type (8/16/32-bit grayscale, 24-bit color). In
+addition, some other information such as a short data description or
+a patient id are contained in the header. This information will be stored
+in the parameter section of the generated <font face="helvetica">Amira</font> data object.</p>
+<p>Note that the input data type may be interpreted as unsigned short if 
+the key for the maximum value (glmax) in the header of the Analyze file 
+contains a value of larger than 32,768.</p>
+<p>Note that if the input contains values that cannot be represented as
+numbers (NaN, Not a Number) a label field is created as additional
+output. The label Inside will indicate the region with valid data.</p>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

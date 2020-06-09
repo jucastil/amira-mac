@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">27.2 Data on Regular Grids</a></h2>
+<p>Fields defined on a regular grid occur in many different applications. For
+example, 3D image volumes fall into this category. The term `regular' means
+that the nodes of the grid are arranged as a regular 3D array, i.e., every
+node can be addressed by an index triple (i,j,k). A regular field can be
+characterized by three major properties: the coordinate type, the number of
+data components, and the primitive component data type (for example
+ <tt>short</tt> or <tt>float</tt>).
+In the <a class="link" href="HxDev-datahierarchy.html#A1">class hierarchy</a> a major distinction is made
+between the number of data components of a field. For example, there is a
+class <tt>HxRegScalarField3</tt> representing (one-component) scalar fields
+defined on a regular grid. This class is derived from the general base
+class <tt>HxScalarField3</tt>. Similar classes exist for (three-component)
+vector fields, complex scalar field, and complex vector fields defined 
+on regular grids. Fields not falling into one of these categories,
+i.e., fields defined on regular grids with a different
+number of data components, are represented by the class <tt>HxRegField3</tt> which is directly derived from <tt>HxField3</tt>. Moreover, there
+are separate subclasses for the most relevant combinations of the number of
+data components and the coordinates type, like <tt>HxStackedScalarField3</tt>
+or <tt>HxUniformVectorField3</tt>. All regular data classes provide a member
+variable <tt>lattice</tt> of type <tt>HxLattice3</tt>. This variable is an
+<em>interface</em>. It can be used to access data fields with a
+different number of components in a transparent way.</p>
+<p>Below we first discuss the <a class="link" href="HxDev-reglattice.html#A1">lattice interface</a> in
+more detail. We then present an overview of all supported
+<a class="link" href="HxDev-regcoords.html#A1">coordinate types</a>. Afterwards, two more types of data
+fields defined on regular coordinates are discussed, namely
+<a class="link" href="HxDev-reglabels.html#A1">label fields</a> and <a class="link" href="HxDev-regcolor.html#A1">color fields</a>.</p>
+<p>Note that all these fields can be evaluated without regard to the actual
+coordinate type or the primitive data type by means of <font face="helvetica">Amira</font>'s procedural
+interface for 3D fields (see <a class="link" href="HxDev-dataeval.html#A1">Section 27.5.1</a>).</p>
+<p>
+
+
+</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

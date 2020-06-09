@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.7.5 Tcl Event Procedures</a></h3>
+<p>By default, <font face="helvetica">Virtual Reality Option</font> treats all buttons of a 3D mouse in the same way.
+This allows you to operate the program even with a one-button mouse. In
+order to make better use of a 3D input device with multiple buttons, you
+can define special Tcl procedures which are called when a button is pressed
+or released. If these procedures return the value 1, this indicates that
+the event has been handled by the Tcl procedure and that it should not
+be further processed by <font face="helvetica">Amira</font>. In particular, it then will not be send
+to the Open Inventor scene graph. The following procedures can be defined:</p>
+<p></p>
+<ul><li><tt>vrButton0Press, vrButton1Press, ...</tt><br />
+
+ These procedures are called when the button with the specified index
+ is pressed. By redefining <tt>vrButton0Press</tt> you can overwrite the
+ default interaction routine.</li><li><tt>vrButton0Release, vrButton1Release, ...</tt><br />
+
+ These procedures are called when the button with the specified index
+ is released.</li><li><tt>vrButton0DblClick, vrButton1DblClick, ...</tt><br />
+
+ These procedures are called when the button with the specified index
+ is double-clicked. Note that for the first click of a double-click
+ event an ordinary button press event is generated.</li>
+</ul><p></p>
+<p>When a 3D mouse button event occurs and no appropriate Tcl event procedure
+is defined or if this procedure returns 0, the event will be passed to
+the current <font face="helvetica">Virtual Reality Option</font> event handler. The default event handler checks if the
+3D menu or some other 3D widget has been clicked. If not, it sends the
+event to the Open Inventor scene graph. Besides this default event handler
+there are also other event handlers, namely handlers for managing the
+different navigation modes (<i>examine</i> and <i>fly</i>). </p>
+<p>If a 3D mouse button event was not handled by the current event handler,
+finally the following Tcl procedures will be called, provided they are
+defined:</p>
+<p><font size="2"></font></p><pre>
+ vrButton0PressFallback, vrButton1PressFallback, ...
+ vrButton0ReleaseFallback, vrButton1ReleaseFallback, ...
+ vrButton0DblClickFallback, vrButton1DblClickFallback, ...
+</pre><p><font size="2">
+</font></p>
+<p>Assuming that the default event handler is active (the one which checks
+the 3D menu and the Open Inventor scene graph), you can trigger certain
+actions when the user clicks into empty space. By default, when this
+happens one of the navigation mode handlers is activated. If you want to
+disable this feature you can define a dummy <tt>vrButton0PressFallback</tt>
+procedure which always returns 1.</p>
+<p>
+</p></body>
+</html>

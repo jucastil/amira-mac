@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "GridView" "shows slices of a stacked, rectilinear, or curvilinear grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module allows you to visualize the grid structure of a regular
+ 3D scalar or vector field with 
+ 
+	stacked, rectilinear, or curvilinear
+ coordinates. The nodes of the underlying grid can be addressed using an
+ index triple (i,j,k). The <em>GridView</em> module extracts slices of
+ constant i, j, or k index out of the grid and displays them as a
+ wireframe model. 
+ In principle, the module may also be connected to a
+ field with uniform coordinates. However, it will not be listed in the
+ popup menu of such fields.
+ 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The regular field to be investigated.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxGridView_orientation.png" /><br /></div>
+<div class="body"><p>Specifies whether slices in the ij, ik, or jk plane should be
+ displayed. For stacked as well as rectilinear coordinates the indices
+ i, j, and k refer to the x, y, and z direction, respectively.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Geometry</span>  
+<div class="portsnapshot"><img src="HxGridView_dataMode.png" /><br /></div>
+<div class="body"><p>This port is only visible if the module is connected to a real-valued
+ 3D vector field. In this case the grid may be built using the
+ <em>data values</em> instead of the node's <em>coordinates</em> or using both nodes and data values. This is
+ a useful option if the vector field contains displacement vectors.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice</span>  
+<div class="portsnapshot"><img src="HxGridView_sliceNumber.png" /><br /></div>
+<div class="body"><p>Allows you to select the constant node index, e.g., the k index if
+ orientation is set to ij.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

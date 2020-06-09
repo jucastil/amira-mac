@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.3 Console command options</a></h4>
+<p>The command <tt>theMsg</tt> allows you to access and control the <font face="helvetica">Amira</font>
+console window. Besides the specific command options listed below also all
+sub-commands listed in <a class="link" href="cmdWindow.html#A1">Section 5.3.3.4 (Common commands for
+top-level windows)</a> can be used.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">theMsg error &lt;message&gt; [&lt;btn0-text&gt;] [&lt;btn1-text&gt;] [&lt;btn2-text&gt;]</span>  
+
+<div class="body"><p>Pops up an error dialog with the specified message. The dialog
+ can be configured with up to three different buttons. The command
+ blocks until the user presses a button. The id of the pressed button
+ is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">theMsg warning &lt;message&gt; [&lt;btn0-text&gt;] [&lt;btn1-text&gt;] [&lt;btn2-text&gt;]</span>  
+
+<div class="body"><p>Pops up a warning dialog with the specified message. The dialog
+ can be configured with up to three different buttons. The command
+ blocks until the user presses a button. The id of the pressed button
+ is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">theMsg question &lt;message&gt; [&lt;btn0-text&gt;] [&lt;btn1-text&gt;] [&lt;btn2-text&gt;]</span>  
+
+<div class="body"><p>Pops up a question dialog with the specified message. The dialog
+ can be configured with up to three different buttons. The command
+ blocks until the user presses a button. The id of the pressed button
+ is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">theMsg overwrite &lt;filename&gt;</span>  
+
+<div class="body"><p>Pops up a dialog asking the user if it is ok to overwrite the specified
+ file. If the user clicks <i>Ok</i>, 1 is returned, otherwise 0.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

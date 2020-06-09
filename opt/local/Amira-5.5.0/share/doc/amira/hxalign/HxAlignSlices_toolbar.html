@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Tool Bar</a></h3>
+<p></p>
+<ul><li><b>Slice slider:</b> <img src="HxAlignSlices_sliceslider.png" /><br />
+ <a name="A2"></a>
+Allows the user to change the slices that are displayed and can be
+ edited. The displayed number is the number of the editable slice. If
+ this number is <em>n</em> and the editable slice is the upper one, 
+ slices <em>n</em> and <em>n-1</em> are shown. If the editable slice is the
+ lower one, the displayed slices are slices
+ <em>n</em> and <em>n+1</em>.</li><li><b>Zoom in button:</b> <img src="HxAlignSlices_zoomin.png" /><br />
+ Increases the size of the image.</li><li><b>Zoom out button:</b> <img src="HxAlignSlices_zoomout.png" /><br />
+ Decreases the size of the image.</li><li><b>Zoom label:</b> <br />
+Shows the current zoom factor. E.g., a zoom of 2:1 
+ means that 2 pixels on the screen correspond to one pixel of the 
+ original data set (magnification), while 1:4 would mean that four 
+ pixels of the data set correspond to one pixel on the screen.</li><li><b>Gravity centers button:</b> <img src="HxAlignSlices_gravity.png" /><br />
+ Sets the gravity centers alignment as the current alignment algorithm.</li><li><b>Least squares button:</b> <img src="HxAlignSlices_squares.png" /><br />
+ Sets the least squares alignment as the current alignment algorithm.</li><li><b>Landmarks button:</b> <img src="HxAlignSlices_landmarks.png" /><br />
+ <a name="A3"></a>
+Sets the landmarks alignment as the current alignment algorithm. When this 
+ is the active align mode, the landmarks will be displayed for the 
+ current slices. If one of the other two algorithms is selected,
+ the landmarks are not shown. The selected algorithm is used when the
+ <a class="link" href="#A5">Align current slices</a> or <a class="link" href="#A6">Align all slices</a>
+ button is pressed or the corresponding menu items are chosen.</li><li><b>Edge detection button:</b> <img src="HxAlignSlices_edgedetection.png" /><br />
+ Sets the edge detection alignment as the current alignment algorithm.</li><li><b>Edit landmarks mode:</b> <img src="HxAlignSlices_editlandmarks.png" /><br /> 
+ <a name="A4"></a>
+Sets the active edit mode to be editing landmarks. When this is the 
+ active edit mode, the landmarks that have been already defined can
+ be moved/removed and new landmarks can be defined (see
+ <a class="link" href="HxAlignSlices_viewer.html#A1">Image Viewer</a> section). This mode can be
+ activated only only when <a class="link" href="#A3">Landmarks button</a> is ON (i.e.
+ the active align mode is landmarks alignment).</li><li><b>Edit slice mode:</b> <img src="HxAlignSlices_edit.png" /><br /> 
+ Sets the active edit mode to be editing slices. This means that 
+ the editable slice can be translated/rotated.</li><li><b>Lower slice:</b> <img src="HxAlignSlices_lower.png" /><br /> 
+ This button forces the lower slice of the two displayed 
+ slices to become editable.</li><li><b>Upper slice:</b> <img src="HxAlignSlices_upper.png" /><br /> 
+ This button forces the upper slice of the two displayed 
+ slices to be editable (default).<br />
+
+ The editable slice can be translated and rotated and landmarks can be 
+ defined for it.</li><li><b>Mirror button:</b> <img src="HxAlignSlices_mirror.png" /><br />
+ A mirroring transformation is applied to the editable slice.</li><li><b>Align current slices:</b> <img src="HxAlignSlices_align.png" /><br /> 
+ <a name="A5"></a>
+The two currently displayed slices are automatically aligned using 
+ the selected algorithm.</li><li><b>Align all slices:</b> <img src="HxAlignSlices_alignall.png" /><br /> 
+ <a name="A6"></a>
+All slices of the given 3D data are automatically aligned using 
+ the selected algorithm.</li>
+</ul><p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

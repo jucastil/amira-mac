@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.4 Blind Deconvolution Tutorial</a></h3>
+<p>This tutorial explains how blind deconvolution can be perfomed in <font face="helvetica">Amira</font>.
+At the same time it describes how deconvolution jobs can be processed
+using the <font face="helvetica">Amira</font> job queue. Like in the previous tutorial, it is assumed
+that the reader is already familiar with the basic concepts of <font face="helvetica">Amira</font> itself.
+If not, we recommend to work through the <a class="link" href="../usersguide/first.html#A1">standard <font face="helvetica">Amira</font>
+tutorials</a> first.
+</p>
+<h3><a name="A2">A Blind Deconvolution Example</a></h3>
+<p>Let us start by loading a raw image data set first.</p>
+<p></p>
+<ul><li>Load the file <i>alphalobe.am</i> from the directory <i>	<font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/deconv</i>.</li><li>Visualize the data set by attaching a <i>ProjectionView</i>
+	module to it.</li>
+</ul><p></p>
+<p>The data set has been recorded using a standard fluorescence microscope under 
+so-called <em>widefield</em> conditions. It shows a neuron from the alpha-lobe of the 
+honeybee brain.
+Compared to the confocal data set used in the standard deconvolution
+tutorial, <i>alphalobe.am</i> is much bigger. It has a resolution of
+248 x 248 x 256 voxels with a uniform voxel size of 1 micrometer. In the
+xy-plane of the projection view the structure of the neuron can be
+clearly identified. However, the contrast of the image is quite poor because
+there is a significant amount of out-of-focus light or haze present. With
+<font face="helvetica">Amira</font>'s blind deconvolution algorithm we can enhance the image data without
+needing to know an explicit PSF in advance.
+</p>
+<ul><li>Attach a deconvolution module to <i>alphalobe.am</i>.</li><li>Adjust the parameters like shown in Figure <a class="link" href="#A3">135</a>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=deconv-fig10.png.html><img width=300 src="deconv-fig10.png" /></a><br />
+<div class="caption">
+<b>Figure 135:</b>
+Parameters for blind deconvolution.</div>
+
+
+</div><p></p>
+<p>The individual parameters have the following meaning:</p>
+<p><i>Border width:</i> The same as for standard non-blind deconvolution, the
+image data must be enlarged by a guardband region. Otherwise boundary
+artifacts can occur, i.e., information from one side of the data can
+be passed to the other. For this data set we specify a small guardband
+region of 8 voxels in the x- and y-direction. In the z-direction we
+add 10 slices as border region. The resulting size of the data array
+on which the computation is performed is 256 x 256 x 266.</p>
+<p>Note that for dimensions with a power of two (2^8),
+the Fast Fourier Transforms, the computationally most expensive part of the
+deconvolution algorithm, can be executed somewhat faster.
+<i>Iterations:</i> We choose a value of 25 here. Depending on the data,
+usually at least 10 iterations are required. With overrelaxation being
+enabled (see below), results usally don't improve much after 40 iterations.</p>
+<p><i>Initial estimate:</i> Specifies the initial estimate of the deconvolution
+algorithm. Since there is not much noise present in the original alphalobe
+images it is safe to chose <i>input data</i> here. This causes the algorithm
+to converge even faster.
+<i>Overrelaxation:</i> Overrelaxation is a technique to speed up the
+convergence of the iterative deconvolution process. We enable overrelaxation
+by chosing the <i>fixed</i> toggle.
+<i>Regularization:</i> We chose <i>none</i> here in order to do no regularization.</p>
+<p><i>Method:</i> We chose <i>blind</i> here in order to select the blind
+deconvolution algorithm.</p>
+<p><i>PSF Parameters:</i> For <i>alphalobe.am</i> the numerical aperture is 0.5,
+the wavelength is 0.58 micrometers, and the refractive index is 1.0 (air).
+These parameters are required in order to apply certain constraints to the
+estimated point spread function. They are also used in order to compute
+an initial PSF. If a data set would be connected to the <i>Kernel</i>
+port of the deconvolution module, this data set would be used as the inital
+PSF with the given PSF parameters still acting as constraints. 
+For example, you could provide a measured PSF and let it be fitted to
+the actual data by the deconvolution algorithm.</p>
+<p><i>Microscopic mode:</i> <i>alphalobe.am</i> is a widefield data set, so
+select this option here.</p>
+<p></p>
+<h3><a name="A4">Submitting a Deconvolution Job</a></h3>
+<p>After all parameters have been entered, the deconvolution process can be
+started. On a modern computer, blind deconvolution of our test data set roughly
+takes about 20 minutes. Especially, if you want to deconvolve multiple
+data sets at once it is inconvenient to do this in an interactive session.
+Therefore multiple deconvolution jobs can be submitted to the <font face="helvetica">Amira</font> job queue
+and then, for example, processed overnight. This works as follows:</p>
+<p></p>
+<ul><li>Press the <i>Batch Job</i> button of the <i>Action</i> port. A dialog
+	as shown in Figure <a class="link" href="#A5">136</a> pops up.</li><li>In the dialog choose a file name under which you want to save the
+	deconvolved data set, e.g. <tt>C:/Temp/alphalobe-deconv.am</tt>.</li><li>Modify the text field, so that check point files are written after
+ every 5 iterations.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=deconv-fig11.png.html><img width=300 src="deconv-fig11.png" /></a><br />
+<div class="caption">
+<b>Figure 136:</b>
+Dialog for submitting a deconvolution job.</div>
+
+
+</div><p></p>
+<p>Check point files are used to store intermediate results. With the above
+settings the deconvolved data is written into a file after every 5 iterations.
+Check point files are named like the final result, but a consecutive
+number is inserted just before the file name suffix. For example, if the
+result file name is <tt>C:/Temp/alphalobe-deconv.am</tt>, the check point files
+are named <tt>C:/Temp/alphalobe-deconv-0005.am</tt>, <tt>C:/Temp/alphalobe-deconv-0010.am</tt> and so on. Now we are ready to actually
+submit the batch job.
+</p>
+<ul><li>Press the <i>Submit</i> button of the deconvolution dialog. After a few
+	seconds the <font face="helvetica">Amira</font> batch job dialog appears, compare Figure
+ <a class="link" href="#A6">137</a>.</li><li>Select the deconvolution job and press the <i>Start</i> button.</li>
+</ul><p></p>
+<p>You now have to wait about 20 minutes until the deconvolution job is
+finished. Once the job queue has been started, you can quit <font face="helvetica">Amira</font>. The batch
+jobs will be continued automatically. If <font face="helvetica">Amira</font> is still running when
+the deconvolution job exits then the result will be loaded automatically
+in <font face="helvetica">Amira</font>. Otherwise you have to restart <font face="helvetica">Amira</font> and load the deconvolved
+data set manually.</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=deconv-fig12.png.html><img width=450 src="deconv-fig12.png" /></a><br />
+<div class="caption">
+<b>Figure 137:</b>
+The <font face="helvetica">Amira</font> job dialog showing a pending deconvolution job.</div>
+
+
+</div><p></p>
+<p>
+
+</p></body>
+</html>

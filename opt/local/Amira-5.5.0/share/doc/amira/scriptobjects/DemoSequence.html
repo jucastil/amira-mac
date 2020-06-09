@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DemoSequence</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "DemoSequence" "steers a series of previously defined demos" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ <i>DemoSequence</i> is a script object for steering <font face="helvetica">Amira</font> demos.
+ Demos in <font face="helvetica">Amira</font> should be prepared using the
+ <a class="link" href="../hxdemogui/HxDemoGUI.html#A1">Demo GUI</a> or the
+ <a class="link" href="../hxdemogui/demoframework-intro.html#A17">command-line tool</a>. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_unused">
+ <span class="headline">Data</span> <span class="connectiontype">[not used]</span> 
+
+<div class="body"><p>The <i>data</i> port is a default script object port, but is not
+used by <i>DemoSequence</i>.</p>
+<p>
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Demo status display</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Here you may add a module of type <i>Annotation</i> which displays
+ the status of the current demo using special characters:</p>
+
+<dl>
+<dt>$$|<$$</dt>
+<dd> First demo or demo step reached.<br />
+</dd>
+<dt>$$>|$$</dt>
+<dd> Last demo or demo step reached.<br />
+</dd>
+<dt>X</dt>
+<dd> Demo is executing.<br />
+</dd>
+<dt>.</dt>
+<dd> Idle, i.e., it is possible to jump to another step
+ or demo.<br />
+</dd>
+<dt>L&nbsp;&nbsp;</dt>
+<dd> Loading a new demo.<br />
+</dd>
+<dt>E&nbsp;&nbsp;</dt>
+<dd> An error occurred during execution the current step.<br />
+</dd>
+</dl>
+<p> The <i>Annotation</i> module should display its status in the lower right
+ corner of the viewer (x,y: -20, 20).</p>
+<p> If a <i>DemoSequence</i> module is created, 
+ an annotation module named <i>DemoStatusDisplay</i> is
+ automatically created and connected to the <i>DemoSequence</i> module.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Script</span>  
+
+<div class="body"><p>[required]<br />
+
+<img src="DemoSequence_script.png" /><br />
+ Mandatory port of a script object. Please do not press the <i>Restart</i>
+ button!</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Demo file</span>  
+<div class="portsnapshot"><img src="DemoSequence_demoFile.png" /><br /></div>
+<div class="body"><p>Filename of a file describing a sequence of predefined demos. 
+ This port is provided for compatibility with older demos that do not use the Demo GUI.
+ It is recommended to use the Demo GUI instead of using demo files.</p>
+<p> <b>Note:</b> If <i>DemoSequence</i> is used with the
+ <a class="link" href="../hxdemogui/HxDemoGUI.html#A1">Demo GUI</a>, this port is empty and not used.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Demos</span>  
+<div class="portsnapshot"><img src="DemoSequence_demoList.png" /><br /></div>
+<div class="body"><p>Menu containing the list of all demos. You may select one of them and then press
+ the <i>Start</i> button. </p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="DemoSequence_options.png" /><br /></div>
+<div class="body">
+<dl>
+<dt>auto start:&nbsp;&nbsp;</dt>
+<dd> If <i>DemoSequence</i> is used with a
+ <a class="link" href="#A5">demo file</a>, the first demo will
+ start automatically if this option is on.<br />
+</dd>
+<dt>auto select:</dt>
+<dd> The <i>DemoSequence</i> will be selected
+ after executing a new demo or step if this toggle is on.<br />
+</dd>
+</dl>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Demo</span>  
+<div class="portsnapshot"><img src="DemoSequence_currentDemo.png" /><br /></div>
+<div class="body"><p>Displays the name of the current demo and its number out of the
+ total number of selected demos.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Demo Navi</span>  
+<div class="portsnapshot"><img src="DemoSequence_demoNav.png" /><br /></div>
+<div class="body"><p>Steps one demo backward (<i>$$<<$$ Demo</i>) or forward (<i>Demo $$>>$$</i>)
+ or reloads the current demo.
+ It is also possible to switch the demos by using the 
+ following function keys:
+ </p>
+<dl>
+<dt>Ctrl-F2:</dt>
+<dd> Go back to the previous demo.<br />
+</dd>
+<dt>Ctrl-F3:</dt>
+<dd> Reload the current demo again.<br />
+</dd>
+<dt>Ctrl-F4:</dt>
+<dd> Go to the next demo.<br />
+</dd>
+</dl>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Step</span>  
+<div class="portsnapshot"><img src="DemoSequence_currentStep.png" /><br /></div>
+<div class="body"><p>Displays the name of the current step and its number out of the
+ total number of possible steps.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Step Navi</span>  
+<div class="portsnapshot"><img src="DemoSequence_stepNav.png" /><br /></div>
+<div class="body"><p>Steps one step of the current demo backward (<i>$$<<$$ Step</i>)
+ or forward (<i>Step $$>>$$</i>) or executes the current step again
+ (<i>$$<$$Repeat$$>$$</i>).</p>
+<p> The <i>Jump</i> buttons allow stepping through single steps
+ without executing them. They are activated if the current demo
+ defines jump commands.</p>
+<p> It is also possible to switch the demo steps by using the 
+ following function keys:
+ </p>
+<dl>
+<dt>Ctrl-F6:</dt>
+<dd> Go back to the previous step.<br />
+</dd>
+<dt>Ctrl-F7:</dt>
+<dd> Execute the current step again.<br />
+</dd>
+<dt>Ctrl-F8:</dt>
+<dd> Go to the next step.<br />
+</dd>
+</dl>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Status: </span>  
+<div class="portsnapshot"><img src="DemoSequence_status.png" /><br /></div>
+<div class="body"><p>Shows the status of the current demo.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

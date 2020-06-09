@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">11.1 <font face="helvetica">Virtual Reality Option</font> Essentials</a></h2>
+<p></p>
+<h3><a name="A2">11.1.1 <font face="helvetica">Virtual Reality Option</font> configurations</a></h3>
+<p><font face="helvetica">Virtual Reality Option</font> can be configured in many different ways. 
+A particular configuration is described in a config file under 
+<tt>$AMIRA_ROOT/share/config/vr</tt> or <tt>$AMIRA_LOCAL/share/config/vr</tt>. 
+The config file contains things like the layout or physical extent of the screens of the
+display system, information about the display sources such as the X display or the parts of the desktop
+mapped onto the screens, as well as optional calibration data for the tracking
+system.</p>
+<p>When <font face="helvetica">Virtual Reality Option</font> is installed the <font face="helvetica">Amira</font> main window provides an additional menu
+labelled <i>VR</i>. This menu lists all config files found in the config
+directory. Once a particular configuration is selected, the <a class="link" href="HxTracking.html#A1"><font face="helvetica">VRSettings</font></a>
+module is created - if one does not already exists. Depending on the
+particular configuration the <font face="helvetica">VRSettings</font> module allows the user to connect to the
+tracking system, to calibrate the tracking system, or to activate
+additional options.</p>
+<p>Configurations are detailed in further sections.</p>
+<p></p>
+<h3><a name="A3">11.1.2 Immersive interaction and the trackd daemon</a></h3>
+<p>For immersive displays with head tracking or interaction with 3D input devices, 
+<font face="helvetica">Virtual Reality Option</font> makes use of the Mechdyne <em>trackd</em> software in order to access the
+tracking system and controller devices. Trackd itself is not part of <font face="helvetica">Virtual Reality Option</font>. 
+For more information about purchasing and installing trackd, please refer to 
+<tt>www.mechdyne.com</tt>.</p>
+<p>Before a tracking system can be used in <font face="helvetica">Virtual Reality Option</font> the trackd daemon (and possibly a trackd server) has to be started. 
+The trackd daemon connects to the tracking system and controller device and 
+provides the actual tracker and controller data in two shared memory segments, which are read
+by <font face="helvetica">Amira</font>. </p>
+<p>In addition <font face="helvetica">Virtual Reality Option</font> implements a Virtual-Reality Peripheral Network <em>VRPN</em> client.
+For more information about supported trackers and running a <em>VRPN</em> server 
+please refer to <tt>http://www.cs.unc.edu/Research/vrpn</tt>.</p>
+<p></p>
+<h3><a name="A4">11.1.3 Multiple displays and parallel rendering </a></h3>
+<p><font face="helvetica">Virtual Reality Option</font> can use simple configurations driven by a single graphics board, possibly using several video outputs (e.g. dual-head).
+It also supports configurations requiring more outputs than available from a single board (tiled or arbitrary multi-displays). Having a single screen or projector per graphics board may also be preferred for performance.
+This can be achieved either by using a <em>multi-pipe</em> computer hosting multiple graphics boards (<a class="link" href="HxVR-multipipe.html#A1">section 11.2</a>), or using a <em>cluster</em> of computers (<a class="link" href="HxVR-cluster.html#A1">section 11.3</a>). </p>
+<p><font face="helvetica">Virtual Reality Option</font> manages <em>application synchronization</em> and <em>OpenGL frame buffer swap synchronization</em> for all displays, so that the same content can rendered simultaneously on each display, yet possibly with a different viewpoint. </p>
+<p>A type of stereoscopic displays relies on active shutter glasses synchronized with the display, where the left and right eye images are rendered alternatively (OpenGL quadbuffered stereo). Active stereo requires synchronizing the video signals of the whole graphics boards. This can be achieved for instance with hardware framelock/genlock as provided by NVidia 'G' cards. Passive stereoscopy, for instance using polarizing filter glasses, does not require video frame synchronization.</p>
+<p>
+
+</p></body>
+</html>

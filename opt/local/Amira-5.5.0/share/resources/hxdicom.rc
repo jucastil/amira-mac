@@ -1,0 +1,27 @@
+# ----------------------------------------------------------------------
+# hxdicom package
+# ----------------------------------------------------------------------
+
+
+
+dataFile -name "ACR-NEMA" -option dicom \
+    -ext "ima,ima.gz,ima.Z,ani,ani.gz,ani.Z" \
+    -loadInOwnThread true \
+    -load hxReadDicom -dso libhxdicom.so
+
+dataFile -name "DICOM" -option dicom \
+    -file {^[0-9]\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9]} \
+    -ext "dc3,dc3.gz,dc3.Z,dcm,dcm.gz,dcm.Z" \
+    -header DICM \
+    -load hxReadDicom \
+    -type "HxUniformScalarField3" \
+    -type "HxStackedScalarField3" \
+    -lda true \
+    -dso libhxdicom.so
+
+module -name "AnonymizeImageStack" \
+    -primary "HxRegScalarField3 HxRegColorField3" \
+    -class "HxAnonymizeImageStack" \
+    -category "Compute" \
+    -dso "libhxdicom.so"
+

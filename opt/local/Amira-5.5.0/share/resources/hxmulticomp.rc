@@ -1,0 +1,48 @@
+# ----------------------------------------------------------------------
+#   Multi component segmentation package
+# ----------------------------------------------------------------------
+
+ module -name  "WatershedSegmentation" \
+    -primary  "HxUniformScalarField3" \
+    -class    "HxWatershedSegmentation" \
+    -category "Labelling" \
+    -dso "libhxmulticomp.so"
+
+module -name "SpreadSheetToCluster" \
+     -primary "HxSpreadSheet" \
+     -category "Compute" \
+     -class "HxSpreadSheetToCluster" \
+     -dso "libhxmulticomp.so"
+
+module -name "FilterBySpreadsheet" \
+     -primary "HxUniformScalarField3" \
+     -category "Compute" \
+     -class "HxFilterBySpreadsheet" \
+     -dso "libhxmulticomp.so"
+
+module -name "ShapeAnalysis" \
+    -primary "HxUniformScalarField3" \
+    -check { [$PRIMARY primType] == 0 || \
+             [$PRIMARY primType] == 7 || \
+             [$PRIMARY primType] == 8 } \
+    -category "Measure" \
+    -class "HxShapeAnalysis" \
+    -dso "libhxmulticomp.so"  
+
+ module -name "MorphologicalSeparation" \
+    -primary "HxUniformScalarField3" \
+    -check { [$PRIMARY primType] == 0 || \
+             [$PRIMARY primType] == 1 || \
+             [$PRIMARY primType] == 2 || \
+             [$PRIMARY primType] == 7 || \
+             [$PRIMARY primType] == 8 || \
+             [$PRIMARY primType] == 9 } \
+    -category "Labelling" \
+    -class "HxSeparateMorpho" \
+    -dso "libhxmulticomp.so"
+
+ module -name "LocalThreshold" \
+    -primary "HxUniformScalarField3" \
+    -category "Labelling" \
+    -class "HxLocalThreshold" \
+    -dso "libhxmulticomp.so"

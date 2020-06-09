@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> FilterBySpreadsheet</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "FilterBySpreadsheet" "creates a filtered labelfield object from a spreadsheet" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module creates a new a LabelField object from an existing <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a>, filtered by a <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">Spreadsheet</a> module. It is assumed that the columns contain a data value for each point. </p>
+<p>This feature is useful, e.g. when the spreadsheet output of 
+ <a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a> is being filtered. In this case the 
+ input label field of <em>ShapeAnaysis</em> can be connected to the 
+ <em>InputLabelField</em> connection port. <em>SpreadsheetFilter</em> then creates
+ an output label field containing only the regions matching the current filter 
+ criteria. The feature will work also with other spreadsheets if the table
+ has column <em>Value</em> and a label field is connected to the 
+ <em>InputLabelField</em> port.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A uniform scalar field containing label data. Typically a 
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a> is used as input, but a uniform 
+ scalar field with unsigned byte, unsigned short, or unsigned integer values is 
+ also possible.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Input spread sheet</span> <span class="connectiontype">[requiredl]</span> 
+
+<div class="body"><p>The input is <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">Spreadsheet</a> module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Table</span>  
+<div class="portsnapshot"><img src="HxFilterBySpreadsheet_table.png" /><br /></div>
+<div class="body"><p>If a SpreadSheet object with multiple tables is attached, this port will allow the user to select one of the tables.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Label Column</span>  
+<div class="portsnapshot"><img src="HxFilterBySpreadsheet_LabelColumn.png" /><br /></div>
+<div class="body"><p>Specifies the label value used for the label field.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

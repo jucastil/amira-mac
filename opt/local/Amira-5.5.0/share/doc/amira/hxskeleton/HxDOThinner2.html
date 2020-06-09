@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DOThinner2</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "DOThinner2" "compute voxel skeleton of voxel object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+DOThinner2 computes a voxel object's skeleton.
+It uses a variant of the algorithm described in <em>Pudney, C. Distance-ordered homotopic thinning: A skeletonization algorithm for 3D digital images. Computer Vision and Image Understanding 72 (1998), 404.</em></p>
+<p>DOThinner2 only accepts inputs that are loaded to main memory.
+If you want to avoid loading the data file to main memory, you can use
+<a class="link" href="HxExtThinner.html#A1">Thinner</a> to process an <a class="link" href="../hxexternaldata/HxExternalData.html#A1">ExternalData</a> file.
+Note that loading data to main memory allows more efficient processing.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input voxel object (<a class="link" href="../hxfield/HxUniformScalarField3.html#A1">UniformScalarField</a>).
+DOThinner2 interprets data of type byte as a binary image and data of type short as a distance map.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Locked</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a <a class="link" href="../hxfield/HxUniformScalarField3.html#A1">UniformScalarField</a> is connected, DOThinner will keep the voxels that are nonzero.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Len of ends</span>  
+<div class="portsnapshot"><img src="HxDOThinner2_lenOfEnds.png" /><br /></div>
+<div class="body"><p>This port specifies the sensitivity to side branches.
+A low value tells DOThinner2 to keep short side branches, which might create a lot of spurious branches.
+A higher value tells DOThinner2 to keep only longer branches.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max iterations</span>  
+<div class="portsnapshot"><img src="HxDOThinner2_maxIterations.png" /><br /></div>
+<div class="body"><p>Nonzero values tell DOThinner2 to break the algorithm after the specified number of iterations.
+This can be useful for debugging but not for normal processing.
+The port is hidden by default.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

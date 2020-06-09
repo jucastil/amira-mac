@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> 2DMesh</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "2DMesh" "Creates and visualizes a 2D quad-mesh" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This modules creates a NxM surface mesh of squares. The module provides a basic Tcl interface
+to define the dimensions of the mesh and to move points. Each point can have an associated 
+value which is mapped as a color.</p>
+<p>In order to set the location of each grid point the Tcl command <em>setPoint</em> needs to be used.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to the colormap which is used to map the values of each vertex.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="Hx2DMesh_drawStyle.png" /><br /></div>
+<div class="body"><p>Specify the draw style of the surface.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="Hx2DMesh_colormap.png" /><br /></div>
+<div class="body"><p>Specify properties of the colormap used to map values of each vertex to a color.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="Hx2DMesh_Position.png" /><br /></div>
+<div class="body"><p>Shift the initial position of the mesh.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Dimension</span>  
+<div class="portsnapshot"><img src="Hx2DMesh_Dimension.png" /><br /></div>
+<div class="body"><p>The dimensions of the quad-mesh.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">getPoint &lt;i&gt; &lt;j&gt;</span>  
+
+<div class="body"><p>Returns the spatial location of the grid point (<tt>&lt;i&gt;</tt>, <tt>&lt;j&gt;</tt>) and its value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPoint &lt;i&gt; &lt;j&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; [value]</span>  
+
+<div class="body"><p>Sets the location and value of the grid location (<tt>&lt;i&gt;</tt>, <tt>&lt;j&gt;</tt>) to <tt>&lt;x&gt;</tt>, <tt>&lt;y&gt;</tt>, <tt>&lt;z&gt;</tt>. Optionally the value can be specified as well.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">show</span>  
+
+<div class="body"><p>Enables the display of the grid in the viewer.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hide</span>  
+
+<div class="body"><p>Disables the display of the grid in the viewer.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSize</span>  
+
+<div class="body"><p>Returns the grid dimensions currently used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;i&gt; &lt;j&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>Set the value of grid point (<tt>&lt;i&gt;</tt>, <tt>&lt;j&gt;</tt>).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColor &lt;i&gt; &lt;j&gt;</span>  
+
+<div class="body"><p>Returns the value associated to the current grid location.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

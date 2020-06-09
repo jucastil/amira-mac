@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MaterialStatistics</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "MaterialStatistics" "computes statistical information from a label field with optional 3D image" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module takes a uniform or stacked <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a> as
+ well as an optional scalar field as input and computes some statistical
+ quantities for the regions defined in the label field.</p>
+<p> If the quantities are computed per material or per connected component,
+ the different columns of the spreadsheet have the following meaning:</p>
+
+<ul><li><b>Number:</b> Enumerates all materials (regions) of the label field.</li><li><b>Material:</b> Denotes which material (region) is stored in a row.</li><li><b>Count:</b> Number of voxels contained in a region.</li><li><b>Volume:</b> Number of voxels times size of a single voxel.</li><li><b>CenterX:</b> X-coordinate of the region's center.</li><li><b>CenterY:</b> Y-coordinate of the region's center.</li><li><b>CenterZ:</b> Z-coordinate of the region's center.</li>
+</ul>
+<p> If an additional scalar field such as the original image data is
+	connected to the <em>Field</em> input port of the module, then five
+	more columns will be generated, presenting results from a statistical
+	analysis of the image data that corresponds to the segmented materials.</p>
+
+<ul><li><b>Mean:</b> Mean value of the field in a particular region.</li><li><b>Deviation:</b> Standard deviation of the field in a region.</li><li><b>Min:</b> Min value of the field in a particular region.</li><li><b>Max:</b> Max value of the field in a particular region.</li><li><b>CumulativeSum:</b> The cumulative sum of the values of the field in a particular region.</li>
+</ul>
+<p> The scalar field will be evaluated at the center of each voxel.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Label field defining the regions.</p>
+<p><a name="A2"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field, e.g., the image data associated with
+the label field. The data is used to compute additional statistics. If
+the scalar field has the same dimensions as the label field, the voxels
+are accessed directly. Otherwise, data values are interpolated using the
+native method of the field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Voi</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional label field used as a volume of interest. It is only used
+if the statistics are set to <em>Volume per VOI</em>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Select</span>  
+<div class="portsnapshot"><img src="HxTissueStatistics_select.png" /><br /></div>
+<div class="body"><p>The quantities can be computed in different modes: </p>
+<p> The results are stored in a <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a>
+ object.</p>
+<p>For example, you may have two separate objects 
+both assigned to the same material. In the <em>Material</em> mode,
+the two objects will be interpreted as one object, in the <em>Region</em>
+mode as two objects.</p>
+<p>In mode <em>Volume per slice</em> the slices are stored 
+as rows in the spreadsheet. The columns are labeled by the materials
+and the cells contain the volume of these materials in each slice.
+The scalar field is ignored. The same output is produced by the 
+<em>Area per slice</em> mode. In both cases the voxel size is used to
+calculate the value. Because of this, the area value corresponds to
+the volume value when multiplied by the voxel size in the z-direction.</p>
+<p>In mode <em>Volume per VOI</em> (Volume of Interest) another label field
+must be attached to the connection named Voi. The rows of the spreadsheet
+are labeled with the materials in this label field. The columns are labeled
+with the materials of the main label field. For each voxel of the main label
+field it is determined to which VOI region the voxel center belongs to. The
+voxel volume is then added to the particular row of the spreadsheet. If the
+voxel center is outside of the bounding box of the VOI, it is ignored.</p>
+<p>In mode <em>Polar moment of inertia</em> the moment of inertia about the z axis
+$$J_z$$ is computed which describes the ability of the per-slice cross section to
+bend. The larger the moment of inertia, the less the section will bend.
+Additional values that are computed are the center of mass $$R_{x,y,z}$$ and the
+area- and mass-radius of gyration about the z axis ($$\sqrt{J_z/A}$$,$$\sqrt{J_z/m}$$).
+If the optional scalar field is connected, the real center of mass will be
+used, otherwise all voxels are assumed to count equally (mass = 1.0).
+The user may also provide a center of rotation which will be shared for 
+all slices.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Pixels</span>  
+<div class="portsnapshot"><img src="HxTissueStatistics_pixels.png" /><br /></div>
+<div class="body"><p>This port will only be visible if <em>Volume per slice</em> or 
+<em>Area per slice</em> is selected in the <em>Select</em> port.
+It allows you to exclude small regions from the statistics. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTissueStatistics_options.png" /><br /></div>
+<div class="body"><p>This port will only be visible if <em>Polar moment of inertia</em> 
+is selected in the <em>Select</em> port. It allows you to specify
+if the center of mass should be automatically detected.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Center</span>  
+<div class="portsnapshot"><img src="HxTissueStatistics_center.png" /><br /></div>
+<div class="body"><p>This port will only be visible if 
+<em>detect center of mass</em> is unchecked in the <em>Options</em> port.
+It allows you to specify the center of rotation.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p><br />
+
+</p>
+<h2><a name="A1">29.6 CSS Attributes</a></h2>
+<p>This section lists the <font face="helvetica">Amira</font>-specific CSS attributes, which can be accessed when
+editing <tt>share/doc/Amira.css</tt>.</p>
+<p></p>
+<h3><a name="A2">29.6.1 Headlines</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+generic_head </td>
+<td align=left>
+ &#92;begin&#123;hxmodule2&#125; &#123;MYMODULE&#125; &#123;DESCRIPTION&#125; <br />
+...<br />
+&#92;end&#123;hxmodule2&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"generic_head"&gt; MYMODULE &lt;/div&gt;. </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<h3><a name="A3">29.6.2 Front Page (index.doc)</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+head_menu </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ <i>Text that is to appear on the top line of the <font face="helvetica">Amira</font> front page 
+is contained in an</i> &lt;ul id="head_menu"&gt; ... &lt;ul&gt; <i>list.</i></td>
+</tr><tr><td align=left>
+
+
+imageBarPad </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ <i>Determine the vertical space between the front page top line 
+and the images below it by setting</i> .imageBarPad &#123;height: 30px;&#125;. </td>
+</tr><tr><td align=left>
+
+
+imageBarSpace </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ <i>Determine the vertical space between front page images by
+setting</i> .imageBarSpace &#123;height: 7px;&#125;. </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<h3><a name="A4">29.6.3 hx Environments</a></h3>
+<p></p>
+<h4><a name="A5">29.6.3.1 Connections</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+hxconnections<br />
+hxconnection_required<br />
+hxconnection_optional<br />
+hxconnection_unused<br />
+hxconnection_default <br />
+connectiontype<br />
+headline </td>
+<td align=left>
+ &#92;begin&#123;hxconnections&#125; <br />
+&#92;hxconnection &#123;MY_CONNECTION&#125; &#123;[required]&#125;<br />
+...CONNECTION...<br />
+&#92;end&#123;hxconnections&#125;</td>
+<td align=left>
+ <i>Depending on the connection type:</i><br />
+&lt;div class=&#8204;"hxconnections"&gt;<br />
+&lt;div class=&#8204;"hxconnection&#8204;_required"&gt; <br />
+&lt;div class=&#8204;"headline"&gt; MY_CONNECTION &lt;/div&gt;<br />
+&lt;div class=&#8204;"connectiontype&gt; [required] &lt;/div&gt;<br />
+...CONNECTION...<br />
+&lt;/div&gt;<br />
+...<br />
+&lt;/div&gt; </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><br />
+
+</p>
+<h4><a name="A6">29.6.3.2 Ports</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+hxports<br />
+hxport<br />
+portsnapshot <br />
+headline </td>
+<td align=left>
+ &#92;begin&#123;hxports&#125; <br />
+&#92;hxport&#123;MY_PORT&#125;<br />
+&#92;hximage&#123;MY_PORT_&#8204;SNAPSHOT&#125;<br />
+...PORT...<br />
+&#92;end&#123;hxports&#125;</td>
+<td align=left>
+ &lt;div class=&#8204;"hxports"&gt; <br />
+&lt;div class=&#8204;"hxport"&gt; <br />
+&lt;div class=&#8204;"headline"&gt; MY_PORT &lt;/div&gt;<br />
+&lt;div class=&#8204;"portsnapshot"&gt; MY_PORT_SNAPSHOT &lt;/div&gt; <br />
+...PORT...<br />
+&lt;/div&gt; <br />
+...<br />
+&lt;/div&gt;
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<h4><a name="A7">29.6.3.3 Commands</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+hxcommands<br />
+hxcommand <br />
+headline </td>
+<td align=left>
+ &#92;begin&#123;hxcommands&#125; <br />
+&#92;hxcommand &#123;MY_COMMAND&#125;<br />
+...COMMAND...<br />
+&#92;end&#123;hxcommands&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"hxcommands"&gt;<br />
+&lt;div class=&#8204;"hxcommand"&gt; <br />
+&lt;div class=&#8204;"headline"&gt; MY_COMMAND &lt;/div&gt;<br />
+...COMMAND...<br />
+&lt;/div&gt;<br />
+...<br />
+&lt;/div&gt;
+</td>
+</tr><tr><td align=left>
+ 
+</tr></table></div><p></p>
+<p></p>
+<h4><a name="A8">29.6.3.4 Description</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+hxdescription </td>
+<td align=left>
+ &#92;begin&#123;hxdescription&#125; <br />
+...DESCRIPTION...<br />
+&#92;end&#123;hxdescription&#125;</td>
+<td align=left>
+ &lt;div class=&#8204;"hxdescription"&gt; DESCRIPTION &lt;/div&gt;. </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<h4><a name="A9">29.6.3.5 Section</a></h4>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+hxsection <br />
+headline </td>
+<td align=left>
+ &#92;begin&#123;hxsection&#125; &#123;SECTION_NAME&#125; <br />
+...TEXT...<br />
+&#92;end&#123;hxsection&#125; </td>
+<td align=left>
+ &lt;div class=&#8204;"hxsection"&gt; <br />
+&lt;div class=&#8204;"headline"&gt; SECTION_NAME &lt;/div&gt;<br />
+...TEXT...<br />
+&lt;/div&gt; </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p></p>
+<h3><a name="A10">29.6.4 Tables</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+CSS Attribute </td>
+<td align=left>
+ LaTeX Command </td>
+<td align=left>
+ XHTML </td>
+</tr><tr><td align=left>
+
+
+
+d2htables </td>
+<td align=left>
+ &#92;begin&#123;d2htables&#125;<br />
+TEXT<br />
+&#92;begin&#123;tabular&#125; &#123;TABULARHEAD&#125; <br />
+TABLE<br />
+&#92;end&#123;tabular&#125; &#123;TABULARHEAD&#125; <br />
+TEXT<br />
+&#92;end&#123;d2htables&#125; </td>
+<td align=left>
+ TEXT<br />
+&lt;div class="d2htable"&gt;<br />
+&lt;table ...&gt;<br />
+TABLE<br />
+&lt;/table&gt;<br />
+&lt;/div&gt;<br />
+TEXT </td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+
+</p></body>
+</html>

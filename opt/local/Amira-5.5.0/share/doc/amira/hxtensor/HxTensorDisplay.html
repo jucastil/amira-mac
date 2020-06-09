@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TensorDisplay</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TensorDisplay" "displays symmetric second order tensors using tensor glyphs" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module displays symmetric second order tensors using tensor glyphs.
+You can select either an ellipsoid, a cylinder, a cone, three lines, or superquadrics
+to indicate the tensor shape in a slice through the volume.</p>
+<p>In order to render a glyph to visualize the tensor at a specific location 
+the module maps the tensors eigenvalues and eigenvectors to a rotation and
+an anisotropic scaling of a default geometry, e.g. a sphere is deformed into
+an ellipsoid. The eigenvector's components are directly mapped to 
+world-coordinate components.</p>
+<p>The module can display positive definite tensors or tensors with negative
+eigenvalues. Positive definite tensor fields occur, for example, in
+the form of diffusion tensors. Negative eigenvalues occur, for example,
+in the analysis of rate of strain (stress) tensors.</p>
+<p>The glyphs are distributed in 2d mode based on a regular sampling
+grid. Its density can be controlled by the Resolution port. As
+locations on the grid in general do not co-incide with locations of the
+underlying data an interpolation of the tensors will be performed
+prior to display. This interpolation is implemented as a tri-linear interpolation on
+the tensor components.</p>
+<p>In 3d mode the glyphs are located at the grid locations. The
+visibility of the glyphs can be controlled for example by a connected
+mask field.</p>
+<p>Surface structures can also be used to influence the sampling of
+tensors. The location of surface vertices together with a
+distance value are used to generate a spatially distributed point
+cloud for tensor display. Again a tri-linear interpolation on tensor
+components is used to sample the tensor from the underlying field.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A symmetric second order tensor field with 6 degrees of freedom.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Module</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A connected EmptyPlane module which is used to orient the
+tensor display plane in space.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Tensor glyphs can be colored by this colormap.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A scalar field which can be used to color the tensor display.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>In order to restrict the display of tensors to a specific area,
+a mask volume can be attached. If such a module is connected,
+an additional port is displayed with an expression to select a
+sub-area in the mask. If you connect, for example, a label field
+as a mask, you can use an expression like $$A>0$$ to disable the
+display of tensors in the exterior part of the label field.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Shape data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Any currently displayed geometry can be connected to
+this port to be used as a replacement for the standard glyphs. A
+surface for example can be provided by connecting a SurfaceView
+display module. The shape is assumed to be oriented initially towards
+the positive y-direction (global axis) and is rotated based on the
+eigenvectors. After the rotation the positive y-direction of the
+shape will point towards the direction of the principal eigenvector. 
+The eigenvalues are used for scaling the geometry.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Surface</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connect a vertex set (like a surface) and the vertex positions of
+the surface will be used as sample positions for the tensor field. If
+an offset value is provided the sample position is moved in the
+direction of the surface normal by the amount specified in the offset
+port (using the units of voxel size).</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectROI</a> module is connected the tensor
+values are only displayed in the region of interest.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A9"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Display mode</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_DisplayMode.png" /><br /></div>
+<div class="body"><p>If <i>2D</i> is selected the locations of the tensor glyphs are sampled
+based on the connected <a class="link" href="../hxcore/HxArbitraryCut.html#A1">EmptyPlane </a> module. If
+<i>3D</i> mode is selected the tensors are sampled directly on the grid
+locations specified in the data (ignores the information provided by
+EmptyPlane and the Resolution port). This might produce a large amount
+of geometry. Use a connected label field to limit the amount of tensor
+glyphs generated. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Display</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Display.png" /><br /></div>
+<div class="body"><p>Select either ellipoids, cylinders, cones, lines or superquadrics
+to be displayed at regular positions in the tensor field.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Options.png" /><br /></div>
+<div class="body"><p>If you select this checkbox, only positive definite tensors will
+be computed by using a singular value decomposition. This is the default
+setting for diffusion tensors. If you de-select this checkbox, a
+standard algorithm for eigenvalue decomposition will be used,
+and also negative eigenvalues may occur.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mappings and colorings</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_MappingsAndColorings.png" /><br /></div>
+<div class="body"><p>The first drop down menu is only active if we have also negative
+eigenvalues (see port Options). The negative eigenvalues can be
+mapped to positive eigenvalues by either using absolute values for
+the eigenvalues, by doing a sigmoid mapping of the eigenvalues to
+0..1 (eigenvalues close to zero will be around 0.5), or by using the
+Cauchy-Green tensor or the Green strain tensor. Another option is
+provided that does not provide any mapping (as is mapping of eigenvalues).
+Visual artifacts might be produced if this option is used and negative
+eigenvalues are present.</p>
+<p>The color drop down menu allows you to color the tensors by either
+their fractional Anisotropy (FA) with large values for tensors with
+a preferred direction, by their trace, or by either their first, second,
+or third eigenvalue. You can also connect a ColorField to the module
+and the data values from this volume will be used instead.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale by value</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_ScaleByValue.png" /><br /></div>
+<div class="body"><p>The tensor glyphs are scaled according to the value of their eigenvalues.
+If Eval2 and Eval3 are disabled, the tensor is drawn with a default scaling
+of 1 to 1/2 for the first principal direction to the second and third
+principal direction.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Display complexity</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_DisplayComplexity.png" /><br /></div>
+<div class="body"><p>Values larger than $$0.2$$ will increase the number of triangles used to display
+the glyphs which improves the display quality.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Resolution.png" /><br /></div>
+<div class="body"><p>The number of glyphs sampled over the size of the
+<a class="link" href="../hxcore/HxArbitraryCut.html#A1">EmptyPlane </a>. Larger numbers result in more dense
+tensor displays. </p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Colormap.png" /><br /></div>
+<div class="body"><p>The colormap used to color the tensors.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaskExpr</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_MaskExpr.png" /><br /></div>
+<div class="body"><p>This port is only available if a scalar field is connected to the
+<em>Mask</em> input port. Enter an expression like $$A>128$$ and the tensor display
+will be restricted to regions where the mask contains values greater
+than $$128$$.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Offset</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Offset.png" /><br /></div>
+<div class="body"><p>This port is available if a surface is connected to the surface
+port. The vertex normals of the surface vertices are computed and the
+offset value is applied in the direction of the image normal. This
+offset location is used for tensor field sampling and glyph location.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxTensorDisplay_Scale.png" /><br /></div>
+<div class="body"><p>Scales the size of the tensors. The scaling (diffusivity) should be selected proportional to the b-value used during the scan. If tensors are scaled by FA or if the density of the tensors is low the values can be set higher. </p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">set TensorDisplayNoWarning &lt;value&gt;</span>  
+
+<div class="body"><p>If this global Tcl variable is defined and set to a value larger than 0, no warning dialog is displayed in case of a large number of objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">set TensorDisplayNoWarningThreshold &lt;value&gt;</span>  
+
+<div class="body"><p>If this global Tcl variable is defined and set, the warning dialog will only be displayed if more objects than specified by the value would be created. The default threshold value is 65536.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CameraPath Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "CameraPath Editor" "create a camera path using keyframes" !>
+<p>&nbsp;<br />
+<img src="HxKeyframeCameraPathEditor_icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>CameraPath Editor</em> allows you to edit camera paths defined
+ by a number of keyframes. To get started, choose <em>CameraPath</em>
+ from the <em>Create</em> menu and click on the Camera Path Editor button of the new
+ camera path object. The editor will appear and automatically open an
+ additional viewer.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxKeyframeCameraPathEditor_keyframecam.png.html><img width=468 src="HxKeyframeCameraPathEditor_keyframecam.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Control panel of the camera path editor. The arrow shaped
+ control buttons can be used to play forward and backward, to jump from
+ keyframe to keyframe, or to step frame by frame. When the editor is off,
+ the camera path provides a time port.</div>
+
+ 
+ </div>
+<p> The original viewer (viewer 0) is the camera view, i.e., it shows the
+ same as if you were looking through the camera, while the additional
+ viewer will show you all of the keyframe cameras from a bird's eye view.
+ In order to start your camera path, choose an appropriate view in the
+ original viewer (see <a class="link" href="../usersguide/viewer.html#A1">Section 3.1.8 (Viewer Window)</a> to
+ learn how to do that) and click on the <em>add</em> button.
+ 
+ Your first
+ keyframe has been saved. The time slider should contain one red line
+ and it should have advanced to 10. Now change the view in the original
+ viewer and click on add again. A second keyframe appears and so on.</p>
+<div style="text-align:center"><a name="A3"></a><a href=HxKeyframeCamPathEditor_view.png.html><img width=375 src="HxKeyframeCamPathEditor_view.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The camera path is shown in an extra viewer. You can click on
+ a keyframe and modify the camera. The changes will be displayed in the
+ original viewer simultaneously. The reddish icon represents the current
+ camera. In general this is not a keyframe but an interpolated camera.</div>
+
+ 
+	</div>
+<p> Once you have played your camera path using the play button, you may
+ continue adding keyframes by simply typing the time for the new
+ keyframe into the text field or by moving the slider and then clicking
+ <em>add</em>. Note: The original view will not be changed when the
+ slider is moved or the text in the text field is changed.</p>
+<p> To change the time of a keyframe, jump to this frame, click on
+ <em>remove</em>, type in the new time, and click on <em>add</em> again.</p>
+<p> If you want to have a constant camera velocity on its path, press the
+ <em>const velocity</em> button. Depending on the distances between the
+ camera positions
+ at the keyframes, the keyframe times are changed to be
+ equidistant between camera positions.</p>
+<p> <b>Caution:</b> Pressing the <em>circular path</em> button will create a
+ new camera path and destroy the old one. The new camera path lies on a
+ circle around one of the major axes with the center at the point the
+ camera in the original window is looking at. The radius is determined
+ by the distance of the camera position and the point the camera looks at.</p>
+</div>
+<p></p>
+<p> 
+
+</p></body>
+</html>

@@ -1,0 +1,186 @@
+interfaceFactory -class "HxLattice3ToHxVolumeDataFactory" \
+       -adapts "HxUniformScalarField3" \
+       -package "hxvolumeviz"
+
+interfaceFactory -class "HxRegScalarField3ToHxVolumeDataFactory" \
+       -adapts "HxRegScalarField3" \
+       -package "hxvolumeviz"
+
+interfaceFactory -class "HxVolumeDataToHxLatticeFactory" \
+       -adapts "HxVolumeData" \
+       -package "hxlatticex"
+
+
+dataClass -name "GPUShader" \
+    -class "HxGPUShader" \
+    -category "Data" \
+    -package "hxvolumeviz"
+
+dataFile -name "GLSL Pixel Shader (.glsl)" \
+    -ext ".glsl" \
+    -option "pixel" \
+    -load "HxGPUShader::read" \
+    -loadInOwnThread "false"  \
+    -package "hxvolumeviz"
+
+dataFile -name "VolumeViz LDM (.ldm)" \
+       -ext ".ldm" \
+       -option "ldm" \
+       -load "HxVolumeDataObject::read" \
+       -package "hxvolumeviz"
+
+dataFile -name "VolumeViz LDM (.lda)" \
+       -ext ".lda" \
+       -option "lda" \
+       -load "HxVolumeDataObject::read" \
+       -package "hxvolumeviz"
+
+dataFile -name "VolumeViz LDM SEGY(.sgy)" \
+       -ext ".sgy" \
+       -option "sgy" \
+       -load "HxVolumeDataObject::read" \
+       -package "hxvolumeviz"
+
+dataClass -name     "ArithmeticRendering" \
+        -primary    "HxVolumeDataObject" \
+        -color "#FF5B5B" \
+        -class "HxArithLDM" \
+        -proc { \
+              if {[exists $PRIMARY]} { $this inputA connect $PRIMARY; } \
+        } \
+        -package    "hxvolumeviz" \
+        -category   "Compute"
+
+module -name "Voltex" \
+       -priority 10 \
+       -primary "HxVolumeDataObject HxArithLDM" \
+       -class "HxVolumeRender" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "Voltex" \
+       -check { [__checkMultiChannelLDM $PRIMARY] == 1 } \
+       -priority 10 \
+       -primary "HxMultiChannelField3" \
+       -class "HxVolumeRender" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+
+
+module -name "IsosurfaceRendering" \
+       -primary "HxVolumeDataObject" \
+       -class "HxIsosurfaceRender" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+# Not available yet
+#module -name "Isosurface" \
+#       -check { [__checkMultiChannelLDM $PRIMARY] == 1} \
+#       -primary "HxMultiChannelField3" \
+#       -class "HxIsosurfaceRender" \
+#       -category "Display" \
+#       -package "hxvolumeviz"
+
+
+
+module -name "OrthoSlice" \
+       -priority 10 \
+       -color "lightsalmon" \
+       -primary "HxVolumeDataObject HxArithLDM" \
+       -class "HxOrthoSliceLDM" \
+       -category "Main Display" \
+       -package "hxvolumeviz"
+
+module -name "OrthoSlice" \
+       -check { [__checkMultiChannelLDM $PRIMARY] == 1} \
+       -priority 10 \
+       -color "lightsalmon" \
+       -primary "HxMultiChannelField3" \
+       -class "HxOrthoSliceLDM" \
+       -category "Main Display" \
+       -package "hxvolumeviz"
+
+
+
+module -name "ObliqueSlice" \
+       -color "lightsalmon" \
+       -primary "HxVolumeDataObject HxArithLDM" \
+       -class "HxObliqueSliceLDM" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "ObliqueSlice" \
+       -check { [__checkMultiChannelLDM $PRIMARY] == 1} \
+       -color "lightsalmon" \
+       -primary "HxMultiChannelField3" \
+       -class "HxObliqueSliceLDM" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+
+
+module -name "SelectRoi" \
+       -primary "HxVolumeDataObject HxArithLDM" \
+       -class "HxSelectROILDM"\
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "SelectRoi" \
+       -check { [__checkMultiChannelLDM $PRIMARY] == 1} \
+       -primary "HxMultiChannelField3" \
+       -class "HxSelectROILDM"\
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "SelectRoi" \
+       -check { [__checkMultiChannelLDM $PRIMARY] == 0} \
+       -primary "HxMultiChannelField3" \
+       -class "HxSelectRoi"\
+       -category "Display" \
+       -package "hxfield"
+
+
+module  -name       "LDAExpertSettings"          \
+        -class      "HxLDAExpertSettings"        \
+        -package    "hxvolumeviz"
+
+#========== START => VolumeViz representation with lattice data===========
+# TO KEEP AS EXAMPLE
+
+#module -name "OrthoSliceLDA" \
+#       -check { [__checkLDM $PRIMARY] == 0} \
+#       -primary "HxLattice3" \
+#      -class "HxOrthoSliceLDM" \
+#       -category "Display" \
+#       -package "hxvolumeviz"
+
+#module -name "ObliqueSliceLDA" \
+#       -check { [__checkLDM $PRIMARY] == 0} \
+#       -primary "HxLattice3" \
+#       -class "HxObliqueSliceLDM" \
+#       -category "Display" \
+#       -package "hxvolumeviz"
+
+module -name "VoltexHighQuality" \
+       -check { [__checkLDM $PRIMARY] == 0 && ( [__isProduct "ZIBAmira"] ) } \
+       -primary "HxUniformScalarField3" \
+       -class "HxVolumeRender" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "IsosurfaceRendering" \
+       -check { [__checkLDM $PRIMARY] == 0 && ( [__isProduct "Avizo"] || [__isProduct "ZIBAmira"] ) } \
+       -primary "HxRegScalarField3" \
+       -class "HxIsosurfaceRender"  \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+module -name "Voltex" \
+       -check { [__checkLDM $PRIMARY] == 0} \
+       -primary "HxRegScalarField3" \
+       -class "HxVolumeRender" \
+       -category "Display" \
+       -package "hxvolumeviz"
+
+#========== END => VolumeViz representation with lattice data===========

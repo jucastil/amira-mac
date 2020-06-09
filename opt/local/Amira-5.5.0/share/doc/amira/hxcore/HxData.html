@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Data</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Data" "base class of all data objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is the base class of all <font face="helvetica">Amira</font> data objects. Data objects are
+ usually represented by green icons in the Pool. In contrast
+ to modules, data objects can be duplicated and saved to a file. They
+ also provide a hierachical list of parameters or attributes. This
+ list can be edited using the <a class="link" href="HxParameterEditor.html#A1">parameter
+ editor</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxObject.html#A1">Object</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">touch</span>  
+
+<div class="body"><p>Touches the data object, marking it as modified. When the network
+ is fired modules connected to a data object will only be invoked if
+ the data object was modified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">save [format] [filename]</span>  
+
+<div class="body"><p>Saves the data object. If no arguments are specified the command does
+ the same as choosing <em>Save</em> from the <em>File</em> menu, i.e., it
+ saves the object under the same name as it was saved before. Otherwise,
+ a format and a file name must be specified. The format should be the
+ name of a format as it is displayed in the file dialog's file type
+ menu, e.g., <tt>"Amiramesh ascii"</tt> or <tt>"HxSurface binary"</tt>. When
+ an object is saved its name is replaced by a possibly modified version
+ of the filename. The command returns the actual name of the object
+ after it has been saved.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">parameters [options ...]</span>  
+
+<div class="body"><p>Provides access to the data object's parameter list. This command takes
+ several different options allowing you query and set parameters. A list
+ of all folders containing parameters too can be obtained using <tt>list</tt>. The name of each folder is used to access that folder. For
+ example, to get a list of all materials of a surface or of a label
+ field, use <tt>parameters Materials list</tt>.</p>
+<p> A parameter value can be set using <tt>setValue &lt;name&gt; &lt;value&gt;</tt>, and
+ it can be returned using <tt>getValue &lt;name&gt;</tt>. For example, to set the
+ color of the material <em>Exterior</em> of a surface or of a label field,
+ use <tt>parameters Materials Exterior setValue Color &lt;color&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDefaultFileFormat [format]</span>  
+
+<div class="body"><p>Sets the default file format for the data object. The default file
+ format is used when the object's save method is called without
+ a format string, or when a data object needs to be stored in oder
+ to create a network script. The default file format will also be used
+ to initialize the file format combo box of the file dialog when choosing
+ "Save Data As..." from the main menu. For most native <font face="helvetica">Amira</font> data objects
+ the default file format is the AmiraMesh format. The format itself
+ should be specified by the format name (same name as shown in the
+ file type combo box of the file dialog). If called with a parameter
+ the method returns the current default file format.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setEditor [editor]</span>  
+
+<div class="body"><p>Attaches the given editor to the data object. If called without
+ arguments the currently attached editor is detached. For example,
+ the following command opens the parameter editor for the data
+ object lobus.am: <tt>lobus.am setEditor [create HxParameterEditor]</tt></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getEditor</span>  
+
+<div class="body"><p>Returns the name of the editor currently attached to the data
+ object. If no editor is attached, an empty string is returned.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

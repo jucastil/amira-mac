@@ -1,0 +1,157 @@
+#
+# Default startup script for Amira
+#
+# You may define a custom startup script by either
+#  - setting the environment variable $AMIRA_INIT_FILE
+#  - putting a file Amira.init in the current working directory
+#  - putting a file .Amira in the user's home directory
+#  - creating the file $AMIRA_LOCAL/share/resources/Amira/Amira.init
+#
+limit coredumpsize 0
+
+proc onKeyF5 { } {
+    if { [viewer 0 getBackgroundMode] == 0 } {
+        echo "Setting default gradient background"
+        viewer 0 setBackgroundColor2 0.72 0.72 0.78
+        viewer 0 setBackgroundColor 0.06 0.13 0.24
+        viewer 0 setBackgroundMode 1
+    } else {
+        echo "Setting uniform black background"
+        viewer 0 setBackgroundColor 0 0 0
+        viewer 0 setBackgroundMode 0
+    }
+}
+
+proc onKeyF10 {} {
+    echo "Raising viewer 0 to top"
+    viewer 0 show
+    viewer 0 redraw
+}
+
+proc onKeyF12 {} {
+    if { [viewer 0 getStereo] == 0 } {
+        echo "Switching viewer 0 from mono to stereo"
+        viewer 0 setStereo -b 0.7 0.7
+    } else {
+        echo "Switching viewer 0 from stereo to mono"
+        viewer 0 setStereo 0
+    }
+}
+
+# Convenience function: checks if a given Amira object exists or not
+proc exists { cmd } { llength [ info commands $cmd ] }
+
+# This procedure is always called before a Tcl-script is parsed. It removes
+# global variables matching TMPIO*. These variables are used by the LoadCmd
+# mechanism when multiple data objects are created from a single file.
+proc remove_tmpio { } {
+    set var [ info globals ]
+    set n [ llength $var ]
+    for { set i 0 } { $i<$n } { incr i } {
+        if { [ string match TMPIO* [ lindex $var $i ] ] } {
+            global [ lindex $var $i ]
+            unset [ lindex $var $i ]
+        }
+    }
+}
+
+
+# Load basic initialization scripts.  The rc0-scripts can, for example, be used
+# for defining global tcl procedures.
+foreach file [glob -nocomplain \
+    ${AMIRA_ROOT}/share/resources/*.rc0 \
+    ${AMIRA_ROOT}/share/script-objects/*.rc0] {
+    source $file 0
+}
+
+if { $AMIRA_LOCAL != $AMIRA_ROOT } {
+    foreach file [glob -nocomplain \
+        ${AMIRA_LOCAL}/share/resources/*.rc0 \
+        ${AMIRA_LOCAL}/share/script-objects/*.rc0] {
+        source $file 0
+    }
+}
+
+# Load Resource Files
+#   1. $AMIRA_ROOT/share/resources/*.rc
+#   2. $AMIRA_LOCAL/share/resources/*.rc
+
+foreach file [glob -nocomplain \
+    ${AMIRA_ROOT}/share/resources/*.rc \
+    ${AMIRA_ROOT}/share/script-objects/*.rc] {
+    source $file 0
+}
+
+if { $AMIRA_LOCAL != $AMIRA_ROOT } {
+    foreach file [glob -nocomplain \
+        ${AMIRA_LOCAL}/share/resources/*.rc \
+        ${AMIRA_LOCAL}/share/script-objects/*.rc] {
+        source $file 0
+    }
+}
+
+set hideNewModules 1
+load ${AMIRA_ROOT}/data/colormaps/temperature.icol
+load ${AMIRA_ROOT}/data/colormaps/physics.icol 
+load ${AMIRA_ROOT}/data/colormaps/seismic.col 
+load ${AMIRA_ROOT}/data/colormaps/glow.col
+load ${AMIRA_ROOT}/data/colormaps/grey.am
+load ${AMIRA_ROOT}/data/colormaps/pureCyan.col
+load ${AMIRA_ROOT}/data/colormaps/pureGreen.col
+load ${AMIRA_ROOT}/data/colormaps/pureMagenta.col
+load ${AMIRA_ROOT}/data/colormaps/volrenRed.col
+load ${AMIRA_ROOT}/data/colormaps/volrenGreen.col
+load ${AMIRA_ROOT}/data/colormaps/volrenGlow.am
+load ${AMIRA_ROOT}/data/colormaps/labelcolors.am
+
+temperature.icol setNoRemoveAll 1
+physics.icol     setNoRemoveAll 1
+seismic.col      setNoRemoveAll 1
+glow.col         setNoRemoveAll 1
+grey.am          setNoRemoveAll 1
+pureCyan.col     setNoRemoveAll 1
+pureGreen.col    setNoRemoveAll 1
+pureMagenta.col  setNoRemoveAll 1
+volrenRed.col    setNoRemoveAll 1
+volrenGreen.col  setNoRemoveAll 1
+volrenGlow.am    setNoRemoveAll 1
+labelcolors.am   setNoRemoveAll 1
+set hideNewModules 0
+
+# Call second startup scripts for all packages, now with all resources loaded.
+# The .rc2 scripts may contain additional startup routines.
+
+foreach file [glob -nocomplain \
+    ${AMIRA_ROOT}/share/resources/*.rc2 \
+    ${AMIRA_ROOT}/share/scro/*.rc2] {
+    source $file 0
+}
+
+if { $AMIRA_LOCAL != $AMIRA_ROOT } {
+    foreach file [glob -nocomplain \
+        ${AMIRA_LOCAL}/share/resources/*.rc2 \
+        ${AMIRA_LOCAL}/share/scro/*.rc2] {
+        source $file 0
+    }
+}
+
+# Show main window and message window, but not if this is an AmiraVR Cluster Slave instance
+if { [ app cluster ] != "slave" } {
+    theMain show
+    theMsg show
+    viewer 0 show
+}
+
+# SPACE MOUSE: Set scale (in percentage) for fly and rotation mode
+# The flyModeScale is a percentage of the distance between the camera and the aim point
+set SpaceMouseFlyModeScale 4
+# The rotationScale is a percentage of the angle returned by the spacemouse
+set SpaceMouseRotationModeScale 10
+
+# To disable space mouse support set AMIRA_NO_SPACEMOUSE.
+
+echo "[app -version] ([app -arch])"
+
+echo ""
+echo "Amira is intended for research use only. It is not a medical device."
+echo "Type 'help' for getting started."

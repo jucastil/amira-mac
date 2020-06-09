@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.7 Atom Expressions</a></h2>
+<p></p>
+<h3><a name="A2">10.7.1 Overview</a></h3>
+<p><a name="A3"></a>
+<i>Atom expressions</i> are a query language to
+find and select atoms of certain properties in the
+molecule for further action. The most important
+application of atom expressions in <font face="helvetica">Amira</font> is
+the highlighting section of the
+<a class="link" href="QxMolSelectionBrowser.html#A1">Selection Browser</a>.</p>
+<p>In <font face="helvetica">Amira</font>, a molecule is separated into groups of
+different levels. Each group contains a set of attributes.
+(More details of this concept can be found
+in the description of the <a class="link" href="../hxmoledit/HxAttributeEditor.html#A1">Attribute Editor</a>).
+Atom expressions are a simple form of a relational query
+language which accesses these attributes.</p>
+<p>The simplest form of an atom expression is an <em>atom specifier</em>.
+This is a literal defining a level, one of its attributes, and
+a condition for this attribute. For example, <tt>atoms/atomic_number=8</tt>
+defines all atoms whose atomic number attribute equals 8 (i.e.,
+all oxygens).</p>
+<p>Such atom specifiers can be combined with logical operators like <tt>AND</tt>, <tt>OR</tt> and <tt>NOT</tt>. For example, <tt>atoms/atomic_number=8 AND NOT atoms/charge=0</tt> will select all
+charged oxygen atoms.</p>
+<p>There are additional operators like <tt>WITHIN</tt>, <tt>BONDED</tt> and
+<tt>SMARTS</tt> which apply certain conditions to coordinates or bond
+structure. These are explained in section on <i>operators</i>.</p>
+<p></p>
+<h3><a name="A4">10.7.2 Grammar</a></h3>
+<p><a name="A5"></a>
+All possible syntaxes of atom expressions are shown in the following
+grammar. The different literals and operators are further explained
+in the following sections.</p>
+<p></p><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ atomExpr &rarr; </td>
+<td align=left>
+ ( atomExpr ) </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |   NOT atomExpr </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  atomExpr AND atomExpr </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  atomExpr OR atomExpr </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  WITHIN (atomExpr,radius) </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  WITHIN (x,y,z,radius) </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  BONDED (atomExpr[,depth]) </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  SMARTS (smartsExpr) </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  CS </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  atomSpecifier </td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ |  dataSpecifier </td>
+</tr><tr><td align=left>
+
+ atomSpecifier &rarr; </td>
+<td align=left>
+ hierName/[attrName=]ID </td>
+</tr><tr><td align=left>
+
+</tr></table><p></p>
+<p></p>
+<h3><a name="A6">10.7.3 Literals</a></h3>
+<p><a name="A7"></a>
+As mentioned in the overview, the simplest form of an atom
+expression is an atom specifier. An atom specifier consists of three
+literals: <i>hierName</i>, the optional <i>attrName</i>, and <i>ID</i>.</p>
+<p><b>hierName</b> stands for a name of a hierarchy level (e.g., <tt>residues</tt>).
+The following abbreviations can be used for the most common levels: <br />
+
+a=atoms, r=residues, b=bonds, s=secondary_structure, c=chains</p>
+<p><b>attrName</b> is optional and specifies the name of an attribute (e.g.,
+<tt>temperature, occupancy, type, ...</tt>) of the given level. If it is
+omitted, the ID is assumed to specify the attribute name or index as
+shown by the list command. If an attribute name is given, the ID is
+assumed to stand for values of the attribute.</p>
+<p>To see which hierarchy levels and respective attributes are defined for
+a given molecule, take a look at the <a class="link" href="moldisplay.html#A4">Color
+ port</a> which is used in several modules. The right pull-down menu
+will show all available attributes for the level chosen in the left
+pull-down menu.</p>
+<p><b>ID</b> specifies an identifier of a member of the given level.
+If an attribute name is given, ID specifies a value of this attribute.
+It may contain wildcards such as * (any substring will match) and ? (any single charackter will match).
+Several values may be separated with a ';' (example: atoms/index=3;7).
+For integer and float attributes ranges can be used by delimiting the boundaries with a colon (i.e.
+atoms/index=5:10 selects all atoms with an index within this range).
+If no attribute name is given, the name attribute is used as a default.
+In this case, specifying a range will select all atoms whose index is between the index of the selected boundaries.
+(as an example, for a moelcule imported form PDB the residue
+name is the chain identifier plus the residue index, thus r/L1:L5 selects residues 1 to 5 on the L chain).
+An exception to this is the atoms level. Molecules in <font face="helvetica">Amira</font> contain an atomic number
+attribute instead of an element symbol attribute. To select
+atoms via their element symbol you can simply type <i>a/element</i>.
+Thus the atom specifier for all oxygen atoms <i>a/O</i> is equivalent
+to the atom specifier <i>a/atomic_number=8</i>.</p>
+<p>Instead of the '=' comparison you can also use the comparison operators
+$$'<', '>', '>=' and '<='$$.</p>
+<p></p>
+<h3><a name="A8">10.7.4 Operators</a></h3>
+<p><a name="A9"></a>
+<b>Logical Operators</b><br />
+
+Several <em>atomSpecifier</em> combinations can be used in one expression
+by linking them logically via the operators <tt>AND</tt>, <tt>OR</tt>, and
+<tt>NOT</tt> (&amp;, |, and !). Priorities can be specified using
+usual parentheses <tt>(</tt> and <tt>)</tt>.</p>
+<p><b><tt>WITHIN(atomExpr,radius)</tt></b> <br />
+
+This operator selects all atoms which are nearer than <i>radius</i> $$\mathrm{\text{&#197;}}$$
+to any of the atoms specified by <em>atomExpr</em>.</p>
+<p><b><tt>WITHIN(x,y,z,radius)</tt></b> <br />
+
+This operator selects all atoms which are nearer than <i>radius</i> $$\mathrm{\text{&#197;}}$$
+to the specified x,y,z coordinate.</p>
+<p><b><tt>BONDED(atomExpr[,depth])</tt></b><br />
+
+With this operator, all atoms that are recursively connected to any
+atoms specified by <i>atomExpr</i> will be chosen. You can optionally
+specify an integer value defining the maximal bond steps. If this is
+omitted, there will be no limit.</p>
+<p><b><tt>CS</tt></b><br />
+ <tt>CS</tt> specifies all currently selected (highlighted)
+atoms.</p>
+<p><b><tt>SMARTS(smartsExpr)</tt></b> <br />
+
+The smarts operator allows to select a chemical pattern within the molecule with
+a SMARTS expression [1]. If you want to include the hydrogen atoms connected to the
+specified heavy atoms use SMARTSH instead of SMARTS.</p>
+<p>Example: <i>SMARTSH(C=O)</i> selects all carbonyl groups (including 
+potential explicit hydrogens on the carbon).</p>
+<p>If you want to include only parts of the matched pattern in the selection
+you can specify map indices in the smarts pattern. If any atom
+in the string contains a map index all atoms without a map index
+will not be used for the matching.</p>
+<p>Example: <i>SMARTS(C=$$O:1$$)</i> will match the oxygen in a carbonyl.</p>
+<p></p>
+<h3><a name="A10">10.7.5 Data specifiers</a></h3>
+<p>A data specifier allows to match a certain data value of the molecule.
+If the data entry in the molecule matches the specifier, all atoms are matched,
+else no atom is matched.
+This is useful when searching through several trajectories in a <a class="link" href="HxMolTrajectoryBundle.html#A1">TrajectoryBundle</a>
+with the match command.</p>
+<p>A data specifier consists of the data name, the comparison operator, and the value.
+The same rules apply like for atom specifiers (i.e. a list can be specified with ';' and
+ranges with ':').</p>
+<p>Example: <i>SMARTS(C=O) AND logP&gt;4</i> selects all carbonyl groups, but only if the logP data value in the molecule is greater than 4.</p>
+<p></p>
+<h3><a name="A11">10.7.6 Shortcuts</a></h3>
+<p><a name="A12"></a>
+<font face="helvetica">Molecular Option</font> also provides pre-defined shortcuts that have been assembled
+using the previously mentioned syntactical elements. The shortcuts
+can be found in your local <font face="helvetica">Amira</font> directory in <tt>share/molecules/atomExpr.cfg</tt>, and can be edited and supplemented.</p>
+<p>The standard aliases included in the current <font face="helvetica">Amira</font> release are listed
+in the following table:</p>
+<p></p><div style="text-align:center"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ acidic </td>
+<td align=left>
+ acidic amino acids </td>
+</tr><tr><td align=left>
+
+ acyclic </td>
+<td align=left>
+ acyclic amino acids </td>
+</tr><tr><td align=left>
+
+ aliphatic </td>
+<td align=left>
+ aliphatic amino acids</td>
+</tr><tr><td align=left>
+
+ alkali </td>
+<td align=left>
+ atoms which are alkali metals</td>
+</tr><tr><td align=left>
+
+ alkaliearth </td>
+<td align=left>
+ atoms which are alkali earth metals</td>
+</tr><tr><td align=left>
+
+ all </td>
+<td align=left>
+ selects everything</td>
+</tr><tr><td align=left>
+
+ amino </td>
+<td align=left>
+ amino acids</td>
+</tr><tr><td align=left>
+
+ aromatic </td>
+<td align=left>
+ aromatic amino acids</td>
+</tr><tr><td align=left>
+
+ at </td>
+<td align=left>
+ adenine or thymine </td>
+</tr><tr><td align=left>
+
+ backbone </td>
+<td align=left>
+ atoms of protein or DNA/RNA</td>
+</tr><tr><td align=left>
+
+ basic </td>
+<td align=left>
+ basic amino acids</td>
+</tr><tr><td align=left>
+
+ buried </td>
+<td align=left>
+ amino acids usually found inside the protein </td>
+</tr><tr><td align=left>
+
+ cg </td>
+<td align=left>
+ cytosine or guanine </td>
+</tr><tr><td align=left>
+
+ charged </td>
+<td align=left>
+ charged amino acids</td>
+</tr><tr><td align=left>
+
+ cyclic </td>
+<td align=left>
+ cyclic amino acids</td>
+</tr><tr><td align=left>
+
+ h2o </td>
+<td align=left>
+ water molecules</td>
+</tr><tr><td align=left>
+
+ helix </td>
+<td align=left>
+ helices</td>
+</tr><tr><td align=left>
+
+ halfmetallic </td>
+<td align=left>
+ atoms which have half metallic properties</td>
+</tr><tr><td align=left>
+
+ halogens </td>
+<td align=left>
+ halogenic atoms</td>
+</tr><tr><td align=left>
+
+ hetero </td>
+<td align=left>
+ heterogenic atoms</td>
+</tr><tr><td align=left>
+
+ hydrophobic </td>
+<td align=left>
+ hydrophobic amino acids</td>
+</tr><tr><td align=left>
+
+ ions </td>
+<td align=left>
+ charged heterogenic atoms</td>
+</tr><tr><td align=left>
+
+ metallic </td>
+<td align=left>
+ atoms which have metallic properties</td>
+</tr><tr><td align=left>
+
+ neutral </td>
+<td align=left>
+ neutral amino acids</td>
+</tr><tr><td align=left>
+
+ noblegas </td>
+<td align=left>
+ atoms which have noble gas properties</td>
+</tr><tr><td align=left>
+
+ nonmetallic </td>
+<td align=left>
+ atoms which have nonmetallic properties</td>
+</tr><tr><td align=left>
+
+ nucleic </td>
+<td align=left>
+ nucleic acids</td>
+</tr><tr><td align=left>
+
+ nucleicbackbone </td>
+<td align=left>
+ backbone atoms of RNA/DNA</td>
+</tr><tr><td align=left>
+
+ polar </td>
+<td align=left>
+ polar amino acids</td>
+</tr><tr><td align=left>
+
+ proteinbackbone </td>
+<td align=left>
+ backbone of a polypeptide</td>
+</tr><tr><td align=left>
+
+ purine </td>
+<td align=left>
+ adenine or guanine</td>
+</tr><tr><td align=left>
+
+ pyrimidine </td>
+<td align=left>
+ cytosine or thymine</td>
+</tr><tr><td align=left>
+
+ sheet </td>
+<td align=left>
+ sheets </td>
+</tr><tr><td align=left>
+
+ sidechain </td>
+<td align=left>
+ atoms not belonging to the backbone</td>
+</tr><tr><td align=left>
+
+ site </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ surface </td>
+<td align=left>
+ amino acids usually to be found on the surface</td>
+</tr><tr><td align=left>
+
+ turn </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+</tr></table></div><p></p>
+<p></p>
+<h3><a name="A13">10.7.7 Further Examples</a></h3>
+<p><a name="A14"></a>
+</p>
+<ul><li><pre>all</pre> selects all atoms.</li><li><pre>atoms/5:8</pre> all atoms whose index is
+ in the range 5 to 8.</li><li><pre>atoms/atomic_number&gt;1</pre> all atoms, except hydrogens</li><li><pre>s/type=helix AND NOT (a/C;N)</pre>
+ all atoms which belong to helices, except C and N atoms.</li><li><pre>r/type=A*</pre> all atoms which belong
+ to residues whose type name begins with the letter A.</li><li><pre>BONDED(a/4;100,6)</pre> all atoms
+ which are connected via at most 6 steps to the two specified atoms</li><li><pre>WITHIN(r/pdb_index=11,3.8) AND a/C</pre> all carbon
+ atoms which are not away further than 3.8 angtroms from atoms of
+ residue 11.</li><li><pre>SMARTS(C1CCCCC1)</pre> A
+ cycle consisting of 6 non aromatic carbons (i.e., cyclohexane).</li><li><pre>acidic AND helix</pre> all
+ atoms of acidic amino acids which belong to helices</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A15">References</a></h3>
+<p>	[1] http://en.wikipedia.org/wiki/Smiles_arbitrary_target_specification</p>
+<p>
+
+
+</p>
+<p>
+
+</p></body>
+</html>

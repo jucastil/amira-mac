@@ -1,0 +1,12 @@
+######################################
+# scro CompassPosition
+######################################
+
+module -name "CompassPosition" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel CompassPosition]
+        $mod script setValue $AMIRA_ROOT/share/script-objects/compassPosition.scro
+	$mod fire
+    }	

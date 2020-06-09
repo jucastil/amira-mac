@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.5.3 Example: A 4-side CAVE Configuration</a></h3>
+<p>A CAVE (TM) is a more or less fully immersive VR display system with the
+shape of a cubical box. Typically the size of the box is something like
+3 x 3 x 3 meters. Three, four, five, or even six sides of the box are
+implemented as projection screens. In this way an observer inside the box
+can be completely immersed in a virtual world. In order to compute the correct
+perspective views, the eye position of the observer need to be tracked.
+Other non-tracked observers will perceive distorted images, especially at
+the edges between the individual walls. A schematic view of a 3-side
+CAVE is shown in Figure <a class="link" href="#A2">65</a>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-cave.png.html><img width=450 src="HxVR-cave.png" /></a><br />
+<div class="caption">
+<b>Figure 65:</b>
+Schematic view of a 3-side CAVE system.</div>
+
+
+</div><p></p>
+<p>The <font face="helvetica">Virtual Reality Option</font> config file listed below was designed for a 4-side CAVE. In
+order to drive such a system four different images need to be generated,
+one for the front, bottom, left, and right wall respectively. This can be
+done for example using a two-pipe SGI Onyx system. Each pipe has two
+channels. Thus it is able to output two different images. We assume that
+there is one X server running on the machine. The two pipes are configured
+as two independent X11 screens, denoted <tt>:0.0</tt> and <tt>:0.1</tt>. On
+each X11 screen there is a double-wide desktop. The left half and the
+right half of the two desktops are output by the two different channels
+of each pipe. For such a setting the <font face="helvetica">Virtual Reality Option</font> config file looks as follows:</p>
+<p><font size="2"></font></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Front"
+        display         ":0.0"
+        lowerLeft       0 0 0
+        lowerRight      300 0 0
+        upperRight      300 300 0
+        upperLeft       0 300 0
+        channelOrigin   0 0
+        channelSize     0.5 1
+        cameraMode      ACTIVE_STEREO
+        threadGroup     0
+    }
+    SoScreen {
+        name            "Bottom"
+        display         ":0.0"
+        lowerLeft       0 0 300
+        lowerRight      300 0 300
+        upperRight      300 0 0
+        upperLeft       0 0 0
+        channelOrigin   0.5 0
+        channelSize     0.5 1
+
+        # If the bottom image is rotated try this:
+        # lowerLeft       300 0 0
+        # lowerRight      0 0 0
+        # upperRight      0 0 300
+        # upperLeft       300 0 300
+
+        # This modifies the gradient background
+        backgroundMode  BG_LOWER
+        cameraMode      ACTIVE_STEREO
+        threadGroup     0
+    }
+    SoScreen {
+        name            "Left"
+        display         ":0.1"
+        lowerLeft       0 0 300
+        lowerRight      0 0 0
+        upperRight      0 300 0
+        upperLeft       0 300 300
+        channelOrigin   0 0
+        channelSize     0.5 1
+        cameraMode      ACTIVE_STEREO
+        threadGroup     1
+    }
+    SoScreen {
+        name            "Right"
+        display         ":0.1"
+        lowerLeft       300 0 0
+        lowerRight      300 0 300
+        upperRight      300 300 300
+        upperLeft       300 300 0
+        channelOrigin   0.5 0
+        channelSize     0.5 1
+        cameraMode      ACTIVE_STEREO
+        threadGroup     1
+    }
+    SoTracker {
+        server          "4147:4148"
+        autoConnect     TRUE
+        wandTrackerId   1
+        headTrackerId   0
+        leftEyeOffset   6 0 0
+        rightEyeOffset  13 0 0
+        defaultCameraPosition 50 50 100
+        defaultObjectPosition 50 50 0
+        referencePoints [
+        0 150 100, 0 150 100, 100 150 0, 200 150 0, 300 150 100 ]
+    }
+}
+</pre><p><font size="2">
+</font></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TetraCombine</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TetraCombine" "merges two different tetra grids with compatible boundaries" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module takes two tetrahedral grids as input, puts them together
+ and creates a new combined grid. 
+ <em>TetraCombine</em> provides an option to remove any duplicated triangles
+ and vertices from its output. The order in which the input grids
+ are combined does not matter.</p>
+<p> To make sure that both grids being combined fit exactly together,
+ you can attach a <a class="link" href="HxGridVolume.html#A1">GridVolume</a> module to the
+ combined grid. When invoking that module, all <em>exterior</em> 
+ triangles of the grid are highlighted, i.e., all triangles which 
+ are incident to only one tetrahedron. The displayed triangles 
+ should all be located at the outer boundary of the combined grid,
+ not in its interior. 
+	%See description of module 
+ </p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">GridA</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The first input grid.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">GridB</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The second input grid.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTetraCombine_options.png" /><br /></div>
+<div class="body"><p><i>Remove duplicated</i> causes all duplicated points and triangles 
+	to be removed from the output.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Boundary</span>  
+<div class="portsnapshot"><img src="HxTetraCombine_boundary.png" /><br /></div>
+<div class="body"><p><i>Mark exterior faces</i> sets <tt>boundaryConditionId = 1</tt> 
+	for all exterior faces. BoundaryConditionIds may be useful
+	if a numerical simulation shall be performed on the resulting
+	grid. 
+	%This toggle should always be set when creating an 
+	%<em>ExtendedGrid</em> for hyperthermia planning.</p>
+<p> <i>Check exterior faces</i> checks whether all exterior triangles
+	lie on a sphere around the center of the bounding box of the
+	grid. 
+	%See description of module <a class="link" href="HxBolusGrid.html">BolusGrid</a> 
+	%for possible reasons of failure. This toggle should always be 
+	%set when creating an <em>ExtendedGrid</em> for hyperthermia planning.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

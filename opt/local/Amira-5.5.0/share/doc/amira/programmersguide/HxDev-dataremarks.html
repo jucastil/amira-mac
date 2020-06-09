@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.1.2 Remarks About the Class Hierarchy</a></h3>
+<p>All data classes are derived from the base class <tt>HxData</tt>. This
+class in turn is derived from <tt>HxObject</tt>, the base class of all
+objects that can be put into the <font face="helvetica">Amira</font> Pool. The class <tt>HxData</tt>
+adds support for reading and writing data objects, and it provides
+the variable <tt>parameters</tt> of type <tt>HxParamBundle</tt>. This variable
+can be used to annotate a data object by an arbitrary number of nested
+parameters. The parameters of any data object can be edited interactively
+using the parameter editor described in the User's Guide.
+We observe that the majority of data classes are derived from <tt>HxSpatialData</tt>. This is the base class of all data objects which are
+embedded in 3D space as opposed for example to colormaps.
+<tt>HxSpatialData</tt> adds support for user-defined affine transformations,
+i.e., translations, rotations, and scaling. For details refer to
+<a class="link" href="HxDev-dataxform.html#A1">Section 27.5.2</a>. It also provides the virtual
+method <tt>getBoundingBox</tt> which is redefined by all derived classes.
+Two important child classes of <tt>HxSpatialData</tt> are <tt>HxField3</tt> and 
+<tt>HxVertexSet</tt>.
+<tt>HxVertexSet</tt> is the base class of all data objects that are defined on
+an unstructured set of vertices in 3D space, like surfaces or tetrahedral
+grids. The class provides methods to apply a user-defined affine transformation
+to all vertices of the object, or modify the point coordinates in some
+other way.</p>
+<p><tt>HxField3</tt> is the base class of data fields defined on a 3D-domain, like
+3D scalar fields or 3D vector fields. <tt>HxField3</tt> defines an efficient
+procedural interface to evaluate the field at an arbitrary 3D point within
+the domain, independent of whether the latter is a regular grid, a
+tetrahedral grid, or something else. The procedural interface is described
+in more detail in <a class="link" href="HxDev-dataeval.html#A1">Section 27.5.1</a>.
+Looking at the inheritance hierarchy again, we observe that a high level
+distinction is made between fields returning a different number of data
+values. For example, all 3D scalar fields are derived from a common base
+class <tt>HxScalarField3</tt>, and all 3D vector fields are derived from a
+common base class <tt>HxVectorField3</tt>. The reason for this structure is
+that many modules depend on the data dimensionality of a field only,
+not on the internal representation of the data. For example, a module for
+visualizing a flow field by means of particle tracing can be written to
+accept any object of type <tt>HxVectorField3</tt> as input. It then
+automatically operates on all derived vector fields, regardless of the
+type of grid they are defined on.</p>
+<p>On the other hand, it is often useful to treat the number of data
+variables of a field as a dynamic quantity and to distinguish between
+the type of grid a field is defined on. For example, we may wish to
+have a common base class of fields defined on a regular grid and derived
+classes for regular scalar or vector fields. Since this structure and the
+one sketched above are very hard to incorporate into a common class graph,
+even if multiple inheritance were used, another concept has been chosen
+in <font face="helvetica">Amira</font>, namely <em>interfaces</em>. Interfaces were first introduced by the
+Java programming language. They allow the programmer to take advantage
+of common properties of classes that are not related by inheritance.
+In <font face="helvetica">Amira</font> interfaces can be implemented as class members, or as additional
+base classes. In the first case a data class <em>contains</em> an interface
+class, while in the second case it is <em>derived</em> from <tt>HxInterface</tt>.
+Important interface classes are <tt>HxLattice3</tt>, <tt>HxTetraData</tt>, and
+<tt>HxHexaData</tt>, which are members of fields defined on regular,
+tetrahedral, and hexahedral grids, respectively. Another example is <tt>HxLabelLattice3</tt>, which is a member of <tt>HxUniformLabelField3</tt>, as well
+as <tt>HxStackedLabelField3</tt>. In <a class="link" href="HxDev-plotmodule1.html#A1">Section 26.3.1</a> we have
+already presented an example of how to use this interface in order to write
+a module which operates on any label field, regardless of the actual
+coordinate type.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

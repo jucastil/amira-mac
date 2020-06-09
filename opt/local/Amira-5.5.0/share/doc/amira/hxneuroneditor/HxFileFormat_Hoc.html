@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Hoc</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Hoc" "Hoc file reader (rw) of morphometric models for NEURON environment" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+<em>NEURON</em> is a simulation environment for developing models of single neurons 
+and networks of neurons. <em>Hoc</em> is a user extendable language, which is
+used in <em>NEURON</em> as scripting language. The file extension 
+<em>.hoc</em>, therefore, refers to script files used in <em>NEURON</em>.</p>
+<p>Only a set of commands defines the geometry and topology of a neuron model in the <em>.hoc</em> files.
+Just a restricted subset of keywords is actually required to reconstruct a basic spatial model. 
+This reader scans the <em>hoc</em> file, identifies the commands and reads the parameters:</p>
+
+<ul><li>pt3dclear - Destroy the 3d location info in the currently accessed section.</li><li>pt3dadd - Add the 3d location and diameter point at the end of the current pt3d list.</li><li>connect - The first form connects the section at end 0 or 1 to the currently accessed section at position x.</li><li>create - Create a list of section names.</li><li>access - Declare the default reference section.</li>
+</ul>
+<p>The above commands are specific for the NEURON environment, please refer the NEURON 
+documentation for a detailed code reference.</p>
+<p>Once the data are loaded, a new <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object is created in the pool
+and the diameter data are stored in the "thickness" scalar attribute. The values of "thickness"
+are read together with the coordinates when <font face="helvetica">Amira</font> identifies the command <em>pt3dadd</em> 
+in the <em>hoc</em> file.</p>
+<p><font face="helvetica">Amira</font> is also able 
+to automatically read topological information and convert them
+into label attributes.
+If the network described in the <em>hoc</em> file is organized in a correct tree-like form, 
+<font face="helvetica">Amira</font> reads the hierarchical dependencies and stores them in the label attribute "Ranks".
+Additionally, the name of the sections will be read automatically, 
+if the <em>hoc</em> file is organized in the following format:</p>
+<pre>
+{create &lt;section1&gt;[N]}
+{create &lt;section2&gt;[M]}
+&lt;...&gt;
+
+{access &lt;section1&gt;[N1]}
+&lt;...&gt;
+{access &lt;section1&gt;[N2]}
+&lt;...&gt;
+
+{access &lt;section2&gt;[M1]}
+&lt;...&gt;
+{access &lt;section2&gt;[M2]}
+&lt;...&gt;
+</pre>
+<p>In this specific format <font face="helvetica">Amira</font> is able to recognize the <em>N</em> elements belonging to 
+<em>section1</em>, the <em>M</em> elements belonging to <em>section2</em>. 
+The topological information are stored in the "topology" label attribute.</p>
+<p>In the following lines you can find a simple example, you can copy and paste it in a text file
+ ending with the extension ".hoc" and load it into <font face="helvetica">Amira</font>.
+This <em>hoc</em> script describes one soma and two dendrites, one of them has a bifurcation.</p>
+<pre>
+
+{create soma[1.]}
+{create dendrite[4.]}
+
+{access soma[0.]}
+{pt3dclear()}
+{pt3dadd(0.,0.,1.,10.0)}
+{pt3dadd(0.,0.,0.,10.0)}
+
+{soma[0.] connect dendrite[0.](0), 1}
+{access dendrite[0.]}
+{pt3dclear()}
+{pt3dadd(0.,0.,0.,10.0)}
+{pt3dadd(68.,73.,-75.,5.0)}
+
+{dendrite[0.] connect dendrite[1.](0), 1}
+{access dendrite[1.]}
+{pt3dclear()}
+{pt3dadd(68.,73.,-75.,5.0)}
+{pt3dadd(100.,100.,-100.,8.0)}
+
+{soma[0.] connect dendrite[2.](0), 1}
+{access dendrite[2.]}
+{pt3dclear()}
+{pt3dadd(68.,73.,-75.,5.0)}
+{pt3dadd(103.,108.,-150.2,5.0)}
+
+{soma[0.] connect dendrite[3.](0), 1}
+{access dendrite[3.]}
+{pt3dclear()}
+{pt3dadd(0.,0.,0.,10.0)}
+{pt3dadd(10.,200.,100.,8.0)}
+
+</pre>
+<p>You can also save the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object in a <em>hoc</em> file,
+but you have to perform a "Set Root" operation before (see <a class="link" href="FilamentToolBox.html#A1">Filament Editor</a>).
+The "Set Root" operation ensures that the network does not contain loops. 
+<font face="helvetica">Amira</font> recognizes the ranking labels and 
+writes the segments in such a way that the coding requirements expected in the NEURON environment 
+will be satisfied.</p>
+</div>
+<p>
+
+
+</p></body>
+</html>

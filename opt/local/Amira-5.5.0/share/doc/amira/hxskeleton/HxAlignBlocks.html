@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignBlocks</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "AlignBlocks" "aligns the blocks of a mosaic" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>AlignBlocks</em> module is for aligning the blocks of a mosaic.
+During the acquisition of the image blocks of a mosaic, it may happen that the blocks
+are not perfectly aligned. This module computes the best adjustment between 
+overlapping blocks, i.e., finds the translations between each pair of blocks
+that minimizes the difference in the common part of the two images.</p>
+<p>Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p><a class="link" href="HxMosaic.html#A1">Mosaic</a>
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mosaic name</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_filename.png" /><br /></div>
+<div class="body"><p>Stores the filename of the final mosaic and of the temporary files: 
+during the planar alignment, the module creates 2D projections of the 
+image blocks. These projections are stored with the extension "nb.mip.am" where
+<em>nb</em> represents the number of the block in the mosaic.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Trans. X (pixels)</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_alignedAreaX.png" /><br /></div>
+<div class="body"><p>Maximum value of translation to apply in the X direction (in pixels).</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Image units value</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_imageUnitsValue.png" /><br /></div>
+<div class="body"><p>Gives the corresponding value in image units (for example, if the voxel size is given
+in micrometers, gives the maximum translation in micrometers).</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Trans. Y (pixels)</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_alignedAreaY.png" /><br /></div>
+<div class="body"><p>Maximum value of translation to apply in the Y direction (in pixels).</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Image units value</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_imageUnitsValue.png" /><br /></div>
+<div class="body"><p>Gives the corresponding value in image units (for example, if the voxel size is given
+in micrometers, gives the maximum translation in micrometers).</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Trans. Z (pixels)</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_alignedAreaZ.png" /><br /></div>
+<div class="body"><p>Maximum value of translation to apply in the Z direction (in pixels).</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Image units value</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_imageUnitsValue.png" /><br /></div>
+<div class="body"><p>Gives the corresponding value in image units (for example, if the voxel size is given
+in micrometers, gives the maximum translation in micrometers).</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_alignment.png" /><br /></div>
+<div class="body"><p>Performs a planar and/or a vertical alignment. 
+If <em>planar</em> is checked, makes a 2D projection of each image (on XY plane), 
+and finds the best planar translation between each image.
+If <em>vertical</em> is checked, then finds the vertical component
+of the translation.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Similarity measure</span>  
+<div class="portsnapshot"><img src="HxAlignBlocks_similarity.png" /><br /></div>
+<div class="body"><p>This port allows you to select either the <em>SSD</em> (sum of squared differences)
+or the <em>correlation</em> method
+for computing how well the blocks are aligned.
+</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

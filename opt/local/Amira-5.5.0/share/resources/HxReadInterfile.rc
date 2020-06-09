@@ -1,0 +1,13 @@
+################################################################################
+#
+# Resource file of custom package HxReadInterfile
+#
+################################################################################
+
+dataFile -name "Interfile" \
+    -option "interfile" -ext "HDR" \
+    -load "readInterfile" \
+    -header {^!INTERFILE} \
+    -type "HxUniformScalarField3" \
+    -loadInOwnThread true \
+    -dso "libhxreadinterfile.so"

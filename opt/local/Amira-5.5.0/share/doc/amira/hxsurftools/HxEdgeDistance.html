@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ShortestEdgeDistance</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ShortestEdgeDistance" "computes shortest-edge distance (Dijkstra) of surface vertices to a vertex set close to or on the surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes Dijkstra's shortest edge-path distance from a
+ set of seed vertices to all vertices on a surface. The result is
+ given as a SurfaceScalarField on the input surface.
+ The seed vertices do not have to lie on the surface, but can
+ be a small tolerance apart. The closest vertex of the surface itself
+ is used as seed in this case. 
+ The algorithm is equally efficient for one seed as for arbitrarily many
+ seeds.</p>
+<p> Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Any triangulated surface.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Vertexset</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Any vertex set. The vertices of the vertex set should be close to
+ the <a class="link" href="#A2">input surface</a>. You can, for
+ example, connect a HxSurfacePathSet of the respective surface.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

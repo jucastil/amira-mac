@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HxScanconvertNeuronTree</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "HxScanconvertNeuronTree" "converts a SpatialGraph data into a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The module creates a closed surface representation from <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> data.
+It does so by modeling each segment of the SpatialGraph object as the centerline of a tube with
+particular radius given as thickness attribute in the SpatialGraph object. Optionally, an object
+holding the coordinates of so called "blebs" maybe attached to the module. The term "Blebs" is
+used in the Neurosciences and depicts swellings in the fiber of a neuron. Blebs are assumed to be
+locations with increased synapse density. If such an object is connected, small spheres are
+inserted intersection-free into the surface.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>An object of type <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> containing the skeleton of the image data.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Blebs</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The data set containing the coordinates of 'blebs'. Can be of type <a class="link" href="../hxcluster/HxCluster.html#A1">Cluster</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Params1</span>  
+<div class="portsnapshot"><img src="HxScanconvertNeuronTree_params1.png" /><br /></div>
+<div class="body">
+<ul><li>depth</li><li>scandims</li><li>impoints</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Params2</span>  
+<div class="portsnapshot"><img src="HxScanconvertNeuronTree_params2.png" /><br /></div>
+<div class="body">
+<ul><li>blebsize</li><li>edge length</li>
+</ul>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

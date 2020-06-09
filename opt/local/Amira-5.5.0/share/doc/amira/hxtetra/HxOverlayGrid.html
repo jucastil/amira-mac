@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Intersect</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Intersect" "intersects a surface or a tetra grid with a 2D plane" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>Intersect</em> module shows the intersection of a surface or of the
+boundaries of a tetrahedral grid and a cutting plane. For each triangle
+intersecting the plane a line segment is drawn. The plane description
+is taken from a slicing module such as <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> or
+<a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a> connected to port
+<a class="link" href="#A3">Module</a> (any other orange <font face="helvetica">Amira</font> module can be
+used as well). <em>Intersect</em> can be chosen from the popup menu of an
+existing slicing module. It can also be chosen directly from the popup menu
+of a surface or of a tetrahedral grid. In this case an
+<a class="link" href="../hxcore/HxArbitraryCut.html#A1">empty slicing module</a> is created and 
+<em>Intersect</em> is automatically attached to it.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Surface or tetrahedral grid to be intersected.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Slicing module defining the cutting plane.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Line Width</span>  
+<div class="portsnapshot"><img src="HxOverlayGrid_lineWidth.png" /><br /></div>
+<div class="body"><p>Defines the width of the intersection lines in pixels.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Line Color</span>  
+<div class="portsnapshot"><img src="HxOverlayGrid_lineColor.png" /><br /></div>
+<div class="body"><p>This port defines the color of the intersection lines.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxOverlayGrid_selection.png" /><br /></div>
+<div class="body"><p>This port allows you to restrict the number of triangles being intersected
+with the cutting plane. By default all triangles of a surface or all
+boundary triangles of a tetrahedral grid are considered. With the <em>Clear</em> button the list of possible triangles can be reset. Afterwards
+triangles adjacent to a particular material can be added again by choosing
+that material from the port's option menu. With the <em>Create LineSet</em> button 
+the line segments drawn by this module can be exported into a <a class="link" href="../hxlines/HxLineSet.html#A1">line set</a> 
+data object. The <em>LineSet</em> object will be added to the
+Pool. It then can be written into a file or can be processed
+further in some other way. Individual line segments will be sorted in
+such a way that polylines consisting of as many vertices as possible are
+obtained.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lines</span>  
+<div class="portsnapshot"><img src="HxOverlayGrid_mode.png" /><br /></div>
+<div class="body"><p>This port is only available if the module is connected to a tetrahedral
+grid. It specifies whether only intersections with boundary triangles
+will be shown or intersections with all triangles of the grid.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setColor &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>
+Sets the color of the intersection lines.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

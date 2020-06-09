@@ -1,0 +1,66 @@
+namespace eval hxtest {
+    set delayBeforeSnapshot 0
+    set snapshotId 0
+    set snapshotSizeX 400
+    set snapshotSizeY 300
+
+    proc setDelayBeforeSnapshot { delay } {
+        set hxtest::delayBeforeSnapshot ${delay}
+    }
+
+    proc resetSnapshotId { id } {
+        set hxtest::snapshotId ${id}
+    }
+
+    proc setSnapshotSize { x y } {
+        set hxtest::snapshotSizeX $x
+        set hxtest::snapshotSizeY $y
+    }
+
+    proc snapshotFromAllVisibleViewers {} {
+
+        set vrScreensNumber 0
+        if { ! [ catch { set demoMakerModuleName [ create HxTracking ] } ] } {
+            if { [lsearch [all] $demoMakerModuleName] >= 0 } {
+                set vrScreensNumber [$demoMakerModuleName getNumScreens]
+            }
+        }
+
+        set existingViewerIdList [viewer getAllExistingViewerIDs]
+
+        for {set i 0} {$i < [llength $existingViewerIdList]} {incr i} {
+            set currentViewerIndex [lindex $existingViewerIdList $i]
+            set snapshotFilename runtest-viewer${currentViewerIndex}-snapshot${hxtest::snapshotId}
+            if { $currentViewerIndex == 0 && $vrScreensNumber > 0 } {
+                viewer ${currentViewerIndex} hide
+                sleepProcessEvents 0.25
+                viewer ${currentViewerIndex} show
+                sleepProcessEvents ${hxtest::delayBeforeSnapshot}
+                $demoMakerModuleName snapshotVRScreens tmp.png
+                if {$vrScreensNumber == 1} {
+                    file rename -force tmp_VR00.png ${snapshotFilename}.png
+                    # ONLY for baseline compat
+                    if { ${hxtest::snapshotId} == 0 } {
+                        file rename -force ${snapshotFilename}.png runtest-snapshot.png
+                    } else {
+                        file rename -force ${snapshotFilename}.png runtest-snapshot-${hxtest::snapshotId}.png
+                    }
+                } else {
+                    for {set j 0} {$j < $vrScreensNumber} {incr j} {
+                        if {$j < 10} {set jj "0$j"} else {set jj $j}
+                        file rename -force tmp_VR${jj}.png ${snapshotFilename}-vr${jj}.png
+                    }
+                }
+            } else {
+                viewer ${currentViewerIndex} setSize ${hxtest::snapshotSizeX} ${hxtest::snapshotSizeY}
+                viewer ${currentViewerIndex} show
+                sleepProcessEvents ${hxtest::delayBeforeSnapshot}
+                viewer $currentViewerIndex snapshot tmp.png
+                file rename -force tmp.png ${snapshotFilename}.png
+            }
+        }
+
+        incr hxtest::snapshotId
+    }
+
+}

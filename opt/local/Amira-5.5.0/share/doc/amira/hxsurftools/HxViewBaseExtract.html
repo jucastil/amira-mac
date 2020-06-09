@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ExtractSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ExtractSurface" "extracts triangles from modules displaying a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows you to extract surfaces
+displayed by one or more modules like
+<a class="link" href="HxDisplaySurface.html#A1">SurfaceView</a>, <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume (Tetrahedra)</a>,
+or <a class="link" href="../hxhexa/HxHexaView.html#A1">GridVolume (Hexahedra)</a> (in fact, any module derived from
+<a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a> will work). In order to extract a surface,
+first select the parts of the object you are interested in using the
+selection mechanisms provided by the input modules. For example, in
+case of a <em>SurfaceView</em> module, different parts can be selected
+via the materials menu, via the selection box (buffer show/hide), via
+2D lasso selection (buffer draw), or by selecting or deselecting
+individual triangles with the mouse.
+All visible triangles will be extracted when you press the <em>Apply</em> button.</p>
+<p>The resulting surface can be used for further computations, for example, as a <a class="link" href="../hxisl/HxSeedSurface.html#A1">SeedSurface</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Module1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a display module like <a class="link" href="HxDisplaySurface.html#A1">SurfaceView</a>,
+<a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume (Tetrahedra)</a>, or <a class="link" href="../hxhexa/HxHexaView.html#A1">GridVolume (Hexahedra)</a>.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Module2 ... ModuleN</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connections to additional display modules.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxViewBaseExtract_options.png" /><br /></div>
+<div class="body"><p>Allows you to specify whether the extracted triangles will be added to an already existing result.
+If not checked, the result will always be cleared before new triangles are added.
+If this port is checked, the result cannot be restored on-the-fly when loading the network.
+Instead, the result needs to be saved.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Result Actions</span>  
+<div class="portsnapshot"><img src="HxViewBaseExtract_resultActions.png" /><br /></div>
+<div class="body"><p>Allows you to clear the result.
+</p></div></div>
+</div>
+<p></p>
+<p>
+<a name="A6"></a>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>getNumInputs</tt></span>  
+
+<div class="body"><p>
+	Returns the total number of used and unused input connections.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setNumInputs num</tt></span>  
+
+<div class="body"><p>
+	Sets the total number of input connections.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+
+</p></body>
+</html>

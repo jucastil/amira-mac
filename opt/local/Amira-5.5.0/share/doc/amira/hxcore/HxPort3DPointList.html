@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Port3DPointList</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "Port3DPointList" "text fields and dragger for entry of 3D points" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port lets you enter an arbitrary number of 3D points. The points can
+ be specified either by typing in their coordinates in appropriate
+ text fields or by activating a dragger in the 3D viewer.</p>
+<p> In order to move the dragger, you must put the
+ viewer into interaction mode (press the <font face="Arial,Helvetica"><b>ESC</b></font> key). Then move the
+ mouse over one of the dragger's crosshairs and press the left mouse
+ button. The color of the picked crosshair changes and a gray transparent
+ plane is shown. The moving area of the dragger is restricted to this
+ plane. The new coordinates are delivered to the application when you
+ release the mouse button, or, if <em>immediate mode</em> is on,
+ while you are moving.</p>
+<p> If the <em>orthogonal mode</em> is on, all other points are moved in sync.
+ You can only move one point, the current point, at a time.</p>
+<p> Type <font face="Arial,Helvetica"><b>TAB</b></font> 
+ in the viewer window when the dragger is shown and the viewer is in <em>selection</em> mode
+ to cycle through <em>Append new point</em> and <em>Modify current selected point</em> mode.</p>
+<p> You can also hit the up or down arrows of the port's
+ point index spin box. These arrows are shown only
+ if the port manages a list of at least 3 3D points.
+ The current point is shown as
+ a red sphere, all other points as yellowish spheres.</p>
+<p> Note: You can pick a location with the middle mouse button on a pickable
+ object in the scene, e.g., an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a>,
+ to set the current point to that location.</p>
+<p> <img src="HxPort3DPointList.png" /></p>
+<p> This port is used for example by the 
+ <a class="link" href="../hxdataprobe/HxDataProbe.html#A6">data probing</a> modules.</p>
+<p> When you click on the <em>options</em> button, the following popup menu appeared:</p>
+<div style="text-align:center"><a name="A2"></a><img src="HxPort3DPointListForMultiplePoints_popup.png" /><br />
+<div class="caption">
+<b>Figure 1:</b>
+Popup menu for multiple points management.</div>
+
+ 
+ </div>
+<p> The <em>Append mode</em> notify the <em>Port3DPointList</em> that each middle mouse button
+ click will have to be interpreted as "add selected point to the end of the points list".</p>
+<p> If the module which contains this port isn't able to handle more than one point (like the <a class="link" href="../hxdataprobe/HxPointProbe.html#A1">point probe</a> module),
+ <em>Append mode</em> and <em>Interactive feedback</em> options will be hidden :</p>
+<div style="text-align:center"><a name="A3"></a><img src="HxPort3DPointListForSinglePoint_popup.png" /><br />
+<div class="caption">
+<b>Figure 2:</b>
+Popup menu for single point management.</div>
+
+ 
+ </div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getNumPoints</span>  
+
+<div class="body"><p>Returns the current number of points defined by this port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getValue [&lt;index&gt;]</span>  
+
+<div class="body"><p>Returns the coordinates of point <tt>&lt;index&gt;</tt> or of the current point,
+ if no argument was specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue [&lt;index&gt;] &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the coordinates of point <tt>&lt;index&gt;</tt> or of the current point,
+ if no argument was specified. The coordinates are automatically clipped
+ against the bounding box of the dragger.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getBoundingBox</span>  
+
+<div class="body"><p>Returns the bounding box of the dragger. The command returns six numbers,
+ namely the xmin, xmax, ymin, ymax, zmin, and zmax coordinates of the
+ bounding box in that order.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBoundingBox &lt;xmin&gt; &lt;xmax&gt; &lt;ymin&gt; &lt;ymax&gt; &lt;zmin&gt; &lt;zmax&gt;</span>  
+
+<div class="body"><p>Sets the bounding box of the dragger. Most modules adjust the bounding
+ box if the module is connected to a new input data object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getFormat</span>  
+
+<div class="body"><p>Returns the format used for the coordinate text fields.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFormat &lt;format&gt;</span>  
+
+<div class="body"><p>Sets the format used for the coordinate text fields in printf syntax.
+ The default is <tt>%g</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getImmediate</span>  
+
+<div class="body"><p>Checks whether immediate mode is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setImmediate &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables immediate mode. If immediate mode is enabled, the
+ module the port belongs to is fired permanently while the dragger is
+ moved. Otherwise the module is fired only once after the dragger was
+ moved.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getOrtho</span>  
+
+<div class="body"><p>Checks whether orthogonal mode is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setOrtho &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables orthogonal mode. In orthogonal mode all points
+ of the port are moved at the same time when the dragger is moved.
+ Otherwise only the current point is moved.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showDragger</span>  
+
+<div class="body"><p>Shows the dragger at the current point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hideDragger</span>  
+
+<div class="body"><p>Hides the dragger.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showPoints</span>  
+
+<div class="body"><p>Shows the points. The points are represented by little red spheres.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hidePoints</span>  
+
+<div class="body"><p>Hides the points.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPointSize</span>  
+
+<div class="body"><p>Returns the current point size (radius) in absolute coordinates.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPointSize &lt;radius&gt;</span>  
+
+<div class="body"><p>Sets the point size (radius). The point size is automatically
+ adjusted if the dragger's bounding box changes.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPointScale</span>  
+
+<div class="body"><p>Returns the current point size scale factor.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPointScale &lt;factor&gt;</span>  
+
+<div class="body"><p>Sets the point size scale factor. By default the scale factor is 1.
+ If you find that the default size of the points is too small or
+ too big, you can adjust this factor.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">appendPoint [&lt;x&gt; &lt;y&gt; &lt;z&gt;]</span>  
+
+<div class="body"><p>Appends a new point to the port's point list. If no coordinates are
+ specified, a point with some default coordinates will be appended. If
+ the number of points exceeds some limit (which cannot be modified via
+ the script interface), nothing happens and -1 is returned. Otherwise
+ the index of the appended point is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertPoint &lt;index&gt; [&lt;x&gt; &lt;y&gt; &lt;z&gt;]</span>  
+
+<div class="body"><p>Inserts a new point at position <tt>index</tt> in the port's point list.
+ If no coordinates are specified, a point with some default coordinates
+ will be inserted. If the number of points exceeds some limit (which
+ cannot be modified via the script interface), nothing happens and -1 is
+ returned. Otherwise <tt>&lt;index&gt;</tt> is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removePoint &lt;index&gt;</span>  
+
+<div class="body"><p>Removes point <tt>&lt;index&gt;</tt> unless a minimal number of points (which
+ cannot be modified via the script interface) is reached. If the point
+ couldn't be removed, 0 is returned. Otherwise 1 is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">displayInteractiveFeedback &#123;0|1&#125;</span>  
+
+<div class="body"><p>Display or not the interactive feedback.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

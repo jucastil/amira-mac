@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AVS Field</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "AVS Field" "stores data defined on regular grid (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This format provides a bridge between <font face="helvetica">Amira</font> and AVS, the <em>Advanced
+Visual System</em> software. It enables you to read and write data in the
+native AVS field format.</p>
+<p>Note that AVS supports fields of arbitrary dimensions and with an arbitrary
+number of components per node. For some combinations there are no
+corresponding <font face="helvetica">Amira</font> data objects. Thus, the following restrictions apply:</p>
+
+<ul><li>Only three-dimensional fields will be handled.</li><li>AVS fields with a one-component data vector at each voxel will be
+ loaded as a <em>regular scalar field</em>.</li><li>Two-component fields will become <em>regular complex fields</em>.</li><li>Three-component fields will become <em>regular vector fields</em>.</li><li>Four-component fields will be loaded as <em>RGBA color fields</em>,
+ provided they are defined on a uniform lattice. If not, they are
+ rejected.</li><li>Six-component fields will be loaded as <em>regular complex
+ vector fields</em>.</li><li>Since AVS does not support <em>stacked coordinates</em> these will be
+ written as rectilinear fields and therefore appear as such when
+ reloaded into <font face="helvetica">Amira</font>.</li>
+</ul>
+<p><font face="helvetica">Amira</font> identifies AVS Field files by the file name suffix <tt>.fld</tt>.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

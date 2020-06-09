@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Molecule Attribute Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Editor" "Molecule Attribute Editor" "allows editing of attributes of groups contained in a molecule" !>
+<p>&nbsp;<br />
+<img src="HxAttributeEditor.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This tool allows you to edit attributes of groups
+ contained in a <a class="link" href="../hxmolecule/HxMolecule.html#A1">Molecule</a> data object. 
+ It has additional tabs containing interfaces for exporting 
+ attributes to a file or
+ importing them from a file into the data object. We will start
+ with a general description of the attribute concept of <font face="helvetica">Amira</font>
+ followed by a detailed description of the three different tabs.</p>
+
+<h3><a name="A2">The Level and Attribute Concept of <font face="helvetica">Amira</font></a></h3>
+<p>In <font face="helvetica">Amira</font>, each molecule consists of several grouping levels, which
+ are chemical subdivisions of the molecule of different degrees of
+ complexity. The levels are ordered in a hierarchy in the way they
+ depend on each other. The most basic subdivision, and therefore the
+ root of the hierarchical tree, is the atom level. All bonds or
+ residues are subdivisions which contain sets of atoms,
+ while secondary structures consist of sets of groups of the <em>residues</em> level, and so on. In the language of database systems,
+ levels are entities and groups are instances of these entities.
+ <a class="link" href="#A3">Figure 1</a> shows the entity
+ relationship model for the most common grouping levels.</p>
+<div style="text-align:center"><a name="A3"></a><a href=LevelEntityRel.png.html><img width=562 src="LevelEntityRel.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Entity relationship model of the most common levels</div>
+
+
+</div>
+<p>Each level has a set of attributes. Attributes are properties of
+groups of type string, integer, or float. The number of levels and
+attributes depends on the file format from which the molecule is read.</p>
+
+<h3><a name="A4">The Edit Tab</a></h3>
+<p>The edit tab of the attribute editor (<a class="link" href="#A5">Figure 2</a>) offers two
+different tools:
+</p>
+<ul><li>addition, deletion, or renaming of attributes from a level</li><li>changing of attribute values of certain groups of a level</li>
+</ul>
+<div style="text-align:center"><a name="A5"></a><a href=attributeEditor.png.html><img width=375 src="attributeEditor.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Attribute Editor</div>
+
+
+</div>
+<p> The pull-down widget at the top of the window lets you choose 
+ the level to which the action will be applied. The table below
+ will show all attribute names of the level in the left column.
+ The second column will contain the corresponding attribute values
+ of all completely selected groups of the given level.</p>
+<p> The coloration of these table cells can change depending on the attribute 
+ and the selected groups:
+</p>
+<ul><li>gray background: attribute cannot be changed or deleted 
+ (attribute is used as an index by <font face="helvetica">Amira</font>)</li><li>white background: attribute can be changed and deleted</li><li>black text: only one group of the level is selected</li><li>green text: several groups of the level are selected
+ but all of their attribute values are equal</li><li>red text: several groups of the level are selected and at least
+ two attribute values of these groups differ (in this case 
+ no attribute value will be displayed in the right column)</li>
+</ul>
+<p> <b>Changing attributes or attribute values:</b>
+ To change the name of an attribute, simply left-click in the respective
+ cell of the left column and enter the desired name. To change attribute
+ values of the currently selected groups, click in the cell in the
+ right column. Except for index attributes (gray background), all values
+ can be changed. If several groups are selected and no value is
+ displayed (because some values differ), the adjustment of the value in
+ the empty table cell will reset the value of all groups to the given
+ choice. Therefore the color of this attribute will change from red to
+ green.</p>
+<p> To select groups you can use the 
+ <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">selection browser</a>.</p>
+<p> <b>Adding and deleting attributes:</b>
+ The lower part of the window lets you add or delete attributes by typing
+ the name into the text box and using the appropriate button. When adding
+ attributes, you also must choose the internal format type (string,
+ integer, or float) with the pull-down menu.</p>
+
+<h3><a name="A6">The Export Tab</a></h3>
+<p>If you have done calculations in <font face="helvetica">Amira</font> which created attributes as a result,
+ you might want to save these attributes to a file which can be used by
+ other software (for example, statistics packages). This tab gives 
+ you a powerful ability to write and format your output.</p>
+<p> <b>Using a predefined format specification:</b>
+ To export attributes to a file, you must specify the format
+ in the format widget. You can load a predefined format specification
+ by clicking on the <em>Predefined Specification</em> button.
+ We have included some simple specifications for common tasks.
+ You can add your own specification by editing the file
+ share/molecules/exportPredefinitions.cfg in your local <font face="helvetica">Amira</font> directory.</p>
+<p> <b>Creating a new format specification:</b>
+ A complete explanation of the concept of the
+ formatting string can be found in the following section. 
+ We will start with a simple example which shall give you a
+ first understanding of the idea behind the concept:</p>
+<pre>
+    %(atoms)%(atoms,charge)
+    </pre>
+<p> will write a file which will contain the charge of each atom. Note that 
+ after the last parenthesis you have to enter a whitespace, otherwise
+ all charges will be written without delimiters between them.</p>
+<p> <b>Iteration-context:</b>
+ The first thing to think about when writing attributes to a file is to 
+ decide which level should be the base level of information.
+ This will be the level over whose groups will be iterated, the 
+ 'iteration-context'. Usually this is just the same level as that 
+ of the attributes
+ you want to write. However, imagine you want to write the residue names
+ of the residues each atom belongs to. In this case the iteration context is
+ the level 'atoms' while the attribute is of the level 'residues'.
+ To set the iteration-level, just type %(levelname). In the example given
+ above the iteration-context was the level 'atom'. </p>
+<p> <b>Text and attribute output:</b>
+ The text after this iteration-context definition specifies the output for
+ each member of the iteration-level. It can contain
+ two things: specification of attributes and additional text that might 
+ contain delimiter characters or keywords needed by the importing function
+ of another program. The attribute specification has the 
+ form %(levelname,attributename). The additional text can contain 
+ everything (including carriage returns) except the character '%'. In the
+ example above the attribute specification was %(atoms,charge) and the
+ additional text was the trailing whitespace.</p>
+<p> <b>Iteration context and level dependency:</b>
+ Another example:</p>
+<pre>
+    %(residues)%(residues,index) %(chains,index)
+    </pre>
+<p> Results in a table which contains the chain index and the residue index for 
+ each residue (after the last parenthesis a carriage return must be entered, 
+ otherwise there wouldn't be linefeeds between the individual entries).</p>
+<p> The slightly modified example</p>
+<pre>
+    %(residues)%(residues,index) %(atoms,index)    
+    </pre>
+<p> might look okay at first glance, but what is the atom index for each residue?
+ In fact it is undefined as each residue can contain several atoms.
+ This is a direct result of the 
+ general concept of level dependency. If groups of a level lev1 can contain
+ groups of level lev2, lev1 is said to be dependent on lev2. Inside of
+ an iteration-context only such levels which depend on the 
+ iteration-level or the iteration-level itself may be used. </p>
+<p> <b>Ending an iteration context:</b>
+ The iteration-context can be ended by the definition of a new 
+ iteration-context or the empty definition %(). 
+ The latter enables you to write text
+ between different sections. Example:</p>
+<p> <font size="0"></font></p><pre>
+    ATOM SECTION:
+    %(atoms)ATOM ix=%(atoms,index) z=%(atoms,atomic_number)
+                 isInRes=%(residues,index)
+    %()RESIDUE SECTION:
+    %(residues)RESIDUE ix=%(residues,index) name=%(residues,name)
+    </pre><p><font size="0">
+ </font></p>
+<p> of course again ended by a carriage return after the last parenthesis.
+ The %() was needed so that the text 'RESIDUE SECTION' wouldn't be 
+ repeated
+ for each member of the 'atoms' iteration-context.</p>
+<p> <b>Special attributes:</b>
+ As atom 
+ coordinates are not stored as attributes but in an internal data
+ array of the object, they are not directly available. However, 
+ you can write them by using %(atoms,coordinates) which will
+ be internally translated from an attribute access to an access on the
+ data array. It will write the x, y, and z coordinates 
+ delimited by whitespaces. </p>
+<p> <b>Options:</b>
+ The option <em>write selected only</em> will limit each iteration context to 
+ those groups which are currently selected. For unselected groups no 
+ output will be produced.</p>
+
+<h3><a name="A7">The Import Tab</a></h3>
+<p>If you want to use results of other programs in <font face="helvetica">Amira</font>, you can import them
+ as attributes of groups. An example is the common task of generating
+ partial charges with a molecular force field tool and then reading them in
+ to examine the results. </p>
+<p> If you haven't done so yet you should first read the previous section about
+ exporting a file, as the syntax of the export format string can be 
+ considered to be a simple form of the syntax of the import format string.</p>
+<p> <b>Using a predefined format specification:</b>
+ Just as for exporting attributes you can also load predefined
+ format specification with the <em>Predefined Specifications</em>
+ button. You can edit the specification in the file
+ share/molecules/importPredefinitions.cfg in your local <font face="helvetica">Amira</font> directory.</p>
+<p> <b>Range of application:</b>
+ When you want to import an attribute your first task will 
+ be to take a look at the file to 
+ analyze its structure and to find the information that you need. 
+ If the information in the file is in nested structures, it is recommended
+ to transform the file into a simpler format by 
+ writing, for example, a Perl script or to write your own <font face="helvetica">Amira</font> internal 
+ reader method using <font face="helvetica">Developer Option</font>.</p>
+<p> Most of the files you will encounter however contain information simply
+ delimited by certain characters or keywords or located in certain columns
+ of the file. If the format is quite complicated it is sometimes helpful 
+ to preprocess the file via the Unix commands 'egrep' and 'cut'
+ to cut out the information needed.</p>
+<p> <b>Iteration-context and attribute specification:</b>
+ To get the idea behind the import format syntax, here is an example for a
+ very simple file format:</p>
+<pre>
+    %(atoms)%(atoms,charge,float);
+    </pre>
+<p> This code expects that there are as many charge values in the file 
+ as the number of atoms in the molecule, each separated by a semicolon.</p>
+<p> Thus the format string has the same concept of an iteration-context as the 
+ export method. The only new part in the example is the type specification
+ 'float' which is needed if the attribute does not already exist inside
+ <font face="helvetica">Amira</font>. If it does, you can omit the type. Type can be 'integer', 'string', or
+ 'float'. Another difference to the export 
+ format is that you can specify only attributes of the same level as
+ the iteration-level.</p>
+<p> <b>Skipping characters:</b>
+ If you want to specify that there may be an arbitrary number of characters
+ of some type, you can do so by %"char"*. In the example</p>
+<pre>
+    %(atoms)%(atoms,charge)%" "*;%" "*
+    </pre>
+<p> would be needed if there may be an arbitrary number of 
+ whitespaces between the charge values and the semicolon. 
+ You can enter more than one character
+ between the quotes. It will read and skip any character contained in the
+ quotes until the token behind the asterisk is found. If the token is not
+ a literal, but an attribute specification, it will skip the characters until
+ the first occurrence of a token that might be of the same type as attribute.
+ The quoted characters can of
+ course also contain a linefeed. A %* will skip any character.</p>
+<p> An often occurring problem is that your information is located in a
+ certain section of the file which is initiated by a certain keyword.
+ To jump to this section simply type %*keyword. The following example
+ could be used for the TRIPOS file format which uses the '@&lt;TRIPOS&gt;ATOM'
+ keyword to initiate its atom block.</p>
+<pre>
+    %*@&lt;TRIPOS&gt;ATOM
+    %(atoms)%(atoms,index) %(atoms,atomic_symbol,string)%*
+    </pre>
+<p> Another common problem is to skip a token. Consider for example
+ that at the start of each line is some alphanumerical token
+ followed by one or more spaces followed by the attribute you want to read. 
+ Typing all characters which can be skipped would be tedious, but you
+ can define ranges by using [char1-char2]. Thus the example looks like</p>
+<p> <font size="0"></font></p><pre>
+    %(atoms)%"[a-z][A-Z][0-9].,_-"*%" "%(atoms,charge,float)%*
+    </pre><p><font size="0">
+ </font></p>
+<p> Note that the range is interpreted as a range of the ASCII positions
+ of the given characters.</p>
+<p> <b>Using a file-internal iteration:</b>
+ Take a look at the following example:</p>
+<pre>
+    %(atoms)ATOM:%" "*%(atoms,index)%" "*%(atoms,charge)%*
+    </pre>
+<p> The defined iteration-context won't be needed because 
+ for each charge value we know
+ the atom index it is associated with. Thus, the index has the function of
+ an own file-internal iteration-context. This allows you to
+ import attributes of only a part of the groups contained in the molecule.
+ You will need to specify the iteration context 'atoms', however, to make it
+ clear which parts of the format string 
+ constitutes the pattern repeatedly searched for in the file. This however
+ only applies if the index attribute has been read first. If there are
+ other attributes before it in the same iteration context, it will not
+ overrule the context. </p>
+<p> <b>Reading information in predefined columns</b>
+ Some file formats (like pdb) do not use delimiter characters, but have
+ predefined columns in which information is located.
+ To access these columns you can add width 
+ numbers to the attribute specifications and skip specifications.
+ The format is: %width(levelName,attributeName,attributeType)
+ and %width*.</p>
+<p> If the charge attribute you want to read is located between the 50th and 59th
+ column of each line, you could specify the format like this:</p>
+<pre>
+    %(atoms)%49*%10(atoms,charge)%*
+    </pre>
+<p> followed again by a linefeed. The first 49 columns of each line will be
+ skipped. Then the charge attribute will be read from the next 10 columns 
+ and the rest of the line will be skipped.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

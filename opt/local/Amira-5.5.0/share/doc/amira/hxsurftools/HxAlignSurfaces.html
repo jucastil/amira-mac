@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignSurfaces</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "AlignSurfaces" "aligns two surfaces by minimizing the distance between them" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a rigid transformation (6 degrees of freedom)
+ to align two triangulated surfaces. Several different 
+ alignment strategies are implemented:<br />
+
+ </p>
+<ul><li>Minimization of the root mean square distance between
+ the points of the model surface and corresponding points on the
+ reference surface. This is often referred to as Procrustes analysis.
+ The corresponding points will be the closest points on the 
+ reference surface in the Euclidean measure. The iteration 
+ of this process is called the iterative closest point algorithm
+ (ICP). If fixed correspondences have been pre-computed by some 
+ other method, these can be used alternatively.</li><li>Alignment of the centers of mass: all nodes of the 
+ triangulations are assigned the same mass.</li><li>Alignment of the principal axes of the inertia tensor:
+ since the principal axes are defined modulo orientation (see
+ also <a class="link" href="HxAlignPrincipalAxes.html#A1">AlignPrincipalAxes</a>), the 
+ final solution is the one with the minimum root mean square 
+ distance.</li>
+</ul></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Surface to be transformed onto the reference.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Reference surface</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Reference surface to be aligned to.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Weights</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be connected to a field of type <em>HxSurfaceScalarField</em> defined
+ on the nodes (vertices) of the surface to be transformed. The values will be
+ evaluated during iterative optimization so that vertices with a high weight have
+ a greater influence on the alignment than those with a low weight.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxAlignSurfaces_options.png" /><br /></div>
+<div class="body"><p><b>Iterate</b>: If checked [default], the closest point algorithm is repeated
+ until either criterion defined in port <em>Stop</em> is reached. If unchecked, the closest point algorithm is performed only once.<br />
+
+ <b>Use correspondence</b>: This option is available only if both reference and surface to be transformed have the same
+ number of vertices. If checked, the algorithm assumes that the vertex indices on both surfaces correspond.<br />
+
+ <b>Use weights</b>: This option is available only if a surface scalar field is connected to port <em>Weights</em>.
+ Its values will be evaluated during iterative optimization so that vertices with a high weight have a greater influence
+ on the alignment than those with a low weight. Points can be ignored by using a weight with value 0.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Trafo</span>  
+<div class="portsnapshot"><img src="HxAlignSurfaces_trafo.png" /><br /></div>
+<div class="body"><p>Changes the number of degrees of freedom to be optimized.
+ <em>AlignSurfaces</em> performs linear alignment between two surface meshes x and 
+y. The expression $$|y - (Ax + b)|$$ is minimized over all transformations 
+(A,b) where A is a matrix and b the translation vector.
+</p>
+<ul><li><b>rigid</b>: A is a rotation matrix only</li><li><b>rigid + uniform scale</b>: A contains rotations and a uniform scale factor</li><li><b>affine</b>: A is an arbitrary matrix (includes non-uniform scaling)</li>
+</ul>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stop</span>  
+<div class="portsnapshot"><img src="HxAlignSurfaces_stop.png" /><br /></div>
+<div class="body"><p>Stopping criteria for the ICP algorithm: either a given
+ value for the root mean square distance relative to its
+ value in the first iteration, or a maximum number of iterations.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Align</span>  
+<div class="portsnapshot"><img src="HxAlignSurfaces_align.png" /><br /></div>
+<div class="body"><p>Starts one of the three different alignment methods, as
+ described above.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

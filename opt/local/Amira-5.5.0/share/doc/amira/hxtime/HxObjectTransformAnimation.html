@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<p></p><div class="generic_head"><h2><a name="A1"> TransformAnimation</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "TransformAnimation" "controls and animates the transformation of spatial data objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows you to control and animate the transformation of a <a class="link" href="../hxcore/HxSpatialData.html#A1">spatial data object</a>. This means translating, rotating, scaling and shearing an object without changing the camera. It is possible to define complex transformations consisting of an arbitrary number of basic transformations (translations, rotations, etc.) in an arbitrary order. Note, that the order of transformations is important: Translating an object after a rotation yields a different result than the other way around.</p>
+<p>The module has two modes:
+</p>
+<ul><li><b>Edit Transformation:</b> In this mode you can create a complex transformation by editing a set of basic transformations (translations, rotations, etc.). New basic transformations can be added, existing transformations can be reordered and removed.</li><li><b>Edit Animation:</b> This mode assumes that a complex set of transformations exists and only its parameters can be changed. This means the degrees of a rotation or the size of a scale operation. Basic transformations can <b>not</b> be added, reordered or removed. However, a set of parameters can be saved as a so-called <i>animation key</i>. This allows you to create an animation.</li>
+</ul></div>
+<p></p>
+<p>
+</p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">SpatialData1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the <a class="link" href="../hxcore/HxSpatialData.html#A1">spatial data object</a> to be transformed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">SpatialData2 ... SpatialDataN</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Additional <a class="link" href="../hxcore/HxSpatialData.html#A1">spatial data objects</a> to be transformed in the same way as the first one.
+ This becomes handy if you want to control a group of objects belonging to each other.
+ You can connect an arbitrary number of objects. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to other time modules.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_mode.png" /><br /></div>
+<div class="body"><p>Switch between editing modes.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_time.png" /><br /></div>
+<div class="body"><p>Only available in <i>animation</i> mode. Controls the current time of the animation sequence.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Keys</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_animationKeys.png" /><br /></div>
+<div class="body"><p>Only available in <i>animation</i> mode. Allows you to select a previously defined animation key.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_animationActions.png" /><br /></div>
+<div class="body"><p>Only available in <i>animation</i> mode. Allows you to add, remove, or replace animation keys.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_info.png" /><br /></div>
+<div class="body"><p>Displayed at the beginning of a every basic transformation in order to identify it easily.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edit</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_edit.png" /><br /></div>
+<div class="body"><p>Only available in <i>transformation</i> mode. Allows you to add, remove, or reorder basic transformations.</p>
+<p>
+<a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Add</span>  
+<div class="portsnapshot"><img src="HxObjectTransformAnimation_addNewTransform.png" /><br /></div>
+<div class="body"><p>Only available in <i>transformation</i> mode. Allows you to add a new basic transformation and give it a name.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,41 @@
+
+dataFile -name "HxSurface Format" \
+    -header "HyperSurface" \
+    -load "HxSurface::readFromFile" \
+    -loadInOwnThread true \
+    -package "hxsurface"
+
+amiramesh -ContentType SurfaceField \
+    -load "HxSurfaceField::readAmiraMesh" \
+    -package "hxsurface"
+
+module -name "Grouping" \
+    -primary "HxSelectInterface" \
+    -class "HxViewBaseGrouping" \
+    -category "Main" \
+    -package "hxsurface"
+
+module -name "Interpolate" \
+    -primary "HxVertexSet HxSurfaceField HxTetraData HxHexaData HxLattice3" \
+    -class "HxFrameInterpolator" \
+    -category "Compute" \
+    -package "hxsurface"
+
+module -name "FileSeriesCtrl" \
+     -class "HxDynamicFileSeriesCtrl" \
+     -package "hxsurface"
+
+module -name "Gradient"\
+       -category "Compute"\
+       -class "HxComputeSurfaceGradient"\
+       -primary "HxSurfaceScalarField"\
+       -check { [$PRIMARY getEncoding] == 0 }\
+       -package "hxsurface"
+
+
+
+dataClass -name "Surface" \
+    -class "HxSurface" \
+    -category "Data" \
+    -package "hxsurface"
+

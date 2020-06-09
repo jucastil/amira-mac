@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ExtractEigenvalues</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ExtractEigenvalues" "extracts eigenvalues from a symmetric tensor of second order" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module extracts the eigenvalues from a symmetric tensor of second order. 
+Either the eigenvalues are returned (in the case of a indefinite tensor)
+or a singular value decomposition is used to ensure a positive definite
+basis.</p>
+<p>The result are three vector fields which contain the first, second, and
+third principal direction and a three-component field which contains for
+each direction the corresponding eigenvalue.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The symmetric tensor field of second order.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If you connect a scalar field here, you can specify for which
+region in the data the module computes the eigenvalue expansion.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxExtractEigenvalues_Output.png" /><br /></div>
+<div class="body"><p>You can specify which output fields should be exported by the
+module. Note that only the first three fields are vector fields;
+the <em>evals</em> field contains the eigenvalues sorted according to size.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaskExpr</span>  
+<div class="portsnapshot"><img src="HxExtractEigenvalues_MaskExpr.png" /><br /></div>
+<div class="body"><p>If you connect a scalar field to the <em>Mask</em> input port, this port allows
+you to specify a region of interest based on the value of the scalar
+field. If you connect a label field, an expression like A==1 will
+select the first non-exterior material and only for this region the
+eigenvalues and eigenvectors will be computed.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

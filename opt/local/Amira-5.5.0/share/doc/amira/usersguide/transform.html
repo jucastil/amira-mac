@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.6 Transformations</a></h3>
+<p>Data objects in <font face="helvetica">Amira</font> can be modified using an arbitrary affine
+transformation. For example, this makes it possible to align two different
+data objects so that they roughly match each other. Internally, affine
+transformations are represented by a 4x4 transformation matrix. In
+particular, a uniform scalar field remains a uniform scalar field, even if
+it is rotated or sheared. Display modules like <em>OrthoSlice</em> still can
+exploit the simple structure of the uniform field. The possible
+transformation is automatically applied to any geometry shown in the 3D
+viewer.</p>
+<p>In order to interactively manipulate the transformation matrix use the
+<a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a> (documentation is contained
+in the index section of the user's guide).</p>
+<p>Be careful when saving transformed data sets! Most file formats do not
+allow to store affine transformations. In this case you have to apply the
+current transformation to the data. This can be done using the Tcl-command
+<tt>applyTransform</tt>. In case of <a class="link" href="../hxcore/HxVertexSet.html#A1">vertex set objects</a> the
+transformation is applied to all vertices. Old coordinates are replaced by
+new ones, and the transformation matrix is reset to identity afterwards.
+After a transformation has been applied to a data set, it cannot be unset
+easily anymore.</p>
+<p>If a transformation is applied to uniform fields, e.g., to 3D image data,
+the coordinate structure is not changed, i.e., the field remains a uniform
+one. Instead, the data values are resampled, i.e., the transformed field is
+evaluated at every vertex of the final regular grid. The bounding box of
+the resulting grid is modified so that it completely encloses the
+transformed original box.
+
+</p></body>
+</html>

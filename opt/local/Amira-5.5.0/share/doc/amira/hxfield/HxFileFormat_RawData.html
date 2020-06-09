@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Raw Data</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Raw Data" "binary data as a 3D uniform field (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Sometimes you may want to read data defined on uniform
+ lattices in raw format, i.e., plain three-dimensional arrays
+ of data.
+ Tomographic images might be given in this way, and raw data
+ is often the easiest format to produce with, e.g., custom simulation
+ programs.</p>
+<p> To read in raw data, use the <em>Load/Load Data</em> menu, select
+ the file in the file browser and click <em>OK</em>.
+ Since <font face="helvetica">Amira</font> cannot recognize the file format automatically, a 
+ dialog will popup. Within this dialog choose <em>Raw Data</em> as file format
+ and click <em>OK</em>.
+ Since the raw data file does not contain any information on how to format
+ the data, some user specifications are required. <font face="helvetica">Amira</font> will bring up 
+ a dialog:</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxFileFormat_RawDataDialog.png.html><img width=300 src="HxFileFormat_RawDataDialog.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font>'s raw data read dialog.</div>
+
+ 
+ </div>
+<p> Now adjust the parameters:</p>
+
+<ul><li><p><b>Data Types.</b>
+	Primitive type of data: byte for 8-bit data, short for 16-bit data,
+	int32 for 32-bit integer data, float for 32-bit float data, double
+ for 64-bit floating point data.</p>
+<p>	In addition, the number of data values per data point must be specified:
+	1 for scalar data, 3 for vector data, 6 for complex vector fields.</p></li><li><b>Dimensions.</b>
+	Size of the three-dimensional array. If incorrect dimensions are specified,
+	the data will be scrambled.</li><li><b>Min/Max Coords.</b>
+	The bounding box of the data. These parameters are not as critical as
+	the other ones. In particular the bounding box can be adjusted 
+	afterwards using the crop editor.</li><li><b>Header.</b>
+	Many file formats consist of a raw data block with a prepended header.
+	If such files are read with this method, the size of the header can be
+	specified here. The header will then simply be skipped when 
+	reading the file</li><li><b>Endianess.</b>
+	The byte order of data types other than byte is system dependent. If
+	you read your files on the same type of processor as on which they 
+	have been produced, the default setting will be okay. But if
+	you read data produced, e.g., under Linux (little endian) on an
+	SGI (big endian), you must specify the correct byte order of the data
+	to be read (little endian in this case).</li><li><b>Index Order.</b>
+	Order in which the data points are read.</li>
+</ul>
+<p>Instead of filling in this data dialogue, you might prefer to load
+the data using the Tcl interface. The syntax is</p>
+<pre>
+load -raw FileName Endianess IndexOrder 
+  DataType nDataVar dimX dimY dimZ 
+  xMin xMax yMin yMax zMin zMax
+</pre>
+<p>where
+</p>
+<ul><li><b>FileName</b> is the name of the file to load,</li><li><b>Endianess</b> is either <em>little</em> or <em>big</em>,</li><li><b>IndexOrder</b> is either <em>xfastest</em> or <em>zfastest</em>,</li><li><b>DataType</b> is one of <em>byte, short, ushort, int32, float, double</em>,</li><li><b>nDataVar</b> is the number of data values per voxel, e.g., 1 for scalar fields, 3 for vector fields,</li><li><b>dimX dimY dimZ </b> denotes the dimensionality of the data set, and</li><li><b>xMin xMax yMin yMax zMin zMax</b> denotes the bounding box of the data set.</li>
+</ul>
+<p>The raw data format is a very powerful tool, especially for
+quick-access/prototyping use. However it may sometimes be tricky to
+figure out the parameters. Some tools which may help are <tt>vi</tt>
+or <tt>od -c</tt> (to examine the header of files).</p>
+<p>After loading, click on the icon. If the data range is obviously
+completely wrong, then you have either specified a wrong data type, or
+a wrong endianess, or a too short header. If most of the volume looks
+okay, but is shifted in the x direction, then you probably have specified a
+wrong header. If the data range looks okay, but the data seems
+scrambled, then you have specified incorrect dimensions or a wrong index
+order.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

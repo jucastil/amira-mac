@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.7.4 Navigation Modes</a></h3>
+<p><font face="helvetica">Virtual Reality Option</font> supports two different navigation modes. The default mode is <em>scene manipulation</em>, i.e., the whole scene can be rotated and translated
+using the 3D input device. This is done by clicking with the wand into some
+empty or insensitive region in space, and then moving the wand while
+keeping the button pressed. In this mode the whole scene remains stick
+relative to the input device.</p>
+<p>The second mode is <em>fly mode</em>. This mode can be activated by selecting
+the second entry from the <em>Mode</em> port of the <font face="helvetica">VRSettings</font> control module
+(either in the 2D or in the 3D user interface). In fly mode you can click
+the 3D input device at some insensitive point, and then move it in any
+direction. The vector from the point where the wand was clicked to the
+current point defines a velocity vector which is used to modify the
+position of the camera. The longer the vector, i.e., the more the wand is
+shifted, the faster the camera is moving. In the same way the orientation
+of the camera is modified by rotating the 3D wand. An incremental
+rotational change is computed by comparing the current orientation which
+the orientation at the point where the wand was clicked initially.
+
+</p></body>
+</html>

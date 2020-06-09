@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ObliqueSlice</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ObliqueSlice" "visualizes 3D image or scalar data on an arbitrary slice" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>ObliqueSlice</em> module lets you display arbitrarily oriented
+ slices through a 3D scalar field of any type, as well as through an
+ RGBA color field or a 3D multi-channel field.
+ In the medical scanner context such slices are known as multi-planar reconstructions (MPR).
+ </p>
+<p> The module is derived from <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a>. See the
+ documentation of the base class for details about how to adjust position
+ and orientation of a slice. Like in the
+ <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> module two different methods are
+ supported to map scalar values to screen colors, namely 
+ monochrome mapping based on adaptive histogram equalization,
+ and pseudo-coloring based on a colormap. </p>
+</div>
+<p></p>
+<p>
+</p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D field to be visualized. 3D scalar fields, RGBA color fields,
+ or 3D multi-channel fields are supported. The coordinate type of the
+ input data doesn't matter. The data will be evaluated using the field's
+ native interpolation method (usually trilinear interpolation).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used to map data values to colors. This port is ignored
+ when histogram equalized mapping is selected, or when the
+ module is connected to an RGBA color field or to a 3D multi-channel
+ field.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_orientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the slice orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_options.png" /><br /></div>
+<div class="body"><p>If the <em>adjust view</em> toggle is set, the camera of the main
+ viewer is reset each time a new slice orientation is selected. </p>
+<p> With
+ the <em>rotate</em> toggle you can switch the rotate handle for the
+ cutting plane on and off. </p>
+<p> If the <em>immediate</em> toggle is set, the
+ slice is updated every time you drag it with the mouse in the 3D viewer.
+ Otherwise only the bounding box of the cutting plane is moved and the
+ update takes place when the mouse button is released. </p>
+<p> The <em>fit to points</em> toggle lets you reset the plane by clicking on
+ at least 3 different points in the scene. After enabling this toggle,
+ you should switch to interaction mode by pressing the ESC key inside the
+ viewer. Then click 3 times at different points on any geometry in the scene. 
+ The plane then will be automatically adjusted to match these points. 
+ The virtual trackball - visible when <em>rotate</em> toggle is active - will be moved 
+ to the center of the picked points.
+ After 3 points have been picked, this toggle is automatically unchecked, 
+ unless you pressed the shift key. 
+ Shift-clicking allows you to select more than 3 points. In this case
+ the plane that best fits the selected points will be computed.</p>
+<p> Checking the <em>lighting</em> option simulates the slice being illuminated
+ by a head light. Thereby, the intensity of the slice is modulated
+ according to the direction of the slice's normal. Thus, the more obliquely
+ the slice is viewed the darker it becomes.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Translate</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_translate.png" /><br /></div>
+<div class="body"><p>This slider allows you to select different slices. The slices may also
+ be picked with the mouse and dragged directly in the 3D viewer.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mapping Type</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_mappingType.png" /><br /></div>
+<div class="body"><p>This option menu controls how scalar values are mapped to screen
+ colors. If <em>histogram</em>
+ is selected, an adaptive histogram equalization technique is
+ applied. This method tries to show all features of the data, even
+ if a wide range of values is covered. Alternatively, <em>colormap</em>
+ can be used to activate pseudo-coloring. The default colormap is a simple 
+	linear gray ramp. The port is hidden if the
+ the module is connected to a color field or a multi-channel field.</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast Limit</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_contrastLimit.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>histogram</em> equalization is selected.
+ The number determines the contrast of the resulting image. The higher
+ the value, the more contrast is contained in the resulting image.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_colormap.png" /><br /></div>
+<div class="body"><p>This port is displayed if <em>colormap</em> is selected. Choose a colormap
+	to map data to colors.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sampling</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_sampling.png" /><br /></div>
+<div class="body"><p>This port controls the way how oblique slices are reconstructed. First,
+ an option menu listing different sampling resolutions is provided. The
+ four choices, <em>coarse</em>, <em>medium</em>, <em>fine</em>, and <em>finest</em>,
+ correspond to an internal resolution of the underlying texture map of
+ 128, 256, 512, and 1024 square pixels, respectively. The fifth choice,
+ <em>user-defined</em>, allows explicit specification of the resolution.</p>
+<p> The toggle labeled <em>interpolate data</em>, will only be active if
+ the scalar field to be visualized is defined on a uniform grid. In this
+ case, if the toggle is off, nearest neighbor interpolation is used. If
+ it is on or if the data is not defined on a uniform grid, then the
+ field's native interpolation method is used, e.g., trilinear
+ interpolation on regular grids.</p>
+<p> The toggle labeled <em>interpolate texture</em> controls how the
+ slice is texture-mapped by the underlying OpenGL driver. If the toggle
+ is off, nearest-neighbor sampling is used. Otherwise, bilinear
+ filtering is applied.</p>
+<p> Finally, the toggle labeled <em>square texels</em> control how data values
+ are extracted when the oblique slice is axis-aligned. If checked, the slice
+ will display square texels. It means that an isotropic sampling is
+ done and so, data values are displayed like squares.
+ Otherwise, original data values are reproduced.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_Resolution.png" /><br /></div>
+<div class="body"><p>This port is visible when the resolution type <em>user-defined</em> is selected.
+ Specify width and height of the underlying texture map.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Overlay</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_overlayType.png" /><br /></div>
+<div class="body"><p>This port determines how optional <em>ColorWash</em> modules 
+ are mapped onto this slice.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_transparency.png" /><br /></div>
+<div class="body"><p>This radio box port determines the transparency of the slice. The
+ option is only available if the module is connected to an
+ <a class="link" href="../hxfield/HxRegColorField3.html#A1">RGBA color field</a>. <em>None</em> means that the
+ slice is fully opaque. <em>Binary</em> means that black parts are fully
+ transparent while other parts are opaque when using <em>linear
+ mapping</em> or that only fully transparent parts are transparent
+ while others are fully opaque when using <em>colormap
+ mapping</em>. <em>Alpha</em> means that opacity is taken as is.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Channels</span>  
+<div class="portsnapshot"><img src="HxObliqueSlice_channels.png" /><br /></div>
+<div class="body"><p>This port is displayed if the module is attached to a 3D multi-channel
+ object. It allows you to toggle individual channels on or off. Each
+ channel is mapped using a linear intensity ramp. The data window for
+ each channel can be adjusted in the multi-channel object itself.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ All commands described for <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ArbitraryCut</a> can be
+ applied to <em>ObliqueSlice</em> as well.</p>
+
+<div class="hxcommand">
+  <span class="headline">createImage &lt;image base name&gt; </span>  
+
+<div class="body"><p>This command creates a 2D image from the oblique slice and adds it
+to the Pool. The image base name can be omitted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

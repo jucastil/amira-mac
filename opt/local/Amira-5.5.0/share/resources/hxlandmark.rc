@@ -1,0 +1,42 @@
+dataClass -name "Landmarks" \
+    -class "HxLandmarkSet" \
+    -category "Data" \
+    -dso "libhxlandmark.so"
+
+dataClass -name "Landmarks (2 sets)" \
+    -category "Data" \
+    -proc {
+        set landmarks [ create HxLandmarkSet Landmarks ]
+        $landmarks setNumSets 2 }
+
+amiramesh -ContentType LandmarkSet \
+    -load "HxLandmarkSet::readAmiraMesh" \
+    -dso "libhxlandmark.so"
+
+amiramesh -ContentType HxLandmarkSet \
+    -load "HxLandmarkSet::readOldAmiraMesh" \
+    -dso "libhxlandmark.so"
+	
+module -name "LandmarkView" \
+    -primary "HxLandmarkSet" \
+    -class "HxDisplayLandmarks" \
+    -category "Main Display" \
+    -dso "libhxlandmark.so"
+
+editor -name "Landmark Editor" \
+    -data "HxLandmarkSet" \
+    -class "HxLandmarkEditor" \
+    -icon "HxLandmarkEditor.png" \
+    -dso "libhxlandmark.so"
+
+module -name "CombineLandmarks" \
+    -primary "HxVertexSet" \
+    -class "HxCombineLandmarks" \
+    -category "Compute" \
+    -dso "libhxlandmark.so"
+
+module -name "CombineLandmarks" \
+    -class "HxCombineLandmarks" \
+    -category "Compute" \
+    -dso "libhxlandmark.so"
+	

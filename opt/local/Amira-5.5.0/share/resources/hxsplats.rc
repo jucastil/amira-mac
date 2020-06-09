@@ -1,0 +1,10 @@
+# ----------------------------------------------------------------------
+# hxsplats
+# ----------------------------------------------------------------------
+
+module -name "Splats"			\
+    -primary "HxTetraScalarField3"	\
+    -class "HxSplats"			\
+    -category "Display"                 \
+    -dso "libhxsplats.so"
+

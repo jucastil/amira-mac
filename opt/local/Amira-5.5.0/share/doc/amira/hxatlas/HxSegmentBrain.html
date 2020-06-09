@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SegmentBrain</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "SegmentBrain" "creates a brain mask from T1/T2 MRT images of the head" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module takes a T1 or T2 MRT scan of the human head as input and creates from it a label field that masks out non-brain tissue. Such a mask can be useful for visualization where it allows to visualize the surface of the brain in isolation as well as for particular analyses of the human brain such as <a class="link" href="../usersguide/NeuroOptionUG.html#A4">Diffusion Tensor Imaging</a> and <a class="link" href="../usersguide/NeuroOptionUG.html#A3">brain mapping</a>. </p>
+<p><em>SegmentBrain</em> typically works without adjusting parameters. If the result label field has inner holes it may be necessary to increase the value in port <em>Smoothing</em>. Inner holes can also be the result of gradients imposed by a inhomogeneous magnetic field. In that case one could use <a class="link" href="../hximproc/HxNormalizeImage.html#A1"> NormalizeImage</a> or <a class="link" href="../hxneuro/HxCorrectZDrop.html#A1">CorrectZDrop</a> (requires a Microscopy Option license) to correct for the gradient prior to using <em>SegmentBrain</em>. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A uniform scalar field containing the MRT scan.
+</p></div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Export</span>  
+<div class="portsnapshot"><img src="HxSegmentBrain_Export.png" /><br /></div>
+<div class="body"><p>Check this box if a surface representation of the mask is wanted in addition to the label field.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Smoothing</span>  
+<div class="portsnapshot"><img src="HxSegmentBrain_Smoothing.png" /><br /></div>
+<div class="body"><p>By default, <em>Smoothing</em> is set to 0. If inner holes occur in the result label field this value can be increased. For some images, values between 10 and 20 are sufficient, for others <em>Smoothing</em> must be set to 200 to get satisfactory results. Since computation times are typically short it is recommended to increase the value successively until a satisfactory segmentation is achieved.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

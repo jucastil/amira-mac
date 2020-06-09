@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VertexView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "VertexView" "displays vertices of any object derived from vertex set" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module allows you to visualize arbitrary <em>vertex sets</em>.
+ Vertex sets occur as part of objects of other types, such as
+ <a class="link" href="../hxsurface/HxSurface.html#A1">Surfaces</a>, Tetrahedral Grids, Line Sets, or Molecules.
+ The vertices can be displayed in three different modes: <i>spheres</i>,
+ <i>plates</i>, and <i>points</i>. The vertices may be colored according to
+ a scalar field and a colormap. Alternatively, colors may also be
+ defined via the <a class="link" href="#A15">command interface</a>
+ of the <em>VertexView</em> module. Furthermore an internal buffer exists
+ that allows you to view only those vertices that are of interest to
+ you.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data object from which the vertex set is read.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>3D scalar field which is used along with a colormap to color the
+ vertices according to the value of the scalar field at the position of
+ a vertex.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Used to color the vertices in connection with the <i>ColorField</i>.	</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_color.png" /><br /></div>
+<div class="body"><p>If the module is connected to a <a class="link" href="../hxlines/HxLineSet.html#A1">line set</a>, this port allows selecting
+ the line set's data field for coloring.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_drawStyle.png" /><br /></div>
+<div class="body"><p>Vertices may be drawn in three different styles:
+ </p>
+<ul><li><i>Spheres:</i> Points are drawn as triangulated spheres
+	with equal radius.	</li><li><i>Plates:</i> Points are drawn as quadrants with mapped-on
+	image of a sphere.</li><li><i>Points:</i> Points are drawn as points. The size of the
+	points does not differ according to the distance of the 
+	vertex from the viewer; they all have the same size.	</li>
+</ul>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SphereRadius</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_sphereRadius.png" /><br /></div>
+<div class="body"><p>Specifies unique radius for all spheres. This port is only
+ visible if <i>Spheres</i> or <i>Plates</i> is chosen as 
+ the draw style.	</p>
+<p>
+<a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point Size</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_pointSize.png" /><br /></div>
+<div class="body"><p>Size of points for draw style <i>Points</i>. Only visible
+ in <i>Points</i> mode.	</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complexity</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_complexity.png" /><br /></div>
+<div class="body"><p>Set complexity of displayed spheres. Reducing the complexity leads to
+ coarser spheres and improved rendering performance. If draw style is
+ set to <em>plates</em>, the complexity controls the size of the texture
+ maps containing the sphere's images. The smallest texture size is
+ 32x32, the biggest is 512x512. The port is not visible for draw style
+ <em>points</em>.</p>
+<p>
+<a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options: </span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_options.png" /><br /></div>
+<div class="body"><p>A toggle list of options.
+ </p>
+<ul><li><i>text:</i> If selected, vertex numbers are drawn.
+ This might be quite slow, especially for large vertex sets.
+ Alternatively, you may select a vertex by clicking on it.
+ Then its number is printed in the console window.</li><li><i>transparent:</i> Optionally, the spheres and plates may	
+	be drawn transparent. Note that the vertices are not sorted
+	along the z-axis. Thus the appearance of the vertex set may 
+	look incorrect.</li><li><i>show all:</i> The default is to display only vertices which
+	have been added to the buffer (initially the buffer contains
+	all vertices). By clicking this toggle you can choose to ignore the buffer 
+	state, thus displaying every existing vertex.</li>
+</ul>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Text Size</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_fontSize.png" /><br /></div>
+<div class="body"><p>Specify text size if <em>show text</em> is active.
+<a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_transparency.png" /><br /></div>
+<div class="body"><p>Allows you to specify the degree of transparency of the 
+ spheres.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer: </span>  
+<div class="portsnapshot"><img src="HxDisplayVertices_buffer.png" /><br /></div>
+<div class="body"><p>A list of buttons for manipulating the internal buffer. In
+ order to actually see the buffer content, activate the <em>buffer
+ only</em> option.
+ </p>
+<ul><li><i>Add:</i> adds selected vertices to buffer.</li><li><i>Remove:</i> removes selected vertices from buffer.</li><li><i>Clear:</i> removes all vertices from buffer.</li><li><i>Box:</i> toggles boxes to select vertices.</li><li><i>Invert:</i> exchanges buffer content.</li><li><i>Draw:</i> activates a lasso style selection mechanism: 
+	Using the mouse you can draw a contour in the viewer. All triangles 
+	within this contour will be highlighted. If CTRL is pressed while drawing, 
+	the triangles within the curve are deselected.</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p><a name="A15"></a>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setHighlightColor &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>Set the color that is used to highlight
+	selected spheres.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDefaultColor &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>	Set default color.	</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColorHighlighted &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>Color all highlighted spheres.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor [&lt;first-vertex-number&gt; [&lt;last-vertex-number&gt;]]
+ &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>Set color for all spheres from <i>first-vertex-number</i> to <i>last-vertex-number</i>. If <i>last-vertex-number</i> is omitted, the
+ color is set for the sphere with index <i>first-vertex-number</i>. If
+ <i>first-vertex-number</i> is omitted too, the color for all spheres
+ is set. <i>Red, green, and blue</i> range from 0 to 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">highlight &lt;first-vertex-number&gt; [&lt;last-vertex-number&gt;]</span>  
+
+<div class="body"><p>	Highlight spheres from <i>first-vertex-number</i> to 
+	<i>last-vertex-number</i>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getHighlighted</span>  
+
+<div class="body"><p>Returns a list of all currently highlighted spheres.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">unhighlightAll</span>  
+
+<div class="body"><p>	Unhighlight all spheres.	</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addToBuffer &lt;first-vertex-number&gt; [&lt;last-vertex-number&gt;]</span>  
+
+<div class="body"><p>Add all spheres ranging from <i>first-vertex-number</i> to <i>last-vertex-number</i> to buffer. If <i>last-vertex-number</i> is
+ omitted, only the sphere with index <i>first-vertex-number</i> is
+ added. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeFromBuffer &lt;first-vertex-number&gt; [&lt;last-vertex-number&gt;]</span>  
+
+<div class="body"><p>	Remove all spheres ranging from <i>first-vertex-number</i> to
+	<i>last-vertex-number</i> from buffer. If <i>last-vertex-number</i>
+	is omitted, only the sphere with index <i>first-vertex-number</i>
+	is removed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumVertices</span>  
+
+<div class="body"><p>	Print number of vertices.	</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getCoords &lt;vertex-number&gt;</span>  
+
+<div class="body"><p>	Print coordinates of vertex with number <i>vertex-number</i></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTextSize &lt;size&gt;</span>  
+
+<div class="body"><p>	Set size with which the text is displayed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTextOffset &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>	Set offset which is added to the text position.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTextColor &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>	Set text color.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">updateTextures</span>  
+
+<div class="body"><p>	To both <i>plates</i> and <i>spheres</i> textures are applied
+	to make the spheres look smoother. If the direction from which the 
+	light comes changes, those textures need to be recomputed. Updating
+	is invoked by this command only.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPickCallback &lt;proc&gt;</span>  
+
+<div class="body"><p>Registers a pick callback. The specified Tcl procedure is called
+ whenever a vertex is selected by clicking on it with the mouse.
+ The procedure is assumed to takes two arguments, the name of the
+ <em>VertexView</em> module and the id of the point which has been
+ clicked. To unset the pick callback, call this method
+ without an argument.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.7 Main Window</a></h3>
+<p><font face="helvetica">Amira</font>'s Main window consists of two components: the
+<a class="link" href="subapp.html#A1">sub-application</a> <em><a class="link" href="#A2">Pool</a></em> in
+the upper part of the window, and the <em><a class="link" href="#A4">Properties Area</a></em> in the lower part.</p>
+<p>The Pool contains icons representing data objects and modules
+currently in use as well as lines connecting icons indicating dependencies
+between objects and modules. </p>
+<p>"Pool" will be used throughout the <font face="helvetica">Amira</font> documentation
+to refer generically to the upper pane of the main <font face="helvetica">Amira</font> window containing 
+the collection of objects and modules that define the visualization network.</p>
+<p>The Properties Area is the place where the user
+interface of selected objects is displayed. Typically, the interface
+consists of buttons and sliders arranged in <em>Ports</em>. They
+can be thought of as ports because the user can pass information to a
+module through them. The Pool and the Properties Area are described below.</p>
+<p>By default, the Main Window, the <a class="link" href="viewer.html#A1">Viewer window</a>, 
+the <a class="link" href="console.html#A1">Console window</a>, and the
+<a class="link" href="onlinehelp.html#A1">Help browser</a> are all panes of a single large <font face="helvetica">Amira</font> window. 
+However, it is possible
+to designate that any of these last three components be displayed in its own
+top-level window using the <em><a class="link" href="preferences.html#A3">Layout</a></em> tab of the 
+<em><a class="link" href="preferences.html#A1">Edit/Preferences</a></em> menu.</p>
+<p></p>
+<h4><a name="A2">3.1.7.1 Pool (Object Pool)</a></h4>
+<p><b>Concepts</b>
+<br />
+
+The Pool is displayed if "object pool" is selected. This selection is made 
+using the <em><a class="link" href="preferences.html#A3">Layout</a></em> tab of the <em><a class="link" href="preferences.html#A1">Edit/Preferences</a></em> menu.</p>
+<p>Once a data object has been loaded or a module has been created, it will be
+represented by an icon in the Pool. Some objects, especially
+initially loaded colormaps, may not be visible here. Such hidden objects are listed in the
+<em>Pool/Show Object</em> menu of the Main Window. Selecting an object from this
+menu causes the corresponding icon to be made visible in the Pool. </p>
+<p>Icon colors are used to indicate different types of objects. Data objects are shown in
+green and are the only objects which can be saved to disk using <em>File/Save</em>.
+Computational modules are shown in red, visualization modules are yellow, and
+visualization modules of <em>slicing</em> type are orange. Such
+modules may be used to clip the graphical output of any other module.</p>
+<p>Connections between data objects and processing modules, shown as blue
+lines, represent the flow of data. For display modules, these connections
+show the data used to generate the display. You may connect or disconnect objects
+by picking and dragging a blue line between object icons. </p>
+<p>As you might expect, not all types of processing modules are applicable
+to all kinds of data objects. If you click on a data object icon with the right
+mouse button, a menu pops up that shows all types of modules that can
+be connected to that object. (Alternatively, you can click on the 
+small white triangle on the right side of the icon with the
+left, right, or middle button.) Selecting one of the modules will automatically
+create an instance of that module type and connect it to the data object.
+A new icon and a connecting line will appear in response. This way you
+can set up a more or less complex network that represents the computational
+steps required to carry out a specific visualization task and is used 
+to trigger them. Note that modules used will appear as shortcut (or
+macro) buttons in the upper part of the window.</p>
+<p>If you look closer at an object's icon you will notice two small squares on
+its left, one white and one orange. If you click on the white square with 
+the left (or right, or middle) mouse button, a menu pops up that shows all connection 
+ports of that object. </p>
+<p>If the white square has a "-" or a "+" inside, you can click it with the 
+left (or right, or middle) mouse button to hide ("collapse") or unhide 
+the objects connected to that 
+object. The collapse feature is helpful if there are too many 
+objects in the Pool to view easily at once. The hidden objects will be visible
+in the <em>Pool/Show Object</em> menu.</p>
+<p>The orange square controls the object's visibility in the viewers. 
+It shows the current viewer layout (1 viewer, 2 viewers, etc.). Click
+inside the region of the square corresponding to a specific viewer 
+to toggle the visibility of the object in that viewer. The region turns 
+gray when the module is set to invisible. If you are using more than 
+4 viewers, each additional viewer will have its own orange square on
+the object's icon. You can also control an object's visibility by clicking 
+on its visibility toggle in the Properties Area.</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=objectpool.png.html><img width=450 src="objectpool.png" /></a><br />
+<div class="caption">
+<b>Figure 42:</b>
+The Pool contains data objects and module icons.</div>
+
+
+</div><p></p>
+<p>As mentioned above, for
+most objects the required connections are automatically established on
+creation. However, in order to set up optional connections you must use
+the connection popup menu. For example, you may attach an optional scalar
+field to an Isosurface module's Colorfield port in order to color the 
+surface using the values in the Colorfield.</p>
+<p>Once you have selected an entry from the connection popup menu of the
+object icon, you can
+choose a new input object for that port. In order to do so, click on the
+input object's icon in the Pool. The blue connection line will
+become lighter blue if the connection port can be connected to the chosen
+object. Reasons for not being able to connect an input to a port can include
+the following: incompatible data type (use Castfield to change), 
+incompatible dimensionality of the input (use ChannelWorks to change), incompatible
+grid type of the data (for example, use Arithmetic to sample on a regular grid), or simply
+that the connection does not make sense, for example, connecting a display
+module for surfaces to a CT data set.</p>
+<p>In order to disconnect an input object click on the icon of the
+module the port belongs to. Data objects possess a special connection port
+called <em>Master</em>. This port refers to a computational module or editor
+the data object is attached to. It indicates that the computational module
+or editor controls the data object, i.e., that it may modify its contents. </p>
+<p>Each object has an associated control panel containing buttons and sliders
+for setting or changing additional parameters of the object. The control
+panel becomes visible once the object has been selected, i.e. by clicking
+on its icon with the left mouse button. In order to select multiple objects,
+you can shift-click the corresponding icons or select them by using the
+rectangular selection tool (press and hold down the left mouse button over the
+Pool background, then sweep out a rectangle). Clicking on the icon of a
+selected object deselects it again. Clicking somewhere on the background
+of the Pool causes all selected objects to be deselected. One or more 
+selected icons
+may be dragged around in the Pool by clicking on them and moving the
+mouse pointer while holding down the mouse button.<br />
+</p>
+<p><b>Interface</b>
+<br />
+
+At the right of the Pool banner are the <em>PoolSelect</em> (arrow)
+and <em>PoolPan</em> (hand) buttons. In PoolSelect mode, the mouse is used
+for selecting, positioning, connecting, and disconnecting objects in 
+the Pool. In PoolPan mode, moving the mouse pans the 
+Pool workspace. Press the Control key to switch temporarily
+from one mode to the other.</p>
+<p>At the top of the Pool is a region containing shortcut (or macro) 
+buttons. The <em>Open Data</em> button is a shortcut to the <em>File/Open Data</em>
+menu item. Up to 4 additional buttons are automatically displayed depending
+on the currently selected object(s). They provide easy access to the 
+modules that are most commonly used and/or that have been recently used 
+with the currently selected object.</p>
+<p>The trashcan at the bottom right of the Pool provides a convenient
+shortcut for removing an object. Drag the object to the trashcan. When the cursor
+turns into an "X", release the mouse button and the object will be
+removed from the Pool. If you remove a data object, all modules
+downstream from that module will be deleted as well. Alternatively, you can use
+the <em>Remove object</em> item from the <em>Pool</em> menu, or you can use
+the Delete key or Ctrl-x to remove a selected object.</p>
+<p>
+</p>
+<h4><a name="A4">3.1.7.2 Properties Area</a></h4>
+<p>Once an object has been selected, its input controls will be displayed
+in the Properties Area below the Pool. </p>
+<p>
+</p><div style="text-align:center"><a name="A5"></a><a href=properties_area.png.html><img width=450 src="properties_area.png" /></a><br />
+<div class="caption">
+<b>Figure 43:</b>
+The Properties Area contains the input controls for 
+ objects in the Pool. This is the "control panel" for the Arithmetic module.</div>
+
+
+</div><p></p>
+<p>Each object has a specific
+set of controllable parameters or options. These are described in
+detail for each module in the <a class="link" href="HxIndexModule.html">index
+section</a> of the reference manual. Computational modules and
+visualization modules also provide a question mark button which lets
+you access the documentation of that module directly.</p>
+<p>The <em>Apply</em> button is active (green) for modules that require
+you to explicitly initiate their action. Typically this
+is the case for modules whose action may take a significant
+amount of time, such as some of the compute modules. 
+When the <em>Stop</em> button is red, you can press it to interrupt the action.</p>
+<p>Check on the <em>auto-refresh</em> check box to automatically force an
+apply for any change in the network.</p>
+<p>At the top of an object's control panel its name is displayed and a number
+of additional control buttons are provided. All data objects and display modules
+have one or more orange viewer buttons for each 3D viewer. These buttons control
+whether any graphical output of an object is displayed in a particular
+viewer or not. For example, if you have two viewers and two isosurface
+modules you may want to display one isosurface in each viewer.</p>
+<p>Display modules of <em>slicing</em> type (orange ones) provide a clip button.
+Clicking this button will cause the graphical output of any other module to
+be clipped by that slice. Clipping does not affect modules with hidden
+geometry or modules that are created after the clip button has been
+pressed.</p>
+<p>Data objects provide a number of additional <em>editor</em> buttons. Editors
+are used in order to modify the contents of a data object interactively.
+For example, you can perform manual segmentation of 3D image data by
+editing <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label fields</a> using the
+<a class="link" href="../hxsegeditor/GI.html#A1">image segmentation editor</a>. Some editors display their controls
+in the Properties Area like all other objects, while others use a separate dialog
+window that allows you to perform object manipulations.</p>
+<p>As already mentioned, specific input controls of an object or a module are
+organized in <em>Ports</em>. Each port has a pin button on its
+left. If a port is pinned it will still be visible even when the object is
+deselected. The ports are composed of various widgets that reflect an
+operational meaning, e.g., a value is entered by a slider, a state is set by
+radio buttons, a binary choice is presented as a toggle button. The control
+elements have a uniform layout and are divided into several basic types. A
+description of the basic port types is contained in the
+<a class="link" href="HxIndexComponent.html">component index</a> section of the User's Reference 
+Manual. <br />
+</p>
+<p>Ports whose labels are displayed in italic are special: they are input connection 
+ports. They are used for connecting data objects and
+modules into a network that represents the computational steps required to 
+carry out a specific visualization task. Each connection port contains the list
+of objects to which it can be possibly connected, plus a "NO SOURCE" item, which
+means not to connect to anything. </p>
+<p>In object pool mode, display of these 
+connection ports can be toggled on and off via the <em><a class="link" href="preferences.html#A3">Layout</a></em> tab of 
+the <em><a class="link" href="preferences.html#A1">Edit/Preferences</a></em> menu. They
+are displayed by default to help beginners understanding the Pool architecture.</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=shadowButton.png.html><img width=450 src="shadowButton.png" /></a><br />
+<div class="caption">
+<b>Figure 44:</b>
+Some visualization module can show in the "Shadow" button in the Properties Area.</div>
+
+
+</div><p></p>
+<p>If the shadowing effect is switched on 
+in the <em><a class="link" href="preferences.html#A8">Rendering</a></em> tab of the <em><a class="link" href="preferences.html#A1">Edit/Preferences</a></em> menu, 
+some visualization module shows the "Shadow" button. 
+Clicking the button will switch across the following modes:
+</p>
+<ul><li>Cast Shadow -- the object will cast shadows</li><li>Receive Shadow -- the object will only receive shadows</li><li>Cast &amp; Receive Shadow -- the object will cast and receive shadows</li><li>No Shadow -- no shadows will be visualized</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=pickableButton.png.html><img width=450 src="pickableButton.png" /></a><br />
+<div class="caption">
+<b>Figure 45:</b>
+Display modules have "Pickable" toggles.</div>
+
+
+</div><p></p>
+<p>Only display modules have pickable toggles. When the pickable button of a display module is off, the user can't pick it in the viewer. </p>
+<p>
+</p></body>
+</html>

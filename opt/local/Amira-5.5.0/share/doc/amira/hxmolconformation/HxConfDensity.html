@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ConfigurationDensity</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "ConfigurationDensity" "computes the probability density for atom and bond positions" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module enables you to compute a probability
+ density for the positions of atoms and bonds within a molecular
+ trajectory. The input is an object of type
+ <a class="link" href="../hxmolecule/HxMolTrajectory.html#A1">MolTrajectory</a>. As
+ output either a scalar field or a color field is generated. In order
+ to visualize the computed density you can, for example, apply the volume
+ rendering module, <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a>. </p>
+<p> Since the time steps of the molecular trajectory can be arbitrarily
+ rotated and translated, we must perform an alignment for each time
+ step to fit it best to some chosen reference. This is done internally,
+ but you must specify how the molecules should be aligned to each
+ other. There are four options from which to choose. The first
+ uses all atoms for alignment, which is the recommended option. In the
+ second you can select a few atoms (see below for more
+ information). The third and fourth use <em>none</em> and <em>center
+ of gravity</em> alignment, respectively.</p>
+<p> For the representation of the molecule two kinds of geometric objects
+ can be used: spheres and sticks. Here, spheres represent the positions
+ of the atomic nuclei and the sticks the existing bonds within the
+ molecule. You can compute the density for sticks, atoms, or sticks
+ and atoms.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecular trajectory for which the density should be computed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlignMaster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The molecule to which each time step of the trajectory will be
+ aligned.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PrecomputedAlignment</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Instead of aligning all time steps of a trajectory to the <em>AlignMaster</em> molecule, you can use a precomputed alignment to align the
+ time steps.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Continuous and DiscreteColormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>These two colormaps are used for the color management of the 
+ computed volume, in case a color field should be generated. 
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Time Steps</span>  
+<div class="portsnapshot"><img src="HxConfDensity_timeSteps.png" /><br /></div>
+<div class="body"><p>Specifies range of time steps for which the density should be computed.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Voxel Size</span>  
+<div class="portsnapshot"><img src="HxConfDensity_voxelSize.png" /><br /></div>
+<div class="body"><p>This value determines the size of a voxel, i.e., its height, width, and
+ depth, of the field storing the probability density.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Grid Dimension</span>  
+<div class="portsnapshot"><img src="HxConfDensity_gridDimension.png" /><br /></div>
+<div class="body"><p>The dimension of the field grid resulting from the specified voxel
+ size.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxConfDensity_transformation.png" /><br /><img src="HxConfDensity_selection.png" /><br /><img src="HxConfDensity_selectionInfo.png" /><br /></div>
+<div class="body"><p>The three ports above specify how the molecules are aligned to each
+other. See the description in the general section on
+<a class="link" href="../hxmolecule/molpositioning.html#A5">alignment
+ of molecules</a> for a detailed explanation. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Shape</span>  
+<div class="portsnapshot"><img src="HxConfDensity_shape.png" /><br /></div>
+<div class="body"><p>Choose the geometry used to represent the molecule. If you have a
+ highly varying trajectory, the recommended shape is <em>cylinders</em>.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius Options</span>  
+<div class="portsnapshot"><img src="HxConfDensity_radiusOption.png" /><br /></div>
+<div class="body"><p>Use a unique radius for all atom spheres (<em>fixed</em>) or take for
+ each sphere the van der Waals radius scaled by the value of port <em>Atom Radius</em> (<em>atom class dependent</em>).</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Radius</span>  
+<div class="portsnapshot"><img src="HxConfDensity_atomRadius.png" /><br /></div>
+<div class="body"><p>Radius of the atom spheres.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Bond Radius</span>  
+<div class="portsnapshot"><img src="HxConfDensity_bondRadius.png" /><br /></div>
+<div class="body"><p>Radius of cylinders representing bonds.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Field</span>  
+<div class="portsnapshot"><img src="HxConfDensity_field.png" /><br /></div>
+<div class="body"><p>This menu contains two options, <em>Scalar Field</em> and <em>Color
+ Field</em>. Choose the first if you only want the density. If you
+ choose the second option, in addition to the density, the color
+ information will be stored according to the color scheme (see
+ <em>Atom Colors</em> port).</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Colors</span>  
+<div class="portsnapshot"><img src="HxConfDensity_colorscheme.png" /><br /></div>
+<div class="body"><p>Determines how the field regions will be colored. For more
+ information see the description of <a class="link" href="../hxmolecule/moldisplay.html#A4">Color</a>
+ port in the section on displaying molecules.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormaps</span>  
+<div class="portsnapshot"><img src="HxConfDensity_continuousColormap.png" /><br /><img src="HxConfDensity_discreteColormap.png" /><br /></div>
+<div class="body"><p>These two colormaps are used to color the atoms and sticks according
+ to the selected color scheme in <em>Atom Colors</em>. See the
+ description in the section on <a class="link" href="../hxmolecule/moldisplay.html#A3">display
+ of molecules</a> for a detailed explanation.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Define Color</span>  
+<div class="portsnapshot"><img src="HxConfDensity_defineColor.png" /><br /></div>
+<div class="body"><p>The port is described in the section on
+ <a class="link" href="../hxmolecule/moldisplay.html#A3">display of molecules</a>.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Compute</span>  
+<div class="portsnapshot"><img src="HxConfDensity_buttons.png" /><br /></div>
+<div class="body"><p>Invoke actions. 
+ </p>
+<ul><li>Since for the computation of the grid dimension all molecules
+ need to be aligned, for a long trajectory this might take some
+ time. So it may not be desirable to recompute the grid dimension
+ all the time. If you are interested in the size of the grid
+ before invoking the computation of the field, the <em>BBox</em> button must be pressed. The bounding box of the field, including
+ all alignments, will be computed and from this, the grid dimension.</li><li>Press the <em>Field</em> button to start the computation of the
+ field. If the grid dimension is not up to date, it will be
+ computed first.</li>
+</ul></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

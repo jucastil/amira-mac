@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+<br />
+
+</p>
+<h2><a name="A1">29.3 Displaying Images and Tables</a></h2>
+<p><a class="link" href="#A2">Figures</a> can be used only to <a class="link" href="#A4">display images</a>. Enclosing a <a class="link" href="#A7">table</a> in a figure has no effect
+and is not recommended. </p>
+<p>If no caption and no references are needed for an image,
+it is not necessary to use a figure environment to display it. The
+&#92;hximage and &#92;hximagescaled commands
+can stand alone anywhere in the text.</p>
+<p><a name="A2"></a>
+</p>
+<h3><a name="A3">29.3.1 Figures</a></h3>
+<p>A figure environment must
+contain the image to be displayed, given by an &#92;hximage
+or &#92;hximagescaled command. It may contain a &#92;caption,
+a &#92;label, and &#92;begin&#123;center&#125; .. &#92;end&#123;center&#125;
+tags.</p>
+<p>If the image is included by &#92;hximagescaled, and the
+scale factor is != 1, an additional HTML page is generated that contains
+the image in its original size and its caption. That page is displayed
+if the scaled image is clicked.</p>
+<p>Images are searched only in the folder where the current .doc/.tex
+file is located.
+Usage example:
+<br />
+</p>
+<p>
+&#92;begin&#123;figure&#125; </p>
+<p>&#92;begin&#123;center&#125; </p>
+<p>&#92;hximagescaled&#123;HxDemoGUI_Selection_Tab&#125;&#123;0.5&#92;textwidth&#125; </p>
+<p>&#92;caption&#123;Selection tab with one selected demo&#125; </p>
+<p>&#92;label&#123;ImgSelectionTab&#125; </p>
+<p>&#92;end&#123;center&#125; </p>
+<p>&#92;end&#123;figure&#125; </p>
+<p><br />
+</p>
+<p> 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;figure&#125; <br />
+... <br />
+&#92;end&#123;figure&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ The command indicates that the following &#92;caption, &#92;label,
+and &#92;hximage belong together</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;floatingfigure&#125; <br />
+... <br />
+&#92;end&#123;floatingfigure&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ Same as figure, but implicitly centers image and caption
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p><br />
+
+<a name="A4"></a>
+</p>
+<h3><a name="A5">29.3.2 &#92;hximage and &#92;hximagescaled</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;hximage <br />
+&#123;IMAGE_FILENAME&#125; </td>
+<td align=left>
+ &lt;img src= IMAGE_FILENAME /&gt; </td>
+<td align=left>
+ If the image filename has no extension, .png is assumed.</td>
+</tr><tr><td align=left>
+
+ 
+&#92;hximagescaled <br />
+&#123;IMAGE_FILENAME&#125; <br />
+[SCALEFACTOR] </td>
+<td align=left>
+ &lt;img width= <br />
+SCALEFACTOR* TEXTWIDTH src=IMAGE_FILENAME /&gt; </td>
+<td align=left>
+ 
+The image is rescaled by the scale factor. See the next subsection
+for syntax details.<br />
+Another HTML subpage is generated that contains the original size
+image and its caption; that page is displayed if the rescaled image
+is clicked.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h4><a name="A6">29.3.2.1 The &#92;hximagescaled Scale Factor</a></h4>
+<p>The scale factor may be expressed with or without the &#92;textwidth
+parameter in LaTeX. Omitting the &#92;textwidth in doc2html
+displays the image in its original size, because HTML does not know
+how to handle input like "2cm" or "4.7in". In detail,
+these cases may occur:
+</p>
+<ul><li>The &#92;textwidth parameter is not given, <br />
+ e.g., &#92;hximagescaled&#123;myimage.png&#125;&#123;4cm&#125;<br />
+
+&rarr;the image is displayed in its original size</li><li>The &#92;textwidth parameter is used:
+
+<ul><li>a valid scale factor is given, <br />
+ e.g., &#92;hximagescaled&#123;myimage.png&#125;&#123;0.4&#92;textwidth&#125;<br />
+
+&rarr;the image is displayed using width = scale * 750</li><li>no scale factor is given, <br />
+ e.g., &#92;hximagescaled&#123;myimage.png&#125;&#123;&#92;textwidth&#125;<br />
+
+&rarr;the image is displayed using width = 750</li><li>the given scale factor is invalid, <br />
+ e.g., &#92;hximagescaled&#123;myimage.png&#125;&#123;1.2.3.4&#92;textwidth&#125;<br />
+
+&rarr;the image is displayed in its original size</li>
+</ul></li>
+</ul><p></p>
+<p><a name="A7"></a>
+</p>
+<h3><a name="A8">29.3.3 Tables</a></h3>
+<p>Tables are generated by using &#92;begin&#123;tabular&#125;&#123;TABHEAD&#125;
+... &#92;end&#123;tabular&#125;. The TABHEAD determines the number
+of columns and their alignment, e.g., &#123;llrc&#125; gives four columns: the
+first two are left-aligned, the third is right-aligned, the last one
+is centered. The LaTeX character '|' to indicate lines between
+columns is ignored, so &#123;llrc&#125; is
+the same as &#123;|l|l|r|c|&#125;. Using a 'p' in the table header to indicate a
+fixed width column is interpreted as if it was an 'l' (the column width is
+always determined by doc2html and cannot be overridden).<br />
+</p>
+<p></p>
+<p>The &#92;begin&#123;table&#125;[] ... &#92;end&#123;table&#125;
+commands to determine the location of the table are not available
+in doc2html (tables are always outputted where they appear in text
+- no need to move them e.g., to the top of the next page). If these
+commands are needed for the PDF doc, they must be enclosed in &#92;<a class="link" href="d2h-meta.html#A2">ifdefined</a>&#92;PDFONLY
+tags.<br />
+</p>
+<p>Tables may be not nested inside each other.<br />
+</p>
+<p> Usage example:<br />
+</p>
+<p>&#92;ifdefined &#92;PDFONLY &#92;begin&#123;table&#125;[htb]
+&#92;fi </p>
+<p>&#92;begin&#123;center&#125; </p>
+<p>&#92;begin&#123;tabular&#125;&#123;ll&#125; </p>
+<p>TEXT1 &amp; TEXT2 &#92;&#92;</p>
+<p>TEXT4 &amp; TEXT3 &#92;&#92;</p>
+<p>TEXT5 &amp; TEXT6</p>
+<p>&#92;caption&#123;CAPTIONTEXT &#92;hxlabel&#123;LABELNAME&#125;&#125; </p>
+<p>&#92;end&#123;tabular&#125;</p>
+<p>&#92;end&#123;center&#125;</p>
+<p>&#92;ifdefined &#92;PDFONLY &#92;end&#123;table&#125;
+&#92;fi<br />
+</p>
+<p>Caption, center, and hxlabel commands are optional.
+<br />
+
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;tabular&#125; &#123;TABULARHEAD&#125; </td>
+<td align=left>
+ &lt;table border=0 cellspacing=4&gt;&#92;n </td>
+<td align=left>
+ TABULARHEAD may contain only 'l','c','r','p'</td>
+</tr><tr><td align=left>
+
+ 
+TEXT1 &amp; TEXT2 &#92;&#92; </td>
+<td align=left>
+ &lt;tr&gt;<br />
+&lt;td align=...&gt; TEXT1 &lt;/td&gt;<br />
+&lt;td align=...&gt; TEXT2 &lt;/td&gt;<br />
+&lt;/tr&gt; </td>
+<td align=left>
+ Alignment is read from TABULARHEAD</td>
+</tr><tr><td align=left>
+
+ 
+&#92;end&#123;tabular&#125; </td>
+<td align=left>
+ &lt;/table&gt; </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p><br />
+</p>
+<p>Tables inside this reference guide are marked by &lt;div class="d2htable"&gt; so that
+they may be formatted differently by CSS. To get these tags, use the LaTeX environment &#123;d2htables&#125;.</p>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;d2htables&#125;</td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+TEXT<br />
+&#92;begin&#123;tabular&#125; &#123;TABULARHEAD&#125; <br />
+TABLE<br />
+&#92;end&#123;tabular&#125; &#123;TABULARHEAD&#125; <br />
+TEXT </td>
+<td align=left>
+ TEXT<br />
+&lt;div class="d2htable"&gt;<br />
+&lt;table ...&gt;<br />
+TABLE<br />
+&lt;/table&gt;<br />
+&lt;/div&gt;<br />
+TEXT </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+&#92;end&#123;d2htables&#125;</td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ </td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p>
+<br />
+</p>
+<p>
+
+</p></body>
+</html>

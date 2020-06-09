@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> BoundaryConditions</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "BoundaryConditions" "displays boundary IDs of triangles in
+a tetrahedral grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Boundary Conditions</em> module visualizes boundary conditions 
+ defined in a tetrahedral grid for a <em>finite elements</em> simulation.</p>
+<p> Visible faces are
+ stored in an internal buffer similar to the <em>GridVolume</em> module. Likewise,
+ the selection domain can be restricted interactively by adjusting a
+ selection box. Ctrl-clicking on a face makes it invisible.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The tetrahedral grid to be visualized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Bound.cond.id</span>  
+<div class="portsnapshot"><img src="HxBoundaryConditions_materials.png" /><br /></div>
+<div class="body"><p>This port provides a menu where all boundary condition ids occurring
+ in the input grid are listed. Faces belonging to the
+ selected id are displayed using a red
+ (highlighted) wireframe in the viewer. You may crop the faces by turning
+ the viewer into interactive mode and move the green handles of the
+ selection box. Only the faces inside the bounding box can be added to
+ the buffer.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxBoundaryConditions_buffer.png" /><br /></div>
+<div class="body"><p>The Buffer buttons give you some control of the internal face
+ buffer of the BoundaryConditions module. Only the faces present in the
+ buffer are displayed according to the current drawing style. The <em>Add</em>
+ button adds the highlighted faces to the buffer. The <em>Remove</em> button
+ removes highlighted faces from the buffer. The <em>Clear</em> button removes
+ all faces from the buffer. The <em>Hide</em> button deselects all faces but
+ does not change the buffer.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxBoundaryConditions_drawStyle.png" /><br /></div>
+<div class="body"><p>This option menu lets you select between different
+ drawing styles:</p>
+
+<ul><li><b>Outlined:</b> The faces are shown together with their edges.</li><li><b>Shaded:</b> The faces are shown.</li><li><b>Lines:</b> The edges of the faces are rendered as a wireframe.</li><li><b>Flat:</b> The edges of the faces are rendered as a wireframe
+ without lighting.</li><li><b>Points:</b> Only the vertices of the faces are rendered as
+ points.</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

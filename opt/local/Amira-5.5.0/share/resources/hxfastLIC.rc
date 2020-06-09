@@ -1,0 +1,37 @@
+# ----------------------------------------------------------------------
+# hxiso package
+# ----------------------------------------------------------------------
+
+module -name "PlanarLIC" \
+    -check { [$PRIMARY nDataVar] == 3 || [$PRIMARY nDataVar] == 6 } \
+    -primary "HxField" \
+    -class "HxFastLIC" \
+    -category "Display"	\
+    -dso "libhxfastLIC.so"
+
+module -name "SurfaceLIC"		\
+    -primary "HxSurface"		\
+    -secondary "HxVectorField3"		\
+    -category "Display" \
+    -class "HxSurfaceLIC"		\
+    -dso "libhxfastLIC.so"
+
+module -name "SurfaceLIC"		\
+    -primary "HxSurfaceVectorField"	\
+    -class "HxSurfaceLIC"		\
+    -category "Display" \
+    -dso "libhxfastLIC.so"
+
+module -name "LineStreaks"		\
+    -primary "HxSurface"		\
+    -secondary "HxVectorField3"		\
+    -class "HxLineStreaks"		\
+    -category "Compute" \
+    -dso "libhxfastLIC.so"
+
+module -name "LineStreaks"		\
+    -primary "HxSurfaceVectorField"	\
+    -class "HxLineStreaks"		\
+    -category "Display" \
+    -dso "libhxfastLIC.so"
+

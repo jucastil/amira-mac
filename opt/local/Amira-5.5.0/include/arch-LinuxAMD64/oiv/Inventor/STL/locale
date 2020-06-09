@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_LOCALE
+#define  OIV_STL_LOCALE
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

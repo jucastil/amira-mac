@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputeSecondaryStructure</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "ComputeSecondaryStructure" "detects secondary structures of a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Using the Kabsch-Sander algorithm to detect secondary structures, this
+module creates a new molecule filled with generated hydrogen bonds and
+possibly found secondary structures, such as helices, strands, sheets, and turns.
+Chains are not detected.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A molecule for which the secondary structure should be generated.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Minimum Angle</span>  
+<div class="portsnapshot"><img src="HxComputeSecStructures_minangle.png" /><br /></div>
+<div class="body"><p>This angle determines the minimum angle a hydrogen bond must have. The angle
+ of each bond is defined as the angle between the three atoms involved in the
+ bond (alpha carbon - oxygen - nitrogen). The ideal value is about 180 degrees,
+ representing a perfectly aligned hydrogen bond. Realistically this value may 
+ range from 120 to 240 degrees.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">considered atoms</span>  
+<div class="portsnapshot"><img src="HxComputeSecStructures_bbe.png" /><br /></div>
+<div class="body"><p>This port allows you to select which atoms will be considered 
+ during the computation. Better results 
+
+ may be obtained when only backbone-enriched atoms
+ are used for the computation.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Write HBonds</span>  
+<div class="portsnapshot"><img src="HxComputeSecStructures_writehbonds.png" /><br /></div>
+<div class="body"><p>This port lets you specify which hydrogen bonds to write out.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximum HBonds per Atom</span>  
+<div class="portsnapshot"><img src="HxComputeSecStructures_maxnumber.png" /><br /></div>
+<div class="body"><p>Specifies the maximum allowable number of hydrogen bonds per atom.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

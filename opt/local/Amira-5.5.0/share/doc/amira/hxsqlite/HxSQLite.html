@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SQLite</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SQLite" "connect to a SQLite database from Tcl" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module lets you connect to a SQLite database. You can execute
+SQL statementes and retrieve the results using Tcl.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxSQLite_filename.png" /><br /></div>
+<div class="body"><p>The path of the database.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">exec &lt;SQL statement&gt;</span>  
+
+<div class="body"><p>Returns the result of the SQL statement as a nested Tcl list.
+ Inner list elements have the following form:</p>
+<pre>
+     { (&lt;rowname&gt; &lt;value&gt;)* }
+</pre>
+<p> You can iterate over the result with</p>
+<pre>
+    foreach row [SQLite exec "&lt;statement"] {
+        foreach {column value} $row {
+            ...
+        }
+    }
+</pre>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

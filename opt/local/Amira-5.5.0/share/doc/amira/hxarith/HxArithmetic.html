@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Arithmetic</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Arithmetic" "arbitrary arithmetic combinations of up to three inputs" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Arithmetic</em> module performs calculations on up to three
+ input data objects according to a user-defined arithmetic
+ expression. The result is stored in a new data object called
+ <em>Result</em>. The calculations are triggered by the <em>Apply</em> button.
+ The arithmetic expression is evaluated either on the grid of the
+ first data object (in case of regular, tetrahedral, or hexahedral
+ grids or surfaces) or on a regular 3D uniform grid for which the number
+ of points can be set by the <em>Resolution</em> port.</p>
+<p> The module is able to process input fields with any number of
+ channels. Scalar input fields are referenced by the variables
+ A, B, and C. The values of multi-component input fields are referenced
+ for example by Ax, Ay, Az (if input A is a vector field) or Br, Bg,
+ Bb, Ba (if input B is an RGBA color field). </p>
+<p> In any case the expressions are evaluated per point, i.e., the result
+ for a point (X,Y,Z) depends on input values at the same point only.
+ If the resulting object is based on a regular grid, grid indices I,
+ J, or K may also appear in the arithmetic expression. This means that
+ for each grid point its associated I, J, or K index value will be
+ substituted in the arithmetic expression on evaluation. This is
+ useful in connection with comparison operators which produce a result
+ of either zero or one. Computations may be confined to a specific
+ sub-grid this way.</p>
+<p> An expression consists of variables and mathematical and logical
+ operators. The syntax is basically the same as for C expressions.
+ The following variables are defined:</p>
+
+<ul><li><tt>A:</tt> The values of a scalar field at input A.</li><li><tt>B:</tt> The values of a scalar field at input B.</li><li><tt>C:</tt> The values of a scalar field at input C.
+ <br />
+</li><li><tt>Ar:</tt> The real part of a complex scalar field at input A.</li><li><tt>Ai:</tt> The imaginary part of a complex scalar field at input A.</li><li><tt>Ax:</tt> The x-component of a vector field at input A.</li><li><tt>Ay:</tt> The y-component of a vector field at input A.</li><li><tt>Az:</tt> The z-component of a vector field at input A.</li><li><tt>Ar:</tt> The red component of a color field at input A.</li><li><tt>Ag:</tt> The green component of a color field at input A.</li><li><tt>Ab:</tt> The blue component of a color field at input A.</li><li><tt>Aa:</tt> The alpha component of a color field at input A.</li><li><tt>Arx:</tt> Real part of the x-component of a complex vector field.</li><li><tt>Aix:</tt> Imaginary part of the x-component of a complex vector field.</li><li><tt>Ary:</tt> Real part of the y-component of a complex vector field.</li><li><tt>Aiy:</tt> Imaginary part of the y-component of a complex vector field.</li><li><tt>Arz:</tt> Real part of the z-component of a complex vector field.</li><li><tt>Aiz:</tt> Imaginary part of the z-component of a complex vector field.</li><li><tt>Aii:</tt> Index ii of a symmetric second order tensor.</li><li><tt>Aij:</tt> Index ij of a symmetric second order tensor.</li><li><tt>Aik:</tt> Index ik of a symmetric second order tensor.</li><li><tt>Ajj:</tt> Index jj of a symmetric second order tensor.</li><li><tt>Ajk:</tt> Index jk of a symmetric second order tensor.</li><li><tt>Akk:</tt> Index kk of a symmetric second order tensor.</li><li><tt>A1 ... An:</tt> Numbered component access of input A.
+ <br />
+</li><li>The same variables as above for fields at input B or C, but
+ with <tt>A</tt> replaced by <tt>B</tt> or <tt>C</tt>.
+ <br />
+</li><li><tt>I:</tt> First index of a point (i,j,k) in a regular grid,
+ or index of a point in an unstructured grid.</li><li><tt>J:</tt> Second index of a point (i,j,k) in a regular grid,
+ undefined for unstructured grids.</li><li><tt>K:</tt> Third index of a point (i,j,k) in a regular grid,
+ undefined for unstructured grids.
+ <br />
+</li><li><tt>X:</tt> The x-coordinate of the current point.</li><li><tt>Y:</tt> The y-coordinate of the current point.</li><li><tt>Z:</tt> The z-coordinate of the current point.</li><li><tt>R:</tt> The radius $$r = \sqrt{X^2 + Y^2 + Z^2}$$.</li>
+</ul>
+<p> 
+ This is the list of available mathematical and logical operators:</p>
+
+<ul><li><tt>+ - / * &nbsp;</tt> The basic mathematical operators.</li><li><tt>! &nbsp;</tt> Unary negation.</li><li><tt>- &nbsp;</tt> Unary minus.</li><li><tt>% &nbsp;</tt> The modulo operator.</li><li><tt>&gt; &lt; &lt;= &gt;= != == &nbsp;</tt> The comparison operators <em>greater, less, less or equal, greater or equal, not equal</em>, and
+ <em>equal</em>. If the comparison is true the result is 1, otherwise
+ it is 0.</li><li><tt>&amp;&amp; || &nbsp;</tt> The logical operators <em>and</em> and
+ <em>or</em>. A non-zero operand is interpreted as true, while a zero
+ operand is false. The result is either 1 (true) or 0 (false).</li><li><tt>&amp; | ^ &nbsp;</tt> The bitwise operations <em>and, or,</em> and <em>xor</em>. 
+ For bitwise <em>and</em>, the bits in the result are set to 1 if the corresponding
+ bits in the two operands are both 1. For bitwise <em>or</em>, the bits in the
+ result are set to 1 if at least one of the corresponding bits in the two operands
+ is 1. For bitwise <em>xor</em>, the bits in the
+ result are set to 1 if at exactly one of the corresponding bits in the two operands
+ is 1.</li>
+</ul>
+<p> 
+ There are also some built-in functions:</p>
+
+<ul><li><tt>pow(x,a) &nbsp;</tt> Power function. Note that there is no power
+ operator (the ^ operator exists but means bitwise <em>xor</em>).</li><li><tt>sin(x) cos(x) tan(x) &nbsp;</tt> Trigonometric functions.</li><li><tt>asin(x) acos(x) atan(x) atan2(x,y) &nbsp;</tt> Inverse trigonometric functions.</li><li><tt>sinh(x) cosh(x) tanh(x) &nbsp;</tt> Hyperbolic trigonometric functions.</li><li><tt>asinh(x) acosh(x) atanh(x) &nbsp;</tt> Hyperbolic inverse trigonometric functions.</li><li><tt>sqrt(x) &nbsp;</tt> Square root.</li><li><tt>floor(x) ceil(x) &nbsp;</tt> Next largest or smallest integer number.</li><li><tt>ln(x) log10(x) exp(x) &nbsp;</tt> Logarithm and exponent.</li><li><tt>rand() &nbsp;</tt> Pseudo-random variable uniformly distributed
+ between 0 and 1.</li><li><tt>gauss() &nbsp;</tt> Pseudo-random variable with Gaussian
+ distribution (mean value 0, standard deviation 1).</li><li><tt>erf(x) erfc(x) &nbsp;</tt> Error function.</li><li><tt>abs(x) fabs(x) &nbsp;</tt> Absolute value.</li><li><tt>min(x,y) max(x,y) &nbsp;</tt> Minimum or maximum values.</li>
+</ul>
+<p> 
+ For better understanding some examples of how to use the <em>Arithmetic</em> module follow:</p>
+<p> Expression: <tt>A</tt><br />
+
+ The result is a copy of input object A. If A is defined on a
+ tetrahedral or hexahedral grid and the result type is set to <em>regular</em> together with an appropriate resolution, the expression leads
+ to a conversion from an unstructured grid to a structured regular grid.
+ The same trick can also be used to resample a regular field with
+ stacked coordinates onto a uniform grid.
+ Expression: <tt>A-B</tt><br />
+
+ The result is the difference between input objects
+ A and B. This expression is sometimes useful in order to compare two
+ different data sets.</p>
+<p> Expression: <tt>255*(A&gt;127)</tt><br />
+
+ Simple thresholding: For every value of
+ A the result is set to 255 if the value is greater than 127. Otherwise
+ the result is 0.</p>
+<p> Expression: <tt>A*(B&gt;0)</tt><br />
+
+ Simple masking operation: If B is zero, the
+ result is also set to zero. Otherwise, the result is set to A. For
+ example, if A is a 3D image and B is a corresponding label field, the
+ exterior parts of the object (where B is zero) are masked out by this
+ expression.</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">InputA</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input may either be a 3D data field with an arbitrary number of
+ channels or a tetrahedral or hexahedral grid. The primitive data type
+ of the result will be the same as this input, e.g., if input A
+ contains bytes the result will also contain bytes.</p>
+<p> The input may also be a surface field or a surface itself. For example,
+ you may want to capture the values of a 3D data field at all points of
+ a surface in a surface field. However, note that data on surfaces can
+ only be used as input if the output is defined on the same surface.
+ Trying to evaluate a surface field for points of a 3D grid or for
+ points of some other surface is not possible, even if these points lie
+ exactly on the source surface.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">InputB</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Second input, can be any 3D data field or surface field.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">InputC</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Third input, can be any 3D data field or surface field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Result channels</span>  
+<div class="portsnapshot"><img src="HxArithmetic_resultChannels.png" /><br /></div>
+<div class="body"><p>This port determines the number of channels of the result. By default,
+ the result has the same number of channels as input A. Alternatively,
+ you can specify that the result should have 2 channels (complex scalar
+ field), 3 channels (vector field), 4 channels (RGBA color field),
+ 6 channels (either a complex vector or a symmetric tensor field of second
+ order), or a user defined number of channels.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">NValues</span>  
+<div class="portsnapshot"><img src="HxArithmetic_nValues.png" /></div>
+<div class="body"><p>Number of user-defined output channels.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Expr</span>  
+<div class="portsnapshot"><img src="HxArithmetic_expr.png" /><br /></div>
+<div class="body"><p>This port specifies the mathematical expression used to compute
+ the result. If the result has more than one channel, more expression
+ ports will be shown.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Result type</span>  
+<div class="portsnapshot"><img src="HxArithmetic_resultType.png" /><br /></div>
+<div class="body"><p>With this radio box the grid type of the result can be set
+ either to either the same as input A or to a regular grid with
+ uniform coordinates.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxArithmetic_resolution.png" /><br /></div>
+<div class="body"><p>If port <em>Result Type</em> is set to <em>regular</em>, the resolution of
+ the regular field to be generated is set to the values given here.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MinBox</span>  
+<div class="portsnapshot"><img src="HxArithmetic_minBox.png" /><br /></div>
+<div class="body"><p>Port to set the minimum x-, y-, z-coordinates of a bounding box around
+ the output data object. If one or more input data objects are connected,
+ the bounding box of the first input data object is also taken as the output 
+ bounding box.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaxBox</span>  
+<div class="portsnapshot"><img src="HxArithmetic_maxBox.png" /><br /></div>
+<div class="body"><p>Port to set maximum x-, y-, z-coordinates of the bounding box around
+ the output data object.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Result location</span>  
+<div class="portsnapshot"><img src="HxArithmetic_resultLocation.png" /><br /></div>
+<div class="body"><p>Specify the location of the result. Produces either a value for every
+ vertex of the grid (on Nodes), or for every grid cell (on Cell Center).
+ This port is available if the first input connection is of type <a class="link" href="../hxsurface/HxSurface.html#A1">HxSurface</a>,
+ <a class="link" href="../hxfield/HxTetraGrid.html#A1">HxTetraGrid</a> or <a class="link" href="../hxfield/HxHexaGrid.html#A1">HxHexaGrid</a>.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxArithmetic_options.png" /><br /></div>
+<div class="body"><p>Ignore errors: Tell the Arithmetic module to ignore errors. For example, this can be useful to force
+ the computation of divisions if the data contains zeros. </p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

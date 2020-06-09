@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.7 Other global commands</a></h4>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">addTimeout <i>msec</i> <i>procedure</i> [<i>arg</i>]</span>  
+
+<div class="body"><p>Schedules a Tcl procedure for being called after <i>msec</i>
+ milliseconds. If <i>arg</i> is specified, it will be passed to the
+ procedure. The specified procedure will be called only once. If
+ necessary, you can schedule it again in the time-out procedure.
+ Example: <tt>addTimeout 10000 echo &#123;10 seconds are over.&#125;</tt></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">all [-selected | -visible | -hidden] [<i>type</i>]</span>  
+
+<div class="body"><p>Returns a list of all <font face="helvetica">Amira</font> objects currently in the Pool. If <i>type</i> is specified, only objects with that C++ class type (or derived
+ objects) are returned. Search can be limited to selected, visible, or
+ hidden objects, respectively. Example: <tt>all -hidden HxColormap</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">aminfo [-a <i>outfile</i>|-b <i>outfile</i>] <i>AmiraMesh-File</i></span>  
+
+<div class="body"><p>If used with only a file name as argument, this command will open the
+ file which has to be in AmiraMesh format and print header information.
+ If used with the -a or -b option, the outputfile specified as argument
+ <i>outfile</i> will be written in ASCII (-a) or binary (-b) format,
+ respectively. Thus, <em>aminfo</em> can be used to convert binary AmiraMesh
+ into ASCII and vice versa.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">clear</span>  
+
+<div class="body"><p>Clears console window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">create <i>class name</i> [<i>instance name</i>]</span>  
+
+<div class="body"><p>Creates an instance of an <font face="helvetica">Amira</font> object like a module or data object.
+ Returns the instance name. Note that data objects are normally not
+ created this way but by loading them from a file. Example: <tt>create
+ HxOrthoSlice MySlice</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">dso <i>options</i></span>  
+
+<div class="body"><p>Controls loading of dynamic libraries. The following options are
+ provided:
+ </p>
+<ul><li><tt>addPath path ...</tt> Adds a path to the list of directories to
+ be searched when loading a dynamic library.</li><li><tt>verbose &#123;0|1&#125;</tt> Switches on and off debug information
+ related to dynamic shared object loading.</li><li><tt>open &lt;package&gt;</tt> Trys to load the specified dynamic library.
+ It is enough to specify the package name, e.g., <tt>hxfield</tt>. This
+ name will be automatically converted into the platform dependent
+ name, e.g., <tt>libhxfield.so</tt> on Linux or <tt>hxfield.dll</tt> on
+ Windows.</li>
+</ul>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">echo <i>args</i></span>  
+
+<div class="body"><p>Prints its arguments to the <font face="helvetica">Amira</font> console. Use this rather than the
+ native Tcl command <tt>puts</tt> which prints to stdout.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">help <i>arguments</i></span>  
+
+<div class="body"><p>Without arguments this opens the <font face="helvetica">Amira</font> help browser. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">httpd [port]</span>  
+
+<div class="body"><p>Start a built-in httpd server. The http server will deliver any
+ document requested. If a requested document ends with <tt>.hx</tt>, <font face="helvetica">Amira</font>
+ will instead of delivering it execute the file as a Tcl script. This
+ can be used to control <font face="helvetica">Amira</font> from a web browser. WARNING: This command
+ can create security holes. Do not use this unless behind a firewall and
+ if you know what you are doing.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">limit &#123;datasize | stacksize | coredumpsize&#125; <i>size</i></span>  
+
+<div class="body"><p>Change process limits. Available on Unix platforms only. Use
+ "unlimited" as size for no limit. The size has to be specified in 
+ bytes. Alternatively you can use for example 1000k for 1000 kilobytes
+ or 1m for one megabyte.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">load [fileformat] <i>files</i></span>  
+
+<div class="body"><p>Load data from one or more files. Optionally a file format can be
+ specified to override <font face="helvetica">Amira</font>'s automatic file format recognition. The
+ file format is specified by the same label which is displayed in the
+ file format combo box in the <font face="helvetica">Amira</font> file dialog.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">mem</span>  
+
+<div class="body"><p>Prints out some memory statistics (available on Windows and Irix).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">quit</span>  
+
+<div class="body"><p>Immediately quits <font face="helvetica">Amira</font>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">remove <i>&#123;objectname | -all | -selected&#125;</i></span>  
+
+<div class="body">
+<ul><li><tt>objectname</tt> removes the specified <font face="helvetica">Amira</font> object.</li><li><tt>-all</tt> remove all objects.</li><li><tt>-selected</tt> remove selected objects.</li>
+</ul>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeTimeout <i>procedure</i> [<i>arg</i>]</span>  
+
+<div class="body"><p>Unschedules a Tcl procedure previously scheduled with addTimeout.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">rename <i>objectname</i> <i>newname</i></span>  
+
+<div class="body"><p>Changes instance name of an object. Identical to <tt><i>objectname</i>
+ setLabel <i>newname</i></tt>, except that it returns 1 if successful,
+ and nothing if unsuccessful.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">sleep <i>sec</i></span>  
+
+<div class="body"><p>Wait for <i>sec</i> seconds. <font face="helvetica">Amira</font> will not process events in that time.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">source <i>filename</i></span>  
+
+<div class="body"><p>Loads and executes Tcl commands from the specified file. If the script
+ file contains the extension <tt>.hx</tt> the <tt>load</tt> command may be
+ used as well.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">system <i>command</i></span>  
+
+<div class="body"><p>Execute an external program. Do not use this unless you know what you
+ are doing.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">saveNetwork</span>  
+
+<div class="body"><p>Saves current network. If the network is not previously saved, then the 
+ network will be saved in the <font face="helvetica">Amira</font> root dir as <tt>Untitled.hx</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">saveNetworkAs <i>arg</i></span>  
+
+<div class="body"><p>A copy of the current network will be saved as <tt>arg</tt> in <font face="helvetica">Amira</font> 
+ root dir.(e.g. <tt>saveNetworkAs myNetwork</tt>). When using a path, a full 
+ path needs to be specified and a <tt>.hx</tt> extensions needs to be added on 
+ the network name (e.g. <tt>saveNetworkAs c:/work/myNetwork.hx</tt>).
+ Note : If a file exists it will not be overwritten.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

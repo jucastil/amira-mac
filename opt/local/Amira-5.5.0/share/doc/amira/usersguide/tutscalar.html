@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.3 Visualizing 3D Images</a></h2>
+<p>This section provides a step-by-step introduction to the visualization of
+regular scalar fields, e.g., 3D image data. <font face="helvetica">Amira</font> is able to visualize
+more complex data sets, such as scalar fields defined on curvilinear or
+tetrahedral grids. Nevertheless, in this section we consider the 
+simplest case, namely scalar fields with regular structure. Each step builds
+on the step before. In particular, the following topics will be discussed:</p>
+<p></p>
+<ol><li>orthogonal slices</li><li>simple threshold segmentation</li><li>resampling the data</li><li>displaying an isosurface</li><li>cropping the data</li><li>volume rendering</li>
+</ol><p> </p>
+<p>We start by loading the data you already know from
+<a class="link" href="tutstart.html#A1">Section 2.1 (Getting Started)</a>: a 3D image data set of a part
+of a fruit fly's brain. The data set has been recorded with a confocal
+laser scanning microscope at the University of Wuerzburg.</p>
+<p></p>
+<ul><li>Load the file <tt>lobus.am</tt> located in subdirectory 
+ <tt>data/tutorials</tt>.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A2">2.3.1 Orthogonal Slices</a></h3>
+<p>The fastest and in many cases most "standard" way of visualizing 3D image
+data is by extracting orthogonal slices from the 3D data set. <font face="helvetica">Amira</font> allows
+you to display multiple slices with different orientations simultaneously
+within a single viewer.</p>
+<p></p>
+<ul><li>Connect a <em>BoundingBox</em> module to the data (use right mouse on
+ lobus.am).</li><li>Connect an <em>OrthoSlice</em> module to the data.</li><li>Connect a second and third <em>OrthoSlice</em> module to the data.</li><li>Select <em>OrthoSlice2</em> and press <em>xz</em> or <em>coronal</em> in the
+ <em>Orientation</em> port.</li><li>Similarly, for <em>OrthoSlice3</em> choose <em>yz</em> or <em>sagittal</em> orientation.</li><li>Rotate the object in the viewer to a more general position.</li><li>Change the slice numbers of the three <em>OrthoSlice</em> modules in
+ their respective ports or directly in the viewer as described in
+ section Getting Started.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutorials_gui1.png.html><img width=450 src="tutorials_gui1.png" /></a><br />
+<div class="caption">
+<b>Figure 13:</b>
+Lobus data set visualized using three orthogonal slices.
+</div>
+
+
+</div><p></p>
+<p>In addition to the <em>OrthoSlice</em> module, which allows you to extract
+slices orthogonal to the coordinate axes, <font face="helvetica">Amira</font> also provides a module for
+slicing in arbitrary orientations. This more general module is called <em>ObliqueSlice</em>. You might want to try it by selecting it from the Display
+submenu of the lobus data popup menu.</p>
+<p></p>
+<h3><a name="A4">2.3.2 Simple Data Analysis</a></h3>
+<p>The threshold values of the <em>colormap</em> port of the <em>OrthoSlice</em>
+module determine which scalar values are mapped to black or white,
+respectively. If you choose a range of e.g., 30...100, any value
+smaller or equal to 30 will become black, and all pixels with an
+associated value of more then 100 will become white. Try modifying the
+range. This port provides a simple way of determining a threshold,
+which later can be used for segmentation, e.g., in biology or medicine
+to separate background pixels from anatomical structures. This can be
+most easily done by making the minimum and maximum values coincide.</p>
+<p></p>
+<ul><li>Remove two of the <em>OrthoSlice</em> modules.</li><li>Select the remaining <em>OrthoSlice</em> module.</li><li>Make sure that the <em>mapping type</em> is set to <em>colormap</em>. Also make sure
+ that the gray ramp colormap is used (if it is not, click <em>edit</em>
+ and select <em>grey.am</em> as colormap).</li><li>Change the minimum and maximum values of the data window port 
+ until these values are the same and a suitable segmentation
+ result is obtained. For this data set 85 should be a good threshold 
+ value.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutorials_gui2.png.html><img width=450 src="tutorials_gui2.png" /></a><br />
+<div class="caption">
+<b>Figure 14:</b>
+By adjusting the data window of the <em>OrthoSlice</em> module a
+suitable value for threshold segmentation can be found. Intensity values
+smaller than the min value will be mapped to black, intensity values
+bigger than the max value will be mapped to white.
+</div>
+
+
+</div><p></p>
+<p>A more powerful way of quantitatively examining intensity values of a
+data set is to use a data probing module <em>PointProbe</em> or
+<em>LineProbe</em>. However, we will not discuss these modules in this
+introductory tutorial. </p>
+<p></p>
+<h3><a name="A6">2.3.3 Resampling the Data</a></h3>
+<p>Now we are going to compute and display an <em>isosurface</em>. Before doing
+so, we will resample the data. The resampling process will produce a data set
+with a coarser resolution. Although
+this is not necessary for the isosurface tool to work, it decreases
+computation time and improves rendering performance. In addition, you
+will get acquainted with another type of module. The <em>Resample</em>
+module is a computational module. Computational modules are
+represented by red icons. Typically you must press the green <em>Apply</em> button
+at the bottom of the Properties Area to start
+the computation. After you press this button they produce a new data
+object containing the result.</p>
+<p></p>
+<ul><li>Connect a <em>Resample</em> module to the data and select it.</li><li>Enter values for a coarser resolution, e.g., x=64, y=64, z=43.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>A new green data icon representing the output of the resample computation 
+named <em>lobus.Resampled</em> is created. You can treat this new data set
+like the original lobus data. In the popup menu of the resampled lobus you
+will find exactly the same attachable modules and you can save and load it
+like the original data.</p>
+<p>You may want to compare the resampled data set with the original one using
+the <em>OrthoSlice</em> module. You can simply pick the blue line indicating
+the data connection and drag it to a different data source. Whenever the
+mouse pointer is over a valid source, the connection line appears
+highlighted in lighter blue.</p>
+<p></p>
+<h3><a name="A7">2.3.4 Displaying an Isosurface</a></h3>
+<p>For 3D image data sets, isosurfaces are useful for providing an
+impression of the 3D shape of an object. An isosurface encloses all
+parts of a volume that are brighter than some user-defined
+threshold.</p>
+<p></p>
+<ul><li>Turn off the viewer toggle of the <em>OrthoSlice</em> module.</li><li>Connect an <em>Isosurface</em> module to the resampled data record
+ and select it.</li><li>Adjust the threshold port to 85 or a similar value.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutorials_gui3.png.html><img width=450 src="tutorials_gui3.png" /></a><br />
+<div class="caption">
+<b>Figure 15:</b>
+Lobus data set visualized in 3D using an isosurface.
+</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A9">2.3.5 Cropping the Data</a></h3>
+<p>Cropping the data is useful if you are interested in only a part of the
+field. A crop editor is provided for this purpose. Its use is described
+below:</p>
+<p></p>
+<ul><li>Remove the resampled data <em>lobus.Resampled</em>.</li><li>Activate the display of the <em>OrthoSlice</em> module.</li><li>Select the <em>lobus.am</em> data icon.</li><li>Click on the Crop Editor button in the Properties Area.</li>
+</ul><p></p>
+<p>A new window pops up. There are two ways to crop the data set. You can
+either type the desired ranges of x, y, and z coordinates into the crop
+editor's window or put the viewer into interaction mode and adjust the
+crop box using the green handles directly in the viewer window.</p>
+<p></p>
+<ul><li>Put the viewer into interaction mode.</li><li>With the left mouse button, pick one of the green handles attached
+ to the crop volume. Drag and transform the volume until the part
+ of the data you are interested in is included.</li><li>Press <em>OK</em> in the crop editor's dialog window.</li>
+</ul><p></p>
+<p>The new dimensions of the data set are given in the Properties Area. If you want
+to work with this cropped data record in later sessions you should save 
+it by choosing <em>Save Data As ...</em> from the <em>File</em> menu. </p>
+<p>As you already might have noticed, the crop editor also allows you 
+to rescale the bounding box of the data set. By changing the
+bounding box alone, no voxels will be cropped. You may also use the crop
+editor to enlarge the data set, e.g., by entering a negative value for the
+<em>k min</em> number. In this case the first slice of the data set will be
+duplicated as many times as necessary. Also, the bounding box will be
+updated automatically.</p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=tutorials_gui5.png.html><img width=450 src="tutorials_gui5.png" /></a><br />
+<div class="caption">
+<b>Figure 16:</b>
+The crop editor works on uniform scalar fields. It allows you
+ to crop a data set, to enlarge it by replicating boundary voxels, or to
+ modify its coordinates, i.e. to scale or shift its bounding box.
+</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A11">2.3.6 Volume Rendering</a></h3>
+<p>Volume Rendering is a visualization technique that gives a 3D impression
+of the whole data set without segmentation. The underlying model is based
+on the emission and absorption of light that pertains to every voxel of the
+view volume. The algorithm simulates the casting of light rays through the
+volume from pre-set sources. It determines how much light reaches each voxel
+on the ray and is emitted or absorbed by the voxel. Then it computes what
+can be seen from the current viewing point as implied by the current
+placement of the volume relative to the viewing plane, simulating the
+casting of sight rays through the volume from the viewing point.
+The amount and color of emitted light and the amount of absorption is determined from
+the scalar data by using a colormap which includes alpha values. Default colormaps for
+volume rendering are provided with the distribution and can be edited using the colormap
+editor. Then the resulting projection from the "shining" data volume is computed.</p>
+<p>You can choose between two different modules that both perform volume rendering.
+The module <em>Volren</em> is the latest addition to volume rendering in <font face="helvetica">Amira</font>
+and takes full advantage of the capabilities of modern graphics boards.</p>
+<p>The <em>Volren</em> module provides several visualization techniques: shaded and classical
+texture-based volume rendering (VRT), maximum intensity projection (MIP), and
+digitally reconstructed radiograph (DRR). The standard VRT and its shaded version
+enable a direct 3D visualization with flexible color and transparency colormaps with
+virtual lighting effects for better rendering of complex spatial structures and
+enhancing fine detail. The MIP rendering allows the visualization of the highest
+or lowest intensity in a data volume along the current line of sight. The DRR
+simulates a radiograph display from arbitrary views using the loaded volume data.
+Furthermore, the <em>Volren</em> module enables you to render segmented regions at the same
+time with different colormaps. A <em>LabelField</em> can be attached to the <em>Volren</em> and each
+material of the label list can be rendered separately. In order to optimize the
+performance, the image volumes are represented at lower resolution when the rendering
+is done interactively. For relatively large image volumes, you can also switch
+to a constant "Low Resolution" mode (see below). <em>Volren</em> is built for use with
+popular graphics accelerator technology such as the NVIDIA Quadro FX graphics
+boards.</p>
+<p></p>
+<ul><li>Remove all objects in the Pool other than the <em>lobus.am</em>
+ data record.</li><li>Connect a <em>Volren</em> module to the data.</li><li>Select the data icon and read off the range of data values
+ printed on the first info line (22...254).</li><li>Select the <em>Volren</em> module and enter the range in the
+ <em>Colormap</em> port.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A12"></a><a href=tutorials_gui7.png.html><img width=450 src="tutorials_gui7.png" /></a><br />
+<div class="caption">
+<b>Figure 17:</b>
+The <em>Volren</em> module can be used to generate maximum intensity
+projections as well as volume renderings based on an emission-absorption
+model.</div>
+
+
+</div><p></p>
+<p>Notes and Limitations</p>
+<p></p>
+<ul><li>On some systems a significant slowdown can occur if the data set is larger
+ than the available texture memory (which is typically 4 - 16 MB). In this case
+ select the option LowRes only (see below).</li><li>When two or more <em>Volren</em> modules are used to render intersecting volumes
+ (multivolume rendering), some rendering inaccuracies may occur. In case of
+ multivolume rendering the supported combinations of modes are one MIP together
+ with one MIP or one VRT with one VRT (see below Mode). Other modes and combinations
+ may lead to incorrect visual results.</li><li>The Apply button is enabled only when the rendering must be recomputed.</li>
+</ul><p></p>
+<p>The second volume rendering option is the module <em>Voltex</em>. This older
+volume rendering module might work better on older graphics cards.
+You can choose between two different rendering methods:
+<em>maximum intensity</em> projections or an ordinary emission-absorption
+model.</p>
+<p></p>
+<ul><li>Remove all objects in the Pool other than the <em>lobus.am</em> 
+ data record.</li><li>Connect a <em>Voltex</em> module to the data.</li><li>Select the data icon and read off the range of data values 
+ printed on the first info line (22...254).</li><li>Select the <em>Voltex</em> module and enter the range in the 
+ <em>Colormap</em> port.</li><li>Press the <em>Apply</em> button in order to perform some texture
+ preprocessing which is necessary for visualizing the data.</li>
+</ul><p></p>
+<p>By default, emission-absorption volume rendering is shown. The amount of
+light being emitted and absorbed by a voxel is taken from the color and
+alpha values of the colormap connected to the <em>Voltex</em> module. In our
+example the colormap is less opaque for smaller values. You may try to
+set the lower bound of the colormap to 40 or 60 in order to get a better
+feeling for the influence of the <em>transfer function</em>. In order to
+compute <em>maximum intensity</em> projections, choose the <em>mip</em> option
+of port <em>Options</em>. </p>
+<p>Internally, the voltex module makes heavy use of OpenGL texture
+mapping. Both texture modes, 2D and 3D, are implemented. 3D textures
+yield slightly better results. However, this mode is not supported by
+all graphics boards. The 3D texture mode requires you to adjust the
+number of slices cut through the image volume. The higher this number
+the better the results are.</p>
+<p>Alternatively, 2D textures can be used for volume rendering. In this case,
+slices perpendicular to the major axes are used. You may observe how the
+slice orientation changes if you slowly rotate the data set. The 2D texture
+mode is well suited for mid-range graphics workstations with hardware
+accelerated texture mapping. If your computer does not support hardware
+texture mapping at all, you should use visualization techniques other
+than volume rendering.</p>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=tutorials_gui6.png.html><img width=450 src="tutorials_gui6.png" /></a><br />
+<div class="caption">
+<b>Figure 18:</b>
+The <em>Voltex</em> module can be used to generate maximum intensity
+projections as well as volume renderings based on an emission-absorption
+model. In both cases, 2D or 3D texture mapping techniques can be applied
+applied.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Make sure the <em>mip</em> button of port <em>Options</em> is unchecked.</li><li>If 3D texture mode is enabled, choose about 200 slices.</li><li>Click with the right mouse button on port <em>Colormap</em> and 
+ choose <em>volrenRed.icol</em>.</li><li>Set <em>Lookup</em> to RGBA and change the min and max values of the
+ colormap to 40 and 150.</li><li>Finally, press <em>Apply</em> in order to initialize the <em>Voltex</em>
+ textures.</li>
+</ul><p></p>
+<p>Whenever you choose a different colormap or change the min and max
+values of the colormap, you must press the <em>Apply</em> button
+again. This causes the internal texture maps to be recomputed. An
+exception are SGI systems with Infinite Reality graphics. On these
+platforms a hardware-specific OpenGL extension is exploited, causing
+colormap changes to take effect immediately.
+
+</p></body>
+</html>

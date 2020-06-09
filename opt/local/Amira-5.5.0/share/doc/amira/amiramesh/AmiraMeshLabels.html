@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Label Fields for Segmentation</a></h3>
+<p>Label fields are closely related to ordinary scalar fields with uniform
+ coordinates. However, the data values at each voxel are interpreted as
+ labels denoting the different materials or regions the voxels have been
+ assigned to during a segmentation process. Therefore, the most
+ important difference of label fields compared to
+ <a class="link" href="AmiraMeshUniform.html#A1">uniform scalar fields</a> is the occurence of a
+ <em>Materials</em> section in the AmiraMesh file. Whenever such a section
+ occurs and elements of type <em>byte</em> denoted <em>Labels</em> are found,
+ the AmiraMesh file is interpreted as a
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label field</a>. Here is a simple example of a
+ label field containing two different materials:</p>
+<p> </p><pre>
+    # AmiraMesh ASCII 1.0
+
+    define Lattice 2 2 2
+
+    Parameters {
+        CoordType "uniform",
+        # BoundingBox is xmin xmax ymin ymax zmin zmax
+        BoundingBox 0 1 0 1 0 1
+    }
+
+    Materials {
+        { Id 0, Name "Exterior" }
+        { Id 4, Name "Something" }
+    }
+
+    Lattice { byte Labels } = @1
+    Lattice { byte Probability } = @2
+
+    @1
+    0 0 0 4
+    0 0 4 4
+
+    @2
+    255 255 130 180
+    255 200 190 230
+    </pre><p></p>
+<p> Each material should have a parameter <em>Id</em> specifying the
+ correspondence between labels and materials. In the example above all
+ voxels labeled with 0 belong to material <em>Exterior</em>, while all
+ voxels labeled with 4 belong to material <em>Something</em>.</p>
+<p> Optionally, label fields may contain probability information or
+ weights as shown in the example above. These weights denote the degree
+ of confidence of the labeling. This information is used by the
+ <a class="link" href="../hxsurftools/HxGMC.html#A1">GMC module</a> when extracting boundary surfaces.</p>
+<p></p>
+<p>
+</p></body>
+</html>

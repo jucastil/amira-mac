@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Merge</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Merge" "combines multiple possibly transformed 3D images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module works on any 3-dimensional field on rectilinear coordinates
+ and merges the input data by interpolation.</p>
+
+<h3><a name="A2">Merging</a></h3>
+<p>Proceed as follows: Attach a <em>Merge</em> module to an input field. For additional inputs,
+ right-click on the white square on the left side of the <em>Merge</em> module's icon,
+ select an input item, and drag a connection to a data icon. Input fields can have an 
+ arbitrary transformation in which case the result field will have an axis aligned 
+ that spans the bounding boxes of the input fields. The voxel 
+ size of the result field is determined by the first input. At locations within the 
+ resulting volume where none of the input fields are defined voxels are initialized with 
+ zeros.</p>
+<p> For image data, you have the choice among various <em>interpolation</em> methods:</p>
+
+<ul><li><em>Nearest Neighbor</em> chooses for every new voxel the average value of
+ the input voxels nearest to it.</li><li><em>Standard</em> linearily interpolates between the surrounding
+ voxels.</li><li><em>Lanczos</em> is the slowest but most accurate method and 
+ approximates a low pass filter.
+ If you have time and want to get the best result, use this one.</li>
+</ul><p> 
+ For label fields, this port is hidden and always <em>Nearest Neighbor</em> is used. </p>
+<p>
+Choose an additional <a class="link" href="#A7">option</a> and press the <em>Apply</em> button.</p>
+
+<h3><a name="A3">Merging in Progress</a></h3>
+<p>While merging, the progress bar at the bottom
+ of the <a class="link" href="../usersguide/mainwin.html#A4">Properties Area</a> indicates the percentage of
+ merging that is done. You may cancel the merging any
+ time by pressing the stop button on the right of the progress bar.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A4"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The first data field to be merged.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Lattice*</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Additional input data. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxMerge_interpolation.png" /><br /></div>
+<div class="body"><p>The interpolation method that will be used.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxMerge_options.png" /><br /></div>
+<div class="body"><p>Option <em>blend</em> controlls the merging process.
+ If this toggle is disabled, a voxel value of the 
+ <a class="link" href="#A4">first data field</a> is used 
+ if such exists at a given location. Otherwise, a result value will be calculated 
+ from the additional input data.
+ If this toggle is enabled, result values are always interpolated.</p>
+<p> Use the second option <em>use existing result</em> to overwrite an existing result.
+ If <em>use existing result</em> is not set, a new result object is generated.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Padding Value</span>  
+<div class="portsnapshot"><img src="HxMerge_paddingValue.png" /><br /></div>
+<div class="body"><p>Padding value is used for monochrome images to define the value used to fill in undefined pixels.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Padding Color</span>  
+<div class="portsnapshot"><img src="HxMerge_paddingColor.png" /><br /></div>
+<div class="body"><p>Padding value is used for RGBA images to define the value used to fill in undefined pixels.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

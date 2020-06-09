@@ -1,0 +1,9 @@
+# ----------------------------------------------------------------------
+# hxrawio package
+# ----------------------------------------------------------------------
+
+dataFile -name "Raw Data" \
+    -option "raw" -ext "raw" \
+    -load "readRawData" \
+    -dso "libhxrawio.so" \
+    -lda true

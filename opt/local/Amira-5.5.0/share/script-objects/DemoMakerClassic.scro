@@ -1,0 +1,2589 @@
+# Amira-Script-Object V3.0
+
+####################################################################
+#
+# DemoMaker.scro
+#
+# create an amira demo by defining events like slider animations,
+# toggles, buttons, or arbitrary Tcl commands
+#
+# author: Hartmut Schirmacher
+# (C) copyright 2005-2012, Visualization Sciences Group (VSG) SAS
+#
+####################################################################
+
+# important pre-CVS change history
+# - switch DemoMaker off, so alternative instances can exist in one network
+# - changed from "on stop" callback to "at end" callback
+# - "on stop" callback for demo loops
+# - added HxPortMultiChannel
+# - added time edit
+
+
+# TODO
+# - save old value when setting a text (number) field, for backward playing
+# - portGeneric: need improved Tcl API for that port
+# - button events: snap
+# (- "load" event not implemented yet)
+
+
+# define the keys for navigating in the demos
+if {![info exists DemoMaker::breakKeyNext]} {
+    namespace eval "DemoMaker" {
+        variable breakKeyStart "F4"
+        variable breakKeyStop "F3"
+        variable breakKeyNext "F10"
+        variable breakKeyPrev "F9"
+    }
+}
+
+
+# in the internal event list, each event is stored as one of these:
+#   {"numeric" <element> <time> <time1> <val0> <val1> <min> <max> <cmd> }
+#   {"toggle"  <element> <time> <0|1> <cmd>}
+#   {"select"  <element> <time> <value> <oldvalue> <labels> <cmd>}
+#   {"cmd"     <element> <time> <time1> <val0> <val1> <cmd>}
+#   {"button"  <element> <time> <shift> <ctrl> <alt> <cmd>}
+#   {"break"   "*Break, continue on keystroke" <time> }
+#   {"pause"   "*Pause, wait for some time" <time> <duration> <cmd>}
+#   {"goto"   "*Jump to user-specified time step and continue playing"
+#             <time> <goto-time> <cmd>}
+#   {"load"    "*Load network" <time> <filename> <keep_scro>
+#               <start_scro> <start_time> <cmd>}
+#
+# <element>: name of GUI element as it appears in a menu
+# <time>: start/trigger time of event
+# <time1>: end time of event
+# <val0>/<val1>: value interval for the GUI element
+# <set_cmd>: full Tcl command that is executed for this event,
+#             using placeholder %0% for the actual value
+# <min> / <max> are the min/max valid values for a numeric GUI element
+# <labels> are the available labels for that choice (e.g. radio box labels)
+# "cmd" can be an arbitrary tcl command with %0%, %1%, ... placeholders in it
+# "numeric" can be an int/float slider or an element of a multi int/float port
+# "toggle" can be any toggle list element or a similar thing
+# "select" can be a radio box or a selection menu etc.
+# "break" means that the demo will stop until a user-defined key is pressed
+# "goto" means that the demo will jump to some other time and continue playing
+# "pause" means that the demo will stop and wait for some user-define time
+# "load" loads a different amira network. If wanted, another demo maker
+#   will be started at a specified time step. The current scro will be
+#   either destroyed or kept. Note that the user must avoid scro name
+#   conflicts manually.
+
+
+#######################################################################
+# this defines which ports in the network will create entries in the
+# "available GUI elements" menu of this script object
+########################################################################
+
+# define which port types contain which numeric elements, toggles,
+#   buttons, selections
+# this file is included and executed implicitly by DemoMaker.scro
+
+# do not search modules of these types for GUI elements
+set DemoMaker::excludeModules {}
+# HxMovieMaker HxKeyframeCameraPath  HxCircularCameraPath
+
+# Define list of available "button" port elements.
+#
+# Each port element is defined by a list of the following expressions:
+# - info string for the developer
+# - list of port type IDs
+# - expression that needs to be 1 if this port element should be included
+# - number of port elements in this port
+# - label for each port element (with $index running from 0 to num-1)
+# - command string for setting the value of this port element
+#
+# All the expressions will be evaluated using "subst" and may contain
+# arbitrary Tcl function calls as well as the following variable expressions:
+# $module, $port, $index (port element index)
+
+set DemoMaker::portElements_button {
+    {
+        "button list"
+        {HxPortButtonList HxPortButtonMenu HxPortDoIt}
+        "1"
+        "[$module $port getNumButtons]"
+        "$module/[$module $port getLabel]/[$module $port getLabel $index]"
+        {
+            if %0% {$module $port setShiftDown}
+            if %1% {$module $port setCtrlDown}
+            if %2% {$module $port setAltDown}
+            $module $port setValue $index
+            $module fire
+        }
+    }
+    {
+        "draw style port / more options / create surface"
+        {HxPortDrawStyle}
+        {[string compare [$module getTypeId] "HxDisplaySurface"] == 0}
+        "1"
+        "$module/more options/create surface"
+        "$module createSurface"
+   }
+}
+
+
+# Define list of available toggle port elements.
+#
+# Each port element is defined by a list of the following expressions:
+# - info string for the developer
+# - list of port type IDs
+# - expression that needs to be 1 if this port element should be included
+# - number of port elements in this port
+# - label for this port element
+# - current value of port element
+# - command string for setting the value of this port element
+#
+# All the expressions will be evaluated using "subst" and may contain
+# arbitrary Tcl function calls as well as the following variable expressions:
+# $module, $port, $index (port element index)
+# %0% will be subtituted by the actual current value
+
+set DemoMaker::portElements_toggle {
+    {
+        "toggle list (option checkboxes)"
+        {HxPortToggleList}
+        "1"
+        "[$module $port getNum]"
+        "$module/[$module $port getLabel]/[$module $port getLabel $index]"
+        "[$module $port getValue $index]"
+        "$module $port setValue $index %0%; $module fire"
+    }
+    {
+        "multi channel port (channel checkboxes)"
+        {HxPortMultiChannel}
+        "1"
+        "[$module $port getNum]"
+        "$module/[$module $port getLabel]/channel $index"
+        "[$module $port getValue $index]"
+        "$module $port setValue $index %0%; $module fire"
+    }
+}
+
+
+
+# Define list of available numeric port elements.
+#
+# Each port element is defined by a list of the following expressions:
+# - info string for the developer
+# - list of port type IDs
+# - expression that needs to be 1 if this port element should be included
+# - number of port elements in this port
+# - label for this port element
+# - current value of port element
+# - min value for this port element
+# - max value for this port element
+# - command string for setting the value of this port element
+#
+# All the expressions will be evaluated using "subst" and may contain
+# arbitrary Tcl function calls as well as the following variable expressions:
+# $module, $port, $index (port element index)
+# %0% will be subtituted by the actual current value
+
+set DemoMaker::portElements_numeric {
+    {
+        "int or float slider"
+        {HxPortIntSlider HxPortFloatSlider}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "[$module $port getValue]"
+        "[$module $port getMinValue]"
+        "[$module $port getMaxValue]"
+        "$module $port setValue %0%; $module fire"
+    } {
+        "time slider"
+        {HxPortTime}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "[$module $port getValue]"
+        "[lindex [$module $port getMinMax] 0]"
+        "[lindex [$module $port getMinMax] 1]"
+        "$module $port setValue %0%; $module fire"
+    } {
+        "multiple int or float values"
+        {HxPortIntTextN HxPortFloatTextN}
+        "1"
+        "[$module $port getNum]"
+        "$module/[$module $port getLabel]/[$module $port getLabel $index]"
+        "[$module $port getValue $index]"
+        "[$module $port getMinValue $index]"
+        "[$module $port getMaxValue $index]"
+        "$module $port setValue $index %0%; $module fire"
+    } {
+        "min value of colormap port"
+        {HxPortColormap}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]/min"
+        "[$module $port getMinValue]"
+        "-1e24"
+        "1e24"
+        "$module $port setMinMax %0% [$module $port getMaxValue]; $module fire"
+    } {
+        "max value of colormap port"
+        {HxPortColormap}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]/max"
+        "[$module $port getMaxValue]"
+        "-1e24"
+        "1e24"
+        "$module $port setMinMax [$module $port getMinValue] %0%; $module fire"
+    }
+}
+
+
+# Define list of available selection port elements.
+#
+# Each port element is defined by a list of the following expressions:
+# - info string for the developer
+# - list of port type IDs
+# - expression that needs to be 1 if this port element should be included
+# - number of port elements in this port
+# - label for this port element
+# - number of selection labels for this port element
+# - selection label if selection=$value
+# - current value of port element
+# - command string for setting the value of this port element
+#
+# All the expressions will be evaluated using "subst" and may contain
+# arbitrary Tcl function calls as well as the following variable expressions:
+# $module, $port, $index (port element index), $mindex (selection menu index)
+# %0% will be subtituted by the actual current value
+
+set DemoMaker::portElements_select {
+    {
+        "radio box"
+        {HxPortRadioBox}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "[$module $port getNum]"
+        "[$module $port getLabel $mindex]"
+        "[$module $port getValue]"
+        "$module $port setValue %0%; $module fire"
+    }
+    {
+        "multiMenu port with a single menu in it"
+        {HxPortMultiMenu}
+        "[$module $port getNumMenus] == 1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "[$module $port getNum $index]"
+        "[$module $port getLabel $index $mindex]"
+        "[$module $port getValue $index]"
+        "$module $port setValue $index %0%; $module fire"
+    }
+    {
+        "multiMenu port with more than one menu"
+        {HxPortMultiMenu}
+        "[$module $port getNumMenus] > 1"
+        "[$module $port getNumMenus]"
+        "$module/[$module $port getLabel]/Menu[expr $index+1]"
+        "[$module $port getNum $index]"
+        "[$module $port getLabel $index $mindex]"
+        "[$module $port getValue $index]"
+        "$module $port setValue $index %0%; $module fire"
+    }
+    {
+        "buttonMenu port, always a single menu"
+        {HxPortButtonMenu}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "[$module $port getNumOptEntries]"
+        "[$module $port getOptLabel $mindex]"
+        "[$module $port getOptValue]"
+        "$module $port setOptValue %0%; $module fire"
+    }
+    {
+        "option menu in PortDrawStyle"
+        {HxPortDrawStyle}
+        "1"
+        "1"
+        "$module/[$module $port getLabel]"
+        "5"
+        "[lindex {outlined shaded lines points transparent} $mindex]"
+        "[$module $port getValue]"
+        "$module $port setValue %0%; $module fire"
+    }
+    {
+        "normal binding in PortDrawStyle (only for some module types...)"
+        {HxPortDrawStyle}
+        {[string compare [$module getTypeId] "HxDisplaySurface"] == 0}
+        "1"
+        "$module/[$module $port getLabel]/More options/Normals"
+        "3"
+        "[lindex {{triangle normals} {vertex normals} {direct normals}} $mindex]"
+        "[$module $port getNormalBinding]"
+        "$module $port setNormalBinding %0%; $module fire"
+    }
+}
+
+
+####################################################
+# constructor
+####################################################
+
+# the constructor is called when a scro is created or restarted
+$this proc constructor {} {
+
+    # ID for DemoMaker scro
+    $this setVar scroTypeDemoMaker 1
+
+
+    ##############################
+    # init global variables
+    ##############################
+
+    # Loaded from a saved network? Then init counter with 3 else 0.
+    # The counter is then decreased in each call to the compute method.
+    if [$this hasVar isInitialized] {
+        $this setVar isInitialized 3
+    } else {
+        $this setVar isInitialized 0
+    }
+
+    # default value for module on/off
+    if {![$this hasVar isDemoMakerActive]} {
+        $this setVar isDemoMakerActive 1
+    }
+
+    # define function keys when in first call to "compute" method
+    $this setVar funcKeysDefined 0
+
+
+    ##############################
+    # init member variables
+    ##############################
+
+    # callback to be called when the time slider is stopped
+    $this setVar atEndCallback {}
+
+    # only init variables if they have not been
+    # restored from a "save network"
+    if {[$this getVar isInitialized] == 0} {
+
+        # internal lists of selected events
+        $this setVar internalEventList [list [list "dummy"]]
+
+        # last start/end times that have been used by the user
+        $this setVar lastStartTime 0
+        $this setVar lastEndTime 1
+
+        # the last time step that has been "played"
+        $this setVar lastTimeStep -1e10
+
+    }
+
+
+    ######################################################
+    # construct the user interface and set default values
+    ######################################################
+
+    # hide the script file port, the end user does not need it
+    $this script hide
+
+    # master time slider
+    $this newPortTime time
+    $this time setIncrement .01
+    $this time setSubMinMax 0 1
+    $this time setMinMax 0 1
+
+    # current list of demo actions
+    $this newPortButtonMenu eventList 0 1
+    $this eventList setLabel "Event List:"
+
+    # search through list of events
+    $this newPortText eventSearch
+    $this eventSearch setLabel "Event Search:"
+    $this eventSearch setNumColumns 40
+
+    # manipulate list of events
+    $this newPortButtonList eventAction 5
+    $this eventAction setLabel "Event List:"
+    $this eventAction setLabel 0 "Add"
+    $this eventAction setLabel 1 "Replace"
+    $this eventAction setLabel 2 "Remove"
+    $this eventAction setLabel 3 "Find<"
+    $this eventAction setLabel 4 "Find>"
+    $this eventAction setCmd 0 {$this addEvent; $this compute}
+    $this eventAction setCmd 1 {$this replaceEvent; $this compute}
+    $this eventAction setCmd 2 {$this removeEvent; $this compute}
+    $this eventAction setCmd 3 {$this findEvent -1; $this fire }
+    $this eventAction setCmd 4 {$this findEvent 1; $this fire }
+
+    # user interface options
+    $this newPortToggleList functions 3
+    $this functions setLabel "Functions:"
+    $this functions setLabel 0 "active"
+    $this functions setLabel 1 "options"
+    $this functions setLabel 2 "time edit"
+    $this functions setValue 0 1
+    $this functions setValue 1 0
+    $this functions setValue 2 0
+
+    # options
+    $this newPortSeparator optSep
+    $this optSep hide
+    $this newPortToggleList options 3
+    $this options hide
+    $this options setLabel "Options:"
+    $this options setLabel 0 "skip break"
+    $this options setLabel 1 "skip pause"
+    $this options setLabel 2 "skip load"
+    $this options setValue 0 0
+    $this options setValue 1 0
+    $this options setValue 2 1
+    $this options setSensitivity 2 0
+
+    # extended options
+    $this newPortToggleList moreOpt1 2
+    $this moreOpt1 setLabel "Options:"
+    $this moreOpt1 setLabel 0 "auto start"
+    $this moreOpt1 setValue 0 0
+    $this moreOpt1 setLabel 1 "function keys"
+    $this moreOpt1 setValue 1 1
+    $this moreOpt1 hide
+
+    $this newPortToggleList moreOpt2 3
+    $this moreOpt2 setLabel "Options:"
+    $this moreOpt2 setLabel 0 "explicit redraw"
+    $this moreOpt2 setValue 0 1
+    $this moreOpt2 setLabel 1 "debug"
+    $this moreOpt2 setValue 1 0
+    $this moreOpt2 setLabel 2 "wait screen"
+    $this moreOpt2 setValue 2 0
+    $this moreOpt2 hide
+
+    $this newPortButtonList optionsAction 2
+    $this optionsAction setLabel "Options (advanced):"
+    $this optionsAction setLabel 0 "SaveEventList"
+    $this optionsAction setLabel 1 "LoadEventList"
+    $this optionsAction setCmd 0 {$this saveEventList; $this fire }
+    $this optionsAction setCmd 1 {$this loadEventList; $this fire }
+    $this optionsAction hide
+
+    $this newPortFilename eventListFile
+    $this eventListFile hide
+    $this eventListFile setLabel "Event list file:"
+    $this eventListFile setMode 0 ;# any files
+    set dir [file dirname [$this script getValue]]
+    $this eventListFile setValue "$dir/event_list.txt"
+
+
+    $this newPortFilename waitImg
+    $this waitImg hide
+    $this waitImg setLabel "Waiting image:"
+    $this waitImg setMode 1 ;# existing files only
+    set dir [file dirname [$this script getValue]]
+    $this waitImg setValue "$dir/img/amira_150_green.png"
+
+    # user interface for moving events on the time line
+    $this newPortSeparator moveSep
+    $this moveSep hide
+    $this newPortFloatTextN moveFrom 2
+    $this moveFrom hide
+    $this moveFrom setLabel "Move from interval:"
+    $this moveFrom setValues 0 0
+    $this newPortFloatTextN moveTo 2
+    $this moveTo hide
+    $this moveTo setLabel "Move to interval:"
+    $this moveTo setValues 0 0
+    $this newPortButtonList timeEdit 1
+    $this timeEdit setLabel "Time edit:"
+    $this timeEdit setLabel 0 "Move events"
+    $this timeEdit setCmd 0 {
+        $this moveEvents [$this moveFrom getValue 0] \
+            [$this moveFrom getValue 1] \
+            [$this moveTo getValue 0] \
+            [$this moveTo getValue 1]
+    }
+
+    # just for visual pleasure
+    $this newPortSeparator sep1
+    $this newPortInfo eventLabel
+    $this eventLabel setLabel "Event:"
+
+    # list of available ports, and "TCL command" for typing a command
+    $this newPortButtonMenu guiElements 1 1
+    $this guiElements setLabel "GUI element:"
+    $this guiElements setLabel 0 "Update"
+    $this guiElements setCmd 0 {
+        $this scanGuiElements
+        $this gui_updateMenu_GuiElements
+        $this compute
+    }
+
+    # for type "command": the name of the command
+    $this newPortText command
+    $this command hide
+    $this command setLabel "Command:"
+    $this command setNumColumns 40
+    # default value will be set in "compute"
+
+    # for type "numeric": scalar value interval
+    $this newPortFloatTextN startEndValue 2
+    $this startEndValue hide
+    $this startEndValue setLabel "Start/end value:"
+    $this startEndValue setValues 0 1
+
+    # for type "cmd": vector value interval
+    $this newPortText startVector
+    $this startVector hide
+    $this startVector setLabel "Start value(s):"
+    $this startVector setValue "0.0 0.0 0.0"
+    $this newPortText endVector
+    $this endVector hide
+    $this endVector setLabel "End value(s):"
+    $this endVector setValue "0.0 0.0 0.0"
+
+    # for toggle: toggle value
+    $this newPortRadioBox toggleValue 2
+    $this toggleValue hide
+    $this toggleValue setLabel "Toggle to value:"
+    $this toggleValue setLabel 0 "on"
+    $this toggleValue setLabel 1 "off"
+    $this toggleValue setValue 0
+    $this toggleValue untouch
+
+    # for selection: selection menu
+    $this newPortMultiMenu selectValue 0 0
+    $this selectValue hide
+    $this selectValue setLabel "Change from/to value:"
+    $this selectValue setNum 0 0
+    $this selectValue setNum 1 0
+    $this selectValue untouch
+
+    # for toggle and selection: trigger time
+    $this newPortFloatTextN triggerTime 1
+    $this triggerTime hide
+    $this triggerTime setLabel "Trigger time:"
+    $this triggerTime setValue 0
+    $this triggerTime untouch
+
+    # for button events: modifier keys like shift/ctrl/alt
+    $this newPortToggleList modifKeys 3
+    $this modifKeys setLabel "Modifier keys:"
+    $this modifKeys setLabel 0 "Shift"
+    $this modifKeys setLabel 1 "Ctrl"
+    $this modifKeys setLabel 2 "Alt"
+    $this modifKeys setValue 0 0
+    $this modifKeys setValue 1 0
+    $this modifKeys setValue 2 0
+    $this modifKeys hide
+
+    # for pause: waiting time
+    $this newPortFloatTextN waitingTime 1
+    $this waitingTime hide
+    $this waitingTime setLabel "Waiting duration:"
+    $this waitingTime setValue 3
+    $this waitingTime untouch
+
+    # for goto: goto-time
+    $this newPortFloatTextN gotoTime 1
+    $this gotoTime hide
+    $this gotoTime setLabel "Time to jump to:"
+    $this gotoTime setValue 0
+    $this gotoTime untouch
+
+    # for types "numeric" and "command": time interval
+    $this newPortFloatTextN startEndTime 2
+    $this startEndTime hide
+    $this startEndTime setLabel "Start/end time:"
+    $this startEndTime setValues 0 1
+
+    # for type "load": 2 filenames, a flag, etc.
+    $this newPortFilename loadFile
+    $this loadFile hide
+    $this loadFile setLabel "Load file:"
+    $this loadFile setMode 1 ;# only select existing files
+    $this loadFile setValue ""
+
+    $this newPortToggleList loadOptions 1
+    $this loadOptions hide
+    $this loadOptions setLabel "Load options:"
+    $this loadOptions setLabel 0 "keep this $this"
+    $this loadOptions setValue 0 1
+
+    $this newPortMultiMenu startScro 0
+    $this startScro hide
+    $this startScro setLabel "DemoMaker object to start:"
+    $this startScro setNum 0 0
+
+    $this newPortFloatTextN startTime 1
+    $this startTime hide
+    $this startTime setLabel "Start time:"
+    $this startTime setValue 0
+
+    # file name of description-xml file used for automatically
+    # generating html-demo pages and demo sequences
+    $this newPortFilename descriptionFileName
+    $this descriptionFileName hide ;# should always be hidden
+    $this descriptionFileName setLabel "Description file name (xml-file):"
+    $this descriptionFileName setValue "description.xml"
+
+    # init selection lists
+    $this gui_updateMenu_EventList
+    if {![info exists DemoMaker::availGuiElements]} {
+        # only init global vars if they not done by other DemoMakers
+        if [$this getVar isInitialized] {
+            # when loading from a network, do not search for GUI elements
+            set DemoMaker::availGuiElements [list [list "" "<press update>"]]
+        } else {
+            # else scan the amira network for GUI elements
+            $this scanGuiElements
+        }
+    }
+    $this gui_updateMenu_GuiElements
+
+    # init button sensitivities
+    $this gui_setSensitivities
+
+} ;# constructor
+
+# destructor is called when DemoMaker is destroyed
+$this proc destructor {} {
+
+    # if they were defined by this module, undefine function keys
+    if [$this getVar funcKeysDefined] {
+        $this undefineFunctionKeys
+    }
+
+    # member variables are not destroyed automatically,
+    # so we imitate this  here
+    $this setVar internalEventList \
+        [lrange [$this getVar internalEventList] 0 0]
+
+}
+
+# assertion for internal condition checking
+proc assert {args} {
+    set result [uplevel 1 "expr $args"]
+    if {!$result} {
+        echo "assertion failed: $args"
+        fatalError "assertion failed: $args"
+    }
+}
+
+# test if an element is contained in a list;
+#   this is just a shortcut for an lsearch command
+proc lcontains {list element} {
+    expr [lsearch -exact $list $element] != -1
+}
+
+# replace each element of a list by a string expression containing that element
+# - in the string, %v% is replaced by the current element
+# - %i% is replaced by the list index of the element
+# - after these substitutions a "subst" is done in the context of the
+#   calling block
+proc lmap {list function} {
+    set result [list]
+    set i 0
+    foreach current_element $list {
+        # substitute "%v%" with the current list element
+        regsub -all "%v%" $function $current_element current_function
+        # substitute "%i%" with the element index
+        regsub -all "%i%" $current_function $i current_function
+        # evaluate current function code and add the result to the list
+        lappend result [lindex [uplevel 1 "list $current_function"] 0]
+        incr i
+    }
+    return $result
+}
+
+# simulate a fatal error
+proc fatalError {msg} {
+    echo $msg
+    set x y z ;# this should generate an error and halt the script
+}
+
+# create a menu from a given list of entries
+$this proc createEntries {port index entries} {
+
+    set num [llength $entries]
+    if {[$this $port getTypeId] == "HxPortButtonMenu"} {
+        # commands for a button menu port
+        $this $port setOptLabels $index $entries
+    } else {
+        # commands for a multi menu port
+        $this $port setNum $index $num
+        for {set i 0} {$i<$num} {incr i} {
+            $this $port setLabel $index $i [lindex $entries $i]
+        }
+    }
+}
+
+# query options by name (not by option port index)
+$this proc getOption {name} {
+    set x [$this mapOption $name]
+    return [$this [lindex $x 0] getValue [lindex $x 1]]
+}
+
+# set options by name (not by option port index)
+$this proc setOption {name value} {
+    set x [$this mapOption $name]
+    $this [lindex $x 0] setValue [lindex $x 1] $value
+}
+
+# map between {option-name} and {option-port option-index}
+$this proc mapOption {name} {
+    if {$name == "skip break"} {
+        return [list "options" 0]
+    } elseif {$name == "skip pause"} {
+        return [list "options" 1]
+    } elseif {$name == "skip load"} {
+        return [list "options" 2]
+    } elseif {$name == "auto start"} {
+        return [list "moreOpt1" 0]
+    } elseif {$name == "function keys"} {
+        return [list "moreOpt1" 1]
+    } elseif {$name == "explicit redraw"} {
+        return [list "moreOpt2" 0]
+    } elseif {$name == "debug"} {
+        return [list "moreOpt2" 1]
+    } elseif {$name == "wait screen"} {
+        return [list "moreOpt2" 2]
+    } else {
+        echo "$this: error: unknown option name $name"
+        return [list "options" 4]
+    }
+}
+
+
+# return list of all available numeric events in the current network
+$this proc scanGuiElements {} {
+
+    # deactivate menu in ALL DemoMakers as long as we are scanning
+    set modules [list]
+    foreach mod [all HxScriptObject] {
+        if {[$mod hasVar internalEventList]} {
+            lappend modules $mod
+            $mod guiElements setSensitivity 0
+            $mod guiElements setOptSensitivity 0 0
+        }
+    }
+
+    # init list to be returned
+    set result [list \
+        [list "" "<select>"] \
+        [list "cmd" "*TCL command"] \
+        [list "break" "*Break, continue on keystroke" "%t0%"] \
+        [list "pause" "*Pause, waiting time" "%t0%"] \
+        [list "goto" "*Go-To, jump to user-specified time step" "%t0%"] \
+        [list "load" "*Load network" "%t0%" "" 1 "" 0] ]
+
+    # collect all plane modules that can be used for clipping
+    set clipModules [list]
+    foreach mod [all -visible] {
+        if [$mod hasInterface HxPlanarMod] {
+            lappend clipModules $mod
+            # add an entry for choosing the clipping plane orientation
+            lappend result [list "button" "$mod/Invert clipping orientation" \
+                                "%t0%" 0 0 0 "$mod invertClippingPlane"]
+            # add an entry for toggeling the module's frame
+            lappend result [list "toggle" "$mod/Frame" \
+                                "%t0%" "0" "$mod frame %0%"]
+        }
+    }
+
+    # which viewers do exist?
+    set viewbits [list]
+    foreach bit {0 1 2 3 4 5 6 7} {
+        if [viewer $bit exists] {
+            # remember that this viewer exist
+            lappend viewbits $bit
+            # add per-viewer commands
+            lappend result [list "select" "Viewer $bit/Camera type" \
+                                "%t0%" 0 0 {"orthographic" "perspective"} \
+                                "viewer $bit setCameraType %0%"]
+            lappend result [list "toggle" "Viewer $bit/Decoration" \
+                                "%t0%" 0 "viewer $bit decoration %0%"]
+            lappend result [list "toggle" "Viewer $bit/Show" "%t0%" 0 \
+                                "viewer $bit \[lindex \"hide show\" %0%\]"]
+            lappend result [list "button" "Viewer $bit/View all" "%t0%" \
+                                0 0 0 "viewer $bit viewAll"]
+        }
+    }
+
+    # commands applying to all viewers
+    lappend result [list "select" "Viewer layout" \
+                        "%t0%" 0 0 {"vertical" "horizontal"} \
+                        "viewer setVertical %0%; viewer 0 show; viewer 1 show"]
+
+    # loop over all modules
+    foreach module [all -visible] {
+
+        # skip myself
+        if {$module == $this} {continue}
+
+        # add "viewer mask" toggles for viewers 0-4
+        foreach bit $viewbits {
+            set v [expr int(pow(2,$bit))]
+            set mask [expr 255-$v]
+            set value [expr ([$module getViewerMask]&$v) != 0]
+            set expr "(\[$module getViewerMask\]&$mask)+%0%*$v"
+            set cmd "$module setViewerMask \[expr $expr\]"
+            # append cmd "; viewer $bit redraw"
+            lappend result [list "toggle" "$module/Viewer mask/Viewer $bit" \
+                                "%t0%" [expr 1-$value] $cmd]
+        }
+
+        # add existing clipping planes
+        foreach clipMod $clipModules {
+            # do not clip against yourself ;-)
+            if {[string compare $module $clipMod] == 0} {continue}
+
+            # clip/unclip depending on toggle value
+            set cmd "if %0% \{$module clipGeom $clipMod\}"
+            append cmd " else \{$module unclipGeom $clipMod\}"
+            lappend result [list "toggle" "$module/Clip using $clipMod" \
+                                "%t0%" 0 $cmd]
+        }
+
+        # go through all ports of this module
+        foreach port [$module allPorts] {
+
+            # skip if hidden
+#           if {![$module $port isVisible]} {
+#               continue
+#           }
+
+            # go through all definitions in the .portdef file
+            foreach etype {numeric toggle select button} {
+                foreach def [subst "\$DemoMaker::portElements_$etype"] {
+
+                    # check if this is a matching port type
+                    set type [$module $port getTypeId]
+                    if {![lcontains [lindex $def 1] $type]} {
+                        continue
+                    }
+
+                    # check precondition defined in .portdef
+                    set precond [eval expr [subst [lindex $def 2]]]
+                    if {!$precond} {
+                        continue
+                    }
+
+                    # go through all elements of this port
+                    set num [subst [lindex $def 3]]
+                    for {set index 0} {$index < $num} {incr index} {
+
+                        # label for listing this event in a menu
+                        set label [subst [lindex $def 4]]
+
+                        # "clean up" the label
+                        regsub -all ":" $label "" label
+                        regsub -all "\\(null\\)" $label "" label
+
+                        # construct event, depending on type
+                        lappend result [$this makeEvent_$etype \
+                                            $def $module $port $label \
+                                            $index]
+                    }
+                }
+            }
+        }
+    }
+
+    # sort events alphabetically
+    set result [concat [lrange $result 0 4] \
+        [lsort -command DemoMaker::sortEvents [lrange $result 5 end]]]
+
+    # store result in global variable (for all DemoMaker instances)
+    set DemoMaker::availGuiElements $result
+
+    # update and re-activate menu in all DemoMaker modules
+    foreach mod $modules {
+        $mod gui_updateMenu_GuiElements
+        $mod guiElements setSensitivity 1
+        $mod guiElements setOptSensitivity 0 1
+    }
+
+    return $result
+}
+
+# construct numeric event from port element def
+$this proc makeEvent_numeric {def module port label index} {
+
+    # read out current, min, and max values
+    set value [subst [lindex $def 5]]
+    set min [subst [lindex $def 6]]
+    set max [subst [lindex $def 7]]
+    set cmd [subst [lindex $def 8]]
+
+    # construct event
+    return [list "numeric" $label "%t0%" "%t1%" $value $value $min $max $cmd]
+}
+
+# construct toggle event from port element def
+$this proc makeEvent_toggle {def module port label index} {
+
+    set value [subst [lindex $def 5]]
+    set cmd [subst [lindex $def 6]]
+    return [list "toggle" $label "%t0%" $value $cmd]
+}
+
+# construct button event from port element def
+$this proc makeEvent_button {def module port label index} {
+
+    set cmd [subst [lindex $def 5]]
+    return [list "button" $label "%t0%" 0 0 0 $cmd]
+}
+
+# construct selection event from port element def
+$this proc makeEvent_select {def module port label index} {
+
+    # collect the labels of the valid selection values
+    set num_labels [subst [lindex $def 5]]
+    set labels [list]
+
+    for {set mindex 0} {$mindex < $num_labels} {incr mindex} {
+        lappend labels [subst [lindex $def 6]]
+    }
+
+    # current value
+    set value [subst [lindex $def 7]]
+
+    # command to set the current value
+    set cmd [subst [lindex $def 8]]
+
+    # construct event
+    return [list "select" $label "%t0%" $value $value $labels $cmd]
+}
+
+
+# sync "GUI elements" menu with the entries in DemoMaker::availableEvents
+$this proc gui_updateMenu_GuiElements {} {
+    set ports $DemoMaker::availGuiElements
+    $this createEntries guiElements 0 [lmap $ports {[lindex {%v%} 1]}]
+    $this guiElements setOptValue 0 0
+}
+
+# sync "event list" menu with the entries in $internalEventList
+$this proc gui_updateMenu_EventList {} {
+
+    # sort all but the first entry
+    set events [$this getVar internalEventList]
+    set events [concat [lrange $events 0 0] \
+                    [lsort -command DemoMaker::sortEvents \
+                         [lrange $events 1 end] ]]
+    # re-write event list
+    $this setVar internalEventList $events
+
+    # create menu entries
+    set entries [lmap $events "\[$this makeEventEntry {%v%}\]"]
+    $this createEntries eventList 0 $entries
+    $this eventList setOptValue 0 0
+}
+
+# return an event string for the current values in the scro GUI
+$this proc getCurrentEvent {} {
+
+    set i [$this guiElements getOptValue 0]
+    set event [lindex $DemoMaker::availGuiElements $i]
+    set type [lindex $event 0]
+
+    # command event
+    if {$type == "cmd"} {
+        $this setVar lastStartTime [$this startEndTime getValue 0]
+        $this setVar lastEndTime [$this startEndTime getValue 1]
+        return [list "cmd" [$this command getValue] \
+                    [$this startEndTime getValue 0] \
+                    [$this startEndTime getValue 1] \
+                    [$this startVector getValue] \
+                    [$this endVector getValue 1] \
+                    [$this command getValue] ]
+    }
+
+    if {$type == "numeric"} {
+        $this setVar lastStartTime [$this startEndTime getValue 0]
+        $this setVar lastEndTime [$this startEndTime getValue 1]
+        return [concat [list "numeric" [lindex $event 1] \
+                            [$this startEndTime getValue 0] \
+                            [$this startEndTime getValue 1] \
+                            [$this startEndValue getValue 0] \
+                            [$this startEndValue getValue 1] \
+                           ] \
+                    [lrange $event 6 end] ]
+    }
+
+    if {$type == "toggle"} {
+        $this setVar lastStartTime [$this triggerTime getValue 0]
+        return [concat [list "toggle" [lindex $event 1] \
+                            [$this triggerTime getValue 0] \
+                            [expr 1 - [$this toggleValue getValue]] \
+                           ] \
+                    [lrange $event 4 end] ]
+    }
+
+    if {$type == "button"} {
+        $this setVar lastStartTime [$this triggerTime getValue 0]
+        if {[llength $event]<6} {
+            # downwards-compatibility: no modifier keys in old version
+            return [concat [list "button" [lindex $event 1] \
+                                [$this triggerTime getValue 0] \
+                                0 0 0 \
+                               ] [lrange $event 3 end] ]
+        } else {
+            # new version with modifier keys
+            return [concat [list "button" [lindex $event 1] \
+                                [$this triggerTime getValue 0] \
+                                [$this modifKeys getValue 0] \
+                                [$this modifKeys getValue 1] \
+                                [$this modifKeys getValue 2] \
+                               ] [lrange $event 6 end] ]
+        }
+    }
+
+    if {$type == "select"} {
+        $this setVar lastStartTime [$this triggerTime getValue 0]
+        return [concat [list "select" [lindex $event 1] \
+                            [$this triggerTime getValue 0] \
+                            [$this selectValue getValue 1] \
+                            [$this selectValue getValue 0] \
+                           ] \
+                    [lrange $event 5 end] ]
+    }
+
+    if {$type == "break"} {
+        $this setVar lastStartTime [$this triggerTime getValue]
+        $this setVar lastEndTime [$this triggerTime getValue]
+        return [list "break" "Break (continue on keystroke)" \
+                    [$this triggerTime getValue] ]
+    }
+
+    if {$type == "pause"} {
+        $this setVar lastStartTime [$this triggerTime getValue]
+        $this setVar lastEndTime [$this triggerTime getValue]
+        set duration [$this waitingTime getValue]
+        return [list "pause" "Pause for $duration seconds" \
+                    [$this triggerTime getValue] $duration \
+                    [subst {echo "waiting for $duration s"; app busyWait $duration; echo "waiting done."}]]
+    }
+
+    if {$type == "goto"} {
+        $this setVar lastStartTime [$this triggerTime getValue]
+        $this setVar lastEndTime [$this triggerTime getValue]
+        return [list "goto" "Go to t=[$this gotoTime getValue]" \
+                    [$this triggerTime getValue] \
+                    [$this gotoTime getValue] \
+                    [list $this time setValue [$this gotoTime getValue]] ]
+    }
+
+    if {$type == "load"} {
+
+        $this setVar lastStartTime [$this triggerTime getValue]
+        $this setVar lastEndTime [$this triggerTime getValue]
+        set network [$this loadFile getValue]
+        set time [$this triggerTime getValue]
+        set keep [$this loadOptions getValue 0]
+        set startScro [lindex [lindex [$this getVar loadNetwDemoMakers] \
+                                   [$this startScro getValue 0]] 0]
+        set startTime [$this startTime getValue]
+
+        # no file name specified?
+        if {$network == ""} {
+            echo "$this: no file name specified."
+            return {}
+        }
+
+        # construct command to be executed
+        set cmd ""
+        append cmd "\$this setNoRemoveAll $keep\n"
+        append cmd "load $network\n"
+        if {$startScro != ""} {
+            $this time stop
+            append cmd "$startScro time setValue $startTime\n"
+            append cmd "$startScro time play"
+        }
+
+        return [list "load" "Load $network" \
+                    $time $network $keep $startScro $startTime $cmd]
+    }
+
+    fatalError "getCurrentEvent: unknown event type $type"
+
+}
+
+
+# update GUI depending on the event type selected by the user
+$this proc gui_showEvent {event} {
+
+    assert {[llength $event] > 0}
+    set type [lindex $event 0]
+
+    # update type-specific GUI elements
+    if {$type == "numeric"} {
+
+        $this command hide
+        $this triggerTime hide
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndTime show
+        $this toggleValue hide
+        $this selectValue hide
+        $this startVector hide
+        $this endVector hide
+        $this startEndValue show
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_numeric $event
+
+    } elseif {$type == "toggle"} {
+
+        $this command hide
+        $this startEndTime hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this selectValue hide
+        $this toggleValue show
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_toggle $event
+
+    } elseif {$type == "button"} {
+
+        $this command hide
+        $this startEndTime hide
+        $this triggerTime show
+        $this modifKeys show
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this selectValue hide
+        $this toggleValue hide
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_button $event
+
+    } elseif {$type == "select"} {
+
+        $this command hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndTime hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this toggleValue hide
+        $this selectValue show
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_select $event
+
+    } elseif {$type == "cmd"} {
+
+        $this command show
+        $this triggerTime hide
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndTime show
+        $this toggleValue hide
+        $this selectValue hide
+        $this startEndValue hide
+        $this startVector show
+        $this endVector show
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_cmd $event
+
+    } elseif {$type == "break"} {
+
+        $this command hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndTime hide
+        $this toggleValue hide
+        $this selectValue hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_break $event
+
+    } elseif {$type == "pause"} {
+
+        $this command hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime show
+        $this gotoTime hide
+        $this startEndTime hide
+        $this toggleValue hide
+        $this selectValue hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_pause $event
+
+    } elseif {$type == "goto"} {
+
+        $this command hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime show
+        $this startEndTime hide
+        $this toggleValue hide
+        $this selectValue hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this loadFile hide
+        $this loadOptions hide
+        $this startScro hide
+        $this startTime hide
+        $this gui_showEvent_pause $event
+
+    } elseif {$type == "load"} {
+
+        $this command hide
+        $this triggerTime show
+        $this modifKeys hide
+        $this waitingTime hide
+        $this gotoTime hide
+        $this startEndTime hide
+        $this toggleValue hide
+        $this selectValue hide
+        $this startEndValue hide
+        $this startVector hide
+        $this endVector hide
+        $this loadFile show
+        $this loadOptions show
+        $this startScro show
+        $this startTime show
+        $this gui_showEvent_load $event
+
+    } else {
+        fatalError "unknwon event type $type"
+    }
+
+}
+
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_numeric {event} {
+
+    # insert start/end time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+    regsub -all "%t1%" $event [$this getVar lastEndTime] event
+
+    # update GUI ports
+    $this startEndTime setValues  [lindex $event 2] [lindex $event 3]
+    $this startEndValue setMinMax 0 [lindex $event 6] [lindex $event 7]
+    $this startEndValue setMinMax 1 [lindex $event 6] [lindex $event 7]
+    $this startEndValue setValues [lindex $event 4] [lindex $event 5]
+
+}
+
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_load {event} {
+
+    # insert start/end time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValue [lindex $event 2]
+    $this loadFile setValue [lindex $event 3]
+    $this loadOptions setValue 0 [lindex $event 4]
+    $this startScro setValue [lindex $event 5]
+    $this startTime setValue [lindex $event 6]
+
+}
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_break {event} {
+
+    # insert start/end time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValue  [lindex $event 2]
+
+}
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_pause {event} {
+
+    # insert start/end time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValue  [lindex $event 2]
+    $this waitingTime setValue  [lindex $event 3]
+
+}
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_cmd {event} {
+
+    # if this is a dummy event, replace it by the pre-defined default event
+    if {[llength $event] < 3} {
+        set event [list "cmd" "echo \"%0%  %1%  %2%\"" "%t0%" "%t1%" \
+                       "0 0 0" "1 1 1"]
+    }
+
+    # insert start/end time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+    regsub -all "%t1%" $event [$this getVar lastEndTime] event
+
+    # update GUI ports
+    $this command setValue [lindex $event 1]
+    $this startEndTime setValues  [lindex $event 2] [lindex $event 3]
+    $this startVector setValue [lindex $event 4]
+    $this endVector setValue [lindex $event 5]
+
+}
+
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_toggle {event} {
+
+    # insert start time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValues  [lindex $event 2]
+    $this toggleValue setValue [expr 1 - [lindex $event 3]]
+
+}
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_button {event} {
+
+    # insert start time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValues [lindex $event 2]
+    if {[llength $event]<6} {
+        # in DemoMaker versions <1.01, we had no modif keys
+        $this modifKeys setValue 0 0
+        $this modifKeys setValue 1 0
+        $this modifKeys setValue 2 0
+    } else {
+        $this modifKeys setValue 0 [lindex $event 3]
+        $this modifKeys setValue 1 [lindex $event 4]
+        $this modifKeys setValue 2 [lindex $event 5]
+    }
+
+}
+
+# update value ports if user selects one of the available events
+$this proc gui_showEvent_select {event} {
+
+    # insert start time that has been used last
+    regsub -all "%t0%" $event [$this getVar lastStartTime] event
+
+    # update GUI ports
+    $this triggerTime setValues  [lindex $event 2]
+    $this createEntries selectValue 0 [lindex $event 5]
+    $this createEntries selectValue 1 [lindex $event 5]
+    $this selectValue setValue 0 1
+    $this selectValue setValue 0 [lindex $event 4]
+    $this selectValue setValue 1 1
+    $this selectValue setValue 1 [lindex $event 3]
+
+}
+
+# find event in event list and set current event in GUI
+# backward: findEvent -1
+# forward: findEvent 1
+
+$this proc findEvent { way } {
+
+    set eventListLength [$this eventList getNumOptEntries 0]
+
+    set searchString [$this eventSearch getValue]
+    for {set i [expr [$this eventList getOptValue 0] + $way]} { $i < $eventListLength && $i > -1  } { incr i $way } {
+        if { [regexp $searchString [$this eventList getOptLabel $i]] >0  } {
+            break
+        }
+    }
+    if { $i > -1 && $i < $eventListLength  } {
+        $this eventList setOptValue $i;
+    }
+}
+
+$this proc saveEventList {} {
+    set filename [$this eventListFile getValue]
+    set f [open $filename w]
+    foreach event [$this getVar internalEventList] {
+        puts $f $event
+    }
+    close $f
+}
+
+$this proc loadEventList {} {
+    set filename [$this eventListFile getValue]
+    set f [open $filename r]
+    set eventList [list]
+    while {![eof $f]} {
+        gets $f line
+        if { $line != "" } {
+            lappend eventList $line
+        }
+    }
+    $this setVar internalEventList $eventList
+    $this gui_updateMenu_EventList
+    close $f
+
+}
+
+# generate a human-readable description for an event
+$this proc makeEventEntry {event} {
+
+    set type [lindex $event 0]
+    if {$type == "numeric"} {
+
+        set result "[lindex $event 2] ... [lindex $event 3]: "
+        append result "[lindex $event 1] = "
+        append result "[lindex $event 4] ... [lindex $event 5]"
+
+    } elseif {$type == "cmd"} {
+
+        set result "[lindex $event 2] ... [lindex $event 3]: "
+        append result "[lindex $event 1]"
+        if {[regexp "%0%" [lindex $event 1]] > 0} {
+            append result "; values = \[[lindex $event 4]\] ... "
+            append result "\[[lindex $event 5]\]"
+        }
+
+    } elseif {$type == "toggle"} {
+
+        set result "[lindex $event 2]: [lindex $event 1] = "
+        append result [lindex "off on" [lindex $event 3]]
+
+    } elseif {$type == "button"} {
+
+        set result "[lindex $event 2]: button [lindex $event 1]"
+
+        # also show which modifier keys are active during this event
+        set modif [list]
+        if [$this modifKeys getValue 0] {lappend modif "Shift"}
+        if [$this modifKeys getValue 1] {lappend modif "Ctrl"}
+        if [$this modifKeys getValue 2] {lappend modif "Alt"}
+        if [llength $modif] {
+            append result " \[[join $modif "+"]\]"
+        }
+
+    } elseif {$type == "select"} {
+
+        set result "[lindex $event 2]: [lindex $event 1] = "
+        append result "\"[lindex [lindex $event 5] [lindex $event 3]]\""
+
+    } elseif {$type == "break"} {
+
+        set result "[lindex $event 2]: [lindex $event 1]"
+
+    } elseif {$type == "pause"} {
+
+        set result "[lindex $event 2]: [lindex $event 1]"
+
+    } elseif {$type == "goto"} {
+
+        set result "[lindex $event 2]: [lindex $event 1]"
+
+    } elseif {$type == "load"} {
+
+        set result "[lindex $event 2]: load [file tail [lindex $event 3]]"
+
+    } elseif {$type == "dummy"} {
+
+        return "<new event>"
+
+    } else {
+
+        fatalError "unknown type $type"
+
+    }
+    return $result
+
+}
+
+############################
+# network load stuff
+############################
+
+# scan a network script file and look for DemoMaker objects.
+# Returns a list of lists {module tmin tmax} where tmin and tmax
+# is the min and max of the module's time slider
+#
+# NOTE this is a "fragile" implementation. Problem: amira seems
+#   to put arbitrary pairs of braces around the object name
+# TODO need to adapt the regular expressions accordingly...
+#
+
+$this proc findDemoMakers {hxfile} {
+    set modules [list]
+    set result [list]
+    if {![file readable $hxfile]} {
+        echo "$this: file $hxfile cannot be read"
+        return [list]
+    }
+    set f [open $hxfile r]
+    while {![eof $f]} {
+        gets $f line
+        # look for type identifier "DemoMaker"
+        if [regexp {{(.*)} setVar {scroType} {DemoMaker}} \
+                $line dummy objname] {
+            lappend modules $objname
+        } elseif [regexp {(.*) time setMinMax .*} $line dummy objname] {
+            # is this a DemoMaker module?
+            if [lcontains $modules $objname] {
+                # extract the domain of the module's time slider
+                set tmin [lindex $line 3]
+                set tmax [lindex $line 4]
+                lappend result [list $objname $tmin $tmax]
+            }
+        }
+    }
+    close $f
+    if {[llength $result] == 0} {
+        echo "$this: no DemoMaker objects found in file $hxfile"
+    }
+    return $result
+}
+
+############################
+# event sorting
+############################
+
+# global event list: compare start times and then labels
+proc DemoMaker::sortEvents {ev0 ev1} {
+    set t0 [lindex $ev0 2]
+    set t1 [lindex $ev1 2]
+    if {$t0 < $t1} {
+        return -1
+    } elseif {$t0 == $t1} {
+        return [string compare -nocase [lindex $ev0 1] [lindex $ev1 1]]
+    } else {
+        return 1
+    }
+}
+
+# commands to be executed at one time step: compare by "relevant" time
+proc DemoMaker::sortCmdsByTime {cmd0 cmd1} {
+    set t0 [lindex $cmd0 0]
+    set t1 [lindex $cmd1 0]
+
+    if {$t0 < $t1} {
+        return -1
+    } elseif {$t0 == $t1} {
+        # if things are exec'd simultaneously, do "break", "pause", "goto"
+        #   as the last thing
+        set x1 [lcontains "break pause goto" [lindex $cmd0 1]]
+        set x2 [lcontains "break pause goto" [lindex $cmd1 1]]
+        if $x1 {
+            if $x2 {
+                echo "$this: t=$t0: simultaneous break/pause/goto detected."
+                return 0
+            }
+            return 1
+        } elseif $x2 {
+            return -1
+        } else {
+            return 0
+        }
+    } else {
+        return 1
+    }
+}
+
+
+############################
+# manipulate event list menu
+############################
+
+
+# add currently selected event to event list
+$this proc addEvent {} {
+
+    # make an event description from the currently active GUI values
+    set event [$this getCurrentEvent]
+    if {[llength $event] == 0} {return}
+
+    # update internal event list
+    set events [$this getVar internalEventList]
+    lappend events $event
+    $this setVar internalEventList $events
+
+    # update event list in GUI
+    $this gui_updateMenu_EventList
+
+    # select the new entry in the list
+    $this eventList setOptValueString 0 [$this makeEventEntry $event]
+
+}
+
+
+# remove the currently selected event from the event list
+$this proc removeEvent {} {
+
+    # get index of event
+    set i [$this eventList getOptValue 0]
+    assert {$i != 0}
+
+    # remove in internal list
+    set events [$this getVar internalEventList]
+    set events [lreplace $events $i $i]
+    $this setVar internalEventList $events
+
+    # update event list in GUI
+    $this gui_updateMenu_EventList
+
+    # if possible, select the entry that now has the old index
+    set num [$this eventList getNumOptEntries 0]
+    assert {$num > 0}
+    if {$i >= $num} {set i [expr $num-1]}
+    $this eventList setOptValue $i
+
+}
+
+
+# replace the currently selected event in the event list
+$this proc replaceEvent {} {
+
+    # the currently typed-in event
+    set event [$this getCurrentEvent]
+    if {[llength $event] == 0} {return}
+
+    # get index of event to be replaced
+    set i [$this eventList getOptValue 0]
+
+    # replace in internal list and update menu
+    set events [$this getVar internalEventList]
+    set events [lreplace $events $i $i $event]
+    $this setVar internalEventList $events
+    $this gui_updateMenu_EventList
+
+    # select the newly inserted event
+    $this eventList setOptValueString 0 [$this makeEventEntry $event]
+}
+
+
+
+########################################
+# set all button sensitivities correctly
+########################################
+
+$this proc gui_setSensitivities {} {
+
+    # is one of the selected events highlighted?
+    if {[$this eventList getOptValue 0] > 0} {
+        # do we have a valid command or an available event?
+        if {[$this guiElements getOptValue 0] > 0} {
+            # can add, replace, remove 
+            $this eventAction setSensitivity 0 1
+            $this eventAction setSensitivity 1 1
+            $this eventAction setSensitivity 2 1
+        } else {
+            # cannot add, cannot replace, can remove
+            $this eventAction setSensitivity 0 0
+            $this eventAction setSensitivity 1 0
+            $this eventAction setSensitivity 2 1
+        }
+    } else {
+        # none of the selected events is highlighted
+        # do we have a valid command or an available event?
+        if {[$this guiElements getOptValue 0] > 0} {
+            # can only add
+            $this eventAction setSensitivity 0 1
+            $this eventAction setSensitivity 1 0
+            $this eventAction setSensitivity 2 0
+        } else {
+            # cannot add, replace, remove
+            $this eventAction setSensitivity 0 0
+            $this eventAction setSensitivity 1 0
+            $this eventAction setSensitivity 2 0
+
+        }
+    }
+    if {[$this eventList getNumOptEntries] > 1 } {
+	# more than only one entry (the "<select>" entry) -- can search
+	$this eventAction setSensitivity 3 1
+	$this eventAction setSensitivity 4 1
+    } else {
+	$this eventAction setSensitivity 3 0
+	$this eventAction setSensitivity 4 0
+    }
+}
+
+
+############################################################################
+# This is the "heart" of DemoMaker. For a given time step, set all sliders
+#   and toggles to the right values, and execute commands at the right time
+############################################################################
+
+$this proc showDemoTimeStep {t t_minmax} {
+
+    # if "active" in the "function" port is not checked, do nothing
+    if {![$this functions getValue 0]} {
+        return
+    }
+
+    # only do this after the network has been loaded completely
+    if [$this getVar isInitialized] {
+        return
+    }
+
+    # option values for explicit redraw / debug mode
+    set explicitRedraw [$this getOption "explicit redraw"]
+    set debug [$this getOption "debug"]
+
+    if $debug {echo "$this: \[dbg\] showing time step $t"}
+
+    # functions returning the "before" or "after" value for each type
+    set before(numeric) {lindex $event 4}
+    set after(numeric)  {lindex $event 5}
+    set before(cmd)     {lindex $event 4}
+    set after(cmd)      {lindex $event 5}
+    set before(pause)   {expr 1}
+    set after(pause)    {expr 1}
+    set before(goto)    {expr 1}
+    set after(goto)     {expr 1}
+    set before(toggle)  {expr 1 - [lindex $event 3]}
+    set after(toggle)   {lindex $event 3}
+    set before(button)  {expr 1}
+    set after(button)   {expr 1}
+    set before(select)  {lindex $event 4}
+    set after(select)   {lindex $event 3}
+
+    set min_t [lindex $t_minmax 0]
+    set max_t [lindex $t_minmax 1]
+    set last_t [$this getVar lastTimeStep]
+    $this setVar lastTimeStep $t
+    assert {($t >= $min_t) && ($t <= $max_t)}
+
+    # determin if we are "playing" or "jumping"
+    set isPlaying [expr abs($t-$last_t) < 2*abs([$this time getIncrement])]
+
+    # determine if we should show a waiting screen
+    set showWaitScreen [expr [$this getOption "wait screen"] && !$isPlaying]
+
+    # if we do explicit redraw, or if we are showing the waiting screen,
+    #   we should switch off automatic redraw.
+    if {$showWaitScreen || $explicitRedraw} {
+        $this forAllViewers {setAutoRedraw 0}
+    } else {
+        $this forAllViewers {setAutoRedraw 1}
+    }
+
+    # switch all modules off, show background waiting image,
+    #  switch all modules on again and restore background
+    #  (but do not redraw yet)
+    if $showWaitScreen {
+        # store the viewer mask of all modules, and set them all to 0
+        set oldMasks [list]
+        foreach mod [all] {
+            lappend oldMasks [list $mod setViewerMask [$mod getViewerMask]]
+        }
+        foreach mod [all] {
+            $mod setViewerMask 0
+            if $debug {echo "$this: \[dbg\] $mod setViewerMask 0"}
+        }
+
+        # save current background of all viewers
+        set bg ""
+        foreach v {0 1 2 3 4 5 6 7} {
+            if [viewer $v exists] {
+                set mode [viewer $v getBackgroundMode]
+                if {$mode == 3} {
+                    # if we were showing a picture before, restore it later
+                    set img [viewer $v getBackgroundImage]
+                    append bg "[list viewer $v setBackgroundImage $img]\n"
+                }
+                append bg "[list viewer $v setBackgroundMode $mode]\n"
+            }
+        }
+
+        # switch to waiting screen and then redraw
+        $this forAllViewers {setBackgroundImage [$this waitImg getValue]}
+        $this forAllViewers {setBackgroundMode 3}
+        $this forAllViewers {redraw}
+
+        # restore the viewer mask of all modules, but do not redraw
+        foreach cmd $oldMasks {
+            if $debug {echo "$this: \[dbg\] $cmd"}
+            eval $cmd
+        }
+
+    }
+
+    # go through all registered events
+    set to_be_executed [list]
+    foreach event [lrange [$this getVar internalEventList] 1 end] {
+
+        # type of event
+        set type  [lindex $event 0]
+
+        if {$type == "load"} {
+            echo "$this: sorry, load event not implemented."
+            continue
+        }
+
+        # start and end time of the event
+        set time0 [lindex $event 2]
+        if {($type == "cmd") || ($type == "numeric")} {
+            set time1 [lindex $event 3]
+        } else {
+            set time1 $time0
+        }
+
+        # "break" requires special treatment
+        if {$type == "break"} {
+            if {![$this getOption "skip break"]} {
+                if {($t >= $time0) && ($last_t < $time0)} {
+                    lappend to_be_executed [list $time0 "break"]
+                }
+            }
+            continue
+        }
+
+        # only execute "goto" when in play mode, not in jump mode
+        if {$type == "goto" && !$isPlaying} {
+            continue
+        }
+
+        # do not execute "pause" if specified
+        if {$type == "pause"} {
+            if {(!$isPlaying) || [$this getOption "skip pause"]} {
+                continue
+            }
+        }
+
+        # button event: determine if shift/ctrl/alt shall be used
+        if {$type == "button"} {
+            # in DemoMaker versions <1.01 we did not have modif keys
+            if {[llength $event] < 6} {
+                set before(button) "list 0 0 0"
+                set after(button) "list 0 0 0"
+            } else {
+                # %0% %1% %2% are substituted in the button command
+                set before(button) "list [lrange $event 3 5]"
+                set after(button) "list [lrange $event 3 5]"
+            }
+        }
+
+        # determine what needs to be done: set an in-between value,
+        #   set to "before" value, set to "after" value, or do nothing
+        if {$t < $time0} {
+            if {$last_t >= $time0} {
+                # t < time0 <= last_t: set to "before" value
+                set value [eval $before($type)]
+                set relevant_time $time0
+            } else {
+                # t,last_t < time0
+                continue
+            }
+        } elseif {$t > $time1} {
+            if {$last_t < $time1} {
+                # last_t < time1 <= t: set to "after" value
+                set value [eval $after($type)]
+                set relevant_time $time1
+            } else {
+                # time1 < last_t,t
+                continue
+            }
+        } else {
+
+            # min_t <= t <= max_t: set to in-between value
+            set relevant_time $t
+            if {[lcontains "toggle select pause goto" $type]} {
+                set value [lindex $event 3]
+            } elseif {$type == "button"} {
+                set value [eval $after(button)]
+            } else {
+                # interpolation factor (0...1)
+                set toosmall [expr [$this time getIncrement] * 1e-4]
+                if {$time1 - $time0 <= $toosmall} {
+                    # interval too small for interpolation
+                    set w 0
+                } else {
+                    set w [expr double($t - $time0) / \
+                               double($time1 - $time0)]
+                }
+
+                # compute interpolated value vector
+                set from [lindex $event 4]
+                set to   [lindex $event 5]
+                assert {[llength $from] == [llength $to]}
+                set num_values [llength $from]
+                set value {}
+                for {set i 0} {$i < $num_values} {incr i} {
+                    set v0 [lindex $from $i]
+                    set v1 [lindex $to $i]
+                    # format so the float can also be interpreted as an
+                    #   integer by cutting off the tail (e.g. NOT 8.5e-5,
+                    #   but 0.000085)
+                    lappend value [format "%.12f" [expr $v0+$w*($v1-$v0)]]
+                }
+            }
+        }
+
+        # the "set" command to be executed
+        set cmd [lindex $event end]
+
+        # now substitute the value(s) into the "set" command
+        set num_values [llength $value]
+        for {set i 0} {$i < $num_values} {incr i} {
+            regsub -all "%$i%" $cmd [lindex $value $i] cmd
+        }
+
+        # add this command to the list of commands to be executed
+        lappend to_be_executed [list $relevant_time $cmd]
+
+    } ;# loop over all events
+
+    # execute the list of commands by their relevant time
+    #  (this order is important if you do big jumps in time)
+    if {$t >= $last_t} {
+        set sort_cmd [list lsort -incr]
+    } else {
+        set sort_cmd [list lsort -decr]
+    }
+    lappend sort_cmd "-command"
+    lappend sort_cmd "DemoMaker::sortCmdsByTime"
+    lappend sort_cmd $to_be_executed
+
+    set commands [eval $sort_cmd]
+
+    foreach command $commands {
+        set cmd [lindex $command 1]
+        if {$cmd == "break"} {
+            $this doBreak [lindex $command 0]
+        } else {
+            # execute command in the global context
+            if $debug {echo "$this: \[dbg\] t=$t $cmd"}
+            uplevel \#0 $cmd
+        }
+    }
+
+    # switch off waiting screen after having executed all commands
+    if $showWaitScreen {
+        # restore old background
+        eval $bg
+    }
+
+    if {$explicitRedraw || $showWaitScreen} {
+        $this forAllViewers {redraw}
+        $this forAllViewers {setAutoRedraw 1}
+    }
+
+    # if at the end of the slider, call the "at end" callback
+    if {$t == [lindex [$this time getMinMax] 1]} {
+        if {[llength [$this getVar atEndCallback]]} {
+            if $debug {echo "$this: \[dbg\] starting end callback"}
+            # due to addTimeout this module will not be in referenced
+            #  in the call stack when the callback is started. Else one
+            #  could not load new networks in the callback (since it would
+            #  destroy $this).
+            set callback [$this getVar atEndCallback]
+            $this setEndCallback ""
+            addTimeout 100 $callback
+        }
+    }
+
+}
+
+$this proc forAllViewers {cmd} {
+    foreach bit {0 1 2 3 4 5 6 7 8} {
+        if [viewer $bit exists] {
+            eval uplevel 1 viewer $bit $cmd
+        }
+    }
+}
+
+########################################################
+# function keys
+########################################################
+
+# un-set the defined function keys so they cannot be used
+$this proc undefineFunctionKeys {} {
+
+    # key definitions
+    set next $DemoMaker::breakKeyNext
+    set prev $DemoMaker::breakKeyPrev
+    set start $DemoMaker::breakKeyStart
+    set stop $DemoMaker::breakKeyStop
+
+    foreach key [list $next $prev $start $stop] {
+        proc onKey$key {} {}
+    }
+}
+
+
+# define function keys for starting/stopping animation and for
+#   jumping between the demo segments
+$this proc defineFunctionKeys {} {
+
+    # key definitions
+    set next $DemoMaker::breakKeyNext
+    set prev $DemoMaker::breakKeyPrev
+    set start $DemoMaker::breakKeyStart
+    set stop $DemoMaker::breakKeyStop
+    echo "$this: press $start/$stop to start/stop, $next/$prev to jump"
+
+    # Stop: stop the time slider.
+    proc onKey$stop {} "$this stop"
+
+    # Start: start the time slider at current position.
+    proc onKey$start {} "$this play"
+
+    # Next: jump to next segment
+    proc onKey$next {} "$this jumpNext"
+
+    # Previous: jump to previous segment
+    proc onKey$prev {} "$this jumpPrev"
+
+}
+
+# Query the time at which the breakPoint'th break is found, or end of demo.
+$this proc jump { breakPoint } {
+
+    set result "x"
+
+    # if breakPoint is 0 then jump to time 0
+    if { $breakPoint == 0 } {
+        set result 0
+    } else {
+        set currentBreakPoints 0
+        # look through list of events for the desired break point
+        foreach event [$this getVar internalEventList] {
+            if {[lindex $event 0] == "break"} {
+                incr currentBreakPoints 1
+                if {$currentBreakPoints == $breakPoint} {
+                    set result [lindex $event 2]
+                    break
+                }
+            }
+        }
+    }
+
+    # nothing found - jump to end of demo
+    if {$result == "x"} {
+        set result [lindex [$this time getMinMax] 1]
+    }
+
+    echo "$this: jump to t=$result"
+    $this time setValue $result
+    $this fire
+}
+
+# Query the time at which the next demo segment starts, or end of demo.
+$this proc jumpNext {} {
+
+    set t [$this time getValue]
+
+    # look through list of events
+    set result "x"
+    foreach event [$this getVar internalEventList] {
+        if {[lindex $event 0] == "break"} {
+            set t1 [lindex $event 2]
+            if {$t1 > $t} {
+                set result $t1
+                break
+            }
+        }
+    }
+
+    # nothing found - jump to end of demo
+    if {$result == "x"} {set result [lindex [$this time getMinMax] 1]}
+
+    echo "$this: jump to t=$result"
+    $this time setValue $result
+    $this fire
+
+}
+
+
+# Query the time at which the previous demo segment starts, or start of demo.
+$this proc jumpPrev {} {
+
+    set t [$this time getValue]
+
+    # look through list of events
+    set events [$this getVar internalEventList]
+    set result "x"
+    for {set i [expr [llength $events] - 1]} {$i>=0} {incr i -1} {
+        set event [lindex $events $i]
+        if {[lindex $event 0] == "break"} {
+            set t1 [lindex $event 2]
+            if {$t1<$t} {
+                set result $t1
+                break
+            }
+        }
+    }
+
+    # nothing found - return start of demo
+    if {$result == "x"} {set result [lindex [$this time getMinMax] 0]}
+
+    echo "$this: jump to t=$result"
+    $this time setValue $result
+    $this fire
+}
+
+# shortcut for play
+$this proc play {} {
+    echo "$this: playing from t=[$this time getValue]"
+    $this time play
+}
+
+# stop the time slider and call "on stop" callback
+$this proc stop {} {
+
+    # stop time slider
+    $this time stop
+
+    # init for continuing after this break
+    set t [$this time getValue]
+    $this setVar lastTimeStep $t
+
+}
+
+# set the "at end" callback to any Tcl command. Will only be called once.
+$this proc setEndCallback {cmd} {
+    $this setVar atEndCallback $cmd
+}
+
+# Execute a break: just stop the time slider.
+$this proc doBreak {t} {
+
+    $this time stop
+    set start $DemoMaker::breakKeyStart
+
+    # some message
+    set t_end [lindex [$this time getMinMax] 1]
+    if {$t == $t_end} {
+        echo "end of demo at time step $t"
+    } else {
+        echo "$this: break at t=$t. Press $start to continue."
+    }
+
+    # unblock "play" command
+    $this stop
+
+}
+
+
+##########################################################################
+# move one interval of the time line to a new location
+# re-scale events from [src_min:src_max] to [dst_min:dst_max]
+##########################################################################
+
+$this proc moveEvents {src_min src_max dst_min dst_max} {
+
+    set newEvents [list "dummy"]
+
+    # go through all events and re-time them accordingly
+    foreach event [lrange [$this getVar internalEventList] 1 end] {
+
+        set type [lindex $event 0]
+        set t [lindex $event 2]
+
+        # modify time if it falls within the interval
+        if {($t >= $src_min) && ($t <= $src_max)} {
+            set tnew [expr double($t-$src_min) / double($src_max-$src_min)\
+                           * double($dst_max-$dst_min) + $dst_min]
+            set event [lreplace $event 2 2 $tnew]
+        }
+
+        # modify second time for those events use a second time value
+        if [lcontains "numeric cmd goto" $type] {
+            set t [lindex $event 3]
+            if {($t >= $src_min) && ($t <= $src_max)} {
+                set tnew [expr double($t-$src_min) / double($src_max-$src_min)\
+                              * double($dst_max-$dst_min) + $dst_min]
+                set event [lreplace $event 3 3 $tnew]
+            }
+        }
+
+        # make new event list
+        lappend newEvents $event
+    }
+
+    # if necessary, modify min/max of the time slider
+    set min [lindex [$this time getMinMax] 0]
+    set max [lindex [$this time getMinMax] 1]
+    if {$dst_min < $min} {set min $dst_min}
+    if {$dst_max > $max} {set max $dst_max}
+    $this time setMinMax $min $max
+    $this fire
+
+    # if the current time step is within the interval, move it accordingly
+    set t [$this time getValue]
+    if {($t >= $src_min) && ($t <= $src_max)} {
+        # time value needs to be updated
+        set tnew [expr double($t-$src_min) / double($src_max-$src_min)\
+                      * double($dst_max-$dst_min) + $dst_min]
+        $this time setValue $tnew
+        $this time untouch
+    }
+
+    # replace event list variable and menu
+    $this setVar internalEventList $newEvents
+    $this gui_updateMenu_EventList
+
+}
+
+
+##########################################################################
+# activate or deactivate module
+##########################################################################
+$this proc activate {flag} {
+
+    $this setVar isDemoMakerActive $flag
+    return
+
+    # this code hides all ports but the one to switch the module on again,
+    #   but it is probably better if the user can see what the module defines
+
+    if $flag {
+        # show deactivated ports (if they are hidden)
+        if [$this hasVar deactivatedPorts] {
+            foreach port [$this getVar deactivatedPorts] {$this $port show}
+        }
+        # re-enable options
+        $this functions setSensitivity 1 1
+        $this functions setSensitivity 2 1
+    } else {
+        # deactivate visible ports
+        set ports ""
+        foreach port [lrange [$this allPorts] 1 end] {
+            if {[$this $port isVisible] && $port != "functions"} {
+                $this $port hide
+                lappend ports $port
+            }
+        }
+        $this setVar deactivatedPorts $ports
+        # disable options
+        $this functions setSensitivity 1 0
+        $this functions setSensitivity 2 0
+    }
+}
+
+##########################################################################
+# the "compute" method is called automatically whenever a port has changed
+##########################################################################
+$this proc compute {} {
+
+    # min/max of time ports depends on min/max of time slider
+    set min [lindex [$this time getMinMax] 0]
+    set max [lindex [$this time getMinMax] 1]
+    $this triggerTime setMinMax $min $max
+    $this startEndTime setMinMaxAll $min $max $min $max
+
+    if [$this functions isNew] {
+
+        ######################################################################
+        # activate / deactivate DemoMaker
+        ######################################################################
+        set old [$this getVar isDemoMakerActive]
+        set new [$this functions getValue 0]
+        if {$old != $new} {
+            # activate / deactivate DemoMaker
+            $this activate $new
+        }
+        ######################################################################
+        # show/hide optional parts of the user interface
+        ######################################################################
+        if [$this functions getValue 1] {
+            foreach port "optSep options moreOpt1 moreOpt2 optionsAction eventListFile" {
+                $this $port show
+            }
+            # only show wait img if waiting screen is activated
+            if [$this getOption "wait screen"] {
+                $this waitImg show
+            }
+        } else {
+            foreach port "optSep options moreOpt1 moreOpt2 optionsAction eventListFile waitImg" {
+                $this $port hide
+            }
+        }
+        if [$this functions getValue 2] {
+            foreach port "moveSep moveFrom moveTo timeEdit" {
+                $this $port show
+            }
+        } else {
+            foreach port "moveSep moveFrom moveTo timeEdit" {
+                $this $port hide
+            }
+        }
+        $this descriptionFileName hide
+    }
+
+    ######################################################################
+    # define/undefine function keys if necessary
+    # If DemoMaker starts up from scratch and function keys are off,
+    # nothing will happen (i.e. existing func key defs will not be
+    # touched)
+    ######################################################################
+
+    if [$this moreOpt1 isNew] {
+        if [$this getOption "function keys"] {
+            if {[$this getVar funcKeysDefined]==0} {
+                $this defineFunctionKeys
+                $this setVar funcKeysDefined 1
+            }
+        } else {
+            if {[$this getVar funcKeysDefined]==1} {
+                $this undefineFunctionKeys
+                $this setVar funcKeysDefined 0
+            }
+        }
+    }
+
+    # only show wait img if waiting screen is activated
+    if [$this moreOpt2 isNew] {
+        if [$this getOption "wait screen"] {
+            $this waitImg show
+        } else {
+            $this waitImg hide
+        }
+    }
+
+    if [$this eventList isNew] {
+
+        ###############################################################
+        # user selects an event from the list of events
+        ###############################################################
+
+        # look what is selected in the event list
+        set i [$this eventList getOptValue 0]
+        if {$i == 0} {
+            # user selects <new event>: nothing happens
+        } else {
+            # user selects an event: update GUI for editing that event
+            set event [lindex [$this getVar internalEventList] $i]
+            # select the right GUI element in the "GUI elements" menu
+            set type [lindex $event 0]
+            if {$type == "cmd"} {
+                $this guiElements setOptValue 0 1
+            } elseif {$type == "break"} {
+                $this guiElements setOptValue 0 2
+            } elseif {$type == "pause"} {
+                $this guiElements setOptValue 0 3
+            } elseif {$type == "goto"} {
+                $this guiElements setOptValue 0 4
+            } elseif {$type == "load"} {
+                $this guiElements setOptValue 0 5
+            } else {
+                $this guiElements setOptValueString 0 [lindex $event 1]
+            }
+            # update GUI to show the right types of ports
+            $this gui_showEvent $event
+            $this guiElements untouch
+        }
+        # update which buttons can be pressed
+        $this gui_setSensitivities
+        $this eventList untouch
+    }
+
+    if [$this guiElements isNew] {
+
+        #########################################################
+        # user selects one of the available network port elements
+        #########################################################
+
+        set i [$this guiElements getOptValue 0]
+        if {$i == 0} {
+            # nothing selected yet, hide GUI ports
+            $this command hide
+            $this triggerTime hide
+            $this startEndTime hide
+            $this toggleValue hide
+            $this selectValue hide
+            $this startVector hide
+            $this endVector hide
+            $this startEndValue hide
+        } else {
+            # GUI element selected, show GUI for corresponding event
+            set event [lindex $DemoMaker::availGuiElements $i]
+            $this gui_showEvent $event
+        }
+        # update which buttons can be pressed
+        $this gui_setSensitivities
+        $this guiElements untouch
+
+    }
+
+    ######################################################################
+    # if the user selects a network to be loaded, scan it for DemoMakers
+    ######################################################################
+    if [$this loadFile isNew] {
+
+        set file [$this loadFile getValue]
+        if {$file != ""} {
+            # store result in a member variable (because of tmin/tmax)
+            set result [$this findDemoMakers $file]
+            $this setVar loadNetwDemoMakers $result
+            # create menu entries
+            set ftail [file tail $file]
+            if [llength $result] {
+                $this createEntries startScro 0 \
+                    [lmap $result "\[list $ftail: \[lindex \{%v%\} 0\]\]"]
+            } else {
+                $this createEntries startScro 0 \
+                    [list "<$ftail: no DemoMaker objects>"]
+            }
+        } else {
+            $this setVar loadNetwDemoMakers [list]
+            $this createEntries startScro 0 [list "<select file first>"]
+        }
+        $this startScro touch
+    }
+
+    # set range of start time according to that DemoMaker's time slider
+    if [$this startScro isNew] {
+        set modules [$this getVar loadNetwDemoMakers]
+        if [llength $modules] {
+            set mod [lindex $modules [$this startScro getValue 0]]
+            $this startTime setMinMax 0 [lindex $mod 1] [lindex $mod 2]
+        }
+
+    }
+
+
+    ######################################################################
+    # has the time slider been moved? then show the right part of the demo
+    ######################################################################
+    if [$this time isNew] {
+        $this showDemoTimeStep [$this time getValue] [$this time getMinMax]
+    }
+
+    ######################################################################
+    # count-down for determining the right point for starting DemoMaker
+    #  first call: 3->2
+    #  second call: 2->0 (value 1 reserved ;-)
+    ######################################################################
+    if {[$this getVar isInitialized] == 2} {
+        # only do "auto start" in the second "compute" call
+        $this setVar isInitialized 0
+        # auto start?
+        if [$this getOption "auto start"] {
+            echo "$this: auto start at t=[$this time getValue]"
+            $this time play
+        } else {
+            echo "$this: auto start not activated"
+        }
+    } elseif {[$this getVar isInitialized] > 0} {
+        # count down
+        $this setVar isInitialized [expr [$this getVar isInitialized] - 1]
+    }
+
+}
+
+##########################################################################
+# Write a description file with all steps according to the breaks
+# found in the time line of DemoMaker.
+# ##########################################################################
+$this proc writeDescriptionFile { } {
+
+    # get number of break points
+    set numBreakPoints 0
+    # look through list of events for the desired break point
+    foreach event [$this getVar internalEventList] {
+        if {[lindex $event 0] == "break"} {
+            incr numBreakPoints 1
+        }
+    }
+
+    if { [ $this descriptionFileName exec ] } {
+        # file dialog was closed with OK button
+
+        set demoMakerName [ $this getLabel ]
+
+        set fileName [ $this descriptionFileName getFilename ]
+
+        set fileId [ open $fileName w 0600 ]
+
+        puts $fileId {<?xml version="1.0" encoding="ISO-8859-1"?>       }
+        puts $fileId {  <description style="demo">                      }
+        puts $fileId {    <attributes>                                  }
+        puts $fileId {      <attribute name="display" values="" />      }
+        puts $fileId {      <attribute name="version" values="" />      }
+        puts $fileId {      <attribute name="topic" values="" />        }
+        puts $fileId {      <attribute name="state" values="" />        }
+        puts $fileId {    </attributes>                                 }
+        puts $fileId {    <title>                                       }
+        puts $fileId {    </title>                                      }
+        puts $fileId {    <general>                                     }
+        puts $fileId {    </general>                                    }
+        puts $fileId {    <!-- thumbnail is optional -->                }
+        puts $fileId {    <thumbnail src="" />                          }
+        puts $fileId {    <staff>                                       }
+        puts $fileId {      <person status="responsible">               }
+        puts $fileId {        <name></name>                             }
+        puts $fileId {        <userid></userid>                         }
+        puts $fileId {        <email></email>                           }
+        puts $fileId {        <tel></tel>                               }
+        puts $fileId {      </person>                                   }
+        puts $fileId {      <person>                                    }
+        puts $fileId {        <name></name>                             }
+        puts $fileId {        <userid></userid>                         }
+        puts $fileId {        <email></email>                           }
+        puts $fileId {        <tel></tel>                               }
+        puts $fileId {      </person>                                   }
+        puts $fileId {      <!-- register more persons here -->         }
+        puts $fileId {    </staff>                                      }
+        puts $fileId {    <prepacked href="">                           }
+        puts $fileId {      <file src=""/>                              }
+        puts $fileId {    </prepacked>                                  }
+        puts $fileId {    <demo stepmode="random">                      }
+        puts $fileId {      <script file="demoname.hx"/>                }
+        puts $fileId {        <steps>                                   }
+        for { set i 0 } { $i <= $numBreakPoints } { incr i } {
+            puts $fileId "          <step name=\"step $i\"
+                jumpcommand=\"$demoMakerName jump $i\"
+                playcommand=\"$demoMakerName jump $i; $demoMakerName play\"> "
+            puts $fileId {          </step>                             }
+        }
+        puts $fileId {        </steps>                                  }
+        puts $fileId {    </demo>                                       }
+        puts $fileId {  </description>                                  }
+
+        close $fileId
+
+        echo "Description file written to $fileName."
+    } else {
+        # file dialog was closed with Cancel button
+        echo "Warning: no description file generated."
+    }
+}

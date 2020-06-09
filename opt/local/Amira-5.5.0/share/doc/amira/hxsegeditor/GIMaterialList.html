@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Manipulating the Material List</a></h3>
+<p>To select a material in the material list, click on the
+material name with the left mouse button. The selected
+material will be highlighted in dark blue.</p>
+<p>
+</p><div style="text-align:center"><a name="A2"></a><img src="gi-materialList.png" /><br />
+<div class="caption">
+<b>Figure 3:</b>
+The material list.</div>
+
+
+</div><p></p>
+<p>Press the <em>New</em> button to add a new material to the list (note that not more than 256 materials
+are accepted). To delete a material, select a material, then press the
+<em>Delete</em> button.</p>
+<p>Click on the color square to the left of the material
+name to bring up a <a class="link" href="../hxcore/QxColorDialog.html#A1">color dialog</a> to edit the color. 
+If the color checkbox is enabled on right of the material name, 
+the voxels are rendered with the selected color.</p>
+<p>Check the 2D and 3D checkboxes to the right of the material name to switch 
+the material visible or invisible in the MPR and in the 3D viewer.
+The rendering windows and colormap can be set in the <em>Zoom and Data 
+Window</em> and in the <em>Display and Data Masking</em> areas. </p>
+<p>Click on the lock icon to lock or unlock the material.
+If a material is locked, no voxels can be subtracted from this region,
+neither explicitly, nor implicitly by adding them to another material.
+The lock icon indicates the current state (locked, unlocked).</p>
+<p>Press the <em>select</em> button to select all pixels of
+the corresponding material.</p>
+<p>The current material is the material which is assigned to
+selected voxels if the "+" button is pressed. This 
+material is displayed with a gray highlight. In the material 
+list the current material can be selected by clicking on the 
+material name with the left mouse button. 
+A special behavior is
+obtained if one of the <em>Shift</em>, <em>Control</em>, or <em>Alt</em> keys on the
+keyboard is held down while selecting the material:</p>
+<p></p>
+<ul><li>If <em>Shift</em> is held down, all voxels which are already assigned
+ to the selected material are added to the current selection (either in
+ the current slice or in the whole volume, depending if
+ <a class="link" href="GIEditButtons.html#A3">All slices</a> is selected or not).</li><li>If <em>Control</em> is held down, all voxels assigned to the selected
+ material will be deselected (either in the current slice or in the
+ whole volume, depending if <a class="link" href="GIEditButtons.html#A3">All slices</a> is selected or not).</li><li>Holding down the <em>Alt</em> key does the same as <em>Shift</em> except
+ that the selection is cleared before new voxels are selected.</li>
+</ul><p></p>
+<p>Additional options of the material list can be accessed via a popup menu,
+which shows up when the right mouse button is pressed on a particular
+material entry. The following menu entries are provided:</p>
+<p></p>
+<ul><li><b>Draw Style:</b> A submenu offers different styles how pixels
+ belonging to a particular material are rendered in the image viewer.
+ The possible appearances are:
+ 
+<ul><li><em>Invisible:</em> The material is not visible. You can also control
+ the visibility by clicking on the material's eye icon of the material list.</li><li><em>Contour:</em> The segments are enclosed by lines.</li><li><em>Hatched:</em> The segments are enclosed by lines and shown hatched.</li><li><em>Dotted:</em> The segments are enclosed by lines and filled with dots.</li><li><em>Light Dots:</em> The segments are enclosed by lines and filled with less dots.</li><li><em>Preferences:</em> Opens the Segmentation Editor <a class="link" href="GIOverview.html#A1">Preferences</a>.</li>
+</ul></li><li><b>New Material:</b> By selecting this option from the popup menu a 
+ new entry is added to the material list with a randomly chosen color
+ and a default name, e.g., "NewMaterial". These properties can be changed
+ as described above. You can also create a new material by pressing the
+ <em>New</em> button above the material list.</li><li><b>Rename Material:</b> With this option you can change the name of a material. 
+ A text cursor appears and lets you edit the name as easily as any other
+ text field. If the new name is equal to the name of an existing
+ material you are asked if these two materials should be merged. It
+ is not possible to have to different materials with the same name.</li><li><b>Delete Material:</b> If you choose <em>Delete</em>, the material you have
+ clicked on will be deleted. Voxels belonging to that material will be
+ assigned to the first material in the list (typically the background).
+ You can also delete a selected material by pressing the <em>Delete</em> button above
+ the material list.</li><li><b>Edit Color:</b> This command brings up a <a class="link" href="../hxcore/QxColorDialog.html#A1">color dialog</a>
+ in which you
+ can easily change the color of this material. You can also access the
+ color editor by clicking on the material's color square in the material
+ list.</li><li><b>Locate:</b> This command sets all viewers to the slice with the
+ largest region of this material. This is especially useful to navigate
+ in large data sets with many materials.</li><li><b>Lock/Unlock Material:</b> You can lock a material with this option.
+ A lock icon to the right of the material indicates its current state
+ (locked/unlocked).
+ If a material is locked, no voxels can be subtracted from this region,
+ neither explicitly, nor implicitly by adding them to another material.
+ You can also lock/unlock the material by clicking on the material's
+ lock icon in the material list.</li><li><b>Lock All:</b> This locks all materials.</li>
+</ul><p></p>
+<p></p>
+<p>
+</p></body>
+</html>

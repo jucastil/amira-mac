@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MoleculeView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MoleculeView" "basic visualization module for molecules" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> The <em>MoleculeView</em> allows you to display molecules in three
+ different representations: atom spheres, wire frame, and
+ ball-and-stick. For each of these representations there are two
+ <em>Quality</em> modes, <em>fast</em> and <em>correct</em>.</p>
+<p> Atoms can be colored according to the
+ <a class="link" href="../hxmolecule/moldatastruct.html#A2">groupings</a> defined on the molecule,
+ e.g., atoms, residues, and chains. Moreover, the displayed part of
+ the molecule can be restricted by using the
+ <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">selection browser</a> as well as by
+ interaction in the viewer.</p>
+<p> In addition to just visualizing molecules, this module provides tools
+ that facilitate interaction with the molecule. For example,
+ you can select atoms to find out which index they have and which
+ group they belong to. The ability to select atoms is also a
+ precondition for the alignment procedure described in the section on
+ <a class="link" href="../hxmolecule/molpositioning.html#A1">aligning molecules</a>.</p>
+<p> In order to measure distances and angles in the molecule,
+ right-click the <em>MoleculeView</em> in the <a class="link" href="../usersguide/mainwin.html#A2">Pool</a>,
+ which will open a pop-up menu with the entry
+ <a class="link" href="HxMeasurement.html#A1">Measurement</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ReferenceMolecule</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A reference molecule must be connected if you want to study the
+ alteration of the torsion angles from one time step of a molecular
+ trajectory to another (see the <em>Options</em> port below
+ for more information).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Continuous CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap that is used to map values of float attributes to
+ colors.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Discrete CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap that is used to map values of discrete attributes, e.g.,
+ integers and strings, to colors.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxMolView_mode.png" /><br /></div>
+<div class="body"><p>Select one of three main display modes: balls, sticks, or balls and
+ sticks. The default is sticks.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Quality</span>  
+<div class="portsnapshot"><img src="HxMolView_quality.png" /><br /></div>
+<div class="body"><p>The appearance of the balls and sticks can be altered by selection of
+ one of two different qualities, a <em>fast</em> mode and a <em>correct</em>
+ mode. The fast mode shows sticks as lines and spheres by rendering a
+ square with the image of the sphere. This permits the display of large
+ numbers of spheres at interactive speed. However, showing the image of
+ a sphere means the 3D expansion of the sphere in only two directions
+ is taken into account. As long as none of the spheres intersect, there
+ will be no visible difference between spheres drawn in <em>fast</em> mode
+ and spheres drawn in <em>correct</em> mode. In the correct mode, spheres
+ are represented by textured triangular meshes and sticks by cylinders.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxMolView_options.png" /><br /></div>
+<div class="body"><p><em>Single radius</em>: display all atoms with the same radius.<br />
+
+ <em>Bond type</em>: display bond type,
+ e.g., single, double, triple, or aromatic.<br />
+
+ <em>Torsion angles</em>: display torsion angles by the use of a coil
+ around the stick.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom radius</span>  
+<div class="portsnapshot"><img src="HxMolView_atomRadius.png" /><br /></div>
+<div class="body"><p>If the option <em>single radius</em> is selected, the value given here
+ will be interpreted as the sphere radius for all atom
+ spheres. Otherwise, the value scales the van der Waals radius of
+ the atom.</p>
+<p> <a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Bond radius</span>  
+<div class="portsnapshot"><img src="HxMolView_bondRadius.png" /><br /></div>
+<div class="body"><p>Radius of cylinders representing bonds (only visible in <em>correct</em> display mode).</p>
+<p> <a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Twist factor</span>  
+<div class="portsnapshot"><img src="HxMolView_twistFactor.png" /><br /></div>
+<div class="body"><p>Allows adjustment of the twist of the coil.</p>
+<p> <a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxMolView_colorscheme.png" /><br /><img src="HxMolView_continuousColormap.png" /><br /><img src="HxMolView_discreteColormap.png" /><br /><img src="HxMolView_defineColor.png" /><br /></div>
+<div class="body"><p>The four ports above are described in the general 
+ section on <a class="link" href="../hxmolecule/moldisplay.html#A4">visualization of molecules</a>.</p>
+<p> <a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting</span>  
+<div class="portsnapshot"><img src="HxMolView_highlighting.png" /><br /></div>
+<div class="body"><p>This port provides functionality for selecting (or highlighting)
+ atoms in the viewer window. For more information, see the
+ description of the highlighting port in the general section on
+ <a class="link" href="../hxmolecule/moldisplay.html#A10">visualization of molecules</a>.</p>
+<p> <a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlight Size</span>  
+<div class="portsnapshot"><img src="HxMolView_highlightSize.png" /><br /></div>
+<div class="body"><p>This port provides functionality for selecting the intensity of 
+ highlight.</p>
+<p> <a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxMolView_buffer.png" /><br /></div>
+<div class="body"><p>This port is the front end to a filter that determines the set of
+ atoms being displayed by the <em>MoleculeView</em>. The buttons are
+ described in the section on
+ <a class="link" href="../hxmolecule/moldisplay.html#A13">visualization of molecules</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setTextureAntiAliasing &lt;value&gt;</span>  
+
+<div class="body"><p>
+ This command enables (1) or disables (0) antialiasing for the 
+ textures used in fast sphere mode. Antialiasing has no impact
+ on the rendering speed. However, if antialiasing is enabled
+ and you have many different colors, the generation of the
+ textures might be considerably slower.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

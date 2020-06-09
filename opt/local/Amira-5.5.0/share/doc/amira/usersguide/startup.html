@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.4 User-defined start-up script</a></h2>
+<p><font face="helvetica">Amira</font> may be customized in certain ways by providing a user-defined
+start-up script. The default start-up script, called <tt><font face="helvetica">Amira</font>.init</tt>,
+is located in the subdirectory <tt>share/resources/<font face="helvetica">Amira</font></tt> of the <font face="helvetica">Amira</font>
+installation directory. This script is read each time the program is
+started. Among other things, the start-up script is responsible for
+registering file formats, modules, and editors and for loading the
+default colormaps.</p>
+<p>If a file called <tt><font face="helvetica">Amira</font>.init</tt> is found in the current working
+directory, this file is read instead of the default start-up script.
+If no such file is found, on Unix systems it is checked if there exists
+a start-up script called <tt>.<font face="helvetica">Amira</font></tt> in the user's home directory.
+Below an example of a user-defined start-up script is shown:
+&nbsp;<br />
+ <tt># Execute the default start-up script</tt>
+&nbsp;<br />
+ <tt>source $AMIRA_ROOT/share/resources/<font face="helvetica">Amira</font>/<font face="helvetica">Amira</font>.init 0</tt></p>
+<p></p><pre>
+# Set up a uniform black background
+viewer 0 setBackgroundMode 0
+viewer 0 setBackgroundColor black
+
+# Choose non-default font size for the help browser
+help setFontSize 12
+
+# Restore camera setting by hitting F2 key
+proc onKeyF2 { } {
+    viewer setCameraOrientation 1 0 0 3.14159
+    viewer setCameraPosition 0 0 -2.50585
+    viewer setCameraFocalDistance 2.50585
+}
+</pre><p></p>
+<p>In this example, first the system's default start-up script is executed.
+This ensures that all <font face="helvetica">Amira</font> objects are registered properly. Then some
+special settings are made. Finally, a hot-key procedure is defined for the
+function key F2. You can
+define such a procedure for any other function key as well. In addition,
+procedures like <tt>onKeyShiftF2</tt> or <tt>onKeyCtrlF2</tt> can be defined.
+These procedures are executed when a function key is pressed with the Shift or
+the Ctrl modifier key being pressed down.
+
+</p></body>
+</html>

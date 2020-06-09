@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_HASH_SET
+#define  OIV_STL_HASH_SET
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

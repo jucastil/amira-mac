@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.7.2 User-defined 3D Menu Items</a></h3>
+<p>Besides the default buttons, any number of user-defined buttons can be
+added to the <font face="helvetica">Virtual Reality Option</font> 3D menu using a Tcl script interface. This is
+useful for executing certain demos or for invoking other special actions.
+The script interface essentially consists of a single global Tcl method
+called <em>menu</em> which is provided by <font face="helvetica">Virtual Reality Option</font>. Calling the <em>menu</em>
+method with special parameters allows the user to add individual buttons
+or submenus to the main 3D menu. Each button or submenu has an id. This
+id can be used to modify the particular element afterwards. Whenever
+a button is pressed, a user-defined Tcl procedure is invoked.</p>
+<p>An example of how to create a two-level menu hierarchy is shown below.
+This example is taken from the file
+<em>$<tt>AMIRA_ROOT</tt>/share/demo/tracking/demomenu.hx</em> contained
+in the <font face="helvetica">Virtual Reality Option</font> demo section. You can execute that script in order to
+see how the user-defined buttons work.</p>
+<p><font size="0"></font></p><pre>
+menu reset
+
+menu insertMenu -id 0 -text "Medical"
+menu insertMenu -id 1 -text "Flow Dynamics"
+menu insertMenu -id 2 -text "Reconstruction"
+menu insertMenu -id 3 -text "Multi-Channel"
+
+menu 0 insertItem -id 0 -text "CT Slices" -proc "Menu0"
+menu 0 insertItem -id 1 -text "Isosurface" -proc "Menu0"
+menu 0 insertItem -id 2 -text "Surface model" -proc "Menu0"
+menu 0 insertItem -id 4 -text "Oblique slice" -proc "Menu0"
+menu 0 insertItem -id 5 -text "Pseudo-color" -proc "Menu0"
+
+menu 1 insertItem -id 0 -text "Wing" -proc "Menu1"
+menu 1 insertItem -id 1 -text "Turbine ISL" -proc "Menu1"
+menu 1 insertItem -id 2 -text "Turbine LIC" -proc "Menu1"
+
+menu 2 insertItem -id 0 -text "Slice &amp; Isosurface" -proc "Menu2"
+menu 2 insertItem -id 1 -text "Volume Rendering" -proc "Menu2"
+menu 2 insertItem -id 2 -text "Simplified Surface" -proc "Menu2"
+
+menu 3 insertItem -id 0 -text "Projection view" -proc "Menu3"
+menu 3 insertItem -id 1 -text "Slicing" -proc "Menu3"
+menu 3 insertItem -id 2 -text "Isosurface" -proc "Menu3"
+menu 3 insertItem -id 3 -text "Volume Rendering" -proc "Menu3"
+
+proc Menu0 { id } {
+    global AMIRA_ROOT
+    switch $id \
+        0 { load $AMIRA_ROOT/share/demo/medical/ctstack.hx } \
+        1 { load $AMIRA_ROOT/share/demo/medical/isosurface.hx } \
+        2 { load $AMIRA_ROOT/share/demo/medical/surf.hx } \
+        3 { load $AMIRA_ROOT/share/demo/medical/tetra.hx } \
+        4 { load $AMIRA_ROOT/share/demo/medical/gridcut.hx } \
+        5 { load $AMIRA_ROOT/share/demo/medical/pseudocolor.hx } \
+        6 { load $AMIRA_ROOT/share/demo/medical/splats.hx }
+}
+
+proc Menu1 { id } {
+    global AMIRA_ROOT
+    switch $id \
+        0 { load $AMIRA_ROOT/share/demo/cfd/wing.hx } \
+        1 { load $AMIRA_ROOT/share/demo/cfd/turbine-isl.hx } \
+        2 { load $AMIRA_ROOT/share/demo/cfd/turbine-lic.hx }
+}
+
+proc Menu2 { id } {
+    global AMIRA_ROOT
+    switch $id \
+        0 { load $AMIRA_ROOT/share/demo/recon/recon01.hx } \
+        1 { load $AMIRA_ROOT/share/demo/recon/recon05.hx } \
+        2 { load $AMIRA_ROOT/share/demo/recon/recon04.hx }
+}
+
+proc Menu3 { id } {
+    global AMIRA_ROOT
+    switch $id \
+        0 { load $AMIRA_ROOT/share/demo/multichannel/projectionview.hx } \
+        1 { load $AMIRA_ROOT/share/demo/multichannel/slicing.hx } \
+        2 { load $AMIRA_ROOT/share/demo/multichannel/isosurfaces.hx }
+        3 { load $AMIRA_ROOT/share/demo/multichannel/voltex.hx }
+}
+</pre><p><font size="0">
+</font></p>
+<p><font size="0">
+</font></p>
+<p>The example above give a general idea of how to create a user-defined
+button hierarchy. The <em>menu</em> command provides some additional
+parameters. The general form of the <em>menu</em> command is as follows:</p>
+<p></p><pre>
+menu [submenu-id [...]] cmd [options]
+</pre><p></p>
+<p>Here <tt>submenu-id</tt> is the id of any submenu. The root level has no
+id at all. The first level has one id, the second level has two ids,
+and so on. </p>
+<p></p>
+<ul><li>a button for activating the 2D mouse mode (id 1000)</li><li>a button for getting a list of all modules (id 1001)</li><li>a button for getting a list of all data objects (id 1002)</li>
+</ul><p></p>
+<p>You can remove these default buttons using the command <tt>menu clear</tt>.
+In order to clear the menu and then reset the default buttons, use <tt>menu reset</tt>. The complete list of commands is this:</p>
+<p></p>
+<ul><li>menu reset<br />
+
+ Removes all buttons and sub-menus from the menu and restores the
+ default layout with entries for mouse mode, modules, and data objects.
+ This command can only be applied at the main level.</li><li>menu [...] clear<br />
+
+ Removes all buttons and sub-menus from the specified menu. If applied
+ at the main level also the default buttons (mouse mode, modules, and
+ data) will be removed.</li><li>menu [...] count<br />
+
+ Returns the number of entries (action buttons and sub-menu buttons)
+ in the specified menu.</li><li>menu [...] idAt <em>index</em>
+ Returns the id of the item at position <em>index</em>.</li><li><p>menu [...] insertItem [options]<br />
+
+ This command creates a new button and inserts it into the specified
+ menu. The following options are available:</p>
+
+<ul><li>-id <em>id</em><br />
+
+ Specifies the id of the new button.</li><li>-index <em>index</em><br />
+
+ Specifies the position of the new button. If <em>index</em> is -1
+ (which is the default) the new button will be appended at the
+ bottom of the menu.</li><li>-text <em>text</em><br />
+
+ Specifies the text to be displayed by the new button.</li><li>-fg <em>"r g b"</em><br />
+
+ Specifies the text or foreground color of the new button.</li><li>-bg <em>"r g b"</em><br />
+
+ Specifies the background color of the new button.</li><li>-proc <em>proc</em><br />
+
+ The name of the Tcl procedure to be called when the button is
+ pressed. Either an own procedure without arguments can be used
+ for a button. Alternatively, a procedure with one argument can
+ be used for all buttons in a menu. The argument then is set to
+ the id of the pressed button (see example above).</li>
+</ul></li><li><p>menu [...] insertMenu [options]<br />
+
+ This command creates a new sub-menu button and inserts it into the
+ specified menu. The id of the new button can be used as a sub-menu id
+ for the <em>menu</em> command itself. The same options as for <em>insertItem</em> can be used. In addition the following option is
+ available:</p>
+
+<ul><li>-type <em>classtype</em><br />
+
+ If this option is specified a special sub-menu will be inserted
+ which lists all objects of type <em>classtype</em> in the <font face="helvetica">Amira</font>
+ Pool. For example, in order to get a list of all modules
+ (like in the default menu) you should use insertMenu with <em>-type HxModule</em>.</li>
+</ul></li><li>menu [...] changeItem id -text <em>text</em><br />
+
+ Changes the text of an existing button.</li><li>menu [...] removeItem id<br />
+
+ Removes an action button or sub-menu button from the menu.</li><li>menu [...] connectItem id <em>proc</em><br />
+
+ Connects a button to a Tcl procedure. The procedure will be called
+ when the button is pressed.</li><li>menu [...] disconnectItem id <em>proc</em><br />
+
+ Disconnects a button from a Tcl procedure.</li>
+</ul><p></p>
+<p>
+</p></body>
+</html>

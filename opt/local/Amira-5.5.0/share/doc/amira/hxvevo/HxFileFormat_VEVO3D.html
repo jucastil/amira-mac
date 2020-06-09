@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Vevo Mode Raw Images</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Vevo Mode Raw Images" "2D and 3D ultrasound images from
+Visual Sonics' Vevo 770 (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This reader adds support for images acquired using a Vevo 770
+ultrasound scanner from Visual Sonics. The reader imports the <b>B-Mode</b>, 3D
+<b>B-Mode</b> and 3D <b>PW Doppler</b> images exported in the <tt>.rdi/.rdb</tt> raw 
+data file format of the scanner. To load the data, select either the <tt>.rdi</tt>
+or the <tt>.rdb</tt> file in the <i>File/Open data ...</i> dialog.
+<b>B-Mode</b> images will be imported as a 2D slice, 3D <b>B-Mode</b> images will 
+be imported as single channel uniform scalar fields while and 3D <b>PW Doppler</b>
+images are imported as 2-channel fields. In the latter case the <b>B-Mode</b>
+image is assigned to the first channel and will be connected to a gray colormap
+and the <b>PW Doppler</b> image is assigned to the second channel and is 
+connected to the <tt>doppler.am</tt> colormap. Both colormaps, if they do not
+already exist, will be loaded into the workspace from the <tt>/data/colormaps</tt>
+directory.
+</p></div>
+<p></p>
+<p>
+
+</p></body>
+</html>

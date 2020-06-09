@@ -1,0 +1,10 @@
+
+module -name "Scale" \
+    -class "HxScale" \
+    -category "Main" \
+    -dso "libhxmeasure.so"
+
+module -name "Measurement" \
+    -class "HxMeasureTools" \
+    -category "None" \
+    -dso "libhxmeasure.so"

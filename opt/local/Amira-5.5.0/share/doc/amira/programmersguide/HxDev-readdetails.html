@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.2.3 More About Read Routines</a></h3>
+<p>The basic structure of a read routine should be clear from the examples
+presented in the previous two sections. Nevertheless, there are a few more
+things that might be of interest in some situations. These will be
+discussed in the following.</p>
+<p></p>
+<h4><a name="A2">Reading Multiple Images At Once</a></h4>
+<p>The <font face="helvetica">Amira</font> file browser allows you to select multiple files at once. Usually,
+all these files are opened one after the other by first determining the
+file format and then calling the appropriate read routine. However, in some
+cases the data of a single <font face="helvetica">Amira</font> data object are distributed among multiple
+files. The most prominent example is 3D images where every slice is stored
+in a separate 2D image file. In order to be able to create a full 3D image,
+the file names of all the individual 2D images must be available to a read
+routine. To facilitate this, read routines in <font face="helvetica">Amira</font> can have two different
+signatures. Besides the ordinary form
+<font size="2"></font></p><pre>
+int myreader(const char* filename);
+</pre><p><font size="2"></font></p>
+<p>read routines can also be defined as follows:</p>
+<p><font size="2"></font></p><pre>
+int myreader(int n, const char** filenames);
+</pre><p><font size="2"></font></p>
+<p>In both cases exactly the same <tt>dataFile</tt> command can be used in the
+package resource file. <font face="helvetica">Amira</font> automatically detects whether a read routine
+takes a single file name as an argument or multiple ones. In the latter
+case, the read routine is called with the names of all files selected in
+the file browser, provided all these files have the same file format (if
+multiple files with different formats are selected, the read routine for
+each format is called with the matching files only). You can create the
+template of a multiple files read routine by selecting the toggle <em>create reader for multiple files</em> in the Development Wizard (see
+<a class="link" href="HxDev-devreader.html#A1">Section 24.7</a>).</p>
+<p></p>
+<h4><a name="A3">The Load Command</a></h4>
+<p>The current state of the <font face="helvetica">Amira</font> network with all its data objects and
+modules can be stored in a script file. When executed, the script should
+restore the network again. Of course, this is a difficult task especially
+if data objects have been modified since they have been loaded from files.
+However, even if this is not the case, <font face="helvetica">Amira</font> must know how to reload the
+data later on.
+For this purpose a special parameter called <em>LoadCmd</em> should be defined
+for the data object. This parameter should contain a Tcl command sequence which
+restores the data object on execution. Usually, the load command is simply
+set to <tt>load &lt;filename&gt;</tt> when calling <tt>HxData::registerData</tt>.
+However, this approach fails if the format of the file cannot be detected
+automatically, or if multiple data objects are created from a single file,
+e.g., as in our <em>Trimesh</em> example.</p>
+<p>In such cases the load command should be set manually. In case of the
+<em>Trimesh</em> reader, this could be done by adding the following lines of code
+at the very end of the routine just before the method's returning point:</p>
+<p><br />
+
+<font size="2"></font></p><pre>
+    McString loadCmd;
+    loadCmd.printf("set TMPIO [load -trimesh %s]\n"
+                   "lindex $TMPIO 0", filename);
+    surface-&gt;setLoadCmd(loadCmd,1);
+
+    for (int i=0; i&lt;fields.size(); i++) {
+        loadCmd.printf("lindex $TMPIO %d", i+1);
+        fields[i]-&gt;setLoadCmd(loadCmd,1);
+    }
+</pre><p><font size="2"></font></p>
+<p>This code requires some explanation. The file is loaded and all data
+objects are created when the first line of the load command is executed.
+Note that we specified the <tt>-trimesh</tt> option as an
+argument of <tt>load</tt>. This ensures that the <em>Trimesh</em> reader will
+always be used. The format of the file to be loaded will not be determined
+automatically. The Tcl command <tt>load</tt> returns a list with the names of
+all data objects which have been created. This list is stored in the
+variable TMPIO. Later the names of the individual objects can be
+obtained by extracting the corresponding elements from this list. This is
+done using the Tcl command <tt>lindex</tt>.</p>
+<p></p>
+<h4><a name="A4">Using Dialog Boxes in a Read Routine</a></h4>
+<p>In some cases a file cannot be read successfully unless certain parameters
+are interactively specified by the user. Usually this means that a
+special-purpose dialog must be popped up within the read routine. This is
+done, for example, when raw data are read in <font face="helvetica">Amira</font>. In order to write your
+own dialogs, you must use Qt, a platform-independent toolkit for
+designing graphical user interfaces.
+If you don't want to use Qt, you may consider
+implementing your read routine within an ordinary module. Although this 
+somewhat breaks <font face="helvetica">Amira</font>'s data import concept, it will work too, of course.
+You then can utilize ordinary ports to let the user specify
+required import parameters.
+
+</p></body>
+</html>

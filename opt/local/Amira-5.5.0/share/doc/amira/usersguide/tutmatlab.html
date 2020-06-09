@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+
+</p>
+<h2><a name="A1">2.13 Using MATLAB Scripts</a></h2>
+<p>In this tutorial you will learn how to integrate complex calculus into
+<font face="helvetica">Amira</font> using MATLAB (The MathWorks, Inc) by the means of the 
+<a class="link" href="../hxmatlab/HxCalculus.html#A1"><em>CalculusMatlab</em></a> module.</p>
+<p>In order to use the CalculusMatlab module, MATLAB 7 must be 
+correctly installed on your computer. The CalculusMatlab 
+module establishes a connection to the MATLAB computational engine that was 
+registered during installation. If you did not register during installation, 
+on the Windows command line you can enter the command:
+</p>
+<ul><li>matlab /regserver</li>
+</ul><p></p>
+<p>The limitations of the <em>CalculusMatlab</em> module are 
+listed in its <a class="link" href="../hxmatlab/HxCalculus.html#A1">documentation</a>.</p>
+<p>This tutorial covers the following topics:
+</p>
+<ol><li>Loading and executing a MATLAB script.</li><li>Lowpass filtering on images.</li><li>Controlling the script with a time slider.</li><li>Thresholding on a volume.</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A2">2.13.1 Lowpass Filtering on Images</a></h3>
+<p>In this section we will learn how to apply a lowpass filter on an <font face="helvetica">Amira</font> image using the 
+MATLAB Fourier transformation. This example shows how to pass data and control variables
+from <font face="helvetica">Amira</font> to MATLAB, execute a MATLAB script, and import the data back into <font face="helvetica">Amira</font>.</p>
+<p></p>
+<ul><li>Load the <em>lena.png</em> image file located in subdirectory <em>data/tutorials/matlab</em>.</li><li>Choose <em>Luminance</em> in the <em>Channel Conversion field</em> as shown in Figure <a class="link" href="#A3">32</a>.</li><li>Right click on the green icon and choose <em>CalculusMatlab</em> from the Compute section.</li>
+</ul><p></p>
+<p>A new red icon appears, the <em>CalculusMatlab</em> module that will try to connect 
+to the MATLAB engine. This may take a while. </p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutmatlab_load.png.html><img width=337 src="tutmatlab_load.png" /></a><br />
+<div class="caption">
+<b>Figure 32:</b>
+Loading the image</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Load the script <em>lowpass.m</em> located in subdirectory <em>data/tutorials/matlab</em> by clicking the <em>Read</em> button
+of the <em>File</em> port.</li><li>Execute the script by clicking on the <em>buffer</em> button of the <em>Execute</em> port.</li><li>Connect an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> to the filtered image <em>result</em>.</li>
+</ul><p></p>
+<p>The module uses the MATLAB computation engine which has its own user interface.</p>
+<p>You can easily show or hide the MATLAB console using the checkbox in the options field. 
+The MATLAB console is very useful for debugging purposes because it allows you to
+access variables of the MATLAB workspace. Any variable not cleared by the MATLAB
+"clear" command in the script
+is accessible in the MATLAB workspace, even after finishing the current CalculusMatlab
+computation (see the <a class="link" href="../hxmatlab/HxCalculus.html#A1"><em>CalculusMatlab</em></a> documentation).</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutmatlab_calc.png.html><img width=450 src="tutmatlab_calc.png" /></a><br />
+<div class="caption">
+<b>Figure 33:</b>
+The CalculusMatlab module</div>
+
+
+</div><p></p>
+<p>In addition you can control scalar parameters of the script using time sliders:
+</p>
+<ul><li>Create a time slider (<em>File/Create/Data/Time</em>).</li><li>Connect the CalculusMatlab module to the time slider.</li><li>Change the line cutoff=0.05 to cutoff=t in the script 
+(see the <a class="link" href="../hxmatlab/HxCalculus.html#A1"><em>CalculusMatlab</em></a> documentation for 
+more information about the keyword t).</li><li>Click on the time slider and adjust the value that will be assigned to w.
+Right mouse click in the text field of the time slider and select <em>Configure</em>
+to adjust the data range of the parameters.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutmatlab_lena.png.html><img width=450 src="tutmatlab_lena.png" /></a><br />
+<div class="caption">
+<b>Figure 34:</b>
+Left: original Right: lowpass filtered</div>
+
+
+</div><p></p>
+<p><b>Note:</b> To handle RGBA image filtering, you must load the image with Color Field Channel Conversion and treat each channel separately in the script.</p>
+<p></p>
+<h3><a name="A6">2.13.2 Thresholding on a Volume</a></h3>
+<p>In this section we will learn how to apply a threshold to a volume. 
+This is done by setting a value for a threshold. If the value for the voxel is less 
+than the threshold, the voxel value is assigned the value of zero. If it is 
+above the threshold, it is assigned a value of 255. </p>
+<p></p>
+<ul><li>Load the file <em>lobus.am</em> located in subdirectory <em>data/tutorials</em>.
+</li><li>Right click on the green icon and choose <em>CalculusMatlab</em> from the <em>Compute</em> section.</li><li>Load the script <em>threshold.m</em> located in subdirectory <em>data/tutorials/matlab</em> by 
+clicking the <em>Read</em> button of the <em>File</em> port.</li><li>Execute the script by clicking on the <em>buffer</em> button of the <em>Execute</em> port.</li>
+</ul><p></p>
+<p>A new green icon appears, the Lattice that will hold the threshold result. Connect an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> or a <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> to see the result.</p>
+<p><b>Note:</b> Any variable accessed by MATLAB and pushed back into the <font face="helvetica">Amira</font>
+workspace will lose its voxel size information. You will need to correct the voxel size
+manually using the <a class="link" href="../hxlattice/HxImageCrop.html#A1">Crop Editor</a>.
+
+
+</p></body>
+</html>

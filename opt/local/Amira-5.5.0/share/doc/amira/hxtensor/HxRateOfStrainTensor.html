@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> RateOfStrainTensor</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "RateOfStrainTensor" "computes the rate of strain tensor for a displacement vector field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module computes the rate of strain tensor for a given
+displacement vector field. If the displacement vector field
+describes the displacement of matter in space, the rate of strain
+tensor field will specify how the space is distorted by this field.</p>
+<p>Analyze the resulting tensor field by extracting its eigenvalues
+(<a class="link" href="HxExtractEigenvalues.html#A1">ExtractEigenvalues</a> module) where the tensor field should be indefinite
+and thus may contain negative and positive eigenvalues for directions
+in which the matter is compressed or expanded during the distortion.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Vector field defined on a uniform grid (<em>UniformVectorField3</em>) 
+and that describes the space distortion.
+The vector components must be floats.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

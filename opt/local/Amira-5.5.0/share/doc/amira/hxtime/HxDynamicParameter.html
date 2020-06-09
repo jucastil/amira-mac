@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Animate</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Animate" "facilitates simple animations" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The Animate module can be connected to any other object to animate its visibility
+or to animate the value of one of 
+the following ports:
+<a class="link" href="../hxcore/HxPortFloatSlider.html#A1">PortFloatSlider</a>,
+<a class="link" href="../hxcore/HxPortIntSlider.html#A1">PortIntSlider</a>,
+<a class="link" href="../hxcore/HxPortFloatTextN.html#A1">PortFloatTextN</a>, or
+<a class="link" href="../hxcore/HxPortIntTextN.html#A1">PortIntTextN</a>.
+The Animate module provides a time port that can be used to set the value of one
+of these ports of the other object. The time value is not used directly to
+set the other port's value but is modified by a user-defined expression.
+For example, if the time is running from 0 to 100 and you want to animate
+a slice slider from 0 to 50, you have to use the expression <em>t/2</em>. More
+complicated expressions involving functions such as <em>sin</em> or <em>cos</em>
+can be used as well. For a description of supported functions please refer
+to the <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Object</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the object containing the port to be animated.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to a time object. If the port is connected to a time
+object, the time of that object is used. In this way multiple modules with
+a time port can be synchronized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxDynamicParameter_time.png" /><br /></div>
+<div class="body"><p>This slider allows you to set or animate the current time value. The time
+range and the increment used for animation can be adjusted in the configure
+dialog which can be popped up using the right mouse button.</p>
+<p>
+<a name="A2"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Port</span>  
+<div class="portsnapshot"><img src="HxDynamicParameter_port.png" /><br /></div>
+<div class="body"><p>Option menu listing all ports of the connected object that can be
+animated. The selected port actually will be animated. The special entry
+<i>visible</i> corresponds to the viewer mask rather than an actual port.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Value</span>  
+<div class="portsnapshot"><img src="HxDynamicParameter_value.png" /><br /></div>
+<div class="body"><p>Use this text field to specify the expression used to compute the actual
+value of the port to be animated. The expression can include two different
+variables, namely <em>t</em> denoting the current time value, and <em>u</em>
+denoting the previous value of the port. </p>
+<p>For the <i>visible</i> entry, the expression is interpreted as a Boolean
+expression, where 0 means invisible, while a number different from
+0 means visible. You can use expressions like <tt>t&gt;20</tt> or 
+<tt>( (t&gt;5) &amp;&amp; (t&lt;15)) || (t&gt;100)</tt>.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Value2</span>  
+<div class="portsnapshot"><img src="HxDynamicParameter_value2.png" /><br /></div>
+<div class="body"><p>If the port to be animated has multiple text fields, one expression port
+will be shown for each text field. If you don't want to change the value
+of a particular text field, use the expression <em>u</em>, which is the
+previous value of the port.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setMinMaxPortRange</span>  
+
+<div class="body"><p>
+ Sets the minimum and maximum value of the time port to
+ the minimum and maximum value of the chosen port.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+
+</p></body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> IvToSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "IvToSurface" "converts an Open Inventor model into a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>IvToSurface</em> computational module parses the connected
+ <em>Open Inventor scene graph</em> (<em>Open Inventor</em> geometry data) and converts
+ it into the surface format.
+ 
+ This is done when you press the <em>Apply</em> button. A green icon named
+ <em>GeometrySurface</em> representing the generated surface should appear in the Pool.</p>
+<p> If no data object is connected, all geometry currently displayed
+ in the first viewer is converted.</p>
+<p> Duplicated points are removed during the conversion. Duplicated points are
+ points with a distance less than the diameter of the bounding box times
+ the given <em>Tolerance distance</em> factor.</p>
+<p> Triangles of similar color are grouped into patches if you select the
+ <em>create patches by color</em> option. Colors are considered similar if
+ they differ by less than the <em>Tolerance color</em> value in RGB space.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect a data object of type <em>IvData</em> to this port.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Tolerance</span>  
+<div class="portsnapshot"><img src="HxGeometryToSurface_tolerance.png" /></div>
+<div class="body"><p><em>Tolerance distance</em> controls duplicated points removal.</p>
+<p><em>Tolerance color</em> controls which colors are considered similar.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxGeometryToSurface_options.png" /></div>
+<div class="body"><p>If the <em>create connectivity</em> option is set, the triangle connectivity
+ of the Surface data format is filled.</p>
+<p> The <em>create color field</em> option controls
+ whether an additional vector field containing color values is created from the
+ Open Inventor data that approximates the diffuse material properties. This data can
+ be used as a <em>ColorField</em> when displaying the geometry.</p>
+<p> If the <em>create patches by color</em> option is set, triangles of similar color
+ are grouped into patches.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

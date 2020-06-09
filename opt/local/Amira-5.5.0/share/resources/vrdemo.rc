@@ -1,0 +1,2 @@
+module -name TrackingTest -class VRTrackingTest -package vrdemo
+module -name Pong -primary HxTracking -category Main -class MyVRDemo2 -check {[__isProduct "Avizo"] == 0} -package vrdemo

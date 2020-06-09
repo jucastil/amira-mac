@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">13.4 Example 4: Further Image Analysis - Distribution of Pore Diameters in Foam</a></h2>
+<p>This example shows how to compute the distribution of pore diameters in a foam sample.<br />
+
+To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module.<br />
+
+At the end of this tutorial you will find a link to a corresponding demo script.<br />
+</p>
+<p>To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module (<a class="link" href="QuantificationPackUG-1-basics.html#A1">Getting started with <font face="helvetica">Quantification+ Option</font></a>).<br />
+
+You may want to skip image processing details in this example to focus on the specific new features introduced.<br />
+
+Throughout this tutorial you will find links to corresponding demo scripts.<br />
+</p>
+<p>In this document often the term "enter the command ..." or "apply the command ..." occure. This means that you have to attach a Quantification tool to the input data (defined in the text) and enter the command "..." in the Visilog command line (at the bottom right of the Quantification Properties section). It supports automatic completion. After pressing enter you can see the new command in the Pipeline Section of the Quantification Properties (in the left). Here you can change the input and output data/names (as described in the text). Then press apply.<br />
+</p>
+<p>Notice that sometimes it could happen that you accidentally delete the Visilog colormaps. This is the case, when you for example have a binary image an you attach an OrthoSlice to it and the viewer just shows a black image (see if the colormaps <em>"VisilogBinary.col"</em> and <em>"VisilogLabels.col"</em> are under Pool/ Show Object). The colormaps can be reset with the Tcl command (command line at the bottom right of the Amira window):<br />
+
+<tt>Quantification createColormaps</tt> <br />
+</p>
+<p>Start by loading <tt>data/tutorials/quantification/FoamPoro.im6 </tt> from the <font face="helvetica">Amira</font> root
+directory.</p>
+<p>The image used in this example is also acquired by microtomography.
+It represents foam that consists of material and pores.
+Pores appear with dark levels in the image (low intensity voxels).
+Material appears with luminous levels (high intensity voxels).</p>
+<p>The algorithm may be divided into 3 steps:
+</p>
+<ol><li>pore detection</li><li>pore post-processing</li><li>distribution of the pore diameters</li>
+</ol><p></p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=tutquant_foam.png.html><img width=412 src="tutquant_foam.png" /></a><br />
+<div class="caption">
+<b>Figure 116:</b>
+Initial microtomography image of foam pores</div>
+
+
+</div><p></p>
+<p>
+<em>First step: Pore detection</em><br />
+
+Thresholding the image between 0 and 50 gives a binary image where
+</p>
+<ul><li>Intensity level 1 = porosity</li><li>Intensity level 0 = support (material)</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutquant_foam_pores_image.png.html><img width=337 src="tutquant_foam_pores_image.png" /></a><br />
+<div class="caption">
+<b>Figure 117:</b>
+Pores</div>
+
+
+</div><p></p>
+<p><em>Second step: Pore post-processing</em><br />
+
+The morphological <tt>opening</tt> operator applied on a binary image gives another binary image where
+</p>
+<ul><li>Small objects are removed</li><li>Objects boundaries are smoothed</li><li>Some objects may be disconnected</li>
+</ul><p>
+Applying morphological opening with a size parameter set to <b>1</b> on the pores image gives a filtered
+image where noise and artifacts are reduced.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutquant_pores_filtered_image.png.html><img width=300 src="tutquant_pores_filtered_image.png" /></a><br />
+<div class="caption">
+<b>Figure 118:</b>
+Filtered pores</div>
+
+
+</div><p></p>
+<p>The <tt>binseparate</tt> command detects surfaces that separate agglomerated particles.
+These surfaces are subtracted from the initial image.
+On a bidimensional image: binseparate is used with parameter "Depth of valley"=1 and the <em>choice</em> <tt>split</tt></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutquant_pores_post-processing.png.html><img width=412 src="tutquant_pores_post-processing.png" /></a><br />
+<div class="caption">
+<b>Figure 119:</b>
+Pore post-processing</div>
+
+
+</div><p></p>
+<p>
+</p><div style="text-align:center"><a name="A6"></a><a href=tutquant_separated_pores.png.html><img width=300 src="tutquant_separated_pores.png" /></a><br />
+<div class="caption">
+<b>Figure 120:</b>
+Separated pores</div>
+
+
+</div><p></p>
+<p><em>Third Step: Distribution of the Pore Diameters</em><br />
+
+For a given particle, the equivalent diameter measure computes the diameter of the spherical particle
+of same volume. So the equivalent diameter is given by the following formula:</p>
+<p></p><div style="text-align:center"><a href=tutquant_diameter_formula.png.html><img width=150 src="tutquant_diameter_formula.png" /></a><br />
+
+
+</div><p></p>
+<p>The <font face="helvetica">Quantification+ Option</font> analysis module allows computation of a set of measures for each particle of a 3D image.</p>
+<p></p>
+<ul><li>Create a measure <em>EqDiameter3d</em> with a Quantification module and the command <tt>createmeasure</tt> and the 
+expression (6.*Volume3d/3.14159)**(1./3).</li><li>Add this measure to the Group <em>GranPore</em> with a Quantification module and the command <tt>addmeasuretogroup</tt>
+with the parameter <em>EqDiameter3d</em> and output <em>GranPore</em>.</li><li>Use this measure in a Quantification module with the command <tt>I_analyze</tt> with the separated image as input and
+the initial image as second input. Use the parameter <em>adjust</em> and <em>GranPore</em>. The output is <em>anl1</em>.</li>
+</ul><p>
+Once the individual analysis is performed, a histogram of a given measure may be plotted in order to 
+produce a representation of the measure distribution. 
+</p>
+<ul><li>To do this, attach a Quantification module to the result of <tt>I_analyze</tt>
+and use the command <tt>buildhisto</tt> with parameter <em>EqDiameter3d</em>. The output is <em>EqDiameterHisto</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutquant_distribution_equivalent_diameters.png.html><img width=300 src="tutquant_distribution_equivalent_diameters.png" /></a><br />
+<div class="caption">
+<b>Figure 122:</b>
+Distribution of the equivalent diameters</div>
+
+
+</div><p></p>
+<p>A demo script corresponding to this tutorial can be found in<br />
+
+<a href="../../../../data/tutorials/quantification/PorosityGranu.hx">data/tutorials/quantification/PorosityGranu.hx</a><br />
+
+It uses a script object located in data/tutorials/quantification for automating the processing.<br />
+
+Once the script is loaded, you can select the script object (blue icon) and press <em>start processing</em> in the <em>Properties</em> panel to start the processing. <br />
+
+There may be some interactive commands possibly requiring your input and validation. 
+Just press OK to follow the tutorial steps. 
+These interactive commands can be easily replaced by commands with fixed parameters for fully automatic processing.<br />
+</p>
+<p>
+
+</p></body>
+</html>

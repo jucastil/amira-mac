@@ -1,0 +1,8 @@
+# ----------------------------------------------------------------------
+#  tridelity package
+# ----------------------------------------------------------------------
+
+module -name "TridelityView" -priority 8 \
+    -class "HxTridelity" \
+    -category "Display" \
+    -dso "libhxtridelity.so"

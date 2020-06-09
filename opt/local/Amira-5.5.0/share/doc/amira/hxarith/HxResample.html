@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Resample</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Resample" "changes the resolution of any 3D regular field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module works on any 3-dimensional field with regular coordinates,
+ e.g., complex and non-complex scalar or vector fields or RGBA color
+ fields. It lets you <em>resample</em> the data, i.e., enlarge or shrink the
+ dimensions of the regular grid while recalculating the data according to
+ it. The first port displayed is <em>Input Resolution</em>, which indicates
+ the resolution of the incoming data field to be resampled. If the input
+ field has uniform coordinates, the voxel size is also displayed.
+ The other ports depend on whether the input field contains ordinary
+ numbers or labels as used in image segmentation (see 
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>).</p>
+<p> For non-labeled data fields you see the <em>Filter</em>, the <em>Mode</em>, 
+ the <em>Resolution</em> port and, if the input field has uniform coordinates, 
+ you will see the <em>Voxel size</em> port.
+ In case of a labeled data field you see the <em>Average</em> port. 
+
+ Depending on the existence of labeled data the resampling operation
+ is performed differently.</p>
+
+<h3><a name="A2">Resampling Non-labeled Data Fields</a></h3>
+<p>For non-labeled input data the ports denoted <em>Filter</em>, <em>Mode</em>, <em>Resolution</em> and <em>Voxelsize</em> will be shown.</p>
+<p> <em>Filter</em> provides an option menu allowing you to specify the filter
+ kernel for the resampling operation. Usually the default kernel, <em>Lanczos</em>, yields sufficiently good results for both minifications and
+ magnifications. The following filters are supported:</p>
+
+<ul><li><em>Box</em> - simple replication of scalar values, shows
+ considerably tiling or jaggies</li><li><em>Triangle</em> - computationally simple, still sharp transition lines</li><li><em>Bell</em> - smoothing filter</li><li><em>B-Spline</em> - no sharp transitions, but its width causes
+ excessive blurring</li><li><em>Lanczos</em> - excessive "ringing" effect</li><li><em>Mitchell</em> - no sharp transitions, good compromise between
+ "ringing" and "blurring"</li><li><em>Minimum</em> - useful for down-sampling, preserves tiny dark
+ features on a bright background</li><li><em>Maximum</em> - useful for down-sampling, preserves tiny bright
+ features on a dark background</li><li><em>Cubic, width 6</em> - similar to Lanczos</li><li><em>Cubic, width 8</em> - performs similar to Lanczos</li>
+</ul>
+<p> The <em>Minimum </em> and <em>Maximum</em> filters can only be used to downsample
+ non-complex data fields. </p>
+<p> Port <em>Mode</em> gives you choices how to specify the resolution 
+ of the output field.
+ If you select `dimensions', the <em>Resolution</em> port will be enabled to
+ take your input.
+ If you select `voxel size', the <em>Voxel size</em> port is enabled.</p>
+<p> If you connect a second field to the <em>Reference</em> connection, the 
+ behavior will be a little bit different. 
+ If you select `dimensions', the output field will have the same dimensions
+ as the reference field.
+ If you select `voxel size', the voxel size will be taken from the reference.
+ Additionally the choice `reference' is enabled, which resamples directly onto 
+ the lattice that is provided by the reference field. </p>
+<p> Press the <em>Apply</em> button to start the resampling.</p>
+
+<h3><a name="A3">Resampling Labeled Data Fields</a></h3>
+<p>Labeled data fields can only be down-sampled. Instead of <em>Filter</em> and
+ <em>Resolution</em>, a port denoted <em>Average</em> appears. This port allows
+ you to enter the number of cells to average in each direction. Note
+ that no enlargement is possible.</p>
+<p> As above, the <em>Apply</em> button initiates the resampling.</p>
+
+<h3><a name="A4">Coordinates of the Resampled Data Set</a></h3>
+<p>Resampling can be performed on any 3-dimensional field with either
+ uniform, stacked, rectilinear, or curvilinear coordinates. The resampling
+ operation does not change the coordinate type. If you want to convert
+ a data set with stacked, rectilinear, or curvilinear coordinates into
+ one with uniform coordinates, you should use the
+ <a class="link" href="HxArithmetic.html#A1">Arithmetic</a> module instead of <em>Resample</em>.
+ The coordinates of the resampled data set are obtained by a resampling
+ operation on the coordinates of the input data set.</p>
+<p> Note that in general the bounding box of the resampled data set will
+ be different from the one of the input data set. In particular, for
+ uniform coordinates the bounding box will extend from the center of
+ the first voxel to the center of the last one.</p>
+
+<h3><a name="A5">Resampling in Progress</a></h3>
+<p>While resampling, the progress bar at the bottom
+ of the <a class="link" href="../usersguide/mainwin.html#A4">Properties Area</a> indicates the percentage of
+ resampling that is done. You may cancel the resampling calculation any
+ time by pressing the stop button.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A6"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The underlying data field to be resampled.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A reference lattice. It can provide the new resolution, the new voxel size, 
+ or the new lattice. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Input Resolution</span>  
+<div class="portsnapshot"><img src="HxResample_resinfo.png" /><br /></div>
+<div class="body"><p>Displays the resolution of the input data set.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input Voxel Size</span>  
+<div class="portsnapshot"><img src="HxResample_voxinfo.png" /><br /></div>
+<div class="body"><p>Displays the voxel size of the input data set (if available).</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter</span>  
+<div class="portsnapshot"><img src="HxResample_filter.png" /><br /></div>
+<div class="body"><p>This lets you select one of the resampling filters mentioned above. This
+ will only be visible if the input data set does not contain labels.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxResample_mode.png" /><br /></div>
+<div class="body"><p>This lets you select whether you want to specify the new resolution or 
+ the new voxel size. If a reference lattice is connected, the values are taken
+ from there. Additionally there is the option enabled to sample directly
+ onto the points of the reference lattice.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxResample_resolution.png" /><br /></div>
+<div class="body"><p>Specifies the resolution of the output data set. This port will only be
+ visible if the input data set does not contain labels.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Voxelsize</span>  
+<div class="portsnapshot"><img src="HxResample_voxelSize.png" /><br /></div>
+<div class="body"><p>Specifies the voxel size of the output data set. This port will only be
+ visible if the input data set does not contain labels and has uniform
+ coordinates.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Average</span>  
+<div class="portsnapshot"><img src="HxResample_average.png" /><br /></div>
+<div class="body"><p>Specifies how many labels should be averaged during down-sampling. This
+ port will only be visible if the input data set contains labels.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

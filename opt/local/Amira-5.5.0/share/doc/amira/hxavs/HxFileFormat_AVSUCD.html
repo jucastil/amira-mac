@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AVS UCD Format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "AVS UCD Format" "stores unstructured cell data (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The AVS UCD (<em>Unstructured Cell Data</em>) format can be used to represent
+finite-element grids and associated data fields in 2 and 3 dimensions.
+Currently, in <font face="helvetica">Amira</font> only 2D triangular cells, 3D tetrahedral cells, and 3D
+hexahedral cells are supported. Grids with these cells types will be
+converted into objects of type <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a>,
+<a class="link" href="../hxfield/HxTetraGrid.html#A1">TetraGrid</a>, or HexaGrid, respectively.
+Corresponding data fields will be converted into appropriate <font face="helvetica">Amira</font> objects
+as well, provided the data is defined on a per-node basis. Cell data are
+currently not supported.</p>
+<p>Two variants of the AVS UCD format exist, an ASCII version and a binary
+version. <font face="helvetica">Amira</font> is able to read and write both of them. <font face="helvetica">Amira</font> identifies
+AVS UCD data files by the file name suffix <tt>.inp</tt>.</p>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

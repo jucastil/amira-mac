@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.6 Application command options</a></h4>
+<p>The <tt>app</tt> command provides several options not related to a particular
+object or component in <font face="helvetica">Amira</font>, but related to <font face="helvetica">Amira</font> itself.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">app version</span>  
+
+<div class="body"><p>Returns the current <font face="helvetica">Amira</font> version.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app uname</span>  
+
+<div class="body"><p>Returns simplified name of operating system.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app arch</span>  
+
+<div class="body"><p>Returns <font face="helvetica">Amira</font> architecture string, e.g., arch-Win32VC8-Optimize,
+ arch-LinuxAMD64-Optimize...</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app hostid</span>  
+
+<div class="body"><p>Returns host id needed to create an <font face="helvetica">Amira</font> license key.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app listen [port]</span>  
+
+<div class="body"><p>Opens a socket to which Tcl commands can be sent. The TCP/IP port can
+ be specified optionally. WARNING: This can create security holes. Do
+ not use this unless behind a firewall and if you know what you are
+ doing.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app close</span>  
+
+<div class="body"><p>Closes the <font face="helvetica">Amira</font> Tcl port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app port</span>  
+
+<div class="body"><p>Returns port number of <font face="helvetica">Amira</font> Tcl port. Returns -1 if socket
+ has not been opened.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app send &lt;command&gt; [&lt;host&gt; [&lt;port&gt;]]</span>  
+
+<div class="body"><p>Sends a Tcl command to a listening <font face="helvetica">Amira</font>. If no host or port are
+ specified, the <font face="helvetica">Amira</font> instance will send the command to itself.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app opengl</span>  
+
+<div class="body"><p>Retrieve information about the used OpenGL driver including version
+ number and supported extensions. This is useful information to send to
+ the hotline if reporting rendering problems.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app cluster</span>  
+
+<div class="body"><p>Returns the current node status which can be "master" or "slave" if 
+ some cluster mode is active or simply "single" if is not the case.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app memTotal [-k | -m | -g]</span>  
+
+<div class="body"><p>Returns the physical memory of the system in bytes. Optional switches
+ -k, -m, -g convert the output to kilo-, mega-, or gigabytes, respectively.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">app memAvail [-k | -m | -g]</span>  
+
+<div class="body"><p>Returns the available memory of the system in bytes. Optional switches
+ -k, -m, -g convert the output to kilo-, mega-, or gigabytes, respectively.
+ Note that depending on the operating system the output can deviate from
+ that reported by other tools.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.4 Molecular Surfaces</a></h3>
+<p>In <a class="link" href="molgettingstarted.html#A1">section 10.1.1</a> of this tutorial you
+have seen how to visualize molecules with the <em>MoleculeView</em>
+module. <a class="link" href="molselection.html#A1">Section 10.1.2 , on selection, labeling and
+ masking</a>, showed you how to use <font face="helvetica">Amira</font>'s facilities to select, mask,
+and label certain parts of the molecule. In this tutorial we will</p>
+<p></p>
+<ol><li>compute a molecular surface with the
+ <a class="link" href="../hxmolsurface/HxCompMolSurface.html#A1">CompMolSurface</a> module,</li><li>compute the molecular surface for a restricted set of atoms,</li><li>compute partial surfaces,</li><li>explore the <a class="link" href="../hxmolsurface/HxMolSurfaceView.html#A1">MolSurfaceView</a> module,</li><li>get to know the picking facilities of the <em>MolSurfaceView</em>.</li>
+</ol><p></p>
+<p></p>
+<h4><a name="A2">10.1.4.1 Compute Molecular Surfaces</a></h4>
+<p>In this section you will learn how to use the <em>CompMolSurface</em>
+module to compute molecular surfaces with different resolutions. You
+will also become familiar with some of the module's basic ports.</p>
+<p></p>
+<ul><li>Load the data file <tt>2RNT.pdb</tt> from the directory <tt>data/molecules/pdb</tt>.</li><li>Attach the <em>CompMolSurface</em> module to the green icon by
+ selecting the corresponding entry from the <em>Compute</em> submenu of
+ <tt>2RNT.pdb</tt>'s pop-up menu.</li><li>Select the <tt>CompMolSurface</tt> icon.</li><li>Press the <em>Apply</em> button.</li><li>Attach the <em>MolSurfaceView</em> module to the newly created
+ green icon, <tt>2RNT-surf</tt>.</li>
+</ul><p></p>
+<p>You should now see a gray solvent excluded surface which is still
+pretty coarse. If you want a surface with better resolution,</p>
+<p></p>
+<ul><li>increase the number of points per $$\mathrm{\text{&#197;}}{}^2$$ in the CompMolSurface
+module.</li><li>Press the <em>Apply</em> button again.</li><li>Try different resolutions.</li><li>Now select the <em>no duplicate points</em> option in the <em>Options</em> port.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>Due to the last action, some sharp edges will have disappeared. If
+there are no duplicate points at sharp edges, the surface normals of
+the adjacent triangles will be interpolated, thus leading to a
+smoothing, which in this case might be undesired. However, this option
+is important if it is necessary to have a completely closed surface.</p>
+<p></p>
+<ul><li>Change the <em>Quality</em> port to <em>faster</em>.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>You should observe that some atoms disappear. This is due to the fact
+that now only one surface component will be computed. If the
+molecular surface consists of only one component, the whole surface
+will be computed. Since the underlying algorithm does not need to
+touch every single atom, but approximately only every second atom, the
+algorithm is much faster. If performance is an issue, you might
+consider using this option.</p>
+<p></p>
+<h4><a name="A3">10.1.4.2 Compute Partial Surfaces</a></h4>
+<p>In order to compute partial surfaces we need to select the atoms for
+which we want to compute their surface contribution.</p>
+<p></p>
+<ul><li>Open the selection browser. If you do not know how to do this,
+ take a look at the <a class="link" href="molselection.html#A4">second tutorial</a>.</li><li>Type <tt>within(residues/HET105, 5)</tt> in the browser's <em>Expression</em> command line.</li><li>Press the selection browser's <em>Replace</em> button.</li>
+</ul><p></p>
+<p>All atoms within a distance of 5 $$\mathrm{\text{&#197;}}$$ of the <em>HET105</em> residue
+will now be selected.</p>
+<p></p>
+<ul><li>Reset the <em>CompMolSurface's</em> <em>Quality</em> port back to <em>correct</em>.</li><li>Select <em>partial surface</em> from the <em>Options</em> port of
+ <em>CompMolSurface</em>.</li><li>Press the <em>Apply</em> button.</li><li>Select <em>adjacent patches</em> from the <em>Options</em> port of
+ <em>CompMolSurface</em>.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>The last action causes the partial surface to be expanded by the
+toroidal patches adjacent to the partial surface.</p>
+<p></p>
+<h4><a name="A4">10.1.4.3 Molecular Surface of a Restricted Set of Atoms</a></h4>
+<p>The molecule <em>2RNT.pdb</em> contains some water molecules, which are
+in most cases not desired when computing the molecular surface. In
+order to exclude the water molecule from the surface computation </p>
+<p></p>
+<ul><li>open the selection browser again.</li><li>In the selection browser scroll to the end of the list of
+ residues.</li><li>Click on one of the strings <em>HOH</em> in the <em>type</em> column.</li>
+</ul><p></p>
+<p>All residues of type <em>HOH</em> should now be highlighted.</p>
+<p></p>
+<ul><li>In the browser, right-click on the heading <em>CMS</em> which stands
+ for <em>CompMolSurface</em> and select the entry <em>Remove</em>.</li><li>Deselect <em>partial surface</em> in the <em>CompMolSurface</em>
+ module.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>For the new surface only those residues that have a check mark in the
+selection browser were considered. You may combine this procedure with
+the partial surface computation described above.</p>
+<p></p>
+<h4><a name="A5">10.1.4.4 Exploring the MolSurfaceView</a></h4>
+<p>The <a class="link" href="../hxmolsurface/HxMolSurfaceView.html#A1">MolSurfaceView</a> module is already
+attached to the molecular surface. A second connection exists to the
+molecule <tt>2RNT.pdb</tt>, from which data is read to enhance the
+visualization.</p>
+<p></p>
+<ul><li>Compute the whole molecular surface with a resolution of 2
+ points per $$\mathrm{\text{&#197;}}{}^2$$.</li><li>Click on the <tt>MolSurfaceView</tt> icon to see its user interface
+ in the Properties Area.</li><li>Select <em>molecule</em> for the <em>Color Mode</em>.</li><li>Change the <em>Color</em> port's first menu entry to <em>residues</em>.</li><li>Select an appropriate colormap for the <em>Discrete CM</em> port
+ by right-clicking on the color bar.</li><li>Switch to interaction mode by clicking on the arrow button in
+ the upper right corner of the viewing window.</li><li>Click on the surface in the viewing window.</li>
+</ul><p></p>
+<p>All triangles belonging to the picked triangle's residue will be
+highlighted. If the triangle belongs to two or even three
+(maximum) residues, all of those residues will be highlighted.</p>
+<p>Clicking on the surface with the middle mouse button displays
+information about the atom you clicked on in the upper left corner of
+the viewing window as long as you keep the mouse button pressed. If
+you <tt>Ctrl</tt>-click, the information will remain displayed even after
+releasing the mouse button until the next mouse click on the surface.</p>
+<p></p>
+<ul><li>Press the <em>Highlighting</em> port's <em>Clear</em> button to remove
+ the selection.</li><li>Change the <em>Pick Action</em> port to <em>clipping</em>.</li><li>Pick any triangle of the surface.</li>
+</ul><p></p>
+<p>All triangles further away from the picked triangle than the distance
+given by the <em>Selection Distance</em> port will be cut off. All
+triangles within this distance will remain, however, only if they are
+connected to the picked triangle without leaving the sphere around the
+picked point.</p>
+<p></p>
+<ul><li>Press the <em>All</em> button of the <em>Buffer</em> port to display the
+ whole surface.</li><li>Change the <em>Pick Action</em> port to <em>surface</em>.</li><li><tt>Shift</tt>-click on the surface in the viewing window.</li>
+</ul><p></p>
+<p>All clicks on the surface will now be handled as you might be familiar
+with from the <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module.</p>
+<p></p>
+<p>
+</p></body>
+</html>

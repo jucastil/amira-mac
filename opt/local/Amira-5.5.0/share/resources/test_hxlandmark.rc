@@ -1,0 +1,5 @@
+testClass -class "HxCombineLandmarksTest" \
+    -category "Test" \
+    -package "hxlandmark"
+
+

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> InterpolateLabels</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "InterpolateLabels" "adds intermediate slices to a label field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module adds intermediate slices to a label field, thereby interpolating
+the labels. This is useful e.g., to avoid stair-case effects in data 
+sets with a large slice distance compared to the slice resolution.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connects to a label field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxInterpolateLabelsM_materials.png" /><br /></div>
+<div class="body"><p>You can interpolate for all or for one material only.
+Multiple selected materials can be successively added to the result.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Intermediate slices</span>  
+<div class="portsnapshot"><img src="HxInterpolateLabelsM_intermediateSlices.png" /><br /></div>
+<div class="body"><p>For a uniform label field, this port specifies the number 
+of intermediate slices. e.g., if your input data set had 
+5 slices and you would specify 2 here, your result would 
+have 13 slices. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Attempted slice distance</span>  
+<div class="portsnapshot"><img src="HxInterpolateLabelsM_sliceDistance.png" /><br /></div>
+<div class="body"><p>For a stacked label field, this port specifies the attempted
+slice distance for the interpolated field. Depending on
+the actual slice distance in the stacked field, an 
+appropriate number of intermediate slices is inserted.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxInterpolateLabelsM_interpolation.png" /><br /></div>
+<div class="body"><p>Cubic interpolation will in general generate smoother 
+shapes.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

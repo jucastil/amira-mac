@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> Mosaic</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Data" "Mosaic" "stores references to a mosaic of spatial data" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The Mosaic data class can be used as a container for other
+<a class="link" href="../hxcore/HxSpatialData.html#A1">SpatialData</a> objects. It stores a reference to the
+location on file and the bounding box information.</p>
+<p>A useful application is to arrange several bricks of overlapping 
+image data and use a <a class="link" href="HxMosaicToDiskData.html#A1">MosaicToDiskData</a> to 
+convert them into one large image stored on disk.</p>
+</div>
+<p></p>
+<p>
+
+
+
+
+</p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxMosaic_info.png" /><br /></div>
+<div class="body"><p>Provides information about the mosaic.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">DoIt</span>  
+<div class="portsnapshot"><img src="HxMosaic_doIt.png" /><br /></div>
+<div class="body"><p>Press <em>add files</em> to select files on disk which will be added to the mosaic.</p>
+<p>Use <em>update</em> to reread all files from disk and update the 
+information stored in the mosaic. You should force an update if you
+change the data objects referenced by the mosaic.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

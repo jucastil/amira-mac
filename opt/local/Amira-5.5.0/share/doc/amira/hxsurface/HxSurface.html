@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Surface</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Surface" "represents a triangular surface with one or more patches" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ In <font face="helvetica">Amira</font> data objects of type <em>Surface</em> are used to represent 
+ non-manifold triangulated surfaces. Such surfaces are required as
+ an intermediate step in generating a tetrahedral patient model
+ from the results of segmentation of a 3D image stack.</p>
+<p> Surfaces mainly consist of a list of triangles as well as a list of 3D
+ coordinates. Each triangle is defined by three indices pointing into
+ the list of coordinates. Moreover, triangles are grouped into so-called
+ <em>patches</em>. Conceptually, a patch describes the boundary between
+ two adjacent regions. These two regions, called <em>inner region</em> and <em>outer region</em>, are represented by indices into
+ the surface's <em>material list</em>. Although required for grid
+ generation, the patch structure of a surface does not necessarily
+ define a valid space partitioning. However, any surface must have at least
+ one patch.</p>
+<p> Surfaces may also contain additional data, such as edges, boundary
+ contours, or connectivity information. Because these data can be
+ computed online they are usually not written into a file. If the data
+ are not already present but a certain module requests them, they are
+ recomputed automatically. You may notice a small time delay in this
+ case. Recomputation of the connectivity information can be enforced 
+ by the Tcl command <tt>recompute</tt>.</p>
+<p> Surfaces may additionally contain <em>level-of-detail</em>
+ information, which can be generated using the
+ <a class="link" href="../hxsurftools/HxSimplifier.html#A1">Simplification Editor</a>. If such data is
+ present, the surface receives a port <em>Level of Detail</em>, where
+ the desired level can be set.</p>
+<p> You may use the <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen module</a> to extract boundary surfaces
+ from a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> describing the results
+ of s segmentation. You can visualize surfaces by attaching a
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module to it.</p>
+<p> There are two editors that can be applied to modify surfaces:
+ the <a class="link" href="../hxsurftools/HxSimplifier.html#A1">Surface Simplification Editor</a> and the
+ <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a>. Use the former once to reduce
+ the number of triangles contained in the surfaces. The latter 
+ allows you to perform an intersection test and to modify the surfaces
+ manually.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">recompute</span>  
+
+<div class="body"><p>
+	Recomputes any additional data such as edges, boundary contours, or
+	connectivity information from scratch. If the surface contained 
+	patches consisting of unconnected groups of triangles these patches
+	are automatically subdivided into new patches consisting of
+	connected triangles only.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">fixOrientation [patch]</span>  
+
+<div class="body"><p>
+	Checks if all triangles of a given patch are oriented in the same
+ way. If this is not the case some triangles will be inverted in
+ order to fix the orientation. If no patch number is specified all
+ patches of the surface will be processed in this way.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">invertOrientation</span>  
+
+<div class="body"><p>
+	Inverts all triangles of the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">makeOnePatch</span>  
+
+<div class="body"><p>
+	Puts all triangles of the surface into a single patch.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">cleanup</span>  
+
+<div class="body"><p>
+	Removes any additional data such as edges, boundary contours, or
+	connectivity information from the surface.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getArea &lt;i&gt;</span>  
+
+<div class="body"><p>
+	Compute area of all surface patches incident on material <tt>i</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getVolume &lt;i&gt;</span>  
+
+<div class="body"><p>
+	Compute volume of material <tt>i</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;material&gt; &lt;color&gt;</span>  
+
+<div class="body"><p>
+ Defines the color of a material used in module
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>. The material may be
+ specified by either a material name or by a material index. The
+ color may be specified by either an RGB triple in range 0...1 or by
+ a common X11 color name, e.g., <em>red</em> or <em>blue</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTransparency &lt;material&gt; &lt;t&gt;</span>  
+
+<div class="body"><p>
+ Defines the transparency of a material used in module
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> when draw style is set to
+ transparent. The material may be specified by either a material
+ name or by a material index. The transparency value <tt>t</tt> must
+ by a floating point number in range 0...1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">add -point &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>
+ Adds a new point to the surface. The method returns the index of
+ the new point.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">add -triangle &lt;p1&gt; &lt;p2&gt; &lt;p3&gt;</span>  
+
+<div class="body"><p>
+ Adds a new triangle to the surface and returns its index. The
+ triangle will be inserted into the first patch of the surface.
+ If no patch exists already, one will be created.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">merge &lt;surface2&gt;</span>  
+
+<div class="body"><p>
+ Adds <tt>surface2</tt> to the surface. A return value of 1 indicates
+ success. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">refine</span>  
+
+<div class="body"><p>
+ Refines the surface by subdividing all edges. After this operation
+ the surface will contain four times the number of triangles.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPatchArea</span>  
+
+<div class="body"><p>
+ Returns the surface area of a given patch.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">assignInsideMaterial &lt;patchID&gt; &lt;ExteriorMaterialID&gt;</span>  
+
+<div class="body"><p>
+ Assigns a new inside material to a patch.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">assignOutsideMaterial &lt;patchID&gt; &lt;ExteriorMaterialID&gt;</span>  
+
+<div class="body"><p>
+ Assigns a new outside material to a patch.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

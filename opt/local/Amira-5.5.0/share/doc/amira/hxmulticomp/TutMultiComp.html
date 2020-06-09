@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">16.11 <font face="helvetica">Multi-Component Analysis Option</font> User's Guide</a></h2>
+<p>In biomedical imaging it is sometimes required to measure and quantify multiple objects such
+as cells, vesicles, or puncta. This Option provides modules for an automatic segmentation of
+the objects, their separation if they are clustering and their analysis according to shape.</p>
+<p><font face="helvetica">Multi-Component Analysis Option</font> license enables the following modules:
+</p>
+<ul><li><a class="link" href="HxLocalThreshold.html#A1">LocalThreshold</a></li><li><a class="link" href="HxWatershedSegmentation.html#A1">WatershedSegmentation</a></li><li><a class="link" href="HxShapeAnalysis.html#A1">ShapeAnalysis</a></li><li><a class="link" href="HxSeparateMorpho.html#A1">MorphologicalSeparation</a></li><li><a class="link" href="../hxcluster/HxClusterDensity.html#A1">ClusterDensity</a></li><li><a class="link" href="HxSpreadSheetToCluster.html#A1">SpreadSheetToCluster</a></li><li><a class="link" href="../hxstatistics/HxSpreadsheetFilter.html#A1">SpreadsheetFilter</a></li><li><a class="link" href="HxFilterBySpreadsheet.html#A1">FilterBySpreadSheet</a></li>
+</ul><p></p>
+<p></p>
+<h3><a name="A2">16.11.1 <font face="helvetica">Multi-Component Analysis Option</font> Tutorial</a></h3>
+<p>This User's Guide consists of a tutorial that explains the primary workflow. This tutorial will cover
+the following topics:</p>
+<p></p>
+<ul><li>Create a binary segmentation of the objects (cell bodies)</li><li>Separate clustering cells and label them individually</li><li>Get number, size, and position of cells</li><li>Measure cell density</li><li>Filter the labeled image according to shape parameters</li><li>Reconstruct and visualize filtered image as surface model</li>
+</ul><p></p>
+<p>
+</p>
+<h4><a name="A3">16.11.1.1 Visualizing the data and creating a binary image</a></h4>
+<p></p>
+<ul><li>Load <tt>/data/tutorials/multicomp/cellbodies.am</tt> into the Amira workspace (<em>Pool</em>).</li><li>Visualize the data set using <em>OrthoSlice</em>. Browse through the slices using the <em>Slice number</em> port or use the <em>interact</em> mode in the viewer.</li>
+</ul><p></p>
+<p>We see a number of bright spheroid structures embedded in a dark background. These bright structures are cell bodies (somata) of neurons from the rat cortex. The neurons have been stained with a selective fluorescent dye and imaged with a confocal microscope. The data are kindly provided by Marcel Oberlaender and Bernd Sakmann, Max Planck Florida Institute.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutmultcomp01.png.html><img width=450 src="tutmultcomp01.png" /></a><br />
+<div class="caption">
+<b>Figure 173:</b>
+Confocal image stack of rat cortex cell somata visualized with <em>OrthoSlice</em></div>
+
+
+</div><p></p>
+<p>As a first step we need a binary segmentation of the image into foreground (cell bodies) and background voxels. Typically this is done with a threshold segmentation. The disadvantage of a simple threshold, however, is that if the threshold gray value is selected too low, unwanted background signal gets assigned to the foreground. On the other hand, if the threshold is selected too high, one might miss faintly stained cells. We tackle this problem with a module that uses two threshold values, one for detecting the bright regions and a second one that grows those regions until the lower threshold is reached.</p>
+<p></p>
+<ul><li>Right-click the data icon and attach &rarr;<em>Labelling</em>&rarr;<em>LocalThreshold</em>. Select the <em>Hysteresis</em> item from the <em>Algorithm</em> drop down menu.</li><li>Set a value of <em>112</em> in the <em>Seed threshold</em> port and <em>70</em> in the <em>Low threshold</em>. Click <em>Apply</em>.</li><li>Select the <em>cellbodies.Labels</em> icon in the Pool first and then right-click the <em>OrthoSlice</em> icon and choose the <em>Colorwash</em> item.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutmultcomp02.png.html><img width=450 src="tutmultcomp02.png" /></a><br />
+<div class="caption">
+<b>Figure 174:</b>
+Binary segmentation of the image stack. The label field is shown over the gray image using module <em>ColorWash</em></div>
+
+
+</div><p></p>
+<p>Using module <em>Colorwash</em> with <em>OrthoSlice</em> allows one to quickly view what has been segmented. You may blend between the gray values and the labels by moving the <em>Weight factor</em> slider in the <em>Properties Area</em> of <em>Colorwash</em>. Browsing through the slices we note that some cell bodies have small unsegmented regions inside. Therefore, we would like to fill holes inside the cell bodies.</p>
+<p></p>
+<ul><li>Open the <em>Segmentation Editor</em> by clicking the corresponding icon in the <em>Properties Area</em> of the <em>cellbodies.Labels</em> object.
+Click the <em>Select</em> button of material <em>Inside</em> to select all voxels associated with that material.
+Click the <em>Grow selection</em> button in the <em>Selection</em> group, then select <em>Selection</em>/<em>Fill</em>/<em>Volume</em> from the menu and finally click the <em>Shrink selection</em> button in the <em>Selection</em> group.</li><li>Click the <em>Add</em> button in the <em>Selection</em> group to add the voxels to the <em>Inside</em> material.</li><li>Exit the Segmentation Editor by clicking the <em>Object Pool</em> icon in the sub-application taskbar.</li>
+</ul><p></p>
+<p>The sequence of morphological operations <em>Grow - Fill - Shrink</em> is useful to close and fill incompletely labeled objects. If necessary, the number of dilations (grow) can be increased in which case the number of erosions (shrink) has to be increased by the same amount.</p>
+<p></p>
+<h4><a name="A6">16.11.1.2 Separating cell clusters and labeling</a></h4>
+<p>We note that in cases where cells are densly packed some of them they have been segmented into a single blob. Also, we cannot distinguish between individual cells since they all belong to the same material. Thus, as a next step, we need to separate clustering cell bodies and label them individually. Here we show how this could be acomplished using the <em>WatershedSegmentation</em> module. </p>
+<p>For the watershed transform to work we need an image with "troughs", "crests", and "saddles" in the intensity domain. We can achieve this by calculating an inverted distance map of the labels object. In a distance map the value of each voxel denotes the closest distance to the region border. Inverting such a map yields an image where border voxels have high intensities thus forming a "crest" whereas center voxels become increasingly darker and therefore constitute the "troughs".</p>
+<p></p>
+<ul><li>Attach a <em>Compute</em> &rarr; <em>DistanceMap</em> module to the labels object, enable the <em>float</em> option in port <em>Chamfer weights</em> and click <em>Apply</em>.</li><li>Attach <em>Compute</em> &rarr; <em>Arithmetic</em> to <em>cellbodies.DistField </em> object, enter <tt>-A + 6.81</tt> into the <em>Expr.</em> text field and click <em>Apply</em>.</li>
+</ul><p>
+Subtracting all voxel values from the maximum (as inferred from the <em>Info</em> port of the distance transform) inverts the data with a minimum at zero.
+</p>
+<ul><li>Attach <em>Labelling</em> &rarr; <em>WatershedSegmentation</em> to the result of the <em>Arithmetic</em> module. Enter in port <em>Input threshold</em> a value of 0.5 and a value of <em>1.8</em> in port <em>Minimal depth</em>. Click <em>Apply</em>.</li><li>To monitor the result do the following: Reconnect the <em>Data</em> connection port of <em>Colorwash</em> with the output of module <em>WatershedSegmentation</em> (should be <em>Result.regions</em>), change the colormap in port <em>Colormap</em> to <em>labelcolors.am</em>.</li>
+</ul><p></p>
+<p>Finding good values for <em>Input threshold</em> and <em>Minimal depth</em> typically requires some experimentation. The first computation using a particular value of the <em>Threshold</em> will take some time depending on the complexity of the image. Subsequent recomputations with different values of port <em>Minimal depth</em> then are much faster. When playing around with those values you will note that with increasing <em>Minimal depth</em>, increasing numbers of neighboring cells fuse into single regions. Decreasing <em>Minimal depth</em>, in contrast, tends to over-segment objects. The values of 0.5 (threshold) and 1.8 (depth) are a good compromise for this data set.
+<a href="../../../demo/multicomp/ThresholdAndLabelling.hx">(load network)</a></p>
+<p></p>
+<h4><a name="A7">16.11.1.3 Extracting quantitative measures from the labeled image</a></h4>
+<p><b>Getting number, size, and positions of the cell bodies</b></p>
+<p>The first part of the analysis aims to get number, size, and positions of the cell bodies.</p>
+<p></p>
+<ul><li>Attach <em>Measure</em> &rarr; <em>MaterialStatistics</em> to object <em>Result.regions</em>, connect the <em>Field</em> connection port therein with <em>cellbodies.am</em> and click <em>Apply</em>.</li><li>Select the newly created object <em>Result.Regions.MaterialStatistics</em> and click the <em>Show</em> button. This opens a spreadsheet window displaying besides volume and position also densitometric figures (gray value statistics).</li>
+</ul><p></p>
+<p><b>Measuring cell density</b></p>
+<p>With the locations of our objects calculated we could ask what is the local density of cells. Module <em>ClusterDensity</em> can measure the local density of a cluster object. However, this requires that the positions of the cells be represented as vertices of a cluster object. </p>
+<p></p>
+<ul><li>Attach a <em>Compute</em> &rarr; <em>SpreadSheetToCluster</em> module to the spreadsheet and click <em>Apply</em>.</li><li>To visualize the newly created cluster object attach a <em>ClusterView</em> module to it. Set the colormap in port <em>Colormap</em> to <em>labelcolors.am</em>, select the <em>plates</em> option and set <em>Sphere scale</em> to -0.5.</li>
+</ul><p></p>
+<p>Now that we have the cluster object, we can calculate its density, that is how many cells are there per unit volume.</p>
+<p></p>
+<ul><li>Attach a <em>Compute</em> &rarr; <em>ClusterDensity</em> module to the cluster object. Click <em>Apply</em>.</li><li>Visualize the resulting cluster object by reconnecting module <em>ClusterView</em> with the <em>*.cluster.density</em> object. Select <em>physics.icol</em> in port <em>Colormap</em> and in the <em>Color</em> drop-down menu choose the <em>Density [d]</em> item. To adjust the range right-click into the colormap window and select the <em>Adjust to data range</em> entry from the context menu.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutmultcomp03.png.html><img width=450 src="tutmultcomp03.png" /></a><br />
+<div class="caption">
+<b>Figure 175:</b>
+The positions of the cell bodies are represented by spheres and the coloring indicates the local density of cell bodies.</div>
+
+
+</div><p>
+<a href="../../../demo/multicomp/ClusterDensity.hx">(load network)</a></p>
+<p>
+<b>Plotting a histogram of staining intensity</b></p>
+<p>What is the distribution of mean staining intensity in the cells? To answer that question we take the output of the <em>MaterialStatistics</em> module. </p>
+<p></p>
+<ul><li>Right-click the <em>*.MaterialStatistics</em> object and select from <em>Measure</em> &rarr; <em>Histogram</em>.</li><li>In the <em>Properties</em> of <em>Histogram</em> make the following settings:
+<em>Data</em>: <em>Mean</em>, uncheck <em>logarithmic</em> of port <em>Plot options</em>, <em>Number of bins</em>: 60. Finally, press the <em>Reset</em> button in port <em>Range</em> to update the range for the histogram.</li><li>Click <em>Apply</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=tutmultcomp04.png.html><img width=450 src="tutmultcomp04.png" /></a><br />
+<div class="caption">
+<b>Figure 176:</b>
+The histogram shows the distribution of mean staining intensity of our cell bodies.</div>
+
+
+</div><p></p>
+<p><b>Extracting shape information from labeled regions and their visualization</b></p>
+<p>While <em>MaterialStatistics</em> provided us with basic information on the cells, the following analysis aims to get parameters on the shape of the objects. Module <em>ShapeAnalysis</em> analyzes labeled regions by parameterizing each region as an ellipsoid. The parameters of the ellipsoid as well as derived measures such as elongation, flatness, and anisotropy for each object will be written into a spreadsheet object.</p>
+<p>At this point it is recommended to clear the Amira workspace (<em>Pool</em>/<em>Remove All Objects</em>) and load the network <tt>data/tutorials/multicomp/ShapeAnalysis-start.hx</tt>. The remainder of this tutorial assumes that you did so. Of course, it is also possible to proceed with your current results. In that case, however, names of data objects as mentioned in the tesxt can be different.</p>
+<p></p>
+<ul><li>Attach a <em>Measure</em> &rarr; <em>ShapeAnalysis</em> module to <em>cellbodies.labeledRegions.am</em> and click <em>Apply</em>.</li><li>Right-click the output (<em>*.SpreadSheet</em>) object and select from <em>Compute</em> the <em>SpreadsheetToCluster</em> entry.</li><li>In <em>SpreadsheetToCluster</em> check the <em>BoundingBoxes</em> option in port <em>Output</em> and select the <em>Fill BoundingBoxes</em> button in port <em>Tensor</em>. Click <em>Apply</em>.</li><li>Right-click <em>cellbodies.labeledRegions.Cluster</em> and choose from <em>Display</em> the <em>TensorDisplay</em> entry. In <em>TensorDisplay</em> uncheck the option <em>FA</em> in port <em>Scale by value</em> and click <em>Apply</em>.</li><li>In order to visualize the bounding boxes attach a <em>LineSetView</em> module to the <em>cellbodies.labeledRegions.BoundingBoxes</em> object. In <em>LineSetView</em> select <em>Circle</em> in port <em>Shape</em> and set the slider in port Scale factor to 0.5.</li>
+</ul><p>
+<a href="../../../demo/multicomp/ShapeAnalysis.hx">(load network)</a></p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=tutmultcomp05.png.html><img width=450 src="tutmultcomp05.png" /></a><br />
+<div class="caption">
+<b>Figure 177:</b>
+Visualization of the result of <em>ShapeAnalysis</em>. Ellipsoidal approximation of the labeled regions visualized with <em>TensorDisplay</em>. Bounding boxes aligned with the main axes of the ellipsoids depict the spatial extent of each region.</div>
+
+
+</div><p></p>
+<p><b>Filtering labeled regions according to shape parameters</b></p>
+<p></p>
+<ul><li>Reload network <tt>data/tutorials/multicomp/ShapeAnalysis-start.hx</tt></li><li>Attach a <em>Measure</em> &rarr; <em>ShapeAnalysis</em> module to <em>cellbodies.labeledRegions.am</em> and click <em>Apply</em>.</li><li>Attach a <em>Compute</em> &rarr; <em>SpreadsheetFilter</em> module to result of <em>ShapeAnalysis</em>.</li><li>Select the <em>SpreadsheetFilter</em> icon. In the <em>Properties</em>, in port <em>Column 0</em> choose the <em>by histogram</em> option and move the minimum slider in <em>Filter 0</em> to 300.</li><li>Likewise, in port <em>Column 1</em> choose the <em>by histogram</em> option and move the minimum slider in <em>Filter 1</em> to 0.6.</li><li>Click <em>Apply</em> to create the filtered spreadsheet object.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=tutmultcomp06.png.html><img width=450 src="tutmultcomp06.png" /></a><br />
+<div class="caption">
+<b>Figure 178:</b>
+User interface of module <em>SpreadsheetFilter</em>. The module provides four pairs of ports that allow ranges to be set for user-defined columns of the input spreadsheet. The <em>Filter</em> ports use range sliders together with a histogram of the selected column for minimum and maximum settings.</div>
+
+
+</div><p></p>
+<p>In this way we extracted the information of all objects larger than 300 (cubic microns) and an elongation index larger than 0.6 (i.e., excluding the the strongly elongated cells) and stored it in a separate spreadsheet.
+How do the filtered objects look like and where are they located within the volume? To answer that we create a label field containing only the objects of the filtered spreadsheet.</p>
+<p></p>
+<ul><li>Right-click the <em>cellbodies.labeledRegions</em> icon and select from <em>Compute</em> the <em>FilterBySpreadsheet</em> item.</li><li>Connect the <em>InputSpreadSheet</em> connection port with the <em>*.Spreadsheet.Filtered</em> object and click <em>Apply</em>.</li>
+</ul><p></p>
+<p>The result object is a label field <em>cellbodies.labeledRegions.Labels.Filtered</em> containing only a subset of the cell bodies. </p>
+<p><b>Visualize filter results as a surface model</b></p>
+<p></p>
+<ul><li>Attach a <em>SurfaceGen</em> to the filtered label field (<em>cellbodies.labeledRegions.Labels.Filtered</em>). Check the <em>auto-refresh</em> option in the bottom bar of the Properties area. Also check <em>auto-refresh</em> in modules <em>SpreadsheetFilter</em> and <em>FilterBySpreadsheet</em>.</li><li>Attach a <em>SurfaceView</em> module the new *.surf object in the <em>Pool</em>.</li><li>To compare the filtered objects with the original data you may visualize the <em>cellbodies.am</em> data set with a <em>Volren</em> module (select a gray colormap and adjust the range to <em>66 ... 200</em>).</li>
+</ul><p></p>
+<p>Now each time the filter settings are changed, a recomputation of the surface model will be triggered. This allows you to quickly review filter settings.
+In this way you may easily filter out regions that are not cell bodies. For example, you may want to remove small elongated regions, which are presumably unconnected parts of neurites. Similarily, you could remove objects that intersect with the bounding box by restricting the number of boundary voxels to 0.</p>
+<p></p><div style="text-align:center"><a name="A12"></a><a href=tutmultcomp07.png.html><img width=450 src="tutmultcomp07.png" /></a><br />
+<div class="caption">
+<b>Figure 179:</b>
+Surface reconstruction of the filtered label field.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>In <em>SpreadsheetFilter</em> select in the pull-down menu of port <em>Column 2</em> the <em>Boundary</em> item. Also, select the <em>by expression</em> button.</li><li>In the text field of port <em>Expression</em> enter <tt>col2 == 0</tt>.</li>
+</ul><p></p>
+<p>After all compute modules have been updated, the surface will lack all cell bodies intersecting the bounding box.
+<a href="../../../demo/multicomp/FilteredSurfaces.hx">(load network)</a>
+
+</p></body>
+</html>

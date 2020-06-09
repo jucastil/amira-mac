@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.2 How to load image data</a></h2>
+<p>Loading image data is one of the most basic operations in <font face="helvetica">Amira</font>. Other than
+with 2D images, there are not many standardized file formats containing 3D images.
+This tutorial guides you by means of examples on how to load the different kinds of
+3D images into <font face="helvetica">Amira</font>. In particular this tutorial covers the following topics:</p>
+<p></p>
+<ol><li>Using the <em>File/Open Data...</em> browser and setting the file format.</li><li>Reading 3D image data from multiple 2D slices.</li><li>Setting the bounding box or voxel size of 3D images.</li><li>The <em>Stacked Slices</em> file format.</li><li>Working with LargeDiskData.</li>
+</ol><p></p>
+<p>
+</p>
+<h3><a name="A2">2.2.1 The <font face="helvetica">Amira</font> File Browser</a></h3>
+<p>Image data is loaded in <font face="helvetica">Amira</font> with the <em>File/Open Data...</em> dialog. All 
+<a class="link" href="HxIndexFileFormat.html">file formats</a> supported by <font face="helvetica">Amira</font> are recognized 
+automatically either by a data header or by the file name suffix. What follows is
+only of concern in these cases:</p>
+<p></p>
+<ul><li>The automatic file format detection fails.</li><li>3D image data is stored in several 2D files.</li><li>The data is larger than the available main memory.</li>
+</ul><p></p>
+<p><b>Setting the file format</b><br />
+
+ In most cases the format of a file is determined automatically, either by checking 
+the file header or by comparing the file name suffix with a list of known 
+suffixes. In the load dialog the file format is displayed in a separate column in 
+detail view.<br />
+</p>
+<p>Example:
+</p>
+<ul><li>Files containing the string <tt>AmiraMesh</tt> in the first line are considered 
+ <a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A1">AmiraMesh</a> files.</li><li>Files with the suffix .stl are considered STL files.</li>
+</ul><p></p>
+<p>If automatic file format detection fails, e.g. because some non-standard suffix 
+has been used, the format may be set manually using the <em>Format</em> entry in 
+the pop-up menu of the <em>Load</em> dialog (right mouse button).</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=TutImageIO_Format.png.html><img width=450 src="TutImageIO_Format.png" /></a><br />
+<div class="caption">
+<b>Figure 8:</b>
+The <em>Format</em> option of the file browser</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A4">2.2.2 Reading 3D Image Data from Multiple 2D Slices</a></h3>
+<p>A common way to store 3D image data is to write a separate 2D image file for 
+each slice. The 2D images may be written in TIFF, BMP, JPEG, or any other 
+supported image <a class="link" href="HxIndexFileFormat.html">file format</a>. In order to 
+load such data in <font face="helvetica">Amira</font>, all 2D slices must be selected simultaneously 
+in the file browser. This can be done by clicking the first 
+file and shift clicking the last one.</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=TutImageIO_multsliceload.png.html><img width=450 src="TutImageIO_multsliceload.png" /></a><br />
+<div class="caption">
+<b>Figure 9:</b>
+Loading multiple 2D images</div>
+
+
+</div><p> </p>
+<p></p>
+<ul><li>Open the <em>File/Open Data...</em> dialog.</li><li>Browse to the <tt>/<font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/multichannel/channel1/</tt> directory.</li><li>Select the first file <tt>pvcca1.0001.jpeg</tt></li><li><tt>Shift</tt>-click the last file (<tt>pvcca1.0048.jpeg</tt>).</li><li>Click <em>Load</em>.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A6">2.2.3 Setting the Bounding Box</a></h3>
+<p>When loading a series of bitmap images, usually the physical dimensions of the 
+images are not known to <font face="helvetica">Amira</font>. Therefore an <em>Image Read Parameters</em> dialog 
+appears that prompts you for entering the physical extent of the 
+<em>bounding box</em>. Alternatively, the size of a single voxel can be set.
+In <font face="helvetica">Amira</font> the bounding box of an object is the smallest rectangular, axis-aligned 
+volume in 3D space that encompasses the object.
+<em>Note that in <font face="helvetica">Amira</font> the bounding box of a uniform data set 
+extends from the center of the first voxel to the center of the last one. For 
+example, if you have 256 voxels and you know the voxel size to be 1 mm, the 
+bounding box should be set to 0 - 255 (or to some shifted range).</em></p>
+<p></p>
+<ul><li>Enter 0.85 in the first and second text fields and 3.5 in third text field of the 
+ <em>Voxel Size</em> port.</li><li>Click <em>OK</em>.</li>
+</ul><p></p>
+<p>This method will always create a data set with uniform coordinates, i.e., uniform 
+slice distance. In case of variable slice distances, the 
+<a class="link" href="#A8">StackedSlices</a> format should be used.</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=TutImageIO_BB.png.html><img width=225 src="TutImageIO_BB.png" /></a><br />
+<div class="caption">
+<b>Figure 10:</b>
+The definition of the bounding box in <font face="helvetica">Amira</font>. Different gray 
+shades depict the intensity values defined on the regular grid (white lines). The 
+black square depicts the extent of one voxel. The outer frame depicts the extent 
+of the bounding box.</div>
+
+
+</div><p> </p>
+<p></p>
+<h3><a name="A8">2.2.4 The Stacked Slices file format</a></h3>
+<p>Especially with histological serial sections it often happens that slices are lost 
+during preparation. To handle such cases, <font face="helvetica">Amira</font> provides a special data type 
+corresponding to a file format called <a class="link" href="../hximio/HxReadStackedSlices.html#A1">Stacked Slices</a>.
+This file format allows a stack of individual image files to be read with optional z-
+values for each slice. The slice distance is not required to be constant. The images 
+must be one-channel or RGBA images in an image format supported by <font face="helvetica">Amira</font> (e.g., TIFF). 
+The reader operates on an ASCII description file, which can be written with any 
+editor. Here is an example of a description file:<br />
+</p>
+<p></p><pre>
+# Amira Stacked Slices
+# Directory where image files reside
+pathname C:/data/pictures
+# Pixel size in x- and y-direction
+pixelsize 0.1 0.1
+# Image list with z-positions
+picture1.tif 10.0
+picture7.tif 30.0
+picture13.tif 60.0
+colstars.jpg 330.0
+end
+</pre><p></p>
+<p>
+Some remarks on the syntax: </p>
+<p></p>
+<ul><li><tt># Amira Stacked Slices</tt> is an optional header that allows <font face="helvetica">Amira</font> 
+ to automatically determine the file format.</li><li><tt>pathname</tt> is optional and can be included if the pictures are not in 
+ the same directory as the description file. A space separates the tag "pathname" 
+ from the actual pathname.</li><li><tt>pixelsize</tt> is optional, too. The statement specifies the pixel size in x- 
+ and y-directions. The bounding box of the resulting 3D image is set from 0 to 
+ pixelsize*(number_of_pixels-1).</li><li><tt>picture1.tif 10.0</tt> is the name of the slice and its z-value, separated 
+ by a space character.</li><li><tt>end</tt> indicates the end of the description file.</li><li>Comments are indicated by a hash-mark character (#).</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A9">2.2.5 Working with Large Disk Data</a></h3>
+<p>Sometimes image data are so large that they do not fit into the main 
+memory of the computer. Since the <font face="helvetica">Amira</font> visualization modules rely on the
+ fact that data are in physical memory, this would mean that such data
+ cannot be displayed in <font face="helvetica">Amira</font>. 
+To overcome this, a special purpose module is provided that leaves most of the 
+data on disk and retrieves only a user-specified subvolume. This subvolume can 
+then be visualized with the standard visualization modules in <font face="helvetica">Amira</font>.</p>
+<p></p>
+<ul><li>Use the <em>File/Open Data...</em> dialog and go to c:/Program Files/<font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/medical/</li><li>Right-click on the reg005.ctdata.am and select the <em>Format</em> entry from the 
+ pop-up dialog</li><li>Select <em>AmiraMesh as LargeDiskData</em> as format and confirm your 
+ choice with <em>OK</em>.</li><li>Press the <em>Load</em> button.</li>
+</ul><p></p>
+<p>The data will be displayed in the Pool as a regular green data icon. The info 
+line indicates that it belongs to the data class <em>HxRawAsExternalData</em>.<br />
+</p>
+<p></p>
+<ul><li>Right mouse click, attach a <em>BoundingBox</em> module.</li><li>Right mouse click, attach an <em>LatticeAccess</em> module.</li><li>Select the <em>LatticeAccess</em> module in the Pool and enter 224, 161, and 59 into the 
+ <em>BoxSize</em> text fields.</li><li>Check <em>Subsample</em> and enter 4 4 2 into the <em>Subsample</em> fields and press the 
+ <em>Apply</em> button.</li>
+</ul><p></p>
+<p>This retrieves a down-sampled version of the data. Disconnect the 
+<em>reg005.ctdata.view</em> data icon from the <em>LatticeAccess</em> module and use it as an overview 
+(e.g., with <em>OrthoSlice</em>).</p>
+<p></p>
+<ul><li>Select the <em>LatticeAccess</em> module in the Pool and deselect the <em>subsample</em> 
+ check box.</li><li>Use the dragger box in the viewer to resize the subvolume.</li><li>Press the <em>Apply</em> button.</li><li>Attach an <em>Isosurface</em> module to the <em>reg005.ctdata2.view</em> (set <em>Threshold</em> to 
+ 100).</li>
+</ul><p></p>
+<p><b>Tip:</b> To browse the data, check the <em>auto-refresh</em> check box 
+for the <em>LatticeAccess</em> and <em>Isosurface</em> modules. 
+Now each time the blue subvolume dragger is repositioned, the 
+visualization is updated automatically.</p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=TutImageIO_LargeDiskData.png.html><img width=450 src="TutImageIO_LargeDiskData.png" /></a><br />
+<div class="caption">
+<b>Figure 11:</b>
+The usage of <em>AmiraMesh</em> as <em>LargeDiskData</em>. For instantaneous update, the
+<em>auto-refresh</em> check boxes of the <em>LatticeAccess</em> and <em>Isosurface</em> modules have been
+checked</div>
+
+
+</div><p> </p>
+<p>Loading <em>AmiraMesh</em>, <em>StackedSlices</em>, and <em>Raw</em> "<em>asLargeDiskData</em>" is a 
+convenient and fast way of exploring data that exceed the size of system memory. 
+However, especially with <em>StackedSlices</em>, it is not always the most efficient way of 
+doing this. <font face="helvetica">Amira</font> can store the image data in a special format that facilitates the 
+random retrieval of data from disk.</p>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=TutImageIO_ConvertToLDD.png.html><img width=450 src="TutImageIO_ConvertToLDD.png" /></a><br />
+<div class="caption">
+<b>Figure 12:</b>
+The <em>Input</em> dialog of the <em>ConvertToLargeDiskData</em> module.</div>
+
+
+</div><p> </p>
+<p></p>
+<ul><li>Choose from the <em>Create/Data</em> menu <em>ConvertToLargeDiskData</em></li><li>Click <em>Browse</em> from the <em>Inputs</em> port.</li><li>Click <em>Add</em>, go to <tt>/<font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/medical/</tt> and select <tt>reg005.ctdata.am</tt>, then 
+ click <em>Load</em>, then <em>OK</em>.</li><li>Click <em>Browse</em> from the <em>Output</em> port.</li><li>Go to <tt>C:/tmp/</tt> and enter a filename of your choice.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>Although you will most likely not 
+notice any difference with the small image data used in this tutorial,
+this method for retrieving large data significantly
+accelerates the <em>Apply</em> operation.
+
+</p></body>
+</html>

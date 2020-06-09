@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">15.1 Convert to Talairach Coordinates Tutorial</a></h2>
+<p>In brain research it is often desired to describe the locations of brain
+structures independent from individual differences in the size and overall shape of the brain.
+In the Talairach coordinate system the anterior commissure and posterior commissure lie on a
+straight line along the y-axis. This coordinate system is completely defined by requiring the
+midsagittal plane to be vertical and the superior part of the brain having positive Z values.
+When specifiying a location in the structure in 3D space, the anterior commissure is used as a
+reference point and origin of the coordinate system. The transformation of brain data into
+Talairach coordinates simplifies registration and spatial warping of image data from the brain.</p>
+<p>
+The tutorial will cover the following topics:
+</p>
+<ul><li>Load DICOM image data</li><li>Browse through brain data using the sagittal plane</li><li>Position landmarks on anterior and posterior commissure and on the superior part of the midsagittal plane</li><li>Visualize landmark positioning</li><li>Perform the transformation</li><li>Resample transformed image data</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A2">15.1.1 Load and visualize data</a></h3>
+<p></p>
+<ul><li>Click on <em>Open Data...</em> and navigate to <em>/data/tutorials/DTI/T1-BrainOnly</em>.</li><li>Select all files in the <em>T1-BrainOnly</em> folder and click on <em>Load</em>.</li><li>Start the data loading by pressing <em>OK</em> in the <em>DICOM Loader</em> dialog.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutConvertTalairach001.png.html><img width=450 src="tutConvertTalairach001.png" /></a><br />
+<div class="caption">
+<b>Figure 150:</b>
+<em>DICOM Loader</em> dialog showing the image parameters extracted from the DICOM header of each
+individual file. By default, the dialog shows the image number, slice location, file name, and the load index.</div>
+
+
+</div><p></p>
+<p>
+</p>
+<ul><li>Verify that the data has no unapplied transformations by making sure that the data object icon uses a non-italic font.</li><li>Remove unapplied transformations before proceeding:
+
+<ul><li>Select data object and open <em>Transform Editor</em> from the <em>Properties</em> area of the data object.</li><li>Click on the <em>All</em> button in the <em>Reset</em> port.</li><li>Close the <em>Transform Editor</em>.</li>
+</ul></li><li>Once the data is completely loaded into the <em>Pool</em>, right-click on the icon labeled <em>T1-BrainOnly</em>
+and select <em>Compute-&gt;ConvertTalairach</em>.</li><li>Select the module <em>ConvertTalairach</em> from the <em>Pool</em> to show the properties of the script object.</li><li>The slider in the <em>Slice Number</em> port lets you browse through the yz-slices as visualized in the 3D viewer</li><li>Alternatively, in <em>interactive</em> mode, you can pick the rendered slice and move it with the mouse to the desired
+ location.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutConvertTalairach002.png.html><img width=450 src="tutConvertTalairach002.png" /></a><br />
+<div class="caption">
+<b>Figure 151:</b>
+<font face="helvetica">Amira</font> main window with the brain data loaded and visualized using the <em>ConvertTalairach</em> script object.
+The <em>Properties</em> area shows the ports of the selected <em>ConvertTalairach</em> module, and the <em>3D Viewer</em> visualizes
+the selected yz-slice.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A5">15.1.2 Marking the locations of the anterior and posterior commissure and superior part of the midsagittal plane</a></h3>
+<p></p>
+<ul><li>Using the <em>Slice Number</em> port position the yz-slice to show the anterior commissure.</li><li>If not done already, switch the <em>3D Viewer</em> into <em>interactive</em> mode.</li><li>Click on the button labelled <em>AC</em> followed by a click on the anterior commissure in the yz-slice.</li><li>Using the <em>Slice Number</em> port position the yz-slice to show the posterior commissure.</li><li>Click on the button labelled <em>PC</em> followed by a click on the posterior commissure in the yz-slice.</li><li>Using the <em>Slice Number</em> port position the yz-slice to show a slice through the center of the superior midsagittal sinus.</li><li>Click on the button labelled <em>MP</em> followed by a click on the superior midsagittal sinus in the yz-slice.</li><li>The selected locations will be shown in the <em>Properties</em> area of the <em>ConvertTalairach</em> script object.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A6">15.1.3 Verifying and moving landmarks</a></h3>
+<p></p>
+<ul><li>Visualization of landmark locations for the anterior and posterior commissure or superior midsagittal plane is enabled by checking the
+ <em>Landmarks</em> option in the <em>Show</em> port. Here, the visualization of the <em>Slice</em> can also be controlled.</li><li>When enabled, the position of the landmarks is indicated by three golden spheres.</li><li>If unsatisfied with one of the positions, just switch the <em>3D Viewer</em> into <em>interactive</em> mode.</li><li>Click on one of the landmark buttons in the <em>Select</em> port of the <em>Convert Talairach Properties</em> and make a new
+ selection on the slices through the brain.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutConvertTalairach003.png.html><img width=450 src="tutConvertTalairach003.png" /></a><br />
+<div class="caption">
+<b>Figure 152:</b>
+Rendering of a yz-slice through the brain with the selected landmark locations indicated by three golden spheres.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A8">15.1.4 Transformation into Talairach Coordinates</a></h3>
+<p></p>
+<ul><li>Transformation into <em>Talairach Coordinates</em> is initiated by a click on the green <em>Apply</em> button of <em>ConvertTalairach</em>.</li><li>The success of the transformation can be verified by enabling the global axis in the <font face="helvetica">Amira</font> <em>topmenu</em>; select <em>View-&gt;Axis</em>.</li><li>The sphere for the anterior commissure should be located at the origin of the coordinate system.</li><li>The sphere for the posterior commissure should be located on the negative y-axis (green axis).</li><li>The sphere in the superior midsagittal sinus, should be located on the positive yz-plane (blue/green axis).</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=tutConvertTalairach004.png.html><img width=450 src="tutConvertTalairach004.png" /></a><br />
+<div class="caption">
+<b>Figure 153:</b>
+Rendering of the selected landmarks with the global axis after transformation in front of a yz-slice through the brain. The axes in x-, y-,
+and z-direction are indicated by red, green, and blue colors, respectively.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A10">15.1.5 Applying transformation and resampling data</a></h3>
+<p></p>
+<ul><li>Once satisfied with the result, you can apply the transformation and resample data by pressing the <em>Apply Transform</em> button
+ in the <em>Properties</em> area of <em>ConvertTalairach</em>.</li><li>The resampled data will appear in the <em>Pool</em> with the ending <em>.transformed</em>.</li><li>It can be visualized with an <em>OrthoSlice</em> or <em>Volren</em> module for verification.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=tutConvertTalairach005.png.html><img width=450 src="tutConvertTalairach005.png" /></a><br />
+<div class="caption">
+<b>Figure 154:</b>
+Rendering of the transformed and resampled data set using an <em>OrthoSlice</em> to indicate the midsagittal plane and a
+<em>Volren</em> for global orientation.</div>
+
+
+</div><p>
+
+</p></body>
+</html>

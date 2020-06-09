@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p>
+<h2><a name="A1">2.4 Segmentation of 3D Images</a></h2>
+<p>By following this step-by-step tutorial you will learn how to interactively
+create a segmentation of a 3D image. A segmentation assigns to each pixel
+of the image a label describing to which region or material the pixel
+belongs, e.g., bone or the kidney. The segmentation is stored in a separate
+data object called a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>. A
+segmentation is the prerequisite for surface model generation and accurate
+volume measurement.</p>
+<p>This tutorial uses the segmentation editor, which is a sub-application. You 
+can conveniently switch between it and the main <font face="helvetica">Amira</font> window and other 
+sub-applications simply by clicking the appropriate button in the
+<a class="link" href="subapp.html">sub-application toolbar</a>.</p>
+<p>This tutorial consists of the following steps:</p>
+<p></p>
+<ol><li>Creation of an empty label field.</li><li>Interactive editing of the labels in the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>.</li><li>Measuring the volume of the segmented structures.</li><li>An alternative segmentation method: Threshold segmentation.</li>
+</ol><p> </p>
+<p></p>
+<h3><a name="A2">2.4.1 Interactive Image Segmentation</a></h3>
+<p></p>
+<ul><li>Load the <em>lobus.am</em> data file from the directory 
+ <em>data/tutorials</em>.</li><li>Right click on the green icon and choose <em>LabelField</em> from the <em>Labelling</em> section.</li>
+</ul><p> 
+A new green icon is added to the Pool. This green icon is for the label field
+that will hold the segmentation results.
+Simultaneously, the Segmentation Editor is displayed, replacing the Pool
+view.</p>
+<p>By default, the Segmentation Editor operates in 1-viewer mode.
+In this mode, a single viewer is displayed. You can cycle through
+the different 2D views (XY, XZ, YZ) and the 3D view by clicking on the 
+"Single-viewer" button in the viewer toolbar.</p>
+<p>For this tutorial, we will use the 4-viewer layout, which
+displays all three 2D views of your data set and the 3D view.
+</p>
+<ul><li>Switch to the 4-viewer layout by clicking on the 
+	"Four viewers" button in the viewer toolbar.</li><li>In the XY or axial view, use the slider on the bottom to scroll through the 
+ slices. Go to slice 20.
+ You will see two bigger structures and one structure just appearing on the top.</li><li>If necessary, click on the second button in the <em>Zoom and Data Window</em> panel
+ to zoom out the data so that you have a view of the entire slice.</li><li>Click on the brush icon in the segmentation tools bar (below the Display
+and Masking panel).</li><li>Mark the rightmost structure with the mouse. You can adjust the brush 
+	size with the size slider if desired. Hold down the control button
+ to unselect wrongly selected pixels if necessary.</li><li>When done, select the entry <em>Inside</em> in the <em>Materials</em> list. Then
+click the <b>+</b> button in the <em>Selection</em> panel.</li>
+</ul><p></p>
+<p>The previously selected pixels are now assigned to the material
+<em>Inside</em>. You can right click on the entry <em>Inside</em> in the <em>Materials</em> list and choose a different draw style (for example, dotted).</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutseg_fig1.png.html><img width=450 src="tutseg_fig1.png" /></a><br />
+<div class="caption">
+<b>Figure 19:</b>
+Segmentation Editor after selecting and assigning pixels for two structures in one slice</div>
+
+
+</div><p> </p>
+<p></p>
+<ul><li>Click into the material list and choose <em>New Material</em> from
+the right button menu.</li><li>Mark the middle structure using the brush, select the new material in the Materials list
+and assign the pixels to that structure.</li><li>Go to slice 21 and practice by segmenting the two structures.</li>
+</ul><p></p>
+<p>If a structure does not change much from slice to slice, you can use interpolation.
+</p>
+<ul><li>Go to slice 22 and mark the right structure using the brush. Go to slice 31
+ and mark the same structure.</li><li>Choose from the menu bar: Selection/Interpolate.</li><li>Scroll through the data set. You should see that the in-between slices
+23 to 30 are selected too.</li><li>In order to assign the selected pixels in all slices to the Inside material,
+select the Inside material in the list,
+then click the <b>+</b> button.</li>
+</ul><p></p>
+<p></p>
+<ul><li>Repeat the procedure between slice 32 and 50.</li><li>Repeat the procedure for the middle structure.</li>
+</ul><p></p>
+<p><b>Hints:</b>
+</p>
+<ul><li>It is highly recommended to frequently save the segmentation results 
+while working. In order to do so, first switch to the <font face="helvetica">Amira</font> main window by 
+clicking on the Object Pool button in the <a class="link" href="subapp.html">sub-application toolbar</a>.
+Then select the label field in the <font face="helvetica">Amira</font> main window
+and choose <em>Save</em> or <em>Save As...</em> from the <font face="helvetica">Amira</font> File menu.
+Click on the Segmentation Editor button in the sub-application toolbar to switch back.</li><li>The brush is only the most basic segmentation tool. The Segmentation Editor 
+ provides many more functions that are described on its <a class="link" href="../hxsegeditor/GI.html#A1">reference page</a>.</li><li>There are many useful key bindings, including "+" to add a selection to
+a material, SPACE and BACKSPACE to change the slice number, and "d" to toggle the 
+material draw style.</li><li>Of course you can give the materials more meaningful names or colors using 
+the context menu (right mouse button in the list).</li>
+</ul><p></p>
+<p>At this point switch back to the <font face="helvetica">Amira</font> main window and save the label field.</p>
+<p></p>
+<h3><a name="A4">2.4.2 Volume and Statistics Measurement</a></h3>
+<p>Once a structure is segmented, you can easily measure its volume:
+</p>
+<ul><li>Right click on the label field's green icon, and choose <em>Measure/MaterialStatistics</em>.</li><li>Press the <em>Apply</em> button. A new icon appears.</li><li>Select this icon and press the <em>Show</em> button.</li>
+</ul><p></p>
+<p>The units in the volume column depend on the units in which you have specified the 
+voxel size. In case of the <em>lobus.am</em>, the voxel size is in $${\mu}m$$, therefore
+the volume is in $${\mu}m^3$$.</p>
+<p>To obtain a full statistical analysis of the image data associated with the segmented
+materials, you can connect the input port <em>Field</em> of the <em>MaterialStatistics</em>
+module with the image data. To do so, follow this procedure:
+</p>
+<ul><li>Left click on the white square of the <em>MaterialStatistics</em> module.</li><li>In the context menu select <em>Field</em>.</li><li>Left click on the image data object <em>lobus.am</em>.</li><li>Hit <em>Apply</em> in the <em>MaterialStatistics</em> Properties Area.</li>
+</ul><p></p>
+<p>The resulting spreadsheet now contains 12 columns showing different statistical parameters
+of the image data associated with the different materials in the label field.</p>
+<p></p>
+<h3><a name="A5">2.4.3 Threshold Segmentation</a></h3>
+<p>We now describe an alternative way of segmentation that can require less
+manual interaction but which only works for high quality images.</p>
+<p>In some cases a satisfying segmentation can be achieved automatically
+based solely on the gray values of the image data set.</p>
+<p>The first step is to separate the object from the background. This is
+done by segmenting the volume into exterior and interior regions on
+the basis of the voxel values.</p>
+<p></p>
+<ul><li>Load the <em>lobus.am</em> data file from the directory 
+ <em>data/tutorials</em>.</li><li>Attach a <em>Labelling</em>/<a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a> module to the data icon
+ and select it.</li><li>Type 85 into the text field of port <em>Exterior-Inside</em>. You
+ may also determine some other threshold that separates
+ exterior and interior as described in the
+ tutorial on Image Data Visualization.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p> </p>
+<p>By this procedure each voxel having a value lower than the threshold is
+assigned to <em>Exterior</em> and each voxel whose value is greater than 
+or equal to the threshold is assigned to <em>Interior</em>. This may, however,
+cause artifacts that are not part of the object but which have voxel values
+above the threshold to be assigned to the interior. This can be suppressed
+by setting the <em>remove couch</em> option which assures that only the largest
+coherent area will be labeled as the interior and all other voxels are
+assigned to the exterior.</p>
+<p>After you press the <em>Apply</em> button, a new data object is computed and its
+icon appears in the Pool. The data object is named <em>lobus.Labels</em>. It is of type <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>,
+represents a cubic grid with the same dimensions as <em>lobus.am</em>, and
+contains an interior or exterior label for each voxel according to the
+segmentation result.</p>
+<p></p>
+<h3><a name="A6">2.4.4 Refining Threshold Segmentation Results</a></h3>
+<p>You can visualize and manually modify a
+<a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> by using <font face="helvetica">Amira</font>'s <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>. 
+A more detailed description of this tool is contained
+in the Reference guide. Here, we use the Segmentation Editor
+to smooth the data in order to get a nicer looking surface of the object.</p>
+<p></p>
+<ul><li>Select the <em>lobus.Labels</em> icon and click on the 
+ Segmentation Editor icon in the Properties Area.</li>
+</ul><p> </p>
+<p>In response the Segmentation Editor is displayed.</p>
+<p></p>
+<ul><li>In the XY or axial view view, use the slider on the bottom to
+ select slice 39.</li><li>Choose a magnification ratio of 4:1 by pressing the zoom-up 
+ button in the Zoom and Data Window region of the editor.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutorials_gui10.png.html><img width=450 src="tutorials_gui10.png" /></a><br />
+<div class="caption">
+<b>Figure 20:</b>
+Data from confocal microscopy is segmented using <font face="helvetica">Amira</font>'s 
+Segmentation Editor.</div>
+
+
+</div><p> </p>
+<p>The Segmentation Editor shows the image data to be segmented
+(<em>lobus.am</em>) as well as contours representing the borders between
+interior and exterior regions as contained in the <em>lobus.Labels</em> data
+object. As you can see, the borders are not so smooth and there are many
+little islands, bordered by brownish contours. This is what we want to improve
+now.</p>
+<p></p>
+<ul><li>Choose <em>Remove Islands</em> from the editor's <em>Segmentation</em>
+ menu. In response, a small dialog window appears.</li><li>In the dialog window select the <em>all slices</em> mode. Then press
+ <em>Remove</em> in order to apply the filter to all slices. Note how
+ the segmentation results become less noisy.</li><li>To further clean up the image, choose <em>Smooth Labels</em> from
+ the editor's <em>Segmentation</em> menu. Another dialog box appears.</li><li>Select the <em>3D volume</em> mode and press the <em>Apply</em>
+ button in order to execute the smoothing operation.</li><li>To examine the results of the filter operations, browse through
+ the label field slice by slice. In addition to the slice slider
+ you may also use the cursor-up and cursor-down keys for this.</li><li>Return to the main Amira window using the sub-application toolbar.</li>
+</ul><p></p>
+<p>In the next tutorial you will learn how to create a 3D surface model from the segmentation results. </p>
+<p>
+</p></body>
+</html>

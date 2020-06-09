@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LandmarkView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LandmarkView" "displays a landmark set object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays a <a class="link" href="HxLandmarkSet.html#A1">landmark set</a> as small
+spheres, or in case of specialized markers shows a specific geometry.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The landmark set to be displayed.</p>
+</div></div>
+<a name="A3"></a>
+<div class="hxconnection_optional">
+ <span class="headline">Box</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The bounding box of the associated image data.
+The box is used to determine the projected positions
+of the landmarks.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Point Set</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_chooseSet.png" /><br /></div>
+<div class="body"><p>You may select whether only the first, only the second, or all
+ point sets are shown. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lines</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_display.png" /><br /></div>
+<div class="body"><p>Display lines connecting corresponding points in the first and second set.
+ This option is only present if the input contains two or more point sets.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">DrawStyle</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_drawStyle.png" /><br /></div>
+<div class="body"><p>Landmarks can be displayed either as spheres or as simple points. This
+is selected in the first radio box.
+ If the input contains a large number of points (several hundred, or
+ thousands), point style can significantly improve display performance.</p>
+<p>In the second box, the projected positions are displayed as circles on the
+bounding box boundary. The box is either taken from the connection <a class="link" href="#A3">Box</a>
+or computed from the landmarks.</p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_size.png" /><br /></div>
+<div class="body"><p>Size of displayed spheres or points.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BaseSize</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_baseSize.png" /><br /></div>
+<div class="body"><p>Base size of the spheres or points which the size slider relates
+to. The base size can be increased, decreased, and reset (which tries
+to create a meaningful size based on the currently loaded data).</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complexity</span>  
+<div class="portsnapshot"><img src="HxDisplayLandmarks_complexity.png" /><br /></div>
+<div class="body"><p>The larger this value is, the nicer the spheres look, but the 
+ lower the rendering speed is.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setColor &lt;set&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>Set rgb color for one landmark set (all color values
+in the range between 0 and 1).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColor &lt;set&gt;</span>  
+
+<div class="body"><p>Get rgb color for one landmark set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLineColor &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>Set rgb color for connecting lines.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLineColor</span>  
+
+<div class="body"><p>Get rgb color for connecting lines.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLineWidth</span>  
+
+<div class="body"><p>Get line width of connecting lines.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLineWidth</span>  
+
+<div class="body"><p>Set line width of connecting lines.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

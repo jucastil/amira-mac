@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">25.2 Read Routines</a></h2>
+<p>As already mentioned in the previous section, a read routine is a C++
+function that
+reads a disk file, interprets the data, creates an instance of an <font face="helvetica">Amira</font>
+data class, and fills that instance with the data read from the file.
+In order to write a read routine, obviously two things are needed, namely
+a specification of the file format to be read as well as the information
+which of <font face="helvetica">Amira</font>'s data classes is able to represent the data and how this
+class is used. More information about the standard <font face="helvetica">Amira</font> data classes is
+given in <a class="link" href="HxDev-dataobjs.html#A1">Chapter 27</a>. The C++ interface of these
+classes is described in the online reference documentation.</p>
+<p>A read routine may either be a static member function of a class or a
+global function. In addition to the function itself, an entry in the
+package resource file is needed. In this way <font face="helvetica">Amira</font> is informed about the
+existence of the read routine and about the type of files that can be
+handled by the reader.</p>
+<p>In the following discussion the implementation of a user-defined read 
+routine will be
+illustrated by two concrete examples, namely <a class="link" href="HxDev-readppm3d.html#A1">a simple
+read routine for scalar fields</a> and <a class="link" href="HxDev-readtrimesh.html#A1">a read routine
+for surfaces and surface fields</a>. Some
+<a class="link" href="HxDev-readdetails.html#A1">more details about read routines</a> will be discussed
+subsequently.</p>
+<p></p>
+<p>
+
+</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

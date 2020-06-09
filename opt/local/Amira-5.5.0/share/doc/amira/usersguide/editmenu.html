@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p>
+<h3><a name="A1">3.1.2 Edit Menu</a></h3>
+<p>The <em>Edit</em> menu provides access to the standard cut/copy/paste/delete
+commands, as well as to an extended version of the
+Parameter Editor and the <font face="helvetica">Amira</font> preferences dialog. </p>
+<p></p>
+<h4><a name="A2">3.1.2.1 Cut</a></h4>
+<p>In the <em>Console</em>, this command cuts selected text and copies it to the clipboard.
+In the <em>Pool</em>, this command removes the selected objects.</p>
+<p></p>
+<h4><a name="A3">3.1.2.2 Copy</a></h4>
+<p>In the <em>Console</em>, this command copies the selected text to the clipboard.
+In the <em>Pool</em>, this command copies the selected objects to the clipboard.</p>
+<p></p>
+<h4><a name="A4">3.1.2.3 Paste</a></h4>
+<p>In the <em>Console</em>, this command pastes the text from the clipboard to the
+current text insertion point.
+In the <em>Pool</em>, this command pastes the objects from the clipboard to the <em>Pool</em>.</p>
+<p></p>
+<h4><a name="A5">3.1.2.4 Delete</a></h4>
+<p>In the <em>Console</em>, this command deletes the selected text.
+In the <em>Pool</em>, this command deletes the selected objects.</p>
+<p></p>
+<h4><a name="A6">3.1.2.5 Select All</a></h4>
+<p>In the <em>Console</em>, this command selects all text. In the <em>Pool</em>, this
+command select all objects.</p>
+<p></p>
+<h4><a name="A7">3.1.2.6 Preferences</a></h4>
+<p>This option opens the <font face="helvetica">Amira</font> preferences dialog described in
+<a class="link" href="preferences.html#A1">Section 3.1.12</a>. The dialog controls 
+how network scripts are exported. It also lets you choose if warning
+dialogs should be popped up if you try to delete data objects which have
+not yet been saved to file, or if you try to exit <font face="helvetica">Amira</font> without having
+saved the current network before. Possibly most interesting, it allows
+you to configure the layout of your <font face="helvetica">Amira</font> window.</p>
+<p></p>
+<h4><a name="A8">3.1.2.7 Dialogs</a></h4>
+<p>This menu item comprises the dialogs <em>Database</em> and <em>Jobs</em>.</p>
+<p></p>
+<h4><a name="A9">Database</a></h4>
+<p>The <em>Database</em> button activates an extended version of the
+<a class="link" href="../hxcore/HxParameterEditor.html#A1">Parameter Editor</a>, allowing you to manipulate
+<font face="helvetica">Amira</font>'s global parameter database. Among others, the parameter database
+contains a set of predefined materials (to be used for image segmentation
+and surface reconstruction) and of predefined boundary ids (to be used for
+surface editing and FEM pre-processing). For example, for each material
+and for each boundary ID a default color can be defined in the database.</p>
+<p>Modification, insertion, and removal of parameters is performed in the same
+way as in the ordinary parameter editor. In addition, the extended parameter dialog
+provides a menu bar allowing you to load, import, save, or search the
+global parameter database. <font face="helvetica">Amira</font>'s default database is stored in the file
+<tt>share/materials/database.hm</tt> located in the directory where <font face="helvetica">Amira</font>
+was installed. Use the <em>Database</em> menu option <em>Set default file</em> to
+specify that a different database file be used instead. This change is permanent, i.e.,
+it takes effect the next time <font face="helvetica">Amira</font> is restarted. To switch back to the system
+default, use the <em>Database</em> menu option <em>Use system default file</em>.</p>
+<p></p>
+<h4><a name="A10">Jobs</a></h4>
+<p>This button brings up <font face="helvetica">Amira</font>'s <a class="link" href="jobqueue.html#A1">job dialog</a>, which is used
+to control the execution of batch jobs running in the background. For
+example, tetrahedral grids can be generated in a batch job (see module
+<a class="link" href="../hxgridgen/HxTetraGen2.html#A1">TetraGen</a>). However, for most users the batch queue
+will be of minor interest.</p>
+<p></p>
+<p>
+</p></body>
+</html>

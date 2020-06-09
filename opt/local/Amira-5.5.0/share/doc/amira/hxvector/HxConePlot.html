@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ConePlot</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ConePlot" "visualizes and animates vector fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ConePlot is a display module that can be attached to a vector field. It
+visualizes scalar and complex vector fields by colored objects (cones)
+pointing in the direction of the local flow. The cones can be animated
+to generate a sequence of cones "walking" through the vector field.</p>
+<p>The module features SelectRoi, Colorfields, and arbitrary shapes
+to be displayed instead of cones.</p>
+<p>The module can also generate a density based on the cone positions
+over time. <br />
+
+ <tt>ConePlot setGhostDims 30 30 30</tt><br />
+
+ <tt>ConePlot generateGhost</tt><br />
+
+The module uses a Gaussian kernel with a variance of a tenth of the maximum
+bounding box size of the volume. This option is computationally very
+expensive.</p>
+<p>The module also exports the path of the cones as a LineSet. To generate
+the LineSet, call:<br />
+ 
+ <tt>ConePlot saveAsLineSet</tt><br />
+
+in the <font face="helvetica">Amira</font> console window. The LineSet is computed with a data entry
+per LineSet point which represent the magnitude of the vector at this
+position.</p>
+<p>ConePlot uses Open Inventor render caching. All animation
+steps are computed beforehand and then played back by making the
+appropriate parts of the scene visible. This technique requires
+little CPU computation but larger amounts of memory and a fast graphics
+card. Because of the caching step, the first pass through the animation
+may be slow but subsequently render passes speed up.</p>
+<p>Press the <em>Apply</em> button to recompute the animation or the single plot.</p>
+<p>Notice that ConePlot is only provided for backwards compatibility since it has been replaced
+by the <a class="link" href="HxParticlePlot.html#A1">ParticlePlot</a> module. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D vector field to be visualized. It can be either 3 or 6 floats per
+voxel. This module works therefore with arbitrary grid topologies by
+sampling them uniformly.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Port to connect a colormap object. The color is computed from the
+magnitude of the vectors.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Animate</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Attach a Time object to control the <em>Animate</em> slider. Please make sure
+that the range of the time slider is set to integers and that 0 is
+within that range.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connect a region of interest to the module and the cones will only be
+generated inside this region. This helps in exploring complicated
+vector fields.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colorfield</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Instead of the vector field applied, the module will use a second scalar field
+to color the cones.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Shape data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Supply a custom shape to be replicated instead of cones. Basically
+any geometry displayed in <font face="helvetica">Amira</font> can be used. Be careful not to use
+very complex objects because the number of triangles used in this case
+can be a limiting factor for the speed of the animation.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="hxConePlot_Resolution.png" /><br /></div>
+<div class="body"><p>Provides three text inputs defining the resolution of the regular
+array of cones in the local x- y- and z-direction. The larger these
+values are, the more cones are displayed.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="hxConePlot_Colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap. The color is computed from the magnitude of
+the vectors.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complex phase angle</span>  
+<div class="portsnapshot"><img src="hxConePlot_ComplexPhaseAngle.png" /><br /></div>
+<div class="body"><p>This port will only be visible if a complex-valued vector field is
+connected to the module. It provides a phase slider controlling which
+part of the complex 3D vectors is visualized by the arrows. 
+</p>\[ \begin{eqnarray}
+y(t) & = & \cos( \mathtt{phase} ) \mathtt{Re}(x(t)) + \sin( \mathtt{phase} ) \mathtt{Imag}(x(t)) 
+ \end{eqnarray} \]<p>
+A value
+of 0 degree corresponds to the real part, while a value of 180 degrees
+corresponds to the imaginary part. The display can be animated with
+respect to the phase by the <em>Animate</em> port. This way polarization
+properties of the field can be revealed or wave phenomena become
+visible.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="hxConePlot_Threshold.png" /><br /></div>
+<div class="body"><p>Any cone is removed from display which would be placed on a position
+with a vector length smaller than this threshold. Using this option
+you can "thin-out" parts of the volume, e.g., regions which would
+contain cones that never move.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="hxConePlot_Options.png" /><br /></div>
+<div class="body"><p>This port provides the following toggle options.</p>
+<p>	<em>Animation:</em> If this option is set, then two additional
+ ports are displayed. The <em>Time</em> port allows you to set a time frame
+ (from $$-m>0$$ to $$n$$ frames). The <em>Step size</em> port allows you to set
+ the time between successive time steps.
+ Currently we use an Euler integration. The
+ smaller the step size, the more accurately the flow field is
+ sampled. </p>
+<p>	<em>Show All:</em> Shows all cones in the current
+ animation. When switching on this mode, there is no need for
+ animations because the animation is done by switching cones on
+ and off.</p>
+<p>	<em>Customize Cones:</em> You can change the height and the
+	bottom radius of all cones.</p>
+<p>	<em>BlendIn:</em> If this option is set, the size of the cones
+ is increased or decreased at the start or end point
+ of the animation. This behavior generates nicer graphics for
+ continuous animations, especially in the case of ConesPerStream $$>1$$.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Step Size</span>  
+<div class="portsnapshot"><img src="hxConePlot_StepSize.png" /><br /></div>
+<div class="body"><p>The current implementation uses Euler integration and this defines the
+step size calculated by 
+</p>\[ 
+{\bf x}(t+\Delta t) = {\bf x}(t) + \Delta t \cdot {\bf v} ({\bf x}(t),t),
+\]<p>
+where <b>x</b>(t) is the position and <b>v</b>(t) the velocity at
+time t. Please
+be careful to not work on stiff flow fields using this method. In general,
+small values result in higher accuracy and smaller path length of the cones.</p>
+<p>If you set the value of <em>ConesPerStream</em> to $$>1$$, more than one cone
+is displayed at a time. Together with the loop mode of the time slider
+and the <em>BlendIn</em> option set, this creates continuous animations.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Animate</span>  
+<div class="portsnapshot"><img src="hxConePlot_Animate.png" /><br /></div>
+<div class="body"><p>This time slider allows you to start and stop animations. If you
+right-click in the associated text window you can switch to loop mode
+which generates an infinitely long animation.</p>
+<p>The range of the slider must be set to integer numbers.
+For example: 0...50 is interpreted as 50 time steps for the forward
+integration, or -30...30 is interpreted as 30 steps in both
+forward and backward directions. The modules makes sure that the increment
+is always 1.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Height</span>  
+<div class="portsnapshot"><img src="hxConePlot_Height.png" /><br /></div>
+<div class="body"><p>For cones this changes their height. If another shape
+is connected to the module, the port controls the global scaling of the
+shape.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Bottom radius</span>  
+<div class="portsnapshot"><img src="hxConePlot_bottomRadius.png" /><br /></div>
+<div class="body"><p>For cones this changes the radius of their base circle.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

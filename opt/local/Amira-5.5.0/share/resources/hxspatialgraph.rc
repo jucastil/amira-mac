@@ -1,0 +1,99 @@
+########## Data format ###########
+
+dataClass -name "SpatialGraph" \
+    -class "HxSpatialGraph" \
+    -category "Data" \
+    -dso "libhxspatialgraph.so"
+
+
+########## Display modules ###########
+
+module -name "SpatialGraphView" \
+    -primary "HxSpatialGraphInterface" \
+    -class "HxSpatialGraphView" \
+    -category "Main Display" \
+    -dso "libhxspatialgraph.so"
+
+########## Read and write resources ###########
+
+amiramesh -ContentType HxSpatialGraph \
+    -load "HxSpatialGraph::readAmiraMesh" \
+    -dso "libhxspatialgraph.so"
+
+dataFile -name "AmiraMesh SpatialGraph" \
+    -ext "am" \
+    -save "HxSpatialGraph::saveAmiraMeshBinary" \
+    -type "HxSpatialGraph" \
+    -package "hxspatialgraph"
+
+dataFile -name "AmiraMesh ASCII SpatialGraph" \
+    -ext "am" \
+    -save "HxSpatialGraph::saveAmiraMeshASCII" \
+    -type "HxSpatialGraph" \
+    -package "hxspatialgraph"
+
+dataFile -name "Neuron HOC" \
+    -ext  "hoc,HOC" \
+    -load "loadHOCToAmira" \
+    -dso  "libhxspatialgraph.so"
+
+dataFile -name "Neuron HOC" \
+    -ext  "hoc,HOC" \
+    -save "writeHOC" \
+    -type "HxSpatialGraphInterface" \
+    -package "hxspatialgraph"
+
+#dataFile -name "Neurolucida ASCII" \
+#    -ext "ASC,asc" \
+#    -save "saveNeurolucidaASCII" \
+#    -type "HxSpatialGraphInterface" \
+#    -package "hxspatialgraph"
+
+dataFile -name "Duke-Southampton SWC" \
+    -ext  "swc,SWC" \
+    -load "loadSWCToAmira" \
+    -dso  "libhxspatialgraph.so"
+    
+dataFile -name "Duke-Southampton SWC" \
+    -ext  "swc,SWC" \
+    -save "writeSWC" \
+    -type "HxSpatialGraphInterface" \
+    -package "hxspatialgraph"
+
+amiramesh -ContentType SkeletonGraph \
+    -load "loadSkeletonGraphToAmira" \
+    -dso "libhxspatialgraph.so"
+
+########## Conversion modules ###########
+
+module -name "SpatialGraphToLineSet" \
+    -primary "HxSpatialGraphInterface" \
+    -class "CastHxSpatialGraphToHxLineSet" \
+    -category "Compute" \
+    -dso "libhxspatialgraph.so"
+
+module -name "LineSetToSpatialGraph" \
+    -primary "HxLineSetInterface" \
+    -class "CastHxLineSetToHxSpatialGraph" \
+    -category "Compute" \
+    -dso "libhxspatialgraph.so"
+
+module -name "SpatialGraphStatistics" \
+    -primary "HxSpatialGraphInterface" \
+    -class "HxSpatialGraphStats" \
+    -category "Measure" \
+    -dso "libhxspatialgraph.so"
+    
+module -name     "LabelSpatialGraph" \
+       -primary  "HxSpatialGraph" \
+       -class    "HxLabelSpatialGraph" \
+       -category "Compute" \
+       -dso "libhxspatialgraph.so"
+    
+module -name     "ComputeDistanceToPoint" \
+       -primary  "HxSpatialGraph" \
+       -class    "HxComputeDistanceToPoint" \
+       -category "Compute" \
+       -dso "libhxspatialgraph.so"
+    
+

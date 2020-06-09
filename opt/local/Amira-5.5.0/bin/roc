@@ -1,0 +1,221 @@
+#!/bin/sh
+
+base=`dirname "$0"`
+confdir="$base/env.d"
+basename=`basename "$0"`
+
+# Note: if you change this function, change also make/arch
+set_arch () 
+{
+    MAKE_UNAME=${MAKE_UNAME:-`uname`}
+
+    case $MAKE_UNAME in
+        SunOS)
+            if [ ! -z "$AMIRA64" ]
+            then
+                MAKE_UNAME=SunOS64
+            fi;;
+        Linux)
+            case `uname -m` in
+                ia64)
+                    MAKE_UNAME=Linux64;
+                    ;;
+                x86_64)
+                    MAKE_UNAME=LinuxAMD64;
+                    ;;
+            esac
+            ;;
+        HP-UX)
+            if [ ! -z "$AMIRA64" ]
+            then
+                MAKE_UNAME=HP-UX64
+            fi;;
+        AIX)
+                MAKE_UNAME=AIX64 ;; # AIX is always 64 bit
+        IRIX64)	
+            if [ -z "$AMIRA64" ]
+            then
+                MAKE_UNAME=IRIX
+            fi;;
+        Darwin)
+            if [ ! -z "$AMIRA64" ]
+            then
+               MAKE_UNAME=MacX64
+            else   
+               MAKE_UNAME=MacX
+            fi;;
+    esac
+
+    arch=arch-${MAKE_UNAME}-${MAKE_CFG:-Debug}
+}
+
+print_help() 
+{
+    echo "Start-up script for $base"
+    echo ""
+    echo "Supported options: "
+    echo " "
+    echo "  --64        force 64 bit executable (if available)"
+    echo "  --32        force 32 bit executable (if available)"
+    echo "  --cvd       start with debugger cvd"
+    echo "  --ddd       start with debugger ddd"
+    echo "  --dde       start with debugger dde"
+    echo "  --wdb       start with debugger wdb"
+    echo "  --gdb       start with debugger gdb"
+    echo "  --totalview start with debugger totalview"
+    echo "  --ldd       print shared lib dependencies"
+    echo "  --otool     print shared lib dependencies (MacX)"
+    echo "  --ogldebug  start with debugger ogldebug"
+    echo "  --debug     force start of debug version (if available)"
+    echo "  --optimize  force start of start optimize version (if available)"
+    echo "  --opt       force start of start optimize version (if available)"
+    echo "  --help      "
+    echo "  --          end argument parsing, remaining argument will be passed to the executable"
+    echo "              The real executable may for example support a switch called '--help'."
+    echo "              You may pass it by executing $base/$basename -- --help."
+    echo ""
+    echo "End options of start-up script"
+    echo ""
+}
+
+use_debugger()
+{
+    EXEC="$1"
+    MALLOC_FASTCHK=1
+    MALLOC_VERBOSE=2
+    MAKE_CFG=Debug
+    echo "Starting with debugger: $1"
+}
+
+# if you change options below, also change the help message above.
+for i in "$@"
+do
+    case "$i" in
+      --mesa)         AMIRA_MESA=1;      shift ;;
+      --nomesa)       unset AMIRA_MESA;  shift ;;
+      --remoterender) OIV_REMOTERENDER=ON;      shift ;;
+      --64)           AMIRA64=true;      shift ;;
+      --32)           unset AMIRA64;     shift ;;
+      --cvd)          use_debugger cvd;  DEBUGGER_START_HACK=1; shift ;;
+      --ddd)          use_debugger ddd;  shift ;;
+      --dde)          use_debugger dde;  shift ;;
+      --wdb)          use_debugger wdb;  shift ;;
+      --gdb)          use_debugger gdb;  shift ;;
+      --totalview)    use_debugger /usr/totalview/bin/totalview;  shift ;;
+      --ldd)          use_debugger ldd;  shift ;;
+      --otool)      use_debugger "otool -L";  shift ;;
+      --ogldebug)     use_debugger ogldebug;  shift ;;
+      --debug)        export MAKE_CFG=Debug;    shift ;;
+      --optimize)     export MAKE_CFG=Optimize; shift ;;
+      --opt)          export MAKE_CFG=Optimize; shift ;;
+      --help)         print_help; exit ; ;;
+      --)             shift ; break 2; ;;
+      *)              break 2; ;;
+    esac
+done
+
+set_arch
+
+if [ ! -x "$base/${arch}/$basename" ]
+then
+    if [ "$MAKE_CFG" != "" ]
+    then
+	echo "Warning: No $MAKE_CFG version for $basename."
+    fi
+    case $arch in 
+	*Debug)
+		MAKE_CFG=Optimize ;;
+
+	*Optimize)
+	    	MAKE_CFG=Debug ;;
+	*)	
+		echo "Error: Can't find an executable $basename version for $arch."
+		exit 1
+    esac
+    export MAKE_CFG
+    set_arch
+fi
+
+if [ ! -x "$base/${arch}/$basename" ]
+then
+    echo "Error: Can't find neither Optimized nor Debug version for $basename."
+    exit 1
+fi
+
+libpath="`cd ${base}/.. ; pwd`/lib/$arch"
+
+if [ "x${AMIRA_LOCAL}" != "x" ]
+then
+    locallibpath="${AMIRA_LOCAL}/lib/$arch"
+    if [ -d "$locallibpath" ]
+    then
+        libpath="${libpath}:$locallibpath"
+    else
+        echo "Warning: AMIRA_LOCAL is set to '$AMIRA_LOCAL', but '$locallibpath' is not a directory"
+    fi
+fi
+
+if [ "$AMIRA_ROOT" = "" ]
+then
+    AMIRA_ROOT=`cd $base/..; pwd`
+    export AMIRA_ROOT
+fi
+
+rootlibpath="${AMIRA_ROOT}/lib/$arch"
+if [ -d "$rootlibpath" ]
+then
+    libpath="${libpath}:$rootlibpath"
+else
+    echo "Warning: AMIRA_ROOT is set to '$AMIRA_ROOT', but '$rootlibpath' is not a directory"
+fi
+
+LD_LIBRARY_PATH="${libpath}:$LD_LIBRARY_PATH"
+LD_LIBRARYN32_PATH="${libpath}:$LD_LIBRARYN32_PATH"
+DYLD_LIBRARY_PATH="${libpath}:$DYLD_LIBRARY_PATH"
+SHLIB_PATH="${libpath}:$SHLIB_PATH"
+export LD_LIBRARY_PATH LD_LIBRARYN32_PATH DYLD_LIBRARY_PATH SHLIB_PATH
+
+# source additional config files
+APP_ROOT=`cd "$base/.." ; pwd`
+if [ -d "$confdir" -a -r "$confdir" -a -x "$confdir" ]; then
+    for i in "$confdir"/*.sh; do
+        if [ -f "$i" -a -r "$i" ] ; then
+            echo "sourcing $i"
+            . "$i" 
+        fi
+    done
+fi
+unset i
+
+executable="$base/${arch}"/`basename "$0"`
+
+if [ "x$DEBUGGER_START_HACK" = "x1" ]
+then
+    # This is a hack: if command line parameters for Amira are
+    # specified for debugging start debugger with one argument
+    # containing these parameters (the silly debugger doesn't
+    # forward command line argumentes otherwise). The debugger
+    # thinks this is the name of the binary and can't load it,
+    # but the command line is set up and the error message can
+    # be ignored, pressing `run' works in spite of this first
+    # error.
+    exec ${EXEC} "$executable $@"
+    echo "Couldn't start $EXEC debugger."
+    exit 1
+fi
+
+if [ "$EXEC" = "gdb" ]
+then
+    echo
+    echo "use 'run $@' to start execution with commandline arguments"
+    echo
+fi
+
+if [ "$EXEC" = "" ]
+then
+    EXEC=exec
+fi
+
+${EXEC} "$executable" "$@"
+
+

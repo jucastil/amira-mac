@@ -1,0 +1,20 @@
+# ----------------------------------------------------------------------
+#   Camera package
+# ----------------------------------------------------------------------
+
+dataClass -name "CameraPath" \
+    -class "HxKeyframeCameraPath" \
+    -category "Main" \
+    -dso "libhxcamera.so"
+
+dataClass -name "CameraRotate" \
+    -class "HxCircularCameraPath" \
+    -category "Main" \
+    -dso "libhxcamera.so"
+
+editor -name "CameraPath Editor" \
+    -data "HxKeyframeCameraPath" \
+    -class "HxKeyframeCameraPathEditor" \
+    -icon "HxCameraPathEditor.png" \
+    -dso "libhxcamera.so"
+

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">1.2 Features overview</a></h2>
+<p><font face="helvetica">Amira</font> provides a large number of data and module types allowing you to visualize,
+analyze and model various kinds of 3D data.
+
+The <font face="helvetica">Amira</font> framework is ideal to integrate the data from multiple sources into a single environment.</p>
+<p>This section summarizes the main features of <font face="helvetica">Amira</font> software suite.
+For more complete information you may browse indexes for data types, file formats and modules
+in the Reference Guide. This is accessible from the home page of the online help browser.<br />
+
+<a class="link" href="extensions.html#A1">Section 1.3</a> describes the <font face="helvetica">Amira</font> optional extensions.</p>
+<p>Material science users can also refer to <a class="link" href="../hxvisilog/QuantificationPackUG.html#A1">Part 13 (<font face="helvetica">Quantification+ Option</font> User's Guide)</a>.<br />
+
+Molecular visualization is presented in <a class="link" href="../hxmolecule/mol-intro.html#A1">Chapter 10 (<font face="helvetica">Molecular Option</font> User's Guide)</a>.<br />
+
+
+
+</p>
+<p></p>
+<h3><a name="A2">1.2.1 Data import</a></h3>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=overview.png.html><img width=525 src="overview.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Data objects and modules are represented as little
+ icons in the Pool (top left). In the 3D graphic window a
+ surface colored according to its curvature is shown. Curvature 
+ information has been computed by a computational module and is stored 
+ as a separate data object.
+ In the left window the parameters of selected modules are shown. The lower right pane
+ provides a Tcl-command shell as well as access to the help browser.</div>
+
+
+</div><p></p>
+<p>
+<font face="helvetica">Amira</font> can load directly different types of data, including:
+</p>
+<ul><li>2D and 3D image and volume data</li><li>Geometric models such as point sets, line sets, surfaces, grids</li><li>Numerical simulation data</li><li>Time series and animations</li>
+</ul><p>
+A large number of file formats are supported in the standard edition or through specific optional readers.
+For an introduction to data import, see <a class="link" href="first.html#A1">Chapter 2</a>.
+For more details, see <a class="link" href="dataimport.html#A1">section 4.1</a>.</p>
+<p></p>
+<h3><a name="A4">1.2.2 Viewing, navigation, interactivity</a></h3>
+<p>All visualization techniques can be arbitrarily combined to produce a single
+scene.
+Moreover, multiple data sets can be visualized simultaneously, either in
+several viewer windows or in a common one.
+Thus you can display single or multiple data sets in a single or multiple
+viewer windows, and navigate freely around or through those objects.</p>
+<p>A built-in spatial <em>transformation editor</em> makes it easy to register data sets with
+respect to each other or to deal with different coordinate systems.
+Automatic registration of volume or geometric data is also possible.</p>
+<p>Direct interaction with the 3D scene allows you to quickly control regions of interest,
+slices, probes and more.</p>
+<p>Combinations of data sets, representation and processing features can be defined with minimal
+user interaction for simple or complex tasks.
+See <a class="link" href="overview.html#A1">section 1.1</a>.</p>
+<p></p>
+<h3><a name="A5">1.2.3 Visualization of 3D Image Data</a></h3>
+<p></p>
+<h4><a name="A6">1.2.3.1 Slicing and Clipping</a></h4>
+<p>You can quickly explore 3D images looking at single or multiple orthographic or oblique sections.
+Multiple data sets can be superimposed on slices, or displayed as height fields.
+You can cut away parts of your data to uncover hidden regions.
+Curved or cylinder slices are also available.</p>
+<p></p>
+<p></p>
+<h4><a name="A7">1.2.3.2 Volume Rendering</a></h4>
+<p>One of the most intuitive and most powerful techniques for visualizing
+3D image data is <em>direct volume rendering</em>. Light emission and
+light absorption parameters are assigned to each point of the
+volume. Simulating the transmission of light through the volume makes it
+possible to display your data from any view direction without
+constructing intermediate polygonal models. By exploiting modern
+graphics hardware, <font face="helvetica">Amira</font> is able to perform direct volume rendering
+in real time, even on very large data when using the <font face="helvetica">Very Large Data Option</font>.
+Thus volume rendering can instantly highlight relevant features of your data.
+Volume rendered images can be combined with any type of
+polygonal display. This improves the usefulness of this technique
+significantly. Moreover, multiple data sets can be volume rendered
+simultaneously -- a unique feature of <font face="helvetica">Amira</font>.
+Transfer functions with
+different characteristics required for direct volume rendering can
+ be either generated automatically or edited interactively using an
+intuitive colormap editor.</p>
+<p>
+
+</p>
+<p></p>
+<h4><a name="A8">1.2.3.3 Isosurfaces</a></h4>
+<p>Isosurfaces are most commonly used for analyzing arbitrary scalar fields
+sampled on discrete grids. Applied to 3D images, the method provides a very
+quick, yet sometimes sufficient method for reconstructing polygonal surface
+models. Beside standard algorithms, <font face="helvetica">Amira</font> provides an
+improved method, which generates significantly fewer
+triangles with very little computational overhead. In this way, large 3D data
+sets can be displayed interactively even on smaller desktop graphics
+computers.</p>
+<p></p>
+<h4><a name="A9">1.2.3.4 Large Volume Data</a></h4>
+<p>With the <font face="helvetica">Very Large Data Option</font>, even very large data sets that cannot be fully loaded into memory can be
+manipulated interactively. Multi-resolution techniques can manage and visualize
+extremely large amounts of volume data of up to hundreds of gigabytes. You can then,
+for instance, quickly select a region of interest and extract down-sampled
+or partial data for further processing.</p>
+<p></p>
+<h3><a name="A10">1.2.4 Image processing</a></h3>
+<p></p>
+<h4><a name="A11">1.2.4.1 Alignment of image slices</a></h4>
+<p>The image <a class="link" href="../hxalign/HxAlignSlices.html#A1">slice aligner</a> enables you to build a consistent stack of images with
+manual or automatic tools, if, for instance, physical cross-sections have been shifted during
+image acquisition.</p>
+<p></p>
+<h4><a name="A12">1.2.4.2 Image filters</a></h4>
+<p>Image features can be enhanced by applying a wide range of filters for controlling contrast, smoothing,
+noise reduction and much more.
+See <a class="link" href="../hximproc/HxImageEditor.html#A1">Image Filters</a> and <font face="helvetica">Quantification+ Option</font>.</p>
+<p>
+</p>
+<p></p>
+<h4><a name="A13">1.2.4.3 Image segmentation</a></h4>
+<p>Segmentation means assigning labels to image voxels that identify and separate objects in a 3D image.
+<font face="helvetica">Amira</font> offers a large set of segmentation tools, ranging from
+purely manual to fully automatic: brush (painting), lasso (contouring),
+magic wand (region growing), thresholding, intelligent scissors, contour fitting
+(snakes), contour interpolation and extrapolation, wrapping,
+smoothing and de-noising filters, morphological filters for erosion, dilation,
+opening and closing operations, connected component analysis, images correlation,
+objects separation and filtering (see <font face="helvetica">Quantification+ Option</font>), etc.
+See <a class="link" href="tutseg.html#A1">section 2.4</a> for a tutorial about image segmentation.</p>
+<p></p>
+<p></p>
+<p></p>
+<h3><a name="A14">1.2.5 Model reconstruction</a></h3>
+<p></p>
+<h4><a name="A15">1.2.5.1 Surface generation</a></h4>
+<p>Once the interesting features in a 3D image volume have been
+segmented, <font face="helvetica">Amira</font> is able to create a corresponding polygonal surface
+model. The surface may have non-manifold topology if there are
+locations where three or more regions join. Even in this case the
+polygonal surface model is guaranteed to be topologically correct,
+i.e. free of self-intersections. Fractional weights that are
+automatically generated during segmentation allow the system to
+produce optionally smooth boundary interfaces. This way realistic high-quality
+models can be obtained, even if the underlying image data are of low
+resolution or contain severe noise artifacts. Making use of innovative
+acceleration techniques, surface reconstruction can be performed very
+quickly. Moreover, the algorithm is robust and fail-safe.</p>
+<p></p>
+<h4><a name="A16">1.2.5.2 Surface Simplification and Editing</a></h4>
+<p>Surface simplification is another prominent feature of <font face="helvetica">Amira</font>. It can
+be used to reduce the number of triangles in an arbitrary surface
+model according to a user-defined value. Thus, models of
+finite-element grids, suitable for being processed on low-end
+machines, can be generated. The underlying simplification algorithm is
+one of the most elaborate ones available. It is able to preserve
+topological correctness, i.e., self-intersections commonly produced by
+other methods are avoided. In addition, the quality of the resulting
+mesh, according to measures common in finite element analysis, can be
+controlled. For example, triangles with long edges or triangles with
+bad aspect ratio can be suppressed.</p>
+<p>A surface editor is also available for smoothing or refining surface
+in whole or part, cutting and copying parts of surfaces, defining boundary
+conditions for further numerical simulation, checking and modifying surface triangles.</p>
+<p></p>
+<h4><a name="A17">1.2.5.3 Generation of Tetrahedral Grids</a></h4>
+<p><font face="helvetica">Amira</font> allows you not only to generate surface models from your data
+but also to create true volumetric tetrahedral grids suitable for
+advanced 3D finite-element simulations. These grids are constructed
+using a flexible advancing-front algorithm. Again, special care is
+taken to obtain meshes of high quality, i.e., tetrahedra with bad
+aspect ratio are avoided.
+Several different file formats are
+supported, so that the grid can be exported to many standard
+simulation packages.</p>
+<p></p>
+<h4><a name="A18">1.2.5.4 Point Clouds/Scattered Data</a></h4>
+<p><font face="helvetica">Amira</font> can also reconstruct surfaces from scattered points
+(see <a class="link" href="../hxgridgen/HxDelaunay2D.html#A1">Delaunay</a> and <a class="link" href="../hxgridgen/HxPointWrap.html#A1">PointWrap</a> modules).</p>
+<p></p>
+<h4><a name="A19">1.2.5.5 Skeletonization</a></h4>
+<p>A set of tools is included for reconstructing and analyzing a dendritic, porous
+or fracture network from 3D image data.
+</p>
+<p></p>
+<h3><a name="A20">1.2.6 Visualization of 3D models and numerical data</a></h3>
+<p></p>
+<h4><a name="A21">1.2.6.1 Point sets, line sets</a></h4>
+<p><font face="helvetica">Amira</font> can visualize arbitrary functional data given on
+3D <a class="link" href="../hxcluster/HxCluster.html#A1">point sets</a> or <a class="link" href="../hxlines/HxLineSet.html#A1">line sets</a>.</p>
+<p></p>
+<h4><a name="A22">1.2.6.2 Polygonal models</a></h4>
+<p>A number of drawing styles and coloring schemes help to yield meaningful and informative visualizations of
+polygonal models, whether generated from image data or imported from CAD or simulation package.
+Surface and 3D grid meshes can be colored or textured in order to visualize a second independent data set.</p>
+<p>Another <font face="helvetica">Amira</font> feature comprises the realistic view-dependent way of rendering semi-transparent
+surfaces. By correlating transparency with local orientation of the surface
+relative to the viewing direction, complex spatial structures can be
+understood much more easily.</p>
+<p>
+
+</p>
+<p></p>
+<h4><a name="A23">1.2.6.3 Numerical data post-processing</a></h4>
+<p><font face="helvetica">Amira</font> allows you to analyze results of numerical simulations.
+It supports polygonal surfaces such as triangular meshes, 3D lattices with uniform,
+rectilinear of curvilinear coordinates, and polyhedral 3D grids such as tetrahedral or hexahedral grids.
+Most general purpose image visualization techniques and analysis tools can be applied, e.g.:
+slice extraction, computation of isolines or isosurfaces, data probing and histograms.
+In addition, scalar quantities can be visualized with pseudo-colors on the grid itself.</p>
+<p>Beside visualization, data representations such as isosurfaces, grid cuts or contour lines can
+be extracted as first class data objects.</p>
+<p>Displacement vectors can be visualized on grids or applied as grid deformation that can be animated.</p>
+<p>
+</p>
+<h4><a name="A24">1.2.6.4 Flow Visualization</a></h4>
+<p><font face="helvetica">Amira</font> provides many advanced tools for vector fields and flow visualization.
+Vector arrows can be drawn on a slice, within a volume, or upon a surface.
+The flow structure may be better revealed by representations such as fast Line Integral Convolution
+on slices or arbitrary surfaces, illuminated and animated streamlines,
+stream ribbons, stream surfaces, particle animations, synthetic <a class="link" href="../hxvector/HxIcon.html#A1">vector probe</a>, ...
+All of these stream visualization techniques are highly interactive.
+While seedpoint distributions can be automatically calculated, you can also select and
+interactively manipulate seed points and structures,
+thus supporting the investigation the flow field and highlighting of different features.
+<font face="helvetica">Amira</font> can also support six-component complex vector fields and phase visualization, e.g. electromagnetic fields.</p>
+<p>See tutorial <a class="link" href="tutvectorAmira.html#A1">section 2.10 (visualization of vector fields)</a>.</p>
+<p></p>
+<h4><a name="A25">1.2.6.5 Tensor Data</a></h4>
+<p><font face="helvetica">Amira</font> has support for iconic visualization of tensor field, extraction of eigenvalues,
+computation of rate of strain tensor, gradient tensor.</p>
+<p>
+</p>
+<h3><a name="A26">1.2.7 General Data Processing and Data Analysis</a></h3>
+<p></p>
+<h4><a name="A27">1.2.7.1 3D registration of multiple data sets</a></h4>
+<p>Multiple data sets can be combined to compare images of different objects, or images of an object
+recorded at different times or with different imaging modalities such as X-ray CT and MRI.
+In addition, fusion of multi-modal data by arbitrary arithmetic operations can be performed to
+increase the amount of information and accuracy in the models.
+<font face="helvetica">Amira</font> allows manual registration through interactive manipulators, automatic rigid or
+non-rigid registration through landmarks, and automatic registration using iterative optimization
+algorithms (see <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">AffineRegistration</a> module).</p>
+<p>Surfaces can also be registered using rigid or non-rigid transformations, based on landmarks
+sets warping, alignment of centers or principal axes, or distance minimization algorithms.</p>
+<p></p>
+<h4><a name="A28">1.2.7.2 Operating on 3D data</a></h4>
+<p>Many utilities are available for data processing. Here are some important ones.
+Resampling can reduce or enlarge the resolution of a 3D image or data sets defined on regular grids,
+and different sampling kernels are supported. Data can be cropped or regions of interest can be defined.
+Data can be converted to any supported primitive type, from byte to 64-bits floating point numbers.
+Multi-component data such as multi-channel images or vector data can be composed or decomposed.
+Standard 3D field operators such as scalar field gradient or vector field curl are available.
+Surface curvatures and distances between surfaces can also be computed, as scalar or vector information.
+The powerful <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> module allows calculations to be performed on data sets with
+user-defined expressions, and can be used to interpolate data between regular grids and polyhedral grids.
+Data sets can also be created from arithmetic expressions.</p>
+<p></p>
+<p></p>
+<h4><a name="A29">1.2.7.3 Measurements, quantification</a></h4>
+<p>You can query the exact values of your data sets at arbitrary locations specified interactively by a
+mouse click, or along user-defined lines and spline curves. Probe points can serve to set interactively
+isosurfaces.
+You can plot or export the data for further processing with spreadsheet or plotting applications,
+with probing, measuring, counting, and other statistical modules quantify densities, distances, areas,
+volumes, mean value and standard deviation, ...</p>
+<p>Histograms of values can be computed and plotted, possibly restricted to a region of interest.
+<a class="link" href="../hxtetra/HxCalcVolume.html#A1">Volume/value</a> diagrams can be also plotted.</p>
+<p>The <font face="helvetica">Quantification+ Option</font> provides an extensive set of intensity and geometrical measurements on
+ image or label data, either for individual labelled particles or as statistics. 
+ See the section dedicated to <font face="helvetica">Quantification+ Option</font>.</p>
+<p>
+</p>
+<h3><a name="A30">1.2.8 Matlab integration</a></h3>
+<p>You can integrate complex calculus using Matlab software from The Mathworks,
+Inc. by means of the <em>CalculusMatlab</em> module.
+This module allows for a connection to your Matlab server from your
+<font face="helvetica">Amira</font> session, and executes Matlab computations directly on your <font face="helvetica">Amira</font> data.
+It is also possible to import and export Matlab matrices to and from <font face="helvetica">Amira</font>, and
+export <font face="helvetica">Amira</font> surfaces to Matlab surfaces.
+See <a class="link" href="tutmatlab.html#A1">section 2.13</a>.</p>
+<p></p>
+<p>
+</p>
+<h3><a name="A31">1.2.9 High Performance Visualization</a></h3>
+<p><font face="helvetica">Amira</font> makes extensive use of graphics hardware for optimal performance and rendering quality
+on your system. Moreover, the <font face="helvetica">Virtual Reality Option</font> allows for combining multiple graphics engines for
+high-performance requirements.</p>
+<p></p>
+<h3><a name="A32">1.2.10 Automation, Customization, Extensibility</a></h3>
+<p><b>Tcl scripting</b></p>
+<p>All <font face="helvetica">Amira</font> components can be controlled via a Tcl command language interface.
+Tcl scripts are used for saving your work session. Tcl scripts also allow the advanced user
+to automate or customize tasks with <font face="helvetica">Amira</font> for routine workflows, without the need for
+C++ programming.
+Custom <font face="helvetica">Amira</font> modules with user interface can even be created as Tcl scripts.
+<font face="helvetica">Amira</font> module behaviour and 3D interaction can be customized by using Tcl.
+<font face="helvetica">Amira</font> can also be used for batch processing.<br />
+
+See <a class="link" href="scripting.html#A1">Chapter 5</a>, including a short introduction to the Tcl scripting language.</p>
+<p><b>C++ programming</b></p>
+<p>With the <font face="helvetica">Developer Option</font>, <font face="helvetica">Amira</font> can also be extended by programmers.
+The <font face="helvetica">Developer Option</font> allows for the creation of new custom components for <font face="helvetica">Amira</font> such as file readers and writers,
+computation modules, and even new visualization modules, using the C++ programming language.
+New modules and new data classes can be defined as subclasses of existing ones.
+In order to simplify the creation of new custom extensions, a development wizard is included.<br />
+
+See the <font face="helvetica">Developer Option</font> <a class="link" href="../programmersguide/HxDev-intro.html#A1">User's Guide</a> for detailed information.
+</p>
+<p>
+</p></body>
+</html>

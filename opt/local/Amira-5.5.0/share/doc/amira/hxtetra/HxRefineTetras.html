@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> RefineTetras</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "RefineTetras" "global or local refinement of a TetraGrid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Connecting <em>RefineTetras </em> to a <a class="link" href="../hxfield/HxTetraGrid.html#A1">TetraGrid</a>
+ allows for a global or local refinement, producing a refined copy of
+ the input grid. For each refinement level a tetrahedron is subdivided by 
+ eight tetrahedra via edge bisection.</p>
+<div style="text-align:center"><p>
+ <img src="HxRefineTetras_example.png" />
+ </p></div>
+<p> In case global refinement was chosen the entire tetrahedral grid is
+ successively refined according to the refinement level. The amount
+ of tetrahedra is always increasing by a factor of 8, thus resulting
+ in huge meshes for higher refinement levels (1, 8, 64, 512, 4096,
+ etc.). Due to the refinement strategy the element quality remains
+ unchanged. Hence the element quality slider will not influence the
+ resulting grid.</p>
+<p> Local refinement will be applied to the currently selected (i.e.
+ visible) tetrahedra of the input grid. Therefore a
+ <a class="link" href="HxGridVolume.html#A1">GridVolume</a> has to be connected to the grid. In
+ case all tetrahedra are selected <em>RefineTetras </em> issues a
+ warning, asking for a global refinement. Having only a subset of the
+ grid selected (e.g. using the Buffer or the Draw Selection), all
+ selected tetrahedra are refined according to the above scheme. In
+ order to keep the mesh consistent adjacent tetrahedra have to be
+ refined as well. The strategy for improving the resulting element
+ quality can be controlled via the slider.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">TetraGrid</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input grid that is to be refined.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxRefineTetras_info.png" /><br /></div>
+<div class="body"><p>This port becomes only visible in case no input grid is connected.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Refinement Level</span>  
+<div class="portsnapshot"><img src="HxRefineTetras_refLevel.png" /><br /></div>
+<div class="body"><p>The refinement level (i.e. the amount of iterations).</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Element Quality</span>  
+<div class="portsnapshot"><img src="HxRefineTetras_quality.png" /><br /></div>
+<div class="body"><p>Quality measure for local grid refinement ranging from 0 (low quality)
+to 1 (high quality).</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Refine</span>  
+<div class="portsnapshot"><img src="HxRefineTetras_action.png" /><br /></div>
+<div class="body"><p>Triggers the appropriate refinement strategy.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

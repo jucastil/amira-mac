@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CompassPosition</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CompassPosition" "Position the compass in the 3D world" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module draws the compass widget within the scene. It is used when large snapshots, containing the compass, are needed (using tiling or offScreen). Before taking the snapshot, add this module, select the compass model and the compass position. </p>
+<p>Note: When the camera is moved, the compass moves also. To reposition the compass press the Compute button.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_unused">
+ <span class="headline">Data</span> <span class="connectiontype">[not used]</span> 
+
+<div class="body"><p>The <i>data</i> port is a default script object port, but is not 
+used by <i>CompassPosition</i>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Compass</span>  
+<div class="portsnapshot"><img src="compassPosition_compass.png" /><br /></div>
+<div class="body"><p>Select the compass model. There are 4 models available: Arrow, AxisCube, Axis and Medical.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="compassPosition_position.png" /><br /></div>
+<div class="body"><p>Represents the position of the compass on the screen.
+There are 5 available positions: Upper right, Lower right, Upper left, Lower left and Custom. When Custom position is chosen, the coordinates port is shown and any screen position can be set.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coordinates</span>  
+<div class="portsnapshot"><img src="compassPosition_coordinates.png" /><br /></div>
+<div class="body"><p>Set a custom compass position. This port is shown only when the Position port is set to Custom.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="compassPosition_scale.png" /><br /></div>
+<div class="body"><p>This port represents the model scaling.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Actions</span>  
+<div class="portsnapshot"><img src="compassPosition_actions.png" /><br /></div>
+<div class="body"><p>By pressing this button, the script calculates the position of the compass in world coordinates and repositions the compass on the screen.</p>
+</div></div>
+</div>
+<p></p>
+<p><b>Further links</b><br />
+
+<a class="link" href="../hxscriptobj/HxScriptObject.html#A1">script object documentation</a> for script
+programming.</p>
+<p>
+
+
+</p></body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p>
+<h2><a name="A1">1 Molecule Selection Browser</a></h2>
+<p>The selection browser is a handy tool for investigating
+ the topology of a molecule. It
+ consists of three main parts: the menu bar, a scroll window, and a
+ highlighting section. In the scroll window all items of a chosen
+ level will be displayed. Most of the pop-up menus in the menu bar
+ allow you to control what is being shown in the scroll
+ window. Finally, the highlighting section provides further
+ functionality for the selection of items in the scroll window.</p>
+<p> The selection browser enables you to quickly select parts of
+ the molecule, which will then be highlighted in the browser as
+ well as in the viewer by the display modules connected to the
+ molecule. The highlighting allows a correlation between the topology 
+ and the molecule's three-dimensional structure to be
+ established. Highlighted atoms can be used for masking. Thus, you
+ can concentrate on specific regions of interest. Furthermore, 
+ masking allows different representations to be combined quickly and 
+ easily.</p>
+<p></p>
+<h3><a name="A2">1.1 The Scroll Window</a></h3>
+<p></p>
+<h4><a name="A3">1.1.1 Displayed information</a></h4>
+<p>In this window all items of a chosen level are displayed
+ hierarchically in the first column. An item might consist of a
+ single atom or a group of items. </p>
+<p> If there is additional information for an item, it will be
+ displayed in the following columns. If the information is not
+ available, the entry will be empty. Additional information typically
+ includes the item's type and the membership of the item in some
+ level. Note that only the direct membership will be considered,
+ i.e., if an item is not a member of some level, but a member of some
+ group, that is an item of the level, the membership information will
+ not be displayed. An exception is being made if <em>atoms</em> is chosen
+ as the master level. In this case, <font face="helvetica">Molecular Option</font> displays all groups of the
+ information level the atom belongs to.</p>
+<p> If there are any display modules or other modules containing a
+ filter connected to the molecule
+ (<a class="link" href="moldisplay.html#A11">see introductory section on the
+ display of molecules</a>), there will be more columns to the right of the
+ info columns - one per module. These columns, which we will call <em>module columns</em>, are used to display whether an item is <em>in use</em>
+ by a module. For each item a rectangle will be drawn in each <em>module column</em>. If the item is completely <em>in use</em> by a module,
+ the rectangle contains a check mark. If it is partially <em>in use</em>,
+ i.e. some but not all of its group items are <em>in use</em>, the check mark
+ will be gray. There is one other symbol that might be displayed in
+ the rectangle, a `B'. The `B' stands for backbone and indicates that
+ the atom belongs to those atoms currently defined as the backbone. This
+ will be described in the following subsections. The `B' might be black
+ or gray. Again, gray means the atom is not <em>in use</em> by the
+ module. A black letter indicates that the atom is <em>in use</em>, but
+ simply because it belongs to the backbone.</p>
+<p></p>
+<h4><a name="A4">1.1.2 Item and information columns</a></h4>
+<p>If an item is a group, i.e., it contains items, a little icon will be
+ placed to the left of the item name. You can click on the icon to
+ open/close the item, i.e., to show or hide the contained items,
+ respectively. </p>
+<p> In order to select an item in the scroll window, you can click on
+ the respective item, which will be highlighted immediately. To toggle
+ the selection of an item, you must <tt>Ctrl</tt>-click the item. When <tt>Shift</tt>-clicking an item a whole range will be selected. You can also
+ drag the mouse with the left mouse button pressed over a range of
+ items which selects all of them. <tt>Ctrl</tt>-click and drag again
+ toggles the selection. If an item is fully selected, it will be
+ highlighted in red. If at least one but not all of its subitems are
+ selected, <font face="helvetica">Molecular Option</font> considers the item to be partially selected and
+ highlights it in green.</p>
+<p> It is also possible to select items by type or 
+ other information in the information columns. If you click on
+ the displayed information for an item, all items with the same
+ information will also be selected.</p>
+<p></p>
+<h4><a name="A5">1.1.3 Module columns</a></h4>
+<p>If there are any modules containing a filter connected to the
+ molecule, such as <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a>,
+ <a class="link" href="../hxmolview/HxSecStructure.html#A1">SecStructureView</a>,
+ <a class="link" href="../hxmolsurface/HxCompMolSurface.html#A1">CompMolSurface</a>, or
+ <a class="link" href="../hxmolsurface/HxMolSurfaceView.html#A1">MolSurfaceView</a> there will be module columns
+ in addition to the master and information columns - one per 
+ module. Each of these columns contains a check box for each item
+ displayed. The check box contains information about whether an item is
+ <em>in use</em> by a module or not. Before the different states of a check
+ box are explained, we will make a short side trip. For convenience, all
+ atoms are classified as belonging to the backbone or not. You can
+ restrict your selection to
+ only backbone atoms, which means that an atom will only be <em>used</em>
+ by the module if it belongs to the backbone. Apart from that you may
+ also want to <em>use</em> at least all backbone atoms plus additional
+ atoms. Therefore, internally there are two arrays, one containing
+ all backbone atoms and one containing so-called <em>selected</em>
+ atoms. Depending on the backbone mode, there are three choices:</p>
+<p> </p>
+<ul><li>all atoms contained in either array will be <em>used</em>, or</li><li>all atoms contained in both arrays will be <em>used</em>, or</li><li>only those atoms contained in the <em>selected</em> array will be
+ <em>used</em>.</li>
+</ul><p></p>
+<p> Using those two arrays allows you to quickly change between
+ backbone atoms and all others without losing the previous atom
+ masking.</p>
+<p> Now let's go back to the check box states. There are five
+ different states of a check box, including one state with two
+ different meanings. </p>
+<p> </p>
+<ul><li>The box is empty: the complete item is not shown by the viewer.</li><li>The box contains a black check mark: the complete item is shown.</li><li>The box contains a gray check mark and the item is an atom: the atom
+ is a member of the <em>selected</em> array, but is still not shown due to the
+ backbone mode, i.e., it does not belong to the backbone.</li><li>The box contains a gray check mark and the item is not an atom: the
+ item is only partially shown in the viewer.</li><li>The box contains a black `B' (only for atoms): the atom is
+ shown simply because it belongs to the backbone.</li><li>The box contains a gray `B' (only for atoms): the atom is not
+ shown, but belongs to the backbone.</li>
+</ul><p></p>
+<p> Clicking on a box toggles its state. You can also click on one item
+ and then drag the mouse pointer over multiple items. All of these
+ items will be set to the same state as the first item.</p>
+<p> In addition to directly clicking on a box, there is another way
+ to change the state of the check boxes. If you click on the header of a
+ module column with the right mouse button, a pop-up menu will appear
+ containing the following entries: </p>
+<p> </p>
+<ul><li>Add: adds the currently highlighted atoms to the
+ `selected' array.</li><li>Remove: removes the highlighted atoms from the selection.</li><li>Replace: replaces selection by highlighted atoms.</li><li>Clear: clears the `selected' array.</li><li>All: selects all atoms.</li><li>Restrict to: this pop-up menu allows you to restrict the
+ set of displayed atoms to some predefined set.</li><li>Combine with: if one of the entries in this pop-up menu is
+ selected, the chosen set will be the minimum set that is being
+ displayed by the respective display module.</li><li>Set: the `selected' array is set to the chosen predefined set
+ of atoms. Starting from this selection you can add or remove parts of
+ the molecule.</li><li>Filter to selection: The highlighting in the molecule 
+ is set to the active atoms in the module's filter.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A6">1.2 Highlighting Section</a></h3>
+<p>This browser section consists of a text field and a button row. In the
+ text field you can type 
+ <a class="link" href="molatomexpressions.html#A1">atom expressions</a>. 
+ The expressions you type will be saved in a history. Using
+ the <tt>Up</tt> and <tt>Down</tt> keys you can go back to previous
+ expressions. If you press the <tt>Return</tt> key, the current expression 
+ will be used to replace the current highlighting, hence it is a short
+ cut to pressing the <em>Replace</em> button (see below).</p>
+<p></p>
+<h4><a name="A7">1.2.1 Buttons</a></h4>
+<p>The buttons work in conjunction with the expression in
+ the text field. When pressing any of the first three buttons, the atom
+ expression will be evaluated, and the atoms corresponding to the
+ expression will be <em>added to</em>, <em>removed from</em>, or <em>replace</em> 
+ the highlighting, respectively. The last three buttons <em>clear</em> the
+ highlighting, highlight <em>all</em> items, or <em>undo</em> the last change,
+ respectively. There exist short cuts to all buttons, which work when 
+ the <em>Expression</em> line has the focus. The short cuts are as follows:
+ <tt>Ctrl-A</tt> for <em>Add</em>, <tt>Ctrl-R</tt> for <em>Remove</em>, 
+ <tt>Ctrl-P</tt> for <em>Replace</em>, <tt>Ctrl-C</tt> for <em>Clear</em>, 
+ <tt>Ctrl-L</tt> for <em>All</em>, and <tt>Ctrl-U</tt> for <em>UndoLast</em>.</p>
+<p></p>
+<h3><a name="A8">1.3 Menu Bar</a></h3>
+<p>The menu bar contains a couple of pop-up menus which will be explained
+ below.</p>
+<p></p>
+<h4><a name="A9">1.3.1 MasterLevel</a></h4>
+<p>The <em>MasterLevel</em> menu contains all levels currently defined in the
+ molecule's <a class="link" href="moldatastruct.html#A2">topology</a>. All groups of the
+ current master level will be displayed in the scroll window. </p>
+<p></p>
+<h4><a name="A10">1.3.2 Options</a></h4>
+<p>The <em>Options</em> menu allows you to quickly open and collapse
+ items, i.e., to show and hide the items contained in other items.</p>
+<p></p>
+<h4><a name="A11">1.3.3 Info</a></h4>
+<p>With the help of the <em>Info</em> menu, you can display additional
+ information columns, such as type, index, or the item's membership in
+ a group of some level.</p>
+<p></p>
+<h4><a name="A12">1.3.4 Modules</a></h4>
+<p>If you have many display modules connected to the molecule, the large 
+ number of columns might be confusing. If you are only working with one or
+ a few of the display modules, you might want to hide the other
+ columns. This can be done with the help of this menu.</p>
+<p></p>
+<h4><a name="A13">1.3.5 Highlighting</a></h4>
+<p>By default, all display modules that allow highlighting will highlight
+ all selected atoms. The <em>Highlighting</em> menu enables you to
+ turn highlighting for each display module on and off.
+
+</p></body>
+</html>

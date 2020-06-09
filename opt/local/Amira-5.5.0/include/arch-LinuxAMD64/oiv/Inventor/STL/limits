@@ -1,0 +1,17 @@
+#ifndef  OIV_STL_LIMITS
+#define  OIV_STL_LIMITS
+
+#if defined(WIN32)
+#  include <windows.h>
+// As <windows.h> seems to redefine min and max, the compiler can't compile 
+// a file that includes <windows.h> and <limits> and use for instance
+// numeric_limits<float>::max( )
+#  undef max
+#  undef min
+#endif
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+
+
+#endif

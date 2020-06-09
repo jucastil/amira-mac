@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> FilteredObliqueSlice</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "FilteredObliqueSlice" "applies filters and visualizes data from an arbitrary slice" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>FilteredObliqueSlice</em> extends the <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> 
+ module by adding filtering capabilities on visualized data.</p>
+<p> See the documentation of the base class for details about how to adjust 
+ position and orientation of a slice and also choose the best data 
+ mapping method. User can defined the number of filter to apply. Default 
+ filters are the ones proposed by the <a class="link" href="../hximproc/HxImageEditor.html#A1">ImageEditor</a> 
+ editor or <a class="link" href="../hximproc/HxImageFilters.html#A1">ImageFilters</a> compute module. The ports 
+ of choosen filters are shown dynamically according the filters order. 
+ The number of filters is currently limited for performance reasons.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxFilteredObliqueSlice_allports.png.html><img width=525 src="HxFilteredObliqueSlice_allports.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Example of filter combination on an oblique slice.</div>
+
+ 
+ </div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Brightness</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_brightness.png" /><br /></div>
+<div class="body"><p>Controls the brightness of the slice. By default the brightness is
+ set to zero; the slice is displayed as is. The brightness value is in 
+ the range [0,1].</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_contrast.png" /><br /></div>
+<div class="body"><p>Controls the contrast of the slice. By default the contrast is
+ set to one; the slice is displayed as is. The contrast value is in 
+ the range [0,2].</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of filters</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filterNum.png" /><br /></div>
+<div class="body"><p>This port sets the number of filters applied to the slice. The first
+ filter to be applied is filter number 1. Filters are applied in the order
+ they appear in the GUI. You can apply up to 5 filters.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter#1</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filter1.png" /><br /></div>
+<div class="body"><p>This port allows to choose the type of filter of rank 1.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter#2</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filter2.png" /><br /></div>
+<div class="body"><p>This port allows to choose the type of filter of rank 2.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter#3</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filter3.png" /><br /></div>
+<div class="body"><p>This port allows to choose the type of filter of rank 3.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter#4</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filter4.png" /><br /></div>
+<div class="body"><p>This port allows to choose the type of filter of rank 4. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter#5</span>  
+<div class="portsnapshot"><img src="HxFilteredObliqueSlice_filter5.png" /><br /></div>
+<div class="body"><p>This port allows to choose the type of filter of rank 5. </p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

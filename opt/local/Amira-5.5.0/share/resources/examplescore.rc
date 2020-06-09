@@ -1,0 +1,5 @@
+module -name "GroupModules_example" \
+    -primary "HxUniformScalarField3" \
+    -class "HxGroupModules_example" \
+    -category "Examples" \
+    -dso "libexamplescore.so"

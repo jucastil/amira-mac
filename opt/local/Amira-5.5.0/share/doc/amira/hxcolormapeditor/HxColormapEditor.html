@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Colormap Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Colormap Editor" "modify the RGBA values of a discrete colormap" !>
+<p>&nbsp;<br />
+<img src="HxColormapEditor_Icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ To modify an existing <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a>, press the Colormap Editor button 
+ which is visible in the Properties Area when the colormap is selected. The colormap editor pops up.
+</p></div>
+<p></p>
+<p>	</p><div style="text-align:center"><a name="A2"></a><a href=colormapedit.png.html><img width=315 src="colormapedit.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font> colormap editor.</div>
+
+ 
+ </div><p></p>
+<p></p>
+<h3><a name="A3">Overview</a></h3>
+<p>This editor allows you to interactively edit a colormap and to graphically visualize 
+the result on a selected data set by means of the histogram. The histogram is 
+automatically colored using the current color settings.</p>
+<p>The interface is divided into three main parts: the histogram, the gradient editor, and the color/opacity chooser. The histogram is only for visualizing the relation between a selected data set and a selected colormap. The gradient editor and the color/opacity chooser work together to modify the selected colormap.</p>
+<p></p>
+<h3><a name="A4">Menu Bar</a></h3>
+<p>The menu bar contains two items: a <em>Help</em> button which brings up this help topic
+in the help browser, and the <em>Options</em> menu which contains the following items:
+</p>
+<ul><li><b>Background Color:</b> 
+A color chooser dialog will be popped up allowing you to change the <em>Histogram</em> background color.</li><li><b>Immediate Mode:</b> 
+If this toggle is active, all changes are immediately applied to the colormap and downstream modules are immediately fired so that they can update their display.</li><li><b>Show Alpha Curve:</b> If this toggle is active, the alpha values of the
+colormap are edited by changing the shape of a curve rather than by adjusting opacity markers.
+Opacity markers are described in the <a class="link" href="#A12">Gradient Editor</a> text below,
+the alpha curve in the <a class="link" href="#A13">Alpha Curve</a> text. 
+<b>Note:</b> Unlike most attribute settings, this setting is persistent across <font face="helvetica">Amira</font> sessions.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A5">Global Settings</a></h3>
+<p></p>
+<h4><a name="A6">Colormap</a></h4>
+<p>This combo box is filled with all colormaps present in the Pool.
+The last item, <em>Load...</em>, allows you to load a colormap from disk.
+<b>Note:</b> Changing the current colormap will discard any changes that have not been applied or saved.</p>
+<p></p>
+<h4><a name="A7">Curve Type</a></h4>
+<p>This field controls the <em>Histogram</em> curve representation.
+</p>
+<ul><li><b>Histogram:</b> 
+Display as a bar graph.</li><li><b>Histogram with opacity:</b> 
+Display as a bar graph with opacity.</li><li><b>Curve:</b> 
+Display as line segments.</li><li><b>Impulse:</b> 
+Display as single vertical lines.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A8">Data</a></h4>
+<p>The <em>Data</em> field represents the input data used to calculate the <em>Histogram</em>. If no data is available, nothing is shown in the <em>Histogram</em> and the field indicates "No Data".
+This field is filled with the data in the Pool from which a histogram can be computed <a class="link" href="../hxstatistics/HxHistogram.html#A1">(see Histogram)</a>. If the selected colormap is referenced by a data set, this data set is selected. Otherwise, the first compatible data set found in the Pool is selected.</p>
+<p></p>
+<h4><a name="A9">Axis Type</a></h4>
+<p>This field controls how the <em>Histogram</em> vertical axis is drawn.
+</p>
+<ul><li><b>Linear:</b> 
+Use vertical linear projection.</li><li><b>Log:</b> 
+Use vertical logarithmic projection. (Allows you to better visualize small variations.)</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A10">Axis Scaling</a></h4>
+<p>This field allow you to scale the <em>Histogram</em> depending on the min/max range to better visualize your mapping.
+</p>
+<ul><li><b>Fixed:</b> 
+This is the default mode. All data values are shown on the <em>Histogram</em>, including the values outside the min and max range.</li><li><b>Auto:</b> 
+In this mode, all data values outside the min and max range are ignored. The data values in the range are scaled to fit within the vertical space, allowing you to better visualize a range of data values.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A11">Histogram</a></h3>
+<p>The purpose of the <em>Histogram</em> is to graphically summarize the 
+distribution of values within the selected data set, colorized by 
+the current colormap.
+The horizontal axis displays the data set values, the vertical axis displays the frequency.
+The three vertical lines indicate the coordinate range used for 
+mapping data values to colors. To adjust this range, you can drag the black triangle
+markers at the bottom. The left and right markers move the 
+min and max range, while the middle marker moves the min and max at the same time.</p>
+<p></p>
+<h3><a name="A12">Gradient Editor</a></h3>
+<p>The gradient editor allows you to modify the colormap using color markers and either
+opacity markers or an <a class="link" href="#A13">alpha curve</a> 
+depending on the setting of the <em>Show Alpha
+Curve</em> toggle of the Colormap Editor's <em>Options</em> menu. 
+The color is linearly interpolated between two consecutive markers. Color and 
+alpha channels are treated separately.</p>
+<p>When selecting a colormap, the markers are automatically extracted.
+To modify the gradient, you can add or remove markers. To add a new marker, 
+click on the area containing the color or opacity marker at the desired position. 
+A new marker is added with the interpolated value. You can move this marker 
+horizontally by dragging or by setting a value in the <em>Location</em> field. 
+The small triangle over or under the marker indicates its selection state: 
+solid black when selected (<img src="selectedcursor.png" />), transparent 
+otherwise (<img src="unselectedcursor.png" />). The color chooser and opacity chooser 
+values are updated each time you select a marker.</p>
+<p>Depending on which kind of marker you select, the color chooser or 
+opacity chooser is activated. The upper markers are for the alpha channel, 
+the lower markers are for the RGB channel. The corresponding <em>Location</em> 
+field and <em>Delete</em> button are enabled. </p>
+<p>To remove a marker, select it and click on the <em>Delete</em> button in the active
+chooser. Or right click on the marker.</p>
+<p>To the extreme right and left are the min and max range color/opacity values, 
+which cannot be moved. Instead, two fields are provided, one on the far left, one on the
+far right, to allow you to specify the range of the data that the 
+colormap will be mapped to. All input data values less than the left (minimum) value or greater
+than the right (maximum) are colorized using the min range color/opacity 
+or the maximum color/opacity respectively. All other input data values are colorized 
+with the interpolated gradient. 
+To reposition the median point <img src="inflexion.png" /> (the gradient point 
+containing equal start and end proportion), drag it horizontally to the desired position.</p>
+<p>Click the <em>Adjust range</em> button to automatically adjust
+the colormap range to the connected data range.</p>
+<p></p>
+<h3><a name="A13">Alpha Curve</a></h3>
+<p>In many cases it may be more convenient to control the transparency 
+of the colormap via the alpha curve than by using the opacity markers 
+described above. The color gradient is updated continuously while
+you adjust the alpha curve.</p>
+<p> </p><div style="text-align:center"><a name="A14"></a><a href=HxColormapEditor_AlphaCurve.png.html><img width=450 src="HxColormapEditor_AlphaCurve.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+<font face="helvetica">Amira</font> Gradient Editor showing alpha curve</div>
+
+ 
+ </div><p></p>
+<p>
+To add a point to the curve, click where you want the point added. 
+It it not necessary to click exactly on the curve.</p>
+<p>To move an existing point, click on it to select it (it will be 
+highlighted in black), then drag it with the mouse. It can also be 
+moved using the <a class="link" href="#A16">Opacity Chooser</a>.</p>
+<p>To remove a point, click on it with the right mouse button.</p>
+<p>To reset the alpha curve definition to its default state (full opacity,
+no intermediate points), press the Delete key.</p>
+<p></p>
+<h3><a name="A15">Color Chooser</a></h3>
+<p>When a color gradient marker is selected, the color chooser is activated. 
+To the left, the control is an HSV color triangle. 
+The circle represents the hue and the triangle the saturation and value. 
+By moving the two cursors, it is possible to generate all possible colors of the HSV color space.</p>
+<p>The color is also displayed as an RGB triplet in the <em>Red</em>, <em>Green</em>, 
+and <em>Blue</em> fields. You can also enter the desired values explicitly [0..255]. </p>
+<p>The <em>Gray level</em> input field allows you to quickly specify a gray level.
+The <em>Location</em> field shows or sets the position of the color marker.
+Press the <em>Delete</em> button to delete the selected marker.</p>
+<p></p>
+<h3><a name="A16">Opacity Chooser</a></h3>
+<p>When an opacity marker is selected, the opacity chooser is activated. The vertical 
+slider controls the opacity value (must be between 0 and 100, 100 meaning 
+totally opaque). This value can be also modified by the <em>Opacity</em> input field. </p>
+<p>The <em>Location</em> field and the <em>Delete</em> button work as described above.</p>
+<p></p>
+<h3><a name="A17">Control Buttons</a></h3>
+<p></p>
+<ul><li><b>Save As:</b> 
+Pop up a <em>Save File</em> dialog to save your colormap to disk.</li><li><b>Cancel:</b> 
+Cancel all unsaved modifications and close the editor.</li><li><b>Apply:</b> 
+Apply your changes to the selected colormap.</li><li><b>OK:</b> 
+Apply your changes to the selected colormap and close the editor.</li>
+</ul><p></p>
+<p>
+ </p>
+<p></p>
+<p>
+</p></body>
+</html>

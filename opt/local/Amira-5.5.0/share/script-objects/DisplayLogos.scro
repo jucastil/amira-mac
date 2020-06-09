@@ -1,0 +1,77 @@
+# Amira-Script-Object V3.0
+#
+#############################################################################
+# DisplayLogos.scro
+# Show the company and product logos in the viewer during demos.
+#
+# Version: 0.1a
+# Authors: Patrick Barthelemy
+#          Hartmut Schirmacher
+#############################################################################
+
+$this proc constructor {} {
+
+    $this script hide
+    $this data hideMaskIncrease
+
+    # port for selecting logo size
+    $this newPortMultiMenu logoHeight 3
+    $this logoHeight setLabel "Logo height:"
+    $this logoHeight setLabel 0 0 "60"
+    $this logoHeight setLabel 0 1 "100"
+    $this logoHeight setLabel 0 2 "150"
+    $this logoHeight setValue 0 0
+
+    # init
+    $this setVar banner ""
+    $this setVar ivDisp ""
+
+    # make this module "remove all"-persistent and hide it
+    $this setNoRemoveAll 1
+    
+}
+
+# "destructor" is called when the object is removed or restarted
+$this proc destructor {} {
+    remove [$this getVar banner]
+    remove [$this getVar ivDisp]
+}
+
+
+# "compute" is called whenever the scro's GUI is touched
+$this proc compute {} {
+
+    if [$this logoHeight isNew] {
+    
+    # To get the product name.
+    set productName [theAppSkin getProductName]
+
+	# remove existing submodules
+	remove [$this getVar banner]
+	remove [$this getVar ivDisp]
+	
+	# load Inventor scene that shows the logos. The scene and 
+	# logo files reside in the img/$productName/ subdirectory
+	set dir [file dirname [$this script getValue]]
+	set size [lindex "60 100 150" [$this logoHeight getValue 0]]
+	$this setVar banner \
+	    [[load $dir/img/$productName/banner$size.iv] setLabel "__logo_banner"]
+	$this setVar ivDisp [create HxIvDisplay "__logo_disp"] 
+	[$this getVar ivDisp] data connect [$this getVar banner]
+	[$this getVar ivDisp] fire
+
+	# hide and prevent them from being removed by accident
+	[$this getVar ivDisp] hideIcon
+	[$this getVar ivDisp] setNoRemoveAll 1
+	[$this getVar banner] hideIcon
+	[$this getVar banner] setNoRemoveAll 1
+    }
+}
+
+$this proc setScreen arg {
+	__logo_disp setScreen $arg
+}
+
+$this proc getScreen {} {
+	__logo_disp getScreen
+}

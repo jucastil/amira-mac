@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.8 <font face="helvetica">Amira</font> and the /3GB switch</a></h2>
+<p>This page describes problems and possible solutions related to the 
+usage of large data sets in <font face="helvetica">Amira</font> <font face="helvetica">5</font> on computers running Windows. 
+If you frequently encounter dialogs in <font face="helvetica">Amira</font> such as 
+"cannot allocate xxxxxx bytes of memory" although you think you have 
+enough physical memory installed, then the information provided on this 
+page might be useful for you. </p>
+<p><b>Note:</b> If you have more than 4 GByte of RAM installed, it is
+strongly recommended to use 64 bit versions of both, Windows and Amira.</p>
+<p></p>
+<h3><a name="A2">4.8.1 The Problem</a></h3>
+<p>Any 32-bit operating system such as Windows (XP, Vista, 7) or Linux 
+can manage at most 4 gigabytes (GB) of memory. Windows 
+divides this addressable space into 2 GB reserved for usage by the 
+system only and 2 GB for any user application. Therefore, a single 
+application can use at maximum 2 GB of memory. Note that this is 
+independent of the actual physical memory, i.e., it does not matter 
+whether the system has 1, 2, 3 or 4 GB of memory installed. Within the 
+2 GB reserved for the user, the software itself (executable and all of its 
+DLLs) and all of the data has to fit. This makes clear that it is impossible 
+for a Windows program to load 2 GB of data at a time.</p>
+<p>To overcome this, Microsoft has provided a boot option for Windows that alters
+partitioning of address space so that 3 GB are reserved for the user and 1 GB
+for the system. This boot option is available starting with Windows XP Service
+Pack 2.</p>
+<p></p>
+<h3><a name="A3">4.8.2 How to activate the /3GB switch</a></h3>
+<p>It should be noted that we cannot guarantee that the following changes 
+to be made in your system will not affect the execution of other programs 
+although we have not found any incompatibilities so far. We also wish 
+to stress that we assume no responsibility for any loss of data as a 
+consequence of those changes. <em>We therefore strongly recommend that 
+you back up your system before making these changes.</em></p>
+<p>All you need to do is to edit the file C:/boot.ini. To do so, make 
+sure that you are logged on your machine with administrative 
+privileges. Then select from Start-$$>$$Settings-$$>$$Control Panel-$$>$$System-$$>$$Advanced-$$>$$(Startup and Recovery)
+Settings and click the Edit button. Duplicate the line under 
+[operating systems]. Change the name between the quotes and add 
+the "/3GB" switch right after the "/fastdetect" switch. The new 
+entry might look then similar to this:</p>
+<p><font size="2"></font></p><pre>
+[operating systems] 
+multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP \
+                               Professional" /fastdetect 
+multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP \
+                               Professional 3GB" /fastdetect /3GB 
+</pre><p><font size="2">
+</font>
+Note that for the usage of the /3GB boot option the application 
+must be aware of the altered memory assignment. For <font face="helvetica">Amira</font> <font face="helvetica">5</font> 
+there is already native support for the /3GB boot option. If you 
+are using an older version of <font face="helvetica">Amira</font>, we strongly recommend updating 
+to <font face="helvetica">5</font>.</p>
+<p>Now, as you boot up your computer, a screen is displayed that 
+gives you the choice between two boot options. Use the arrow keys 
+to select the entry with the "3GB" in the line and press return. 
+<font face="helvetica">Amira</font> should now be able to address 3 GB of memory instead of the 
+default 2 GB. You can appreciate this by comparing the result of 
+"app maxmalloc" in the <font face="helvetica">Amira</font> console window with and without the 
+3 GB option. On a typical installation with 1 GB of memory installed 
+and without the /3GB switch, the command "app maxmalloc" may result 
+in something like this:
+</p><pre>
+Allocated chunk of 942 MB. 
+Allocated chunk of 225 MB.
+Allocated chunk of 129 MB. 
+Allocated chunk of 121 MB.
+Allocated chunk of 72 MB.
+Allocated a total of 1723 MB in 25 chunks
+</pre><p></p>
+<p>With the /3GB switch on the same installation, the command results in the following:
+</p><pre>
+Allocated chunk of 1023 MB. 
+Allocated chunk of 919 MB.
+Allocated chunk of 225 MB.
+Allocated chunk of 111 MB.
+Allocated a total of 2278 MB in 4 chunks 
+</pre><p></p>
+<p>What you can see is that the total amount of allocatable memory 
+has not changed dramatically. However, with the /3GB switch, the 
+second largest chunk of memory is nearly as large as the first one.
+
+</p></body>
+</html>

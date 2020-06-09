@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Curve Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Curve Editor" "creates and edits curves" !>
+<p>&nbsp;<br />
+<img src="HxCurveEditor_icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This editor allows you to create and modify <a class="link" href="HxBSpline.html#A1">B-Spline curves</a>.</p>
+<p>The curve is defined by a set of control points. The control
+points can be appended or modified by moving a dragger, by clicking
+on an object in the viewer with the middle mouse button, or by 
+entering numerical values into the port 
+<a class="link" href="#A6">Control Points</a>;
+</p></div>
+<p></p>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Degree</span>  
+<div class="portsnapshot"><img src="HxBSpline_Degree.png" /><br /></div>
+<div class="body"><p>Enter the degree of the B-Spline. The higher the degree, the more control points
+are required and the smoother the curve. Also, the oscillations increase when
+the degree increases.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxBSpline_numSamples.png" /><br /></div>
+<div class="body"><p>Enter the number of samples.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxBSpline_Mode.png" /><br /></div>
+<div class="body"><p>In <em>interpolation</em> mode, the curve goes through the specified points.
+In <em>approximation</em> mode, the curve approximates the polygon spanned by the
+points.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Editing Mode</span>  
+<div class="portsnapshot"><img src="HxBSpline_editMode.png" /><br /></div>
+<div class="body"><p>The dragger either appends new points or modifies the currently selected
+point. Both modes apply as well when clicking on an object in the viewer
+with the middle mouse button.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Points</span>  
+<div class="portsnapshot"><img src="HxBSpline_controlPoints.png" /><br /></div>
+<div class="body"><p>Specifies the control points that define the curve. The points
+can be modified by entering numerical values here, by moving the
+dragger and clicking on the middle mouse button, or by doing
+a click on an object in the viewer with the middle mouse button.
+In the <i>Options</i> menu, the dragger and the control points can
+be switched on and off in the display. Furthermore, the <i>Interactive Feedback</i>
+can be activated to see a preview of the future curve before appending a new point.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point Size</span>  
+<div class="portsnapshot"><img src="HxBSpline_pointScale.png" /><br /></div>
+<div class="body"><p>Specifies the size of points.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Display</span>  
+<div class="portsnapshot"><img src="HxBSpline_displayMode.png" /><br /></div>
+<div class="body"><p>Specifies the display mode. These options are not mutualy exclusive. 
+Checking off the 'points' will display points of the BSpline and
+checking off the 'lines' will display lines between the points.
+At this time 'curve' option is not available. </p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Curve</span>  
+<div class="portsnapshot"><img src="HxBSpline_reset.png" /><br /></div>
+<div class="body"><p>Resets the curve to its original shape by removing changes made 
+to it with the Curve Editor</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

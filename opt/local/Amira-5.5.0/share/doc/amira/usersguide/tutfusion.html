@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p>
+<h2><a name="A1">2.15 Introduction to the Multi-planar Viewer</a></h2>
+<p>The Multi-planar Viewer can be used to visualize one or two data set at the 
+same time using a Multi Planar Reconstruction (MPR) and a 3D viewer. 
+Additionally, the image volumes can be registered automatically or manually 
+using specific graphical interfaces.</p>
+<p>In this tutorial we will try to illustrate how to:
+</p>
+<ol><li>Exploration of the volume data, including an associated label field</li><li>Explore two data sets in fusion mode</li><li>Register two data sets</li>
+</ol><p> </p>
+<p>Before we begin our work we need to define the terms <em>Primary</em> and <em>Overlay</em> 
+in the context of the Multi-planar Viewer
+</p>
+<ol><li><b>Primary</b> - Reference data set, this data set will be considered our principal 
+ data set to which a secondary data set could be eventually compared or registered. 
+ In the context of PET/CT fusion the CT data set would be used as reference data set 
+ as it provides the best anatomical reference.</li><li><b>Overlay</b> - Secondary data set, which could be compared or registered to the Primary.</li>
+</ol><p></p>
+<p>
+</p>
+<h3><a name="A2">2.15.1 Exploration of the volume data</a></h3>
+<p>To activate the Multi-planar Viewer select its icon in the sub-application toolbar. 
+On a first glance the Multi-planar Viewer looks similar to the Segmentation Editor: 
+three slice views, a 3D viewer and a material list. 
+In order to start exploring, load the Lobus data set located in the tutorial directory
+<tt>data/tutorial/lobus.am</tt>:
+</p>
+<ul><li><b>3D Volume Rendering</b> Select the 3D Rotate icon 
+ (it should have been selected by default as you start the Multi-planar Viewer) in the toolbar. 
+ Now rotate the object in the 3D viewer.</li><li><b>Volume Rendering Modes</b> Try to visualize the volume using VRT or MIP 
+ techniques and their optional rendering modes. To do so, switch between the radio 
+ buttons in the 3D Settings panel.</li><li><b>3D MPR</b> Click the icon in the 3D Settings panel to activate MPR in
+ the 3D viewer. You should see now the volume rendered in 3D and the three MPR slices.</li><li><b>Window Level</b> Select the Window Level icon, click into one of 
+ the 2D viewers, hold the mouse button pressed, and drag the mouse cursor left/right to change the contrast (window width), or up/down to change the brightness (window center). Note how the bars in the graphical user interface (GUI) change according to the pointer movements. Click in the 3D viewer and do the same.</li><li><b>Browse Slice</b> The browsing tool allows using the mouse to navigate 
+ through an image stack in the 2D viewer. Select the Browse Slice icon, click in a 2D viewer, hold the mouse button pressed, and drag the mouse cursor up/down to scroll forward or backward through the image stack. If you are working with a wheel mouse you can use the wheel to access the browse slice functionality. Simply click once the viewer to activate it and roll the mouse wheel to scroll through the image stack.</li><li><b>Thick Slice</b> The thickness of the slice can be set by sliding the 
+ Thickness slider. When displaying a thick slice, data values are computed as the average, the minimum or the MIP of the values of the included slices, according to the selected option.</li><li><b>Label field</b> Load the associated label field (<tt>lobus.label.am</tt>) from the tutorial directory and select the checkbox of the Label Field port. Visualize the materials in 3D with constant color, hide or fade them. Note that the port Label field refers to the Primary data set; to be activated the loaded LabelField has to have the same size as the Primary.</li><li><b>Extend viewers</b> Double-click one viewer to extend it, 
+ double-click to set the configuration back to 4-window layout again.</li>
+</ul><p> 
+Note that clicking the right button in the viewers activates the context menu, which provides a quicker way to access tools and settings.</p>
+<p></p>
+<p>
+</p><div style="text-align:center"><a name="A3"></a><a href=tutfusion_1.png.html><img width=450 src="tutfusion_1.png" /></a><br />
+<div class="caption">
+<b>Figure 38:</b>
+The Multi-planar Viewer immediately after the image data has been loaded. </div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A4">2.15.2 Explore two data sets using fusion mode</a></h3>
+<p>The process of <em>image fusion</em> consists of combining relevant information from two 
+or more images into a single image using different color mappings. 
+The Image Fusion became very relevant especially in medical science, 
+where different imaging modalities can be obtained from the same patient. 
+Typically, the multi-modal imaging includes magnetic resonance (MR), 
+computed tomography (CT), and positron emission tomography (PET/SPECT). 
+Image fusion can be very useful in microscopy imaging for 
+alignment and registration of multi-channel, 3D, and 4D data sets.</p>
+<p>When only one data set is available in the Pool, the 
+Overlay Data port is not available. Load the Lobus2 data set (<tt>data/tutorial/lobus2.am</tt>) from the tutorial directory and the 
+checkbox of the port will become active. Select the Overlay checkbox and Lobus2 
+will be shown in the available viewers. Change the minimum and maximum 
+values of the Overlay colormap. To do so, select the 3D viewer to activate it,
+slide the colormap bar to the left and the right or change the upper and lower limits. 
+You can do the same for the 2D viewers as well.</p>
+<p>Select again the <em>Window Level</em> icon, keep the mouse button pressed and move the 
+pointer: the window level changes only for the Primary data set. When Primary and 
+Overlay images are loaded together, the Primary is the main object in the Multi-planar Viewer. 
+The activated tools refer always to the Primary or to Primary and Overlay together, 
+never to the Overlay individually.</p>
+<p>You should be familiar now with the 2D and 3D visualization options. Therefore,
+experiment with changing the color maps or the blend of Primary and Overlay data sets.</p>
+<p>To better explore internal structures of the two volumes you can use the 3D cropping 
+and clipping tools offered by the Multi-planar Viewer.</p>
+<p></p>
+<ul><li>Set the 3D visualization mode to VRT with specular light effect.</li><li>Click the Crop Corner icon. Browse the slides in 2D and rotate the volume in 
+ 3D to better see the cutting region.</li>
+</ul><p></p>
+<p>The Crop Corner tool is very similar to the Corner Cut module available in the Pool. 
+You can set the cutting boundaries directly by moving them in the 2D viewers. 
+Experiment with the other cutting tools.</p>
+<p>
+</p><div style="text-align:center"><a name="A5"></a><a href=tutfusion_2.png.html><img width=450 src="tutfusion_2.png" /></a><br />
+<div class="caption">
+<b>Figure 39:</b>
+The Multi-planar Viewer with the Manual Registration tool activated. </div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A6">2.15.3 Manually register two data sets</a></h3>
+<p>You might have noticed that as soon as Lobus2 was loaded, the icon Registration tool
+ was activated. The registration tools work only when two data sets are 
+ loaded in the Multi-planar Viewer.
+Click now the Registration Tool icon and you will see an arrow-cross in the center 
+of the 2D viewers of the Overlay (we assume that the Overlay is to be registered to the Primary). 
+Move the pointer along the cross: the shape of the pointer changes:
+ Arrow-cross - translate
+ Turning arrow - rotate
+ Arrowhead - scale the image volume</p>
+<p>You can also digitally transform the volume by using the Transform Editor options tab 
+in the Registration Toolbox at the bottom of the user interface. 
+This editor corresponds to the user interface of the "Absolute" tab of the <a class="link" href="../hxcore/HxTransformEditor.html#A1">Transform Editor</a> dialog. 
+More information is available in its help file.</p>
+<p></p>
+<ul><li>Activate the Registration tool by clicking its icon.</li><li>Try to manually align Lobus2 to Lobus.</li><li>Use the Transform Editor options in the Registration toolbox to digitally refine the registration.</li>
+</ul><p></p>
+<p>Once the two volumes are roughly aligned, use the Automatic Registration tool in the 
+Registration toolbox to refine the results. You can get more information about 
+automatic registration by reading the Registration tutorial.
+
+</p></body>
+</html>

@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------
+# hxmolalign package
+# ----------------------------------------------------------------------
+
+module -name "AlignMolecules" \
+    -primary "HxMolecule" \
+    -class "HxAlignMolecules" \
+    -category "Alignment"                  \
+    -dso "libhxmolalign.so"
+
+module -name "AlignSequences" \
+    -primary "HxMolecule"               \
+    -class "HxSeqAlign" \
+    -category "Alignment"                  \
+    -dso "libhxmolalign.so"
+
+module -name "PrecomputeAlignment"\
+    -primary "HxMolTrajectory"               \
+    -class "HxPrecomputeAlignment" \
+    -category "Alignment"                  \
+    -dso "libhxmolalign.so"
+

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.6 Performance issues and multi-processing</a></h3>
+<p>Iterative maximum-likelihood deconvolution essentially is the most powerful
+and most robust technique for the restoration of 3D optical sections.
+However, it is also computationally very demanding. It can take several
+minutes (sometime even hours) to process large 3D data sets. This is
+not due an improper implementation, but due to the algorithm itself. Both
+the blind and the non-blind variant of the method rely heavily on
+fast Fourier-transforms in order to efficiently compute convolutions.
+If you want to improve performance, try to adjust the size of your data
+volumes so that the number of voxels plus the border width is a power
+of two. Sometimes it is worth it to enlarge the border width a little bit
+in order to get a power of two. Although the algorithm works with data
+of any size, powers of two can be transformed somewhat faster.
+Another issue is memory consumption. Internally, several copies of
+the data set need to be allocated by the deconvolution algorithm. These
+copies should all fit into memory at the same time (a specific variant
+of the algorithm suitable for working under low memory conditions will
+be provided in a later version). Besides the input data itself, the
+following number of working arrays are required by the different methods:
+</p>
+<ul><li>3 working arrays for the non-blind algorithm with no or
+ with fixed overrelaxation</li><li>5 working arrays for the non-blind algorithm with
+ optimized overrelaxation</li><li>5 working arrays for the blind algorithm</li>
+</ul><p></p>
+<p>The number of voxels of a working array is the product of the
+number of voxels of the input data set plus the border with along each 
+spatial dimension. The primitive data type of a
+working array is a 4-byte floating point number. For example, if the
+number of voxels of the input data set plus the border width is 256 x
+256 x 256 (as for the <i>alphalobe.am</i>
+data set in the blind deconvolution tutorial), each working array will
+be about 64 MB, irrespective of the primitive data type of the input data
+set. Therefore at least 192 MB (3x4x256x256x256 bytes) are
+required for non-blind deconvolution with fixed overrelaxation, and 320 MB
+(5x4x256x256x256 bytes) for blind deconvolution. Keep this in mind when
+configuring the computer on which to perform deconvolution! However, also
+note that for most platforms it usually doesn't make sense to have more
+than 1.5 GB of main memory. For more memory a 64-bit operating system is
+required.</p>
+<p>Finally, it should be mentioned that the deconvolution algorithm can make
+use of a multi-processor CPU board. Although you do not get twice the
+performance on a dual-processor PC, a speed-up of almost 1.5 can be
+achieved. By default, <font face="helvetica">Amira</font> uses as many processors as there are on
+the computer. If for some reason you want to use less processors you
+can set the environment variable <tt>AMIRA_DECONV_NUM_THREADS</tt> &nbsp;to the
+number of processors you actually want to use simultaneously. 
+
+</p></body>
+</html>

@@ -1,0 +1,9 @@
+#DistanceMap Package
+
+
+module -name "DistanceMap"			\
+    -primary "HxUniformLabelField3"		\
+    -class "HxComputeDistanceMap"		\
+    -category "Compute" 			\
+    -dso "libhxdistmap.so"
+

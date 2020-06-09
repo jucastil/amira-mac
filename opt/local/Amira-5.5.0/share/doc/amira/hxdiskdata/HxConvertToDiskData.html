@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ConvertToLargeDiskData</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "Module" "ConvertToLargeDiskData" "converts raw data and stacks of image data to LargeDiskData" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows the conversion of large image data to
+<a class="link" href="../hxvolumeviz/HxFileFormat_LDM.html#A1">LDA file format</a> (default) or to <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a>.</p>
+<p>Conversion to LDA format can be applied to original data
+of the following formats: AmiraMesh, Raw Data, Stacked Slices
+(stacks of SGI, TIFF, GIF, JPEG, BMP, PNG, JPEG2000, PGX, PNM, and
+RAS raster files).
+</p>
+<p>To create a <em>ConvertToLargeDiskData</em> module, use the <em>Create</em> menu's <em>Data</em> submenu.
+Select the input files with the <em>Inputs</em> port, specify the output with the <em>Output</em> port.
+Press the <em>Apply</em> button to start the conversion process.</p>
+<p>Depending on the input format, you may be asked to supply parameters as
+described in <a class="link" href="../hximio/HxFileFormat_TIFF.html#A1">TIFF format</a>
+or <a class="link" href="../hxfield/HxFileFormat_RawData.html#A1">Raw Data</a> during the conversion
+process.
+
+</p>
+<p>
+After a successful conversion, a new data object appears in the Pool.</p>
+</div>
+<p></p>
+<p>
+
+
+
+
+</p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Inputs</span>  
+<div class="portsnapshot"><img src="HxConvertToDiskData_inputs.png" /><br /></div>
+<div class="body"><p>The list of input files.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxConvertToDiskData_output.png" /><br /></div>
+<div class="body"><p>One output file.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">forceAmira311Format &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+Provided for compatibility with Amira 3.1 and earlier.
+Lets you select the output data format.<br />
+
+0 = <a class="link" href="../hxvolumeviz/HxFileFormat_LDM.html#A1">LDA file format</a>,<br />
+ 
+1 = <a class="link" href="../hxexternaldata/HxExternalData.html#A1">LargeDiskData</a> = <font face="helvetica">Amira</font> 3.1 format.<br />
+
+
+Note1: An <font face="helvetica">Amira</font>
+Large Data Pack
+<font face="helvetica">Very Large Data Option</font>
+license is not required to use the Amira 3.1 format conversion.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

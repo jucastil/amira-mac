@@ -1,0 +1,10 @@
+set PerfusionCTCBFDataWindow "0 100"
+set PerfusionCTCBVDataWindow "0 6"
+set PerfusionCTMTTDataWindow "0 10"
+
+module -name "ComputePerfusion" \
+    -primary "HxDynamicFileSeriesCtrl" \
+    -class "HxComputePerfusion" \
+    -category "Compute" \
+    -package "hxperfusion"
+

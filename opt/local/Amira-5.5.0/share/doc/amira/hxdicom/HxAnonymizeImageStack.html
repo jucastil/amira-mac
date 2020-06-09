@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AnonymizeImageStack</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "AnonymizeImageStack" "remove patient data from images loaded from DICOM files" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ In the <i>Parameters</i> section of an image stack created from 
+ <i>DICOM</i> data the patient's name may occur at several locations:</p>
+<p> - in the parameter bundle DICOM<tt>-&gt;</tt>All, Parameter 'G0010-0010'<br />
+
+ - in the parameter bundles DICOM<tt>-&gt;</tt>Slice..., Parameters 'Filename' and 'Name'<br />
+</p>
+<p> Module <i>AnonymizeImageStack</i> creates a copy of the image
+ stack and removes all occurrences of the patient's name from
+ its parameter section.</p>
+<p> Press the <i>Apply</i> button to initiate creation of the anonymized image stack. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>	This port should be connected to the image stack to be
+	anonymized.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

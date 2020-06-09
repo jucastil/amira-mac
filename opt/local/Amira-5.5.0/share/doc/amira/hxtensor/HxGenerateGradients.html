@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CreateGradientImage</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "CreateGradientImage" "Creates artificial diffusion gradient weighted images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Module computes the bi-linear form of a given vector and an input tensor field.</p>
+<p>The bi-linear form is transformed to a diffusion weighted image that is suitable as input
+to ComputeTensor.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect a symmetric second order tensor field.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Specifies which voxel (non-Exterior) should be used to compute the bi-linear form.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Gradient</span>  
+<div class="portsnapshot"><img src="HxGenerateGradients_Gradient.png" /><br /></div>
+<div class="body"><p>Specify a gradient direction. The gradient direction is normalized to one
+before used by the module.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BValue</span>  
+<div class="portsnapshot"><img src="HxGenerateGradients_BValue.png" /><br /></div>
+<div class="body"><p>A value that is multiplied to the bilinear form.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxGenerateGradients_Mode.png" /><br /></div>
+<div class="body"><p>Either the data input type or a 16bit integer is used to exported the data.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale output</span>  
+<div class="portsnapshot"><img src="HxGenerateGradients_ScaleOutput.png" /><br /></div>
+<div class="body"><p>The data can be scaled before export A*scale + Intercept.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaskExpr</span>  
+<div class="portsnapshot"><img src="HxGenerateGradients_Expression.png" /><br /></div>
+<div class="body"><p>This expression is evaluated for each voxel. If true (!0) the bi-linear
+form is evaluated.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Stacked-Slices as LargeDiskData</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "FileFormat" "Stacked-Slices as LargeDiskData" "access image data blockwise (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>Stack of image files can be loaded as LargeDiskData.
+This file format allows a stack of individual image files to be read with
+optional z-values for each slice. The slice distance need not to be constant.
+The images must be one-channel images in an image format supported by <font face="helvetica">Amira</font> (e.g., TIFF).
+The reader operates on an ASCII description file, which can be written with any editor.</p>
+<p>Here is an example of a
+description file:</p>
+<pre>
+    # Amira Stacked Slices as ExternalData
+
+    # Directory where image files reside
+    pathname C:/data/pictures
+
+    # Pixel size in x- and y-direction
+    pixelsize 0.1 0.1
+
+    # Image list with z-positions
+    picture1.tif 10.0
+    picture7.tif 30.0
+    picture13.tif 60.0
+    colstars.jpg 330.0
+    end
+</pre>
+<p>The format of the file and the parameters you have to provide 
+are described in <a class="link" href="../hximio/HxReadStackedSlices.html#A1">StackedSlices</a>. </p>
+<p>The image files are opened readonly. You cannot change the image data but you
+can add or modify parameters in the description file.
+The file will be loaded as a <a class="link" href="HxExternalData.html#A1">LargeDiskData</a> object.</p>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,888 @@
+#### see helpers.tcl for all the config stuff
+
+#### load helpers ...
+set scriptdir [file dir [info script]]
+source [file join $scriptdir helpers.tcl]
+source [file join $scriptdir autoinit.tcl]
+
+# ... and optional plugins
+set plugins [list]
+foreach f {
+    pluginGNUmakefile.tcl
+    pluginVCProj8File.tcl
+    pluginVCProj9File.tcl
+    pluginProjectBuilder.tcl
+    pluginDotGraph.tcl
+} {
+    set fullpath [file join $scriptdir $f]
+    if { [file exists $fullpath] } {
+        source $fullpath
+    }
+}
+
+####
+#### create buildsystem files in dir
+####
+#### dir is a relative path to rootdir
+####
+proc processProject {rootdir dir} {
+   global outfp;
+   global allPackages;
+   global autoIncludeList;
+   global BUILD_GNUMAKEFILE;
+   global BUILD_WITH_AMIRA;
+   global plugins;
+   global numprocesses;
+   global scriptdir;
+
+   msgout 0 "Processing Project $dir";
+
+   if {![info exists autoIncludeList]} {
+      msgout 1 "building autoIncludeList";
+      buildAutoIncludeList $rootdir;
+      msgout 1 "adding to include paths: $autoIncludeList";
+   }
+
+   readConfig $rootdir $dir;
+
+   if {![passLabelFilter]} {
+       msgout 1 "... ignoring package on ALL"
+       return
+   }
+
+   if { [isIgnoredPackage] } {
+       msgout 1 "... ignoring package on [getRequestedArchs]"
+       return
+   }
+####
+#### we run in the rootdir
+####
+   set pwd [pwd];
+   cd $rootdir;
+####
+#### Do some checks to find obvious errors
+####
+   if {$::Config::TYPE == "copy" && $::Config::SRC != ""} {
+       message "Warning in $Run::reldir: You selected TYPE {copy}, but SRC is not empty. Neither a lib nor an executable will be created. I guess it's an Error."
+	message "... SRC: $::Config::SRC";
+   }
+   if {$::Config::TYPE == "bin" || $::Config::TYPE == ""} {
+       if {$BUILD_WITH_AMIRA && [lsearch $::Config::SRC version.cpp] < 0} {
+#           message "WARNING: missing version.cpp"
+#           message "WARNING:    the target will be built without version information"
+#           message "WARNING:    you might copy version.cpp from taglib and edit it"
+           message "Note: created default $dir/version.cpp";
+           if {[catch {set outfp [open [file join $dir version.cpp] "w"]}]} {
+               message "Error opening $dir/version.cpp for writing";
+               return;
+           };
+           output \
+{///////////////////////////////////////////////////////
+//
+// D O   N O T   E D I T
+//
+// The file was automatically created by createBuildSystem.scro
+//
+///////////////////////////////////////////////////////
+
+#include <taglib/version-impl.h>
+};
+           close $outfp;
+           lappend ::Config::SRC version.cpp;
+       }
+        
+       if {[isRequestedArch Win32VC8] || [isRequestedArch Win32VC9] || [isRequestedArch Win64VC9]} {
+            if {$BUILD_WITH_AMIRA && [lsearch $::Config::SRC version.rc] < 0} {
+                message "Note: created default $dir/version.rc and $dir/resource.h";
+                file copy -force [file join $scriptdir version.rc.tpl] $dir/version.rc
+
+                if {[info exists ::Config::ICON]} {
+                    if {[catch {set outfp [open $dir/version.rc "a"]}]} {
+                        message "Error opening $dir/version.rc for writing";
+                        return;
+                    };
+                    puts $outfp "IDI_ICON1               ICON                    $::Config::ICON"
+                    close $outfp;
+                } 
+                
+                if {[catch {set outfp [open [file join $dir resource.h] "w"]}]} {
+                    message "Error opening $dir/resource.h for writing";
+                    return;
+                };
+                output \
+{#define VS_VERSION_INFO                 1
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        103
+#define _APS_NEXT_COMMAND_VALUE         40001
+#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif
+};
+                close $outfp;           
+                
+                lappend ::Config::SRC version.rc;
+                lappend ::Config::SRC resource.h;
+            }
+        }
+   }
+
+   foreach x $::Config::INCSRC {
+        if {[lsearch ${::Config::INCSRCINTERN} $x] != -1} {
+            message "Warning in $Run::reldir: Found $x in INCSRC and INCSRCINTERN. It should be mentioned only once. I guess it's an Error";
+        }
+   }
+
+   # Update init.cpp
+   set allheaders [ concat $::Config::INCSRC $::Config::INCSRCINTERN ]
+   set packagedir [file join $rootdir $dir]
+
+   autoinitall $::Config::PACKAGE $packagedir $allheaders
+
+   # If init.cpp has been created add it to the list of source files
+   set initfile [ file join $packagedir init.cpp ]
+   if { [file exists $initfile] && [lsearch $::Config::SRC init.cpp]<0 } {
+       lappend ::Config::SRC init.cpp
+   }
+   # ... and if init.cpp has been deleted, remove it from the list of source files.
+   if { ![file exists $initfile] && [lsearch $::Config::SRC init.cpp] >= 0 } {
+       set index [lsearch $::Config::SRC init.cpp]
+       set ::Config::SRC [lreplace $::Config::SRC $index $index]
+   }
+
+   if {[regexp {^\w*$} $::Config::PACKAGE]} {
+       if {[regexp {^[a-zA-Z0-9]*$} $::Config::PACKAGE]} {
+            # good only alphanum
+       } else {
+           message "Warning: PACKAGE contains non-alphanumerics which is deprecated and might become an error in the future";
+       }
+   } else {
+	message "Error: PACKAGE contains nonalphanumerics. This is not allowed due to restrictions in Visual Studio";
+	error "Fatal";
+   }
+
+    validatePrepackedList $::Config::PREPACKED;
+
+#### create a relative path from the Package dir to the BUILDROOT
+#### and put it into the Run namespace
+   set pathToRoot "";
+   foreach part [file split $dir] {
+	if {$part != "."} {
+	    set pathToRoot [file join $pathToRoot ..];
+	}
+   }
+   debugmessage 10 "Path to root: $pathToRoot";
+   namespace eval Run "variable pathToRoot $pathToRoot";
+   namespace eval Run "variable pathToIntermediate [file join $pathToRoot [getIntermediateDir]]"
+   namespace eval Run "variable pathToProduct [file join $pathToRoot [getProductDir]]"
+
+####
+#### Check if we have PREPACKED stuff
+####
+   foreach url $::Config::PREPACKED {
+       set t [file tail $url];
+       if { [isRequestedPrepacked $::Config::PACKAGE $t] } {
+           retrievePrepacked [applyOverridePrepacked [parsePrepackedName $t] ]
+       }
+   }
+
+#### remember package description for building a dsw
+#### we put in the all the LIBS. If there
+#### is a package with the same name use this to
+#### setup the lib before using it
+#### if it's not available VisualStudio will ignore
+#### the dependency
+   set deps [concat $::Config::LIBS];
+#   if {$::Config::AMIRA_NO_DOC == "" && ${::Config::DOC2HTML-Win32} == ""} {
+#      lappend deps doc2html
+#   }
+#### add dependency to taglib for all packages except those
+#### which are needed to build taglib itself.
+   if {$::Config::PACKAGE != "setup" && $::Config::PACKAGE != "taglib"} {
+      lappend deps taglib
+   }
+   if {$::Config::PACKAGE != "setup"} {
+       lappend deps setup
+   }
+   if {$::Config::PACKAGE == "vsvolren" || $::Config::PACKAGE == "vssegmentation"} {
+       lappend deps roc
+   }
+#### add dependency to bin2c for all packages except for the package itself
+   if {$::Config::PACKAGE != "setup" && $::Config::PACKAGE != "taglib" && $::Config::PACKAGE != "bin2c"} {
+       lappend deps bin2c
+   }
+   
+#### check for multiple packages with same name
+   set match 0;
+   if {[info exists allPackages]} {
+       set matched 0;
+       foreach x $allPackages {
+          if {[string compare -nocase [lindex $x 0] $::Config::PACKAGE] == 0} {
+              set match 1;
+              break;
+          };
+          incr matched;
+       }
+   }
+   if {$match} {
+       message "Error in $::Run::reldir: more than one Package named $::Config::PACKAGE, last one was [lindex [lindex $allPackages $matched] 1]";
+       error "Fatal";
+   }
+
+#### check for nested packages
+   set match 0;
+   if {[info exists allPackages]} {
+       set matched 0;
+       foreach x $allPackages {
+          set xdir [lindex $x 1]
+          if {[string first "$xdir/" $dir] >= 0 || [string first "$dir/" $xdir] >= 0} {
+              set match 1;
+              break;
+          };
+          incr matched;
+       }
+   }
+   if {$match} {
+       message "Warning in $::Run::reldir: nesting packages is deprecated, another package is at [lindex [lindex $allPackages $matched] 1]";
+   }
+   lappend allPackages [list $::Config::PACKAGE $dir $deps $::Config::ONLY];
+
+####
+#### GNUmakefile
+####
+#### open stream
+   if { $BUILD_GNUMAKEFILE } {
+       msgout 1 "... GNUmakefile";
+       if {[catch {set outfp [open [file join $dir GNUmakefile] "w"]}]} {
+           message "Error opening $dir/GNUmakefile for writing";
+           return;
+       };
+####
+#### switch to unix style, write GNUmakefile and close file
+####
+       fconfigure $outfp -translation lf
+       createGNUmakefile;
+       close $outfp;
+   }
+
+####
+#### vcproj file for visual studio 8 (Win32VC8)
+####
+#### check if we're not ignored
+   if {[isRequestedArch Win32VC8]} {
+       if {${::Config::ONLY} == "" || [lsearch ${::Config::ONLY} Win32VC8] != -1} {
+          msgout 1 "... vcproj (version 8) file";
+          if {[catch {set outfp [open [file join $dir $::Config::PACKAGE.vc80.vcproj] "w"]}]} {
+              message "Error opening $dir/::Config::Package.vc80.vcproj for writing";
+              return;
+          };
+#### switch to dos style, write vcproj file and close file
+          fconfigure $outfp -translation crlf
+          createVCProj8File;
+          close $outfp;
+       } else {
+           msgout 1 "... ignoring package on Win32VC8";
+       }
+   }
+
+####
+#### vcproj file for visual studio 9 (Win32VC9, Win64VC9)
+####
+#### check if we're not ignored
+   if {[isRequestedArch Win32VC9]} {
+       if {${::Config::ONLY} == "" || [lsearch ${::Config::ONLY} Win32VC9] != -1} {
+          msgout 1 "... vcproj (version 9) file";
+          if {[catch {set outfp [open [file join $dir $::Config::PACKAGE.vc90.vcproj] "w"]}]} {
+              message "Error opening $dir/::Config::Package.vc90.vcproj for writing";
+              return;
+          };
+#### switch to dos style, write vcproj file and close file
+          fconfigure $outfp -translation crlf
+          createVCProj9File;
+          close $outfp;
+       } else {
+           msgout 1 "... ignoring package on Win32VC9";
+       }
+   }
+
+   if {[isRequestedArch Win64VC9] } {
+       if {${::Config::ONLY} == "" || [lsearch ${::Config::ONLY} Win64VC9] != -1} {
+          msgout 1 "... vcproj (version 9) file";
+          if {[catch {set outfp [open [file join $dir $::Config::PACKAGE.vc90.vcproj] "w"]}]} {
+              message "Error opening $dir/::Config::Package.vc90.vcproj for writing";
+              return;
+          };
+#### switch to dos style, write vcproj file and close file
+          fconfigure $outfp -translation crlf
+          createVCProj9File;
+          close $outfp;
+       } else {
+           msgout 1 "... ignoring package on Win64VC9";
+       }
+   }
+
+#### call all plugins
+    foreach p $plugins {
+        array set plugin $p;
+        if {[info exists plugin(package)]} {
+            $plugin(package) $dir
+        } else {
+            message "Warning: missing package callback for plugin $plugin(name)";
+        }
+    }
+
+####
+#### restore old pwd
+####
+   cd $pwd;
+}
+
+####
+#### find BUILD_ROOT
+#### process all PACKAGE files below the rundir
+#### create a dsw file for rundir
+####
+proc createBuildSystem {rundir dirs} {
+    global allname;
+    global allPackages;
+    global outfp;
+    global plugins;
+    global BUILD_WITH_AMIRA;
+    global BUILD_GNUMAKEFILE;
+    global HELPERSDIR
+
+####
+#### clear allpackages to write dsw file
+####
+    set allPackages [list];
+
+#### call all plugins
+    foreach p $plugins {
+        array set plugin $p;
+        if {[info exists plugin(setup)]} {
+            $plugin(setup)
+        } else {
+            message "Warning: missing package callback for plugin $plugin(name)";
+        }
+    }
+
+####
+#### run processProject for each Package file
+####
+    if {[llength $dirs] == 0} {
+        runForeachPackage $rundir processProject;
+    } else {
+        foreach d $dirs {
+            #~ set d [MakeGlobalAndCheckOrDie $d $runpwd "Package"]
+            runForeachPackage $d processProject;
+        }
+    }
+
+####
+#### get BUILDROOT and do some special stuff
+####
+    set rootpwd [findBuildroot $rundir];
+
+    set pwd [pwd];
+    cd $rundir;
+    set runpwd [pwd];
+    #~ The relative path from root to rundir
+    set relpwd [string range $runpwd [expr [string length $rootpwd] + 1] end];
+    #~ The relative path from rundir to root
+    set relruntoroot ""
+    foreach d [file split $relpwd] {
+        set relruntoroot [file join $relruntoroot ".."]
+    }
+
+####
+#### use the dirname for the dsw file and the dummy package
+####
+    if {[string length $allname] == 0} {
+        set allname [validIdentifier [file tail $runpwd]]
+    }
+
+###
+### process all projects to tailor path to be relative to rundir
+### and append all project to the list
+###
+   set all [list];
+   set newall [list];
+#### If the path is below rundir, then we do this:
+####  cut the first $below parts of the paths to the packages
+####  by splitting the paths to a list and rejoining them
+#### Otherwise we construct a relative path, which goes first down to the root and then up to the project.
+   set below [llength [file split $relpwd]];
+   foreach x $allPackages {
+       lappend all [lindex $x 0];
+       set FullPath [lindex $x 1]
+       set LPathPartLeft [lrange [file split $FullPath] 0 [expr {$below - 1}]]
+       set LPathPartRight [lrange [file split $FullPath] $below end]
+       set PathPartLeft ""
+       foreach p $LPathPartLeft {set PathPartLeft [file join $PathPartLeft $p]}
+       set np "";
+       if {[string equal $PathPartLeft $relpwd]} {
+           foreach p $LPathPartRight {
+               set np [file join $np $p];
+           }
+       } else {
+            set np [file join $relruntoroot $FullPath]
+       }
+
+       lappend newall [concat [list [lindex $x 0]] [list $np] [lrange $x 2 end]]
+   }
+   set allPackages $newall;
+### add a dummy doc package depending on doc2html if available and run in BUILDROOT
+   if {$BUILD_WITH_AMIRA} {
+       if { $relruntoroot == "" } {
+           set docdep [list]
+           foreach p {doc2html usersguide zibamirausersguide} {
+               if { [lsearch $all $p] >= 0 } {
+                   lappend docdep $p
+               }
+           }
+           lappend allPackages [list "doc$allname" "." $docdep {}];
+           lappend all "doc$allname";
+       } else {
+           message "Note: Documentation only supported in BUILDROOT."
+       }
+   }
+
+### add all dummy package
+   lappend allPackages [list "all$allname" "." $all {}];
+
+   if { $BUILD_GNUMAKEFILE } {
+       msgout 1 "... toplevel GNUmakefile";
+       if {[catch {set outfp [open "GNUmakefile" "w"]}]} {
+           message "Error opening GNUmakefile for writing";
+           return;
+       };
+####
+#### switch to unix style, write GNUmakefile and close file
+####
+       fconfigure $outfp -translation lf
+       createToplevelGNUmakefile;
+       close $outfp;
+   }
+
+###
+### dummy all vcproj (version 8) project
+###
+   if {[isRequestedArch Win32VC8]} {
+       msgout 1 "dummy vcproj all$allname";
+       if {[catch {set outfp [open "all$allname.vc80.vcproj" "w"]}]} {
+           message "Error opening all$allname.vc80.vcproj for writing";
+           return;
+       };
+#### switch to dos style
+       fconfigure $outfp -translation crlf
+       writeDummyVCProj8 $allname
+       close $outfp;
+###
+### doc vcproj project
+###
+       if {$BUILD_WITH_AMIRA} {
+           msgout 1 "doc vcproj doc$allname";
+           if {[catch {set outfp [open "doc$allname.vc80.vcproj" "w"]}]} {
+               message "Error opening doc$allname.vc80.vcproj for writing";
+               return;
+           };
+#### switch to dos style
+           fconfigure $outfp -translation crlf
+           writeDocVCProj8 $allname
+           close $outfp;
+       }
+
+###
+### solutions file sln
+###
+       msgout 1 "sln solution file";
+       if {[catch {set outfp [open "$allname.vc80.sln" "w"]}]} {
+           message "Error opening $allname.vc80.sln for writing";
+           return;
+       };
+#### switch to dos style
+       fconfigure $outfp -translation crlf
+       createSLN8file;
+       close $outfp;
+
+       # Delete the intermediate .suo file so that the first project
+       # in the solution is used as the StartUp Project.
+       file delete $allname.vc80.suo
+   }
+
+###
+### dummy all vcproj (version 9) project
+###
+   if {[isRequestedArch Win32VC9] || [isRequestedArch Win64VC9] } {
+       msgout 1 "dummy vcproj all$allname";
+       if {[catch {set outfp [open "all$allname.vc90.vcproj" "w"]}]} {
+           message "Error opening all$allname.vc90.vcproj for writing";
+           return;
+       };
+#### switch to dos style
+       fconfigure $outfp -translation crlf
+       writeDummyVCProj9 $allname
+       close $outfp;
+###
+### doc vcproj project
+###
+       if {$BUILD_WITH_AMIRA} {
+           msgout 1 "doc vcproj doc$allname";
+           if {[catch {set outfp [open "doc$allname.vc90.vcproj" "w"]}]} {
+               message "Error opening doc$allname.vc90.vcproj for writing";
+               return;
+           };
+#### switch to dos style
+           fconfigure $outfp -translation crlf
+           writeDocVCProj9 $allname
+           close $outfp;
+       }
+
+###
+### solutions file sln
+###
+       msgout 1 "sln solution file";
+       if {[catch {set outfp [open "$allname.vc90.sln" "w"]}]} {
+           message "Error opening $allname.vc90.sln for writing";
+           return;
+       };
+#### switch to dos style
+       fconfigure $outfp -translation crlf
+       createSLN9file;
+       close $outfp;
+   }
+
+####
+#### ProjectBuilder pbproj file
+####
+   if {[isRequestedArch MacX] && [info procs createPBProjFile] == "createPBProjFile"} {
+       msgout 1 "ProjectBuilder project";
+       if {[catch {file mkdir "$allname.pbproj"}]} {
+           message "Error creating $allname.pbproj";
+           return;
+       };
+       if {[catch {set outfp [open "$allname.pbproj/project.pbxproj" "w"]}]} {
+           message "Error opening $allname.pbproj/project.pbxproj for writing";
+           return;
+       };
+#### switch to dos style
+       fconfigure $outfp -translation lf
+       createPBProjFile [list "all$allname"];
+       close $outfp;
+   }
+
+#### call all plugins
+    foreach p $plugins {
+        array set plugin $p;
+        if {[info exists plugin(finalize)]} {
+            $plugin(finalize)
+        } else {
+            message "Warning: missing package callback for plugin $plugin(name)";
+        }
+    }
+
+#### create Git hooks
+    if { [file isdirectory [file join $HELPERSDIR git-hooks] ] } {
+        foreach srcdirgit [lsort -uniq [concat \
+                [glob -nocomplain -types hidden src/*/.git] [glob -nocomplain src/*/.git]]] {
+            if {[file isdirectory "$srcdirgit"]} {
+                file mkdir "$srcdirgit/hooks"
+                set hook "$srcdirgit/hooks/pre-commit"
+                file copy -force [file join $HELPERSDIR git-hooks pre-commit] $hook
+            }
+        }
+    }
+
+    cd $pwd;
+
+    message ""
+    message "Done!"
+}
+
+proc printHelp {} {
+    setVerbosity 2
+
+    message {
+Usage: createBuildSystem.scro
+   [--mainroot <root>]      Set path to a dev installation.
+   [--mainconfig <config>]  Force specific configuration (Optimize/Debug)
+                            to use of dev installation.
+   [--buildroot <root>]     Explicitly set buildroot.
+   [--rundir <dir>] Operate as if <dir> was working directory.
+   [--noamira]      Don't use amira's taglib and doc2html tools
+   [--pedantic]     Check more things. Try this if something seems to go wrong.
+                        - check if prepackeds need update
+
+   [--dirs dir1 dir2 ...]   Defines the directories to look for packages.
+                            Defaults to all packages below the current path.
+   [--collectionname name]  Name of the set of processed packages.
+                            Used to name solution files etc.
+                            Defaults to the name of the current directory.
+   [--clean]                Remove files that a build cannot create in the
+                            product directory.
+   [--editbin]              Run editbin to rebase DLLs on Windows 32-bit.
+   [--noeditbin]            Disable editbin.
+
+   Note: set the enviroment variable AMIRA_PREPACKEDSRC to
+         a domain, e.g. "zib.de" or "tgs.com" to prefere
+         retrieval of prepackeds from hosts located there.
+}
+
+    helpersArgParseHelp;
+    # error "User break";
+}
+
+#### Find files and symlinks recursively.
+#### Recurse only into true directories, ignoring symlinks.
+proc globRecursive {pattern} {
+    set match [glob -nocomplain -types {f s} $pattern]
+    set symlinks [glob -nocomplain -types l $pattern]
+    foreach d [glob -nocomplain -types d $pattern] {
+        if { [lsearch $symlinks $d] == -1 } {
+            set match [concat $match [globRecursive [file join $d *]]]
+        }
+    }
+    return $match
+}
+
+proc cleanProductDir {dirs} {
+    global bindistfiles
+    global devdistfiles
+    global interndistfiles
+    global datadistfiles
+    global distonly_bindistfiles
+    global distonly_devdistfiles
+    global distonly_interndistfiles
+    global auxfiles
+
+    message "Cleaning the product dir."
+
+    set runpwd [pwd]
+    set productdir [file join [findBuildroot [pwd]] product]
+
+    # Collect all paths expected in the product dir.
+    foreach c {Debug Optimize} {
+        set opt [list]
+        lappend opt config $c
+        lappend opt archs [getRequestedArchs];
+        buildProductFileLists $dirs $opt
+
+        # Record paths normalized in the product dir.
+        cd $productdir
+        foreach a [getRequestedArchs] {
+            foreach f [concat $bindistfiles($a) \
+                              $devdistfiles($a) \
+                              $interndistfiles($a) \
+                              $datadistfiles($a) \
+                              $distonly_bindistfiles($a) \
+                              $distonly_devdistfiles($a) \
+                              $distonly_interndistfiles($a) \
+                              $auxfiles($a) ] \
+            {
+                set allfiles([file normalize $f]) 1
+            }
+        }
+        cd $runpwd
+    }
+
+    # Delete all unexpected paths.
+    cd $productdir
+    foreach f [globRecursive *] {
+        if { ![info exists allfiles([file normalize $f])] } {
+            message "Note: Deleting '$f'."
+            file delete $f
+        }
+    }
+    cd $runpwd
+}
+
+proc createProductVersionHeaderfile {} {
+    global outfp
+    global prod_version_major
+    global prod_version_minor
+    global prod_version_patch
+
+    set dir [glob -join -nocomplain * * hxcore [getPackageFileName]]
+    if {[file exists $dir]} {
+        set d [file dirname $dir]
+        if {[catch {set outfp [open [file join $d version.h] "w"]}]} {
+            message "Error opening $d/version.h for writing";
+            return;
+        };
+        output \
+{///////////////////////////////////////////////////////
+//
+// D O   N O T   E D I T
+//
+// The file was automatically created by createBuildSystem.scro
+//
+///////////////////////////////////////////////////////
+
+}
+        puts $outfp [format "#define PRODUCT_VERSION %s%s%s" $prod_version_major $prod_version_minor $prod_version_patch]
+        puts $outfp "#define PRODUCT_VERSION_MAJOR $prod_version_major"
+        puts $outfp "#define PRODUCT_VERSION_MINOR $prod_version_minor"
+        puts $outfp "#define PRODUCT_VERSION_PATCH $prod_version_patch"
+        close $outfp;
+    } else {
+        message "No directory \"hxcore\" found. Skip creating product version header file."
+    }
+}
+
+####
+#### End of functions
+####
+
+#### set default vars
+set BUILD_WITH_AMIRA 1
+
+if {![info exists argc] || ![info exists argv]} {
+    message "Error: missing argc, argv."
+    error "no args."
+}
+
+if { $argc == 0 } {
+    readCachedArgs
+} else {
+    cacheArgs
+}
+
+# createBuildSystem per default excludes prepacked data
+setIncludePrepackedData 0
+
+helpersArgParse createBuildSystem
+if { ![info exists archsonly] } {
+    message "ERROR: --archs (see below) is mandatory"
+    printHelp;
+    return;
+}
+
+set allname "";
+set dirs [list];
+set rundir [pwd]
+
+set OPT_CLEAN 0
+set OPT_editbin 0
+
+set prod_version_major 0
+set prod_version_minor 0
+set prod_version_patch 0
+while {$argc} {
+    set o [lindex $argv 0];
+    set rem 1;
+    if {$o == "--dirs"} {
+        foreach x [lrange $argv 1 end] {
+            if {[string compare -length 2 $x "--"] == 0} {
+                break;
+            }
+            lappend dirs $x;
+            incr rem;
+        }
+    } elseif {$o == "--collectionname"} {
+        set allname [lindex $argv 1];
+        set rem 2;
+    } elseif {$o == "--mainroot"} {
+        set MAINROOT [lindex $argv 1];
+        set rem 2;
+    } elseif {$o == "--mainconfig"} {
+        set gMainConfig [lindex $argv 1]
+        if { ![isValidConfig $gMainConfig] } {
+            printHelp
+            return
+        }
+        set rem 2
+    } elseif {$o == "--buildroot"} {
+        setBuildRoot [lindex $argv 1]
+        set rem 2;
+    } elseif {$o == "--rundir"} {
+        set rundir [lindex $argv 1];
+        if { ![file isdirectory $rundir] } {
+            message "Error: rundir '$rundir' is not a directory."
+            printHelp
+            return
+        }
+        set rem 2;
+    } elseif {$o == "--noamira"} {
+        set BUILD_WITH_AMIRA 0;
+    } elseif {$o == "--pedantic"} {
+        set OPT_PEDANTIC 1;
+    } elseif {$o == "--clean"} {
+        set OPT_CLEAN 1
+    } elseif {$o == "--editbin"} {
+        set OPT_editbin 1
+    } elseif {$o == "--noeditbin"} {
+        set OPT_editbin 0
+    } elseif {$o == "--version_major"} {
+        set prod_version_major [lindex $argv 1];
+        set rem 2
+    } elseif {$o == "--version_minor"} {
+        set prod_version_minor [lindex $argv 1];
+        set rem 2
+    } elseif {$o == "--version_patch"} {
+        set prod_version_patch [lindex $argv 1];
+        set rem 2
+    } elseif {$o == "--help"} {
+        printHelp;
+        return;
+    } else {
+        break;
+    }
+    incr argc -$rem;
+    set argv [lreplace $argv 0 [expr $rem - 1]];
+}
+
+set dirs [lsort -unique $dirs]
+
+if { $argc != 0 } {
+    message "Unknown argument";
+    printHelp;
+    return;
+}
+
+if {[isRequestedArch Win32VC8]} {
+    if {[isRequestedArch Win64VC8]} {
+        message "Error: Win32VC8 and Win64VC8 must not be selected at the same time"
+        return
+    }
+}
+if {[isRequestedArch Win32VC9]} {
+    if {[isRequestedArch Win64VC9]} {
+        message "Error: Win32VC9 and Win64VC9 must not be selected at the same time"
+        return
+    }
+}
+if {[isRequestedArch Win64VC9]} {
+    if {[isRequestedArch Win32VC9]} {
+        message "Error: Win32VC9 and Win64VC9 must not be selected at the same time"
+        return
+    }
+}
+
+set BUILD_GNUMAKEFILE 0;
+foreach a [expandAliases Unix] {
+    if {[isRequestedArch $a]} {
+        set BUILD_GNUMAKEFILE 1
+    }
+}
+
+scanProvides [findBuildroot $rundir]
+
+writeCachedArgs
+
+# Store config unless we are building against an existing dev installation
+if { ![info exists MAINROOT] } {
+    storeBuildSystemConfig
+}
+
+if {[file exists [file join $rundir [getPackageFileName]]]} {
+    runForeachPackage $rundir processProject
+} else {
+    createBuildSystem $rundir $dirs
+    if { $OPT_CLEAN } {
+        cleanProductDir $dirs
+    }
+}
+
+# Create a header file in hxcore which contains version information
+createProductVersionHeaderfile

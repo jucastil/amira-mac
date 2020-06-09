@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:   14px;
+    font-weight: 400;
+    font-style:  normal;
+    color:       #000000;
+    line-height: 140%;
+    width:       750px;
+    text-align:  justify;
+}
+
+p { 
+    margin-top:    5px;
+    margin-bottom: 5px;
+    clear: both;
+}
+
+tt {
+    font-family: monospace;
+}
+
+a {
+    text-decoration: none;
+}
+
+a.link {
+    color:      #5D7A33;
+    font-weight: bold;
+}
+
+a.link:hover {
+    color: #85B04A;
+}
+
+h1 {
+    text-align: left;
+}
+
+h2 {
+    color:      #92BA5A;
+}
+
+h3 {
+    color:      #92BA5A;
+}
+
+th {
+    text-align: left;
+}
+
+
+tr {
+    text-align: left;
+}
+
+
+dl {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 
+}
+
+dt {
+    float: left;
+    width: 15%;
+    clear: left;
+    padding: 0;
+    margin: 0 
+}
+
+dd {
+    float: left;
+    width: 85%;
+    padding: 0;
+    margin: 0 
+}
+
+.hxconnections, .hxports, .hxcommands, .hxsection, .hxdescription { 
+    padding-left:       10px;
+    clear:              both;
+}
+
+.hxdescription h3 {
+    display: none;
+}
+
+.hxconnection_required, .hxconnection_optional, .hxconnection_unused, .hxconnection_default, .hxport, .hxcommand {
+    overflow:          hidden;
+    padding-left:      5px;
+    margin-top:        20px;
+}
+
+.body {
+    padding-left:      5px;
+}
+
+.portsnapshot {
+    float:      right;
+    display:    block;
+    overflow:   hidden;
+    width:      500px;
+    margin-bottom:     10px;
+}
+
+.hxcommand .headline  {
+    font-family:        Courier New, Courier, monospace;
+    font-size:          14px;
+}
+
+.headline {
+    font-weight: bold;
+ }
+
+.hxconnection_optional .headline, .hxconnection_optional .connectiontype {
+    font-style: italic;
+}
+
+.hxconnection_unused .headline, .hxconnection_unused .connectiontype {
+    color:      #7f7f7f;
+}
+
+div.d2htable table{	
+    background-color: rgb(242, 242, 255);
+    border: 1px solid black;	
+    table-layout: fixed;
+    empty-cells:hide;
+    white-space:normal;
+}
+
+div.d2htable td{
+    border: 1px solid black;
+    vertical-align: top;
+    padding: 5px;
+    width: 230px;
+}
+
+div.d2htable tr:first-child {
+    background-color: rgb(242, 194, 255);
+    border-collapse: separate;
+} 
+
+.d2htable table tbody tr {
+    border-width:   1px;
+    margin:			1px;
+    padding:		2px;
+    border-collapse: separate;
+}
+
+.generic_head {
+    float:      none;
+}
+
+.generic_head h2 {
+    float:      left;
+}
+
+.generic_head ul {
+    list-style: none;
+    float: right;
+    color:      #92BA5A;
+    text-align: right;
+}
+
+/* Front Page stuff */
+
+#head_menu {
+    background-color: #dfdfdf;
+    clear:            both;
+    padding-left:     10px;
+    padding-right:    10px;
+}
+
+#head_menu li {
+    background-color: #dfdfdf;
+    float:            left;
+    list-style:       none;
+    padding-left:     10px;
+    padding-right:    10px;
+}
+
+.imageBarPad {
+    height: 30px;	
+}
+
+.imageBarSpace {
+    height: 7px;	
+}
+

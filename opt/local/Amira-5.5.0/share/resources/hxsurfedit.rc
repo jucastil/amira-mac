@@ -1,0 +1,23 @@
+# ----------------------------------------------------------------------
+# hxsurfedit package
+# ----------------------------------------------------------------------
+
+editor -name "Surface Editor" \
+    -data "HxSurface" \
+    -class "HxSurfEdit" \
+    -icon "HxSurfaceEditor.png" \
+    -package "hxsurfedit"
+
+namespace eval hxsurfedit {
+    set triangulatorAlgorithms [list]
+    set triangulatorClasses [list]
+    set triangulatorLibs [list]
+
+    proc declareTriangulatorClass {algorithm className library} {
+        lappend hxsurfedit::triangulatorAlgorithms $algorithm 
+        lappend hxsurfedit::triangulatorClasses $className 
+        lappend hxsurfedit::triangulatorLibs $library
+    }
+}
+
+hxsurfedit::declareTriangulatorClass Simple SimpleTriangulator hxsurfedit

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GetCurvature</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "GetCurvature" "computes curvature values for a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes curvature information for a discrete triangular
+ surface of type <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a>. Either the maximum
+ principal curvature value, the reciprocal curvature value, or the
+ direction of maximum principal curvature can be computed. The algorithm
+ works by approximating the surface locally by a quadric form. The
+ eigenvalues and eigenvectors of the quadric form correspond to the
+ principal curvature values and to the directions of principal
+ curvature. Note that the algorithm does not produce meaningful results
+ near locations where the input surface is not topologically flat, i.e.,
+ where it has non-manifold structure.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The surface for which curvature information should be computed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Method</span>  
+<div class="portsnapshot"><img src="HxGetCurvature_method.png" /><br /></div>
+<div class="body"><p>Radio box allowing the user to select between two different
+ computational algorithms. Choice <i>on triangles</i> produces a
+ surface field with curvature values or curvature vectors being
+ defined on the surface's triangles. Alternatively, by selecting
+ <i>on vertices</i> a surface field with data being defined on
+ the vertices can be generated.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Parameters</span>  
+<div class="portsnapshot"><img src="HxGetCurvature_param.png" /><br /></div>
+<div class="body"><p>The first input, denoted <i>nLayers</i>, determines which triangles
+ are considered to be neighbors of a given triangle and which
+ points are considered to be neighbors of a given point. If the
+ value of this input is 1, then only triangles sharing a common edge
+ with a given triangle are considered to be neighbors of this
+ triangle and only points directly connected to a given point are
+ considered to be neighbors of this point. For larger values of
+ <i>nLayers</i> successively larger neighborhoods are taken into
+ account.</p>
+<p> The second input, denoted <i>nAverage</i>, determines how many times
+ the initial curvature values computed for a triangle or for a point 
+ are being averaged with the curvature values of direct
+ (first-order) neighbor triangles or points. The larger the value
+ of <i>nAverage</i> the smoother the curvature data being obtained.
+ Note that averaging only applies to the scalar curvature values,
+ not to the directional curvature vectors which are computed when
+ port output is set to <i>max direction</i>.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxGetCurvature_output.png" /><br /></div>
+<div class="body"><p>This menu controls the output of the curvature module. 
+ </p>
+<ul><li><em>Max curvature</em>: a surface scalar field is generated
+ containing the maximal principal curvature of a triangle or of
+ a point.</li><li><em>1/Max curvature</em>: the curvature
+ values are inverted. In this case the output values have the
+ dimension of a length, indicating the radius of a sphere
+ locally fitting the surface.</li><li><em>Mean curvature</em> is similar to <em>Max curvature</em>. 
+ Here, however, the mean value of the two principal curvature
+ values is computed. This quantity will be negative in strictly
+ concave regions and positive in strictly convex regions.
+ It can be zero in regions where a positive and negative
+ principal curvature cancel each other.</li><li><em>1/Mean curvature</em>: the mean curvature
+ values are inverted.</li><li><em>Gauss curvature</em> is the product of the two principal
+ curvatures. It is negative in surface areas with hyperbolic
+ geometry (convex-concave, like near saddle points) and
+ positive in areas with elliptic geometry (strictly convex or
+ strictly concave).</li><li><em>1/Gauss curvature</em>: Gauss curvature values are inverted.</li><li><em>Both curvature values</em> returns the two principal curvature
+ values as a surface complex scalar field that should be interpreted as 
+ a field of pairs of scalar values (use <a class="link" href="../hxarith/HxArithmetic.html#A1">Arithmetic</a> to retrieve 
+ each value).</li><li><em>Both 1/curvature values</em> returns the inverted two principal curvature
+ values.</li><li><em>Max curvature vector</em>: a surface vector field is computed indicating
+ the direction of maximum principal curvature. The length of a
+ directional vector is equal to the corresponding curvature
+ value.</li><li><em>Both curvature vector</em>: a surface complex vector field
+ (that should be interpreted as a field of pairs of vectors) is computed indicating
+ the direction of the two principal curvatures. The length of a
+ directional vector is equal to the corresponding curvature
+ value.</li><li><em>Shape index</em> computes the surface scalar field which values are equal to
+		\[
+			\frac 2 \pi atan \frac{C_1+C_2}{C_1-C_2}
+		\]
+		where $$C_1$$ and $$C_2$$ are the two principal curvatures.</li><li><em>Curvedness</em>: computes the surface scalar field which values are equal to
+		\[
+			\frac 1 2 \sqrt{C_1^2+C_2^2}
+		\]
+		where $$C_1$$ and $$C_2$$ are the two principal curvatures.</li>
+</ul>
+
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ScanConvertSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ScanConvertSurface" "computes a volumetric representation of a closed surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a volumetric representation of
+ closed manifold and non-manifold surfaces. The result 
+ is a 3D uniform <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>, 
+ whose bounding box and dimension can either be specified 
+ by filling in the corresponding ports or by a connecting
+ a reference field. Each voxel on the inside of the surface
+ is labeled according to material index of the surface.
+ The user can choose to label all or pick out single 
+ materials.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Surface to be converted.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Reference regular 3D field, whose dimensions and bounding box
+ are used to define the resulting field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Bbox</span>  
+<div class="portsnapshot"><img src="HxScanConvertSurface_bbox.png" /><br /></div>
+<div class="body"><p>Bounding box of the resulting field.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Dimensions</span>  
+<div class="portsnapshot"><img src="HxScanConvertSurface_dimensions.png" /><br /></div>
+<div class="body"><p>Dimensions of the resulting field.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxScanConvertSurface_materials.png" /><br /></div>
+<div class="body"><p>Material(s) of the surface to be converted.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxScanConvertSurface_options.png" /><br /></div>
+<div class="body"><p>If a reference <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a>
+ was connected, the volume overlap of the materials of
+ the resulting field with the reference field can 
+ optionally be computed. Its value will be written
+ to the console window.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

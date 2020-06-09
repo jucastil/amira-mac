@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Landmark Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Landmark Editor" "add, move, or delete markers in a landmark set" !>
+<p>&nbsp;<br />
+<img src="HxLandmarkEditor_icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This component allows you to edit <a class="link" href="HxLandmarkSet.html#A1">landmark sets</a>. 
+It operates by directly interacting with the 3D geometry in the viewer window,
+cf. <a class="link" href="../usersguide/viewer.html#A1">Section 3.1.8</a>. 
+
+In order for this to work, the viewer must be
+switched to interaction mode, e.g., by pressing <tt>ESC</tt> as described
+in its documentation.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxLandmarkEditor_landmarkedit.png.html><img width=450 src="HxLandmarkEditor_landmarkedit.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+User interface of the landmark editor.</div>
+
+ 
+ </div>
+<p>The editor has different <b>Edit modes</b>, which are described in the
+following:</p>
+
+<ul><li><b>Add.</b> In this mode new landmarks are added by clicking onto a piece of 3D
+geometry (e.g., an Isosurface or an OrthoSlice). Multiple clicks are
+required if the landmark set contains more than one point set.</li><li><b>Move.</b> Markers can be moved in this mode by first clicking on the
+marker (selecting it) and then clicking to a new position.</li><li><b>Transform.</b> In this mode, markers can be moved using a dragger.
+Click on one of the markers, then use the dragger to manipulate it.</li><li><b>Flip.</b> Flip geometry of marker. This only makes sense if the marker
+type is not <i>Point</i>.</li><li><b>Remove.</b> The marker you click on will be removed. If more than one
+point set is present, the marker will be removed from all sets.</li><li><b>Query.</b> After you click on a marker, its type and its xyz-position
+are shown. The marker type can be changed via an option menu. The default
+marker type is a <em>Point</em>, represented by a little sphere. In addition,
+a number of predefined specialized marker types can be selected. In contrast
+to point-type markers, specialized markers have fixed predefined sizes (world
+coordinates assumed to be given in centimeters).</li>
+</ul>
+<p>See also documentation for <a class="link" href="HxLandmarkSet.html#A1">Landmark Set</a>.
+</p></div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,450 @@
+#Inventor V2.1 ascii
+
+Separator {
+    Complexity {
+	value	0.5
+    }
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 0 0
+		}
+		Separator {
+		    Material {
+			diffuseColor	0.810253 0.284621 0.284621
+		    }
+		    Sphere {
+			radius	0.7
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	4.54320  4.54320 0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }	
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	-4.54320  4.54320 0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	4.54320  -4.54320 0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	-4.54320  -4.54320 0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }	
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 4.54320  4.54320 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }	
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 -4.54320  4.54320 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 4.54320  -4.54320 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 -4.54320  -4.54320
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }
+	Separator {
+	    Separator {
+		Transform {
+		    translation	4.54320  0 4.54320 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }	
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	-4.54320 0  4.54320
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	4.54320 0  -4.54320
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	-4.54320 0  -4.54320
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }
+	Separator {
+	    Separator {
+		Transform {
+		    translation	9.08640 0  0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	-9.08640 0 0 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 9.08640  0
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 -9.08640  0 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 0 9.08640 
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+	    }
+	}
+	Separator {
+	    Separator {
+		Transform {
+		    translation	0 0 -9.08640
+		}
+		Separator {
+		    Material {
+			diffuseColor	1 1 0
+		    }
+		    Sphere {
+			radius	1
+		    }
+		    Transform {
+			translation	0 1 2
+			scaleFactor	0.05 0.05 0.05
+		    }
+		    Text3 {
+			string	""
+			justification	CENTER
+		    }
+		}
+
+	    }
+    }
+}

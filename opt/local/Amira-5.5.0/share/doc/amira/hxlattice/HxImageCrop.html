@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ImageCrop Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "ImageCrop Editor" "crop 3D images, change bounding box, and voxel size" !>
+<p>&nbsp;<br />
+<img src="HxImageCrop_Icon.png" />
+</p><div class="hxdescription">
+<a name="A2"></a><h3>Description</h3>
+
+<div style="text-align:center"><a href=HxImageCrop_crop.png.html><img width=228 src="HxImageCrop_crop.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+The ImageCrop editor allows you a crop a 3D image and to
+ modify its bounding box or voxel size.</div>
+
+ 
+ </div>
+<p> This editor works on 3D fields with an arbitrary number of components
+ defined on a regular grid, e.g., 3D images or 3D vector fields with
+ uniform, stacked, rectilinear, or curvilinear coordinates. It allows
+ you crop such a field, i.e., to discard all voxels lying outside of a
+ specified subvolume in index space. Alternatively, you may adjust the
+ physical size of the field by changing its bounding box. Note that this
+ does not mean <a class="link" href="../hxarith/HxResample.html#A1">resampling</a>, i.e., the number of voxels
+ will not be changed.</p>
+<p> Each node of a regular grid can be addressed by an index triple <em>(i,j,k)</em>. Each index ranges from zero to the number of slices minus
+ one in that direction. This editor also allows you to add new slices
+ on every side in every dimension. Last but not least, you can flip and
+ rotate the slices with respect to the global x-, y-, or z-direction.</p>
+<p> When you activate the crop editor, the dialog shown in
+ <a class="link" href="#A2">Figure 1</a> pops up. If the editor is activated for a
+ field with uniform, stacked, or rectilinear coordinates, in addition a tab
+ box dragger is displayed in the <a class="link" href="../hxalign/HxAlignSlices.html#A2">viewer window</a>. The dragger
+ allows you to specify the subvolume to be cropped interactively in 3D.
+ When you resize the dragger, the index bounds of the current subvolume
+ are permanently updated in the corresponding fields in the dialog window.</p>
+<p> The <em>Crop list</em> allows you to select a ROI and use its box coordinates as 
+ crop coordinates.</p>
+<p> The <em>Auto crop</em> button automatically adjusts the subvolume to be
+ cropped by taking into account the value of the <em>threshold</em> field.
+ Slices at the boundaries of the original data volume are cropped if
+ they contain only data values smaller than the specified threshold. In
+ this way it is easy to isolate a bright object in a 3D image with a
+ large dark background.</p>
+<p> In order to add slices, you must set the indices in the text fields
+ beyond the limits of the total data volume. When slices are added, by default 
+ the values of the last slice in that direction are replicated.
+ If you switch off the <em>replicate</em> toggle, the text field <em>pixel
+ value</em> becomes active. You can then specify a data value which is used
+ to initialize the new slices.</p>
+<p> In order to manipulate the bounding box of the data object, new values
+ must be entered in the corresponding text fields. For data objects
+ with uniform coordinates two modes are available, <em>bounding box</em>
+ and <em>voxel size</em>. See section below for details.</p>
+<p> All changes take effect if you press the <em>OK</em> or the <em>Apply</em>
+ button. They are discarded by activating the <em>Cancel</em> button. As
+ usual, the editor is closed by pressing <em>OK</em> or <em>Cancel</em>. <em>Apply</em> will leave it open, and <em>Cancel</em> restores the previous state.</p>
+
+<h3><a name="A3">Cropping an Image by Dragging and Moving the Box</a></h3>
+<p>Some experience with manipulating <em>draggers</em> is assumed. 
+ Using the draggers you can reduce or enlarge the data volume you want
+ to preserve; enlarging is, of course, possible only up to the size of
+ the bounding box. The size of the dragging box can be manipulated
+ intuitively in every direction of the three axes, i.e., along the x-,
+ the y-, or the z-axis. The values in the text fields of the editor
+ change according to your manipulations. A certain minimum thickness is
+ preserved while reducing a dimension of the box; for further reductions
+ the text fields must be used.</p>
+<p> Using the draggers you control the size of the subset of the data volume 
+ which must be preserved, but the location of it in the total data
+ volume is set by moving the box around to the desired location.</p>
+
+<h3><a name="A4">Cropping an Image by Setting Values Explicitly in the Text Fields</a></h3>
+<p>The text fields in the cropping area of the editor show
+ the indices of the slices that must be preserved for every dimension.
+ You can easily define a subset by setting a range of indices
+ explicitly in the text fields of an axis - this defines 
+ the size as well as the location of the data subset. Notice that a
+ slice index refers to an axis that is perpendicular to the slice.</p>
+
+<h3><a name="A5">Adding New Slices</a></h3>
+<p>Adding new slices is only possible by setting an index that does not
+ fall into the range given by the minimum and maximum presently shown
+ in the <em>Image Crop</em> panel; thus a negative index must be specified if
+ the minimum is zero. Use the <em>Min</em> or <em>Max</em> text field for the 
+ required axis text field to enter a new slice index.</p>
+<p> A warning dialog pops up asking whether you really want to add new slices; 
+ upon your confirmation, the slices are added to the volume at the
+ specified end and according to the axis selected.
+ The new slices contain the data of the
+ last slice in this direction, e.g., if you add two slices before the
+ slice with index 0 along the x-axis, they contain exactly the same data
+ as the slice with index 0.</p>
+
+<h3><a name="A6">Changing the Size of the Bounding Box</a></h3>
+<p>You change the size of the bounding box by setting new values
+ explicitly in the bounding box fields. This does <em>not</em> affect the
+ stored data, but its representation as displayed by a viewing module,
+ e.g., <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a>, by way of a different scaling
+ for the specified dimensions. </p>
+<p> The bounding box of a data set with uniform coordinates specifies the
+ world coordinates of the center of the lower left front voxel (min
+ values) and the center of the upper right back voxel (max values). For
+ example, if your input is 256 pixels wide and the size of each voxel is
+ 1mm, then you may set <em>xMin</em> to 0 and <em>xMax</em> to 255.
+ If a data set with uniform coordinates is being edited, instead of the
+ bounding box, also the <em>voxel size</em> can be modified. You can
+ switch between the two modes and see how bounding box and voxel size
+ influence each other.</p>
+
+<h3><a name="A7">Flipping Slices in One Dimension</a></h3>
+<p>Press one of the three flip buttons to reverse the order of slices in
+ the corresponding dimension, e.g., click on <em>FlipX</em> to flip the slices
+ in the x-dimension.</p>
+
+<h3><a name="A8">Exchanging Two Dimensions</a></h3>
+<p>Press one of the three exchange buttons to interchange the
+ corresponding dimensions, e.g., click on <em>X-Y</em> to interchange the
+ x- and y-dimension. CAUTION: The exchange operations are not rotations;
+ they change the spatial orientation of the data set.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

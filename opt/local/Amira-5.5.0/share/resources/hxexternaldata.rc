@@ -1,0 +1,82 @@
+# Access module has been replaced by LatticeAccess in hxlatticecompat
+# module -name "Access" \
+#        -primary "HxExternalData" \
+#        -class "HxExternalDataAccess" \
+#        -category "Main" \
+#        -dso "libhxexternaldata.so"
+
+# ---------------------------------------------------------
+#  Reader
+# ---------------------------------------------------------
+dataFile -name "AmiraMesh as LargeDiskData" \
+    -option "amLDD" \
+    -header "AmiraMesh 3D Binary" \
+    -load "HxRawAsExternalData::readAmiraMeshAsExternalData" \
+    -package "hxexternaldata"
+
+dataFile -name "Raw as LargeDiskData" \
+    -option "rawLDD" \
+    -load "HxRawAsExternalData::readRawAsExternalData" \
+    -package "hxexternaldata"
+
+dataFile -name "Stacked Slices as LargeDiskData" \
+    -header "Amira Stacked Slices as ExternalData" \
+    -load "HxStackedSlicesAsExternalData::readStackedSlicesAsExternalData" \
+    -package "hxexternaldata"
+
+# ---------------------------------------------------------
+#  Writer
+# ---------------------------------------------------------
+dataFile -name "PNG" \
+    -ext ".png" \
+    -multisave "HxExternalData::writePNG" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 1 && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+
+dataFile -name "BMP" \
+    -ext ".bmp" \
+    -multisave "HxExternalData::writeBMP" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 1  && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+ 
+dataFile -name "2D Tiff" -ext tif \
+    -multisave "HxExternalData::writeTIF" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 2  && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+   
+dataFile -name "SGI-RGB" \
+    -ext ".rgb" \
+    -multisave "HxExternalData::writeSGI" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 1  && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+   
+dataFile -name "JPEG" \
+    -ext ".jpg" \
+    -multisave "HxExternalData::writeJPG" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 1  && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+
+dataFile -name "EPS" \
+    -ext ".eps" \
+    -multisave "HxExternalData::writeEPS" \
+    -type "HxExternalData" \
+    -check { [$PRIMARY primType] < 1  && [$PRIMARY nDataVar] == 1 } \
+    -package "hxexternaldata"
+
+dataFile -name "Raw Data 3D" \
+    -option "raw" -ext "raw" \
+    -type "HxExternalData" \
+    -save "HxExternalData::writeRawData3D" \
+    -package "hxexternaldata"
+    
+dataFile -name "Raw Data 2D" \
+    -option "raw" -ext "raw" \
+    -type "HxExternalData" \
+    -multisave "HxExternalData::writeRawData2D" \
+    -package "hxexternaldata"
+    

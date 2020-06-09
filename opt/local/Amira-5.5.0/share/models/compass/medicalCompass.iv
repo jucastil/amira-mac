@@ -1,0 +1,101 @@
+#Inventor V2.1 ascii
+
+ Separator {
+
+  Transform {
+	 scaleFactor 3 3 3
+  }
+  
+  Rotation {
+    rotation 0 0 1 -1.57
+  }
+  Rotation {
+    rotation 0 1 0 -1.57
+  }
+  
+  Separator {
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/A.png"
+		}
+    DEF FACE Separator {     
+      FaceSet {
+        vertexProperty VertexProperty {
+        vertex [ -1 1 0,
+                 1 1 0,
+                 1 -1 0,
+                 -1 -1 0 ]
+        }
+      }
+    }
+  }
+  
+  Separator {
+    Rotation {
+      rotation 1 0 0 -3.14
+    }
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/P.png"
+		}
+		USE FACE
+  } 
+  
+  Separator {
+    Rotation {
+      rotation 1 0 0 -1.57
+    }
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/R.png"
+		}
+		USE FACE
+  } 
+  
+  Separator {
+    Rotation {
+      rotation 1 0 0 1.57
+    }
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/L.png"
+		}
+		USE FACE
+  } 
+  
+  Separator {
+    Rotation {
+      rotation 0 1 0 1.57
+    }
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/F.png"
+		}
+		USE FACE
+  } 
+  
+  Separator {
+    Rotation {
+      rotation 0 1 0 -1.57
+    }
+    Translation {
+      translation 0 0 -1
+    }
+    Texture2 {
+			filename "medicalCompass_files/H.png"
+		}
+		USE FACE
+  } 
+  
+   
+}

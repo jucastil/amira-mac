@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.5 Bead Extraction Tutorial</a></h3>
+<p>Non-blind deconvolution is a powerful and robust method for enhancing the
+quality of 3D microscopic images. However, the method requires that the
+image of the point spread function (PSF) responsible for image blurring is
+provided. As stated in the <a class="link" href="deconvtut1.html#A1">standard deconvolution
+tutorial</a>, the PSF can either be calculated theoretically or it can be
+obtained from a bead measurement. <font face="helvetica">Amira</font> provides a special-purpose module
+called <a class="link" href="HxBeadExtract.html#A1">BeadExtract</a> which facilitates the extraction
+of PSF images from one or multiple bead mesurements. In this tutorial the
+use of the module shall be explained. The following topics are covered:
+</p>
+<ol><li>Bead measurements</li><li>Projection View and Projection View Cursor</li><li>Resampling and averaging the beads</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A2">Bead Measurements</a></h3>
+<p>The PSF is the image of a single point source recorded under the same
+conditions as the actual specimen. It can be approximated by the image
+of a fluorescing sub-resolution microsphere, a so-called bead. Performing
+good bead measurements requires some practice and expertise. In order to
+obtain good results the following hints should be obeyed:
+</p>
+<ol><li>Use appropriate beads. It is important that the bead size be smaller
+ than approximately $$1/2$$ full width at half maximum (FWHM) of the PSF.
+ Good sources for obtaining beads suitable for PSF measurements are
+ Molecular Probes (<tt>http://www.probes.com/</tt>) or Polysciences (<tt>http://www.polysciences.com/</tt>).
+ </li><li>The beads must be solid. Besides solid beads, there are also beads
+ with the shape of a spherical shell, allowing to check the focus
+ plane of a mircoscope. Such beads cannot be used as a source for PSF
+ generation in the current version of <font face="helvetica">Amira</font>.</li><li>Don't record clusters of multiple beads. Sometimes multiple beads may
+ glue together, appearing as a single big bright spot. Computing a PSF
+ from such a spot obviously leads to wrong results.</li><li>Note that beads are not resistant to a variety of embedding media. In
+ particular beads will be destroyed in xylene-based embedding media such
+ as Permount (Fisher Scientific) and methyl salicylate (frequently used
+ to clear up the tissue). As a substitute you might use immersion oil
+ instead, which has a refractive index similar to methyl salicylate, for example.
+ </li><li><p>Sample and beads should always be imaged as close to the coverslip
+as possible. When it is not possible to attach the sample to the coverslip,
+the beads should also be imaged in a comparable depth, embedded in the same
+mounting medium. Imaging the beads with better quality than the sample will
+yield a slightly blurred deconvolution result. However, when the PSF
+used for deconvolution is too wide, artifacts can arise during deconvolution.
+The objective lense should always be selected according to the
+mounting medium, i.e. if the sample is attached to the slide and embedded
+in a buffer of refractive index close to water, a severe loss of image quality
+can be expected when using an oil-immersion objective without a correction collar.
+Deconvolution of properly imaged data will allways be supperior to deconvolution of
+data suffering from aberrations.
+</p></li><li>Problems occur if the mounting medium remains liquid. In that case
+ the sample distribution may not be permanent. If your specimen is to
+ be embedded in water, you can try to immerse the beads in an agarose gel
+ of moderate concentration instead. Attaching the small beads to the coverslip
+(for example by letting them dry) is often also sufficient for immobilization.
+</li>
+</ol><p></p>
+<p>An example of an image data set containing multiple beads is provided
+in the file <i>beads.am</i> in the directory <i><font face="helvetica">Amira</font>-<font face="helvetica">5</font>/data/deconv</i>.</p>
+<p></p>
+<ul><li>Load the data set <i>beads.am</i>.</li><li>Visualize the data using a <i>ProjectionView</i> module.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">Projection View and Projection View Cursor</a></h3>
+<p>The bead data set contains five different beads which can be clearly
+seen in the three orthogonal planes of the <i>ProjectionView</i> module.
+In order to obtain a single PSF we first want to select several "good"
+beads. These beads are then resampled and averaged, thus yielding the 
+final PSF. A bead can be considered as "good" if it is clearly visible
+and if it is not superimposed by other beads (even when defocused),</p>
+<p>Selecting "good" beads is an interactive process. It is most easily
+accomplished using the <i>ProjectionView's</i>
+<a class="link" href="../hxneuro/HxProjectionViewCursor.html#A1">Cursor</a> module. This module allows you to
+select a point in 3D space by clicking on one of the three planes of the
+<i>ProjectionView</i> module. The third coordinate is automatically set by
+looking for the voxel with the highest intensity. Points selected with the
+<i>Cursor</i> module can be stored in a <i>LandmarkSet</i> data object.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=deconv-fig6.png.html><img width=450 src="deconv-fig6.png" /></a><br />
+<div class="caption">
+<b>Figure 138:</b>
+Individual beads can be interactively identified using a <i>Cursor</i> module.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Attach a <i>Cursor</i> module to the <i>ProjectionView</i> module.</li><li>Click on any bead on one of the three planes.</li><li>Store the current cursor position in a <i>LandmarkSet</i> object by
+ pressing the <i>Add</i> button.</li><li>Select and add some other beads too.</li>
+</ul><p></p>
+<p>The landmarks need not to be located exactly at the center of a bead.
+The exact center positions can be fitted automatically later on.</p>
+<p>You can remove incorrect bead positions from the landmark set by
+invoking the landmark set editor. In order to activate the editor, select
+the landmark set object and press Landmark Editor button. 
+If you want to add additional bead positions to an existing
+landmark set object, make sure that the <i>master port</i> of the landmark
+set object is connected to the <i>Cursor</i> module. Otherwise, a new
+landmark set object will be created.</p>
+<p></p>
+<h3><a name="A5">Resampling and Averaging the Beads</a></h3>
+<p>Now we are ready to extract and average the individual beads.
+This is done by means of the <a class="link" href="HxBeadExtract.html#A1">BeadExtract</a> module.</p>
+<p></p>
+<ul><li>Connect a <i>BeadExtract</i> module to the <i>Landmarks</i> object.</li><li>Make sure that the <i>Data</i> port of <i>BeadExtract</i> is connected
+ to the bead data set <i>beads.am</i>. If the landmarks are still
+ connected to the beads via the <i>Cursor</i> and <i>ProjectionView</i>
+ modules, the connection is established automatically.</li>
+</ul><p></p>
+<p>The <i>BeadExtract</i> module provides two buttons called <i>Adjust
+centers</i> and <i>Estimate size</i>, which should be invoked in a
+preprocessing step before the beads are actually extracted.</p>
+<p>The first button (<i>Adjust centers</i>) modifies the landmark positions
+so that they are precisely located in the center of gravity of the
+individual beads.</p>
+<p>The second button (<i>Estimate size</i>) computes an estimate for the number
+of voxels of the PSF image to be generated. This button is only active if
+no PSF image is connected as a result to <i>BeadExtract</i>. If there
+is a result object, the resolution and voxel sizes of the
+result are used and the port becomes insensitive.</p>
+<p>Any of the actions of the two preprocessing buttons can be undone using the
+<i>Undo</i> button. This can be necessary for example if two beads are
+too close so that no correct center position could be computed. In general,
+overlaps between neighboring beads should be avoided. Small overlaps
+might be tolerated because during resampling intensities are weighted
+according to the influence of surrounding beads.</p>
+<p></p>
+<ul><li>Perform the preprocessing steps <i>Adjust centers</i> and <i>Estimate size</i>.</li><li>Compute a resampled and averaged PSF by pressing the <i>Apply</i>
+ button.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=deconv-fig7.png.html><img width=450 src="deconv-fig7.png" /></a><br />
+<div class="caption">
+<b>Figure 139:</b>
+The <i>BeadExtract</i> module resamples and averages multiple beads.</div>
+
+
+</div><p></p>
+<p>The data type of the resulting PSF will be <i>float</i>, irrespective of
+the data type of the input image. The individual beads will be weighted on
+a per-voxel basis and added to the result. No normalization will be
+performed afterwards. You may investigate the resulting PSF image using any
+of the standard visualization modules. In Figure <a class="link" href="#A7">140</a> a volume
+rendering of the resulting PSF is shown.</p>
+<p>In some cases you may want to average multiple beads recorded in different
+input data sets. This can be easily achieved by creating a <i>Landmarks</i>
+object for each input data set. For the first input data set extract the
+beads as described above. For the other input data set also use the
+<i>BeadExtract</i> module. However, make sure that the PSF obtained from
+the first input data set is connected as a result object to <i>BeadExtract</i> before pressing the <i>Apply</i> button. In order to use an
+existing PSF as a result object connect the <i>Master</i> port of the PSF
+to <i>BeadExtract</i> (once this is done the <i>Resolution</i> and <i>Voxel
+size</i> ports of <i>BeadExtract</i> become insensitive, see above). If an
+existing result is used new beads simply will be added into the existing
+data set. Therefore data sets should be scaled in intensity according to
+their quality prior to bead extraction and summation to obtain a
+suitable weighting of the individual extracted beads in the final result.</p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=deconv-fig8.png.html><img width=450 src="deconv-fig8.png" /></a><br />
+<div class="caption">
+<b>Figure 140:</b>
+The final PSF visualized using a <i>Voltex</i>
+module.</div>
+
+
+</div><p></p>
+<p>
+
+</p></body>
+</html>

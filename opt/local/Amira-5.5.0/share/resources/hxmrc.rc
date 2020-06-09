@@ -1,0 +1,20 @@
+################################################################################
+#
+# Resource file of MRCFile reader
+#
+################################################################################
+dataFile -name "MRC Stack"             \
+        -option "ali"                  \
+        -ext "mrc,ali,ALI,MRC"         \
+        -load "readMRCFileStack"       \
+        -save "writeMRCFileStack"      \
+        -type "HxStackedScalarField3"  \
+        -package "hxmrc"
+
+dataFile -name "MRC Volume"            \
+         -option "mrc"                 \
+         -ext "rec,REC"                \
+         -load "readMRCFileVolume"     \
+         -save "writeMRCFileVolume"    \
+         -type "HxUniformScalarField3" \
+         -package "hxmrc"

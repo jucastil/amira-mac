@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Histogram</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Histogram" "computes the histogram of a data set" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module computes the histogram of the data values of a scalar field or lineset
+and plots it in a separate plot window.
+In addition, the mean value and the standard deviation are printed.</p>
+<p> Press the <em>Apply</em> button to start the computation of the
+ histogram and pop up the plot window containing it.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar field to be investigated. Regular fields, fields defined on
+tetrahedral or hexahedral grids, and fields defined on surfaces are
+supported. Furthermore, you may connect linesets and spread sheets 
+to this port.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest 
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. If such a module is connected,
+ only the volume within the ROI is evaluated in the histogram.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Labels</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A uniform label field which can be used to restrict the histogram to
+a certain material.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxHistogram_infooverall.png" /><br /><img src="HxHistogram_inforange.png" /><br /></div>
+<div class="body"><p>Prints the mean value and the standard deviation of all input data
+values once the histogram has been computed. Both info ports are only
+shown when the <em>Apply</em> button has been pressed, i.e. the histogram
+has been computed.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxHistogram_range.png" /><br /></div>
+<div class="body"><p>Defines the data range over which the histogram is to be computed.
+The <em>Reset</em> button adjusts the data range so that it completely
+covers the values of the input object.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">NumBins</span>  
+<div class="portsnapshot"><img src="HxHistogram_numBins.png" /><br /></div>
+<div class="body"><p>Defines the number of bins (intervals) the data range is divided into.
+The histogram counts the number of data values falling in each bin.
+In the case of integer input values, i.e., bytes, shorts, or ints, the number
+of bins is internally adjusted so that all bins have the same integer
+width. This is required in order to avoid aliasing effects.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Histogram options</span>  
+<div class="portsnapshot"><img src="HxHistogram_histogram_options.png" /><br /></div>
+<div class="body">
+<ul><li><i>absolute</i> the absolute frequencies are displayed.</li><li><i>relative</i> the relative frequencies i.e. the absolute frequencies 
+divided by the number of events (voxels, tetrahedra,...) are shown.</li><li><i>in %</i> displays relative frequencies as a percentage of events.</li><li><i>+ cumulative</i> displays additionally the cumulative frequencies as a
+line graph.</li>
+</ul>
+</div></div>
+<div class="hxport">
+ <span class="headline">Plot options</span>  
+<div class="portsnapshot"><img src="HxHistogram_plot_options.png" /><br /></div>
+<div class="body"><p>If the <em>line drawing</em> toggle is set, the histogram is plotted as a line 
+instead of a histogram.
+With the <em>logarithmic</em> toggle set, the plot is shown with logarithmic
+scaling [Default].</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxHistogram_threshold.png" /><br /></div>
+<div class="body"><p>Defines a threshold value and displays the percentage of all data values
+which lie above the given threshold. The percentage corresponds to the given
+range. The threshold value is shown as a yellow vertical markerline in the
+plot window. This markerline can be moved within the plot window by pressing
+the left mouse button over the markerline and moving it to the new position.
+The new position is then taken as the new threshold value.
+The computation and display of the threshold value can be toggled on or off.
+This port is only shown when the histogram has been computed.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Tindex</span>  
+<div class="portsnapshot"><img src="HxHistogram_tindex.png" /><br /></div>
+<div class="body"><p>The tindex value defines a reversed threshold value, i.e., a tindex of 90
+returns the value where 90%
+of the data values lie above that value.
+It is denoted by the reddish markerline in the plot window.
+The computation and display of the index value can be toggled on or off.
+This port is only shown when the histogram has been computed.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Material</span>  
+<div class="portsnapshot"><img src="HxHistogram_material.png" /><br /></div>
+<div class="body"><p>If a label field is connected to the port <em>Labels</em> and the input
+data field is a regular scalar field, this port provides the opportunity to
+compute the histogram for one material only. Otherwise it is hidden.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Data</span>  
+<div class="portsnapshot"><img src="HxHistogram_linesetDataChannel.png" /><br /></div>
+<div class="body"><p>If a lineset is used as input, then this port provides the opportunity to
+select the data channel for which the histogram is to be computed.
+You may also compute the histogram for the coordinates of the lineset.</p>
+
+</div></div>
+</div>
+<p></p>
+<p><a name="A5"></a>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>showCumulative [&#123;0|1&#125;]</tt></span>  
+
+<div class="body"><p>
+ Switches the display of a cumulative plot on (1 (Default)) or off (0).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>showRightCumulative [&#123;0|1&#125;]</tt></span>  
+
+<div class="body"><p>
+ Switches the display of a right cumulative plot on (1 (Default))
+ or off (0).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>showDifferential [&#123;0|1&#125;]</tt></span>  
+
+<div class="body"><p>
+ Switches the display of a differential plot on (1 (Default)) or off (0).
+ If there is a differential plot to be shown the axis scaling is
+ switched to linear, since there might be negative values.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

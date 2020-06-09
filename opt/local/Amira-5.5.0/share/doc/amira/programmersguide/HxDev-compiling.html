@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">23.5 Compiling and Debugging</a></h2>
+<p>This section provides additional information not covered by the
+<a class="link" href="HxDev-quickstart.html#A1">quick start guide</a> on how to compile and debug custom
+<font face="helvetica">Amira</font> packages. You may skip it the first time you are reading this
+manual. The information will not become relevant until you are actually
+developing your own code.</p>
+<p>It has already been mentioned that the development of custom <font face="helvetica">Amira</font>
+packages should take place in a local <font face="helvetica">Amira</font> directory. Initially, such a
+directory should be created using the Development Wizard described in
+<a class="link" href="HxDev-wizard.html#A1">Chapter 24</a>. The name of the local <font face="helvetica">Amira</font> directory
+is stored in the Windows registry or in the file <tt>.<font face="monospace">Amira</font>Registry</tt> in
+your Unix home directory. On both Windows and Unix, the name of the
+local <font face="helvetica">Amira</font> directory can be overridden by defining the environment
+variable <tt>AMIRA_LOCAL</tt>. This might be useful if you want to switch between
+different local <font face="helvetica">Amira</font> directories. However, in general it is recommended
+not to set this variable.
+For each local package there is a resource file stored in the subdirectory
+<tt>share/resources</tt> in the local <font face="helvetica">Amira</font> directory. This file contains
+information about all modules and IO routines provided by that package.
+A local package can be compiled in debug mode suitable for debugging or
+in release mode with compiler optimization turned on. In the first case
+the DLLs or shared libraries are stored under <tt>bin/arch-*-Debug</tt> on
+Windows and <tt>lib/arch-*-Debug</tt> on Unix. In the second case they are
+stored under <tt>bin/arch-*-Optimize</tt> or <tt>lib/arch-*-Optimize</tt>. Here
+the '*' indicates the actual architecture name. In the following it will
+be described how to compile local packages in both modes on the different
+platforms and how to debug the code using a debugger.</p>
+<p></p>
+<h3><a name="A2">23.5.1 Windows Visual Studio 2005/2008</a></h3>
+<p><b>Note</b>: Mixing code generated with different versions of Visual
+Studio (Visual Studio 2005, 2008, etc.) is not officially
+supported. So, generally you need the same Visual Studio version
+<font face="helvetica">Amira</font>  was compiled with (see
+<a class="link" href="HxDev-sysrequirements.html#A1">system requirements</a>). However, compiling
+your own modules using another version of Visual Studio <em>may</em> work
+if you install the corresponding Visual Studio runtime together with
+<font face="helvetica">Amira</font> on any Windows PC that make use of your custom modules.<br />
+</p>
+<p>The workspace and project files for Visual Studio are generated
+automatically from the <font face="helvetica">Amira</font> Package files by the Development
+Wizard. There should be no need to change the project settings
+manually.</p>
+<p>By default, Visual Studio will compile in debug mode. In order to
+generate optimized code, you need to change the active configuration.
+This is done by choosing <em>Configuration Manager...</em> from the <em>Build</em> menu. In the <em>Active Solution 
+Configuration</em> pulldown menu, select <em>Release</em>.</p>
+<p>In order to execute the debug mode version of your local packages, you must
+start <font face="helvetica">Amira</font> with the debug <tt><font face="monospace">Amira</font>main.exe</tt> located in the
+<tt>bin/arch-*-Debug</tt> folder. For convenience, a link <em><font face="helvetica">Amira</font> (Debug)</em>
+is provided in the start menu. However, if you want to debug your code, you need
+to start <font face="helvetica">Amira</font> from Visual Studio. Thus you need to specify the correct
+executable in the project properties dialog.</p>
+<p>You can bring up the project properties dialog by pressing Alt-F7 or
+by choosing <em>Properties</em> from the <em>Project</em> menu. Select <em>Debugging</em> from the left pane. In the field <em>Command</em>, choose
+the file <tt>bin/arch-<em>&lt;version&gt;</em>-Debug/<font face="monospace">Amira</font>main.exe</tt>
+located in the <font face="helvetica">Amira</font> root directory (see
+<a class="link" href="#A3">Figure 180</a>). Replace <tt><em>&lt;version&gt;</em></tt> with the version
+of <font face="helvetica">Amira</font>  you have (see <a class="link" href="HxDev-sysrequirements.html#A1">system
+ requirements</a>).</p>
+<p><b>Note</b>: In previous <font face="helvetica">Developer Option</font> releases the <tt>-debug</tt> switch was needed to
+use the debug libraries of developed package. Since a while we ship debug libraries
+with <font face="helvetica">Developer Option</font> and provide debug binaries.
+</p><div style="text-align:center"><a name="A3"></a><a href=vssettings2.png.html><img width=450 src="vssettings2.png" /></a><br />
+<div class="caption">
+<b>Figure 180:</b>
+Specifying the name of the executable in Visual Studio.
+</div>
+
+
+</div><p></p>
+<p>You can now start <font face="helvetica">Amira</font> from Visual Studio by pressing F5 or by choosing
+<em>Start</em> from the <em>Debug</em> menu. In order to debug your code
+you may set breakpoints at arbitrary locations in your code. For example,
+if you want to debug a read routine, set a breakpoint at the beginning of
+the routine, execute <font face="helvetica">Amira</font> and invoke the read routine by loading some
+file. </p>
+<h3><a name="A4">23.5.2 Linux</a></h3>
+<p>In order to compile a local package under Linux you need to change into the
+package directory and execute <tt>gmake</tt> in a shell. The <tt>gmake</tt>
+utility is provided in the <tt>bin</tt> subdirectory of the <font face="helvetica">Amira</font> root
+directory. Either add this directory to your path or create a link in a
+directory already listed in your path, e.g., in <tt>/usr/bin</tt>.
+The required GNUmakefiles will be generated automatically from the <font face="helvetica">Amira</font>
+Package files by the Development Wizard. There should be no need to edit
+the GNUmakefiles manually. Depending on the contents of the Package file
+all source files in a package directory will be compiled, or a subset only.
+By default all files will be compiled. The Development Wizard will put the
+name of the <font face="helvetica">Amira</font> root directory into the file <tt>GNUmakefile.setroot</tt>.
+You may overwrite the name by defining the environment variable <tt>AMIRA_ROOT</tt>. For example, this might be useful when working simultaneously
+with two different <font face="helvetica">Amira</font> versions.
+By default <tt>gmake</tt> will compile debug code. In order to compile
+optimized code, invoke <tt>gmake MAKE_CFG=Optimize</tt>. Alternatively, you
+may set the environment variable <tt>MAKE_CFG</tt> to <tt>Optimize</tt>.
+If you have a multi-processor machine you may compile multiple files at
+once by invoking <tt>gmake</tt> with the option <tt>PARALLELFLAGS=-j&lt;n&gt;</tt>.
+Here <tt>&lt;n&gt;</tt> denotes the number of compile jobs to be run in parallel.
+Usually twice the number of processors is a good choice.
+If you have compiled debug code, you must invoke <font face="helvetica">Amira</font> with the command
+line option <tt>-debug</tt>. Otherwise, the optimized version will be
+executed. If no such version exists an error occurs. Instead of specifying
+<tt>-debug</tt> at the command line you may also set the environment variable
+<tt>MAKE_CFG</tt> to <tt>Debug</tt>. In order to run <font face="helvetica">Amira</font> in a debugger, invoke the <font face="helvetica">Amira</font> start script with
+the -gdb or -ddd command line option.
+Note that usually you cannot set a breakpoint in a local package right
+after starting the debugger. This is because the package's shared object 
+file will not be linked to <font face="helvetica">Amira</font> until the first module or read or write
+routine defined in the package is invoked. In order to force the shared
+object to be loaded without invoking any module or read or write routine,
+you may use the command <tt>dso open lib&lt;name&gt;.so</tt>, where <tt>&lt;name&gt;</tt>
+denotes the name of the local package. Once the shared object has been
+successfully loaded, breakpoints may be set. It depends on the debugger
+whether these breakpoints are still active when the program is started the
+next time.
+
+</p></body>
+</html>

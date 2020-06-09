@@ -1,0 +1,150 @@
+# ----------------------------------------------------------------------
+#   Lattice package
+# ----------------------------------------------------------------------
+
+module -name "OrthoSlice" -color "lightsalmon" -priority 10 \
+    -primary "HxStackedScalarField3 HxUniformScalarField3 HxRegColorField3 HxMultiChannelField3" \
+    -check { [__checkMultiChannelLDM $PRIMARY]!=1 } \
+    -class "HxOrthoSlice" \
+    -category "Main Display" \
+    -dso "libhxlattice.so"
+
+module -name "HeightField" \
+    -primary "HxRegScalarField3" \
+    -class "HxHeightField" \
+    -category "Display" \
+    -dso "libhxlattice.so"
+
+module -name "BumpSlice" \
+    -primary "HxRegScalarField3" \
+    -class "HxBumpSlice" \
+    -category "None" \
+    -dso "libhxlattice.so"
+
+module -name "CityPlot" \
+    -primary "HxRegScalarField3 HxRegColorField3" \
+    -class "HxCityPlot" \
+    -category "Display" \
+    -dso "libhxlattice.so"
+
+module -name "ContrastControl" -priority 10 \
+    -primary "HxOrthoSlice HxObliqueSlice HxOrthoSliceLDM" \
+    -secondary "HxScalarField3" \
+    -class "HxContrast" \
+    -category "Main" \
+    -dso "libhxlattice.so"
+
+module -name "Trajectory" \
+    -primary "HxArbitraryCut" \
+    -secondary "HxLinesetInterface" \
+    -class "HxSliceTrajectory" \
+    -category "Main" \
+    -dso "libhxlattice.so"
+
+module -name "Colorwash" -priority 10 \
+    -primary "HxOrthoSliceBase" \
+    -secondary "HxScalarField3" \
+    -class "HxColorwash" \
+    -category "Main" \
+    -dso "libhxlattice.so"
+
+module -name "ObliqueSlice" \
+    -check { ![__checkMultiChannelLDM $PRIMARY] } \
+    -primary "HxScalarField3 HxRegColorField3 HxMultiChannelField3" \
+    -category "Display" -color "lightsalmon" \
+    -class "HxObliqueSlice" \
+    -dso "libhxlattice.so"
+
+module -name "FilteredObliqueSlice" \
+    -primary "HxScalarField3 HxRegColorField3 HxMultiChannelField3" \
+    -category "Display" -color "lightsalmon" \
+    -class "HxFilteredObliqueSlice" \
+    -dso "libhxlattice.so"
+
+module -name "Colorwash" -priority 10 \
+    -primary "HxObliqueSlice" \
+    -secondary "HxScalarField3" \
+    -class "HxMultiSlice" \
+    -category "Main" \
+    -dso "libhxlattice.so"
+
+editor -name "Crop Editor" \
+    -data "HxLattice3CropInterface" \
+    -check { [__checkMultiChannelLDM $PRIMARY]!=1 } \
+    -class "HxImageCrop" \
+    -dso "libhxlattice.so" \
+    -icon "HxCropEditor.png"
+
+module -name "LabelVoxel" \
+    -check { ![$PRIMARY hasInterface HxLabelLattice3] &&
+             ([$PRIMARY primType]<3 || [$PRIMARY primType]==7 || [$PRIMARY primType]==8) } \
+    -primary "HxUniformScalarField3 HxStackedScalarField3" \
+    -category "Labelling Compute" \
+    -class "HxLabelVoxel" \
+    -dso "libhxlattice.so"
+
+# Pascal Doux (2-Jan-2007): no reason for not enabling gridview on uniform fields in menu since it can be connected by hand...
+module -name "GridView" \
+    -check { [__isProduct "Avizo"] || [__isProduct "ZIBAmira"] || ![$PRIMARY hasInterface HxUniformScalarField3] } \
+    -primary "HxLattice3" \
+    -category "Display" \
+    -class "HxGridView" \
+    -dso "libhxlattice.so"
+
+module -name "VoxelView" \
+    -primary "HxOrthoSlice" \
+    -category "Main" \
+    -class "HxVoxelView" \
+    -dso "libhxlattice.so"
+
+module -name "CompareLatticeData" \
+    -primary "HxLattice3" \
+    -category "Compute" \
+    -class "HxCompareLatticeData" \
+    -dso "libhxlattice.so"
+
+module -name "CylinderSlice" \
+    -primary "HxPlanarMod" \
+    -check { [$PRIMARY data sourceHasInterface HxScalarField3] } \
+    -category "Main" \
+    -class "HxCylinderSlice" \
+    -dso "libhxlattice.so"
+
+module -name    CurvedSlice    \
+    -primary    "HxScalarField3" \
+    -class      "HxCurvedSlice"\
+    -category   "Display"       \
+    -package    "hxlattice"
+
+module -name "CreateImage" \
+    -primary "HxCylinderSlice" \
+    -proc { $PRIMARY createImage } \
+    -category "Main"
+
+module -name "CreateImage" \
+    -primary "HxOrthoSlice" \
+    -proc { $PRIMARY createImage } \
+    -category "Main"
+
+module -name "CreateImage" \
+    -primary "HxObliqueSlice" \
+    -proc { $PRIMARY createImage } \
+    -category "Main"
+
+module -name "CreateImage" \
+    -primary "HxCurvedSlice" \
+    -proc { $PRIMARY createImage } \
+    -category "Main"
+
+module -name "LatToHex" \
+    -primary "HxLattice3" \
+    -category "Compute" \
+    -class "HxLatToHex" \
+    -dso "libhxlattice.so"
+
+module -name "OrthoViewCursor" \
+    -primary "HxPlanarMod" \
+    -check { [$PRIMARY data sourceHasInterface HxRegScalarField3] } \
+    -category "Main" \
+    -class "HxViewCursor" \
+    -dso "libhxlattice.so"

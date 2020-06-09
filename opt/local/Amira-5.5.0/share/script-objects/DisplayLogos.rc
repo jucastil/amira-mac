@@ -1,0 +1,42 @@
+########################################
+# scro DisplayLogos
+########################################
+
+# shortcut for creating the logos and hide the module
+# default size is 60
+proc createLogos {{h 60}} {
+
+    set mod [[create HxScriptObject] setLabel DisplayLogos]
+
+    # local or standard path?
+    global AMIRA_LOCAL AMIRA_ROOT
+    set file share/script-objects/DisplayLogos.scro
+    if [file readable $AMIRA_LOCAL/$file] {
+	$mod script setValue $AMIRA_LOCAL/$file
+    } else {
+	$mod script setValue $AMIRA_ROOT/$file
+    }
+    $mod fire
+    $mod hideIcon
+    $mod logoHeight setValueString 0 $h
+    $mod fire
+}
+
+# register the DisplayLogos module
+module -name "DisplayLogos" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+
+	set mod [[create HxScriptObject] setLabel DisplayLogos]
+	
+	# local or standard path?
+	set file share/script-objects/DisplayLogos.scro
+	if [file readable $AMIRA_LOCAL/$file] {
+	    $mod script setValue $AMIRA_LOCAL/$file
+	} else {
+	    $mod script setValue $AMIRA_ROOT/$file
+	}
+	$mod fire
+    }
+

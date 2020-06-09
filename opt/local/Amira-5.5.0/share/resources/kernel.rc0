@@ -1,0 +1,15 @@
+# ---------------------------------------------------------------------- #
+# __isProduct procedure
+# ---------------------------------------------------------------------- #
+proc __isProduct {productName} {
+  set currentProduct [theAppSkin getProductName]
+  return [string match $currentProduct $productName]
+}
+
+# ---------------------------------------------------------------------- #
+# __isEdition procedure
+# ---------------------------------------------------------------------- #
+proc __isEdition {editionName} {
+  set activeEdition [theAppSkin getActiveEdition]
+  return [string match $activeEdition $editionName]
+}

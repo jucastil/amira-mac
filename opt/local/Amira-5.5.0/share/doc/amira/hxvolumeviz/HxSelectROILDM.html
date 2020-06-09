@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SelectRoi (LDA)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "Module" "SelectRoi (LDA)" "defines a 3D region-of-interest" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module defines a region-of-interest with the shape of an
+axis-aligned 3D box. This box can be used to restrict the output of
+many visualization modules like <a class="link" href="HxVoltexLDA.html">VoltexLDA</a>,
+<a class="link" href="HxOrthoSliceLDM.html">OrthoSliceLDA</a>, and <a class="link" href="HxObliqueSliceLDM.html">ObliqueSliceLDA</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a 3D data object which defines the maximum size of the
+region-of-interest. Only the bounding box of the data object but not
+the data itself is interpreted by this module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Controlling</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_controlling.png" /><br /></div>
+<div class="body"><p>Voxels within the ROI are rendered; voxels outside the ROI are not rendered. 
+ The <em>ROI box</em> and the <em>subvolume box</em> are specified in slice coordinates. The limits are 
+ included in the ROI. The region defined by the ROI box always acts upon the region 
+ defined by the subvolume, not the entire volume. For example, in <em>exclusion</em> mode 
+ (see the <em>Cropping</em> port), the visible portion of the volume is the subvolume region minus 
+ the ROI box region. You are allowed to set the ROI box region larger than (or completely
+ outside) the subvolume region, but only the intersection of the two regions is 
+ significant. 
+ </p>
+<p>
+<a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Minimum</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_minimum.png" /><br /></div>
+<div class="body"><p>Minimum x-, y-, and z-coordinates of the region-of-interest.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximum</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_maximum.png" /><br /></div>
+<div class="body"><p>Maximum x-, y-, and z-coordinates of the region-of-interest.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_options.png" /><br /></div>
+<div class="body"><p>If the option <em>show dragger</em> is enabled, a tab-box dragger is shown
+which allows you to interactively adjust the region-of-interest in the
+3D viewer.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Cropping</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_cropping.png" /><br /></div>
+<div class="body"><p>The crop box is defined by three sets of parallel planes that define three 
+slabs: <br />
+
+</p>
+<ul><li>The xmin and xmax planes define the X slab.<br />
+</li><li>The ymin and ymax planes define the Y slab.<br />
+</li><li>The zmin and zmax planes define the Z slab.<br />
+</li>
+</ul>
+<p>Four cropping options are available: <em>Subvolume</em>, <em>Exclusion</em>,
+<em>Cross</em>, and <em>Fence</em>.</p>
+<p><em>Subvolume</em> Displays voxels inside the ROI.<br />
+
+<img src="HxSelectROILDM_crop_subvolume.png" /></p>
+<p><em>Exclusion</em> Displays voxels outside the ROI.<br />
+
+<img src="HxSelectROILDM_crop_exclusion.png" /></p>
+<p><em>Fence</em> Displays voxels between:<br />
+
+</p>
+<ul><li>(Xmin, Xmax), or <br />
+</li><li>(Ymin, Ymax), or <br />
+</li><li>(Zmin, Zmax).<br />
+</li>
+</ul><p>
+<img src="HxSelectROILDM_crop_fence.png" /></p>
+<p><em>Cross</em> Displays voxels between:<br />
+
+</p>
+<ul><li>(Xmin, Xmax) and (Ymin, Ymax), or<br />
+</li><li>(Xmin, Xmax) and (Zmin, Zmax), or<br />
+</li><li>(Ymin, Ymax) and (Zmin, Zmax).<br />
+</li>
+</ul><p>
+<img src="HxSelectROILDM_crop_cross.png" /></p>
+<p>(Figures courtesy Real Time Visualization) </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_action.png" /><br /></div>
+<div class="body"><p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxSelectROILDM_Size.png" /><br /></div>
+<div class="body"><p>Size of data in the region of interest in MBytes</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

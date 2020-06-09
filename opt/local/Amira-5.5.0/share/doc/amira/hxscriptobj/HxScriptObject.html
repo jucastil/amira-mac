@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ScriptObject</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "ScriptObject" "container for custom modules written in Tcl" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p><em>Note: If you have worked with script objects prior to <font face="helvetica">Amira</font> version
+3.0, please read the compatibility notes at the end of this file.</em> </p>
+<p><font face="helvetica">Amira</font> is fully scriptable via its built-in Tcl interface (see
+<a class="link" href="../usersguide/scripting.html#A1">Section 5 (Scripting)</a>).
+
+The <em>ScriptObject</em>
+module allows the user or a custom solution provider to create scripts
+that fit seamlessly into the <font face="helvetica">Amira</font> user interface, and define their
+own user interface components.</p>
+<p>A script object is an object showing up in the Pool similar to
+an <em>OrthoSlice</em> or an <em>Axis</em> module. It can have ports, like
+sliders or buttons. The ports are defined by Tcl code and the reaction
+to a change of the ports is also implemented in Tcl. The Tcl code
+consists of a portion for initialization and a Tcl procedure that is
+called whenever the script has to react to changes of input
+parameters, the <tt>compute</tt> procedure.</p>
+<p>Any <font face="helvetica">Amira</font> script can be turned into a script object by putting a
+special header line into the script.
+Write an <font face="helvetica">Amira</font> script (using your favorite text editor) and
+put a special header for script objects in the first line:</p>
+<pre>
+  # Amira-Script-Object V3.0
+  echo "Hello world, a script is called."
+</pre>
+<p>Load this file into <font face="helvetica">Amira</font>. A blue icon appears. Each time you click on
+the <em>Restart</em> button, the script will be read and executed and the
+above message appears in the console window.</p>
+<p>During the execution of a script object, the global variable
+<tt>$this</tt> always contains the name of the currently active script
+object. This allows to easily access object-specific commands, the
+so-called <i>methods</i>. Declaring a method is very similar to
+declaring an ordinary Tcl procedure:</p>
+<pre>
+  $this proc name args body
+</pre>
+<p>Just like the Tcl command <tt>proc</tt>, you can declare a method by
+using <tt>$this proc</tt>. Methods can be executed by calling
+<tt>$this name args</tt>. 
+The syntax is completely analogous to global
+Tcl procedures (see <a class="link" href="../usersguide/scripting-tcl.html#A1">Section 5.2 (Introduction to Tcl)</a>).
+
+The special point about a method is that inside the method
+the <tt>$this</tt> variable is set appropriately. Example:</p>
+<pre>
+  # Amira-Script-Object V3.0
+  $this proc sayHello {} {
+     echo "module $this is greeting you"
+  }
+</pre>
+<p>If you load this script object, nothing will happen visibly. However,
+if your script object is called <tt>MyScript.scro</tt>, you can type
+</p><pre>
+  MyScript.scro sayHello
+</pre>
+<p>in the <font face="helvetica">Amira</font> console window, and you will get a personalized
+greeting line as the result.</p>
+<p>There are several methods with a special meaning:
+</p>
+<ul><li><tt>$this proc constructor {} {...}</tt> defines a method that
+ is called when the script object is created. This is used for creating 
+ user interface elements and initializing the object.</li><li><tt>$this proc destructor {} {...}</tt> defines a method that
+ is executed when the object is deleted or restarted. Used for cleaning 
+ up or terminating communications.</li><li><tt>$this proc compute {} {...}</tt> defines a method that is
+ called whenever a user interface component of the script
+ object is changed by the user. See examples below.</li><li><tt>$this proc savePreparation {&lt;datadir&gt; &lt;savingFlags&gt;} {...}</tt>
+ defines a method that is called before a session is stored in a network
+ file. So some clean up can be done here.</li>
+</ul>
+<p>Here is an example that uses the <tt>constructor</tt> and <tt>compute</tt>
+methods in order to define a simple user interface and to query the
+current state of that user interface:</p>
+<pre>
+  # Amira-Script-Object V3.0
+
+  $this proc constructor {} {
+    $this newPortIntSlider myValue
+    $this myValue setLabel "Value:"
+  }
+
+  $this proc compute {} {
+    set val [$this myValue getValue]
+    echo "The value is $val"
+  }
+</pre>
+<p>In the example, the constructor creates a new port, an integer slider
+which will appear in the user interface. The port has the internal
+name <em>myValue</em> and its visible label is set to <em>Value</em>. Whenever the user modifies the value of the slider, the <tt>compute</tt> method is called, and outputs the current port value.</p>
+<p>In addition to defining methods, a script object also allows to define
+member variables. Analogous to Tcl variables, a member variable is a
+placeholder for a certain value, but a member is local to each script
+object. If you have two script objects <tt>A</tt> and <tt>B</tt>, both can
+have a member variable <tt>x</tt>, and the values of these two variables
+is kept separately. In order to define and query member variables, use
+the commands <tt>$this setVar</tt> and <tt>$this getVar</tt> (see below).</p>
+<p>You can save <font face="helvetica">Amira</font> networks containing script objects. When loading
+the saved network into <font face="helvetica">Amira</font>, the following things will happen:
+</p>
+<ul><li>the script object is created</li><li>the saved value of all member variables is restored</li><li>the <tt>constructor</tt> method is called</li><li>the <tt>compute</tt> method is called</li><li>the value of all ports is restored</li><li>the <tt>compute</tt> method is called again</li>
+</ul>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Can be connected to any data object. Can be used by the script.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Script</span>  
+<div class="portsnapshot"><img src="HxScriptObject_script.png" /><br /></div>
+<div class="body"><p>This port is available for any script object. The <em>Restart</em>
+ button deletes all dynamically created ports, sets the <tt>isFirstCall</tt> flag to <tt>1</tt> and calls the script. The text field
+ indicates the location of the script file.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">newPortButtonList &lt;name&gt; &lt;number-of-buttons&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortButtonList.html#A1">button list port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortButtonMenu &lt;name&gt; &lt;number-of-buttons&gt; &lt;number-of-options&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortButtonMenu.html#A1">button menu port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortColormap &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcolor/HxPortColormap.html#A1">colormap port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortDoIt &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortDoIt.html#A1">DoIt port</a>. </p>
+<p> <b>Note:</b> Starting with Amira 4.0,
+ a green <em>Apply</em> button is displayed by default, rather than the usual <em>DoIt</em> port. 
+ See the <em>DoIt</em> port documentation for further details.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortFilename &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortFilename.html#A1">filename port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortFloatSlider &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortFloatSlider.html#A1">float slider port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortFloatTextN &lt;name&gt; &lt;number-of-fields&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortFloatTextN.html#A1">float text port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortMultiMenu &lt;name&gt; &lt;num-options-1&gt; [&lt;num-options-2&gt; [&lt;num-options-3&gt;]</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortMultiMenu.html#A1">multi menu port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortInfo &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new info port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortIntSlider &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortIntSlider.html#A1">integer slider port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortIntTextN &lt;name&gt; &lt;number-of-fields&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortIntTextN.html#A1">integer text port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortRadioBox &lt;name&gt; &lt;number-of-toggles&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortRadioBox.html#A1">radio box port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortSeparator &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new separator port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortText &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortText.html#A1">text port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortTime &lt;name&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxtime/HxTime.html#A4">time port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortToggleList &lt;name&gt; &lt;number-of-toggles&gt;</span>  
+
+<div class="body"><p>Creates a new <a class="link" href="../hxcore/HxPortToggleList.html#A1">toggle list port</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">newPortConnection &lt;name&gt; &lt;type-name&gt;</span>  
+
+<div class="body"><p>Creates a new connection port. The type name specifies what type of
+ objects can be connected to the port. The type name of an existing
+ object can be obtained using the Tcl command <tt>getTypeId</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deletePort &lt;name-of-port&gt;</span>  
+
+<div class="body"><p>Deletes a port which has been created using one of the <em>newPort</em>
+ commands.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">proc name &#123;args&#125; &#123;body&#125;</span>  
+
+<div class="body"><p>Define a Tcl member procedure (see above). The syntax is analogous to
+ the global Tcl proc command. This command is not specific to the
+ ScriptObject, but it is available in all <font face="helvetica">Amira</font> objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setVar &lt;variable&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>Variables stored in this way keep their values between successive calls
+ of the <tt>compute</tt> procedure. Ordinary Tcl variables get lost.
+ This command is not specific to the ScriptObject, but it is
+ available in all <font face="helvetica">Amira</font> objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setVarSerialize &lt;variable&gt; 0|1</span>  
+
+<div class="body"><p>Variables created with <tt>setVar</tt> are usually serialized when storing 
+ a session in a network file. This behavior can be disabled for variables
+ whose values are only meaningful within one session.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getVar &lt;variable&gt;</span>  
+
+<div class="body"><p>Returns the value of a variable set using <tt>setVar</tt>. This command is
+ not specific to the ScriptObject, but it is available in all <font face="helvetica">Amira</font>
+ objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">testBreak</span>  
+
+<div class="body"><p>This commands checks if the stop button has been pressed. If so the
+ execution of the script is automatically terminated. Use this
+ command inside long animation loops or similar constructs.</p>
+</div></div>
+</div>
+<p></p>
+<p>In addition to the script object extensions, each script objects
+inherits a number of methods from the <a class="link" href="../hxcore/HxObject.html#A1">general <font face="helvetica">Amira</font>
+object</a> type.</p>
+<p><i>Compatibility Note: The semantics of script objects has slightly
+changed with Amira 3.0 compared to older Amira versions. If the first line
+of the script contains the line "# Amira-Script-Object V0.1", the old
+behavior is enforced.</i></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

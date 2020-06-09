@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HexToTet</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "HexToTet" "converts a hexahedral grid into a tetrahedral grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>HexToTet</em> module converts a hexahedral grid to an equivalent 
+ tetrahedral grid. Each hexahedron is converted to between six and twelve
+ tetrahedra which have the same material ID as the "parent" hexahedron. 
+ The new tetrahedral grid has the same points as the source hexahedral 
+ grid; for some hexahedrons, an additional inner point is added to ensure
+ that all tetras exactly match each other at their faces.
+ The module also converts the data objects connected to the hexahedral grid.</p>
+<p> Note : Boundary conditions are not converted.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Unstructured hexahedral grid to be converted.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional region to restrict the conversion.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxHexToTet_options.png" /><br /></div>
+<div class="body"><p>Toggles whether the data objects connected to the hexahedral grid are also
+ converted or not.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

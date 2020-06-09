@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Colormaps</a></h3>
+<p>An <font face="helvetica">Amira</font> <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> consists of a one-dimensional
+ array of RGBA components accompanied by two numbers <em>min max</em>
+ specifying the data window that should be linearly mapped to the RGBA
+ values. The RGBA array should have 256 elements in order to allow the
+ colormap to be edited using the <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a>.</p>
+<p> Colormaps are encoded in an AmiraMesh file as follows:</p>
+<p> </p><pre>
+    # AmiraMesh ASCII 1.0
+
+    define Lattice 256
+
+    Parameters {
+        ContentType "Colormap",
+        MinMax 10 180
+    }
+
+    Lattice { float[4] Data } = @1
+
+    @1
+    1 0 0 0
+    1 0.00392157 0 0
+    1 0.00392157 0 0.00392157
+    1 0.0117647 0 0.00392157
+    1 0.0196078 0 0.0196078
+    1 0.027451 0.00392157 0.0196078
+    ...
+    </pre><p></p>
+<p> The RGBA values are stored in floating point format. A component value
+ of 0 means no intensity (black), while a component value of 1 means
+ maximum intensity (white). The fourth component denotes opacity (<em>alpha</em>). Here a value of 0 indicates that the color is completely
+ transparent while a value of 1 indicates that the color is completely
+ opaque.</p>
+<p></p>
+<p>
+</p></body>
+</html>

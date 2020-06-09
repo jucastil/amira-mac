@@ -1,0 +1,4 @@
+
+testClass -class "HxSpatialGraphViewTest" \
+    -category "Test" \
+    -package "hxspatialgraph"

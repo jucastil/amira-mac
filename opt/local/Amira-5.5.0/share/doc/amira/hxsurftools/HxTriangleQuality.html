@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TriangleQuality</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TriangleQuality" "computes a surface scalar field encoding triangle quality" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>TriangleQuality</em> module computes the triangle qualities
+ for a <a class="link" href="../hxsurface/HxSurface.html#A1">triangular surface</a>. You can attach 
+ to the result a <a class="link" href="HxDisplaySurface.html#A1">SurfaceView</a> module to 
+ visualize the triangle qualities or a <em>Histogram</em> module to 
+ plot a histogram of triangle qualities. You can also use the 
+ <em>TriangleQuality</em> module in conjunction with the 
+ <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">Surface Editor</a> to detect the worst 
+ triangles and manually repair them.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A <a class="link" href="../hxsurface/HxSurface.html#A1">triangular surface</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Average edge length</span>  
+<div class="portsnapshot"><img src="HxTriangleQuality_edgeLength.png" /><br /></div>
+<div class="body"><p>Displays the average length of triangle edges in the input.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxTriangleQuality_output.png" /><br /></div>
+<div class="body"><p>This option menu lets you select between different quality measures:
+ </p>
+<ul><li><b>R / r:</b> Ratio of diameters of circumscribed and
+ inscribed circle. The optimal (minimal) value is 2.</li><li><b>Largest Angle:</b> Computes the largest angle [degree] of
+ each triangle. For numerical applications obtuse angles above
+ 90 degree should be avoided.</li><li><b>Dihed Angle:</b> Computes the dihedral angle [degree] for 
+	each pair of adjacent triangles. Small dihedral angles below
+	5 - 10 degree should be avoided.</li><li><b>Triangle Number:</b> For testing purposes only: assigns the
+ triangle number to each triangle.</li>
+</ul>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

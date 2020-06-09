@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">13.2 Example 2: Measuring a catalyst </a></h2>
+<p>This tutorial illustrates advanced techniques using the <font face="helvetica">Quantification+ Option</font>.
+To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module (<a class="link" href="QuantificationPackUG-1-basics.html#A1">Getting started with <font face="helvetica">Quantification+ Option</font></a>).<br />
+</p>
+<p>In this document often the term "enter the command ..." or "apply the command ..." occure. This means that you have to attach a Quantification tool to the input data (defined in the text) and enter the command "..." in the Visilog command line (at the bottom right of the Quantification Properties section). It supports automatic completion. After pressing enter you can see the new command in the Pipeline Section of the Quantification Properties (in the left). Here you can change the input and output data/names (as described in the text). Then press apply.<br />
+</p>
+<p>Notice that sometimes it could happen that you accidentally delete the Visilog colormaps. This is the case, when you for example have a binary image an you attach an OrthoSlice to it and the viewer just shows a black image (see if the colormaps <em>"VisilogBinary.col"</em> and <em>"VisilogLabels.col"</em> are under Pool/ Show Object). The colormaps can be reset with the Tcl command (command line at the bottom right of the Amira window):<br />
+
+<tt>Quantification createColormaps</tt> <br />
+</p>
+<p>
+At the end of this tutorial you will find a link to a corresponding demo script.<br />
+</p>
+<p>The 3D image used in this example is acquired by microtomography: An almost spherical
+support contains catalyst and pores. The catalyst appears with dark levels in the image 
+(low intensity voxels). The pores and background appear with luminous levels 
+(high intensity voxels). Intermediate gray levels correspond to the support.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=tutquant_catalyst.png.html><img width=375 src="tutquant_catalyst.png" /></a><br />
+<div class="caption">
+<b>Figure 100:</b>
+Microtomography image of catalyst and pores</div>
+
+
+</div><p></p>
+<p>The goal of this example is to get a distribution of distances between the catalyst voxels and the background (exterior). 
+The algorithm may be divided into 3 steps:
+</p>
+<ol><li>Object detection (mask of the object)</li><li>Distance map of the catalyst</li><li>Distribution of the catalyst distances</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A3">13.2.1 Loading data</a></h3>
+<p></p>
+<ul><li>Start by loading <tt>data/tutorials/quantification/Catalyst.im6 </tt> from the <font face="helvetica">Amira</font> root
+directory.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutquant_load_dialog.png.html><img width=375 src="tutquant_load_dialog.png" /></a><br />
+<div class="caption">
+<b>Figure 101:</b>
+Load dialog</div>
+
+
+</div><p></p>
+<p>
+</p>
+<ul><li>Attach an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module to the <em>Catalyst.im6</em> image icon in the pool to display this image:</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutquant_catalyst_initial.png.html><img width=375 src="tutquant_catalyst_initial.png" /></a><br />
+<div class="caption">
+<b>Figure 102:</b>
+The initial image</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A6">13.2.2 Object detection</a></h3>
+<p>You can now start the first step for detection of the object by <em>thresholding</em>, and then <em>closing</em>.</p>
+<p><em>Thresholding</em></p>
+<p></p>
+<ul><li>Attach a <a class="link" href="HxVisilog.html">Quantification</a> module to the <em>Catalyst.im6 </em> icon by right clicking on it (or left-click on the white triangle) and selecting <em>Quantification</em> from the <em>Compute</em> submenu in the popup menu.</li><li>In the command tree, open the <em>Thresholding </em> folder and choose the <em>Binarisation</em> group. In the <em>choices</em> area shows select either the interactive command <tt>I_threshold</tt> or the command <tt>threshold</tt>. The input is set to the data connected to the Quantification module. Instead of using the command tree, you can directly enter the command name (<tt>I_threshold</tt> or <tt>threshold</tt>) in the command search text area.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutquant_pool_threshold.png.html><img width=450 src="tutquant_pool_threshold.png" /></a><br />
+<div class="caption">
+<b>Figure 103:</b>
+Pool and processing panel</div>
+
+
+</div><p></p>
+<p>The main difficulty of this step comes from the very similar intensities between background and pores. 
+For searching an appropriate threshold, you can take advantage of <tt>I_threshold</tt> interactive 
+command to fine tune the threshold parameters. 
+Remember to check though the whole volume by changing the slice number. 
+Other <font face="helvetica">Amira</font> modules can also be helpful for this task (see general <font face="helvetica">Amira</font> tutorials).<br />
+
+Here, thresholding the image between <b>0 and 225</b> gives a binary image where
+</p>
+<ul><li>Intensity level = 1 <tt>-&gt;</tt> support or catalyst (material)<br />
+</li><li>Intensity level = 0 <tt>-&gt;</tt> pore or background <br />
+</li>
+</ul><p></p>
+<p></p>
+<ul><li>Select the threshold parameter in the pipeline area, then change the threshold values to the range <b>0-225</b> in the choices area.</li><li>Press the <em>Apply</em> button to start the command.</li><li>If you have used the interactive command <tt>I_threshold</tt>, you will see the following dialog and have to press OK when done.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a href=tutquant_I_threshold_dialog.png.html><img width=225 src="tutquant_I_threshold_dialog.png" /></a><br />
+
+
+</div><p></p>
+<p>The <tt>I_threshold</tt> command has created a binary image (image label with only interior and exterior materials).
+</p>
+<ul><li>If you attach an OrthoSlice to the resulting image, an appropriate colormap will be selected by default.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=tutquant_material_binary_image.png.html><img width=375 src="tutquant_material_binary_image.png" /></a><br />
+<div class="caption">
+<b>Figure 105:</b>
+Material binary image</div>
+
+
+</div><p></p>
+<p><em>Closing object</em><br />
+</p>
+<p>In order to detect the object you can now apply morphological operations.
+The mathematical morphology operators are transformations based on shape and size criteria.
+The morphological closing operator applied on a binary image gives another binary image where
+</p>
+<ul><li>Small holes inside objects are filled</li><li>Objects boundaries are smoothed</li><li>Close objects are connected</li>
+</ul><p></p>
+<p>Closing the material binary image fills the pores and thus gives a binary mask of the object.</p>
+<p></p>
+<ul><li>You can either attach a new Quantification module to the binary image resulting from the 
+previous <tt>I_threshold</tt> command, or reuse the Quantification module already in the pool and change 
+the inputs and commands in the pipeline area.</li><li>Select the <tt>closing</tt> command (in <em>Morphology</em> folder, <em>Open &amp; Close</em> group).</li><li>In order to fill any holes inside the object, you have to change the parameter of the <tt>closing</tt> command to <b>6</b> in the pipeline (size of the structuring element or number of iterations). Such specific values may be found with a few trials and by checking through the whole volume by sliding an OrthoSlice for instance.</li><li>Then push the <em>Apply</em> button.</li>
+</ul><p>
+Here is the result:
+</p><div style="text-align:center"><a name="A10"></a><a href=tutquant_object_binary_image.png.html><img width=375 src="tutquant_object_binary_image.png" /></a><br />
+<div class="caption">
+<b>Figure 106:</b>
+Object binary image</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A11">13.2.3 Distance map</a></h3>
+<p>The second step is to compute a distance map of the catalyst.
+Applying the distance algorithm on a binary image gives a gray level image, where each voxel intensity represents the minimal distance in voxels from the object boundary.
+The voxel intensities of the object distance map stand for
+</p>
+<ul><li>Intensity level = 0 <tt>-&gt;</tt> background<br />
+</li><li>Intensity level = 1 <tt>-&gt;</tt> object envelope<br />
+</li><li>Others low level intensity <tt>-&gt;</tt> part of the object close to the object envelope<br />
+</li><li>Others high level intensity <tt>-&gt;</tt> part of the object far from the object envelope<br />
+</li>
+</ul><p></p>
+<p></p>
+<ul><li>You can now apply the distance map command <tt>distxxx</tt> (<em>Fast Morphology</em> folder in complex Transform group) to the previous result image, leaving the default parameters for the command.</li><li>Attach an OrthoSlice to the result to see the object's distance map.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A12"></a><a href=tutquant_object_distance_map.png.html><img width=375 src="tutquant_object_distance_map.png" /></a><br />
+<div class="caption">
+<b>Figure 107:</b>
+Object distance map</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>Then threshold the initial image again between 0 and 100 and reconnect the OrthoSlice module.</li>
+</ul><p>
+This gives a binary image where
+</p>
+<ul><li>Intensity level = 1 <tt>-&gt;</tt> catalyst<br />
+</li><li>Intensity level = 0 <tt>-&gt;</tt> support, pore or background <br />
+</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=tutquant_catalyst_binary_image.png.html><img width=375 src="tutquant_catalyst_binary_image.png" /></a><br />
+<div class="caption">
+<b>Figure 108:</b>
+Catalyst binary image</div>
+
+
+</div><p></p>
+<p><em>Masking</em><br />
+
+For computing the distance map of the catalyst we will use masking.<br />
+
+The mask operation takes a gray level image for first input, a binary image for second input (mask image), and provides a gray level image for output where
+</p>
+<ul><li>Each black voxel of the mask image is set to 0 in the output image</li><li>Each blue voxel of the mask image is set to the initial level from the gray image</li>
+</ul><p></p>
+<p>Masking the distance map image by the catalyst image gives a gray image where
+</p>
+<ul><li>Each non null intensity represents a voxel of the catalyst<br />
+</li><li>The intensity value is equal to the distance in voxels from the object envelope<br />
+</li>
+</ul><p></p>
+<p></p>
+<ul><li>Apply the <tt>mask</tt> command to the previous result image 
+(the first input is the object distance map image, the second input is the catalyst binary image).</li><li>Attach an OrthoSlice to the result to see the object's distance map.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A14"></a><a href=tutquant_catalyst_distance_map.png.html><img width=375 src="tutquant_catalyst_distance_map.png" /></a><br />
+<div class="caption">
+<b>Figure 109:</b>
+Catalyst distance map</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A15">13.2.4 Measurement</a></h3>
+<p>Now we can get the distribution of the distances.</p>
+<p>For consistent results, we have to consider the voxel calibration: Multiplying the distance image by the voxel size 
+converts the image intensities into the metric system (micrometers).
+</p>
+<ul><li>Use the Visilog command <tt>multiply</tt> on the catalyst distance map with second input set to 5 (assuming a voxel size of 5 micrometers). Select the second input in pipeline area and type 5.
+<div style="text-align:center"><a name="A16"></a><a href=tutquant_catalyst_multiply.png.html><img width=300 src="tutquant_catalyst_multiply.png" /></a><br />
+<div class="caption">
+<b>Figure 110:</b>
+Multiply command</div>
+
+
+</div></li><li>Then retrieve the maximum value, either with the <em>Info</em> port displayed in <em>Properties</em> panel when selecting the image icon in the pool, or by using the Visilog <tt>extrema</tt> command.</li><li>Then use the histogram command <tt>histclass</tt> to compute and plot for each gray level i, the number of voxels at intensity i. The number of points per each level will be graphed as a histogram. Set the range input to <b>&#123;1,460&#125;</b> and interval to <b>5</b>. 
+<div style="text-align:center"><a name="A17"></a><a href=tutquant_catalyst_histclass.png.html><img width=300 src="tutquant_catalyst_histclass.png" /></a><br />
+<div class="caption">
+<b>Figure 111:</b>
+Histogram settings</div>
+
+
+</div></li><li>Applying the histogram command on the catalyst distance map generates a graph showing the number of catalyst voxels located at a given distance from the object envelope.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A18"></a><a href=tutquant_distribution_of_distances.png.html><img width=375 src="tutquant_distribution_of_distances.png" /></a><br />
+<div class="caption">
+<b>Figure 112:</b>
+Distribution of the distances</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A19">13.2.5 Script</a></h3>
+<p>The whole processing sequence can be put in a script in order to automate analysis for routine tasks.
+For details about scripting Visilog with <font face="helvetica">Amira</font>, see the <a class="link" href="HxVisilog.html">Quantification module help</a> and the provided demonstration example.</p>
+<p>A demo script corresponding to this tutorial can be found in <a href="../../../../data/tutorials/quantification/Catalyst.hx">data/tutorials/quantification/Catalyst.hx</a><br />
+
+It uses a script object located in data/tutorials/quantification for automating the processing.<br />
+
+</p>
+<ul><li>Once the script is loaded, you can select the script object (blue icon) and press <em>start processing</em> in the <em>Properties</em> panel to start the processing.<br />
+</li><li>There may be some interactive commands possibly requiring your input and validation. Just press OK to follow the tutorial steps. These interactive commands could be easily replaced by commands with pre-set parameters for a fully automatic processing.</li>
+</ul><p></p>
+<p></p>
+<p>
+</p></body>
+</html>

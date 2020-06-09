@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignSlices</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "AlignSlices" "registers a stack of 2D physical cross-sections" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module allows you to interactively align 2D slices of a 3D image
+ stack. Alignment is performed in a separate graphics window that is
+ activated by pressing the <em>Edit</em> button of the module's
+ <a class="link" href="#A6">Action</a> port. To close the slice aligner, press
+ the <em>Close</em> button of the module's <em>Action</em> port.</p>
+<p> In addition to this documentation, there is a
+ separate <a class="link" href="../usersguide/tutalign.html#A1">tutorial about slice alignment</a> contained in the
+ <font face="helvetica">Amira</font> User's Guide.
+ </p>
+<p> The align window displays by default two consecutive slices using
+ different draw styles that can be selected from the <a class="link" href="HxAlignSlices_menubar.html#A3">View</a>
+ menu. The two displayed slices can be chosen using the
+ <a class="link" href="HxAlignSlices_toolbar.html#A2">slice slider</a> on the tool bar. Only one of these two
+ slices is editable at a given time. The slice that can be edited is
+ selectable and it can be either the lower or the upper one. By dragging
+ the editable slice using the left mouse button, the slice will be
+ translated. The slice can be rotated around its center by dragging it
+ while keeping the middle mouse button pressed. At any time the numbers of
+ the current slice pair as well as the quality of the current alignment
+ is displayed in the status bar at the bottom of the align window.
+ The quality value is based on the sum of squared gray-value difference (SSD) 
+ between the two slices being aligned. The SSD is computed for all pixels in the 
+ area in which the two slices overlap (the size of this area depends on the transformation 
+ of the slices). The SSD is then normed, so that it lies between 0 and 1.
+ The quality in alignSlices is 1 minus this value, and therefore also lies between 
+ 0 (0%/bad) and 1 (100%/best).</p>
+<p> The AlignTransform parameters are written into the file header of
+ the aligned stack (see <i>Port Action</i> below and <i>Save
+ transformation</i> in the <a class="link" href="HxAlignSlices_menubar.html#A1">Options</a> menu)
+ and can be viewed with the Parameter Editor. For example,</p>
+<p> <tt>slice044 6 4 -16.3025 -1</tt></p>
+<p> indicates that slice # 44 was translated 6 voxels in X, -4 voxels
+ in Y, and rotated 16.3025 degrees about Z. The -1 means that the
+ slice was not mirrored. (If 1, it would mean that the slice
+ has been mirrored.)</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxAlignSlices_viewer.png.html><img width=450 src="HxAlignSlices_viewer.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+User interface of the align tool.</div>
+
+ 
+ </div>
+<p> The documentation of the align tool is organized into the following
+ sections:</p>
+
+<ul><li><a class="link" href="HxAlignSlices_toolbar.html#A1">Tool bar</a> - describes the buttons of
+ the tool bar.</li><li><a class="link" href="HxAlignSlices_menubar.html#A1">Menu bar</a> - describes all entries of
+ the menu bar.</li><li><a class="link" href="HxAlignSlices_viewer.html#A1">Image viewer</a> - describes how to align
+ images interactively.</li><li><a class="link" href="HxAlignSlices_keybindings.html#A2">Key bindings</a> - provides a list of
+ all hot keys.</li>
+</ul>
+
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A3"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>3D field for which the slices will be aligned. Currently, uniform 
+ Cartesian grids of type <em>HxUniformScalarField3</em>, 
+ <em>HxUniformStackedScalarField3</em>, and 
+ <em>HxUniformColorField3</em> are supported.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>3D field from which the alignment informations can be read and
+ transferred to the field that must be aligned (port <em>Data</em>). The reference
+ field must have the same number of slices and the same dimensions as the 
+ data field.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An additional <em>HxLabelLattice3</em> that can be connected in order to be used 
+ as mask during the alignment process.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Data window</span>  
+<div class="portsnapshot"><img src="HxAlignSlices_linearRange.png" /><br /></div>
+<div class="body"><p>This port allows the user to restrict the range of visible data values. 
+ Values below the lower bound are mapped to black, while values 
+ above the upper bound are mapped to white. Only the values between
+ the two bounds are used by the gray value-based alignment algorithm.
+ This port is only active if a gray value image is used as input data.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Resample method</span>  
+<div class="portsnapshot"><img src="HxAlignSlices_resampleMethod.png" /><br /></div>
+<div class="body"><p>This port allows the user to decide which resample method will be used for the 
+ calculation of an output image. The calculation takes place when the <em>apply</em> or the
+ <em>realign</em> button from the <em>Action</em> port is pressed. Two resample methods are possible:
+</p>
+<ul><li><b>Preview:</b> A very quick but not very precise method. It should only be used as solution 
+preview.</li><li><b>High Quality:</b> A much slower but very accurate interpolation method.</li>
+</ul>
+</div></div>
+<a name="A6"></a>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxAlignSlices_action.png" /><br /></div>
+<div class="body"><p>Press the <em>Edit</em> button to open the align tool.
+ Press the <em>Resample</em> button to create a new field according
+ to the transformations made in the align tool. The new field will have by default the 
+ dimensions of the input image. The dimensions can be altered by the <a class="link" href="HxAlignSlices_menubar.html#A9">resize dialog</a>. 
+ Press the <em>Resample to Result</em> button to overwrite an attached result. If a labelfield is attached to the existing result,
+ the labelfield will also be transformed so that the former labels will also fit after the align procedure.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">performance</span>  
+
+<div class="body"><p>Computes the number of frames per second in the <em>Image Viewer</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSliceNumber &lt;n&gt;</span>  
+
+<div class="body"><p>Sets the current editable slice to be <em>n</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSliceNumber</span>  
+
+<div class="body"><p>Gets the current editable slice.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setEditableSlice &#123;lower|upper&#125;</span>  
+
+<div class="body"><p>Of the two currently displayed slices, sets the editable slice to be the 
+ lower/upper one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getEditableSlice</span>  
+
+<div class="body"><p>Returns whether the editable slice is the upper or lower of the currently displayed slices.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">translate &lt;tx&gt; &lt;ty&gt;</span>  
+
+<div class="body"><p>Translates the currently editable slice by <em>tx</em> to the left,
+ and by <em>ty</em> downwards.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">rotate &lt;phi&gt;</span>  
+
+<div class="body"><p>Rotates the currently editable slice by <em>phi</em>. Angle <em>phi</em> is 
+ considered to be in degrees and the rotation is made counterclockwise.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setAlignMode &#123;0|1|2|3&#125;</span>  
+
+<div class="body"><p>Changes the current alignment mode. The meaning of the parameter is
+ 0 = principal axes alignment, 1 = least squares alignment, 
+ 2 = landmarks alignment, and 3 = edge detection alignment.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getAlignMode</span>  
+
+<div class="body"><p>Changes the current alignment mode. The meaning of the result is
+ 0 = principal axes alignment, 1 = least squares alignment, 
+ 2 = landmarks alignment, and 3 = edge detection alignment.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setViewMode &#123;0|1|2|3&#125;</span>  
+
+<div class="body"><p>Changes the display mode. The view modes are encoded as follows:
+ 0 = magenta/green view, 1 = checkerboard view, 2 = average view,
+ 3 = invert view.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">align</span>  
+
+<div class="body"><p>Aligns the current slices pair.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alignAll</span>  
+
+<div class="body"><p>Aligns all slices.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLandmark &lt;i&gt; &lt;k&gt; &lt;x&gt; &lt;y&gt;</span>  
+
+<div class="body"><p>Sets the landmark with index <em>k</em> of slice <em>i</em> to be the
+ point <em>(x,y)</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLandmark &lt;i&gt; &lt;k&gt;</span>  
+
+<div class="body"><p>Returns the x and y coordinates of the landmark with index <em>k</em> of slice <em>i</em>. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">snapshot [filename]</span>  
+
+<div class="body"><p>Take a snapshot of the slice alignment viewer.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">edit</span>  
+
+<div class="body"><p>Shows the tool window (the same as the <em>Edit</em> button of the
+ <a class="link" href="#A6">Action</a> port).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showCoronalView &#123;0|1&#125;</span>  
+
+<div class="body"><p>Toggles the display of a coronal cross-section through the aligned stack.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showSagittalView &#123;0|1&#125;</span>  
+
+<div class="body"><p>Toggles the display of a sagittal cross-section through the aligned stack.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setCoronalViewSliceNumber &lt;n&gt;</span>  
+
+<div class="body"><p>Sets the slice number of the coronal cross-section.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getCoronalViewSliceNumber &lt;n&gt;</span>  
+
+<div class="body"><p>Returns the slice number of the coronal cross-section.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSagittalViewSliceNumber &lt;n&gt;</span>  
+
+<div class="body"><p>Sets the slice number of the sagittal cross-section.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSagittalViewSliceNumber &lt;n&gt;</span>  
+
+<div class="body"><p>Returns the slice number of the sagittal cross-section.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">orthoViewZoomIn</span>  
+
+<div class="body"><p>Zooms in on the sagittal and/or coronal cross-sections.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">orthoViewZoomOut</span>  
+
+<div class="body"><p>Zooms out on the sagittal and/or coronal cross-sections.</p>
+
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setUseMaxIntProjection &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the use of maximum intensity projections of <em>n</em> slices instead of
+ the real image data for the reference image and the transformed image. This is 
+ particularly helpful when aligning very small (point-like) objects, e.g.,
+ cross sections of neurons. If enabled, the automatic alignment method will use these
+ projections instead of the real images. The number <em>n</em> is separately adjustable for the editable slice and 
+ the reference slice, using the commands below. Default is false (0).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getUseMaxIntProjection &#123;0|1&#125;</span>  
+
+<div class="body"><p>Returns whether maximum intensity projections are used for visualization.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMaxIntProjectionRefThickness &lt;value&gt;</span>  
+
+<div class="body"><p>Specifies the number of slices to be used for the maximum intensity projection visualization of the
+ reference.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxIntProjectionRefThickness &lt;value&gt;</span>  
+
+<div class="body"><p>Returns the number of slices to be used for the maximum intensity projection visualization of the
+ reference.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMaxIntProjectionSliceThickness &lt;value&gt;</span>  
+
+<div class="body"><p>Specifies the number of slices to be used for the maximum intensity projection visualization of the
+ currently transformed slice.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxIntProjectionSliceThickness &lt;value&gt;</span>  
+
+<div class="body"><p>Returns the number of slices to be used for the maximum intensity projection visualization of the
+ currently transformed slice.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

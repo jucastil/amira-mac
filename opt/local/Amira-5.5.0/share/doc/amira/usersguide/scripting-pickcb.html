@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">5.6 Registering pick callbacks</a></h2>
+<p>A pick callback is a Tcl procedure attached to a module or a viewer. When a pick 
+event occurs on this target, the callback is invoked. Such a callback can be 
+registered by using the Tcl command <tt>setPickCallback</tt> on modules and viewers:</p>
+<p></p><pre>
+    &lt;module&gt; setPickCallback &lt;proc&gt; [ &lt;EventType&gt; ]
+    viewer &lt;n&gt; setPickCallback &lt;proc&gt; [ &lt;EventType&gt; ]
+</pre><p></p>
+<p>Only one callback can be attached to a given module or viewer. In order to detach
+the callback, just call the register command with no parameter:</p>
+<p></p><pre>
+    &lt;module&gt; setPickCallback
+    viewer &lt;n&gt; setPickCallback
+</pre><p></p>
+<p>The optional argument <tt>&lt;EventType&gt;</tt> refers to the kind of event that will invoke 
+the callback. Other events will be ignored. This argument can take the following values: </p>
+<p></p>
+<ul><li><tt>MouseButtonPress</tt>, <tt>MouseButtonRelease</tt> (any mouse button),</li><li><tt>VRButtonPress</tt>, <tt>VRButtonRelease</tt> (any 3D button),</li><li><tt>MouseButton1Press</tt>, <tt>MouseButton1Release</tt>, etc. (a specific mouse button),</li><li><tt>VRButton0Press</tt>, <tt>VRButton0Release</tt>, etc. (a specific 3D button).</li>
+</ul><p></p>
+<p>The default value is <tt>MouseButton1Press</tt>.</p>
+<p>The actual callback procedure <tt>&lt;proc&gt;</tt> is expected to take one argument, which 
+is to be interpreted as an associative array and which encodes all the picking 
+information. The following elements are defined in the argument array:</p>
+<p></p>
+<ul><li><em>object</em>, the name of <font face="helvetica">Amira</font> object the picked geometry belongs to,</li><li><em>x</em>, the x coordinate of picked point,</li><li><em>y</em>, the y coordinate of picked point,</li><li><em>z</em>, the z coordinate of picked point,</li><li><em>idx</em>, the index of picked element,</li><li><em>stateBefore</em>, the modifier state just before event occurs,</li><li><em>stateAfter</em>, the modifier state just after event occurs.</li>
+</ul><p></p>
+<p>The procedure should return 0 if the picking event was not handled, in which case 
+other callback procedures could be invoked. Here is an example:</p>
+<p></p><pre>
+    proc pickCallback arg {
+        array set a $arg
+        echo "$a(object) : picked element $a(idx)"
+        return 1
+    }
+</pre><p></p>
+<p>Note that any module is free to add specific information to this argument array. All 
+elements can be displayed with:</p>
+<p></p><pre>
+    proc pickCallback arg {
+        echo "arg = { $arg }"
+        return 1
+    }
+</pre><p></p>
+<p>Thus, some <font face="helvetica">Amira</font> modules append additional data:
+</p>
+<ul><li><em>VertexView:</em> <em>idx</em> is the picked point index.</li><li><em>ClusterView:</em> <em>idx</em> is the picked point index.</li><li><em>LineSetView:</em> <em>idx</em> is the picked line index, <em>pt0</em> and <em>pt1</em>
+the two points of the picked segment.</li><li><em>SurfaceView:</em> <em>idx</em> is the picked triangle index.</li><li><em>GridVolume:</em> <em>idx</em> is the picked triangle index, <em>tetra0</em> and 
+<em>tetra1</em> the adjacent tetrahedra.</li><li><em>GridBoundary:</em> <em>idx</em> is the picked triangle index, <em>originalIdx</em> 
+the index in the grid, <em>tetra0</em> and <em>tetra1</em> the adjacent tetrahedra.</li>
+</ul><p>
+
+</p></body>
+</html>

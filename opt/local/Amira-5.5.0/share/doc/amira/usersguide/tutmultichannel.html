@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">14.2 Working with Multi-Channel Images</a></h2>
+<p>This is a step-by-step tutorial on how to visualize multi-channel image data.
+To follow this tutorial you should be familiar with the basic concepts of
+<font face="helvetica">Amira</font>. In particular you should be able to load files, to interact with the 3D
+viewer, and to connect display modules to data modules. All these issues are
+discussed in the <a class="link" href="tutstart.html#A1">getting started</a> section.</p>
+<p>We are going to load a set of multi-channel images into the workspace, attach
+a <em>MultiChannelField</em> group object to the data, and visualize it with
+several display modules. The steps are:</p>
+<p></p>
+<ol><li>Load data into <font face="helvetica">Amira</font>.</li><li>Create a <em>MultiChannelField</em> and attach channels to it.</li><li>Using <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> with a <em>MultiChannelField</em>.</li><li>Using <a class="link" href="../hxneuro/HxProjectionView.html#A1">ProjectionView</a> with a <em>MultiChannelField</em>.</li><li>Using <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> with a <em>MultiChannelField</em>.</li><li>Saving multi-channel images in a single AmiraMesh file.</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A2">14.2.1 Loading Multi-Channel Images into <font face="helvetica">Amira</font></a></h3>
+<p>The data we will be working with in this tutorial are confocal stacks of the 
+prothoracic ganglion of the locust <em>Locusta migratoria</em>. They were kindly 
+provided by Dr. Paul Stevenson, University of Leipzig, Germany. Two
+different channels were recorded and stored as separate files.</p>
+<p><font face="helvetica">Amira</font> supports a number of proprietary multi-channel formats of several 
+microscope manufacturers (e.g., Leica and Zeiss). In such formats all
+channels are stored in a single file. Therefore the first steps described in
+this tutorial, namely grouping the channels manually, can often be omitted.</p>
+<p></p><div style="text-align:left">
+<ul><li>Load channel 1 data by selecting the file 
+ <tt>/data/multichannel/channel1.info</tt></li><li>Load channel 2 data by selecting the file 
+ <tt>/data/multichannel/channel2.info</tt></li><li>Create a <em>MultiChannelField</em> object by selecting 
+ <em>MultiChannelField</em> from the <em>Create</em> menu of the
+ <font face="helvetica">Amira</font> main window.</li>
+</ul></div><p></p>
+<p>A dark green icon is displayed in the Pool. After you select the
+object, an info port is displayed saying "no channels connected".</p>
+<p>
+</p><div style="text-align:center"><a name="A3"></a><a href=tutmultichannelFig1.png.html><img width=337 src="tutmultichannelFig1.png" /></a><br />
+<div class="caption">
+<b>Figure 145:</b>
+Data objects are connected to the <em>MultiChannelField</em> object with
+a right mouse click on the white square indicated by the arrow.</div>
+
+
+</div><p></p>
+<p>
+</p>
+<ul><li>Connect channel1.info to the <em>MultiChannelField</em> by selecting 'Channel1' 
+ from the <em>MultiChannelField's</em> connection menu (right mouse click in the 
+ small white field on the left side of the icon) and click on the channel1.info
+ icon.</li><li>Repeat the above procedure with channel2.info</li>
+</ul><p></p>
+<p>When the <em>MultiChannelField</em> is selected you will note that two
+entries, <em>channel 1</em> and <em>channel 2</em>, appear in the module's
+control panel. Each entry has two range text fields and a colormap area. The
+range text fields work very much like those in <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a>.
+Press the right mouse button over the colormap
+area to bring up a context menu that will allow you to connect a colormap,
+edit the colormap, and so forth. If constant color is selected, double clicking
+in the colormap area opens a color dialog that lets you freely
+define the color of each channel. </p>
+<p>Now perhaps it is a good idea to activate
+the pins corresponding to Channel 1 and Channel 2 in the Properties Area. This
+will keep the control elements of the <em>MultiChannelField</em> module
+permanent in the Properties Area.</p>
+<p></p>
+<h3><a name="A4">14.2.2 Using OrthoSlice with a MultiChannelField</a></h3>
+<p></p>
+<ul><li>Connect an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module to the MultiChannelField by right clicking 
+ on the icon and selecting OrthoSlice from the context menu.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A5"></a><a href=tutmultichannelFig2.png.html><img width=412 src="tutmultichannelFig2.png" /></a><br />
+<div class="caption">
+<b>Figure 146:</b>
+When connected to a <em>MultiChannelField</em> object the <em>OrthoSlice</em> module has additional check boxes corresponding to
+ the number of connected channels.</div>
+
+
+</div><p></p>
+<p>
+When selecting the <em>OrthoSlice</em> module, you will see that there are two
+additional check boxes in its control panel corresponding to the two channels. 
+Clicking these check boxes lets you selectively switch on/off each channel.
+First, we adjust the intensity mapping of each channel separately. </p>
+<p></p>
+<ul><li>Switch off channel 2 by deselecting its check box.</li><li>Enter 23 and 200 in the min and max range fields of channel 1.</li>
+</ul><p></p>
+<p>As a result, weak stainings -- potentially unspecific staining -- disappear and 
+those structures that exhibit good staining become even more intense.</p>
+<p></p>
+<ul><li>Click off channel 1 and click on channel two.</li><li>Enter the values 8 and 200 in the min and max text fields of 
+ channel 2. Move through the slices to see the results.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A6"></a><a href=tutmultichannelFig3.png.html><img width=450 src="tutmultichannelFig3.png" /></a><br />
+<div class="caption">
+<b>Figure 147:</b>
+Multi channel data visualized using the <em>OrthoSlice</em> module.</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A7">14.2.3 Using ProjectionView with a MultiChannelField</a></h3>
+<p></p>
+<ul><li>Switch off the <em>OrthoSlice</em> by clicking on the viewer toggle of its icon 
+ (orange rectangle).</li><li>Connect a <a class="link" href="../hxneuro/HxProjectionView.html#A1">ProjectionView</a> module to the MultiChannelField by right 
+ clicking on the icon and selecting ProjectionView from the Display submenu.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A8"></a><a href=tutmultichannelFig4.png.html><img width=450 src="tutmultichannelFig4.png" /></a><br />
+<div class="caption">
+<b>Figure 148:</b>
+Multi channel data visualized using the <em>ProjectionView</em> module.</div>
+
+
+</div><p></p>
+<p>
+As with the <em>OrthoSlice</em>, two new check boxes are shown in the module's 
+control panel which can be used to display channels separately or simultaneously. In this 
+way you may efficiently adjust the color and intensity of each channel before displaying them 
+simultaneously.</p>
+<p></p>
+<h3><a name="A9">14.2.4 Using Voltex with a MultiChannelField</a></h3>
+<p></p>
+<ul><li>Switch off the <em>ProjectionView</em> by clicking on the viewer toggle of its
+ icon (orange rectangle).</li><li>Connect a <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> module to the MultiChannelField by right clicking on 
+ the icon and selecting Voltex from the Display submenu.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A10"></a><a href=tutmultichannelFig5.png.html><img width=450 src="tutmultichannelFig5.png" /></a><br />
+<div class="caption">
+<b>Figure 149:</b>
+Multi channel data visualized using the <em>Voltex</em> module.</div>
+
+
+</div><p></p>
+<p>
+Here also, two channel check boxes are available. Furthermore, the 
+familiar colormap field is missing. Instead there is a slider labelled <em>Gamma</em>. 
+Now the color of each channel is determined by the color settings in the <em>MultiChannelField</em> object
+The <em>Gamma</em> slider controls the steepness of the alpha value (opacity) mapping used
+for volume rendering.
+Because volume rendering makes intensive use of hardware texture mapping and 
+most consumer graphics adapters are limited in texture memory size, it is 
+recommended to enter at least factors of 2 2 1 in the <em>Downsample</em> text fields 
+of the Voltex module. </p>
+<p></p>
+<ul><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>Each time you want to display another channel, you must press the <em>Apply</em> 
+button again. </p>
+<p></p>
+<h3><a name="A11">14.2.5 Saving a MultiChannelField in a Single AmiraMesh File</a></h3>
+<p>When the <em>MultiChannelField</em> icon is selected in the Pool, choose
+<em>Save Data As</em> from the File menu, enter a filename, and click OK. The data
+will be stored in AmiraMesh format so that each time you load the data the
+two channel stacks and the <em>MultiChannelField</em> group object will be
+restored.
+
+</p></body>
+</html>

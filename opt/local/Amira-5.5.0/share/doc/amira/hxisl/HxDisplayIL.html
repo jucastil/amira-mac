@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> IlluminatedLines</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "IlluminatedLines" "displays a line set with illumination" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays line segments of a line set object taking into
+ account ambient, diffuse, and specular illumination. The illumination
+ effect is implemented internally using the same texture mapping
+ technique which is also applied in module
+ <a class="link" href="HxDisplayISL.html#A1">DisplayISL</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The line set to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> used to encode the additional data
+ of the line set. If no colormap is connected to this port it is used
+ to set the default diffuse color of the illuminated lines.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">ColorMode</span>  
+<div class="portsnapshot"><img src="HxDisplayIL_colorMode.png" /><br /></div>
+<div class="body"><p>If the line set object contains additional data values per vertex this
+ menu allows you to select one such variable which will be used to
+ look up vertex colors. If <em>No Color</em> has been selected the lines
+ will be displayed in uniform default color. This color may be
+ changed using the default (Constant) color setting of the colormap above.
+ The mode <em>DEC</em> is used to color the lines based on the direction 
+ of each segment. Directionally encoded colors are used to illustrate
+ the orientation in dense fiber bundles by mapping the spatial 
+ x-direction to red, the spatial y-direction to green, and the
+ z-direction to blue.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxDisplayIL_colormap.png" /><br /></div>
+<div class="body"><p>Optional colormap.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxDisplayIL_options.png" /><br /></div>
+<div class="body"><p><i>Lighting:</i> Controls illumination of lines. If off, constant colored
+ lines are drawn (flat shading).<br />
+
+ <i>Animate:</i> Activates particle-like animation. The animation speed
+ may be controlled via the command <tt>setAnimationSpeed</tt>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Fade Factor</span>  
+<div class="portsnapshot"><img src="HxDisplayIL_fadeFactor.png" /><br /></div>
+<div class="body"><p>Values smaller than 1 have the effect that line segments become
+ more and more transparent in backward direction.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxDisplayIL_transparency.png" /><br /></div>
+<div class="body"><p>Base transparency of the line segments.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Molecule Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Editor" "Molecule Editor" "allows you to change geometry and topology of a molecule" !>
+<p>&nbsp;<br />
+<img src="HxMoleculeEditor.png" /></p>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This tool can be used to change the
+ geometry and topology of a 
+ <a class="link" href="../hxmolecule/HxMolecule.html#A1">Molecule</a> data object. To change
+ group attributes, you can use the 
+ <a class="link" href="HxAttributeEditor.html#A1">Molecule Attribute Editor</a>.</p>
+<p> Most of the editor's functions are applied to the set if selected atoms,
+ Atoms can be selected by using the 
+ <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">selection browser</a> or by
+ directly clicking on atoms in the viewer.</p>
+<p> The molecule editor, Figure <a class="link" href="#A6">1</a>, has three tabs:
+</p>
+<ul><li>The <em>Transform</em> tab contains all tools to change
+ the geometry of selected atoms by adjusting positions,
+ bond lengths, torsional angles, and bond angles.</li><li>The <em>Tools</em> tab offers methods to split or copy
+ parts of the molecule, as well as an interface
+ for adding or removing bonds between atoms.</li><li>The <em>Building</em> tab offers methods to add or remove 
+ atoms, bonds and groups, or to change their chemical properties.</li>
+</ul>
+<p>Additionally several menus exists to manipulate the display, assign or change chemical
+properties and to create new levels or attributes.</p>
+
+<h3><a name="A2">Preparing the Molecule</a></h3>
+<p>Many of the editing methods of the Molecule Editor need to compute chemical properties
+of the moleculem which are derived from fixed properties representing the atomic configuration,
+namely the valency of the atoms, its atomic number and its formal charge. The atomic number is a mandatory attribute
+of the atom level and the valency is represented as explicit bonds in the molecular
+data structure and as an additional number of implicit hydrogens. </p>
+<p>The implicit hydrogen number and the formal charge can be supplied as attributes of the atom level. 
+When the editor starts, this information will be read from the formal_charge and implicit_hnum attributes. If no such attribute exists,
+they are set to 0 for each atom. Often this is incorrect. PDB files for example usually don't contain hydrogens and the number of implicit
+hydrogens therefore needs to be adjusted. It is not possible to generate such missing information without further 
+guidance from the user, as the way in which this information needs to be generated depends on how the molecule
+was generated. The Editor, however, offers a set of tools which allow to generate this information easily for most
+typical cases. The tools menu allows to assign a standard implicit hydrogen number a implicit hydrogen number
+and formal charges. For molecules which contain neither a formal_charge attribute nor explicit hydrogens or 
+an implicit_hnum attribute, you need to use the first method. It will assign sufficient hydrogens to each atom to
+reach its most common valency. After this you may need to adjust valencies and formal charges.
+If the formal_charge attribute is known, you should use the second method instead. It will consider 
+changes in the standard valencies caused by the electron transfer. 
+If all hydrogens are known, use the third method which will adjust formal charges to reach standard valencies.
+You can always check these internal properties by enabling them as labels in the 'view' menu.</p>
+<p>As mentioned earlier, this information may change during the editing process. 
+When the editor is closed by pressing the OK button the current state will be written into the atom level attributes.</p>
+
+<h3><a name="A3">The View Menu</a></h3>
+<p>The view menu allows to adjust some visualization properties of the MolView that is
+used by the editor. 'Hide H' will hide or show the hydrogen atoms. Additionally labels 
+can activated which show important atomic properties:
+</p>
+<ul><li>None: Labels deactivated.</li><li>Index: The <font face="helvetica">Amira</font> internal atom index (counted from 0).</li><li>Standard: Modes formal charge and radicals combined.</li><li>Formal charge</li><li>Implicit H-Num: Number of implicit hydrogens.</li><li>Lone Pairs: Number of lone electron pairs.</li><li>Atom Type: MMFF94[1] atom type. Atom typing for certain atoms may fail for rare atoms or uncommon or incorrect chemical environments.</li><li>Oxidation number</li><li>Radicals: Shows an asterisk for atoms that contain unpaired electrons.</li>
+</ul>
+
+<h3><a name="A4">The Tools Menu</a></h3>
+
+<ul><li>Assign standard implicit hydrogens: Assign the number of implicit hydrogens while not
+considering any additional data like the formal charge. Use this if the molecule contains
+neither explicit hydrogens nor formal charges. After using this assignment you will have to
+adjust formal charges (if there are any) manually.</li><li>Assign implicit H-Num: Assign number of implicit hydrogens while taking into account
+formal charges. Use this if the molecule contains formal charges, but no explicit hydrogens.</li><li>Assign formal charges: Assigns formal charges while taking into account the number of
+implicit hydrogens. Use this, if the molecule contains explicit hydrogens but no formal charges.</li><li>Add H: Makes all implicit hydrogens explicit.</li><li>Add Polar H: Makes all implicit hydrogens of polar atoms explicit.</li><li>Strip H: Makes all hydrogens implicit.</li><li>Strip non-polar H: Makes all non-polar hydrogens implicit.</li><li>Strip H20: Removes all water molecules (including unbound O or H atoms and OH molecules).</li><li>Kekulize: Assign a Kekule structure to the molecule, in effect replacing all aromatic bond
+systems with alternating single and double bonds.</li><li>Kekulize Non-Rings: Assigns a Kekule structure to all non cyclic parts of the molecule.
+This is necessary for the editor to work properly as aromaticity is only allowed for rings.</li><li>Dekekulize: This will check all rings system for aromaticity, using the extended Hueckel
+rule and assign aromaticity where appropriate.</li>
+</ul>
+
+<h3><a name="A5">Transform Tab</a></h3>
+<div style="text-align:center"><a name="A6"></a><a href=TransformTab.png.html><img width=375 src="TransformTab.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Transform Tab</div>
+
+
+</div>
+<p> The transform tab is divided into four 
+ different sections. Each section can be
+ used to adjust certain coordinates of 
+ the currently selected atoms. The 
+ different coordinate types are:</p>
+
+<ul><li><em>Position</em> is the Cartesian coordinate 
+ of an atom. If several atoms are
+ selected, only relative changes are allowed.</li><li><em>Bond Length</em> is the distance between two selected atoms.</li><li><em>Bond Angle</em> is the planar angle between three selected atoms.</li><li><em>Bond Torsion</em> is the dihedral angle between four atoms.</li>
+</ul>
+<p>Coordinates can be set absolute or relative to their current value. In
+each section, the upper row (with gray background) displays the current
+absolute value. In the lower row (with white background) you can enter
+a new value. In the right part of each section are three buttons. The
+first button transforms the coordinate while assuming that the entered
+value is an absolute value. The second button simply applies the
+transformation with the entered value text as a relative difference.
+The third button will activate a dragger in the viewer for adjusting
+the coordinate interactively. The <a class="link" href="../hxmolview/HxMeasurement.html#A1">Measurement</a>
+module can be used to display currently edited bonds or angles.</p>
+<p>Which buttons can be used and which are disabled depends on the number
+of currently selected atoms.</p>
+<p>An additional toggle button can be found in the <em>Bond Angle</em>
+section. If this toggle is activated, the interactive adjustment with
+the dragger will cause both bonds to be bent symmetrically,
+otherwise only one bond will be bent.</p>
+<p>The position dragger can be moved on the plane determined by the face
+of the cubic dragger you click on. You can additionally rotate the
+selected groups by dragging the green knobs.</p>
+
+<h3><a name="A7">Tools Tab</a></h3>
+<div style="text-align:center"><a name="A8"></a><a href=ToolsTab.png.html><img width=375 src="ToolsTab.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Tools Tab</div>
+
+
+</div>
+<p>The tools tab is subdivided into two sections:</p>
+
+<h4><a name="A9">Change Topology</a></h4>
+<p>The <em>cut</em> button will cut the currently selected groups
+out of the molecule. The <em>split</em> button will do the same but
+will copy the groups into a new molecule which will be added in the
+Pool. The <em>copy</em> button will leave the current molecule
+unchanged while copying the selected groups into a new molecule which
+will be added to the Pool. When pressing the <em>add</em>
+button, a window will open which will let you choose another molecule
+in the Pool whose groups you want to add to the current
+molecule.</p>
+
+<h4><a name="A10">Connection</a></h4>
+<p>The <em>Connection</em> section offers different options for
+influencing the bonding of the currently selected atoms On the right 
+side of the interface are buttons for adding or removing bonds between
+the currently selected atoms. The set of bonds which will be 
+added or removed will depend on the connection mode that you can choose on 
+the left side of the interface. 
+</p>
+<ul><li><em>Standard</em>: This is the most reliable
+method for adding bonds to a protein or DNA/RNA. 
+It will look up all residues in a residue
+database and add bonds accordingly. This method will only work for
+molecules that contain the residue type attribute. For connections
+between different residues it will check all residues on a chain
+sequentially. When used together with the cut action all bonds will be
+removed which can not be found in the database.</li><li><em>Bond length table</em>: This option lets you add bonds between
+selected atoms by looking up their bond lengths in the file
+<em>bondLengths.cfg</em> which can be found and edited in your local <em><font face="helvetica">Amira</font>/share/molecules</em> directory. If the distance of two atoms does
+not deviate further than a certain threshold from the bond length
+between the respective elements in the table, the bond will be added.
+This method is able to distinguish between single, double, triple, and
+aromatic bonds. It should be the first choice for non-standard
+residues or molecules not containing residue information. Just like the
+<em>Standard</em> option this mode can also be used together with the <em>cut</em> 
+action. In this case all bonds which deviate too strongly from the bond 
+length table will be removed.</li><li><em>External</em>: This mode can only be used together with the <em>cut</em> 
+action. It will remove all bonds between selected and unselected
+atoms thus enabling you to disconnect certain parts of the molecule
+from the rest.</li><li><em>All</em>: This mode will add or remove all possible bonds between the 
+selected atoms.</li><li><em>Distance Cutoff</em>: This last mode uses a distance cutoff for deciding
+which bonds to add or remove. The <em>Maximal Atom Distance</em> slider
+determines the maximal distance of two bonded atoms in &#8491;. When using this 
+mode together with the <em>add</em> action all bonds between atoms which are 
+nearer than the cutoff distance will be added. 
+Equally, the <em>cut</em> action will remove all bonds whose length is greater than the 
+threshold.</li>
+</ul><p>
+<br />
+</p>
+
+<h3><a name="A11">Building</a></h3>
+<p>Adding atoms or groups is accomplished by selecting a single atom and replacing it
+with a new one. Usually, the selected atom would be a hydrogen, but you can replace 
+heavy atoms as well. Hydrogens for the new parts are automatically added. </p>
+<p>The <em>atoms</em> section contains buttons to add atoms of commonly used elements in organic chemistry.
+With the '<tt>-&gt;</tt>' button you can activate a periodic table to select less common elements. Other buttons in this
+section are:
+</p>
+<ul><li>+ and -: Increases or decreases the formal charge of the atom by 1. The number of hydrogens will
+be automatically adjusted.</li><li>+V and -V: Increases or decreases the valency of the atom by one. They will appear as
+new or removed explicit or implicit hydrogens. Adding valencies is only possible if the atom has lone electron
+pairs or an unpaired electron. Removing valencies is only possible, if the atom has explicit or implicit hydrogens.</li><li><b></b> Delete: Deletes all selected atoms.</li>
+</ul>
+<p>The <em>carbon chains / rings </em> section allows to add carbon chains or cyclocarbons. 
+The number of the carbon atoms can be adjusted and the hybridization can be selected, with 'sp2'
+creating chains of the form C=CC=C... or aromatic rings.</p>
+<p>The <em>bonds</em> section contains buttons to add bonds, replace bond order or, delete bonds.
+You need to select two atoms. Clicking on '-' will create a single, '=' a double, '#' a triple, and
+'~' an aromatic bond. If the atoms were already connected the bond order will be simply changed.
+We advise against assigning aromatic bonds by hand.
+There is no clear definition of what constitutes 'aromaticity' and creating aromatic bonds outside of ring structures
+can result in some chemo informatics algorithms of the editor returning incorrect result.
+Instead, always assign Kekule structures. You can then assign aromatic bond orders by
+using the 'Dekekulize' tool which guarantees that the internal data-structures stay chemically consistent.</p>
+
+<h3><a name="A12">Button Group</a></h3>
+
+<ul><li><em>OK</em> will close the editor and accept all changes made to the
+molecule.</li><li><em>Cancel</em> returns from the editor restoring
+the last accepted state.</li><li><em>Reset</em> resets the molecule to the last accepted state without canceling the editor.</li><li><em>Apply</em> accepts all changes. This means that resetting
+will return the molecule to the current state.</li><li><em>Undo</em> undoes the last change. Currently, for efficiency reasons, this is only possible for 
+coordinate transformations of the transform tab.</li>
+</ul>
+<div style="text-align:center"><a name="A13"></a><a href=MolEditorButtons.png.html><img width=375 src="MolEditorButtons.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Button Group of the Molecule Editor</div>
+
+
+</div>
+
+<h3><a name="A14">Creating Molecules from Scratch</a></h3>
+<p>The editor can only be invoked when a molecule already exists.
+To create a molecule from scratch you can use the following Tcl command:</p>
+<pre>
+	newMolFromSmiles &lt;SMILES&gt;
+</pre>
+<p>which will generate a molecule from a smiles string [2].
+If you want to use square brackets '[' and ']' you need to enclose the SMILES in
+curly brackets to avoid Tcl command substitution. This is also necessary for the
+bond direction identifier '' which is usually interpreted as an escape character.
+Examples:</p>
+<pre>
+	newMolFromSmiles c1ccnc(C)c1
+	newMolFromSmiles {C[O-]}
+	newMolFromSmiles {F/C=C\F}
+</pre>
+
+<h3><a name="A15">Scripting Interface</a></h3>
+<p>Most functions of the MoleculeEditor are scriptable. An editor associated to a molecule may be created with the command</p>
+<pre>
+	set &lt;myEditor&gt; [ &lt;moleculeObject&gt; createMoleculeEditor ]
+</pre><p>
+where &lt;moleculeObject&gt; is the name of the molecule object as it appears in the objectpool and myEditor is an arbitrary tcl variable
+that will contain the name of the created editor object and which can then be used with the following commands:</p>
+<pre>
+	addH 
+	addPolarH 
+	removeApolarH 
+	removeH
+	removeWater 
+	replaceAtomAtomicNum &lt;atomicNumber&gt;
+	replaceAtomSmiles &lt;smilesStr&gt;
+	assignFormalCharge 
+	assignHNum 
+	assignStandardHNum 
+	incCharge 
+	incValency 
+	decCharge 
+	decValency 
+	dekekulize
+	kekulize 
+	setBondAromatic 
+	setBondDouble 
+	setBondSingle 
+	setBondTriple 
+	minimize 
+	reset 
+	apply 
+	copy 
+	createAttributeMMFFCharge 
+	createAttributeMMFFType
+	createLevelAngles 
+	createLevelDihedrals 
+	createLevelOOPDihedrals 
+	createLevelRingSystems 
+	createLevelRings 
+	createMMFFParameterization 
+</pre>
+
+<h3><a name="A16">References</a></h3>
+<p>[1] Halgren,T.A. Merck molecular force field. I. Basis, form, scope, parameterization, and performance of MMFF94. J.Comp.Chem., 17, 490-519 1996.
+[2] Weininger,D. 'SMILES, a chemical language and information system. 1. Introduction to methodology and encoding rules', J. Chem. Inf. Comput. Sci. 28, 31 - 36 1988.
+</p></div>
+<p>
+
+
+</p></body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortTabBar</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortTabBar" "labeled, selectable tab elements for tabbed dialog" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The QTabBar class provides a bar consisting of a list of labeled, selectable
+ tab elements, e.g., for use in tabbed dialogs.
+ Only one tab can be switched at a time. Thus the port facilitates
+ a one-of-many choice. This port has all methods of a <a class="link" href="HxPortRadioBox.html#A1">PortRadioBox</a>
+ with the additional ability to assign a list of port objects to every
+ single tab element. If a tab element is chosen, all ports included 
+ in the tabs port list and which are also marked as visible, are scheduled for drawing.
+ If a tab gets deselected, the ports included in its port list become hidden.
+ It's possible to add the same port to multiple tab elements and even to multiple QTabBar
+ objects but it gets only visible if all its parent tab elements are selected, which is never the
+ case for two tabs at the same QTabBar.</p>
+<p> <img src="HxPortTabBar.png" /></p>
+<p> Modules using this port are for example
+ <a class="link" href="../hxvolren/HxVolren.html#A1">Volren</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPortRadioBox.html#A1">PortRadioBox</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">portAdd &lt;index&gt; &lt;objectLabel&gt; &lt;portLabel&gt;</span>  
+
+<div class="body"><p>Adds the given port <tt>&lt;object&gt;&lt;port&gt;</tt> to the tab objects <tt>&lt;index&gt;</tt> port list.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">portRemove &lt;index&gt; &lt;objectLabel&gt; &lt;portLabel&gt;</span>  
+
+<div class="body"><p>Removes the given port <tt>&lt;object&gt;&lt;port&gt;</tt> from the tab objects <tt>&lt;index&gt;</tt> port list.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

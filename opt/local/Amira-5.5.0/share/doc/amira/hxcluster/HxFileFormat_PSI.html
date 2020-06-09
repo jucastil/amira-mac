@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2> PSI format</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "PSI format" "ASCII format for 3D points and associated data values (rw)" !>
+<p>The PSI format stores a set of 3D points with additional data variables
+associated to them in a column-oriented way. In <font face="helvetica">Amira</font> PSI files are
+represented by data objects of type <a class="link" href="HxCluster.html#A1">Cluster</a>.</p>
+<p>A PSI file starts with an (optional) header section. This section describes
+the contents of the file, i.e., the number and the meaning of the
+individual data columns. The file syntax is illustrated in the following
+example:</p>
+<p></p><pre>
+# PSI Format 1.0
+#
+# column[0] = "x"
+# column[1] = "y"
+# column[2] = "z"
+# column[3] = "Energy"
+# column[4] = "Grain"
+# column[5] = "Id"
+# column[6] = "Coordination Number"
+# column[7] = "Crystallographic Class"
+#
+# symbol[3] = "E"
+# symbol[4] = "g"
+# symbol[6] = "n"
+# symbol[7] = "c"
+#
+# type[3] = float
+# type[4] = byte
+# type[6] = byte
+# type[7] = { PFCC, GFCC, PHCP, GHCP, OT12, OTHR }
+
+5 2694 115001
+1.00 0.00 0.00
+0.00 1.00 0.00
+0.00 0.00 1.00
+
+-0.748  -0.748  -0.777  -4.3840  15  327909  12  PFCC
+-0.735  -0.739  -0.757  -4.3840  15  327910  12  PFCC
+-0.742  -0.784  -0.754  -4.3400  15  328800  12  GFCC
+-0.757  -0.769  -0.766  -4.3823  15  328812  12  PFCC
+-0.747  -0.762  -0.745  -4.3638  15  328813  12  PFCC
+</pre><p></p>
+<p>The very first line indicates that this is a PSI file. The statement <tt>column[0] = "x"</tt> indicates that the first data column represents the
+x-coordinates of the points. In this example in total eight data columns
+are defined. Note that the names <tt>"x"</tt>, <tt>"y"</tt>, <tt>"z"</tt>, and <tt>"Id"</tt> have a special meaning. These columns are required.</p>
+<p>Next, the statement <tt>symbol[3] = "E"</tt> defines a symbol for the data
+column labeled <tt>"Energy"</tt>. This symbol may be used in an arithmetic
+filter expression as provided for example by the modules
+<a class="link" href="HxClusterView.html#A1">ClusterView</a> and
+<a class="link" href="HxClusterDisplacement.html#A1">ClusterDiff</a>. Note that symbol definitions
+for the four special columns labeled <tt>"x"</tt>, <tt>"y"</tt>, <tt>"z"</tt>, and
+<tt>"Id"</tt> have no effect.</p>
+<p>Finally, the statement <tt>type[3] = float</tt> indicates that internally
+energy values should be stored as 32-bit floating point numbers.
+Alternatively, data values may be stored as 32-bit integers (<tt>int</tt>) or
+as 8-bit characters (<tt>byte</tt>). As a special feature, data values may
+also be represented by textual tokens. In this case, the set of allowed
+tokens should be specified in a comma-separated list as shown in the above
+example.</p>
+<p>The header section may also contain any other user-defined comment,
+provided the first character of a comment line is a <tt>#</tt>. The first
+non-blank line after the header section specifies the number of points, as
+well as two other parameters, which are ignored by <font face="helvetica">Amira</font>. Next, the bounding
+box of the data set is specified. However, <font face="helvetica">Amira</font> will ignore this
+definition. Instead, the bounding box will be calculated from the point
+coordinates itself.</p>
+<p>If a <em>PSI</em> file contains no header section at all, <font face="helvetica">Amira</font> assumes that
+the file contains exactly eight data columns and that these data columns
+are arranged like in the example above.</p>
+<p></p>
+<p>
+
+</p></body>
+</html>

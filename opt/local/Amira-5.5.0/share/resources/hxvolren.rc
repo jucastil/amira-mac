@@ -1,0 +1,12 @@
+module      -name       "Volren" -priority 10\
+            -primary    "HxUniformScalarField3 HxUniformColorField3" \
+            -class      "HxVolren" \
+            -category   "Display" \
+            -package    "hxvolren"
+
+
+module      -name       "CornerCut" -priority 6\
+            -primary    "HxUniformScalarField3 HxUniformColorField3" \
+            -class      "HxCornerCut" \
+            -category   "Display" \
+            -package    "hxvolren"

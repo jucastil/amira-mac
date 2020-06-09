@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.9 Alignment of 2D Physical Cross-sections</a></h2>
+<p>Many microscopic techniques require the sample to be physically cut into
+slices. Then images are taken from each cross-section separately. Usually
+the images will be misaligned relative to each other. Before a
+3-dimensional model of the sample can be reconstructed the images have to
+be aligned taking into account translation and rotation. This tutorial
+shows how this task can be performed using the <em>AlignSlices</em> module.</p>
+<p>The following issues will be discussed:</p>
+<p></p>
+<ol><li>Basic manual alignment</li><li>Alignment via landmarks</li><li>Optimizing the quality function</li><li>Resampling the input data</li><li>Other alignment options</li>
+</ol><p></p>
+<p></p>
+<h3><a name="A2">2.9.1 Basic Manual Alignment</a></h3>
+<p>In this tutorial we want to align 10 microscopic cross-sections of a leaf
+showing a stomatal pore. The images are located in the data directory
+in the subdirectory <em>align</em>. Each slice is stored as a separate JPEG
+image. The file <em>leaf.info</em> defines a 3D image stack consisting of the
+10 individual slices. It is a simple ASCII file as described in the
+<a class="link" href="../hximio/HxReadStackedSlices.html#A1">stacked slices</a> file format section.</p>
+<p></p>
+<ul><li>Load the file <tt>data/align/leaf.info</tt>.</li><li>Create an align module by choosing <em>Compute AlignSlices</em> from
+ the popup menu over the <em>leaf.info</em> icon.</li><li>Press the <em>Edit</em> button of <em>AlignSlices</em>.</li>
+</ul><p></p>
+<p>A new graphics window is popped up allowing you to interactively align the
+slices of the 3D image stack. To facilitate this task, usually two
+consecutive slices are displayed simultaneously. One of the two slices is
+<em>editable</em>, i.e., it can be translated and rotated using the mouse. By
+default the upper slice is editable. This is indicated in the tool bar of
+the align window (the "upper slice" button is selected).</p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutalign1.png.html><img width=450 src="tutalign1.png" /></a><br />
+<div class="caption">
+<b>Figure 27:</b>
+User-interface of the align tool.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>If necessary, press the zoom out button ("-" magnifying glass) 
+ to allow the entire slice to be visible in viewer.</li><li>Translate the upper slice by moving the mouse with the left mouse
+ button pressed down.</li><li>Rotate the upper slice by moving the mouse with the left mouse
+ button and the Ctrl key pressed down. Alternatively, slices can
+ be rotated using the middle mouse button.</li><li>Make the lower slice editable by selecting the "lower slice"
+ tool button. Translate and rotate the lower slice.</li><li>Hold down key number 1. While this key is hold down only the
+ lower slice is displayed.</li><li>Hold down key number 2. While this key is hold down only the
+ upper slice is displayed.</li><li>Pressing key number 1 and 2 also changes the editable slice.
+ Note how the slice tool buttons change their state.</li>
+</ul><p></p>
+<p>Other pairs of slices can be selected using the slider in the upper left
+part of the align window. Note that the number displayed in the text field
+at the right side of the slider always refers to the editable slice. The
+next or the previous pair of slices can also be selected using the space
+bar or using the backspace key, respectively. The cursors keys are used
+to translate the current slice by one pixel in each direction.</p>
+<p></p>
+<ul><li>Browse through all slices using the space bar and the backspace
+ key. Translate and rotate some slices in an arbitrary way.</li><li>Translate all slices at once by moving the mouse with the left
+ mouse button and the Shift key pressed down.</li><li>Rotate all slices at once by moving the mouse with the left
+ mouse button and the Shift and Ctrl key pressed down.</li>
+</ul><p></p>
+<p>Transforming all slices at once can be useful in order to move the region
+of interest into the center of the image.</p>
+<p></p>
+<h3><a name="A4">2.9.2 Alignment Via Landmarks</a></h3>
+<p>Besides manual alignment, four automatic alignment options are supported,
+namely alignment using a principal axes transformation, automatic
+optimization of a quality function, edge detection-based alignment and 
+alignment via user-defined landmarks. The principal axes method and the 
+edge detection method are only suitable for images showing
+an object which clearly separates from the background. The optimization
+method requires that the images be already roughly aligned. Often such a
+pre-alignment can be achieved using the landmarks method.</p>
+<p>Alignment via landmarks first requires you to interactively define the
+positions of the landmarks. This can be done in <em>landmark edit</em> mode.</p>
+<p></p>
+<ul><li>Activate <em>landmark edit</em> mode by pressing the arrow-shape
+ tool button located between the hand-shape button and the 
+ edge detection button.</li>
+</ul><p></p>
+<p>In <em>landmark edit</em> mode only one slice is displayed instead of two.
+Two default landmarks are defined in every slice.</p>
+<p></p>
+<ul><li>Click on one of the default landmarks. The landmark gets
+ selected and is drawn with a red border.</li><li>Click somewhere into the image in order to reposition the
+ selected landmark.</li><li>Click somewhere into the image while no landmark is selected.
+ This causes the next landmark to be selected automatically.</li><li>Click at the same position again in order to reposition
+ the next landmark.</li>
+</ul><p></p>
+<p>The double-click method makes it very easy to define landmark positions.
+Of course, additional landmarks can be defined as well. Landmarks can
+also be deleted, but the minimum number of landmarks is two. </p>
+<p></p>
+<ul><li>Choose <em>Add</em> from the <em>Landmarks</em> menu.</li><li>Click anywhere into the image in order to define the position
+ of the new landmark.</li><li>Select the yellow landmark by clicking on it.</li><li>Choose <em>Remove</em> from the <em>Landmarks</em> menu in
+ order to delete the selected landmark again.</li>
+</ul><p></p>
+<p>Two landmarks should be visible now, a red one, and a blue one. Next, let
+us move these landmarks to some reasonable positions so that we can perform
+an alignment.</p>
+<p></p>
+<ul><li>Select slice number 0.</li><li>Place the landmarks as shown in Figure <a class="link" href="#A5">28</a>. Make use
+ of the double-click method.</li><li>In all other slices place the landmarks at the same positions.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutalign2.png.html><img width=450 src="tutalign2.png" /></a><br />
+<div class="caption">
+<b>Figure 28:</b>
+The figure shows how the landmarks should be set in the tutorial.</div>
+
+
+</div><p></p>
+<p>Once all landmarks have been set, we can align the slices. It is possible
+to align only the current pair of slices, or to align all slices at once.
+Note that all alignment actions as well as landmark movements can be undone
+by pressing Ctrl-Z.</p>
+<p></p>
+<ul><li>Switch back to <em>transform</em> mode by pressing the hand-shape
+ tool button. Two slices should be displayed again.</li><li>Align the current pair of slices by pressing the second tool
+ button from the right (the one with only two lines).</li><li>Align all slices by pressing the first tool button from the
+ right (the one with many lines).</li><li>Move and rotate the whole object into the center of the image
+ using the mouse with the Shift key hold down.</li>
+</ul><p></p>
+<p>In most slices the alignment now should be quite good. However, looking at
+the pairs 3-4 and 4-5 (displayed in the lower left corner of the align
+window) you'll notice that there is something wrong. In fact, slice number
+4 has been accidently inverted when taking the microscopic images.
+Fortunately, we can compensate for this error as follows:</p>
+<p></p>
+<ul><li>Select slice pair 3-4 and make sure that the upper slice, i.e.,
+ slice number 4, is editable.</li><li>Invert the upper slice by pressing the invert button (third one
+ from the right).</li><li>Realign the current pair of slices by pressing the second button
+ from the right).</li><li>Select slice pair 4-5 and realign this pair of slices as well.</li>
+</ul><p></p>
+<p>Alternatively, you could have aligned all slices from scratch by pressing
+the first button from the right.</p>
+<p></p>
+<h3><a name="A6">2.9.3 Optimizing the Quality Function</a></h3>
+<p>Once all slices are roughly aligned, we can further improve the alignment
+using the automatic optimization method. At the bottom of the align window
+the quality of the current alignment is displayed. This is a number between
+0 and 100, where 100 indicates a perfect match. The quality function is
+computed from the squared gray value differences of the two slices. The
+optimization method tries to maximize the quality function. Since only
+local maxima are found, it is required that the slices be reasonably well
+aligned in advance.</p>
+<p></p>
+<ul><li>Click on the slice in the viewer. The quality of the alignment
+ is displayed in the status bar at the bottom of the window.
+ Remember the current quality measure.</li><li>Activate the optimization mode by pressing the tool button with
+ the sum x squared symbol.</li><li>Align the current pair of slices by pressing the second button
+ from the right. Observe how the quality is improved.</li>
+</ul><p></p>
+<p>Automatic alignment is an iterative process. It may take quite a long time
+depending on the resolution of the images and of the quality of the
+pre-alignment. You can interrupt automatic alignment at any time using
+the <em>Stop</em> button. </p>
+<p></p>
+<ul><li>Automatically align all slices by pressing the first button from
+ the right.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A7">2.9.4 Resampling the Input Data</a></h3>
+<p>If you are satisfied with the alignment, you can resample the input data
+set in order to create a new aligned 3D image. This is done using the
+<em>Resample</em> button of the <em>AlignSlices</em> module.</p>
+<p></p>
+<ul><li>Press the <em>Resample</em> button of the <em>AlignSlices</em> module.</li><li>Attach an <em>OrthoSlice</em> module to the resulting object <em>leaf.align</em> and verify that the slices are aligned.</li>
+</ul><p></p>
+<p>Sometimes you may want to improve an alignment later on. In this case it is
+a bad idea to align the resampled data set a second time, since this would
+require a second resampling operation. Instead, you could write the
+transformation data into the original image object and store this object
+in <em>AmiraMesh</em> format. After reloading the <em>AmiraMesh</em> file you
+can attach a new <em>AlignSlices</em> module and continue with the stored
+transformations.</p>
+<p></p>
+<ul><li>Choose <em>Save transformation</em> from the <em>Options</em> menu
+ of the align tool. This will store the transformation data in the
+ parameter section of the input object <em>leaf.info</em>.</li><li>Delete the <em>AlignSlices</em> module.</li><li>Save <em>leaf.info</em> in <em>AmiraMesh</em> format.</li><li>Reload the saved object <em>leaf.am</em>.</li><li>Attach a new <em>AlignSlices</em> module to <em>leaf.am</em> and click
+ the <em>Edit</em> button. Note that the original alignment is
+ restored.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A8">2.9.5 Using a Reference Image</a></h3>
+<p>In some cases you might want to correct the alignment after image
+segmentation has been performed. In order to avoid segmenting the newly
+resampled image from scratch, you can apply the same transformations to a
+label field using a reference image.</p>
+<p></p>
+<ul><li>Delete any existing align tool.</li><li>Load the file <tt>data/align/leaf-unaligned.labels</tt>.</li><li>Attach a new <em>AlignSlices</em> module to the label field.</li>
+</ul><p> </p>
+<p>In the label field the guard cells of the stomatal pore are marked.
+Segmentation has been performed before the images were aligned. Now we want
+to apply the same transformation defined for the image data to the labels.</p>
+<p></p>
+<ul><li>Connect the <em>Reference</em> port of <em>AlignSlices</em> to <em>leaf.am</em> (this is done by activating the popup menu over the
+ small white square at the left side of the <em>leaf.am</em> icon).
+ Observe how the transformations are applied to the label field.</li><li>Export an aligned label field by pressing the <em>Resample</em>
+ button.</li>
+</ul><p></p>
+<p>The image volume used in this tutorial is an RGBA color field. However,
+the image segmentation editor only supports gray level images. Therefore
+you must convert the color field into a scalar field using <em>CastField</em> before you can invoke the image segmentation editor for the
+resampled labels.
+
+</p></body>
+</html>

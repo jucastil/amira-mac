@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ProjectionView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ProjectionView" "maximum intensity projection in xy, xz, and/or yz" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a shadow projection of a 3D uniform scalar field (an
+ image volume) onto the three major planes (xy, xz, yz). Color fields and
+ multi-channel fields are also supported. Maximum intensity projection or
+ averaging can be chosen as projection method. This module is especially
+ useful for data containing line-like structures like neurons or
+ angiographic data.</p>
+<p> If attached to a 1-component scalar field, the location of voxels
+ containing maximal values can be investigated interactively using the
+ module <a class="link" href="HxProjectionViewCursor.html#A1">Projection View Cursor</a>.</p>
+<p> Press the <em>Apply</em> button to recompute the projection.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data set to be projected. Uniform scalar fields, uniform color
+ fields, and uniform multi-channel fields are supported.</p>
+<p>
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest 
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. If such a module is connected,
+ only the volume inside the ROI is projected.
+Alternatively, this port can be connected to <a class="link" href="../hxlattice/HxCylinderSlice.html#A1">CylinderSlice</a>,
+which defines a cylindrical ROI.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+<div class="portsnapshot"><img src="HxProjectionView_colormap.png" /><br /></div>
+<div class="body"><p>An optional colormap which is used when the mapping type is set to
+ <em>colormap</em> (see below).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxProjectionView_options.png" /><br /></div>
+<div class="body"><p><i>interpolate:</i> Bilinearly interpolate between pixels on the
+ projection planes. This in general gives better image quality and
+ less aliasing. However sometimes the resulting image may appear
+ somewhat blurred.<br />
+
+ <i>inverse:</i> Invert gray values. Inversion is done <i>after</i>
+ mapping data values to intensity values via the selected range.<br />
+
+ <i>restrict:</i> Enable to restrict the visualization to a the region-of-interest. 
+ Minimum/Maximum x-, y-, and z-coordinates of the region-of-interest could be controlled 
+ with a dragger (see <em>dragger</em> check box) or with the ports <em>Min. slice</em> and
+ <em>Max. slice</em>.<br />
+
+ <i>lighting:</i> Specifies whether the slices should be illuminated or
+ not. If lighting is on the luminance of the slices changes when the
+ scene is rotated.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Show</span>  
+<div class="portsnapshot"><img src="HxProjectionView_slices.png" /><br /></div>
+<div class="body"><p><a name="A5"></a>
+The three first toggles can be used to turn off the yz-, xz-, or
+ xy-slice.
+ The last toggle <em>dragger</em> enables to show/hide the dragger visibility 
+ which could be used to restrict the visualization of this display module.
+ This toggle is enabled only if the <em>restrict</em> option is checked.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Mapping</span>  
+<div class="portsnapshot"><img src="HxProjectionView_mapping.png" /><br /></div>
+<div class="body"><p>The first menu specifies the projection mode. <em>Maximum</em> searches
+ the largest data value in each projection ray, <em>Minimum</em> for the
+ smallest one. <em>Average</em>
+ computes the average data value for each projection ray. The options
+ <em>depth</em> and <em>depth + max</em> are only available for scalar fields.
+ If <em>depth</em> is chosen on each slice the depth of the pixel
+ containing the maximum value is depicted, instead of the maximum
+ value itself. If <em>depth + max</em> is chosen, first an ordinary
+ maximum intensity projection is computed and mapped to a gray image.
+ Then the gray image is multiplied with a pseudo-color image of the
+ depth values. This allows to visualize both projected structures and
+ depth information at once.</p>
+<p> The second menu specifies how the projected data should be mapped to
+ color or intensity. Three modes are available, <em>linear</em>,
+ <em>histogram</em>, and <em>colormap</em>. These modes are identical to
+ the ones described for the <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module.
+ <em>Colormap</em> is not available for color fields and for multi-channel
+ fields.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Channels</span>  
+<div class="portsnapshot"><img src="HxProjectionView_channels.png" /><br /></div>
+<div class="body"><p>This port is displayed if the module is connected to a multi-channel field.
+ It allows you to turn individual channels on or off.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxProjectionView_range.png" /><br /></div>
+<div class="body"><p>This port is only available in <em>linear</em> mapping mode. All data
+ values smaller than the specified minimum are mapped to black, all
+ values larger than the maximum are mapped to white, and the values in
+ between are mapped linearly.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Contrast Limit</span>  
+<div class="portsnapshot"><img src="HxProjectionView_contrastLimit.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>histogram</em> equalization is selected.
+ The number determines the contrast of the resulting image. The higher
+ the value, the more contrast is contained in the resulting image.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Min. slice</span>  
+<div class="portsnapshot"><img src="HxProjectionView_minimum.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>restrict</em> option is checked.
+ It controls the Minimum x-, y-, and z-coordinates of the region-of-interest. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Max. slice</span>  
+<div class="portsnapshot"><img src="HxProjectionView_maximum.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>restrict</em> option is checked.
+ It controls the Maximum x-, y-, and z-coordinates of the region-of-interest. </p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">createImage &lt;image base name&gt; </span>  
+
+<div class="body"><p>This command creates 2D images from the projections in the Pool. Between one
+and three images are created depending on the port <a class="link" href="#A5">Show</a>.
+The image base name can be omitted.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTransparency &lt;alpha&gt;</span>  
+
+<div class="body"><p>Set transparency of projections. A value 0 makes it completely opaque, 1 completely transparent.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AverageVolumes</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "AverageVolumes" "computes the average of scalar and label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module computes the per-voxel average of an arbitrary number of 
+ 3D image data sets or label fields. The data sets are loaded from disk 
+ successively so that they do not have to fit into main memory simultaneously. 
+ A transformation per data set is taken into account. The transformation 
+ matrix needs to be stored along with each data set as a parameter.</p>
+<p> If label fields are to be averaged, two modes are provided which are described 
+ below.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data set connected to this port defines location and resolution of the 
+ resulting field. In the case of label averaging, this data must be a label 
+ field.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxAverageBrain_mode.png" /><br /></div>
+<div class="body"><p>Four different modes are available:
+</p>
+<ul><li><b>Average</b> computes the gray value average per voxel.</li><li><b>Avg+Std.Dev.</b> computes the gray value average and the standard
+ deviation per voxel. This requires twice as much time as the <em>Average</em> 
+ option.</li><li><b>Label</b> computes the probability map for one specific label which
+ must be specified. The probability map contains for each voxel 
+ the probability for that material voxel to occur at that voxel.
+ The output ranges from 0 to 100 where 100 stands for a probability of 1.</li><li><b>BestLabel</b> computes for each voxel the label which is most likely
+ to occur at that point. Additionally it creates a probability map which 
+ contains the probability for the specific label at each voxel.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Material</span>  
+<div class="portsnapshot"><img src="HxAverageBrain_material.png" /><br /></div>
+<div class="body"><p>This port is only visible when port <em>Mode</em> is set to <em>Label</em> and it
+ specifies the material to be averaged. The numbers correspond to the 
+ material IDs as defined in the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>: 
+ <b>0</b> corresponds to <em>Exterior</em>, <b>1</b> corresponds to the first 
+ material in the list, and so forth.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Files</span>  
+<div class="portsnapshot"><img src="HxAverageBrain_files.png" /><br /></div>
+<div class="body"><p>A list of files to be processed separated with space. This list can be filled 
+ using the <em>Choose Files</em> button explained below.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transform</span>  
+<div class="portsnapshot"><img src="HxAverageBrain_transform.png" /><br /></div>
+<div class="body"><p>The name of a parameter holding the 16 parameters of a transformation matrix. 
+ This parameter should be present in all data sets. If no parameter with that
+ name is found the identity matrix is assumed.</p>
+<p> In order to set such a parameter you can follow this recipe: After you have 
+ aligned a data set to your template (e.g. by using the transform editor or 
+ using module <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">AffineRegistration</a>, you need to save
+ it to disk. Doing so writes a new parameter <em>TransformationMatrix</em> into
+ the parameter section of the data object.</p>
+<p> If you need to set the parameter to multiple objects you may also use the 
+ following TCL commands in a script:</p>
+<p> <tt>eval &lt;dataset&gt; parameters setValue &lt;parameter name&gt; &#123;&lt;t00 &lt;t01&gt; &lt;t02&gt; 
+ &lt;t03&gt; &lt;t10&gt; &lt;t33&gt;&#125;</tt> where <tt>&#123;&lt;t00&gt; &lt;t01&gt; &lt;t02&gt; &lt;t03&gt; &lt;t10&gt; ... &lt;t33&gt;&#125;</tt> 
+ refers to the 16 values of the transformation matrix, <tt>&lt;dataset&gt;</tt> to the 
+ name of the particular data set and <tt>&lt;parameter name&gt;</tt> to the name you 
+ have chosen for the parameter, like e.g. <tt>MyTransformation</tt>).</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Choose</span>  
+<div class="portsnapshot"><img src="HxAverageBrain_choose.png" /><br /></div>
+<div class="body"><p>Clicking on this button will open a file browser which allows you to select 
+ multiple files to be averaged.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

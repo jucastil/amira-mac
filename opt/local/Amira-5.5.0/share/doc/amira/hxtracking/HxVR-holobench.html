@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.5.2 Example: A Holobench Configuration</a></h3>
+<p>A Holobench (TM) - or dual-screen workbench - is a special display system 
+consisting of two screens oriented perpendicular to each other. 
+One screen is oriented vertically,
+the other one is oriented horizontally like a table. 
+This provides a wide field display with more space free for hand interaction 
+and manipulation as compared to a single-screen display.
+On a good Holobench
+there is almost no visible border between the two screens. Provided the
+observer's eye position is known, correct perspective views can be computed
+so that the displayed scene finally does not appear to have any break.
+However, in contrast to a single-screen workbench this is only the case for
+the tracked observer. Other spectators will more or less clearly notice a
+break.</p>
+<p>In order to drive a workbench at least a stereo-capable dual-head graphics
+computer is required. In principle, two different settings are possible.
+Either, there is a big desktop and one half of it is output on a first
+channel and the other one is output on a second channel. Or, there are two
+independent graphics adapters (pipes) which are configured as two different
+X11 displays or as one display with two X11 screens. In the config file
+below we assume, that the desktop is split into two halves (left and right).
+An example of how to use a multi-pipe graphics computer is presented in the
+next section where a 4-sided CAVE configuration is described.</p>
+<p><font size="2"></font></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Vertical Screen"
+        lowerLeft       0 0 0
+        lowerRight      180 0 0
+        upperRight      180 110 0
+        upperLeft       0 110 0
+        channelOrigin   0 0
+        channelSize     0.5 1
+        cameraMode      ACTIVE_STEREO
+    }
+    SoScreen {
+        name            "Horizontal Screen (rotated)"
+        lowerLeft       180 0 0
+        lowerRight      0 0 0
+        upperRight      0 0 110
+        upperLeft       180 0 110
+        channelOrigin   0.5 0
+        channelSize     0.5 1
+        cameraMode      ACTIVE_STEREO
+    }
+    SoTracker {
+        server          "4147:4148"
+        autoConnect     TRUE
+        wandTrackerId   1
+        headTrackerId   0
+        leftEyeOffset   6 0 0
+        rightEyeOffset  13 0 0
+        defaultCameraPosition 90 55 110
+        defaultObjectPosition 90 20 20
+        referencePoints [60 0 110,120 0 110,120 0 55,60 0 55]
+    }
+}
+</pre><p><font size="2"></font></p>
+<p></p>
+<h4><a name="A2">Display configuration</a></h4>
+<p>In the two <em>SoScreen</em> sections of the config file the geometry of the
+Holobench is described by specifying the physical coordinates of the four
+corners of each screen. An arbitrary right-handed coordinate system with
+arbitrary units can be chosen. Here the coordinates are specified in
+centimetres and the origin was put in the lower left corner of the vertical
+screen. Notice, that the horizontal screen was rotated by 180 degrees
+with respect to the vertical screen. I.e., instead of the upper left corner
+the lower right corner of the horizontal screen is located at the origin.
+This is because the horizontal image of a Holobench is usually projected
+that way. If the corresponding lower scan-lines of the two images meet at
+the border between the two screens artifacts due to delayed response of the
+active shutter glasses are avoided. The fields <em>channelOrigin</em> and <em>channelSize</em> indicate that the graphics window for the vertical screen
+should be opened on the left half of the desktop, while the graphics window
+for the horizontal screen should be opened on the right half. Both windows
+are opened in stereo mode by default as specified by <em>cameraMode</em>.</p>
+<p></p>
+<h4><a name="A3">Tracking system configuration</a></h4>
+<p>In the <em>SoTracker</em> section of the config file the tracking system is
+described. First the shared memory ids of the trackd daemon as specified
+in the <em>trackd.conf</em> file are listed.<br />
+
+The syntax is <tt>Id-of-controller-reader:Id-of-tracker-reader</tt>.
+For more information about
+setting up trackd please refer to section <a class="link" href="HxVR-calibrate.html#A1">11.6</a>.
+The <em>autoConnect</em> field indicates that a connection to the trackd
+daemon should be established automatically as soon as the configuration is
+activated. <em>wandTrackerId</em> denotes the trackd sensor id of the 3D input
+device. <em>headTrackerId</em> denotes the trackd sensor id of the head
+sensor which is usually mounted at the shutter glasses. The fields
+<em>leftEyeOffset</em> and <em>rightEyeOffset</em> specify the actual position of
+the eyes with respect to the head sensor. Standing in front of the
+Holobench the x-axis points horizontally to the right, the y-axis points
+upwards, and the z-axis points towards the observer. In this case we assume
+the head sensor to be mounted on the left side of the glasses since both
+left and right eye have a positive offset in x-direction. </p>
+<p>The <a class="link" href="HxTracking.html#A1"><font face="helvetica">VRSettings</font></a> control module allows for interactive 
+adjustment of the eye offset.<br />
+
+<a href=HxTracking_leftEyeOffset.png.html><img width=450 src="HxTracking_leftEyeOffset.png" /></a><br />
+<a href=HxTracking_rightEyeOffset.png.html><img width=450 src="HxTracking_rightEyeOffset.png" /></a><br /></p>
+<p>
+The default camera position and the default object position both are specified in
+the same coordinate system as the screens. The default camera position
+is only used if the tracking system is disconnected. The default object
+position is the position where the scene is placed by default (or whenever
+a <em>view all</em> request comes from the viewer).</p>
+<p>At the end of the config file four reference points are specified, namely
+four points on the horizontal screen. Before the configuration can be
+actually used, the tracking system has to be calibrated (see section
+<a class="link" href="HxVR-calibrate.html#A1">11.6</a>). This is done by placing the input device at the
+reference points and clicking an input button. The reference points were
+chosen so that they can be easily accessed with the hand. In addition, it
+is important that the points are well inside the operating range of the
+tracking system. During calibration the raw coordinates of the wand sensor
+are displayed, so you can check if these values are reasonable. Once the
+tracking system is calibrated, the config file should be written by
+clicking the <em>write config</em> button of the <font face="helvetica">VRSettings</font> control module. The
+new config file will contain the same information listed above, but in
+addition it will also contain some calibration data, e.g., the
+transformation between raw tracker coordinates and screen coordinates.</p>
+<p></p>
+<p>
+</p></body>
+</html>

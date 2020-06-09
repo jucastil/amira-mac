@@ -1,0 +1,137 @@
+# Amira-Script-Object V3.0
+
+####################################################################
+#
+# TranslateObject 1.0
+#
+# translate an object linearly between two points
+#
+# author: Hartmut Schirmacher
+# (C) copyright 2005-2012, Visualization Sciences Group (VSG) SAS
+#
+####################################################################
+
+
+# the constructor is called when a scro is created or restarted
+#  and is used to create the user interface and initialize member variables 
+$this proc constructor {} {
+
+    # hide the script file port, the user does not need it
+    # $this script hide
+
+    # this is the "ID" for this scro so other modules can identify its type
+    $this setVar scroTypeTranslateObject 1
+
+    # master time slider
+    $this newPortTime time
+ 
+    # start point of translation
+    $this newPortFloatTextN startPoint 3
+    $this startPoint setLabel "Start point:"
+    $this startPoint setValues 0 0 0
+
+    # end point of translation
+    $this newPortFloatTextN endPoint 3
+    $this endPoint setLabel "End point:"
+    $this endPoint setValues 0 0 0
+
+    # get current object position
+    $this newPortButtonList currentPos 2
+    $this currentPos setLabel "Current position:"
+    $this currentPos setLabel 0 "Set start point"
+    $this currentPos setLabel 1 "Set end point"
+    $this currentPos setSensitivity 0 0
+    $this currentPos setSensitivity 1 0
+    $this currentPos setCmd 0 {
+	$this setStartPoint [[$this data source] getTranslation]
+    }
+    $this currentPos setCmd 1 {
+	$this setEndPoint [[$this data source] getTranslation]
+    }
+
+    # options
+    $this newPortToggleList options 1
+    $this options setLabel "Options:"
+    $this options setLabel 0 "explicit redraw"
+    $this options setValue 0 0
+}
+
+# destructor is called when DemoMaker is destroyed
+$this proc destructor {} {
+}
+
+# the "compute" method is called whenever a port has changed
+$this proc compute {} {
+
+    # has an object been attached or detached? 
+    if [$this data isNew] {
+	if {[$this data source] == ""} {
+	    $this currentPos setSensitivity 0 0
+	    $this currentPos setSensitivity 1 0
+	} else {
+	    $this currentPos setSensitivity 0 1
+	    $this currentPos setSensitivity 1 1
+	}
+    }
+
+    # when the time slider is touched, translate object
+    if [$this time isNew] {
+	set tminmax [$this time getMinMax]
+	$this translateObject [$this data source] \
+	    [$this time getValue] \
+	    [lindex $tminmax 0] [lindex $tminmax 1] \
+	    [$this startPoint getValue 0] \
+	    [$this startPoint getValue 1] \
+	    [$this startPoint getValue 2] \
+	    [$this endPoint getValue 0] \
+	    [$this endPoint getValue 1] \
+	    [$this endPoint getValue 2] 
+    }
+	
+}
+
+
+# translate attached object $obj between two positions, corresponding to 
+#   time step $t within $t_minmax.
+$this proc translateObject {obj t tmin tmax x0 y0 z0 x1 y1 z1} {
+
+    # check if a suitable object is connected
+    if {$obj == ""} {
+	echo "$this: no data object connected."
+	$this time stop
+	return
+    }
+    if {![$obj hasInterface HxSpatialData]} {
+	echo "$this: $obj is not a spatial data object."
+	$this data disconnect
+	return
+    }
+
+    # compute the current position
+    set f [expr ($t-$tmin)/($tmax-$tmin)]
+    set x [expr $f *($x1-$x0)+$x0]
+    set y [expr $f *($y1-$y0)+$y0]
+    set z [expr $f *($z1-$z0)+$z0]
+
+    # do translation
+    $obj setTranslation $x $y $z
+    $obj touch 1 ;# touch translation
+    $obj fire 
+
+    if [$this options getValue 0] {viewer redraw}
+   
+}
+
+# set start point from current object translation
+$this proc setStartPoint {pos} {
+    foreach i {0 1 2} {
+	$this startPoint setValue $i [lindex $pos $i]
+    }
+}
+
+# set end point from current object translation
+$this proc setEndPoint {pos} {
+    foreach i {0 1 2} {
+	$this endPoint setValue $i [lindex $pos $i]
+    }
+}

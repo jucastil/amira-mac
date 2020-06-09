@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Abaqus format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "Abaqus format" "describes FEM grids and density data (w)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>Abaqus</em> file format (<tt>http://www.simulia.com/</tt>) is a 
+file format used by the Abaqus program (version 6.7) to encode
+CAD/CAM models and FEM simulation results. The format is able to
+store different data entities and FEM cell types. In <font face="helvetica">Amira</font>
+tetrahedral meshes can be exported together with sampled density
+fields.</p>
+<p>The file name extension of this format is <tt>.inp</tt>. For <em>Abaqus</em>
+files with some other extension the file format has to be specified
+manually via the popup menu of the file dialog. </p>
+<p>A special mode is enabled if density fields are saved in the <tt>.inp</tt> format. The data attached to the nodes is binned given its
+maximum and minimum value. For each bin a different material is
+created. The number of bins (default 20) can be controlled with a TCL
+variable <tt>ABAQUS_NUM_BINS</tt> which needs to be defined before
+exporting in the console window. If the TCL variables <tt>ABAQUS_MIN_VALUE</tt>
+and <tt>ABAQUS_MAX_VALUE</tt> are set to some floating point values
+these values will be used as the minimum and maximum value of the
+histogram. Values outside the defined range will be assigned to the
+first and last bin.</p>
+</div>
+<p>
+
+
+</p></body>
+</html>

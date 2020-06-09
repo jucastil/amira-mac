@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">30.2 Important Global Objects</a></h2>
+<p><a name="A2"></a>
+Beside the base classes of modules and data objects, there are some
+more classes in the <font face="helvetica">Amira</font> kernel that are important to the
+developer. Many of these classes have exactly one global instance.
+A short summary of these global objects is presented here.
+For details, please refer to the online reference documentation by
+looking at the file <tt>share/programmersguide/index.html</tt> in the
+<font face="helvetica">Amira</font> root directory.<b>HxMessage:</b> This class corresponds to the <font face="helvetica">Amira</font> console window
+in the lower right part of the screen. There is only one global
+instance of this class, which can be accessed by <tt>theMsg</tt>. All text
+output should go to this object. Text can be printed using the function
+<tt>theMsg-&gt;printf("...",...)</tt>, which supports common C-style <tt>printf</tt>
+syntax. <tt>HxMessage</tt> also provides static methods for popping up
+error and warning messages or simple question dialogs.
+<b>HxObjectPool:</b> This class maintains the list of all currently existing
+data objects and modules. In the graphical user interface the Pool
+is represented by the upper area in the main window containing the
+modules' and data objects' icons. There is only one global instance of this
+class, which can be accessed by the pointer <tt>theObjectPool</tt>.<b>HxWorkArea:</b> This class displays the ports of selected objects in
+the Properties Area and provides the progress bar and busy-state functionality. 
+Important
+functions are <tt>startWorking</tt>, <tt>stopWorking</tt>, <tt>wasInterrupted</tt> as
+well as <tt>busy</tt> and <tt>notBusy</tt>. There is only one global instance of
+this class, which can be accessed by the pointer <tt>theWorkArea</tt>. <b>HxFileDialog:</b> This class represents the file browser used for loading 
+and saving data. Normally the developer does not need to use this class since
+the standard I/O mechanism is completely implemented in the <font face="helvetica">Amira</font> kernel. 
+However, for special purpose modules, a separate file browser might be
+useful. There is a global instance of this class, which can be accessed by
+the pointer <tt>theFileDialog</tt>. <b>HxResource:</b> This class maintains the list of all registered file
+formats and modules as defined in the package resource files. It also
+provides information about the <font face="helvetica">Amira</font> root directory, the local <font face="helvetica">Amira</font>
+directory, the version number, and so on. Normally there is no need for
+the developer to use this class directly. 
+There is no instance of this class, since all its
+members are static.</p>
+<p>
+<b>HxViewer:</b> This class represents an <font face="helvetica">Amira</font> 3D viewer. There can be
+multiple instances which are accessed via the method <tt>viewer</tt> of the
+global object <tt>theController</tt>. Normally you will not not need to use
+this class. Instead, you should use the member functions <tt>showGeom</tt> and
+<tt>hideGeom</tt> which every module and data object provides in order to display
+geometry.<b>HxController:</b> This class controls all 3D viewers and 
+Open Inventor geometry. In order to access a viewer you may use the following
+statement:
+<font size="2"></font></p><pre>
+    HxViewer* v0 = theController-&gt;viewer(0,0);
+</pre><p><font size="2"></font>
+The first argument indicates the ID number of the viewer to be retrieved. In total
+there may be up to 16 different viewers. The second argument specifies whether
+the viewer should be created or not if it does not already exist.</p>
+<p><b>HxColorEditor:</b> <font face="helvetica">Amira</font>'s color editor. Used, for example, to define the
+background color of the viewer. In a standard module you should use
+a port such as <tt>HxPortColorList</tt> or <tt>HxPortColorMap</tt> instead of
+directly accessing the color editor. There is a global instance of this
+class, which can be accessed by the pointer <tt>theColorEditor</tt>.
+<b>HxHTML:</b> A window used to display HTML files. This class is used
+for <font face="helvetica">Amira</font>'s online help. The global instance used for displaying the online
+user's guide and the online programmer's guide can be accessed by the
+pointer <tt>theBrowser</tt>.</p>
+<p><b>HxMatDatabase:</b> This class represents <font face="helvetica">Amira</font>'s global parameter and
+material database.
+For example, the database contains default colors for
+a number of biomedical tissue types such as fat, muscle, and bone.
+
+The database can be accessed by the global pointer <tt>theDatabase</tt>. Details
+about the material database are discussed in <a class="link" href="HxDev-dataparam.html#A1">Section 27.5.3</a>.
+
+</p></body>
+</html>

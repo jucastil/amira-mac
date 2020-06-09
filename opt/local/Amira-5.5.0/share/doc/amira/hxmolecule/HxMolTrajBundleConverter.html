@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolTrajBundleConverter</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MolTrajBundleConverter" "converts between Molecules, MolTrajectories and MolTrajectoryBundles" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module functions as a converter between the three molecular data types 
+that are used by <font face="helvetica">Amira</font>: <a class="link" href="HxMolecule.html#A1">Molecule</a>, <a class="link" href="HxMolTrajectory.html#A1">MolTrajectory</a>,
+and <a class="link" href="HxMolTrajectoryBundle.html#A1">MolTrajectoryBundle</a>.</p>
+<p>It allows an arbitrary number of input objects to be attached as upstream connections and converted into a single output object.</p>
+<p><b>Conversion into a Molecule:</b></p>
+<p>When using <i>Molecules</i> as inputs, the output will be the union of all groups.
+When using <i>MolTrajectories</i> or <i>MolTrajectoryBundles</i>, each timestep is converted into 
+a <i>Molecule</i> and then added, so the output <i>Molecule</i> will contain all timesteps at once.</p>
+<p><b>Conversion into a MolTrajectory:</b></p>
+<p>This process requires that all input objects have an identical number of atoms.
+The topology (i.e. bonds, residues ...) of the first object will be used 
+as the topology of the output object. Of the other objects, only the atomic coordinates
+are used to add timesteps.</p>
+<p><b>Conversion into a MolTrajectoryBundle:</b></p>
+<p>This conversion is straighforward, since each input <i>Molecule</i> and <i>MolTrajectory</i> will appear as <i>MolTrajectory</i> in the ouput <i>MolTrajectoryBundle</i>.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">input1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input data objects. Whenever you add a new input object, a new available input port will be added.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Add all</span>  
+<div class="portsnapshot"><img src="HxMolTrajBundleConverter_addInput.png" /><br /></div>
+<div class="body"><p>These buttons allow to add all objects (in the object pool) of the specified type as input objects for the conversion.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Result type</span>  
+<div class="portsnapshot"><img src="HxMolTrajBundleConverter_resultType.png" /><br /></div>
+<div class="body"><p>Specifies the type of the result object.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

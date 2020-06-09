@@ -1,0 +1,15 @@
+#######################################################################
+#
+# Add default macro buttons
+#
+# Macro buttons are displayed on top of the object pool unless they
+# are disabled in the preferences dialog. They can be used to trigger
+# common operations like loading a file or starting a demo.
+#
+# The button color can be set using "#RRGGBB" in hex format.
+#
+# A macro button can be removed at run-time like this:
+# macroButton -remove "Load"
+#
+macroButton -add "Open Data..." -color mediumaquamarine -proc "theMain openData"
+

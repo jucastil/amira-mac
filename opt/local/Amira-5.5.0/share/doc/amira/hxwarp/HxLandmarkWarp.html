@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LandmarkWarp</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LandmarkWarp" "landmark-based deformation of a 3D image" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module deforms a 3D uniform scalar field (e.g., image data)
+ using a number of pairs of corresponding points, which are
+ represented by a <a class="link" href="../hxlandmark/HxLandmarkSet.html#A1">LandmarkSet</a>. </p>
+<p> Three different transformation modes are offered: <em>Rigid</em>
+ transforms the input image by applying a global translation and
+ rotation. <em>Bookstein</em> uses so called <em>thin plate
+ splines</em> proposed by Bookstein. <em>Flow</em> uses scattered data
+ interpolation. <em>Bookstein</em> mode guarantees that all landmarks will
+ be transformed exactly to their corresponding points. This is not
+ the case for the two others. In all three modes nearest neighbor
+ interpolation is used for resampling.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxlandmark/HxLandmarkSet.html#A1">LandmarkSet</a>, which
+ defines corresponding points. It must contain at least 2 sets of
+ landmarks.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ImageData</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The data set (3D uniform scalar field),
+ which is to be transformed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Master</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If this port is connected to a uniform scalar field, the output field
+will have the same bounding box and resolution as the master.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Direction</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_direction.png" /><br /></div>
+<div class="body"><p>Select whether points in the first set are to be moved
+ towards their corresponding points in the second set, or the 
+ other way round.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Method</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_method.png" /><br /></div>
+<div class="body"><p>See description above.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Premultiply Rigid</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_rigid.png" /><br /></div>
+<div class="body"><p>Perform a <em>Rigid</em> transformation followed
+ by the nonrigid <em>Flow</em> transformation.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Export Displacement Field</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_options.png" /><br /></div>
+<div class="body"><p>Export a displacement field which is defined on the
+ output grid ($$x_{output}-x_{input}$$). The data type
+ of the output is given by the input data type. Usually
+ you will need to convert the input to float first 
+ (use <a class="link" href="../hxarith/HxCastField.html#A1">CastField</a>).</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Beta</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_parameter.png" /><br /></div>
+<div class="body"><p>Only available in Flow mode: The larger this value is
+ chosen, the more local and the less smooth the resulting
+ transformation becomes. On the other hand for beta=0, the
+ transformation is constant.
+ In detail the basis function used in the flow method is<br />
+
+ f(p1,p2) = exp(- d(p1,p2) * beta).</p>
+<p>
+<a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Norm</span>  
+<div class="portsnapshot"><img src="HxLandmarkWarp_norm.png" /><br /></div>
+<div class="body"><p>The norm to measure the distance in the <i>flow</i> algorithm.
+ Either the L1 norm $$d(p1,p2) = |x1-x2| + |y1-y2| + |y1-y2|$$ is used or 
+ the L2 norm $$d(p1,p2) = sqrt(|x1-x2|^2 + |y1-y2|^2 + |y1-y2|^2)$$.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

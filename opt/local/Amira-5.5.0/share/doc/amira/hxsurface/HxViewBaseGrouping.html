@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Grouping</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Grouping" "groups cells or triangles for easy view selection" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows you to define arbitrary groups or surface triangles
+and/or elements of tetrahedral or hexahedral grids. The groups can be
+used to easily display parts of more complex objects. The grouping
+module can be connected to one or more ordinary display modules like
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>, <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume (Tetrahedra)</a>,
+or <a class="link" href="../hxhexa/HxHexaView.html#A1">GridVolume (Hexahedra)</a> (in fact any module derived from
+<a class="link" href="HxViewBase.html#A1">ViewBase</a> will work). In order to define a group
+first select the parts of the object you are interested in using the
+selection mechanisms provided by the input modules. For example, in
+case of a <em>SurfaceView</em> module different parts can be selected
+via the materials menu, via the selection box (buffer show/hide), via
+2D lasso selection (buffer draw), or by selecting or deselecting
+individual triangles with the mouse. Once the parts of the object you
+want to be in a group are visible, select the <em>New group</em> button.
+Later, this particular display state can be restored by choosing the
+group from the <em>Groups</em> combo box again.</p>
+<p>Internally groups are defined in a bitfield (one bit for each selectable
+element). The bitfields are stored in the parameter section of the
+corresponding data objects. If the objects are saved in the AmiraMesh or
+HxSurface file format after the groups have been defined the group
+definitions are saved too. In addition, the group definitions will also be
+included in network files. Note that group definitions may become invalid
+if the data objects are modified, e.g., if the number of triangles of a
+surface is reduced using the simplification editor.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a display module like <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>,
+<a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume (Tetrahedra)</a>, or <a class="link" href="../hxhexa/HxHexaView.html#A1">HexaView (Hexahedra)</a>.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Module2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to an additional display module connected to some other data
+object than the first one. If multiple inputs are connected to the
+grouping module elements of all input objects can be grouped together.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Groups</span>  
+<div class="portsnapshot"><img src="HxViewBaseGrouping_groups.png" /><br /></div>
+<div class="body"><p>This combo box lists all groups currently being defined. Selecting a group
+from the box causes the elements contained in that group to be shown, to be
+added to the view, or to be removed from the view, depending on the value
+of the <em>Action</em> port (see below).</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxViewBaseGrouping_action.png" /><br /></div>
+<div class="body"><p>This radio box defines what happens when a new group is chosen in the <em>Groups</em> menu. If <em>show</em> is selected, the elements of the new group
+become visible and all other elements become invisible. If <em>add</em> is
+selected the elements of the new group are added to the view. If <em>remove</em> is selected the elements of the new group are removed from the
+view. If <em>nop</em> is selected nothing happens. This last option allows
+you to change the <em>Groups</em> port without changing the view.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Rename</span>  
+<div class="portsnapshot"><img src="HxViewBaseGrouping_rename.png" /><br /></div>
+<div class="body"><p>This text port allows to rename the current group. By default new groups
+are called <em>Group1</em>, <em>Group2</em>, etc.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edit</span>  
+<div class="portsnapshot"><img src="HxViewBaseGrouping_edit.png" /><br /></div>
+<div class="body"><p>This port provides three button for creating a new group containing all
+elements currently being visible (selected, not highlighted), for deleting
+the current group without changing the selection, and for replacing the
+contents of a group by the elements currently being visible.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,20 @@
+################################################################################
+#
+# Resource file of custom package hxdcmexport
+#
+################################################################################
+
+dataFile -name "DICOM" \
+    -multisave "hxDicomExport" \
+    -ext "dcm" \
+    -acceptWriteParameters \
+    -type "HxLattice" \
+    -package "hxdcmexport" \
+    -check { [$PRIMARY getTypeId] != "HxVolumeDataObject" }
+  
+
+module -name "DicomSend" \
+    -primary "HxUniformScalarField3 HxLattice" \
+    -class "HxDicomSend" \
+    -category "Compute" \
+    -package "hxdcmexport"

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortMultiMenu</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortMultiMenu" "list of drop-down menus" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides up to three combo boxes with a variable
+ number of items each. At any time exactly one item is
+ selected in each combo box.</p>
+<p> <img src="HxPortMultiMenu.png" /></p>
+<p> Modules using this port are for example
+ <a class="link" href="../hxsurftools/HxDisplaySurface.html#A13">SurfaceView</a> or
+ <a class="link" href="../hxtetra/HxGridBoundary.html#A10">GridBoundary</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue [&lt;menuindex&gt;]</span>  
+
+<div class="body"><p>Returns the index of the item currently being selected in the specified
+ menu or in the first menu, if no argument is given.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue [&lt;menuindex&gt;] &lt;itemindex&gt;</span>  
+
+<div class="body"><p>Selects item <tt>&lt;itemindex&gt;</tt> in the specified menu or in the first
+ menu, if only one argument is given.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValueString [&lt;menuindex&gt;] &lt;label&gt;</span>  
+
+<div class="body"><p>Selects the item with the specified label string in menu <tt>&lt;menuindex&gt;</tt>
+ or in the first menu, if only one argument is given. If no item with
+ such a label exists, nothing happens and 0 is returned. Otherwise 1 is
+ returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNum [&lt;menuindex&gt;] &lt;numitems&gt;</span>  
+
+<div class="body"><p>Sets the number of items in menu <tt>&lt;menuindex&gt;</tt> or in the first menu,
+ if only one argument is given.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNum [&lt;menuindex&gt;]</span>  
+
+<div class="body"><p>Returns the number of items in menu <tt>&lt;menuindex&gt;</tt> or in the first menu,
+ if only one argument is given. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabel [&lt;menuindex&gt;] [&lt;itemindex&gt;] &lt;newlabel&gt;</span>  
+
+<div class="body"><p>If only one argument is given, this command sets the port's label. If
+ two arguments are given, this command sets the label of item
+ <tt>&lt;itemindex&gt;</tt> in the first menu. If three arguments are given,
+ this command set the label of item <tt>&lt;itemindex&gt;</tt> in menu <tt>&lt;menuindex&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLabel [&lt;menuindex&gt;] [&lt;itemindex&gt;]</span>  
+
+<div class="body"><p>If no argument is given, this command returns the port's label. If one
+ argument is given, this command returns the label of item <tt>&lt;itemindex&gt;</tt>
+ in the first menu. If two arguments are given, this command returns the
+ label of item <tt>&lt;itemindex&gt;</tt> in menu <tt>&lt;menuindex&gt;</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMenuSensitivity [&lt;menuindex&gt;] &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables menu <tt>&lt;menuindex&gt;</tt> or the first menu, if
+ <tt>&lt;menuindex&gt;</tt> is missing. If a menu is disabled it is grayed out
+ and it does not accept any user input.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMenuSensitivity [&lt;menuindex&gt;]</span>  
+
+<div class="body"><p>Checks whether the specified menu is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity [&lt;menuindex&gt;] &lt;itemindex&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables item <tt>&lt;itemindex&gt;</tt> in menu <tt>&lt;menuindex&gt;</tt> or
+ in the first menu, if <tt>&lt;menuindex&gt;</tt> is missing. If an item is
+ disabled it is no longer listed in the menu.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity [&lt;menuindex&gt;] &lt;itemindex&gt;</span>  
+
+<div class="body"><p>Checks whether the specified item in menu <tt>&lt;menuindex&gt;</tt> is enabled
+ or not.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

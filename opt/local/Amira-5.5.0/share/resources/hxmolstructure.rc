@@ -1,0 +1,21 @@
+# ----------------------------------------------------------------------
+# hxmolstructures package
+# ---------------------------------------------------------------------
+	
+module -name "ComputeHBonds" \
+    -primary "HxMolecule" \
+    -class "HxComputeHBonds" \
+    -category "Compute" \
+    -dso "libhxmolstructure.so"
+        
+module -name "ComputeSecondaryStructure" \
+    -primary "HxMolecule" \
+    -class "HxComputeSecStructures" \
+    -category "Compute" \
+    -dso "libhxmolstructure.so"
+
+module -name "PseudoElectronDensity" \
+    -primary "HxMolecule" \
+    -class "HxPseudoElectronDensity" \
+    -category "Compute" \
+    -dso "libhxmolstructure.so"

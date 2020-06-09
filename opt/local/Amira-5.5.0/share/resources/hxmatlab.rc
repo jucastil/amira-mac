@@ -1,0 +1,29 @@
+
+module -name "CalculusMatlab" \
+    -primary "HxLattice3 HxSurface HxSurfaceField HxTime HxLineSet" \
+    -class "HxCalculus" \
+    -category "Compute" \
+    -package "hxmatlab"
+
+module -name "CalculusMatlab" \
+    -class "HxCalculus" \
+    -category "Main" \
+    -package "hxmatlab"
+
+dataFile -name "Matlab mat-file" \
+    -load "HxReadMatlab" \
+    -ext "mat" \
+    -package "hxmatlab"
+
+dataFile -name "Matlab mat-file" \
+    -save "HxSaveMatlab" \
+    -ext "mat" \
+    -type "HxLattice3" \
+    -package "hxmatlab"
+
+dataFile -name "Matlab m-file" \
+    -option "m" \
+    -ext "m" \
+    -save "HxSaveSurfaceToMatlab" \
+    -type "HxSurface" \
+    -package "hxmatlab"

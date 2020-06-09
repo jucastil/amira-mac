@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">23.1 Overview of <font face="helvetica">Developer Option</font></a></h2>
+<p><font face="helvetica">Developer Option</font> is an extension to the ordinary <font face="helvetica">Amira</font> 
+version. In addition to the files contained in the ordinary version, the
+developer version essentially provides all C++ header files needed to
+compile custom extensions.</p>
+<p></p>
+<h3><a name="A2">23.1.1 Packages and Shared Objects</a></h3>
+<p><font face="helvetica">Amira</font> is an object-oriented software system. Besides the core components
+like the graphical user interface or the 3D viewers, it contains a large
+number of data objects, modules, readers and writers. Data objects and
+modules are C++ classes, readers and writers are C++ functions.
+Instead of being compiled into a single static executable, these
+components are grouped into <em>packages</em>. A package is a
+shared object (usually called .so or .sl on Unix or .dll on Windows)
+which can be dynamically loaded by <font face="helvetica">Amira</font> at run time when needed. This
+concept has two advantages. On the one hand, the program remains small
+since only those packages are loaded which are actually needed by the
+user. On the other hand it provides almost unlimited extensibility
+since new packages can be added any time without recompiling the main
+program.
+Therefore, in order to add custom components to the <font face="helvetica">Amira</font> developer
+version, new packages or shared objects must be created and compiled. A
+package may contain an arbitrary number of modules and it is left up to the
+developer whether he wants to organize his modules into several packages or
+just in one.</p>
+<p></p>
+<h3><a name="A3">23.1.2 Package Resource Files</a></h3>
+<p>Along with each package a <em>resource file</em> is stored. This
+file contains information about the components being defined in a
+particular package. When <font face="helvetica">Amira</font> starts, it first scans the resource files of
+all available packages and thus knows about all the components which
+may be used at run-time.
+The resource files of the standard <font face="helvetica">Amira</font> packages are located under <tt>share/resources</tt> in the directory where <font face="helvetica">Amira</font> is installed. Details about
+registering read and write routines or different kinds of modules in a
+resource file are provided in <a class="link" href="HxDev-fileio.html#A1">Chapters 25</a> and
+<a class="link" href="HxDev-modules.html#A1">26</a>.</p>
+<p></p>
+<h3><a name="A4">23.1.3 The Local <font face="helvetica">Amira</font> Directory</a></h3>
+<p>Usually <font face="helvetica">Amira</font> will be installed by the system administrator at a location
+where ordinary users are not allowed to create or modify files. Therefore
+it is recommended that every user creates new packages in his own personal
+<em>local <font face="helvetica">Amira</font> directory</em>. The local <font face="helvetica">Amira</font> directory has essentially the
+same structure as the directory where <font face="helvetica">Amira</font> is installed. A new local <font face="helvetica">Amira</font>
+directory can most easily be created by using the <em>Development
+Wizard</em>, a special-purpose dialog box described in detail in
+<a class="link" href="HxDev-wizard.html#A1">Section 24</a>. 
+Once a local <font face="helvetica">Amira</font> directory has been set up, resource files located in 
+it will also be scanned by <font face="helvetica">Amira</font> when started. In this way new components
+can be added or existing ones redefined. </p>
+<p></p>
+<h3><a name="A5">23.1.4 External Libraries</a></h3>
+<p><font face="helvetica">Amira</font> is based on a number of industry standard libraries. The most
+important ones are <em>Open Inventor</em>, <em>OpenGL</em>, <em>Qt</em>, and <em>Tcl</em>. 
+<font face="helvetica">Amira</font>'s 3D graphics is based on OpenGL and Open Inventor. OpenGL is the
+industry standard for professional 3D graphics. Open Inventor is a C++
+library using OpenGL which provides an object-oriented scene
+description layer. Writing new visualization modules for <font face="helvetica">Amira</font> essentially
+means creating an Open Inventor scene from the input data. If you
+already have code doing this, it will be straightforward to turn it into
+an <font face="helvetica">Amira</font> module. A subset of the Open Inventor headers is included in <font face="helvetica">Developer Option</font>, 
+OpenGL must already be installed on your system.</p>
+<p>Qt is a platform-independent C++ library for building graphical user
+interfaces (GUIs). <font face="helvetica">Amira</font> is built with Qt. However, the user interface
+elements used in standard <font face="helvetica">Amira</font> modules are encapsulated by special <font face="helvetica">Amira</font>
+classes called <em>ports</em>. Therefore you can develop your own modules 
+without knowing Qt. You only need Qt if you plan
+to add completely new user interface components such as special purpose
+dialogs.
+Finally, Tcl is a C library providing an extensible scripting language
+used by <font face="helvetica">Amira</font>. All required header files are included in <font face="helvetica">Developer Option</font>. 
+Detailed knowledge of the Tcl API is usually not needed, as most of the code
+can be derived from existing examples.
+
+</p></body>
+</html>

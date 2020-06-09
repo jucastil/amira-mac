@@ -1,0 +1,39 @@
+# ----------------------------------------------------------------------
+#   Amira 5 segmentation editor
+# ----------------------------------------------------------------------
+
+if { [__isProduct "Amira"] || [__isProduct "ZIBAmira"] } {
+
+subApplication -name "Segmentation Editor" -icon "SubAppGI.png" \
+    -class "HxGiSubApplication" \
+    -package "hxsegeditor"
+
+editor -name "Image Segmentation" \
+    -data "HxLabelLattice3" \
+    -icon "HxSegmentationEditor.png" \
+    -class "HxGiEditor" \
+    -package "hxsegeditor"
+
+module -name "InterpolateLabels" \
+    -primary "HxUniformLabelField3 HxStackedLabelField3" \
+    -category "Labelling" \
+    -class "HxInterpolateLabelsM" \
+    -package "hxsegeditor"
+    
+
+# -----------------------------------------------
+#   Plug-in mechanism for filter plug-in registration
+# -----------------------------------------------
+namespace eval hxsegeditor {
+    set pluginFilterName [list]
+    set pluginClasses [list]
+    set pluginLibs [list]
+
+    proc declareFilterClass {filter className library} {
+        lappend hxsegeditor::pluginFilterName $filter
+        lappend hxsegeditor::pluginClasses $className
+        lappend hxsegeditor::pluginLibs $library
+    }
+}
+
+}

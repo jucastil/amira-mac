@@ -1,0 +1,67 @@
+#####
+### Qt style sheet 
+#####
+
+theAppSkin setStyleSheet Amira amira.qss
+theAppSkin setStyleSheet ResolveRTFEI amira.qss
+
+#####
+### Product icons and captions.
+#####
+
+theAppSkin setIcon MainSmall AmiraMainSmall.png
+theAppSkin setIcon Main AmiraMain.png
+theAppSkin setIcon Console AmiraConsole.png
+theAppSkin setIcon FileDialog AmiraFileDialog.png
+theAppSkin setIcon Help AmiraHelp.png
+theAppSkin setIcon Viewer AmiraViewer.png
+
+theAppSkin setCaption Main ResolveRTFEI "ResolveRT - FEI Edition"
+theAppSkin setCaption Main Amira "Amira"
+theAppSkin setCaption Main ResolveRT "Amira"
+
+#####
+### Product splashes.
+#####
+
+theAppSkin setSplash ResolveRTFEI embed/AmiraFEISplash.png
+theAppSkin setSplash Amira AmiraSplash.png
+theAppSkin setSplash ResolveRT AmiraSplash.png
+
+#####
+### For license dialog.
+#####
+
+theAppSkin addPasswordContact "To buy a new license, please use" Web "http://www.vsg3d.com/contact"
+theAppSkin addPasswordContact "To buy a new license, please use" Email "info@vsg3d.com"
+theAppSkin addPasswordContact "To request or change a license, please use" Web "http://www.vsg3d.com/amira-support"
+theAppSkin addPasswordContact "To request or change a license, please use" Email "license@vsg3d.com"
+
+#####
+### For material database dialog.
+#####
+
+theAppSkin setMaterialDatabaseFile Amira "database.hm"
+theAppSkin setMaterialDatabaseFile ResolveRTFEI "database.hm"
+
+#####
+### Product miscellaneous information.
+#####
+
+theAppSkin setCompanyName "Visualization Sciences Group, SAS"
+theAppSkin setCompanyURL "http://www.vsg3d.com/"
+theAppSkin setOnlineSupportURL "http://www.vsg3d.com/contact"
+theAppSkin setLoggingURL "http://perflog.amira.vsg3d.com/cgi-bin/upload.pl"
+theAppSkin setContactAddress "FEI Visualization Sciences Group\n3, Impasse Rudolf Diesel, Bat A - BP50227\n33708 Merignac Cedex\nFRANCE\n"
+theAppSkin setInitFile "Amira.init"
+theAppSkin setEULAFile "AmiraEULA.html"
+theAppSkin setPathToIndexFile "src/amira/usersguide/doc/index.doc"
+theAppSkin setDocImageSubDir "images/Amira"
+theAppSkin setHelpDir "share/doc/amira"
+theAppSkin setAppFileBaseName amiramain
+
+#####
+### TreeView explorer 
+#####
+
+theAppSkin setOption TreeView 0

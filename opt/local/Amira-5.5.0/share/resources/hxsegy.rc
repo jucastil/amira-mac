@@ -1,0 +1,7 @@
+if {[__isProduct "Amira"]} {
+  dataFile -name "SEGY" \
+           -ext "segy,sgy,SEGY,SGY" \
+           -load "readsegy" \
+           -package "hxsegy" \
+           -loadInOwnThread true
+}

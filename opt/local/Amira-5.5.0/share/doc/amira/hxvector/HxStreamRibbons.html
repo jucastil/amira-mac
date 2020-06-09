@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> StreamRibbons</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "StreamRibbons" "displays stream ribbons in a 3D flow field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module displays stream lines or stream ribbons in a flow field.
+Stream ribbons are computed by tracing two individual stream lines and
+connecting them by triangles. The initial orientation of a stream ribbon
+is orthogonal to the normal direction of the flow field at the seed point.
+The seed points themselves are defined interactively by moving a seed
+shape in space (a line, a circle, or a filled square). The seed shape
+can be transformed using an Open Inventor transformer dragger. In <font face="helvetica">Virtual Reality Option</font>
+it is also possible to pick and transform the dragger using the 3D mouse.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The vector field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used to depict vector magnitude.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_colormap.png" /><br /></div>
+<div class="body"><p>Colormap used to depict vector magnitude.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_resolution.png" /><br /></div>
+<div class="body"><p>Logarithmic slider allowing to adjust the resolution of the stream line
+tracing algorithm. A value of 1 means a 10 times higher resolution compared
+to the default, while a value of -1 means a 10 times smaller resolution.
+The higher the resolution the more line segments and triangles are
+generated.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Density</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_density.png" /><br /></div>
+<div class="body"><p>Logarithmic slider allowing to adjust the density of stream lines or stream
+ribbons. The higher the value the more lines or ribbons are traced.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Width</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_width.png" /><br /></div>
+<div class="body"><p>This slider can be used to adjust the width or thickness of the stream
+ribbons. The default thickness is set proportional to the length of the
+diagonal of the bounding box of the input data set.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_length.png" /><br /></div>
+<div class="body"><p>Adjusts the length of the stream lines or stream ribbons.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Seed type</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_seedType.png" /><br /></div>
+<div class="body"><p>Defines the seed type: along a straight line segment, along a circular
+line, or inside a square regions.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_mode.png" /><br /></div>
+<div class="body"><p>Defines if simple stream lines or stream ribbons should be traced.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Dragger</span>  
+<div class="portsnapshot"><img src="HxStreamRibbons_dragger.png" /><br /></div>
+<div class="body"><p>Allows you to show or hide the Open Inventor dragger for manipulating the
+seed shape position.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+Inherits all ports of <a class="link" href="../hxcore/HxObject.html#A1">Object</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">setBox -b xmin xmax ymin ymax zmin zmax</span>  
+
+<div class="body"><p>Sets the position of the Open Inventor dragger so that it matches the
+specified box. The display is updated automatically.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBox [-t x y z] [-r x y z phi] [-s x y z]</span>  
+
+<div class="body"><p>Alternate way of setting the Open Inventor dragger. The three optional
+arguments indicate the translational, rotational, and scaling part of
+the dragger's transformation matrix. With this command it is possible
+to set the dragger in an arbitrary way (it must not be axis-aligned).
+If all three parts are specified the option strings <tt>-t</tt>, <tt>-r</tt>,
+and <tt>-s</tt> can be omitted.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getBox</span>  
+
+<div class="body"><p>Returns the current transformation of the dragger in terms of translation
+(first three numbers), rotations (next four numbers), and scaling (last
+three numbers). The result can be used as the arguments of the <tt>setBox</tt>
+command.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

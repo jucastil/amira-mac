@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p>
+<h2><a name="A1">2.14 Introduction to the Filament Editor</a></h2>
+<p>This section provides a step-by-step introduction to the Filament Editor.</p>
+<p>To use the Filament Editor a ResolveRT (Microscopy) license is required.</p>
+<p>The Filament Editor is a special purpose sub-application in <font face="helvetica">Amira</font> that is 
+designed to extract complex three-dimensional networks of filamentous structures 
+from image data and post-process such data by editing and annotating the network 
+with label scalar data. In this tutorial we want to demonstrate the principles 
+of the Editor by extracting the dendritic fiber network of an invertebrate 
+neuron. The data set we will be working with depicts a neuron from the honeybee brain 
+imaged with a confocal microscope and was kindly provided by Prof. R. Menzel, 
+Free University of Berlin.</p>
+<p>In this section the following topics will be discussed: 
+</p>
+<ol><li>Exploring the volume data.</li><li>Automatic extraction of the network.</li><li>Interactive tracing.</li><li>Labeling and visualizing the network.</li>
+</ol><p> </p>
+<p>To access the Filament Editor, click the icon in the <a class="link" href="subapp.html#A1">sub-application bar</a>.
+We begin our work by loading the 3D image data set.
+</p>
+<ul><li>Load the file <tt>neuron.am</tt> located in the <tt>data/tutorials/neuron</tt> subdirectory.</li>
+</ul><p> </p>
+<p>
+</p>
+<h3><a name="A2">2.14.1 Exploration of the volume data</a></h3>
+<p>Once the image data has been loaded, the left-hand panel of the viewer shows a 
+2D slice of the volume, while the right-hand panel will show the 3D objects. 
+In order to have a clear idea of how the neuron spreads out in space, 
+we explore the volume by using slicing, windowing, and rendering the gray 
+values. 
+</p>
+<ul><li><b>Window Level</b> Select the <em>Window Level</em> icon, click the 2D viewer, 
+ hold the mouse button pressed, and drag the mouse cursor left/right to 
+ change the window width, or up/down to change the window center. 
+ Set the window level around 30-80. Click the 3D button to visualize the 
+ selected voxels using a shaded volume rendering.</li><li><b>Browse Slice</b> The browsing tool allows using the mouse to 
+ navigate through an image stack in the 2D viewer (or MPR viewer). Select the Browse Slice 
+ icon, click the 2D viewer, hold the mouse button pressed, and drag the mouse 
+ cursor up/down to scroll forward or backward through the image stack. 
+ If you are working with a wheel mouse you can use the wheel instead of 
+ this icon. Simply click the viewer and scroll the mouse wheel to scroll 
+ through the image stack.</li><li><b>Thick Slice</b> The thickness of the slice can be set by sliding the 
+ <em>Thickness</em> slider. When displaying a thick slice, data values are 
+ computed as maximum intensity of the values of the original slices. Set 
+ thickness to 25. Click the 3D slice button to visualize the thick slice in the 3D viewer.</li>
+</ul><p> </p>
+<p>
+</p><div style="text-align:center"><a name="A3"></a><a href=tutneuron_1.png.html><img width=450 src="tutneuron_1.png" /></a><br />
+<div class="caption">
+<b>Figure 35:</b>
+The Filament Editor immediately after the image data has been loaded. 
+The left-hand panel of the viewer shows a 2D slice of the volume, while the 
+right-hand panel shows the 3D objects. The 3D and slice rendering have 
+been activated in the 3D viewer.</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A4">2.14.2 Automatic extraction of the dendritic tree</a></h3>
+<p>In a first step you may want to automatically extract what will serve as a draft 
+version of the neuron's skeleton. This can be achieved with the Filament Editor's 
+<em>Auto Skeleton</em> tool.</p>
+<p></p>
+<ul><li>Set the <em>Window Level</em> to <tt>37 137</tt>.</li><li>Click the 3D button beside the <em>Window Level</em> slider.
+ The 3D viewer shows a shaded volume rendering of
+ the neuron's main branches and gives a rough estimate of what the automatic
+ tracing procedure will consider as part of a neuron.</li><li>Select the <em>Trace</em> tab in the <b>Tool Box</b> and press the <em>Run</em> button of the Autoskeleton port.
+ After a few seconds you will see green lines and blue points in the 2D viewer. 
+ In the 3D viewer gray spheres are
+ displayed together with the preview rendering. If you do not see 
+ them, click the icon <em>View All</em> (or the space bar) to center the 3D viewer on them.</li><li>Adjust the <em>Alpha</em> slider, which appeared when you activated the 3D rendering.
+ You can see the generated graph through the rendering.</li>
+</ul><p> </p>
+<p>The <em>Auto Skeleton</em> tool traces connected regions according to a user-defined 
+window level and converts the centerline of those regions into graphs 
+composed of points, segments, and nodes, which are the elements of the data class 
+<a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a>. The result of the "skeletonization" is, therefore, a <em>SpatialGraph</em> object, which is being 
+visualized in the 3D viewer as balls and lines, and as blue points connected by 
+green lines in the 2D viewer.</p>
+<p>Depending on the quality of the data and on the selected window level the result
+of skeletonization will typically show several disconnected elements and 
+loops within the networks. Disconnected elements will break the single
+neuron into several sub-graphs. Loops, on the other hand, are parts of a graph 
+where segments connect onto itself. In some biological objects like e.g. neurons 
+loops must not occur. To identify graphs and loops the Filament Editor offers 
+dedicated tools. </p>
+<p></p>
+<ul><li>Press the button <em>Identify Graphs</em> to automatically detect and 
+ label all graphs (all connected components) in the SpatialGraph object.
+	This creates a new label group in the Label Editor named
+ <em>Identified_Graphs</em> under which all identified graphs are listed as 
+ <em>Graph0, Graph1, ..., GraphN</em>.</li><li>To visually identify them just click on one of the items in the 
+ <em>Identified_Graphs</em> list. The selected item is highlighted in red in both viewers.</li><li>Under <em>Identified_Graphs</em> select <em>Graph2</em> and shift-select 
+ <em>Graph25</em>, then remove them by clicking the <em>Delete Selection</em> button.</li><li>Press again the button <em>Identify Graphs</em>, now you should have only two graphs.</li><li>Scale the nodes by moving the <em>Node Scaling Factor</em> slider in the 
+ <em>View</em> tab of the <b>Tool Box</b> (we will see the details in the
+ next paragraph).</li>
+</ul><p> </p>
+<p>At this point we have only two graphs: Graph0 is the large tree, while 
+Graph1 is just three segments and four nodes. Switch back to the 
+<em>Edit</em> tab in the <b>Tool Box</b>.</p>
+<p></p>
+<ul><li>Select <em>Graph1</em> in the Label Editor under <em>Identified_Graphs</em></li><li>Activate the <em>Select Single</em> icon and Ctrl-click on the closest 
+ node of Graph0 in the 3D viewer.</li><li>Select the <em>Connect Selected</em> icon to connect the graph.</li><li>Press again <em>Identify Graphs</em>. At this point you should have only 
+ one graph.</li><li>Press <em>Identify Loops</em> to get another label group 
+ <em>Identified_Loops</em>.</li><li>Under <em>Identified_Loops</em> select <em>Loop2</em> and remove it by 
+ clicking the <em>Delete Selection</em> button. Note that a segment is defined
+ by two nodes. Therefore, when you remove a node the associated segment will 
+ be removed too. Hence the "Identified_Loops" contain the looping
+ segments, but not the nodes connecting them. However this may produce isolated points 
+	which can be removed by the Delete Selection button.</li>
+</ul><p> </p>
+<p>It should perhaps be noted that the <em>Auto Skeleton</em> tool is also 
+available as a compute module in the Pool under the <em>Skeleton</em> category. Also,
+there is a rich set of tools available in the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>
+to perform the threshold segmentation necessary for the skeletonization 
+process. Finally, in the case of a strict tree topology it may be advantageous 
+to restrict the search to a tree. In this case you may want to use module 
+<a class="link" href="../hxskeleton/HxTEASAR.html#A1">CenterlineTree</a> to extract a graph with guaranteed tree topology.</p>
+<p>Before closing this subsection, we should save the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> data object 
+we have created, it will be useful in further step of this tutorial.</p>
+<p></p>
+<ul><li>Switch back to the Pool, save the object called <em>neuron.Smt.SptGraph</em>
+ in a directory of your choice and then remove it from the Pool.</li><li>Switch again to the Filament Editor to prepare the next step.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutneuron_2.png.html><img width=450 src="tutneuron_2.png" /></a><br />
+<div class="caption">
+<b>Figure 36:</b>
+The SpatialGraph object obtained with the <em>Auto Skeleton</em> tool. 
+Note the highlighted main graph.</div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A6">2.14.3 Filament Tracing</a></h3>
+<p>The <em>Interactive Tracer</em> tool enables you to trace the filaments directly on 
+the gray values using an innovative tracing algorithm developed by us. 
+The user sets the starting and ending points of a segment and the 
+<em>Interactive Tracer</em> finds the shortest line connecting the two points 
+with respect to the user-defined data window.
+Now we can use the <em>Interactive Tracer</em> to re-trace the neuron segments.
+In order to clearly understand how to use the tracer, we will try to re-trace 
+a small part the of the neuron tree we extracted in the previous paragraph.</p>
+<p></p>
+<ul><li>Press the <em>New</em> button at the <em>Graph Data</em> port
+ to create a new <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> data object.</li><li>Click in the 2D viewer. Using the
+ <em>Browse Slices</em> tool or the mouse wheel, slice through the volume until 
+ you reach the root of the neuron.</li><li>Set the thickness of the <em>Thick Slice</em> to 10 for a better visualization.</li><li>Activate the <em>Interactive Tracer</em> by clicking the <em>Trace Filament</em> icon in the toolbar 
+ and make sure that the <em>Thick structures</em> option is checked in the <em>Trace</em> tab.</li>
+</ul><p></p>
+<p>Note that the <em>Interactive Tracer</em> is alway active while the <em>Trace Filament</em> icon
+is highlighted and it can be triggered only if the 2D viewer is active.</p>
+<p>If you now move the mouse over the 2D slice, the cursor has a cross shape 
+whenever it is over black regions and turns into a crosshair (cross within 
+circle) when it is over voxels that are within the window level. The cross-hair 
+shape indicates that it is possible to set tracing key points. As you will see later, when the 
+pointer is over a traced segment (green line) a small "P" appears in the 
+crosshair. This indicates that a click would select the nearest point as a key 
+point. Likewise, an "N" is shown in the cursor whenever the cursor is over a 
+node and a click will select this node as a key point. Furthermore, the cursor 
+turns red when the trace tool is in <b>append mode</b>, meaning that the next 
+click will trigger a tracing action between the previously selected and the 
+current key point.</p>
+<p></p>
+<ul><li>Start the tracing by clicking on a gray value of the tree root.</li><li>Slice ahead and set further points, until you reach the first bifurcation and click on it.</li><li>Deactivate the <em>Interactive Tracer</em> e.g. by clicking the 
+ <em>Select Single</em> tool or by clicking again its icon.</li>
+</ul><p></p>
+<p>If you press <em>Identify Graphs</em>, you will see only one graph. 
+You can also access some statistical information by clicking on the <em>Graph Info</em>
+button in the <em>Edit</em> tab. This opens a spreadsheet window
+containing a list of all segments in the graph. The spreadsheet is interactive, 
+i.e. if you click on a line, the corresponding segment will be highlighted in 
+the viewer.</p>
+<p>Repeat the actions to trace the first branching sections from the root.</p>
+<p></p>
+<h3><a name="A7">2.14.4 Visualize the network</a></h3>
+<p>The <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> data object is 
+able not only to store the spatial structure, i.e., the geometry of the 
+network, but also to associate it with scalar and label data.</p>
+<p>Labels can also be used to tag or annotate sub-graphs according to their 
+topology. In this simple example we want to tag the three main branches of the 
+<em>Topology</em> as <em>Central</em>, <em>Left</em>, and <em>Right</em> of a neuron tree.</p>
+<p>If you already extracted the graph as described in the second subsection you should 
+now load the file you previously saved, otherwise you should go two steps back 
+and read the subsection <em>"Automatic extraction of the dendritic tree"</em>.</p>
+<p></p>
+<ul><li>Right-click into the Label Editor and select 
+ <em>Add graph label group</em>.</li><li>Right-click on the created label and rename it <em>Topology</em>.</li><li>Right-click on the <em>Topology</em> label and select <em>Add label</em>. 
+ Repeat this action to add three labels.</li><li>Select and right-click on each of the created labels and rename them 
+ <em>Central</em>, <em>Right</em>, and <em>Left</em>.</li><li>Select the <em>Select Lasso</em> icon and select-lasso the right-hand 
+ branch. You can use the <em>Select Lasso</em> tool in combination with 
+ <em>Shift</em> key to deselect-lasso or with the <em>Ctrl</em> key to add 
+ elements.</li><li>Right-click on label <em>Right</em> and select <em>Assign selection</em>.</li><li><p>Repeat the last two items to label <em>Central</em> and 
+ <em>Left</em> branches. Note that this is just an exercise, it does not really
+ matter to exactly select the "Center", "Right" or "Left" segments.</p>
+<p>Select now the <em>View</em> tab in the <em>Tool Box</em></p></li><li>Scale the nodes using the <em>Scaling Factor</em> slider.</li><li>Colorize the nodes according to the label by selecting <em>Topology</em> in 
+ <em>Node Coloring</em>.</li><li>Repeat the last item for the segments.</li><li>Click on the color button of label <em>Right</em> and select a new color.</li>
+</ul><p></p>
+<p>For advanced network visualization you can switch to the Pool. If
+you do so, you may attach a <a class="link" href="../hxspatialgraph/HxSpatialGraphView.html#A1">SpatialGraphView</a> module
+to the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object we created before.</p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutneuron_3.png.html><img width=450 src="tutneuron_3.png" /></a><br />
+<div class="caption">
+<b>Figure 37:</b>
+The visualization of the SpatialGraph obtained with the 
+ <em>AutoSkeleton</em> and Tracing tools.</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A9">2.14.5 Alternative way to extract a network using the Segmentation Editor</a></h3>
+<p>From the Filament Editor just switch to the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a> by 
+clicking the icon in the <a class="link" href="subapp.html#A1">Sub-application Tool Bar</a>. For an 
+in-depth treatment of the Segmentation Editor we refer you to its documentation
+and tutorial. For this simple example you may try the following simple steps.</p>
+<p></p>
+<ul><li>Create a new label field by pressing the <em>New</em> button in the 
+ <em>Label Data</em> port located in the upper part of the user-interface.</li><li>Create a new material by pressing the <em>New</em> button in the 
+ <em>Materials</em> port.</li><li>Right-click the new material in the <em>Material List</em>, select 
+ <em>Rename Material</em> and enter "neuron".</li><li>In the area <em>Display and Masking</em> area set the threshold to 100-255</li><li>In the tool box at the bottom part of the user-interface, select the 
+ <em>Threshold</em> tool and click the <em>Select</em> button.</li><li>in the <em>Selection</em> box click the "+" button to assign the selected 
+ region to material "neuron".</li><li>Switch back to the Filament Editor and select <em>neuron.Labels</em> from
+ the <em>Image Data</em> pull-down menu. Now skeletonize the 
+ label field by pressing the <em>Run</em> button in the <em>Auto Skeleton</em> tool.</li>
+</ul><p></p>
+<p>
+
+</p></body>
+</html>

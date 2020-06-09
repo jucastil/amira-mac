@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CorrelationPlot</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CorrelationPlot" "computes correlation matrix of two images and creates a label field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module computes a 2D correlation histogram of two uniform scalar
+fields (e.g. image stacks). It detects regions of correlated
+intensity in two images of the same object. The result of correlation
+analysis can be applied for an image segmentation because regions of
+high correlation are likely to represent a unique material.
+The module can be connected to a <em>MultiChannelField</em> or to
+two separate images of the same dimensions. The correlation histogram
+is computed as follows:</p>
+
+<ul><li>The data values of each input image are subdivided into a user
+defined number of intervals.</li><li>Element <tt>(i,j)</tt> of the 2D histogram contains the number of
+all voxels where the data values fall into interval <tt>i</tt> for the
+first image and interval <tt>j</tt> for the second image.</li>
+</ul>
+<p>Typically, <em>CorrelationPlot</em> is used for co-localization analysis
+in fluorescence microscopy, where the spatial distribution of two
+fluorochromes has been recorded in two different channels. There, the
+module finds the regions where the fluorescence signal is high in both
+images.</p>
+<p>A further application of <em>CorrelationPlot</em> is the segmentation of
+multi-modal images such as CT and MRI. In this case, the
+images must be registered, i.e., the object position must be identical
+in both images. Use module <a class="link" href="../hxregistration/HxAffineRegistration.html#A1">Registration</a>
+for achieving this alignment, followed by module
+<a class="link" href="../hxarith/HxResample.html#A1">Resample</a> for resampling the model data set to the
+lattice of the reference data set. For the correlation analysis of
+medical image data from different modalities, <em>CorrelationPlot</em>
+lets you define arbitrary intensity ranges.</p>
+<p>Besides the 2D histogram, the module computes basic statistics for the
+image pair such as the number of co-localized voxel pairs, the
+Peak-Signal-to-Noise-Ratio, and the correlation coefficient.</p>
+<p>A graphical representation of the correlation histogram is shown in an
+extra 2D plot window using a user-defined colormap. The objective of
+a correlation analysis is to find and select regions of high
+correlation, which occur as local maxima in the 2D plot.
+Such regions can be selected either by manually drawing in the 2D
+plot window or by numerically entering subrange limits.</p>
+<p>The selected regions can be used for a segmentation of the image
+data sets. For this, <em>CorrelationPlot</em> optionally generates a <em>LabelField</em>. The number of labels is given by the number of selected
+regions in the 2D plot. For each selected region, all voxels of the
+image data sets with corresponding data values are assigned to the
+respective label.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Source1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>First input, must be a scalar field with regular coordinates or
+a <em>MultiChannelField</em> field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Source2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Second input, must be a scalar field with regular coordinates or
+a <em>MultiChannelField</em> field. </p>
+<p>The module takes the first two fields that it can find in the input
+objects connected to the two source ports. If, for instance, a
+<em>MultiChannelField</em> field with three channels is connected to source1 and a
+scalar field to source2, the module takes the lattices from channel1
+and channel2 of the <em>MultiChannelField</em> as input lattices, ignoring the
+third channel and the scalar field connected to source2.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap used to map the values of the correlation histogram.
+The range values of the colormap are ignored by this module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Input1</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_input1.png" /><br /></div>
+<div class="body"><p>The first two text fields define the data range of <em>Input1</em> used
+for computing the correlation histogram. Typically, the number of
+background voxels (low intensity or 0) that co-localize in two images
+overwhelms those of the structures of interest. Therefore, <em>min</em>
+and <em>max</em> can be set to exclude certain intensity ranges from the
+analysis. The text field labeled <em>num bins:</em> adjusts the number of
+bins and thus the coarseness of the histogram. In the case of input
+fields with byte or short as primitive data type the number of bins is
+internally adjusted such that each bin has the same integer width.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input2</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_input2.png" /><br /></div>
+<div class="body"><p>Defines data range as well as the number of bins for the 2nd
+input. See description above for details.</p>
+<p>
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gamma correction</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_gamma.png" /><br /></div>
+<div class="body"><p>This port defines the value of an exponent <em>gamma</em> used to specify
+the mapping of the histogram entries to color values. First, the
+histogram entries are normalized to their maximal value. Then, before
+the color is looked up, an element <em>x</em> of the correlation
+histogram is replaced by $$x^{gamma}$$. Choosing a gamma value
+less than 1 emphasizes small values. This is useful for similar
+reasons as described for port <em>Input1</em>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_colormap.png" /><br /></div>
+<div class="body"><p>Before plotting them, the histogram entries are
+normalized to values between 0 and 1. The colormap connected to this
+port is used for the histogram look-up. The range of the colormap will
+be ignored. If no colormap is connected, a gray map is used.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection by</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_selectionBy.png" /><br /></div>
+<div class="body"><p>Two methods are supported for selecting regions of the histogram. In
+<em>manual draw</em> mode one can use one of the draw tools from the tool
+bar at the upper border of the plot window. In the second mode labeled
+<em>subrange</em>, one can define a range of values for each of the two
+input fields. This selects a rectangular subregion of the
+histogram. In <em>subrange</em> mode, two additional numbers are computed
+as described below.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Region action</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_regionAction.png" /><br /></div>
+<div class="body"><p>Press this button to remove the last selected region.
+This port is only shown in manual drawing mode.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sub range1</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_subRange1.png" /><br /></div>
+<div class="body"><p>This port is only available in <em>subrange</em> mode. Here the
+boundaries of the subrange for Input1 are defined. To change the
+subrange with a visual feedback in the plot window, use the mouse
+wheel to single step or hold down the shift key while moving the left
+pressed mouse for making bigger steps.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sub range2</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_subRange2.png" /><br /></div>
+<div class="body"><p>Like the above port for Input2.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_action.png" /><br /></div>
+<div class="body"><p>The <em>Compute Histogram</em> button recomputes the correlation histogram
+and pops up the plot window. The <em>Create LabelField</em> button
+computes a <em>LabelField</em> using the current selection.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input_1</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_input_1.png" /><br /></div>
+<div class="body"><p>Prints relative (%) and absolute (n of $$n_{tot}$$) numbers of voxels
+specified in the <em>min</em> and <em>max</em> fields of port <em>Input1</em>.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input_2</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_input_2.png" /><br /></div>
+<div class="body"><p>Prints relative (%) and absolute (n of $$n_{tot}$$) numbers of voxels
+specified in the <em>min</em> and <em>max</em> fields of port <em>Input2</em>.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Input</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_input.png" /><br /></div>
+<div class="body"><p>Prints the fraction (relative to total number of voxel pairs) and
+absolute number of voxel pairs within specified interval. Only these
+pairs are considered for the histogram generation. The second value
+is the Peak-Signal-to-Noise-Ratio [dB], which is calculated according to
+</p>\[
+\mbox{PSNR} = 10 * \log_{10}(\frac{1}{\mbox{MSE}}),
+\]<p>
+with $$\mbox{MSE}$$ being the (normalized) mean square error.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Correlation</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_correlation.png" /><br /></div>
+<div class="body"><p>Prints the correlation coefficient of the voxel pairs considered for
+histogram generation.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selection</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_selection.png" /><br /></div>
+<div class="body"><p>Prints the relative (%, relative to Input) and absolute numbers of
+selected voxel pairs.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sub range_1</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_subRange_1.png" /><br /></div>
+<div class="body"><p>This port is available only in <em>subrange</em> mode. It prints the
+number of voxel pairs inside the set specified by the first subrange.
+The final selection is the intersection of the voxel pair sets defined
+by the first and the second subrange.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sub range_2</span>  
+<div class="portsnapshot"><img src="HxCorrelationPlot_subRange_2.png" /><br /></div>
+<div class="body"><p>This port is available only in <em>subrange</em> mode. It prints the
+number of voxel pairs inside the set specified by the second subrange.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

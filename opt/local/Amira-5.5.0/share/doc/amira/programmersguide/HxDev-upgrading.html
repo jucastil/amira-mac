@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">23.6 Maintaining Existing Code</a></h2>
+<p>This section is directed to programmers who have already developed custom
+modules using a previous version of <font face="helvetica">Developer Option</font>. In particular, we describe</p>
+<p></p>
+<ul><li><a class="link" href="#A1">how to upgrade to <font face="helvetica">Developer Option</font> <font face="helvetica">5</font></a>, and</li><li><a class="link" href="#A3">how to rename an existing package</a>.</li>
+</ul><p></p>
+<p></p>
+<p></p>
+<h3><a name="A2">23.6.1 Upgrading to <font face="helvetica">Developer Option</font> <font face="helvetica">5</font></a></h3>
+<p>In <font face="helvetica">Developer Option</font> <font face="helvetica">5</font> the structure of the local <font face="helvetica">Amira</font> directory has been
+slightly changed. In order to recompile existing packages it is
+recommended to create a complete copy of the local <font face="helvetica">Amira</font> directory and
+to adapt this copy as described below. <font face="helvetica">Developer Option</font> <font face="helvetica">5</font> and earlier versions
+store the path of the local <font face="helvetica">Amira</font> directory under different names in
+the Windows registry or in the Unix <tt>.<font face="monospace">Amira</font>Registry</tt> file. This
+means that both versions can be used in parallel. The following
+changes are required to adjust an existing local <font face="helvetica">Amira</font> directory so
+that it can be used with <font face="helvetica">Developer Option</font> <font face="helvetica">5</font>:</p>
+<p></p>
+<ul><li>The subdirectory <em>packages</em> must be renamed to <em>src</em> <b>(if upgraded from Amira versions former to 3.1)</b>.</li><li>In each package directory a <em>Package</em> file
+ must be created. This file contains the package name, the name of
+ dependent packages, and optionally an explicit list of all source
+ and header files belonging to the package. From the <em>Package</em>
+ file a Visual Studio project file or a GNUmakefile for Unix can be
+ generated automatically <b>(if upgraded from Amira versions former to 3.1)</b>.</li><li>Instead of modifying and reusing the old Visual Studio project
+ files or GNUmakefiles these files should be created from scratch
+ using the <font face="helvetica">Amira</font> development wizard.</li>
+</ul><p></p>
+<p>Modules, data classes and IO routines developed for Amira Developer Pack 3.1 should
+compile without changes with <font face="helvetica">Developer Option</font> <font face="helvetica">5</font> (with the possible
+exception of calls to the C++ standard library, see below). The API of
+existing classes has been extended in several cases, but no incompatible
+changes have been introduced. For details about the interface of particular
+classes please refer to the online reference guide. In addition, the
+following things have changed:</p>
+<p></p>
+<ul><li><p><em>C++ standard library</em> <b>(if upgraded from Amira versions former to 3.1)</b>: On all platforms new-style 
+ C++ standard libraries are being used now. In Amira Developer Pack 3.0, the new-style 
+ interface was used only on Windows.</p>
+<p> In contrast to the old-style headers the new-style headers do not
+ contain the suffix <tt>.h</tt>, e.g., you need to include <tt>iostream</tt>
+ instead of <tt>iostream.h</tt>. In addition, all symbols are defined
+ inside the <tt>std</tt> namespace, i.e., you need to write for example
+ <tt>std::cout</tt> instead of just <tt>cout</tt>, unless you specifically
+ write <tt>using namespace std;</tt> in your code.</p>
+<p> On most platforms the new-style and the old-style C++ standard
+ library cannot be used together. This means that you may need to
+ switch to the new-style interface, if you have used the old-style
+ interface before.</p></li><li><em>Open Inventor and Qt:</em> <font face="helvetica">Amira</font> uses Open Inventor 8.1
+ and Qt 4. The Open Inventor headers are partly, the Qt headers are
+ completley provided with <font face="helvetica">Developer Option</font>. Moreover <b>(if upgraded from
+ Amira versions former to 3.1)</b>, instead of the SoWin and SoXt
+ classes (which are not fully platform independent) in <font face="helvetica">Amira</font>
+ now the new SoQt interface is used. This means that the
+ <font face="helvetica">Amira</font> viewer is now derived from <tt>SoQtExaminerViewer</tt>
+ instead of <tt>SoWinExaminerViewer</tt> or <tt>SoXtExaminerViewer</tt>,
+ respectively. However, because we didn't want the class <tt>HxViewer</tt> to depend on any Qt headers, the actual <font face="helvetica">Amira</font>
+ viewer has been renamed to <tt>QxViewer</tt>, while <tt>HxViewer</tt> now
+ is a pure wrapper class. <br />
+ This change should not affect existing
+ code unless platform-dependent methods of the former SoWin or SoXt
+ base classes were used.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">23.6.2 Renaming an Existing Package</a></h3>
+<p>Sometimes you may want to rename an existing <font face="helvetica">Amira</font> package, for example 
+when using an existing package as a template for a new custom package. In
+order to do so the following changes are required:</p>
+<p></p>
+<ul><li>Rename the package directory:<br />
+
+ <tt><font face="monospace">Amira</font>Local/src/oldname</tt> becomes
+ <tt><font face="monospace">Amira</font>Local/src/newname</tt></li><li>Rename the following files in the package directory:<br />
+
+ <tt>oldnameAPI.h</tt> becomes
+ <tt>newnameAPI.h</tt><br />
+
+ <tt>share/resources/oldname.rc</tt> becomes
+ <tt>share/resources/newname.rc</tt></li><li>In the package resource file <tt>share/resources/newname.rc</tt>
+ and in the <tt>Package</tt> file replace <tt>oldname</tt> by <tt>newname</tt>.</li><li>In the file <tt>newnameAPI.h</tt> replace <tt>OLDNAME_API</tt> by
+ <tt>NEWNAME_API</tt>.</li><li>In all header and source files of the package, adjust the include
+ directives if necessary, i.e., instead of<br />
+
+ <tt>#include &lt;oldname/SomeClass.h&gt;</tt><br />
+
+ now write
+ <tt>#include &lt;newname/SomeClass.h&gt;</tt></li>
+</ul><p></p>
+<p>All replacements can be performed using an arbitrary text editor. After
+all files have been modified as necessary a new Visual Studio project file
+or a new GNUmakefile should be created using the <font face="helvetica">Amira</font> development wizard.</p>
+<p>
+
+</p></body>
+</html>

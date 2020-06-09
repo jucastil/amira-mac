@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Grid Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Editor" "Grid Editor" "improve the quality of a tetrahedral grid" !>
+<p>&nbsp;<br />
+<img src="GridEdit_Icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The Grid Editor allows you to analyze the quality of a
+ <a class="link" href="../hxfield/HxTetraGrid.html#A1">tetrahedral grid</a> according to different
+ quality measures and to semi-automatically improve the grid
+ quality.</p>
+<p> To activate the Grid Editor, press the Grid Editor button of a 
+ selected tetrahedral grid. A user interface composed of different
+ button controls (<a class="link" href="#A2">Figure 1</a>) will appear in
+ <font face="helvetica">Amira</font>'s <a class="link" href="../usersguide/mainwin.html#A4">Properties Area</a>. If you select some
+ other <em>Selector</em> or <em>Modifier</em>, other ports might be
+ shown. The editor works in conjunction with the
+ <a class="link" href="../hxtetra/HxGridVolume.html#A1">GridVolume</a> module. If such a module is not
+ already active, an instance of it will be automatically created
+ when the editor is invoked.</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxGridEdit_gridedit.png.html><img width=375 src="HxGridEdit_gridedit.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Grid editor for improving the quality of tetrahedral
+ grids.</div>
+
+ 
+ </div>
+<p> <br />
+</p>
+<p> Tetrahedra can be distorted in different ways (see 
+ <a class="link" href="#A3">Figure 2</a>):
+ </p>
+<ul><li><em>Slivers</em> contain four nearly coplanar vertices forming
+ a quadrangle.</li><li><em>Caps</em> consist of a triangle and a fourth vertex 'just
+ above' it.</li><li><em>Needles</em> consist of a triangle and a fourth vertex 'far
+ away'.</li><li><em>Wedges</em> are characterized by one sharp edge.</li>
+</ul>
+<div style="text-align:center"><a name="A3"></a><a href=HxGridEdit_distorted.png.html><img width=262 src="HxGridEdit_distorted.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Four examples of distorted tetrahedra.
+ </div>
+
+ 
+ </div>
+<p> <b>Using the tools of the <em>Select</em> menu</b></p>
+<p> At the menu of port <em>Selector</em> you can choose one of several
+ selection criteria. At the next port you can enter an expression
+ which will be evaluated for each tetrahedron or edge. When you
+ press the <em>Select</em> button, the number of selected 
+ tetrahedra or edges is shown in the <em>Console Window</em>, and
+ the selected tetrahedra are shown by the <em>GridVolume</em>
+ module.</p>
+
+<ul><li><b>Index Selector:</b>
+ This tool selects tetrahedra according to their index (i). 
+ This is mainly for debugging purposes.</li><li><p><b>Tetra Quality Selector:</b>
+ This tool selects tetrahedra according to different quality 
+ measures.</p>
+<p> 'd' is the determinant of the matrix composed of the vectors 
+ pointing from vertex 0 to the vertices 1, 2, and 3. The
+ tetrahedron volume is 1/6 of the absolute value of d.
+ d approaches zero if the four vertices are nearly coplanar.
+ d &lt; 0 detects tetrahedra with an inverted orientation, which
+ should normally not occur.</p>
+<p> 'R' is the ratio of the radii of an inscribed and a circumscribed
+ sphere. R reaches its optimal (maximal) value 1/3 for an
+ equilateral tetrahedron. All types of distorted tetrahedra are
+ detected by a small value of R. Therefore R is taken as the
+ quality measure for all modifiers of the <em>Grid Editor</em> (see
+ below). R shouldn't be smaller than approximately 1/10 of the 
+ optimal value. </p>
+<p> 'r1' is the ratio of the smallest to the largest edge length. 
+ r1 reaches its optimal (maximal) value 1 for an equilateral 
+ tetrahedron. Needles and wedges are detected by a small value 
+ of r1.</p>
+<p> 'r2' is the tetrahedron volume divided by the third power
+ of the largest edge length, normalized to an optimal 
+ (maximal) value 1 for an equilateral tetrahedron. All types 
+ of distorted tetrahedra are detected by a small value of r2.</p></li><li><p><b>Dihed/Solid Angle Selector:</b>
+	This tool selects tetrahedra according to their minimal and 
+	maximal dihedral angles (d,D) or solid angles (s,S). For each
+	edge of a tetrahedron the dihedral angle is defined as the
+	angle between its adjacent faces. The solid angles are related
+	to the tetrahedron vertices; they measure the part of the unit
+	sphere which is occupied by the tetrahedron. The solid angle
+	at a tetrahedron vertex can be maximally $$2 \pi$$, or 360
+	deg. For an equilateral tetrahedron all dihedral angles are
+	approx. 70 deg, all solid angles are approx. 30 deg.</p>
+<p>	You can combine different selections, e.g., the selection
+	<tt>(d&lt;10) &amp;&amp; (D&gt;140)</tt> detects <em>slivers</em>, and the
+	selection <tt>S&gt;180</tt> detects <em>caps</em>.</p></li><li><p><b>Edge Quality Selector:</b>
+	This tool primarily selects edges, and then shows all
+	tetrahedra adjacent to that edges. Edges are selected
+	according to their length (e) or to the 'edge quality' q,
+	which is computed as follows: for each tetrahedron adjacent
+	to the edge the length l of the opposite edge and the dihedral
+	angle d at the opposite edge are determined. The
+ contribution of the tetrahedron is $$ l \cot(d) $$.
+	q is the sum of those contributions over all adjacent
+	tetrahedra. qi refers to the inner edges, qb to the boundary
+	edges of the tetrahedral grid.</p>
+<p>	For an 'ideal' grid, all qi and qb should be positive.
+ Such a grid would be well suited for a numerical simulation,
+ because the Finite Element stiffness matrix (probably for
+	the Laplacian operator) is an M-matrix if q is positive for 
+	all edges.</p></li>
+</ul>
+<p> <b>Using the tools of the <em>Modify</em> menu</b></p>
+<p> At the menu of port <em>Modifier </em> you can choose one of several
+ modifiers. When you press the <em>Modify</em> button, the grid 
+ modification will start. Some information will be displayed in the
+ <em>Console Window</em>.</p>
+<p> There is a certain inconsistency between the tetra quality selector
+ and the modifiers of the <em>Grid Editor</em>, because the tetrahedron
+ quality criterion for all modifiers is the <em>inverse</em> of the
+ radius ratio R as defined above. In applying the modifiers, keep in 
+ mind that the optimal (minimal) value of 1/R is 3 and distorted 
+ tetrahedra are detected by large values of 1/R.</p>
+<p> The modifiers <em>Laplace Smoothing</em>, <em>Optimization Smoothing</em>
+ and <em>Flip Edges and Faces</em> are mainly for debugging purposes,
+ because the <em>Combined Smoothing</em> modifier is a combination of
+ them which should give the best results in most cases. The modifiers
+ <em>Repair Bad Tetras</em> and <em>Bisect Inner Edges</em> are still in an
+ experimental state. We recommend to apply the <em>Remove Inner 
+ Vertices</em> and the <em>Combined Smoothing</em> modifiers.</p>
+
+<ul><li><b>Laplace Smoothing:</b>
+ This tool improves mesh quality by moving inner vertices. For each
+ inner vertex the center of mass of the adjacent vertices is
+ calculated. The vertex is moved to that location if this 
+ improves the quality 1/R of the adjacent tetrahedra. Otherwise the
+ midpoint between the old location and the center of mass is
+ examined. Parameter <em>nLoops</em> defines the number of smoothing
+ loops (maximally 10). Laplace smoothing will in general improve 
+ the mesh quality 1/R, but in most cases an <em>Optimization 
+ Smoothing</em> will be superior.</li><li><b>Optimization Smoothing:</b>
+ This tool improves mesh quality by moving inner vertices.
+ For each inner vertex a new location is determined that
+ optimizes the quality 1/R of the adjacent tetrahedra.
+ Parameter <em>nLoops</em> defines the number of smoothing loops
+ (maximally 10), parameter <em>threshold</em> defines a threshold
+ for tetrahedron quality which is applied starting with the second
+ loop. If all adjacent tetrahedra have a quality better than <em>threshold</em>, the vertex position is not changed. The default value
+ 12 (quadruple of the optimal value) leaves tetrahedra unchanged
+ which should be acceptable in most cases. Selecting a smaller
+ value will induce opimization of more vertex locations.</li><li><b>Flip Edges and Faces:</b>
+ This tool improves mesh quality by flipping edges and faces.
+ For each inner (triangular) face the adjacent tetrahedra are
+ determined. It is examined whether the face is a boundary face and
+ whether the adjacent tetrahedra form a convex polyhedron. 
+ Depending on this classification a suitable type of edge or face
+ flipping is selected. The flip operation is only performed if it 
+ improves the quality 1/R of the tetrahedra involved.
+ Parameter <em>threshold</em> defines a threshold for tetrahedron
+ quality. If all adjacent tetrahedra have a quality better than 
+ <em>threshold</em>, a face is not examined for flipping.
+ If parameter <em>save boundary triangles</em> is set to 1, the
+ edges and faces of the exterior grid boundary and the interior
+ boundaries between different materials will not be flipped.</li><li><b>Repair Bad Tetras:</b>
+ This tool tries to repair <em>slivers</em> and <em>caps</em>. For a
+ sliver, two opposite edges with obtuse dihedral angles are
+ bisected. If the distance between the new vertices is small
+ compared to the sliver's mean edge length, the edge connecting
+ them is collapsed. For a cap, the triangle opposite to the vertex
+ with largest solid angle is determined. If that triangle is part
+ of the outer boundary, the tetrahedron is removed. Otherwise, it
+ is examined if the cap can be removed by a face flip. Parameter
+ <em>threshold</em> defines a threshold for tetrahedron quality 1/R.
+ Only tetrahedra with a quality worse than the given threshold 
+ will be examined for repair.</li><li><p><b>Remove Inner Vertices:</b>
+ This tool improves mesh quality by removing inner vertices.
+ In a tetrahedral grid, the mean number of tetrahedra incident
+ on an inner vertex is 24. If a vertex is incident on less than
+ 10 tetrahedra, it is very likely that the mesh quality can be
+ improved by removing that vertex and reconnecting the hole.</p>
+<p> All inner vertices incident on a number of tetrahedra less or 
+ equal the value of parameter <em>max num neighbors</em> are 
+ inspected for removal. They will be removed, if this improves 
+ tetrahedral quality 1/R. If a value &gt; 0 is set for parameter 
+ <em>max edge length</em>, this defines an upper bound for the edge 
+ length. An inner vertex will not be removed, if this would imply 
+ creation of a longer edge.</p></li><li><b>Bisect Edges:</b>
+ This tool improves mesh quality by bisection of inner edges.
+ An inner edge is bisected if for its vertices different boundary
+ conditions are defined. After bisection, apply <em>Optimization 
+ smoothing</em> to improve the position of the new vertices.</li><li><b>Combined Smoothing:</b>
+ This tool combines edge and face flipping and optimization 
+ smoothing. Parameter <em>nLoops</em> defines the number of 
+ 'large loops' (maximally 10), the other parameters define 
+ thresholds for tetrahedron quality 1/R which are applied in 
+ the first loop and the other loops, respectively. Setting the
+ first threshold to 3 means that all edges and faces will be
+ inspected for flipping and all vertices for optimization in the
+ first loop. If parameter <em>save boundary triangles</em> is set to
+ 1, the edges and faces of the exterior grid boundary and the
+ interior boundaries between different materials will not be
+ flipped.</li><li><p><b>Flip/Bisect Long Edges:</b>
+ This tool tries to remove inner edges depending on their
+ length or edge quality q as defined above. 
+ Parameter <em>max edge length</em> defines the maximal allowed edge 
+ length and parameter <em>min edge quality</em> the minimal allowed
+ edge quality, which must be less or equal to zero. Setting a
+ minimal quality of zero means that edge quality is ignored in
+ edge selection.
+ Parameter <em>threshold</em> sets an upper limit for tetrahedron
+ quality 1/R. The selected edges are removed, preferably by an edge
+ flip, or by an edge bisection, if all newly generated tetrahedra
+ will have a quality below that threshold.</p>
+<p> This tool should be applied repeatedly, until the number of flips
+ as reported in the <em>Console Window</em> goes down to 0, and 
+ applying an Optimization smoothing in between may improve the 
+ results.</p></li><li><p><b>Automatic:</b>
+ This tool tries to improve the quality of the whole grid automatically
+ with no further user-interaction.
+ If <em>save connectivity</em> is set to 1 (true) then it only applies
+ optimization smoothing repeatedly.
+ If it is set to 0, then several of the reconnection methods described
+ above are used and the elements are flipped and smoothed until the
+ algorithm converges.</p>
+<p> These improvements can take a really long time to converge but you
+ can feel free to interrupt anytime by pressing the stop-button: This
+ tool uses a <em>floating threshold</em> which you can observe in the
+ console-window.
+ That means that the tetrahedrons with worst quality are considered
+ first and the others later when the threshold decreases. When the
+ process is stopped while using a threshold of e.g. 6.0 then all tetra-
+ hedrons with quality worse than 6 have been improved.</p>
+<p> If you still detect bad quality elements after the Automatic tool has
+ finished then the source-grid didn't allow improvements there because
+ of vertices fixed on boundarys.</p></li>
+</ul>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

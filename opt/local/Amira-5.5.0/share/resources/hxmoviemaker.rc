@@ -1,0 +1,32 @@
+# ----------------------------------------------------------------------
+#   Moviemaker package
+# ----------------------------------------------------------------------
+
+module -name    "MovieMaker"    \
+    -color indianred \
+    -primary    "HxPortTimeInterface"    \
+    -class      "HxMovieMaker"  \
+    -category   "Main"          \
+    -package    "hxmoviemaker"
+
+
+module  -name   "MoviePlayer"   \
+    -color indianred \
+    -primary    "HxMovieData"   \
+    -class      "HxMoviePlayer" \
+    -category   "Display"       \
+    -package    "hxmoviemaker"
+
+
+dataFile -name  "Amira Movie"   \
+    -ext        "amov"          \
+    -save       "HxMovieWrite"  \
+    -load       "HxMovieRead"   \
+    -type       "HxMovieData"   \
+    -package    "hxmoviemaker"
+
+
+dataClass -name "Movie"         \
+    -class      "HxMovieData"   \
+    -category   "Data"          \
+    -package    "hxmoviemaker"

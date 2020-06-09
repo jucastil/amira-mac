@@ -1,0 +1,38 @@
+\begin{hxmodule2}{DisplayLogos}{displays the product and company logos in the viewer}
+\hxpackname{amira}
+\hxlabel{DisplayLogos}
+
+\begin{hxdescription} 
+
+This module displays the product logo (\ProductName) as well as the 
+\CompanyName logo in the viewer window. In order 
+to do this, a specific Open Inventor file is loaded that contains 
+transparent raster graphics files. The user can choose between 
+different versions, each having a different size.
+
+Internally, the {\it DisplayLogos} script object loads the Open Inventor
+file and creates an \hxref{HxIvDisplay}{IvDisplay} module. Choose 
+{\it Pool/Show All} to see these hidden modules in the Pool.
+
+\end{hxdescription}
+
+\begin{hxports}
+\hxlabel{DisplayLogos_logoHeight}
+\hxport{Logo height}\\
+\hximage{DisplayLogos_logoHeight}\\
+Choose the desired size of the logo.
+\end{hxports}
+
+\begin{hxsection}{Related Topics}
+The resource file for this module also defines the global Tcl command
+\begin{quote}
+{\tt createLogos [size]}
+\end{quote}
+to easily display the logos. For convenience, this command hides the 
+newly created {\it DisplayLogos} module in the Pool. The optional
+argument {\tt size} allows you to specify the size of the logo, where 
+only those values offered in the module's {\it Logo height} port are 
+valid.
+\end{hxsection}
+
+\end{hxmodule2}

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.14 System Information Dialog</a></h3>
+<p>The system information dialog provides diagnostics information allowing
+the user or the <font face="helvetica">Amira</font> support team to better analyze software problems.
+The dialog contains a tab bar with 
+three
+
+ pages. The first page lists
+information about the current CPU. The second page lists
+information about the current OpenGL graphics driver. 
+The third page
+lists version information about the currently installed <font face="helvetica">Amira</font> components.
+</p>
+<p>In the lower left part of the dialog you will find a button <i>Save Report</i>.
+With this button all information can be written into a text file. In case
+of a support call, you may be asked to send this text file to the hotline.</p>
+<p></p>
+<h4><a name="A2">3.1.14.1 The CPU Tab</a></h4>
+<p>This page displays information about the system on which you are running
+<font face="helvetica">Amira</font>. This information can be useful when reporting problems to
+technical support.</p>
+<p></p>
+<h4><a name="A3">3.1.14.2 The OpenGL Tab</a></h4>
+<p>This page displays information about the current OpenGL graphics driver.
+In particular, a list of available OpenGL extensions is printed. This list
+allows it to check if certain rendering techniques like direct volume
+rendering via 3D textures are supported on a particular hardware platform
+or not.</p>
+<p></p>
+<h4><a name="A4">3.1.14.3 The Libraries Tab</a></h4>
+<p>This page displays a list of all DLLs or shared libraries contained in the
+<font face="helvetica">Amira</font> lib directory. For each library certain version information as well
+as an MD5 checksum are printed. In this way it is possible to check whether
+a certain patch has already been installed or not. For most libraries the
+version information is compiled in. For other libraries this information is
+read from the version information files found in <tt>share/versions</tt> in
+the <tt>AMIRA_ROOT</tt> &nbsp;directory.
+
+</p></body>
+</html>

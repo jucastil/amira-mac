@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ClusterDiff</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ClusterDiff" "draws lines between corresponding points in two clusters" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays displacement vectors between corresponding points
+ in two different data objects of type <a class="link" href="HxCluster.html#A1">Cluster</a>.
+ The displacement vectors may be colored according to their lengths or
+ according to any data variable defined in one of the input clusters.
+ Like in the <a class="link" href="HxClusterView.html#A1">ClusterView</a> module, subsets of points
+ may be selected by drawing a contour in the viewer window or by
+ specifying an arithmetic filter expression.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>	The first point cluster.</p>
+</div></div>
+<div class="hxconnection_default">
+ <span class="headline">Data2</span>  
+
+<div class="body"><p>	The second point cluster. Initially, this port will not be
+	connected to any data set. In order to use the module you have to 
+	establish a connection manually by activating the popup menu over
+	the white square on the left side of the module's icon.</p>
+</div></div>
+<div class="hxconnection_default">
+ <span class="headline">Colormap</span>  
+
+<div class="body"><p>The colormap used for pseudo-coloring. The alpha channel of the
+ colormap will be correctly taken into account unless the option
+ <em>opaque</em> has been selected. However, note that many default
+ colormaps are completely opaque. In this case, use the
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a> to make them transparent.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxClusterDisplacement_color.png" /><br /></div>
+<div class="body"><p>An option menu containing all data variables that can be used for
+ pseudo-coloring. The data variables' symbols are displayed in
+ brackets after the names.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxClusterDisplacement_options.png" /><br /></div>
+<div class="body"><p>The following two options can be set:</p>
+<p> <em>Filter</em> causes a text field to be shown, which can be used to
+ define an arithmetic expression for selecting a subset of points.</p>
+<p> <em>Opaque</em> influences the way how the displacement vectors are
+ drawn. By default, anti-aliased semi-transparent lines are
+ rendered. If the opaque option is set, transparencies will be
+ ignored. Opaque rendering is faster but gives less nice results.
+	In addition, you can't suppress certain lines my making them more
+	transparent.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Filter</span>  
+<div class="portsnapshot"><img src="HxClusterDisplacement_filter.png" /><br /></div>
+<div class="body"><p>This port allows you specify an arithmetic filter expression. The
+ filter expression is evaluated for every pair of points. A
+	displacement vector will only be drawn if for both points a
+	non-zero result is obtained. The filter expression may contain
+	any arithmetic and logical operator defined in the C programming
+	language. All symbols listed in the color menu may be used
+	in the filter expression. For example, in order select all vectors
+	shorter than 0.2 and with an energy larger than -4 use
+	$$(L<0.2)\;\&\&\;(E>-4)$$.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxClusterDisplacement_action.png" /><br /></div>
+<div class="body"><p>The button labeled <em>Export A</em> creates a new point cluster
+	containing all selected points of the first input cluster together
+	with the corresponding data variables. Similarly, the button
+	labeled <em>Export B</em> creates a new point cluster containing all
+	selected points of the second input cluster.</p>
+<p>	After pressing the <em>Select</em> button you may draw a contour in
+	the viewer window in order to deselect certain points. By default,
+	all points inside the contour are deselected. If you keep the
+	Ctrl key pressed down when starting to draw the contour all points
+	outside the contour are deselected. Using the Alt key allows you
+	to define straight-line segments.</p>
+<p>	The <em>Reset</em> button causes all points matching the
+	filter expression to be shown again.</p>
+<p> The <em>Undo</em> button undoes the effect of the last interactive
+ contour selection operation. 
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>setLineWidth &lt;width&gt;</tt></span>  
+
+<div class="body"><p>Specifies the width of the displacement vectors. By default,
+	the vectors are one pixel wide.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setLineSmooth &#123;0|1&#125;</tt></span>  
+
+<div class="body"><p>	Enables or disables line smoothing. By default, smoothing is on
+	unless the <em>opaque</em> option has been selected.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ParametricSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "ParametricSurface" "creates a surface from an analytical expression" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be used to define and animate arbitrary parametric
+surfaces in two, three dimensions. There are some
+pre-defined surfaces like the Moebius strip, Klein bottle and
+Random mapping to illustrate the use of the text fields that define
+expressions for <tt>X</tt>, <tt>Y</tt>, and <tt>Z</tt>.</p>
+<p>The expressions may depend on <tt>u</tt> and <tt>v</tt> which are Cartesian
+coordinates of the plane. They can also depend on <tt>theta</tt> and <tt>r</tt> which are their counterparts in polar coordinates. A separate
+spherical coordinate system is accessible by the variables <tt>lambda</tt> and <tt>phi</tt>. The variable <tt>t</tt> is linked to the time port
+and can be used to perform for example linear interpolations between
+two mappings like:
+</p>\[
+(t-1)*(\mathtt{expression1}) + t*(\mathtt{expression2}).
+\]
+<p> Press the <em>Apply</em> button if you want to do an animation 
+because you will need to re-compute the mesh every time <tt>t</tt> changes. </p>
+</div>
+<p></p>
+<p>Surfaces can be exported by the <tt>Draw Style</tt> port ($$\Rightarrow$$
+<tt>more options</tt> $$\Rightarrow$$ <tt>Create surface</tt>).</p>
+<p>
+</p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a regular scalar field is supplied, the generated mesh will be
+scaled and shifted according to its bounding box. Using the transform
+editor of the data is a convenient way of scaling and shifting 
+the generated mesh.</p>
+<p>
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap is used to calculate the color of the mesh based on
+the expression in the Colorport (initially <tt>r</tt>, the radial distance
+of the u-v mesh point from its mean position).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An additional variable which can be used in all the expression fields. It can
+be used to generate animations.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Cluster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If you connect to this module a Cluster object (points in space), the
+module will generate a second cluster object and apply the
+transformation in the expression fields to its <tt>x</tt> and
+<tt>y</tt> coordinates. This may be useful to visualize the u/v plane as
+a point cloud.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_drawStyle.png" /><br /></div>
+<div class="body"><p>Select a specific draw style for the mesh currently on display. For
+higher resolution meshes usually shaded works best.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_colormap.png" /><br /></div>
+<div class="body"><p>This colormap will be used to map colors per vertex using by
+the values in the <a class="link" href="#A15">Color port</a>. </p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxDisplaySurface_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Pre-defined surfaces</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_predefined.png" /><br /></div>
+<div class="body"><p>The pre-defined surfaces are some commonly used to illustrate
+analytically defined meshes. They are mainly here to illustrate the
+use of the different variables in the Colorports.</p>
+<p>As a last entry you will find a Random generator which will generate 
+random entries for the x, y and z ports, i.e. a random
+mapping. Currently there is a maximum depth of $$10$$ for the randomly
+generated expressions.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">U</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_u.png" /><br /></div>
+<div class="body"><p>This port describes the <tt>u</tt> resolution of the initial mesh (before
+the transformation was applied). Its values code the minimum value of
+<tt>u</tt> (step size) and the maximum value of <tt>u</tt>. Lowering the
+step-size will directly increase the resolution of the mesh. </p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">V</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_v.png" /><br /></div>
+<div class="body"><p>This port works the same way as the <a class="link" href="#A10"></a> port for the
+<tt>v</tt> parameter of the initial mesh.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">X</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_X.png" /><br /></div>
+<div class="body"><p>Enter an expression to be evaluated in order to describe the <tt>x</tt>-position of a mesh in 3D space. Use the <a class="link" href="#A9"></a>
+port to see some useful settings for this port.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Y</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_Y.png" /><br /></div>
+<div class="body"><p>Enter an expression to be evaluated in order to describe the <tt>y</tt>-position of a mesh in 3D space. Use the <a class="link" href="#A9"></a>
+port to see some useful settings for this port.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Z</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_Z.png" /><br /></div>
+<div class="body"><p>Enter an expression to be evaluated in order to describe the <tt>z</tt>-position of a mesh in 3D space. Use the <a class="link" href="#A9"></a>
+port to see some useful settings for this port.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_Color.png" /><br /></div>
+<div class="body"><p>Enter an expression to be evaluated in order to describe the vertex
+color of the mesh. All variables of the other fields can be used 
+in this field. By default it contains <tt>r</tt> which is the radial
+distance from the center position of the mesh.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="hxParametricSurface_time.png" /><br /></div>
+<div class="body"><p>This slider is directly linked to the expression <tt>t</tt> which 
+can be used in all x, y, z and Color ports.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,5 @@
+module -name "DebugGeodesicConnector" \
+    -primary "HxSurfacePathSet" \
+    -class "DebugGeodesicConnector" \
+    -category "Experimental" \
+    -package "hxpathconnectors"

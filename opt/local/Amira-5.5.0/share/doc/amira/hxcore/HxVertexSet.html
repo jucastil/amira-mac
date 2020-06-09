@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> VertexSet</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "VertexSet" "base class for objects containing a list of 3D points" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>HxVertexSet</em> class is an abstract base class. It is derived by
+ many other <font face="helvetica">Amira</font> data objects containing a list of 3D vertices, for
+ example <a class="link" href="../hxlandmark/HxLandmarkSet.html#A1">landmark sets</a>,
+ <a class="link" href="../hxsurface/HxSurface.html#A1">surfaces</a>, or <a class="link" href="../hxfield/HxTetraGrid.html#A1">tetrahedral
+ grids</a>. <em>HxVertexSet</em> provides an interface allowing other modules
+ to access the vertices in a transparent way.</p>
+<p> In order to visualize the vertices of a vertex set you may use the
+ <a class="link" href="../hxvertexset/HxDisplayVertices.html#A1">VertexView</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">applyTransform</span>  
+
+<div class="body"><p>This command changes the coordinates of the vertices of the data object
+ according to the object's current transformation matrix. This matrix
+ can been defined using the <a class="link" href="HxTransformEditor.html#A1">Transform Editor</a>.
+ After the vertices have been transformed the transformation matrix is
+ reset to the identity.</p>
+<p> This command is useful in order to make transformations permanent. In
+ particular, it should be issued before a transformed data object is
+ written to a file. Otherwise, the transformation will be ignored by
+ most file formats.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">translate &lt;dx&gt; &lt;dy&gt; &lt;dz&gt;</span>  
+
+<div class="body"><p>Translates all vertices by a constant amount.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">scale &#123;&lt;f&gt; | &lt;fx&gt; &lt;fy&gt; &lt;fz&gt;&#125;</span>  
+
+<div class="body"><p>Scales all vertices by a common factor. If three arguments are
+ specified the x-, y-, and z-coordinates are scaled by different
+ factors.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">jitter &#123;&lt;d&gt; | &lt;dx&gt; &lt;dy&gt; &lt;dz&gt;&#125;</span>  
+
+<div class="body"><p>The coordinates of the vertices are jittered randomly. The arguments
+ indicate the maximal amount of jitter. Each coordinate of a vertex will
+ be changed change by at most $$\pm d/2$$. The method is useful in order
+ to resolve problems due to degenerate configurations in certain
+ geometric algorithms.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumPoints</span>  
+
+<div class="body"><p>Returns the number of vertices of the data object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPoint &lt;n&gt;</span>  
+
+<div class="body"><p>Returns the coordinates of the specified vertex.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPoint &lt;n&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the coordinates of the specified vertex.
+</p></div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

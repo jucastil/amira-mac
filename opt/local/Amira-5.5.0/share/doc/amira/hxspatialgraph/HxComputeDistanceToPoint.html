@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputeDistanceToPoint</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ComputeDistanceToPoint" "computes the Euclidean distance of SpatialGraph points to a specified reference point" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module creates a copy of the input <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> and adds a new attribute of type float named <em>DistanceToPoint</em>. 
+ This attribute contains for each point the distance to the specified reference point. If a point cannot be 
+ reached from the reference point, its distance will be set to the maximum floating point value.</p>
+<p> The module allows the user to pick or set a point, which then will be used to find the closest 
+ point on the <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> used as the reference point for the later computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect a <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> to this module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Reference point</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceToPoint_referencePoint.png" /><br /></div>
+<div class="body"><p>Shows information about the current specified reference point, which will be used
+ for the computation. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Set reference point</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceToPoint_setReferencePoint.png" /><br /></div>
+<div class="body"><p>Enter 3D coordinates of an arbitrary point and click <em>Apply</em> to find the closest 
+ point on the <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> which then will be shown by the <em>Reference point</em> port.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Pick reference point</span>  
+<div class="portsnapshot"><img src="HxComputeDistanceToPoint_pickReferencePoint.png" /><br /></div>
+<div class="body"><p>Press the button and pick an arbitrary point using the middle-mouse button in interactive mode 
+ while the module is selected. 
+ If successful, the coordinates of the picked point will be shown by the <em>Set reference point</em> 
+ port, while the closest <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> point will be shown by the <em>Reference point</em> port. </p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

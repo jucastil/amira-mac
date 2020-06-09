@@ -1,0 +1,12 @@
+########################################
+# scro CollectiveTCL 
+########################################
+
+module -name "CollectiveTCL" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel CollectiveTCL]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/CollectiveTCL.scro
+	$mod fire
+    }

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Isolines (Surface)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Isolines (Surface)" "displays isolines of a surface scalar field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This <em>Isolines</em> module computes isolines for a scalar field defined
+ on a surface made of triangles. Inside the triangles the scalar field
+ is linearly interpolated if the scalar field contains values for every
+ node. If the field contains values for every surface triangle only, the
+ isolines will follow the triangle edges if the values of the
+ neighboring triangles are appropriate.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A scalar field defined on a <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> can be
+ connected to this port.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A colormap is used to map the values represented by the isolines to a
+ corresponding color. If no colormap is connected, a constant color is
+ used. See also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Spacing</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_spacing.png" /><br /></div>
+<div class="body"><p>Controls how isoline thresholds are being defined. In <em>uniform</em>
+ mode a certain number of isovalues are distributed equidistantly within
+ a user-defined interval. In <em>explicit</em> mode the threshold for each
+ isoline can be set manually. In <em>offsets</em> mode an isovalue can be
+ selected using a slider. For each given offset that is added to that 
+ isovalue, a isoline is depicted.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Values</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_uniform.png" /><br /></div>
+<div class="body"><p>In <em>uniform</em> mode this port contains three text fields allowing the
+ user to define the lower and upper bound of the isoline interval as
+ well as the number of isolines being computed in this interval. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Values</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_explicit.png" /><br /></div>
+<div class="body"><p>In <em>explicit</em> mode an arbitrary number of blank-separated threshold
+ values can be defined in this text field. For each threshold a
+ corresponding isoline is displayed.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Isovalue</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_isovalue.png" /><br /></div>
+<div class="body"><p>In <em>offsets</em> mode this value is used as the base for each isoline.
+ An isoline is displayed for each offset in the Offsets port, adding each 
+ offset to the isovalue chosen here. This mode is particularly suited for
+ animation using <a class="link" href="../hxtime/HxDynamicParameter.html#A1">Animate</a>.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Offsets</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_offsets.png" /><br /></div>
+<div class="body"><p>In <em>offsets</em> mode an arbitrary number of blank-separated threshold
+ values can be defined in this text field. Each value results in an isoline.
+ The isovalue is the sum of this value and that chosen in the slider Isovalue.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Parameters</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_parameters.png" /><br /></div>
+<div class="body"><p>	The input of this port determines the width of the isolines in pixels.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_options.png" /><br /></div>
+<div class="body"><p>If <em>update min-max</em> is set then the isoline thresholds are
+ automatically reset to some default values whenever the data range of
+ the incoming scalar field changes.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxSurfaceIsolines_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.
+</p></div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

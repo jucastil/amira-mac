@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PrecomputeAlignment</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "PrecomputeAlignment" "precomputes alignments for a molecular trajectory" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module can be used to generate a data object that contains an
+ alignment for every step of a whole <a class="link" href="../hxmolecule/HxMolTrajectory.html#A1">trajectory</a>.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule must be connected to the
+ <a class="link" href="../hxmolecule/HxMolTrajectory.html#A1">molecular dynamics trajectory</a> that the
+ alignment should be computed for.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AlignMaster</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Reference molecule.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">PrecomputedAlignment</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>You will find the description of the above two connections in
+ the section on <a class="link" href="../hxmolecule/molpositioning.html#A1">alignment of molecules</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxPrecomputeAlignment_mode.png" /><br /></div>
+<div class="body"><p>Two modes are available. In the first mode (<i>simple alignment</i>),
+ the module acts as a recorder for the time-step-based alignments
+ described in the section <a class="link" href="../hxmolecule/molpositioning.html#A1">Aligning Molecules</a>. In the
+ second mode (<i>multiple alignment</i>), the mean squared distance of
+ every time step to all other time steps is minimized. A reference
+ molecule can be connected to specify atoms to be taken into
+ account. If a reference is connected, the mean of the aligned time
+ steps will be aligned to the reference.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxPrecomputeAlignment_transformation.png" /><br /><img src="HxPrecomputeAlignment_selection.png" /><br /><img src="HxPrecomputeAlignment_selectionInfo.png" /><br /></div>
+<div class="body"><p>You will find the description of the three ports above in the section on
+ <a class="link" href="../hxmolecule/molpositioning.html#A1">alignment of molecules</a>.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

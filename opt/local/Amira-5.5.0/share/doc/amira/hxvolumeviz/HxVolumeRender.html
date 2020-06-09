@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Voltex (LDA)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira Very Large Data Option</li></ul></div>
+<! HxIndex: "amiraLD" "Module" "Voltex (LDA)" "texture-based direct volume rendering of 3D images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Direct Volume Rendering is a very intuitive
+ method for visualizing 3D scalar fields. Each point in a data volume
+ is assumed to emit and absorb light. The amount and color of
+ emitted light and the amount of absorption is determined from the
+ scalar data by using a <a class="link" href="../hxcolor/HxColormap256.html#A1">colormap</a> which includes
+ alpha values. Then the resulting projection from the points in the data volume
+ is computed.
+ Default colormaps for volume rendering are provided
+ with the distribution and can be edited using the
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">colormap editor</a>.</p>
+<p> This module provides you with a hardware-accelerated implementation, 
+ which uses 2D or 3D texture hardware, to allow for real-time 
+ rendering. Using this module on platforms without this acceleration
+ can be extremely slow. 
+ Rendering consists of drawing slices from back to front and compositing
+ them according to the composition port. These slices are textured polygons, 
+ whose textures are computed by using the data and the current colormap. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalarfield to be visualized. Alternatively an RGBA data volume
+ (Colorfield) can be connected. In this case no colormap is used, but
+ the color and opacity values are taken directly from the data. As a
+ third mode, the module can operate on
+ <a class="link" href="../hxfield/HxMultiChannelField3.html#A1">multi-channel fields</a>. Here the transfer
+ function for each channel is computed automatically based on the
+ channel's native color, the channel's data range, and the value of the
+ <em>Gamma port</em> (see below).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module providing a region-of-interest, like
+ <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. If such a module is connected,
+ only the selected part of the volume will be displayed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used to visualize the data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Render style</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_renderstyle.png" /><br /></div>
+<div class="body"><p><em>Volume rendering</em> consists of drawing slices from back to front and compositing them 
+ according to the <em>Composition</em> port.
+ <em>Volume skin</em> is a cubic shape made of textured polygons whose textures are computed using the data. 
+ Both use the colormap for rendering.
+</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Performance</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_performance.png" /><br /></div>
+<div class="body"><p><em>Move low resolution</em> enables rendering at a lower resolution when moving, resulting in a smoother animation.
+ <em>Full optimizations</em> discards completely transparent volume area and enables some more advanced fragment
+ discarding (early-z...)</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Rendering</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_rendering.png" /><br /><img src="HxVolumeRender_rendering2.png" /><br /></div>
+<div class="body"><p><i>Illumination</i> activate port<a class="link" href="#A18">Illumination</a>.</p>
+<p> <i>Aligned slices</i> indicates if slices must be drawn in a view-aligned manner. This value is used for 3D texturing only. Default is true.</p>
+<p> <i>Color table</i> enables a transfer function lookup. When this option is activated, only a quarter of the texture memory 
+ is needed for RGBA rendering and the color table and its range can be modified in real-time.
+ Note that due to incomplete OpenGL implementations, some graphics boards which claim to support color tables do not.
+ If you see artifacts or only plain white cubes, disable this option. Default is true.</p>
+<p> <i>Hi-quality</i> decrease slicing effect by preintegrated rendering.</p>
+<p> <i>Reduce ringing artifacts</i> decrease ringing artifacts by adding some jittering.</p>
+<p> <i>Edge 2D</i> enables <a class="link" href="#A22">2D edges detection</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Composition</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_composition.png" /><br /></div>
+<div class="body"><p>Specifies color composition type. 
+ <i>Alpha</i> composes the slices by blending the R, G, B components for each pixel
+ based on their alpha values.
+ <i>Sum</i> adds slice colors along the viewing axis. (Not available on VolumePro hardware.) 
+ <i>Max</i> draws the maximum intensity for each pixel drawn along the viewing axis. 
+ <i>Min</i> draws the minimum intensity for each pixel drawn along the viewing axis. </p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_interpolation.png" /><br /></div>
+<div class="body"><p>Specifies volume data interpolation type (<em>nearest</em> value or <em>linear</em> interpolation or <em>cubic</em> interpolation).
+</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_range.png" /><br /></div>
+<div class="body"><p>This port is only available if the module operates on a 3D scalar field
+and no colormap is connected. In this case data values are mapped
+ according to this range. Values smaller than the minimum are mapped
+ to completely transparent (no absorption and no emission).
+ Values larger than the maximum appear completely opaque and emit the maximum
+ amount of light. Values in between are mapped proportionally.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lookup</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_lookup.png" /><br /></div>
+<div class="body"><p>Only available if a colormap is connected. In <i>Alpha</i> mode, the colormap's alpha value is used for both
+ absorption and emission. In <i>LumAlpha</i> mode, the colormap's
+ alpha value is used for absorption, while the luminance is taken
+ for (uncolored) emission. In <i>RGBA</i> mode, colored images
+ are generated by using all four channels of the colormap.</p>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline"> Tile refinement </span>  
+<div class="portsnapshot"><img src="HxVolumeRender_tileRefinement.png" /><br /></div>
+<div class="body"><p>The refinement factor used when projection is active. </p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gamma</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_gamma.png" /><br /></div>
+<div class="body"><p>Controls the shape of the transfer function when multi-channel fields
+ are visualized. The opacity value is taken to be $$ \alpha =
+ x^\gamma$$, $$x = 0\dots 1$$ (proportional to data values). The smaller
+ the gamma value is, the more
+ prominent regions with small data values will be.
+</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha scale</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_alphaScale.png" /><br /></div>
+<div class="body"><p>A global factor to change the overall transparency of the object
+ independent of the data value.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture mode</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_texture2D3D.png" /><br /></div>
+<div class="body"><p><i>2D</i> texture mode requires some
+ precomputation time but also works on machines which do not support
+ hardware-accelerated 3D texturing, e.g., SGI O2.
+ <i>3D</i> mode requires less setup time and sometimes provides superior
+ quality on high-end machines.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of slices</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_slices.png" /><br /></div>
+<div class="body"><p>Only available in 3D texture mode. The larger this number, the better
+ the image quality and the less the rendering performance. </p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Illumination</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_illumination.png" /></div>
+<div class="body"><p><i>Lighting</i> indicates if lighting is required. Default is false. Note that activating or deactivating
+ lighting when using 2D/3D texture rendering might force the textures to be recreated, which may be slow.
+ <i>limitations:</i> Underlying VolumeViz rendering engine does handle only
+ a single light. So only the first light (ie. the headlight if
+ enabled or the first created light if not) will be used. More over only directional lights are supported.</p>
+<p> <i>Edge enhancement</i> fakes lighting by detecting edge.</p>
+<p> <i>Boudary opacity</i> fakes lighting by darkening volume boundaries.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Illumination options</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_illuminationOptions.png" /><br /></div>
+<div class="body"><p><i>Illumination quality</i> goes from <i>low</i> to <i>high</i>, it is used by illumination rendering (lighting, edge 
+ enhancement and boundary opacity). Computational cost increase with chosen quality.</p>
+<p> <i>Bright lighting</i> enables brighter lighting model (enable only when using <i>lighting</i>).</p>
+<p><a name="A20"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edge coloring</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_edgeColoring.png" /><br /></div>
+<div class="body"><p><i>Gradient threshold</i> controls whether or not a voxel is darken. Areas facing the camera will have an unmodified
+ color, whereas areas where the normal is more perpendicular to the view direction will tend towards black.
+ Lower gradient threshold gives stronger edges.</p>
+<p><a name="A21"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Boundary opacity</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_boundaryOpacity.png" /><br /></div>
+<div class="body"><p>Boundary opacity increases opacity depending on the length of the gradient vector. Areas with large gradient changes
+ (greater than <i>threshold</i>) will have their opacity increased according to given <i>intensity</i>.</p>
+<p><a name="A22"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edge 2D</span>  
+<div class="portsnapshot"><img src="HxVolumeRender_edgeDetect2D.png" /><br /></div>
+<div class="body"><p>Apply an image space filter to the renderer volume in order to detect edges, which will be highlighted.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">verbose &#123;0|1&#125;</span>  
+
+<div class="body"><p>If value is 1, additional messages for debugging are printed.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

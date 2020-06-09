@@ -1,0 +1,68 @@
+#Inventor V2.1 ascii
+
+ Separator {
+
+  Transform {
+	 scaleFactor 1 1 1
+  }
+  
+  Separator {
+    Material {
+      diffuseColor 0 0 0
+    }
+    DrawStyle {
+      style LINES
+    }    
+    Cube {
+      width 7
+      height 7
+      depth 7  
+    }
+  }  
+  
+  DEF XAXIS Separator {
+    Material {
+      diffuseColor 1 0 0
+    }
+    DrawStyle { 
+      lineWidth  3
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+				vertex [ -3.5 -3.5 -3.5,
+				         3.5 -3.5 -3.5 ]
+		  }
+		}
+  }
+  
+  DEF YAXIS Separator {
+    Material {
+      diffuseColor 0 1 0
+    }
+    DrawStyle { 
+      lineWidth  3
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+				vertex [ -3.5 -3.5 -3.5,
+				         -3.5 3.5 -3.5 ]
+		  }
+		}
+  }
+  
+  DEF ZAXIS Separator {
+    Material {
+      diffuseColor 0 0 1
+    }
+    DrawStyle { 
+      lineWidth  3
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+				vertex [ -3.5 -3.5 -3.5,
+				         -3.5 -3.5 3.5 ]
+		  }
+		}
+  }
+  
+}

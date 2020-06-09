@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CastField</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CastField" "changes the primitive data type or converts bytes to labels" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is a computational module that allows you to change the primitive
+ data type of a regular 3D scalar field or an RGBA color field. A new
+ scalar field will be created having the same dimensions and the same
+ coordinates as the incoming one, but the data values will be shifted,
+ scaled, and cast to a new data type.</p>
+<p> As an additional feature, <em>CastField</em> is also able to convert a
+ uniform scalar field of bytes into a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label
+ field</a>, which is commonly used to store segmentation results in <font face="helvetica">Amira</font>.
+ For each value or label occurring in the incoming field a corresponding
+ material will be created. Material colors may be defined via an
+ optional colormap.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar field or color field to be converted.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap specifying material colors if a uniform scalar field
+ of bytes is to be converted into a label field. Only visible if <em>LabelField</em> has been selected for output.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxCastField_inputInfo.png" /><br /></div>
+<div class="body"><p>Shows how the input data will be mapped during conversion. If no
+ clipping occurs, the input range covers all values between the minimum
+ and maximum data value of the incoming scalar field. This range will be
+ mapped as indicated. If clipping occurs, the minimum or maximum value
+ of the output range or both will be equal respectively to the smallest 
+ or largest value that can be represented by the selected output data
+ type. In this case the input range shows which values correspond to
+ these limits. Data values below the lower limit or above the upper
+ limit will be clamped.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output Datatype</span>  
+<div class="portsnapshot"><img src="HxCastField_outputType.png" /><br /></div>
+<div class="body"><p>Lets you select the primitive data type of the output field. The
+ item <em>LabelField</em> is special. If this is selected, the incoming
+ scalar field is converted into a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">label
+ field</a>.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scaling</span>  
+<div class="portsnapshot"><img src="HxCastField_scaling.png" /><br /></div>
+<div class="body"><p>Defines a linear transformation that is applied before the data values
+ are clamped and cast to the output datatype. The transformation is
+ performed as follows: <tt>output = SCALE*(input+OFFSET)</tt><br />
+
+ If you want to convert data with a range <tt>inmin ... inmax</tt> into a range
+ <tt>outmin ... outmax</tt>, <tt>SCALE</tt> and <tt>OFFSET</tt> are
+ determined like this:
+ <tt>SCALE = (outmax - outmin) / (inmax - inmin)</tt> and 
+ <tt>OFFSET = outmin / SCALE - inmin</tt></p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxCastField_voxelGridOptions.png" /><br /></div>
+<div class="body"><p>This port is only shown if you want to convert the incoming scalar
+ field into a label field. If option <em>clean labels</em> is set, then the
+ materials found in the input data set will be relabeled so that the
+ first material is 0, the second is 1, and so on. If <em>clean labels</em>
+ is not set, then the resulting label field will contain exactly 256
+ materials and no check is performed if a material actually can be
+ found.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxCastField_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color Channel</span>  
+<div class="portsnapshot"><img src="HxCastField_colorFieldOptions.png" /><br /></div>
+<div class="body"><p>This option menu will only be shown if an RGBA color field is to be
+ converted. It allows you to specify which channel of the color field
+ should be regarded. In addition to the four RGBA channels also <em>Gray</em> and <em>Alpha*Gray</em> can be selected. The gray channel is
+ computed on-the-fly from the RGB values of the color field according to
+ the NTSC formula: <tt>I=.3*R+.59*G+.11*B</tt>.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

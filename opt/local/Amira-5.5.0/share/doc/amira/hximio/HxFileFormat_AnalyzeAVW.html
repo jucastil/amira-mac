@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AnalyzeAVW</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "AnalyzeAVW" "contains 2D and 3D medical image data (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This format is used by newer versions of the Analyze medical imaging
+software (version 2.5 or higher). Previous versions used the
+<a class="link" href="HxFileFormat_Analyze75.html#A1">Analyze 7.5</a> format, where image data and
+header information were stored in different files. The <em>Analyze AVW</em>
+format can be used to store 2D, 3D, and 4D medical images, but the 4D time
+series option is currently not supported in <font face="helvetica">Amira</font>. Additional attributes
+stored in the files (like patient name or examination time) are stored
+in the parameter section of the generated <font face="helvetica">Amira</font> data objects. <em>Analyze AVW</em> files are safely recognized by inspecting the file header.
+The common file name extension is <tt>.avw</tt>.</p>
+<p>Besides <em>Analyze AVW</em> image files, sometimes also so-called <em>Analyze AVW</em> volume files are used, which contain a list of 2D file names
+forming a 3D image stack. Such volume files currently cannot be interpreted
+by <font face="helvetica">Amira</font>. However, note that <font face="helvetica">Amira</font> provides a very similar concept with
+the <a class="link" href="HxReadStackedSlices.html#A1">Stacked-Slices</a> format.</p>
+<p><font face="helvetica">Amira</font> exports scalar and color fields with uniform coordinates to 
+the <em>Analyze AVW</em> format. Other coordinate types can be written as
+well, but in these cases the coordinate information will be lost and no
+accurate recovery will be possible. 
+</p></div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Selection Tools</a></h3>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=GI-Selection.png.html><img width=675 src="GI-Selection.png" /></a><br />
+<div class="caption">
+<b>Figure 6:</b>
+The Selection area</div>
+
+
+</div><p></p>
+<p>The basic principle of the segmentation editor is to first select voxels
+and then to assign, subtract, and replace etc. the selected voxels to or from the
+current active material. A basic set of tools working with selections are described
+in the following:</p>
+<p><b>All slices / Current slice:</b> <a name="A3"></a>
+Lets
+ you choose to operate on <em>All slices</em> or just the <em>Current slice</em> i.e.,
+ if you have selected <em>All slices</em>, all the selection tools described below will
+ operate in 3D mode. For example, the <em>Clear</em> button clears the whole 3D selection,
+ not only the current slice. In order to warn the user, all selection tools will show
+ red colored icons instead of gray ones indicating that voxels are selected, which
+ aren't visible within the current <em>2D viewer</em> slices.</p>
+<p><b>Show in 3D:</b> <a name="A4"></a>
+Lets you display the current
+ selection within the <em>3D viewer</em>. On slower computers or for very large data sets,
+ this may become slow.</p>
+<p><img src="GI_clear.png" /> <b>Clear:</b> This button lets you clear the current selection.
+ If <em>All slices</em> is activated, the selection is cleared in all slices.</p>
+<p><img src="GI_replace.png" /> <b>Replace:</b> This button tries to replace a selected region.
+ Assume you want to modify the contours of some region. As long as the
+ new contours fully enclose the previous ones this can be easily
+ achieved using the "+" button. However, if the new region is smaller,
+ things are more complicated. The replace button looks for connected
+ regions under the current selection belonging to the current material.
+ Pixels which belong to such a region but which are not selected are
+ automatically assigned to some other neighboring material. Selected
+ pixels are assigned to the current material. In this way a replacement
+ is performed.</p>
+<p><img src="GI_plus.png" /> <b>Add:</b> This button adds all selected voxels to the material
+ currently selected in the material list. Voxels assigned to a locked
+ material are not affected. If the <em>Shift</em> key is held down while
+ clicking the button, the voxels remain selected. Otherwise the
+ selection is cleared afterwards.</p>
+<p><img src="GI_minus.png" /> <b>Subtract:</b> This button lets you subtract all selected voxels
+ belonging to the current material from that material, provided the
+ current material is not locked. The pixels are automatically assigned
+ to some neighboring material which is interpreted as a local
+ background.</p>
+<p><img src="GI_previous.png" /> <b>Previous:</b> This button displays in the
+ active <em>2D viewer</em> the slice previous to the current slice 
+ (lower slice number) that contains at least one selected voxel (red overlay).
+ If no such slice exists, clicking this button doesn't change the current
+ <em>2D viewer</em> slice position at all.</p>
+<p><img src="GI_next.png" /> <b>Next:</b> This button displays in the active 
+ <em>2D viewer</em> the next slice after the current slice (higher slice number) 
+ that contains at least one selected voxel (red overlay).
+ If no such slice exists, clicking this button doesn't change the current
+ <em>2D viewer</em> slice position at all.</p>
+<p><img src="GI_shrink.png" /> <b>Shrink:</b> This filter performs a morphological 
+ erosion of the current selection, i.e., the selection is made smaller by one
+ pixel in every direction. The filter can be applied to the current
+ slice only (shortcut is <em>Ctrl -</em>), to all slices (orientation
+ is defined by the active viewer), or to the whole volume. You can access 
+ this command also though the item <a class="link" href="GISelectionFilters.html#A1">Selection</a> 
+ in the menu bar.</p>
+<p><img src="GI_grow.png" /> <b>Grow:</b> This filter performs a morphological 
+ dilatation of the current selection, i.e., the selection is made bigger by
+ one pixel in every direction. The filter can be applied to the current 
+ slice only (shortcut is Ctrl +), to all slices (orientation is defined by 
+ the active viewer), or to the whole volume. You can access this command 
+ also though the item <a class="link" href="GISelectionFilters.html#A1">Selection</a> in the menu bar.
+
+</p></body>
+</html>

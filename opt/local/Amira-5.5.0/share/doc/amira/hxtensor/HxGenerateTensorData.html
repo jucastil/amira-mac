@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AnalyticTensorField</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Data" "AnalyticTensorField" "second order tensor field defined by presets" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module generates standard analytical symmetric second order 
+tensor fields. You can use the Arithmetic module to sample the tensors on a uniform
+grid but note that the interpolation method used in Arithmetic
+does not take into account the metric tensor space. Because of
+this, the tensors sampled may have negative eigenvalues. 
+</p></div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Metric</span>  
+<div class="portsnapshot"><img src="HxGenerateTensorData_Metric.png" /><br /></div>
+<div class="body"><p>Selects a tensor metric. The Schwarzschild and the Kerr metrics are used 
+in astronomy to describe the structure of black holes. The Moebius strip
+metric, the spherical tensor field, and the random tensor field 
+are used primarily as analytical fields to test tensor analysis modules.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxGenerateTensorData_Scale.png" /><br /></div>
+<div class="body"><p>This port scales the fields with the distance from the center of 
+the data cube. This is useful because the Arithmetic module usually samples
+fields in the interval -1..1. In the random metric setting this
+port scales the entries of the tensor entries.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mass</span>  
+<div class="portsnapshot"><img src="HxGenerateTensorData_Mass.png" /><br /></div>
+<div class="body"><p>The mass is a parameter of the Schwarzschild and Kerr metrics.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Angular moment</span>  
+<div class="portsnapshot"><img src="HxGenerateTensorData_AngularMoment.png" /><br /></div>
+<div class="body"><p>The angular moment used in the Kerr metric.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

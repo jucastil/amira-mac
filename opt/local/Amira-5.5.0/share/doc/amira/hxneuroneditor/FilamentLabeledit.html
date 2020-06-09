@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Working with the Label Editor</a></h3>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=FilamentLabeledit.png.html><img width=525 src="FilamentLabeledit.png" /></a><br />
+<div class="caption">
+<b>Figure 5:</b>
+The Label Editor Window.</div>
+
+
+</div><p></p>
+<p>
+The <em>Label Editor</em> is a window inside the Filament Editor's control panel 
+allowing the user to edit the graph according to user-defined labels.
+Labels can be created to annotate the graph or parts of it to reflect, for example, anatomical or functional properties of the underlying biological object. Once a graph has been labeled, the Label Editor can be used to flexibly select, show, and hide parts of a graph.</p>
+<p></p>
+<ul><li><b>Creating a label group</b><br />
+ 
+ To annotate a graph, create a label group by 
+ right-clicking into the label area and selecting the <em>Add node label group</em>, 
+ <em>Add segment label group</em>, or <em>Add graph label group</em> entry of the context menu.
+ In the sub-menu you now need to select <em>Empty label group</em>.
+ <em>Segment</em> labels are defined on segments of the graph, <em>Node</em> labels are 
+ defined on the nodes and graph level and <em>Graph</em> labels are defined on both
+ segments and nodes. Besides the different semantics, this distinction has
+ implications for how the graph is displayed with e.g., <em>SpatialGraphView</em>.</li><li><b>Adding labels to a label group</b><br />
+
+ To add a label, right-click onto the root element of the label group in the tree 
+ window and select <em>Add label</em> from the context menu.</li><li><b>Importing label trees from other spatial graphs</b><br />
+
+ To import a label tree from an existing spatial graph, you need to
+ right-click into the label area. The first step is then to
+ decide whether you want to add the labels for nodes, segments or
+ both. As result, a new sub-menu opens and you can choose
+ a label tree from any of the appearing spatial graphs. For each
+ spatial graph, all label trees are listed. Select the one you
+ want. Note that the spatial graph you want to import the label
+ tree from needs to reside in the <em>Pool</em>.</li><li><b>Renaming a label or a label group</b><br />
+
+ Right-click on the item to be renamed, select the <em>Rename [label | label group]</em> and begin to type where the cursor blinks.</li><li><b>Assigning nodes, segments, or both to a label group</b><br />
+
+ Select nodes, segments and graphs using the tools from the viewer toolbar or
+ the <em>Label Editor</em> itself. Right-click on the label item and select 
+ <em>Assign selection</em> from the context menu.</li><li><b>Changing the color of a label</b><br />
+
+ Click on the colored rectangle in the label window to get a 
+ <a class="link" href="../hxcore/QxColorDialog.html#A1">color dialog</a>. Edit the desired color and click <em>OK</em>.</li><li><b>Changing the order of label groups and labels</b><br />
+
+The order and hierarchy level of labels or label groups can be changed by clicking an item (label or label group) and dragging it into another position within the level of hierarchy or into another level. However, it is not possible to drag one label group into another one nor is it possible to drag a label from one label group into a different one.</li><li><b>Highlighting nodes and segments</b><br />
+
+ To highlight nodes and segments according to labels click the corresponding item
+ in the <em>Label Editor</em> window. To select individual nodes/segments expand
+ the label group item by clicking the [+] and selecting the label item to be
+ highlighted. If a <em>Segment</em> label group has been selected, this highlights
+ segments only, if a <em>Node</em> label group has been selected, only nodes are 
+ highlighted and if a <em>Graph</em> label group has been selected, nodes <em>and</em>
+ segments are highlighted.</li><li><p><b>Showing and hiding nodes and segments</b><br />
+
+ Label groups and member labels can be hidden by unsetting the checkmark in the
+ <em>Show</em> column of the label window. Unsetting the checkmark of a label group
+ item hides all segment/nodes associated with that label group.</p>
+<p> The fact that labels of different label groups are not necessarily independent, checking and unchecking a label of one label group may influence
+ the visibility of other label groups labels as well.
+ Thus tri-state checkboxes are used, introducing a <em>grayed out</em> third checkmark state indicating
+ that not all segments and nodes associated with this label or label group are visible.</p>
+<p> To hide individual label items of a label group, expand the label goup and unset the checkmark of
+ that label.</p></li>
+</ul><p>
+
+</p></body>
+</html>

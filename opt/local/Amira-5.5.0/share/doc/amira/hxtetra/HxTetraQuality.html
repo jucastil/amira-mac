@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TetraQuality</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TetraQuality" "computes quality criterions and displays histogram for tetrahedral grids" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>TetraQuality</em> module computes different quality measures for tetrahedral grids. 
+ For this purpose it can be attached to a <a class="link" href="../hxfield/HxTetraGrid.html#A1">Tetra Grid</a> object as well as a
+ <a class="link" href="HxGridVolume.html#A1">Grid Volume</a> module.
+ Quality is calculated for all tetrahedra in the first case, and for all tetrahedra 
+ selected by the Grid Volume module in the second case. 
+ The output is a scalar field defined on the tetrahedral grid and equal to 0 
+ on the non-selected tetrahedra.</p>
+<p> The user can create a histogram of the quality for the tetrahedral grid. 
+ By default, the histogram is shown with a logarithmic scale to
+ direct the focus on the tetrahedra with worst quality.</p>
+<p> Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>The tetrahedral grid.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_default">
+ <span class="headline">Grid volume</span>  
+
+<div class="body"><p>A <a class="link" href="HxGridVolume.html#A1">Grid Volume</a> module that selects the 
+	tetrahedra for which the quality is calculated.</p>
+<p>Either the <b>Data</b> or <b>Grid volume</b> connection is required. The other one then becomes optional.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Quality Measure</span>  
+<div class="portsnapshot"><img src="HxTetraQuality_quality.png" /><br /></div>
+<div class="body"><p>This option menu lets you select between different quality measures:
+ </p>
+<ul><li><b>Diameter Ratio:</b> ratio of diameters of circumscribed and
+ inscribed sphere of a tetrahedron. The optimal (minimal) value is 3.</li><li><b>Aspect Ratio:</b> aspect ratio = 3 / diameter ratio. The 
+	optimal (maximal) value is 1.</li><li><b>Dihedral Angle:</b> for each tetrahedron edge the dihedral 
+	angle is defined as the angle between its adjacent faces. The optimal value, obtained 
+	for all dihedral angles in an equilateral tetrahedron, is $$2 \arcsin(1/\sqrt 3)$$ (about 70.5 degrees).</li><li><b>Solid Angle:</b> for each tetrahedron vertex the solid 
+	angle is defined as the part of the unit sphere which is occupied 
+	by the tetrahedron. The optimal value, obtained for all solid angles in an equilateral tetrahedron, is $$3\arccos(1/3)-\pi$$ (about 31.6 degrees).</li><li><b>Edge Length:</b> length of all edges in a tetrahedron.</li>
+</ul>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select Angle</span>  
+<div class="portsnapshot"><img src="HxTetraQuality_selectAngle.png" /><br /></div>
+<div class="body"><p>If the quality measure is dihedral or solid angle, you can select 
+ </p>
+<ul><li>all angles: the scalar output is the mean angle in each tetrahedron and
+ the histogram represents all angles in the grid ;</li><li>the minimal angle: in each tetrahedron the scalar output is the minimal angle, which is represented on the histogram ;</li><li>the maximal angle: in each tetrahedron the scalar output is the maximal angle, which is represented on the histogram ;</li><li>minimal and maximal angles: in each tetrahedron the scalar output is their half sum and in the histogram both minimal and maximal angles are represented for each tetrahedron.</li>
+</ul>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select Edge</span>  
+<div class="portsnapshot"><img src="HxTetraQuality_selectEdge.png" /><br /></div>
+<div class="body"><p>If the quality measure is edge length, you can select 
+ </p>
+<ul><li>all edges: the scalar output is the mean length in each tetrahedron and
+ the histogram represents the length of all edges in the grid ;</li><li>the minimal edge length: in each tetrahedron the scalar output is the minimal edge length, which is represented on the histogram ;</li><li>the maximal edge length: in each tetrahedron the scalar output is the maximal edge
+ length, which is represented on the histogram ;</li><li>minimal and maximal edge lengths: in each tetrahedron the scalar output is their half sum and in the histogram both minimal and maximal edge lengths are represented for each tetrahedron.</li>
+</ul>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxTetraQuality_samples.png" /><br /></div>
+<div class="body"><p>This slider lets you select the number of samples for the histogram.
+ The default values should be adequate.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Histogram</span>  
+<div class="portsnapshot"><img src="HxTetraQuality_histogram.png" /><br /></div>
+<div class="body"><p>If you select this toggle, a plot window will appear, once you've pressed <em>Apply</em>,
+ showing the histogram
+	of qualities for all selected tetrahedra.
+	If no tetrahedra have been selected, the plot window will not be shown.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

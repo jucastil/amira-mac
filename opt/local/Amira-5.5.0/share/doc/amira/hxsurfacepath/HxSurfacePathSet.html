@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Surface Path Set</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Surface Path Set" "set of paths on a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module represents one or more paths on a surface, consisting
+ of one or more nodes connected by line segments. The three types
+ of nodes are:
+ </p>
+<ul><li><b>Vertex nodes</b>: can only lie on a vertex of the
+ surface</li><li><b>Edge nodes</b>: must lie on an edge of a triangle</li><li><b>Triangle nodes</b>: can lie everywhere on the surface</li>
+</ul>
+<p> Paths can be created using the
+ <a class="link" href="../hxsurfacepathedit/HxSurfacePathSetEdit.html#A1">Surface Path Editor</a>. The idea is to
+ define points on the surface, so called <i><b>control points</b></i>
+ which are connected to each other via path nodes using various
+ strategies like Dijkstra or shortest geodesic.</p>
+</div>
+<p></p>
+<p> </p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Surface</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A path set must be connected to a <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> on
+ which it is defined.</p>
+</div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

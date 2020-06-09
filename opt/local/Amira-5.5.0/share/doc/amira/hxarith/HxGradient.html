@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Gradient</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Gradient" "computes the gradient of a regular field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> The <em>Gradient</em> module computes the gradient of a field defined on a
+ regular (i.e. uniform, rectilinear, or curvilinear) grid or on a
+ tetrahedral grid . The output is a vector or tensor field defined on the
+ same grid. The orientation of the gradient (vector) depends on the setting
+ of port <em>Output</em>. If <em>Force</em> is selected the negative gradient
+ vector is computed.</p>
+\[
+        \mbox{grad} F = \pm \left( \frac{\partial F}{\partial x},
+        \frac{\partial F}{\partial y},\frac{\partial F}{\partial z} \right)
+    \]
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Field defined on a regular grid or a vertex based tetrahedral grid.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Result type</span>  
+<div class="portsnapshot"><img src="HxGradient_resulttype.png" /><br /></div>
+<div class="body"><p>Selection of the result type. Depending on the type the result may be clamped.
+ For unsigned types an appropriate offset will be added.
+ This port is only shown if the input type is not float.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxGradient_mode.png" /><br /></div>
+<div class="body"><p>If <em>Force</em> is selected the negative gradient vector is computed.</p>
+
+</div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> StreamSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "StreamSurface" "computes stream surfaces in a 3D vector field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes stream surfaces of an arbitrary 3D vector field.
+ A stream surface consists of multiple interconnected stream lines
+ started along a predefined line source. The algorithm automatically
+ inserts new stream lines in divergent regions of the field. Likewise,
+ in convergent regions stream lines are automatically removed. The
+ resulting stream surfaces can be accumulated in a
+ separate <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> object. In this way further
+ post-processing is facilitated, for example, computation of a LIC
+ texture using <a class="link" href="../hxfastLIC/HxSurfaceLIC.html#A1">SurfaceLIC</a>.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D vector field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap. By default, the current stream surface will
+	be display in wireframe mode and will be colored according to
+	the arc-length of the stream lines forming the stream surface. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxStreamSurf_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Origin</span>  
+<div class="portsnapshot"><img src="HxStreamSurf_origin.png" /><br /></div>
+<div class="body"><p>This port defines the seed point of the stream surface. By pressing
+	the menu button <em>options</em> a crosshair dragger can be activated which
+	allows you to change the seed point interactively in 3D.</p>
+<p>	Actually, in order to compute a stream surface not only a seed
+	point but a seed line is required. Starting from the seed point,
+	such a line will be defined automatically taking into account the
+	seed selection mode chosen in port <em>Action</em>.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxStreamSurf_resolution.png" /><br /></div>
+<div class="body"><p>Controls the resolution of the discretized stream surface or, more
+	precisely, the preferred edge length of the triangulation. Smaller
+	values results in more details.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxStreamSurf_length.png" /><br /></div>
+<div class="body"><p>Value <em>n</em> determines how far the surface should be traced in
+	backward direction. Value <em>m</em> determines how far the surface
+	should be traced in forward direction. Value <em>width</em> determines
+	the extent of the seed line. The actual lengths in physical space
+	depend on the value of port <em>resolution</em>. All values may be
+	changed using the right mouse buttons by means of a virtual slider.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxStreamSurf_action.png" /><br /></div>
+<div class="body"><p>This port provides push buttons allowing you to store the
+	current stream surface in a surface object (<em>add to result</em>),
+	respectively to remove all triangles from this surface again
+	(<em>clear result</em>). Moreover, the port provides an option menu
+	allowing you to select the mode used for automatic seed line
+	definition. The following modes are supported:</p>
+<p>	<em>Binormal:</em> The seed line will be traced in a direction
+	perpendicular to both the stream line's tangent and normal
+	(curvature) direction. Often this gives quite meaningful results.
+	However, note that in general the stream surface's normal vectors
+	do not coincide with the stream line's curvature vectors except
+	at the seed line.</p>
+<p>	<em>Normal:</em> The seed line will be traced along the field
+	line's normal (curvature) direction.</p>
+<p>	<em>X-axis:</em> The seed line is chosen in x-direction</p>
+<p>	<em>Y-axis:</em> The seed line is chosen in y-direction.</p>
+<p>	<em>Z-axis:</em> The seed line is chosen in z-direction.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setLineWidth &lt;width&gt;</span>  
+
+<div class="body"><p>
+	Sets line width of wireframe model.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTolerance &lt;eps&gt;</span>  
+
+<div class="body"><p>
+	Sets relative tolerance used for field line integration. The
+	default is 0.001 times the sampling width set in port <em>	resolution</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">doLineSet &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+	If argument is 1 only stream lines will be displayed instead of the
+	stream surface's triangulation.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDrawStyle &#123;1|2&#125;</span>  
+
+<div class="body"><p>
+	Allows you to set the draw style used in surface mode, i.e., when
+	<tt>doLineSet</tt> is off. A value of 1 denotes wireframe mode, while
+	a value of 2 denotes shaded surface mode. In order to display the
+	surface in a more fancy way convert it into a surface object and
+	use <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>.
+</p></div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

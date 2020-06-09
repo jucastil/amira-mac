@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VRSettings</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Virtual Reality Option</li></ul></div>
+<! HxIndex: "amiraVR" "Module" "VRSettings" "allows Amira to run in a virtual environment" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <font face="helvetica">VRSettings</font> module is the central control module of the
+<a class="link" href="HxVR.html"><font face="helvetica">Virtual Reality Option</font> Virtual Reality Extension</a>. It allows you to
+activate different screen configurations specified in config files located
+in <tt>$AMIRA_ROOT/share/config/vr</tt> or <tt>$AMIRA_LOCAL/share/config/vr</tt>.
+For details about supported features such as multi-pipe or multi-thread
+rendering, soft-edge blending, passive stereo support, or head-tracking,
+please refer to the main <font face="helvetica">Virtual Reality Option</font> documentation. In the following we assume
+that you are already familiar with the basic concepts of <font face="helvetica">Virtual Reality Option</font>.
+</p></div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Config</span>  
+<div class="portsnapshot"><img src="HxTracking_config.png" /><br /></div>
+<div class="body"><p>This port provides a list of all config files found in <tt>$AMIRA_ROOT/share/config/vr</tt> and <tt>$AMIRA_LOCAL/share/config/vr</tt>. This is
+the same as in the <em>Config</em> menu of the <font face="helvetica">Amira</font> main window. Note that
+valid config files are only searched once. It is not possible to add a
+config file when <font face="helvetica">Amira</font> is running. However, existing config files may be
+modified and reloaded using the <em>reload</em> button. The <em>write</em>
+button allows you store a modified configuration into a file (for example
+after the tracking system has been calibrated). If this button is pressed,
+the file dialog pops up.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tracker</span>  
+<div class="portsnapshot"><img src="HxTracking_tracker.png" /><br /></div>
+<div class="body"><p>Specifies how the connection to the tracking system should be established.
+In order to connect to a running trackd daemon, the value of this port
+should be <tt>&lt;id of controller reader&gt;:&lt;id of tracker reader&gt;</tt>, where
+the two ids are the shared memory ids of the trackd controller reader and
+the trackd tracker reader as specified in the <em>trackd.conf</em> file.</p>
+<p>In order to connect to a VRPN server, the value of this port should
+be <tt>vrpn &lt;trackerDeviceName[@host[:port]]&gt; &lt;buttonDeviceName[@host[:port]]&gt;</tt>,
+with tracker and button device names as specified in the <em>vrpn.cfg</em> server
+configuration file. Specifying a host and a port, where a host can be an IP
+address or a DNS hostname, is optional. If no host has been specified Amira will try
+to connect to an VRPN server running on the localhost using the standard VRPN port 3883.</p>
+<p>In order to activate a simple <a class="link" href="HxVR-trackemu.html#A1">tracker emulator</a>, 
+you can type in <em>test</em> into the text field.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxTracking_action.png" /><br /></div>
+<div class="body"><p>The <em>connect</em> button allows you to connect to the tracking system.
+Once you are connected to the tracking system, the button label changes
+to <em>disconnect</em>. Pressing the button then disconnects from the
+tracking system.</p>
+<p>The <em>calibrate</em> button allows you to calibrate the tracking system,
+i.e., to find the transformation between raw tracker coordinates and
+the screen coordinates used in the config file. 
+For more information
+about the calibration process, please refer to
+<a class="link" href="HxVR-calibrate.html#A1">Section 11.6</a>.
+</p>
+<p>The <em>pick wand</em> button allows you to change the offset between the
+3D input device and the visual representation of the virtual wand. If
+you press the button, the wand is displayed half-way between the current
+eye position and the default object position. You can then pick the
+virtual wand in the way which is most convenient for you.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxTracking_mode.png" /><br /></div>
+<div class="body"><p>Option menu allowing you to change between ordinary interaction mode
+(translate and rotate the whole scene using the 3D wand), fly mode
+(navigate through the scene like an airplane), or 2D mouse mode (control
+the 2D mouse using the 3D wand). In order to exit 2D mouse mode,
+double-click the 3D wand while the 2D mouse is over an insensitive GUI
+element.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTracking_options.png" /><br /></div>
+<div class="body"><p>If the <em>values</em> toggle is activated, the current coordinates of the
+wand sensor and of the head sensor are displayed in the upper left corner
+of the screen. The coordinates are transformed into the screen coordinate
+system which was used in the config file. Only during calibration raw
+tracker coordinates are displayed.</p>
+<p>The <em>menu</em> toggle displays or hides the 3D menu in the scene.</p>
+<p>The <em>wand highlighting</em> toggle can be turned off to gain some 
+performance. This is particularly useful when the scene contains a large number 
+of interactive objects.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Adjust size</span>  
+<div class="portsnapshot"><img src="HxTracking_adjustSize.png" /><br /></div>
+<div class="body"><p>This slider allows you to change the overall scaling of the scene.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Stereo</span>  
+<div class="portsnapshot"><img src="HxTracking_stereo.png" /><br /></div>
+<div class="body"><p>The <em>enable</em> toggle allows you to enable or disable stereo mode. Depending
+on the camera mode defined in the config file, either active stereo
+or passive stereo will be used.
+This option is the only one which
+is provided for flat screen configurations (compare
+<a class="link" href="HxVR-flat.html#A1">Section 11.4</a>).
+</p>
+<p>The <em>head tracking</em> toggle allows you to temporarily enable or disable head
+tracking. If head tracking is disabled, the default camera position
+specified in the config file will be used instead of the position reported
+by the head sensor. If no head sensor has been configured or if a flat
+screen configuration is being used, this button is disabled.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Left eye offset</span>  
+<div class="portsnapshot"><img src="HxTracking_leftEyeOffset.png" /><br /></div>
+<div class="body"><p>Define here the center of the left eye relative to the head tracker 
+position. This port is only visible if stereo mode is enabled for immersive 
+configurations. Its value is initialized with the <a class="link" href="HxVR-config.html#A1">config 
+file</a> leftEyeOffset field.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Right eye offset</span>  
+<div class="portsnapshot"><img src="HxTracking_rightEyeOffset.png" /><br /></div>
+<div class="body"><p>Define here the center of the right eye relative to the head tracker 
+position. The same remarks as for <em>Left eye offset</em> apply.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Zero parallax balance</span>  
+<div class="portsnapshot"><img src="HxTracking_zeroParallaxBalance.png" /><br /></div>
+<div class="body"><p>This slider allows you to adjust the stereo balance. This port is 
+only visible if stereo mode is enabled for flat screen configurations. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Camera offset</span>  
+<div class="portsnapshot"><img src="HxTracking_cameraOffset.png" /><br /></div>
+<div class="body"><p>This slider allows you to adjust the offset between each eye. This port is 
+only visible if stereo mode is enabled for flat screen configurations. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">start &lt;hostname&gt;</span>  
+
+<div class="body"><p>Starts the slave hostname. If hostname is null, starts all slaves.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">stop &lt;hostname&gt;</span>  
+
+<div class="body"><p>Stops the slave hostname. If hostname is null, stops all slaves.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">restart &lt;hostname&gt;</span>  
+
+<div class="body"><p>Restarts the slave hostname. If hostname is null, restarts all slaves.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setHeadTrackerId &lt;id&gt;</span>  
+
+<div class="body"><p>Changes the head tracker id on-the-fly. Usually the id is defined in
+the config file. A value of -1 disables the head tracker.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setWandTrackerId &lt;id&gt;</span>  
+
+<div class="body"><p>Changes the wand tracker id on-the-fly. Usually the id is defined in
+the config file. A value of -1 disables the wand tracker.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSoftEdge -g &lt;gamma&gt; &lt;overlap&gt; [&lt;overlap&gt;...]</span>  
+
+<div class="body"><p>Initializes a dual-screen soft-edge configuration with the given
+overlap percentage <tt>&lt;overlap&gt;</tt>. This is a value between 0
+(no overlap) and 1 (full overlap). <tt>&lt;gamma&gt;</tt> defines the
+gamma value for the soft-edge blending (exponent controlling the blending curve).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPanorama &lt;overlap1&gt; [&lt;overlap2&gt; ...]</span>  
+
+<div class="body"><p>Initializes a multi-screen panorama configuration with the given
+overlap percentages. These are values between 0 (no overlap)
+and 100 (full overlap). The current configuration must be a
+flat screen configuration.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDefaultCameraPosition &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the default camera position for a 3D configuration. The position
+must be specified in the same coordinate system as the screens in
+the <font face="helvetica">Virtual Reality Option</font> config file. The default camera position is used if head
+tracking is turned off.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">emulateWandButton &lt;0/1&gt; [key-code]</span>  
+
+<div class="body"><p>Activates the wand button emulator. Useful when the wand has no button.
+[key-code] is an optional decimal value. 
+It refers to the hexadecimal Key enum of the Open Inventor SoKeyboardEvent class.
+Default key is [ENTER] (code 0xFF0D in OIV, i.e. 65293 in <font face="helvetica">Amira</font>).</p>
+</div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

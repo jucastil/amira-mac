@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LineSetProbe</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LineSetProbe" "samples a 3D field at the vertices of a line set" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module samples an arbitrary 3D field at the vertices of a 
+ <a class="link" href="../hxlines/HxLineSet.html#A1">LineSet</a>. Since line sets can consist of many lines,
+ every line of a line set is represented by at least one curve in
+ the plot window. For higher dimensional fields, e.g., vector fields,
+ the value shown depends on the setting of the <em>Evaluate port</em> (see below).</p>
+<p> The sampled values can also be saved into a copy of the input line set.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Can be connected to arbitrary 3D fields. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">LineSet</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The connected line set contains the probe line(s) where the samples are
+ taken.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Evaluate</span>  
+<div class="portsnapshot"><img src="HxLineSetProbe_vectorcomp.png" /><br /></div>
+<div class="body"><p>If the probe is connected to a vector field, these radio buttons are
+ shown. If the <em>magnitude</em> button is set the magnitude of the
+ vectors is shown in the plot window. With the <em>normal+tangent
+ Comp.</em> button set you get the normal and tangential components as two
+ curves. Setting the <em>all</em> button shows all components of the vector
+ field as separate curves.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxLineSetProbe_options.png" /><br /></div>
+<div class="body"><p>The <em>average</em> option averages the probe values by taking samples on a
+ disk perpendicular to the sampling points and smoothes the sampled values
+ along the sampling line(s).</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxLineSetProbe_radius.png" /><br /></div>
+<div class="body"><p>The radius of the sampling disk. This slider is only shown if the above
+ average option is chosen.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Longitudinal Width</span>  
+<div class="portsnapshot"><img src="HxLineSetProbe_width.png" /><br /></div>
+<div class="body"><p>The width determines how many sampling values are used for smoothing.
+ This slider is only shown if the above average option is chosen.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxLineSetProbe_samples.png" /><br /></div>
+<div class="body"><p>If the <em>Show</em> button is pressed a <a class="link" href="../hxplot/HxPlottool.html#A1">plot window</a>
+ appears where the sampled values are plotted against the length of the
+ probe line(s). <em>Note:</em> There will be only one plot window regardless
+ of how many LineSet Probe modules there are in your setup. Every lineset
+ probe is represented in that plot window by at least one curve bearing the
+ name of the corresponding module.</p>
+<p> Pressing the <em>Store</em> button stores the sampled data in a copy of the
+ input lineset.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

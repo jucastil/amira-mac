@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> WatershedSegmentation</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Multi-Component Analysis Option</li></ul></div>
+<! HxIndex: "amiraMultiCompAnalysis" "Module" "WatershedSegmentation" "Watershed Transform based on ITK implementation" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p> This module uses the ITK implementation of the <em>Watershed Transform</em> to segment gray value images into meaningful regions. The 
+principle of the algorithm is best understood in the 2D domain. Imagine rain 
+falling onto a landscape. Depending on the topography of the landscape water 
+will converge into troughs (areas around local minima in the surface), so 
+called <em>catchment basins</em>. The size of those basins will grow with increasing 
+amounts of rain flooding the landscape until they spill into one another, 
+causing small basins to merge together into larger basins. Rather than 
+producing a single segmentation the algorithm creates a hierarchy 
+of catchment basins so that the user can control the level of granularity 
+of the labeled image. Typically <em>WatershedSegmentation</em> requires some 
+pre-processing in order to get bright object borders. This can be done using 
+an edge detection filter. <em>WatershedSegmentation</em> can also be used to 
+separate objects in a binarily segmented image.
+
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The uniform scalar field to be segmented. The field can be of type byte, short, 
+ushort, integer, float or double (float is recommended because of the 
+computational accuracy).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Input threshold</span>  
+<div class="portsnapshot"><img src="HxWatershedSegmentation_inputThreshold.png" /><br /></div>
+<div class="body"><p>Prior to generating the tree of catchment basins shallow background regions are
+removed by setting a minimum threshold. Note that the computation time is crucially 
+dependent on the complexity of the tree of catchment basins and to a much lesser extent 
+on the size of the input data. Setting a reasonable threshold can therefore speed up 
+segmentation significantly.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Minimal depth</span>  
+<div class="portsnapshot"><img src="HxWatershedSegmentation_minimalDepth.png" /><br /></div>
+<div class="body"><p>Once a segmentation has been calculated for a given <em>Threshold</em>, one may 
+choose the level of segmentation detail by adjusting this slider. In the 
+picture of the landscape flooded by water this corresponds to the minimal depth 
+of a basin that is not merged to one of its neighbors. The higher this value the 
+greater are the catchment basins and the less is the number of labels. The value of 
+this parameter has to be greater than 0 and smaller than the difference between the maximum 
+of the input field and the value of the <em>Threshold</em> port.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output type</span>  
+<div class="portsnapshot"><img src="HxWatershedSegmentation_outputType.png" /><br /></div>
+<div class="body"><p>Select here the output data type. The choices are <em>LabelField</em>, 
+<em>unsigned short</em> and <em>unsigned integer</em>. If the number of labels cannot be
+represented by a given data type, a warning is issued in the Console.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

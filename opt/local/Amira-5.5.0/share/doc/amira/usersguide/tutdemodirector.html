@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.11 Creating animated demonstrations with DemoMaker and DemoDirector</a></h2>
+<p>In this tutorial you will learn how to use the
+<a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMaker</a> and <a class="link" href="../hxdemodirector/HxDemoDirector.html#A1">DemoDirector</a>
+modules for creating an animated sequence of operations within
+<font face="helvetica">Amira</font>. In our example, we will visualize a polygon model using
+effects such as transparency, camera rotation, and clipping to make
+the visualization more meaningful and attractive. </p>
+<p>The tutorial covers the following topics:
+</p>
+<ul><li>creating an initial network for the demo</li><li>animating an <em>OrthoSlice</em> module</li><li>activating additional modules during the demo</li><li>using a camera rotation or path</li><li>editing or removing events that are already defined</li><li>overlaying a bone model with a transparent skin model</li><li>using clipping to make the skin appear gradually over the bone</li><li>advanced clipping issues</li><li>inserting breaks and defining demo segments</li><li>using function keys for jumping between demo segments</li><li>defining partial loops within the demo sequence</li><li>storing and replaying a demo sequence</li>
+</ul><p></p>
+<p>Once you have learned how to define an animated demo sequence, you can
+further learn how to record the demonstration into a movie file in
+<a class="link" href="tutmovie01.html#A1">Section 2.12</a>.</p>
+<p>
+</p>
+<h3><a name="A2">2.11.1 Creating a Network</a></h3>
+<p>First, we need an <font face="helvetica">Amira</font> network that contains all the data and
+modules for the visualization and animation we want to do. In our
+example, we pick the medical CT scan data set <tt>reg005</tt>. Start by
+loading <tt>data/medical/reg005.ctdata.am</tt> from the <tt>AMIRA_ROOT</tt>&nbsp;directory.
+By right-clicking on the green data icon and selecting from
+the data set's popup menu, attach a <a class="link" href="../hxcore/HxBoundingBox.html#A1">BoundingBox</a>
+module as well as an <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> module to the
+data. If you use the mouse to navigate around the model in the 3D
+viewer, you should manage to get a result similar to this:
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_01.png.html><img width=525 src="tutdemodirector_01.png" /></a>
+ <a href="../../../demo/animation/demodirector_orthoslice.hx">(load network)</a>
+</p></blockquote>
+<p></p>
+<p>
+</p>
+<h3><a name="A3">2.11.2 Animating an OrthoSlice Module</a></h3>
+<p>Let us move the <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> plane up and down
+to show what the data looks like. Note that the <em>OrthoSlice</em>
+module has a port called <em>Slice Number</em>. If you change the value
+of that slider, you see the plane move in the viewer.</p>
+<p>Now let us animate this slider using the <a class="link" href="../scriptobjects/DemoMaker.html#A1">DemoMaker</a>
+module and <a class="link" href="../hxdemodirector/HxDemoDirector.html#A1">DemoDirector</a> GUI as our first exercise.
+Add a <em>DemoMaker</em> module to the pool by right-clicking in the pool and
+selecting <em>Create -&gt; Animation/Demo -&gt; DemoMaker</em>. Click on the
+<em>DemoDirector</em> button in the console window to
+switch to the <a class="link" href="../hxdemodirector/HxDemoDirector.html#A1">DemoDirector</a>.
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_demodirector.png.html><img width=525 src="tutdemodirector_demodirector.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Whenever you want to animate some ports of the current network, you must
+add this with the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.
+A new window containing all modules in the pool with all their ports opens.
+Try to find the entry called <em>OrthoSlice/Slice Number</em>, which corresponds
+to the <em>Slice Number</em> port of the current <em>OrthoSlice</em>
+module. You can select <em>Slice Number</em> and click <em>Ok</em> or double-click
+<em>Slice Number</em> to add it to the <em>DemoDirector</em>. If you cannot find the
+entry, you may need to press the <em>Update event list</em> button.
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_newEvent.png.html><img width=525 src="tutdemodirector_newEvent.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Once you have selected <em>OrthoSlice/Slice Number</em>, you see an
+<em>OrthoSlice/Slice Number</em> object in the <em>DemoDirector</em>.
+If this object is selected you can set the <em>Start/end value</em>
+as well as the <em>Start/end time</em>. The start and end value
+specify between which two values the OrthoSlice slider will be
+moved. The <em>Start/end time</em> can also be changed by moving the
+object with the mouse or moving start or end point with the mouse. </p>
+<p>Set the <em>start value</em> to <em>0</em> and the <em>end value</em> to <em>30</em>.
+Then, set the <em>start time</em> to <em>0</em> and the <em>end time</em> to
+<em>15</em>. You have now specified an
+<em>event</em> starting at time 0 and ending at time 15, varying the
+<em>OrthoSlice</em> slice number between 0 and 30 during that time.</p>
+<p></p><blockquote>
+<p>
+ <a href=tutdemodirector_slicenumber.png.html><img width=525 src="tutdemodirector_slicenumber.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Test the result by pressing the play button of <em>DemoDirector</em>,
+represented by the triangle pointing to the right. When you
+press it, the red timeline (representing the current time) will start 
+moving from the left to the right. Start and end time of the demo
+sequence is represented by blue lines. When the time value is between 0
+and 15, you should see that the OrthoSlice plane is moving between
+the specified start and end values in the viewer
+<a href="../../../demo/animation/demodirector_ortho_demo.hx">(load network)</a>. You
+can also play your demo backwards using the play backward button,
+represented by a triangle pointing to the left. Or you can move the
+timeline with the mouse to go to any point in time of the demonstration.</p>
+<p>If the demo sequence runs too slow or too fast, you can adjust this by
+clicking on the triangle pointing down and selecting
+<em>Configure</em> from the popup menu. Change the <em>Increment</em>
+value in the dialog box that appears. A smaller increment will make
+the animation slower, whereas a larger increment makes it faster. If
+you choose an increment value too large, the animation might become
+"jerky".</p>
+<p>
+</p>
+<h3><a name="A4">2.11.3 Activating a Module in the Viewer Window</a></h3>
+<p>Next, let us add a visualization of the bone structure in the data set
+after we have moved the OrthoSlice. Load the data set
+<tt>data/medical/reg005.surf</tt> in addition to the current
+network. Attach a <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module to
+it. Click on the yellow <em>SurfaceView</em> module to see its user interface.
+Press the <em>Clear</em> button in the <em>Buffer</em> port, then
+select <em>Bone</em> and <em>All</em> in the <em>Materials</em> port
+and press the <em>Add</em> button in the buffer port. This will
+visualize the bone surface of the model. 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_bone.png.html><img width=525 src="tutdemodirector_bone.png" /></a>
+</p></blockquote>
+<p></p>
+<p>If you want to switch the bone visualization on and off manually, you
+would use the <em>viewer toggle</em> (orange rectangle) of the
+<em>SurfaceView</em> module. If you want to include this action in
+your demo sequence, you need to do the following:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>SurfaceView/Viewer Mask/Viewer 0</em> from the list.</li><li>Enter <em>on</em> in the <em>Toggle to value</em> port.</li><li>Enter <em>15</em> in the <em>Trigger time</em> port or move the object
+ by mouse to time step 15.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_viewertoggle.png.html><img width=525 src="tutdemodirector_viewertoggle.png" /></a>
+</p></blockquote>
+<p></p>
+<p>To test the newly added event, first toggle the <em>SurfaceView</em>
+module off using its orange viewer toggle icon. Now click the
+<em>Jump to start</em> button (triangle pointing to the left together
+with a vertical line at its tip) to jump to the start of the
+demo sequence. Click the play button. As before, the slice moves
+up. When it reaches the maximum value at time 15, the bone model is
+switched on (<a href="../../../demo/animation/demodirector_bone_demo.hx">load network</a>).</p>
+<p>
+</p>
+<h3><a name="A5">2.11.4 Using a Camera Rotation</a></h3>
+<p>To look at the 3D patient model from all sides, let us add a camera
+rotation to our demo sequence. Select <em>Create/CameraRotate</em>
+from the menu. Try the rotation by using the time slider in the
+<em>CameraRotate</em> module. If you do not like the axis of rotation,
+reset the time slider to 0, navigate to a good starting view in the
+viewer window, and click on <em>recompute</em> in the
+<em>CameraRotate</em> module. Note that the values of the 
+<em>CameraRotate</em> time slider range from 0 to 360.</p>
+<p>Once you are satisfied with the camera rotation, add it to the event
+list:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>CameraRotate / Time</em> from the list.</li><li>Enter <em>0</em> and <em>360</em> as the <em>Start/end value</em>.</li><li>Enter <em>15</em> and <em>30</em> as the <em>Start/end time</em> or position the object at
+ this time by mouse interaction.</li>
+</ul><p>
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_camrotate.png.html><img width=525 src="tutdemodirector_camrotate.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Now play the demo to see the result. After moving the slice and
+switching on the bone model, the view is rotated so that the bone can
+be seen from all sides 
+(<a href="../../../demo/animation/demodirector_camrotate.hx">load network</a>).</p>
+<p>
+</p>
+<h3><a name="A6">2.11.5 Editing or Removing an Already Defined Event</a></h3>
+<p>When you look at the demo sequence so far, you may think that it would
+be nice to wait for a short time before rotating the bone model. This
+can be done by starting the rotation at a later time step. We can
+easily correct this in the <em>DemoMaker</em> module:
+</p>
+<ul><li>Select the <em>CameraRotate / Time</em> event in the <em>DemoDirector</em>.</li><li>You can change the time in the <em>Start/end time</em> port to <em>20</em> and
+ <em>35</em> or move the event to this time with the mouse.</li>
+</ul><p></p>
+<p>Now you have moved the camera rotation event from 15-30 to 20-35
+on the time line. Check the results by playing the demo sequence 
+(<a href="../../../demo/animation/demodirector_camrotate2.hx">load network</a>).</p>
+<p>Please note that you can delete an event from the sequence by simply
+selecting it in the <em>DemoDirector</em> and pressing the delete key or by
+right-clicking the event and clicking <em>Remove Event(s)</em>.</p>
+<p>
+</p>
+<h3><a name="A7">2.11.6 Overlaying the Bone with Skin</a></h3>
+<p>Now we want to show the patient's outer surface overlayed over the
+bone model.
+</p>
+<ul><li>Attach a second <em>SurfaceView</em> module to the <em>reg005.surf</em> 
+ data set. Since <em>Exterior</em> and <em>All</em> are selected as 
+ the default materials, this brings up the patient's exterior surface.</li><li>Click on the second <i>SurfaceView</i> module. It should be called 
+ <em>SurfaceView2</em>.</li><li>Select <em>transparent</em> from the <em>Draw Style</em> port.</li><li>It will be helpful to show the bone underneath the
+ exterior surface, so jump to time step 15 or later in the
+ <em>DemoDirector</em> module.</li><li>Adjust the grade of transparency using the <em>BaseTrans</em> 
+ slider in <em>SurfaceView2</em>.</li><li>Smooth out the outer surface by clicking on <em>more options</em> 
+ in the <em>Draw Style</em> port and selecting <em>Vertex normals</em>.</li><li>Toggle the <em>SurfaceView2</em> module off using its orange viewer toggle icon.</li>
+</ul><p></p>
+<p>Like we did with the bone model, we can switch on the skin model at
+some point in the demo sequence:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>SurfaceView2/Viewer Mask/Viewer 0</em> from the list.</li><li>Check <em>on</em> in the <em>Toggle to value</em> port.</li><li>Enter <em>35</em> in the <em>Trigger time</em> port.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_skin.png.html><img width=525 src="tutdemodirector_skin.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Again, check out the results by playing the demo sequence.</p>
+<p>
+</p>
+<h3><a name="A8">2.11.7 Using Clipping to Add the Skin Gradually</a></h3>
+<p>Instead of just switching the skin on at one point, we can make it
+appear gradually over the bone from bottom to top. In order to do so,
+we use the <em>OrthoSlice</em> plane to <em>clip</em> the skin model,
+and then move the <em>OrthoSlice</em> plane up.</p>
+<p>First, we need to move the <em>OrthoSlice</em> plane down again to where we
+want to start the clipping:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>OrthoSlice/Slice Number</em> from the list.</li><li>Enter <em>30</em> and <em>3</em> as the <em>Start/end values</em>.</li><li>Enter <em>20</em> and <em>35</em> as the <em>Start/end time</em>.</li>
+</ul><p> </p>
+<p>Now, when you play the demo, the <em>OrthoSlice</em> plane will move
+down again during the camera rotation
+(<a href="../../../demo/animation/demodirector_skin.hx">load network</a>).</p>
+<p>Now, we will clip the skin model using the OrthoSlice plane:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>SurfaceView2 / Clip using OrthoSlice</em> from the list.</li><li>Enter <em>on</em> as <em>Toggle value</em> and <em>35</em> as <em>Trigger 
+ time</em>.</li>
+</ul><p> </p>
+<p></p><blockquote>
+<p>
+ <a href=tutdemodirector_clip.png.html><img width=525 src="tutdemodirector_clip.png" /></a>
+</p></blockquote>
+<p></p>
+<p>When you run the animation now, you will not see the skin
+surface. This is because it is clipped above the <em>OrthoSlice</em>
+plane, and only visible below that plane. To see the partial surface
+below the plane, we must make the <em>Orthoslice</em> display
+transparent:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>OrthoSlice / Transparency</em> from the list.</li><li>Select <em>None</em> and <em>Alpha</em> as the <em>from/to values</em>.</li><li>Enter <em>35</em> as the <em>Trigger time</em>.</li>
+</ul><p> </p>
+<p>This way we have specified that at time 35, the <em>Transparency</em>
+port of the <em>OrthoSlice</em> module will be changed from value
+<em>None</em> to the new value <em>Alpha</em>. When running the demo 
+sequence, the result should look like this:</p>
+<p></p><blockquote>
+<p>
+<a href=tutdemodirector_clipresult.png.html><img width=525 src="tutdemodirector_clipresult.png" /></a>
+</p></blockquote>
+<p></p>
+<p>As you see, part of the skin model is showing below the transparent
+<em>OrthoSlice</em> plane. To show all of the skin, we simply move the
+plane upwards pretty much the same way we did before:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>OrthoSlice / Slice Number</em> from the list.</li><li>Enter <em>3</em> and <em>58</em> as the <em>Start/end value</em>.</li><li>Enter <em>35</em> and <em>50</em> as the <em>Start/end time</em>.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_orthoup.png.html><img width=525 src="tutdemodirector_orthoup.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Now you see the skin slowly appearing over the bone as the clipping
+plane moves upwards.</p>
+<p>As a last step, you might want to rotate the view again while the skin
+is appearing. You can simply reuse the old camera rotation during a second
+time range:
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>CameraRotate / Time</em> from the list.</li><li>Enter <em>0</em> and <em>360</em> as the <em>Start/end value</em>.</li><li>Enter <em>35</em> and <em>50</em> as the <em>Start/end time</em>.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_camrotclone.png.html><img width=525 src="tutdemodirector_camrotclone.png" /></a>
+</p></blockquote>
+<p></p>
+<p>You can check out the final animation by loading a
+<a href="../../../demo/animation/demodirector_final.hx">saved network script</a>.</p>
+<p>
+</p>
+<h3><a name="A9">2.11.8 More Comments on Clipping</a></h3>
+<p>Clipping can sometimes be a little bit more complicated than in our
+example, because clipping can be applied to a plane in two different
+orientations. This means that you can either clip away everything
+<em>above</em> the plane, or <em>below</em> the plane. Unfortunately
+it is not always obvious which of the two cases you are in.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<p>However, you can simply invert the orientation of the clipping in the
+<em>DemoDirector</em>. In our example, you would simply select
+<em>OrthoSlice / Invert clipping orientation</em> from the new event list
+and set the time of this event to the very beginning of your demo
+sequence (e.g., at some time before the clipping takes effect).
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_clipinvert.png.html><img width=525 src="tutdemodirector_clipinvert.png" /></a>
+</p></blockquote>
+<p></p>
+<p>You do not need to use an <em>OrthoSlice</em> module to do
+clipping. As you have seen, the <em>OrthoSlice</em> might occlude
+parts of what you want to show. In that case, it is better to create an
+empty <a class="link" href="../hxcore/HxArbitraryCut.html#A1">ClippingPlane</a> module by selecting
+<em>Create/Clipping Plane</em> from the menu. Attach the module to
+the data set you want to clip (e.g., to <em>reg005.surf</em> in our
+example), and then use the <em>ClippingPlane</em> for clipping just as
+you used the <em>OrthoSlice</em> before.</p>
+<p>
+</p>
+<h3><a name="A10">2.11.9 Breaks and Function Keys</a></h3>
+<p>The demo sequence that we have created in this tutorial automatically 
+runs through the complete time range that we
+defined. Sometimes it might be desirable to split the sequence into
+several segments, so that the demo will stop at some point and can be
+continued whenever the user desires to do so.</p>
+<p>To take this into account, you can insert <em>breaks</em>
+in the demo sequence. Let us insert one such break
+right after the bone model appears: 
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>*Break, continue on keystroke</em> from the event list.</li><li>Enter <em>16</em> as the <em>Trigger time</em>.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_break.png.html><img width=525 src="tutdemodirector_break.png" /></a>
+</p></blockquote>
+<p></p>
+<p>This way the demo will stop at time 16, which is right after the
+time when the bone model is switched on (15). When you play the demo
+from the start, you will notice that after the bone is switched on,
+the demo will stop.</p>
+<p>Let us insert a second break at time step 36, which is right before
+the skin is starting to show. Proceed as above, using a trigger
+time of 36 instead of 16
+(<a href="../../../demo/animation/demodirector_final_with_breaks.hx">load network</a>).</p>
+<p>If you run the demo from the very beginning, it will stop after the
+bone is displayed, and you can read a message in the console window
+telling you that <em>DemoMaker</em> just stopped and you may press
+<tt>F4</tt> to continue. Try this by pressing the function key
+<tt>F4</tt>. The demo continues. </p>
+<p>Likewise, the demo will stop just before showing the skin. Again, you
+can continue the demo by pressing <tt>F4</tt>. In general, at any
+point while the demo is running, you can press the <tt>F3</tt> key to
+stop it manually. Pressing <tt>F4</tt> will continue from the
+point where the demo stopped.</p>
+<p>If you have defined breaks as we did above, there are two more
+interesting function keys that in some sense allow you to
+<i>navigate</i> through the demo segments: pressing <tt>F9</tt> will
+jump back to the previous break or to the very beginning of the demo,
+and <tt>F10</tt> will jump to the next break, or to the very end of
+the demo. If you use <tt>F9/F10</tt> when the demo is stopped, it will
+just jump, and you need to press <tt>F4</tt> to start playing it from
+the new time step. If you press <tt>F9/F10</tt> while the demo is
+running, it will just jump to the new time step and continue running.</p>
+<p>Please note that you can disable the breaks by checking the
+<em>skip break</em> toggle in the <em>Options</em> port of the
+<em>DemoMaker</em> module. You may even disable the definition of
+function keys by checking the <em>options</em> toggle in the
+<em>Functions</em> port, and then unchecking <em>function keys</em> in
+the second <em>Options</em> port. This is especially important if you
+want to use multiple <em>DemoMaker</em> modules, since only one of the
+modules can define the keys. 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_moreopt.png.html><img width=525 src="tutdemodirector_moreopt.png" /></a>
+</p></blockquote>
+<p></p>
+<p>
+</p>
+<h3><a name="A11">2.11.10 Loops and Go-to</a></h3>
+<p>One more feature that might be required for certain kinds of demos is
+the definition of loops. If you just want the whole demo to run in a
+loop, you can do this easily using the built-in features of the
+<em>DemoDirector</em>: click on the button with the triangle pointing down
+and select <em>loop</em> or <em>swing</em>. Now if you play the demo sequence,
+it will start over from the beginning (loop mode), or play
+forwards, backwards, forwards... (swing mode).</p>
+<p>However, you may want to define some part of the demo to run in a
+loop, and then stop the loop and continue with the demo upon key
+press. You can easily do this with the <em>go-to</em> feature of
+<em>DemoDirector</em>: 
+</p>
+<ul><li>Click on the <em>New event ...</em> button in the <em>DemoDirector</em> GUI.</li><li>Select <em>*Go-to, jump to user-specified time step</em> 
+ from the event list.</li><li>Enter <em>14</em> as the <em>Trigger time</em>.</li><li>Enter <em>0</em> as the <em>Time to jump to</em>.</li>
+</ul><p> 
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_goto.png.html><img width=525 src="tutdemodirector_goto.png" /></a>
+</p></blockquote>
+<p></p>
+<p>When you run the demo sequence now, it will loop in the first segment,
+only showing the <em>OrthoSlice</em> move up, jump down, move up
+again$$\dots$$ You can stop this by clicking on the stop button of the
+<em>DemoDirector</em> (<em>Play forward</em> button shows a rectangle while
+playing) or by pressing <tt>F3</tt>. To continue
+after the loop, you need to jump to the next break (place a break at a
+time step after the loop) by pressing <tt>F10</tt>, and then start playing
+again by pressing <tt>F4</tt>.</p>
+<p>
+</p>
+<h3><a name="A12">2.11.11 Storing and Replaying the Animation Sequence</a></h3>
+<p>As you may have noticed by now, storing a demo sequence once you have
+defined it is quite easy: simply save the whole <font face="helvetica">Amira</font> network by
+selecting <em>File / Save Network...</em> from the menu. The
+<em>DemoMaker</em> module will be saved along with the network and
+so will the demo sequence you have defined in the <em>DemoDirector</em>.</p>
+<p>When you load the network back into <font face="helvetica">Amira</font>, the state of the network
+will be the same as it was when you saved it. This means that you
+should be careful to reset the <em>DemoDirector</em> time line to 0
+before saving the network, if you want the demo to start from the
+beginning.</p>
+<p>After loading the network, you can start the demo by clicking on the
+play button of the <em>DemoDirector</em>, or by pressing
+<tt>F4</tt>. If you want to run the demo automatically right after the
+network is loaded, you can use the <em>auto start</em> feature that
+you find when you check <em>options</em> in the <em>Functions</em> port:
+</p><blockquote>
+<p>
+ <a href=tutdemodirector_moreopt2.png.html><img width=525 src="tutdemodirector_moreopt2.png" /></a>
+</p></blockquote>
+<p></p>
+<p>Just check the <em>auto start</em> toggle and save the network. When
+you load it again, the demo will start running automatically
+(<a href="../../../demo/animation/demodirector_autorun.hx">load network</a>).
+
+</p></body>
+</html>

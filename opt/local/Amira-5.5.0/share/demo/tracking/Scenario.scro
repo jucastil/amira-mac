@@ -1,0 +1,100 @@
+# Amira-Script-Object V0.1
+
+
+proc constructor { } {
+    global this
+    $this newPortButtonList Action 3
+    $this Action setLabel Action:
+    $this Action setLabel 0 Geometry
+    $this Action setLabel 1 Pressure
+    $this Action setLabel 2 Velocity 
+}
+
+if { [ $this isFirstCall ] } {
+    constructor
+}
+
+set DemoMode 0
+
+proc HxTrackingStopInteraction { } {	
+    global HxTrackingInteractionTarget
+    global DemoMode
+    if { $DemoMode == 2 } {
+	DisplayISL distribute setIndex 0
+	DisplayISL fire
+    }
+    if { $DemoMode == 0 } {
+	GridVolume buffer setIndex 1
+	GridVolume fire
+	GridVolume buffer setIndex 3
+	GridVolume fire
+    }
+    echo "stop $HxTrackingInteractionTarget"
+}
+
+
+proc Geometry { } {
+    DisplayISL setViewerMask 0
+    FieldCut setViewerMask 0
+    GridVolume selectTetra zab HIJMPLPPHPBEIMICFBDAAKEGMBCIBIAFADAJBIJIPPPPAHAAFHOHIGNP
+    GridVolume drawStyle setValue 0
+    GridVolume fire
+
+    GridVolume buffer setIndex 0
+    GridVolume fire
+
+    GridVolume buffer setIndex 3
+    GridVolume fire
+
+    GridVolume setBox -0.6507 -0.173907 1.85711 2.3627 0.379795 0.725116
+    GridVolume unclipGeom FieldCut 
+    viewer 0 redraw
+
+    global DemoMode
+    set DemoMode 0
+}
+
+if { [ $this Action wasHit 0 ] } {
+    Geometry
+}
+
+proc Pressure { } {
+    DisplayISL setViewerMask 0
+    FieldCut setViewerMask 255
+    GridVolume selectTetra zab HIJMPLPPHPBEIMICFBDAAKEGMBCIBIAFADAJBIJIPPPPAHAAFHOHIGNP
+    GridVolume drawStyle setValue 1
+    GridVolume fire
+    GridVolume hideBox
+    GridVolume buffer setIndex 0
+    GridVolume fire
+    GridVolume clipGeom FieldCut 
+    viewer 0 redraw
+
+    global DemoMode
+    set DemoMode 1    
+}
+
+if { [ $this Action wasHit 1 ] } {
+    Pressure
+}
+
+proc Velocity { } {
+    DisplayISL setViewerMask 255
+    FieldCut setViewerMask 0
+    GridVolume selectTetra zab HIJMPLPPHPBEIMICFBDAAKEGMBCIBIAFADAJBIJIPPPPAHAAFHOHIGNP
+    GridVolume buffer setIndex 0
+    GridVolume drawStyle setValue 2
+    GridVolume fire
+    GridVolume unclipGeom FieldCut 
+    GridVolume hideBox
+    GridVolume unclipGeom FieldCut 
+    viewer 0 redraw
+
+    global DemoMode
+    set DemoMode 2
+}
+
+if { [ $this Action wasHit 2 ] } {
+    Velocity
+}
+

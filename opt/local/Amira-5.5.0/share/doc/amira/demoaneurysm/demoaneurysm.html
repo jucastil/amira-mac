@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2> A Case Study in Biofluidmechanics</h2> <ul class="entry_classification"><li>Demo</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Demo" "A Case Study in Biofluidmechanics" !>
+<p></p><blockquote>
+<p>
+ These demos show the analysis of a cerebral aneurysm starting from the CT 
+ image stack over grid generation up to the visualization of simulated blood 
+ flow. The data is provided by courtesey of Dr. Klaus Affeld and Dr. Leo 
+ Goubergrits, Charite, Berlin.
+<br />
+</p>
+<p><img src="script-isosurface-icon.png" />
+<a href="../../../demo/aneurysm/script-isosurface.hx">CT image stack</a> <br />
+
+ CT angiography of a patient with a cerebral aneurysm. You can see an Isosurface 
+ reconstruction of both, vessels and skull. Try to pick and move the OrthoSlice 
+ plane.</p>
+<p><img src="script-surface-icon.png" />
+<a href="../../../demo/aneurysm/script-surface.hx">Surface model</a> <br />
+
+ Surface model of the aneurysm. In order to generate this model the CT data has 
+ been interactively segmented using the Amira's <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>. 
+ The resulting label field has been triangulated using the 
+ <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a> module.</p>
+<p><img src="script-tetragrid-icon.png" />
+<a href="../../../demo/aneurysm/script-tetragrid.hx">Tetrahedral grid</a> <br />
+
+ Tetrahedral grid of the aneurysm. The whole interior of the model is filled 
+ with tetrahedra. Press the F2 key in the viewer window to see the grid being 
+ built up from the bottom to the top.</p>
+<p><img src="script-vectors-icon.png" />
+<a href="../../../demo/aneurysm/script-vectors.hx">Vector arrows</a> <br />
+ 
+ Blood flow inside the aneurysm visualized using vector arrows. The flow field
+ has been obtained by means of a finite-element flow simulation with a separate
+ software package (not included with Amira). Press the F2 key for a fly-through 
+ camera animation.</p>
+<p><img src="script-isl-icon.png" />
+<a href="../../../demo/aneurysm/script-isl.hx">Illuminated Stream Lines</a> <br />
+ 
+ Same flow field as above, this time visualized using 
+ <a class="link" href="../hxisl/HxDisplayISL.html#A1">illuminated stream lines</a>(ISL). Turn off surface display 
+ by pressing the orange button on the GridVolume icon. Then try to animate the 
+ stream lines by activating the <em>animate</em> toggle of <em>DisplayISL</em>.</p>
+<p><img src="script-lic-icon.png" />
+<a href="../../../demo/aneurysm/script-lic.hx">Line Integral Convolution</a> <br />
+ 
+ Here the flow field is being visualized using so called <em>line integral 
+ convolution (LIC)</em>.</p>
+<p><img src="script-pressure1-icon.png" />
+<a href="../../../demo/aneurysm/script-pressure1.hx">Pseudo-color display on surface</a> <br />
+ 
+ Pseudo-color display of the dynamic pressure of the simulated blood flow. The 
+ pressure is highest in areas with small cross-section.</p>
+</blockquote>
+<p>
+
+
+</p></body>
+</html>

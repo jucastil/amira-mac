@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceField</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceField" "maps a scalar field onto a surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a <em>SurfaceField</em> from a <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a> and a 
+<em>UniformScalarField</em>. One can choose between encoding on nodes,
+ on triangles, or on triangle nodes.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Surface</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A surface that is the domain of the surface field to be generated.
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A 3D scalar field.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Encoding</span>  
+<div class="portsnapshot"><img src="HxComputeSurfaceField_encoding.png" /><br /></div>
+<div class="body"><p>The encoding defines how the data is stored:
+</p>
+<ul><li>On the nodes of the surface.</li><li>On the triangles of the surface.</li><li>Three data values per triangle, one for each node.<br />
+</li>
+</ul>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

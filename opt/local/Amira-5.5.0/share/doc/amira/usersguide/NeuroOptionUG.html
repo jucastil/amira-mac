@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h1><a name="A1">15 <font face="helvetica">Neuro Option</font> User's Guide</a></h1>
+<p>The <font face="helvetica">Neuro Option</font> is an <font face="helvetica">Amira</font> extension dedicated to users in the area of
+neuroscience. The option provides a set of modules designed to analyze images
+of the human (or vertebrate) brain.</p>
+<p>The <font face="helvetica">Neuro Option</font> license enables the following modules:</p>
+<p></p>
+<ul><li><a class="link" href="../hxperfusion/HxComputePerfusion.html#A1">ComputePerfusion</a></li><li><a class="link" href="../hxtensor/HxComputeTensor.html#A1">ComputeTensor</a></li><li><a class="link" href="../hxtensor/HxComputeTensorOutOfCore.html#A1">ComputeTensorOutOfCore</a></li><li><a class="link" href="../hxtensor/HxGenerateGradients.html#A1">CreateGradientImage</a></li><li><a class="link" href="../hxtensor/HxEigenvector2Color.html#A1">EigenvectorToColor</a></li><li><a class="link" href="../hxtensor/HxExtractEigenvalues.html#A1">ExtractEigenvalues</a></li><li><a class="link" href="../hxtensor/HxFiberTracking.html#A1">FiberTracking</a></li><li><a class="link" href="../hxtensor/HxTensorDisplay.html#A1">TensorDisplay</a></li>
+</ul><p></p>
+<p>This guide describes essential workflows in this field and is divided into three parts.</p>
+<p>The first part explains how to use <font face="helvetica">Amira</font> to register data sets from
+multiple scans and modalities. The data is mapped to a frame of reference
+useful for comparing data over time or from different specimens. The second part
+explains the workflow of analyzing diffusion weighted image sequences obtained
+from an MRI scanner. In the third part <font face="helvetica">Amira</font>'s capabilities to analyze
+another medical imaging modality, this time concerned with the measurement of
+blood perfusion in living tissue is described.</p>
+<p></p>
+<h2><a name="A2">Convert to Talairach Coordinates</a></h2>
+<p>The Talairach or stereotaxic coordinate system of the human brain is used to describe
+the location of brain structures independent from individual differences in size and
+overall shape of the brain. The <a class="link" href="../hxatlas/tutConvertTalairach.html#A1">Convert to Talairach Coordinates tutorial</a>
+explains how to use the <em>ConvertTalairach</em> script object to semi-automatically align
+the brain with the Talairach coordinate system. The module asks the user to define three landmarks:
+</p>
+<ul><li>Anterior commissure</li><li>Posterior commissure</li><li>Superior part of midsagittal plane</li>
+</ul><p>
+These three landmarks are then used to transform the data object into the Talairach coordinate system,
+where the right hemisphere has positive X values, the anterior part has positive Y values, and the superior
+part has positive Z values; with the anterior commissure being at the origin of the coordinate system.</p>
+<p></p>
+<p></p>
+<h2><a name="A3">Brain Mapping</a></h2>
+<p>In brain research it is often required to report the locations 
+of structures or lesions in terms of a standardized reference frame.
+In the <a class="link" href="../hxatlas/tutBrainMap.html#A1">Brain-to-Brain mapping tutorial</a> we want to demonstrate the steps involved in registering a 
+data set to a reference brain. The result of the procedure is a brain that is 
+registered with the reference and has the same resolution, voxel size, and position in space. Each of the steps in this tutorial can be adapted to a different part of the 
+body, another modality or species, and can be easily applied to a larger number 
+of studies.</p>
+<p></p>
+<p></p>
+<h2><a name="A4">Diffusion Tensor Imaging</a></h2>
+<p>Diffusion Weighted Imaging (DWI) and Diffusion Tensor Imaging (DTI) are 
+relatively new imaging techniques that aim at identifying and visualizing structures like fiber tracts, tumors, or stroke areas in living tissue that are invisible to other image techniques.
+<font face="helvetica">Amira</font> provides a set of modules and scripts that let the user perform a thorough DTI analysis.</p>
+<p>This section explains the usage of those modules by means of tutorials using 
+clinical data. The data sets have been kindly provided by Prof. A. Brawanski and 
+Dr. C. Doenitz, University of Regensburg, Germany. We would like to express our 
+gratitude for their guidance regarding the design of the Amira Neuro Option as 
+well as the use of Amira in neuroscience research.</p>
+<p></p>
+<ul><li><a class="link" href="../hxtensor/tutDTI-DataPreprocess.html#A1">Preparing data for a DTI analysis</a>: This section includes a guide to automatically register, average, and resample image data loaded as DICOM.</li><li><a class="link" href="../hxtensor/tutDTI-Tensor.html#A1">Computing and visualizing the tensor</a>: This section demonstrates how to compute the tensor field from the pre-processed data. Together with the tensor, the eigenvalues, the apparent diffusion coefficient, the fractional anisotropy, color encoded direction fields, and more are created.</li><li><a class="link" href="../hxtensor/tutDTI-FiberTrack.html#A1">Fiber tracking tutorial</a>: In this section fibers and fiber bundles are tracked through the tensor field based on anatomical locations or label fields obtained from other modalities.</li>
+</ul><p></p>
+<p>
+
+</p>
+<p></p>
+<h2><a name="A5">Brain Perfusion</a></h2>
+<p>Another type of imaging analysis provided in the <font face="helvetica">Neuro Option</font> is perfusion weighted MRI or CT image analysis. The modules provided compute the mean transit time (MTT), cerebral blood flow (CBF), and cerebral blood volume (CBV) from a user-supplied perfusion weighted time series. The time series captures the volume of the tissue for about 1 minute providing a view on the arrival, distribution, and wash-out of a blood contrast agent administered during the scan.</p>
+<p></p>
+<ul><li><a class="link" href="../hxperfusion/tutPerfusion.html#A1">Brain perfusion tutorial</a>: In this section a CT perfusion time series is loaded and blood flow through the patients brain is analyzed.</li>
+</ul><p></p>
+<p>The algorithm provided by <font face="helvetica">Amira</font> computes the quantitative flow and volume values from the time series based on a block-circular singular value decomposition, which provides a correction for differences in arrival times of the contrast agent.</p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=NeuroOptionUG_BrainPerfusion.png.html><img width=300 src="NeuroOptionUG_BrainPerfusion.png" /></a><br />
+<div class="caption">
+<b>Figure 168:</b>
+False color slice display of the CBF calculated from a perfusion 
+ weighted image series. In the upper right corner a plot shows the sampled arterial 
+ input function (AIF) and the venous input function (VIF).</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h2><a name="A7">Example Images</a></h2>
+<p>The following images were created with modules available in the <font face="helvetica">Neuro Option</font> option.</p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=NeuroOptionUG_DECDisplay.png.html><img width=450 src="NeuroOptionUG_DECDisplay.png" /></a><br />
+<div class="caption">
+<b>Figure 169:</b>
+Using module <em>EigenvectorToColor</em> the eigenvectors of a diffusion 
+ weighted tensor image can be converted to a color image where the colors 
+ encode the first principal direction of the tensor field, where red refers 
+ to X-direction, green to Y-direction, and blue to Z-direction.</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=NeuroOptionUG_TensorDisplay.png.html><img width=450 src="NeuroOptionUG_TensorDisplay.png" /></a><br />
+<div class="caption">
+<b>Figure 170:</b>
+Tensor image from a DTI experiment visualized using module 
+ <em>TensorDisplay</em>. The parameters of the symmetric tensor are mapped
+ onto the parameters of ellipsoids.</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=NeuroOptionUG_SurfaceTensorDisplay.png.html><img width=450 src="NeuroOptionUG_SurfaceTensorDisplay.png" /></a><br />
+<div class="caption">
+<b>Figure 171:</b>
+Visualizing tensors from a DTI experiment. Here the tensor is evaluated at a
+ fixed distance from a surface and displayed as ellipsoids.</div>
+
+
+</div><p></p>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=NeuroOptionUG_FiberTracking.png.html><img width=450 src="NeuroOptionUG_FiberTracking.png" /></a><br />
+<div class="caption">
+<b>Figure 172:</b>
+To identify fiber tracts the tensor image has been integrated and 
+ converted to a LineSet. The <em>SelectLines</em> module can then be used to 
+ select a subset of lines with user-defined source and destination areas.</div>
+
+
+</div><p></p>
+<p>
+</p></body>
+</html>

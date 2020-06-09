@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Basic principles and terminology</a></h3>
+<p>Analyzing images of filamentous networks consists of extracting their skeleton in 
+terms of line segments connected by nodes. Amira can store such data in a 
+dedicated data type called <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a>. 
+A <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object consists of <b>nodes</b> 
+and <b>segments</b> where nodes are the branching points and endpoints, and segments are 
+the lines connecting the nodes. Segments, in turn consist of <b>points</b> describing 
+the three-dimensional course of a segment. A set of segments connected by nodes 
+will be termed a <b>graph</b>. A <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> data object can 
+store several graphs. Furthermore, <em>SpatialGraph</em> objects can hold scalar and 
+label data on different levels. 
+On the point level scalar data such as the thickness of the fiber can be stored. 
+On the segment, node and graph levels also labels can be defined. Labels are useful
+to annotate the graph according to topological, structural, and/or functional
+properties.</p>
+<p>The Filament Editor provides automatic and interactive tools to extract the graph 
+data from an image stack. The automatic tool (<em>Auto Skeleton</em>) takes segmented 
+image stacks (i.e., label fields) as input and extracts the desired centerline using 
+sophisticated thinning algorithms. Segmentation is either done by thresholding the 
+image on the fly using the <em>Window Level</em> setting for the 2D slice viewer directly 
+within the Filament Editor, or can be done using thresholding modules 
+(Compute-&gt; <a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a>) or the <a class="link" href="HxGI.html">Segmentation Editor</a>. 
+Automatically extracted graphs can then be post-processed using interactive tracing 
+and/or line editing tools. In interactive tracing the user sets key points in the 
+2D slice viewer along a fiber and the tool finds the centerline connecting 
+both points automatically.</p>
+<p>When topology and geometry of the graph have been determined it can be labelled according 
+to user specifications. An arbitrary number of labels can be inserted at the graph, 
+node, and segment level. Each graph, node, or segment can belong to multiple label groups. 
+This can be useful for visualization of complex fiber networks.
+</p></body>
+</html>

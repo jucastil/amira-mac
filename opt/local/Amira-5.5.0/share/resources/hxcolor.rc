@@ -1,0 +1,58 @@
+# ----------------------------------------------------------------------
+#   Colormap package
+# ----------------------------------------------------------------------
+
+dataFile -name "Colormap" \
+    -option "icol" -ext ".icol" \
+    -load "HxColormap256::readIcol" \
+    -loadInOwnThread true \
+    -dso "libhxcolor.so"
+
+dataFile -name "Visage Colormap" \
+    -header "ColormapVisage" \
+    -option "cmap" -ext ".cmap" \
+    -load "HxColormapSC::readVisage" \
+    -loadInOwnThread true \
+    -dso "libhxcolor.so"
+
+dataFile -name "Aquarius Colormap" \
+    -header "TCTemplate" \
+    -option "cmap" -ext ".cmap" \
+    -load "HxColormapSC::readAquarius" \
+    -loadInOwnThread true \
+    -dso "libhxcolor.so"
+
+dataClass -name "Colormap" \
+    -class "HxColormap256" \
+    -category "Data" \
+    -dso "libhxcolor.so"
+
+dataClass -name "ColormapSC" \
+    -class "HxColormapSC" \
+    -category "Data" \
+    -dso "libhxcolor.so"	
+	
+amiramesh -ContentType "Colormap" \
+    -load "HxColormap256::readAmiraMesh" \
+    -dso "libhxcolor.so"
+
+module -name "DisplayColormap" \
+    -primary "HxColormap" \
+    -class "HxDisplayColormap" \
+    -category "Main" \
+    -dso "libhxcolor.so"
+
+module -name "StereoTestPattern" \
+    -class "HxStereoTestPattern" \
+    -dso "libhxcolor.so"
+
+module -name "ExtractGradient" \
+    -primary "HxColormap256" \
+    -proc { $PRIMARY makeGradient } \
+    -category "Main"
+
+module -name "ExtractColormap" \
+    -primary "HxColormapGradient" \
+    -proc { $PRIMARY makeColormap } \
+    -category "Main"
+

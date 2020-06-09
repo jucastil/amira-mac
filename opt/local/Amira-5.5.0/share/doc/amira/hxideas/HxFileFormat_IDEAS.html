@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> IDEAS universal format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "IDEAS universal format" "describes FEM grids and simulation data (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>I-DEAS universal</em> file format is a general format originally
+used by SRDC's I-DEAS Master Series software to encode CAD/CAM models and
+FEM simulation results. The format is able to store lots of different
+data entities and FEM cell types. In <font face="helvetica">Amira</font> the following subset of
+so-called <em>universal data set numbers</em> is supported when importing
+I-DEAS files:</p>
+
+<ul><li><b>15:</b> Nodes with single precision coordinates.</li><li><b>781, 2411:</b> Nodes with double precision coordinates.</li><li><b>71, 780, 2412:</b> Cell definition. Lines, triangles, quads,
+ tetrahedra, hexahedra, and prisms with linear shape functions are
+ supported. Quads are decomposed into triangles. Prisms are decomposed
+ into triangles as well. Hexahedra are decomposed into tetrahedra if
+ tetrahedra or prisms appear too (<font face="helvetica">Amira</font> currently is not able to
+ handle meshes with mixed element types or elements with higher-order
+ shape functions).</li><li><b>55, 2414:</b> Data at nodes.</li>
+</ul>
+<p>The common file name extension of this format is <tt>.unv</tt>. For <em>I-DEAS</em> files with some other extension the file format has to be specified
+manually via the popup menu of the file dialog. Surfaces, tetrahedral grids,
+and hexahedral grids can also be exported into an <em>I-DEAS universal</em>
+file.</p>
+</div>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LabelSpatialGraph</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LabelSpatialGraph" "evaluates a label field on a Spatial Graph" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module evaluates a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">Label Field</a> at <a class="link" href="HxSpatialGraph.html#A1">Spatial Graph</a> 
+ <em>Node</em> and <em>Point</em> locations. </p>
+<p> The result will be a copy of the input <a class="link" href="HxSpatialGraph.html#A1">Spatial Graph</a>,
+ where for each chosen location an additional <em>label group</em> will be created,
+ containing a the <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">Label Field's</a> materials.</p>
+<p> The default material (Exterior) will be assigned for <em>Nodes</em> and <em>Points</em> respectively, 
+ which do not intersect the <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">Label Field</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The SpatialGraph input data object. 
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">LabelData</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The Label Data input object.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Location</span>  
+
+<div class="body"><p>Available locations to be evaluated.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

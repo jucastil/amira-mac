@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CylinderSlice</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CylinderSlice" "visualizes scalar fields on cylindrical slices" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module displays the values of any scalar field on a cylinder. The cylinder surface is mapped on a planar slice and shown in an extra viewer. The cylinder is specified by the dragger position. The height is computed by the length
+of the diagonal of the bounding box of the scalar field.
+The module provides the same ports as <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a>.
+Additionally, it allows the cylindrical slice to be saved to an image.
+The image format is selected by the file name extension.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> or <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> that specifies
+ the dragger plane.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Viewer</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_Viewer.png" /><br /></div>
+<div class="body"><p>Displays the viewer. <em>Data</em> and <em>Module</em> should be selected first.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mapping Type</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_mappingType.png" /><br /></div>
+<div class="body"><p>Refer to <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> for help on this port.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Data Window</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_linearRange.png" /><br /></div>
+<div class="body"><p>Refer to <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> for help on this port.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast Limit</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_contrastLimit.png" /><br /></div>
+<div class="body"><p>Refer to <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> for help on this port.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_colormap.png" /><br /></div>
+<div class="body"><p>Refer to <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> for help on this port.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sampling</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_sampling.png" /><br /></div>
+<div class="body"><p>	The four choices <em>coarse</em>, <em>medium</em>, <em>fine</em>, and <em>finest</em>
+ correspond to an internal resolution of the underlying texture map of
+ 128, 256, 512, and 1024 square pixels, respectively.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_transparency.png" /><br /></div>
+<div class="body"><p>Refer to <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> for help on this port.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Dragger</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_showDragger.png" /><br /></div>
+<div class="body"><p><a name="A11"></a>
+Switches the dragger on and off.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Cylinder</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_Cylinder.png" /><br /></div>
+<div class="body"><p><a name="A12"></a>
+The position of the cylinder center with respect to the base plane
+and the cylinder radius.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Distance</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_Distance.png" /><br /></div>
+<div class="body"><p><a name="A13"></a>
+Display the distance between the cylinder center 
+and the center of the slice.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Zero Angle</span>  
+<div class="portsnapshot"><img src="HxCylinderSlice_zeroAngle.png" /><br /></div>
+<div class="body"><p>Sets the angle (in degrees) that determines the position of the vertical line 
+along which the cylinder surface is "cut" to be then mapped on the planar slice.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">createImage &lt;image base name&gt; </span>  
+
+<div class="body"><p>This command creates a 2D image from the cylindrical view and adds it to the Pool.
+The image base name can be omitted. To perform this action, the viewer should be visible.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setResolution &lt;n&gt; &lt;r0&gt; &lt;r1&gt;</span>  
+
+<div class="body"><p>Sets the image resolution to $$r0 \times r1$$, with n determining the sampling:
+0 for <em>coarse</em>, 1 for <em>medium</em>, 2 for <em>fine</em> and 3 for <em>finest</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setResolution &lt;n&gt; &lt;r1&gt;</span>  
+
+<div class="body"><p>Same as the previous command with $$r0=r1\times\frac{cylinderPerimeter}{cylinderHeight}$$. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setViewer &lt;x0&gt; &lt;y0&gt; &lt;x1&gt; &lt;y1&gt; </span>  
+
+<div class="body"><p>Determines the position and size of the viewer by setting its upper left and lower
+right corners positions. Positions are computed from the 
+upper left corner of the screen. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setZeroAngle &lt;alpha&gt;</span>  
+
+<div class="body"><p>Refer to <a class="link" href="#A14">Zero Angle</a> for help on this command.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

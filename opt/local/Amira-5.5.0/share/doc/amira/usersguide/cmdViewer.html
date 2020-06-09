@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h4><a name="A1">5.3.3.1 Viewer command options</a></h4>
+<p>Commands to a viewer can be entered in the console window. The syntax is</p>
+<p>  <tt>viewer [&lt;number&gt;] command</tt>,</p>
+<p>where <tt>&lt;number&gt;</tt> specifies the viewer being addressed. The value 0 refers
+to the main viewer and may be omitted for convenience.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] snapshot [ -offscreen [&lt;width&gt; &lt;height&gt;] ]
+ [ -tiled &lt;nx&gt; &lt;ny&gt; ]
+ [ -antialias &lt;times&gt; ] 
+ [ -alpha ] 
+ [ &lt;filename&gt; ]</span>  
+
+<div class="body"><p>This command takes a snapshot of the current scene and saves it under
+ the specified filename. The file format will be automatically determined 
+ by the extension of the file name. The list of available formats includes: 
+ TIFF (<tt>.tif, .tiff</tt>), SGI-RGB (<tt>.rgb, .sgi, .bw</tt>), JPEG (<tt>.jpg,
+ .jpeg</tt>), PNM (<tt>.pgm, .ppm</tt>), BMP (<tt>.bmp</tt>), PNG (<tt>.png</tt>), and 
+ Encapsulated PostScript (<tt>.eps</tt>). If the viewer number is not given, 
+ the snapshot is taken from the current viewer, or, if you have selected a 
+ multi-viewer layout (see <a class="link" href="viewmenu.html">View menu</a>), from all viewers at 
+ once. </p>
+<p> If the <tt>-offscreen [&lt;width&gt; &lt;height&gt;]</tt> argument is specified the
+ image is rendered into an offscreen buffer of size &lt;width&gt; $$\times$$ &lt;height&gt;.
+ Note that the offscreen option overwrites the tiles option.</p>
+<p> If <tt>-tiled &lt;nx&gt; &lt;ny&gt;</tt> argument is given, tiled rendering is used resulting
+ in an image of &lt;nx&gt; $$\times$$ &lt;viewer width&gt; pixels in x-direction
+ and &lt;nx&gt; $$\times$$ &lt;viewer height&gt; pixels in y-direction.</p>
+<p> With the <tt>-antialias &lt;times&gt;</tt> option an antialiasing is performed.
+ Argument &lt;times&gt; determines the degree of antialiasing.</p>
+<p> If the <tt>-alpha</tt> argument is given, the viewer background is rendered
+ transparent in the resulting raster image. Note that this option can be
+ used only with file formats that support transparency. Currently these
+ formats are TIFF, SGI and PNG.</p>
+<p> <b>Caution:</b> If you have more than one transparent object
+ visible in the viewer and you want to use offscreen rendering
+ set the transparency mode to <em>Blend Delayed</em> and check to see
+ if all objects are rendered properly prior to taking a snapshot.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setPosition &lt;x&gt; &lt;y&gt;</span>  
+
+<div class="body"><p>(in top-level mode only)
+ Sets the position of the viewer window relative to the upper left
+ corner of the screen. If more than one viewer is shown in the
+ same window the position of the toplevel window is set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getPosition</span>  
+
+<div class="body"><p>Returns the position of the viewer window. If more than one viewer
+ is shown in the same window the position of the toplevel window is
+ returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setSize &lt;width&gt; &lt;height&gt;</span>  
+
+<div class="body"><p>(in top-level mode only)
+ Sets the size of the viewer window. Width and height specify the
+ size of the actual graphics area. The window size might be a little
+ bit larger because of the viewer decoration and the window frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getSize</span>  
+
+<div class="body"><p>Returns the size of the viewer window without decoration and
+ window frame.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCamera &lt;camera-string&gt;</span>  
+
+<div class="body"><p>Restores all camera settings. The camera string should be the
+ output of a <tt>getCamera</tt> command.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCamera</span>  
+
+<div class="body"><p>This command returns the current camera settings, i.e., position,
+ orientation, focal distance, type, and height angle (for
+ perspective cameras) or height (for orthographic cameras). The
+ values are returned as <font face="helvetica">Amira</font> commands, which can be executed in
+ order to restore the camera settings. The complete command string
+ may also be passed to <tt>setCamera</tt> at once.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraPosition &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Defines the position of the camera in world coordinates.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraPosition &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Returns the position of the camera in world coordinates.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraOrientation &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;a&gt;</span>  
+
+<div class="body"><p>Defines the orientation of the camera. By default, the camera looks
+ in negative z-direction with the y-axis pointing upwards. Any
+ other orientation may be specified as a rotation relative to the
+ default direction. The rotation is specified by a rotation axis
+ <i>x y z</i> followed by a rotation angle <i>a</i> (in radians).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCameraOrientation</span>  
+
+<div class="body"><p>Returns the current orientation of the camera in the same format
+ used by <tt>setCameraOrientation</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraFocalDistance &lt;value&gt;</span>  
+
+<div class="body"><p>Defines the camera's focal distance. The focal distance is used
+ to compute the center around which the scene is rotated in
+ interactive viewing mode.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCameraFocalDistance</span>  
+
+<div class="body"><p>Returns the current focal distance of the camera.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraHeightAngle &lt;degrees&gt;</span>  
+
+<div class="body"><p>Sets the height angle of a perspective camera in degrees. 
+ Making the angle smaller makes the field of view smaller, effectively
+ "zooming in", as with a telephoto lens. Unless you specifically 
+ want to change the camera field of view, it is normally better to 
+ move the camera closer to an object (sometimes called "dolly in") 
+ to make the object appear larger.
+ The command has no effect if the current camera is an orthographic one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCameraHeightAngle</span>  
+
+<div class="body"><p>Returns the height angle of a perspective camera.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraHeight &lt;height&gt;</span>  
+
+<div class="body"><p>Sets the height of the view volume of an orthographic camera. The
+ command has no effect if the camera is an perspective one.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCameraHeight</span>  
+
+<div class="body"><p>Returns the height of an orthographic camera.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setCameraType &lt;perspective|orthographic&gt;</span>  
+
+<div class="body"><p>Sets the camera type.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getCameraType</span>  
+
+<div class="body"><p>Returns the camera type.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setTransparencyType &lt;type&gt;</span>  
+
+<div class="body"><p>
+ This command defines the strategy used for rendering transparent
+ objects. The argument <i>type</i> may be a number between 0 and 8,
+ corresponding to the entries <em>Screen Door</em>, <em>Add</em>, <em>Add
+ Delay</em>, <em>Add Sorted</em>, <em>Blend</em>, <em>Blend Delay</em>,
+ <em>Blend Sorted</em>, <em>Sorted Layers</em> and <em>Sorted Layers Delayed</em> 
+ as described for the <a class="link" href="viewmenu.html#A1">View menu</a>.</p>
+<p> Most accurate results are obtained using mode 8. Default is mode 6.
+ In the default mode, some objects may not be recognized correctly as
+ being transparent. In this case you may switch them off and on
+ again in order to force them to be rendered last. Also, if lines
+ are to be rendered on a transparent background problems may occur.
+ In this case, you may use transparency mode 4 and ensure
+ the correct rendering order manually.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getTransparencyType</span>  
+
+<div class="body"><p>
+ This command returns the current transparency type as a number in
+ the range 0...6. The meaning of this number is the same as in
+ <tt>setTransparencyType</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setSortedLayersNumPasses &lt;value&gt;</span>  
+
+<div class="body"><p>
+		Sets the number of rendering passes used when transparency type is 
+ <em>Sorted Layers</em> or <em>Sorted Layers Delayed</em>.
+ Use more passes for more correct transparency.
+ Usually four passes (which is the default value) gives good results.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getSortedLayersNumPasses</span>  
+
+<div class="body"><p>
+		Returns the number of rendering passes used when transparency type is
+		<em>Sorted Layers</em> or <em>Sorted Layers Delayed</em>. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setBackgroundColor &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>This command sets the color of the background to a specific value.
+ The color may be specified either as a triple of integer RGB values
+ in the range 0...255, as a triple of rational RGB values in the
+ range 0.0...1.0, or simply as plain text, e.g., <em>white</em>, where
+ the list of allowed color names is defined in <tt>/usr/lib/X11/rgb.txt</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getBackgroundColor</span>  
+
+<div class="body"><p>Returns the primary background color as an RGB triple with values
+ between 0 and 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setBackgroundColor2 &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>
+ Sets the secondary background color which is used by non-uniform
+ background modes.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] getBackgroundColor2</span>  
+
+<div class="body"><p>Returns the secondary background color as an RGB triple with values
+ between 0 and 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer setBackgroundMode &lt;mode&gt;</span>  
+
+<div class="body"><p>Allows you to specify different background patterns. If mode is set
+ to 0 a uniform background will be displayed. Mode 1 denotes a
+ gradient background. Mode 2 causes a checkerboard pattern to
+ be displayed. This might help to understand the shape of
+ transparent objects. Finally, mode 3 draws an image previously
+ defined with <tt>setBackgroundImage</tt> on the background.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer getBackgroundMode</span>  
+
+<div class="body"><p>Returns the current background mode.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer setBackgroundImage &lt;imagefile&gt; [&lt;imagefile2&gt;] [-stereo]</span>  
+
+<div class="body"><p>This command allows you to place an arbitrary raster image into the
+ center of the viewer's background. The image must not be larger
+ than the viewer window itself. Otherwise it will be clipped. The
+ format of the image file will be detected automatically by looking
+ at the file name extension. All formats mention for the <tt>snapshot</tt> command are supported except of Encapsulated PostScript.
+ If a second image file is specified, this file will be used as the
+ right eye image in case of active stereo rendering. If the options
+ <tt>-stereo</tt> is specified and only one image file is given, it it
+ assumed that this file contains a left eye view and a right eye
+ view composited side by side. These views then will be separated
+ automatically.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer getBackgroundImage</span>  
+
+<div class="body"><p>This command returns the file name of the last background image file 
+ defined with <tt>setBackgroundImage</tt>. If a pair of stereo images
+ was specified, two file names are returned. If the option <tt>-stereo</tt> was used in <tt>setBackgroundImage</tt>, this option will be
+ returned too.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setAutoRedraw &lt;state&gt;</span>  
+
+<div class="body"><p>If <em>state</em> is 0, the auto redraw mode is switched off. In this
+ case the image displayed in the viewer window will not be updated,
+ unless a redraw command is sent. If <em>state</em> is 1, the auto
+ redraw mode is switched on again. In a script it might be useful to
+ disable the auto redraw mode temporarily.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] isAutoRedraw</span>  
+
+<div class="body"><p>Returns true is auto redraw mode is on.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] transformScreenToWorld &lt;screenX screenY offset&gt;</span>  
+
+<div class="body"><p>This command transforms a point from screen coordinates (pixels) to world
+ coordinates. It returns the x,y,z coordinates of the 3D point. The point
+ is placed on the near projection plane plus the offset. The command returns a fourths parameter,
+ witch is a Boolean. If the transformation failed, this parameter is 0, otherwise
+ the parameter is set to 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] redraw</span>  
+
+<div class="body"><p>
+ This command forces the current scene to be redrawn. An explicit
+ <em>redraw</em> is only necessary if the auto redraw mode has been
+ disabled.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] rotate &lt;degrees&gt; [x|y|z|m|u|v]</span>  
+
+<div class="body"><p>
+ Rotates the camera around an axis. The axis to be taken is specified
+ by the second argument. The following choices are available:</p>
+
+<ul><li>x: the x-axis (1,0,0)</li><li>y: the y-axis (0,1,0</li><li>z: the z-axis (0,0,1)</li><li>m: the most vertical axis of x, y, or z</li><li>u: the viewer's up direction</li><li>v: the view direction</li>
+</ul>
+<p> The last option does the same as the rotate button of the user
+ interface. In most cases the <em>m</em> option is most adequate.
+ For backward-compatibility the default is <em>u</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setDecoration &lt;state&gt;</span>  
+
+<div class="body"><p>
+ Deprecated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] saveScene &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Saves all of the geometry displayed in a viewer in Open Inventor 3D
+ graphics format. Warning: Since many <font face="helvetica">Amira</font> modules use custom
+ Open Inventor nodes, the scene usually can not be displayed correctly in
+ external programs like <em>ivview</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] viewAll</span>  
+
+<div class="body"><p>
+ Resets the camera so that the whole scene becomes visible. This
+ method is called automatically for the first object being displayed
+ in a viewer.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] view &lt;axis&gt; [reverse]</span>  
+
+<div class="body"><p>
+ Changes the orientation and position of the camera, so that
+ the scene is viewed along a coordinate axis (<em>axis</em>=0/1/2 for
+ x/y/z-axis), either in positive (<em>reverse</em>=0) or negative
+ (<em>reverse</em>=1) direction. The default <em>reverse</em> value is 0.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] show</span>  
+
+<div class="body"><p>
+ This command opens the specified viewer and ensures that the
+ viewer window is displayed on top of all other windows on the screen.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] hide</span>  
+
+<div class="body"><p>
+ This command closes the specified viewer.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] fogRange &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>
+ Sets a range of attenuation for the fog affect that can be
+ introduced into a viewer scene by the <a class="link" href="viewmenu.html">View menu</a>.
+ The default range is $$[0,1]$$. Values within this range correspond
+ to distances of scene points from the camera, such that points 
+ nearest to the camera have value zero and those farthest away 
+ have value one. Restricting the range of attenuation means that 
+ attenuation will start at points where the specified minimum is
+ attained and reach its maximum at points where the specified
+ maximum is attained. Maximum attenuation by fog is equivalent to
+ invisibility, thus all points beyond that maximum will appear
+ as background.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setVideoFormat pal|ntsc</span>  
+
+<div class="body"><p>
+ Sets the size of the viewer window according to PAL 601 or NTSC 601
+ resolution, i.e., 720x576 pixels or 720x486 pixels. The current
+ setting of the decoration is taken into account.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">viewer [&lt;number&gt;] setVideoFrame &lt;state&gt;</span>  
+
+<div class="body"><p>
+ If <em>state</em> is 1, a frame is displayed in the overlay plane of
+ the viewer. This frame depicts the area where images recorded to
+ video are safely shown on video players. Setting <em>state</em> to 0
+ switches the frame off. Note: Objects displayed in the overlay
+ planes are not saved to file with the <tt>snapshot</tt> command (see
+ above).</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

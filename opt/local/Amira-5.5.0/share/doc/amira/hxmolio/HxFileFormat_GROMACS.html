@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GROMACS</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "FileFormat" "GROMACS" "Groningen Machine for Chemical Simulations format (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Gromacs is a format consisting of three different file formats for storing structures of biomolecules and molecular simulations such a trajectories. The three supported file formats are:<br />
+
+</p>
+<ul><li>*.gro files: saving the structural information of molecules such as atoms position, their residues. Additional information may be stored here (dihedral angles, meta information on the molecule...). This file can be loaded on its own, since enough information to display the molecule are guaranteed.<br />
+</li><li>*.top files: saving topological information of molecules such as bonds, secondary structures... This file must be loaded in combination with the structural file (*.gro) since it is not providing enough information to display the molecule.<br />
+</li><li>*.trr files: storing for each time step the position of every atom of the molecule. Additional information is included for each time step, such as velocities, energy status...</li>
+</ul>
+<p> <b>Supported records</b></p>
+<p> <font face="helvetica">Amira</font> uses all information supplied in a Gromacs Structure or Topology
+ file. Following record types can be parsed while reading those files:<br />
+
+ <tt>ATOMS RESIDUES DIHEDRALS ANGLES BONDS USER-DEFINED</tt><br />
+</p>
+<p> Though not all information supplied by the trajectory File is parsed. Only the position of each atom is saved for every time step of the trajectory.</p>
+<p> When saving a Molecule, the following record types will be written:<br />
+
+ <tt>ATOMS RESIDUES BONDS</tt></p>
+<p> When saving a Trajectory, only the positions of each atom in the molecule will be saved.</p>
+<p> You can get further information about GROMACS at http://www.gromacs.org</p>
+</div>
+<p>
+
+
+</p></body>
+</html>

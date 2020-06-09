@@ -1,0 +1,9 @@
+# ----------------------------------------------------------------------
+#   VertexSet package
+# ----------------------------------------------------------------------
+
+module -name    "VertexView"         \
+       -primary "HxVertexSet"       \
+       -class   "HxDisplayVertices"  \
+       -category "Display"	\
+       -dso     "libhxvertexset.so"

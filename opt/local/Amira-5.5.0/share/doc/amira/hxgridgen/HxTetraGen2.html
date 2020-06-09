@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> TetraGen</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "TetraGen" "computes a tetrahedral grid from a closed surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>TetraGen</em> module creates a <em>volumetric tetrahedral
+ grid</em>. Its input is a description of the 3D geometry by
+ triangulated surfaces. The <em>advancing front method</em> is applied
+ for filling each region defined by the surface data with tetrahedra.
+ Tetrahedron generation can be performed <em>on-line</em> or as a <em>batch job</em>.</p>
+<p> There are some 'reserved' region names for the exterior region
+ that should not be filled with tetrahedra (otherwise the grid
+ would extend to infinity): no name at all, 'Outside', and all
+ names starting with 'Exterior'. If you choose a different name
+ for the exterior region, tetrahedron generation will
+ fail. Currently the <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a> module creates
+ correct names ('Exterior' and 'Exterior2'), but the module
+ <a class="link" href="../hxsurftools/HxGeometryToSurface.html#A1">IvToSurface</a> does not. You must edit
+ the region names before applying TetraGen to a surface created by
+ the latter
+ module.</p>
+<p> It is recommended to study the tutorial <a class="link" href="../usersguide/tutgridgen.html#A1">Grid 
+ generation</a>, which describes how to prepare a surface for 
+ tetrahedron generation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input surface file (suffix <tt>surf</tt>).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Region</span>  
+<div class="portsnapshot"><img src="HxTetraGen2_region.png" /><br /></div>
+<div class="body"><p>The menu of this port allows you to specify whether tetrahedra should
+ be generated for all regions or just for one selected region. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxTetraGen2_options.png" /><br /></div>
+<div class="body"><p>If toggle 'improve grid' is set, the quality of the resulting 
+ tetrahedral grid will be improved in a post-processing step.
+ A combined smoothing will be applied which includes moving inner 
+ vertices and flipping inner edges or faces of the grid.</p>
+<p> If toggle 'save grid' is set, an additional port <em>Grid</em> will
+ be displayed where you can enter a filename. The resulting tetrahedral
+ grid will be automatically saved under that filename. This toggle
+ must be set if tetrahedron generation shall be performed as a 
+ batch job.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Grid</span>  
+<div class="portsnapshot"><img src="HxTetraGen2_grid.png" /><br /></div>
+<div class="body"><p>This port is only visible if toggle 'save grid' at port <em>Options</em> is set. Here you can define the filename for the 
+ resulting tetrahedral grid. We recommend including a suffix 
+ <tt>grid</tt> in the filename.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxTetraGen2_action.png" /><br /></div>
+<div class="body"><p>If you press the <em>Meshsize</em> button, an editor window appears. It
+ allows you to define a desired mesh size for each region.
+ Note that there are predefined values for some materials in
+ <font face="helvetica">Amira</font>'s material database. Check whether these values are 
+ appropriate for your application.</p>
+<p> If there is no predefined value, the mesh size will be initially
+ set to 0, and the mean edge length of the surface triangles of
+ the specific region will be taken as the desired mesh size. If the
+ prescribed mesh size differs from the mean edge length of the 
+ surface triangles, the edge length of the generated tetrahedra
+ will increase/decrease towards the center of the region in order
+ to approach the prescribed mesh size.</p>
+<p> If the prescribed mesh size differs too much from the mean edge 
+ length, this may imply generation of very distorted tetrahedra,
+ or may even cause a failure in tetrahedron generation. If the 
+ prescribed mesh size is larger than three times or smaller than 
+ half of the mean edge length, a warning will be issued when
+ pressing either the <em>Check</em> or the <em>Run now</em> button. You 
+ can decide whether you want to adapt the prescribed mesh size to
+ the mean edge length, or keep the prescribed mesh size as is.</p>
+<p> If you press the <em>Check</em> button, the input surface will be
+ checked for some preconditions for tetrahedron generation, e.g. 
+ the surface must not self-intersect. The result of the check
+ will be written to a spreadsheet report. The report will contain
+ one row for each region, and 11 columns. The tests in columns
+ 2 to 5 are all mandatory for tetrahedron generation. In columns 
+ 6 to 8, some quantitative measures are given. If they exceed
+ certain values, this may imply generation of very distorted 
+ tetrahedra, or may even cause a failure in tetrahedron generation.
+ If any of these tests fails, invoke the <a class="link" href="../hxsurfedit/HxSurfEdit.html#A1">
+ Surface Editor</a> for the input surface. That editor provides the 
+ same tests and several tools for fixing the failures. Columns 9 to 
+ 11 of the report show the mean edge length of the surface triangles, 
+ the prescribed mesh size, and the estimated number of tetrahedra, 
+ which is computed from the volume enclosed by the region's surface, 
+ and the prescribed mesh size.</p>
+<p> After you have set up the simulation, you can commit it by pressing
+ the <em>Run batch</em> or the <em>Run now</em> button. If the file
+ specified at port <em>Grid</em> already exists, a warning message is
+ issued. If you don't want to overwrite the file, press <em>Cancel</em>
+ and change the filename.</p>
+<p> If you press the <em>Run batch</em> button, the <em>job dialog</em> window
+ appears, showing the status of the job queue. If you press the <em>Start</em> button, the first pending job of the queue starts running.</p>
+<p> If you press the <em>Run now</em> button, tetrahedron generation will
+ be performed <em>on-line</em>. This may take some time for large
+ surfaces. The progress bar indicates the current region and
+ which part of its volume is already filled with tetrahedra.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

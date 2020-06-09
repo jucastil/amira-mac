@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Plot 3D Single Structured</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "Plot 3D Single Structured" "stores curvilinear grids and associated data (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>Plot3D is a simple binary file format, to represent structured curvilinear
+grids and scalar or vector fields defined on these grids. This format
+originates from the Plot3D program developed by Pieter Buning at NASA Ames.
+This reader will also accept complex valued solution files.</p>
+<p>To read data in this format, you have to select a <em>Grid</em> file, and
+optionally additional <em>scalar</em>, <em>vector</em>, or <em>solution</em> files.
+The preferred file name suffix for Plot3D files is <tt>.p3d</tt>. In order to
+load Plot3D files from the command line use <tt>load -plot3d</tt>.</p>
+<p>To write a data object in Plot3D format first create the grid file by
+choosing <em>Plot3D Grid File</em> in <font face="helvetica">Amira</font>'s file dialog. Then write the
+data itself by choosing <em>Plot3d Data File</em>. From the command line you
+may use <tt>save -plot3dgrid</tt> and <tt>save -plot3ddata</tt>, respectively.</p>
+<p>The Plot3D may contain binary 32-bit values in either big or little 
+endian format. The reader will attempt to detect the correct type and
+convert the data if necessary. In detail Plot3D files must have the 
+following structure:</p>
+<p><b>Grid File:</b>
+<font size="0"></font></p><pre>
+3 integers:
+
+[IDIM, JDIM, KDIM]
+
+IDIM x JDIM x KDIM (call this product NPOINTS) floating-point X
+coordinates (brackets indicate one record):
+
+[x1,x2,...,xNPOINTS,
+
+NPOINTS floating-point Y coordinates:
+
+y1,y2,...,yNPOINTS,
+
+NPOINTS floating-point Z coordinates:
+
+z1, z2,...,zNPOINTS]
+</pre><p><font size="0"></font></p>
+<p><font size="0"><b>Solution File:</b>
+</font></p><pre>
+3 integers:
+
+[IDIM, JDIM, KDIM]
+
+4 floating-point conditions: 
+
+(free-stream mach number, angle-of-attack, Reynold's number, and
+integration time)
+
+[FSMACH, ALPHA, RE, TIME] 
+
+IDIM x JDIM x KDIM (call this product NPOINTS) floating-point Q1
+values (brackets indicate one record):
+
+(Q1 is density (RHO), may be complex)
+
+[q11, q12,...,q1NPOINTS,
+
+NPOINTS floating-point Q2 values:
+
+(Q2 is x momentum (RHO*U), may be complex)
+
+q21,q22,...,q2NPOINTS,
+
+NPOINTS floating-point Q3 values:
+
+(Q3 is y momentum (RHO*V), may be complex)
+
+q31,q32,..., q3NPOINTS,
+
+NPOINTS floating-point Q4 values:
+
+(Q4 is z momentum (RHO*W), may be complex)
+
+q41,q42,...,q4NPOINTS,
+
+NPOINTS floating-point Q5 values:
+
+(Q5 is total energy per unit volume (E), may be complex)
+
+q51,q52,...,q5NPOINTS]
+</pre><p><font size="0">
+</font></p>
+<p><b>Scalar File:</b>
+<font size="0"></font></p><pre>
+4 integers:
+
+[IDIM, JDIM, KDIM, 1]
+
+IDIM x JDIM x KDIM (call this product NPOINTS) floating-point F values: 
+
+[f1, f2, ..., f1NPOINTS]
+</pre><p><font size="0"></font></p>
+<p><font size="0"><b>Vector File:</b>
+</font></p><pre>
+4 integers:
+
+[IDIM, JDIM, KDIM, 3]
+
+IDIM x JDIM x KDIM (call this product NPOINTS) floating-point F values: 
+
+[fx1,fx2,...,fxNPOINTS,
+
+NPOINTS floating-point FY values:
+
+fy1,fy2,...,fyNPOINTS,
+
+NPOINTS floating-point FZ values:
+
+fz1,fz2,...,fzNPOINTS]
+</pre><p><font size="0">
+</font></p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

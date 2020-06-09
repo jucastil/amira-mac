@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.2 Setting Up the Local <font face="helvetica">Amira</font> Directory</a></h2>
+<p>The local <font face="helvetica">Amira</font> directory contains the source code and the binaries of all
+custom extensions developed by a user. The name of this directory can be
+most easily specified using the development wizard (see
+<a class="link" href="#A2">Figure 182</a>). Since potentially every user can write his/her own
+extensions for <font face="helvetica">Amira</font> it is usually recommended that the local <font face="helvetica">Amira</font>
+directory is created in the user's home directory.
+</p><div style="text-align:center"><a name="A2"></a><a href=dev2.png.html><img width=375 src="dev2.png" /></a><br />
+<div class="caption">
+<b>Figure 182:</b>
+Setting the local <font face="helvetica">Amira</font> directory.</div>
+
+
+</div><p></p>
+<p>If the specified directory does not exist the development wizard asks you
+whether it should be created. If you confirm, the directory itself together
+with some subdirectories will be created. You may also specify an existing
+empty directory in the text field. Then the subdirectories will be created
+in there. </p>
+<p>Finally, you may choose an existing directory which has been created by
+the development wizard before. In this case a simple check is performed to
+determine whether the specified directory is valid. If you want to use a
+directory created with <font face="helvetica">Amira</font> 3.0 or an earlier version, please first refer
+to <a class="link" href="HxDev-upgrading.html#A1">Section 23.6</a> (upgrading existing code).</p>
+<p>In order to unset the local <font face="helvetica">Amira</font> directory you should clear the text
+field and press <em>OK</em>. The directory will not be deleted, but the next
+time <font face="helvetica">Amira</font> is started modules and IO routines defined in the local <font face="helvetica">Amira</font>
+directory will not be available anymore.</p>
+<p>Once you have set up the local <font face="helvetica">Amira</font> directory, the name of the directory is
+stored permanently, so the next time <font face="helvetica">Amira</font> is started the .rc-files located
+in the subdirectory <tt>share/resources</tt> of the local <font face="helvetica">Amira</font> directory can
+be read. In this way custom components are made known to <font face="helvetica">Amira</font>. On Windows
+the name of the local <font face="helvetica">Amira</font> directory is stored in the Windows registry.
+On Unix systems it is stored in the file <tt>.<font face="monospace">Amira</font>Registry</tt> in the user's
+home directory. In both cases, these setting can be overridden by defining
+the environment variable <tt>AMIRA_LOCAL</tt>.
+The development wizard also provides a toggle for copying a demo package to
+the local <font face="helvetica">Amira</font> directory. You will get a warning if this button is
+activated and an existing local <font face="helvetica">Amira</font> directory already containing the
+demo package has been specified. The demo package is copied to the
+subdirectory <tt>src/mypackage</tt> in the local <font face="helvetica">Amira</font> directory. It contains
+all read and write routines and modules presented as examples in this
+guide. 
+<b>Please note:</b> On Unix systems shared objects in the local
+<font face="helvetica">Amira</font> directory cannot use other shared objects in this
+directory. To circumvent this limitation add the lib directory
+(<tt>amiralocal/lib/arch-LinuxAMD64-*</tt>) to the
+<tt>LD_LIBRARY_PATH</tt> environment variable.
+
+</p></body>
+</html>

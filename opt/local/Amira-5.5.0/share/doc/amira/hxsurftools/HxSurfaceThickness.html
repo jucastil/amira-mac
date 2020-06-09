@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SurfaceThickness</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SurfaceThickness" "computes the thickness per vertex" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module is useful for computing the thickness of flat regions from 
+ surface objects. To do so, at each vertex, the module computes the distance along 
+ the vertex normal to the normal's intersection with the closest triangle of 
+ the same material. To get a reasonably reliable thickness estimate the surface 
+ should be smooth and opposing triangles should be approximately parallel.
+ The result is exported as a surface scalar field with a distance measure per 
+ vertex. 
+ The module calculates the thickness for a single material only. For surfaces
+ composed of multiple materials the field values are set only for vertices
+ belonging to the selected material. All other vertices are set to 0.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect this port to a <a class="link" href="../hxsurface/HxSurface.html#A1">surface </a> object.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Material</span>  
+<div class="portsnapshot"><img src="HxSurfaceThickness_Material.png" /><br /></div>
+<div class="body"><p>This port should be used to select the material for which the thickness is 
+ computed. For all other materials thickness is set to 0.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

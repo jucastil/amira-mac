@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Deconvolution</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "Deconvolution" "deconvolves 3D microscope images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module is the front-end for deconvolving 3D microscopic images.
+Two different iterative maximum-likelihood image restoration algorithms are
+provided, a non-blind one and a blind one. For a general description of
+the deconvolution process, please refer to the provided
+<a class="link" href="deconv-intro.html">tutorials</a>.
+The resulting deconvolved data set will be stored in the Pool.
+If no input PSF is specified or if the blind deconvolution algorithm
+has been selected, the estimated PSF will be stored in the Pool also.</p>
+<p>Press the <em>Apply</em> button to start the deconvolution process. Since
+deconvolution is a time consuming operation, it optionally can be performed
+as a batch job (see the <em>Action</em> port below). </p>
+<p><b>Note:</b> The Deconvolution module currently only supports data
+sizes up to 536.870.911 voxels (including border voxels).</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data set to be deconvolved.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Kernel</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The point spread function (PSF) to used for deconvolution. If no PSF
+is specified, an estimated PSF is calculated automatically based on the
+numerical aperture of the microscope, the wavelength of the emitted light,
+and the refractive index. If a blind deconvolution is to be performed, an
+input PSF (if connected) will be used as an initial estimate.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Border width</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_borderWidth.png" /><br /></div>
+<div class="body"><p>Defines the size of the border region. A border region is necessary if the
+input data set doesn't fade out to black at the boundaries. For performance
+reasons it might advisable to choose values such that the sum of the size of
+the input data set and the border width results in a power of two. For
+example, if the data set consists of 118 slices, a border width of 10 slices
+in z direction would be a good choice.</p>
+<p>In the case of widefield data it is sometimes advisable to have the border
+width in z direction exactly as large as the data set itself. If this
+is the case, the border region will be initialized by mirroring the values
+from the actual data volume. Otherwise, the values of the first slice and
+of the last slice will be interpolated linearly.
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Iterations</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_iterations.png" /><br /></div>
+<div class="body"><p>Specifies the number of iterations of the deconvolution procedure.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Initial estimate</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_initialEstimate.png" /><br /></div>
+<div class="body"><p>Specifies the initial estimate of the deconvolution algorithm. If <i>const</i>
+is chosen, a constant image is used initially. Often, this yields smoother
+results than the second option, namely <i>input data</i>. The third option
+(<i>previous result</i>) is only available if the input data set has already
+been deconvolved previously. Use this option if you want to apply some
+additional deconvolution iterations.
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Overrelaxation</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_overrelaxation.png" /><br /></div>
+<div class="body"><p>Overrelaxation is a technique to speed up the convergence of the iterative
+deconvolution process. In most cases <i>fixed</i> overrelaxtion is a good
+choice. For non-blind deconvolution also an <i>optimized</i> overrelaxation
+technique is available. This method further accelerates convergence but
+is more memory and time consuming.
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Regularization</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_regularization.png" /><br /></div>
+<div class="body"><p>This port specifies if you want <em>intensity-based</em> regularization or not.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Method</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_method.png" /><br /></div>
+<div class="body"><p>This port specifies whether standard (non-blind) or blind deconvolution
+should be used.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">PSF Parameters</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_parameters.png" /><br /></div>
+<div class="body"><p>Parameters for calculating the point spread function. This port will only
+be shown if standard (non-blind) deconvolution has been selected and no
+input PSF was specified, or if blind deconvolution has been selected, in
+which case these parameters act as constraints.</p>
+<p><i>NA</i> denotes the numerical aperture of the microscope. <i>lambda</i>
+denotes the wavelength of the emitted light in micrometers
+with the voxel sizes also being interpreted in micrometers. Finally,
+<i>n</i> denotes the refractive index of the specimen.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Microscopic Mode</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_mode.png" /><br /></div>
+<div class="body"><p>Selects whether the input image has been recorded using a widefield microscope
+or using a confocal microscope. This is important for the PSF generation as well
+as for the selection of appropriate constraints during blind deconvolution.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxDeconvolution_action.png" /><br /></div>
+<div class="body"><p>Since
+deconvolution is a time consuming operation, it optionally can be performed
+as a batch job. A batch job can be submitted using the <i>Batch job</i>
+button. 
+If this button is pressed, first a dialog is popped up allowing
+you to specify the filename of the final deconvolved data set as well as
+the number of optional check point files (compare Figure
+<a class="link" href="deconvtut2.html#A5">136</a>).
+
+A check point stores an intermediate result obtained
+after a certain number of iterations have been performed. The actual
+deconvolution job is started via the job dialog accessed by
+<em>File / Jobs</em> menu item. The job dialog is
+popped up automatically after the job has been finally submitted, but this
+may take a few seconds if there are currently no jobs running.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.5 Adding an Ordinary Module</a></h2>
+<p>An ordinary module in <font face="helvetica">Amira</font> usually directly visualizes the data object it
+is attached to. For example, the Isosurface module, the Voltex module, and
+the SurfaceView module are of this type. Such modules, sometimes also called
+<em>display modules</em>, are represented by yellow icons in the Pool.
+In order to create the template for an ordinary module using the development
+wizard, you must enter the C++ class name of the module, the name to be 
+shown in the pop-up menu of possible input data objects, the C++ class name
+of possible input data objects, and finally the package where the input
+class is defined (see <a class="link" href="#A2">Figure 185</a>).</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=dev5.png.html><img width=375 src="dev5.png" /></a><br />
+<div class="caption">
+<b>Figure 185:</b>
+Creating the template of a custom module.</div>
+
+
+</div><p></p>
+<p>Once you press <em>OK</em>, two files are created in the package directory,
+namely a header file and a source code file for the new module. In
+addition, a new module statement is added to the package resource file
+located under <tt>share/resources</tt> in the package directory.</p>
+<p>After you have added a new module to a package you need to recreate the
+build system files before you can compile the module. Details are described
+in <a class="link" href="HxDev-devcreatebuildsystem.html#A1">Section 24.9</a>.</p>
+<p></p>
+<p>
+
+</p></body>
+</html>

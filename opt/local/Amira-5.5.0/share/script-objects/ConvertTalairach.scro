@@ -1,0 +1,413 @@
+# Amira-Script-Object v3.0
+
+#
+# This module is used to convert to Talairach coordinates
+# 
+#
+
+$this script hide
+
+set orthoViewXY 0
+set orthoViewYZ 0
+set locationView 0
+set ACPCMLocations 0
+set ACP 0
+set PCP 0
+set MPP 0
+set myScript $this
+
+$this proc constructor {} {
+
+	$this newPortIntSlider sliceNumberXY
+	$this sliceNumberXY setLabel "Slice Number XY:"
+	$this sliceNumberXY hide
+
+	$this newPortIntSlider sliceNumberYZ
+	$this sliceNumberYZ setLabel "Slice Number YZ:"
+	$this sliceNumberYZ hide
+	
+	$this newPortColormap colormap
+	$this colormap setLabel "Colormap:"
+	$this colormap hide
+	
+	$this newPortToggleList showHideSlice 3
+	$this showHideSlice setLabel "Show:"
+	$this showHideSlice setLabel 0 "Slice XY"
+	$this showHideSlice setLabel 1 "Slice YZ"
+	$this showHideSlice setLabel 2 "Landmarks"
+	$this showHideSlice setValue 0 0
+	$this showHideSlice setValue 1 1
+	$this showHideSlice setValue 2 0
+	$this showHideSlice setSensitivity 0 0
+	$this showHideSlice setSensitivity 1 0
+	$this showHideSlice setSensitivity 2 0
+
+	$this newPortToggleList showHideIcon 2
+	$this showHideIcon setLabel "Show Icon:"
+	$this showHideIcon setLabel 0 "Slice XY"
+	$this showHideIcon setLabel 1 "Slice YZ"
+#	$this showHideIcon setLabel 2 "Landmarks"
+	$this showHideIcon setValue 0 0
+	$this showHideIcon setValue 1 0
+#	$this showHideIcon setValue 2 0
+	$this showHideIcon setSensitivity 0 0
+	$this showHideIcon setSensitivity 1 0
+#	$this showHideIcon setSensitivity 2 0
+		
+	$this newPortButtonList selectACPCM_buttons 3
+	$this selectACPCM_buttons setLabel "Select:"
+	$this selectACPCM_buttons setLabel 0 "AC"
+	$this selectACPCM_buttons setSensitivity 0 0
+	$this selectACPCM_buttons setLabel 1 "PC"
+	$this selectACPCM_buttons setSensitivity 1 0
+	$this selectACPCM_buttons setLabel 2 "MP"
+	$this selectACPCM_buttons setSensitivity 2 0
+	$this newPortInfo AClocation
+	$this AClocation setLabel "AC Location"
+	$this AClocation setValue "no point selected"
+	
+	$this newPortInfo PClocation
+	$this PClocation setLabel "PC Location"
+	$this PClocation setValue "no point selected"
+
+	$this newPortInfo MPlocation
+	$this MPlocation setLabel "Mid-Plane"
+	$this MPlocation setValue "no point selected"
+
+	$this newPortButtonList transform_button 1
+	$this transform_button setLabel "Transform"
+	$this transform_button setLabel 0 "Apply Transform"
+	$this transform_button setSensitivity 0 0
+
+	$this newPortDoIt doit
+	
+	$this update
+}
+
+$this proc update {} {
+
+	global orthoViewXY
+	global orthoViewYZ
+	global locationView
+	global ACPCMLocations
+
+	# Check if brain data is connected
+    set brainData [$this data source]
+    if { $brainData == "" } {
+		$this selectACPCM_buttons setSensitivity 0 0
+		$this selectACPCM_buttons setSensitivity 1 0
+		$this selectACPCM_buttons setSensitivity 2 0
+		$this transform_button setSensitivity 0 0
+		$this showHideSlice setSensitivity 0 0
+		$this showHideSlice setSensitivity 1 0
+		$this showHideSlice setSensitivity 2 0
+		$this showHideIcon setSensitivity 0 0
+		$this showHideIcon setSensitivity 1 0
+#		$this showHideIcon setSensitivity 2 0
+
+		$this sliceNumberXY hide
+		$this sliceNumberYZ hide
+		$this colormap hide
+
+		echo "Please connect brain CT/MRI data to the data input port"
+		return;
+	} else {
+		$this selectACPCM_buttons setSensitivity 0 1
+		$this selectACPCM_buttons setSensitivity 1 1
+		$this selectACPCM_buttons setSensitivity 2 1
+		$this showHideSlice setSensitivity 0 1
+		$this showHideSlice setSensitivity 1 1
+		$this showHideIcon setSensitivity 0 1
+		$this showHideIcon setSensitivity 1 1
+		$this sliceNumberXY show
+		$this sliceNumberYZ show
+		$this colormap hide
+		
+		if { $orthoViewYZ == 0 } {
+			set orthoViewYZ [create HxOrthoSlice {OrthoSliceYZ}]
+			$orthoViewYZ sliceOrientation setValue 2
+			$orthoViewYZ hideIcon
+		}
+		
+		$orthoViewYZ data connect $brainData
+		$orthoViewYZ fire
+		if { [$this data isNew] } {
+			$this sliceNumberYZ setMinMax [$orthoViewYZ sliceNumber getMinValue] [$orthoViewYZ sliceNumber getMaxValue]
+			$this sliceNumberYZ setValue [expr { [$this sliceNumberYZ getMaxValue] / 2 }]
+			$this colormap setMinMax [$orthoViewYZ colormap getMinValue] [$orthoViewYZ colormap getMaxValue]
+			$this colormap setLocalMinMax [$orthoViewYZ colormap getLocalMinValue] [$orthoViewYZ colormap getLocalMaxValue]
+			$this colormap connect grey.am
+			$this fire
+		}
+		$orthoViewYZ sliceNumber setValue [$this sliceNumberYZ getValue]
+		$orthoViewYZ fire
+
+
+
+		set toggle [$this showHideIcon getValue 1]
+		
+		if { $toggle == 1 } {
+			$orthoViewYZ showIcon
+		} else {
+			$orthoViewYZ hideIcon
+		}
+		
+		set toggle [$this showHideSlice getValue 1]
+		
+		if { $toggle == 1 } {
+			$orthoViewYZ setViewerMask 16383
+		} else {
+			$orthoViewYZ setViewerMask 16382
+		}
+
+		if { $orthoViewXY == 0 } {
+			set orthoViewXY [create HxOrthoSlice {OrthoSliceXY}]
+			$orthoViewXY sliceOrientation setValue 0
+			$orthoViewXY hideIcon
+		}
+		
+		$orthoViewXY data connect $brainData
+		$orthoViewXY fire
+		if { [$this data isNew] } {
+			$this sliceNumberXY setMinMax [$orthoViewXY sliceNumber getMinValue] [$orthoViewXY sliceNumber getMaxValue]
+			$this sliceNumberXY setValue [expr { [$this sliceNumberXY getMaxValue] / 2 }]
+			$this colormap setMinMax [$orthoViewXY colormap getMinValue] [$orthoViewXY colormap getMaxValue]
+			$this colormap setLocalMinMax [$orthoViewXY colormap getLocalMinValue] [$orthoViewXY colormap getLocalMaxValue]
+			$this colormap connect grey.am
+			$this fire
+		}
+		$orthoViewXY sliceNumber setValue [$this sliceNumberXY getValue]
+		$orthoViewXY fire
+
+		
+		
+		set toggle [$this showHideIcon getValue 0]
+		
+		if { $toggle == 1 } {
+			$orthoViewXY showIcon
+		} else {
+			$orthoViewXY hideIcon
+		}
+
+		
+		set toggle [$this showHideSlice getValue 0]
+		
+		if { $toggle == 1 } {
+			$orthoViewXY setViewerMask 16383
+		} else {
+			$orthoViewXY setViewerMask 16382
+		}
+		
+		if { $ACPCMLocations == 0 } {
+			set ACPCMLocations [create HxLandmarkSet {PointLocations}]
+			$ACPCMLocations hideIcon
+			$ACPCMLocations appendLandmark 0 0 0
+			$ACPCMLocations appendLandmark 0 0 0
+			$ACPCMLocations appendLandmark 0 0 0
+			set locationView [create HxDisplayLandmarks {LocationView}]
+			$locationView hideIcon
+			$locationView setViewerMask 16382
+			$locationView data connect $ACPCMLocations
+
+		}
+		$this showHideSlice setSensitivity 2 1
+
+		$ACPCMLocations fire
+
+		# set toggle [$this showHideIcon getValue 2]
+		
+		# if { $toggle == 1 } {
+			# $locationView showIcon
+		# } else {
+			# $locationView hideIcon
+		# }
+
+		
+		set toggle [$this showHideSlice getValue 2]
+		if { $toggle == 1 } {
+			$locationView setViewerMask 16383
+		} else {
+			$locationView setViewerMask 16382
+		}
+
+	}
+}
+
+proc callbackFuncAC { v } { 
+	global ACP
+	global orthoViewXY
+	global orthoViewYZ
+	global ACPCMLocations
+	global myScript
+
+	$ACPCMLocations setPoint 0 [lindex $v 3] [lindex $v 7] [lindex $v 9];
+	$ACPCMLocations fire
+	$myScript AClocation setValue "[lindex $v 3]\t[lindex $v 7]\t[lindex $v 9]"
+	$orthoViewXY setPickCallback
+	$orthoViewYZ setPickCallback
+}
+
+proc callbackFuncPC { v } { 
+	global PCP
+	global orthoViewXY
+	global orthoViewYZ
+	global ACPCMLocations
+	global myScript
+
+	$ACPCMLocations setPoint 1 [lindex $v 3] [lindex $v 7] [lindex $v 9];
+	$ACPCMLocations fire
+	$myScript PClocation setValue "[lindex $v 3]\t[lindex $v 7]\t[lindex $v 9]"
+	$orthoViewXY setPickCallback
+	$orthoViewYZ setPickCallback
+}
+
+proc callbackFuncMP { v } { 
+	global MPP
+	global orthoViewXY
+	global orthoViewYZ
+	global ACPCMLocations
+	global myScript
+
+	$ACPCMLocations setPoint 2 [lindex $v 3] [lindex $v 7] [lindex $v 9];
+	$ACPCMLocations fire
+	$myScript MPlocation setValue "[lindex $v 3]\t[lindex $v 7]\t[lindex $v 9]"
+	$orthoViewXY setPickCallback
+	$orthoViewYZ setPickCallback
+}
+
+$this proc compute {} {
+
+	global ACP
+	global PCP
+	global MPP
+	global orthoViewXY
+	global orthoViewYZ
+	global ACPCMLocations
+	
+	set PI180 57.295779513082320876798154814105
+
+	# Check if brain data is connected
+	set brainData [$this data source]
+	if { $brainData == "" } {
+		echo "Please connect brain CT/MRI data to the data input port"
+		return;
+	} else {
+
+		if { [$this selectACPCM_buttons wasHit 0] } {
+			$orthoViewXY setPickCallback callbackFuncAC
+			$orthoViewYZ setPickCallback callbackFuncAC
+		}
+
+		if { [$this selectACPCM_buttons wasHit 1] } {
+			$orthoViewXY setPickCallback callbackFuncPC
+			$orthoViewYZ setPickCallback callbackFuncPC
+		}
+		
+		if { [$this selectACPCM_buttons wasHit 2] } {
+			$orthoViewXY setPickCallback callbackFuncMP
+			$orthoViewYZ setPickCallback callbackFuncMP
+		}
+		
+		if { [$this transform_button wasHit 0] } {
+			set transform [create HxApplyTransform {ApplyTransform}]
+			$transform hideIcon
+			$transform data connect $brainData
+			$transform fire
+			$transform interpolation setIndex 0 2
+			$transform mode setValue 0
+			$transform preserve setValue 0
+			$transform paddingValue setMinMax 0 -3.40282346638529e+038 3.40282346638529e+038
+			$transform paddingValue setValue 0 0
+			$transform fire
+			$transform action touch
+			$transform action hit
+			$transform fire
+			remove $transform
+		}
+
+		if { [$this doit wasHit 0] } {
+			set ACPoint [$ACPCMLocations getPoint 0]
+			set PCPoint [$ACPCMLocations getPoint 1]
+			set MPPoint [$ACPCMLocations getPoint 2]
+			
+			$brainData setTranslation [expr {-[lindex $ACPoint 0]}] [expr {-[lindex $ACPoint 1]}] [expr {-[lindex $ACPoint 2]}]
+			
+			set nACPoint [list [expr {[lindex $ACPoint 0] - [lindex $ACPoint 0]}] [expr {[lindex $ACPoint 1] - [lindex $ACPoint 1]}] [expr {[lindex $ACPoint 2] - [lindex $ACPoint 2]}]]
+			set nPCPoint [list [expr {[lindex $PCPoint 0] - [lindex $ACPoint 0]}] [expr {[lindex $PCPoint 1] - [lindex $ACPoint 1]}] [expr {[lindex $PCPoint 2] - [lindex $ACPoint 2]}]]
+			set nMPPoint [list [expr {[lindex $MPPoint 0] - [lindex $ACPoint 0]}] [expr {[lindex $MPPoint 1] - [lindex $ACPoint 1]}] [expr {[lindex $MPPoint 2] - [lindex $ACPoint 2]}]]
+	
+			$ACPCMLocations setPoint 0 [lindex $nACPoint 0] [lindex $nACPoint 1] [lindex $nACPoint 2] 
+			$ACPCMLocations setPoint 1 [lindex $nPCPoint 0] [lindex $nPCPoint 1] [lindex $nPCPoint 2]
+			$ACPCMLocations setPoint 2 [lindex $nMPPoint 0] [lindex $nMPPoint 1] [lindex $nMPPoint 2]
+			
+			$brainData rotate -wx [expr { -1 * $PI180 * atan2([lindex $nPCPoint 2], [lindex $nPCPoint 1])}]
+			$ACPCMLocations rotate -wx [expr { -1 * $PI180 * atan2([lindex $nPCPoint 2], [lindex $nPCPoint 1])}]
+			$ACPCMLocations applyTransform
+			$ACPCMLocations fire
+
+			set nACPoint [$ACPCMLocations getPoint 0]
+			set nPCPoint [$ACPCMLocations getPoint 1]
+			set nMPPoint [$ACPCMLocations getPoint 2]
+						
+			set rot_ang [expr { $PI180 * atan2([lindex $nPCPoint 0], [lindex $nPCPoint 1])}]
+			
+			if { [lindex $nPCPoint 1] > 0 } {
+				set rot_ang [expr {$rot_ang + 180}]
+			}
+			
+			$brainData rotate -wz $rot_ang
+			$ACPCMLocations rotate -wz $rot_ang
+			$ACPCMLocations applyTransform
+			$ACPCMLocations fire
+			
+			set nACPoint [$ACPCMLocations getPoint 0]
+			set nPCPoint [$ACPCMLocations getPoint 1]
+			set nMPPoint [$ACPCMLocations getPoint 2]
+
+			set rot_ang [expr { -1 * $PI180 * atan2([lindex $nMPPoint 0], [lindex $nMPPoint 2])}]
+			
+			if { [lindex $nMPPoint 2] < 0 } {
+				set rot_ang [expr {$rot_ang + 180}]
+			}
+			
+			$brainData rotate -wy $rot_ang
+			$ACPCMLocations rotate -wy $rot_ang
+			$ACPCMLocations applyTransform
+			$ACPCMLocations fire
+			
+  			set nACPoint [$ACPCMLocations getPoint 0]
+			set nPCPoint [$ACPCMLocations getPoint 1]
+			set nMPPoint [$ACPCMLocations getPoint 2]
+
+			$this AClocation setValue "$nACPoint"
+			$this PClocation setValue "$nPCPoint"
+			$this MPlocation setValue "$nMPPoint"
+			
+			$this transform_button setSensitivity 0 1
+
+			$this update 
+		}
+	}
+}
+
+$this proc destructor {} {
+
+	global orthoViewXY
+	global orthoViewYZ
+	global ACPCMLocations
+	global ACP
+	global PCP
+	global MPP
+
+	remove $orthoViewXY
+	remove $orthoViewYZ
+	remove $ACPCMLocations
+
+	set orthoViewXY 0
+	set orthoViewYZ 0
+	set ACP 0
+	set PCP 0
+	set MPP 0
+	set myScript 0
+
+}

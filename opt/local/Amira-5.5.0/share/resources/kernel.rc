@@ -1,0 +1,41 @@
+# -------------------------------------------------------------------
+# base package
+# -------------------------------------------------------------------
+
+editor -name "Parameter Editor"		\
+    -data "HxData"			\
+    -class "HxParameterEditor"		\
+    -icon "HxParameterEditor.png"
+
+editor -name "Transform Editor"		\
+    -data "HxSpatialData"		\
+    -check { [$PRIMARY getControllingData]=="" } \
+    -class "HxTransformEditor"		\
+    -icon "HxTransformEditor.png" \
+    -remote 1
+
+# -------------------------------------------------------------------
+# basic objects
+# -------------------------------------------------------------------
+
+module -name "BoundingBox" -priority 2 \
+       -primary "HxSpatialData HxTransformBox" \
+       -class "HxBoundingBox" \
+       -category "Main"
+
+module -name "LocalAxis" \
+       -primary "HxSpatialData" \
+       -class "HxAxis" \
+       -category "Display"
+
+module -name "ClippingPlane" \
+       -class "HxArbitraryCut" \
+       -category "Main"
+
+module -name "Annotation" \
+       -class "HxAnnotation" \
+       -category "Main"
+
+tclwrapper -class "HxTransformableTcl" \
+           -wraps "HxTransformable"
+

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VolumeEdit</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "VolumeEdit" "interactive modification of values in a 3D image volume" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module provides tools for the interactive modification of 3D image
+volumes. This is particularly useful for removing noise or undesired
+objects in a 3D image before applying isosurfaces, volume rendering or
+other image segmentation tools.</p>
+<p>The module takes a scalar or color field as input and produces a new data set
+as output which can be modified iteratively. The module does not display
+any geometry in the viewer. It is typically being used in conjunction with
+a Volren or an Isosurface module.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input data set to be edited (uniform scalar or color field).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Tool</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_Tool.png" /><br /></div>
+<div class="body"><p>The module provides two different types of tools: a lasso or draw tool and
+3D dragger tools.</p>
+<p>The lasso or draw tool lets you encircle a specific region in the 3D viewer
+which then can be cleared in the output data set. Alternatively the part
+not encircled (exterior) can be cleared (cut away), or the original data
+values can be restored in the encircled region. In order to use the draw
+tool, first press one of the action buttons <em>cut interior</em>, <em>cut
+exterior</em>, or <em>restore</em>. Then draw a line around the specific region
+in the 3D viewer.</p>
+<p>The dragger tools let you specify a region to be modified by dragging,
+rotating and resizing a 3D shape (box, ellipsoid, cone, or cylinder).
+A cut or restore operation can then be applied to the interior or
+exterior part of that shape.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Padding value</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_paddingValue.png" /><br /></div>
+<div class="body"><p>This port specifies by which data value(s) voxels in selected regions
+are replaced when either <em>Cut Inside</em> or <em>Cut Outside</em> is
+pressed. For color fields an own value for each channel can be set.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Cut</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_cut.png" /><br /></div>
+<div class="body"><p>If the button <em>Inside</em> is pressed, voxels inside the region selected
+by a dragger shape are replaced with the value(s) given by the <em>Padding
+Value</em> port. If the button <em>Outside</em> is pressed, voxels outside this 
+region are replaced. If the <em>Draw Tool</em> is active, you have to encircle 
+the region to be replaced after pressing one of the buttons.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Restore</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_restore.png" /><br /></div>
+<div class="body"><p>If the button <em>Inside</em> is pressed, voxels inside the region selected
+by a dragger shape are replaced by the original data values. If the button
+<em>Outside</em> is pressed, voxels outside this region are replaced. If the
+<em>Draw Tool</em> is active, you have to encircle the region to be replaced
+after pressing one of the buttons.</p>
+<p>If the button <em>All</em> is pressed, the entire volume is reset to its
+original state.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edit</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_edit.png" /><br /></div>
+<div class="body"><p>This port provides two buttons for undoing or redoing the last cut or
+restore operation. The <em>Create Mask</em> button creates a binary label
+field in which all voxel with a modified data value are set.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">ColorChannels</span>  
+<div class="portsnapshot"><img src="HxVolumeEdit_colorChannels.png" /><br /></div>
+<div class="body"><p>If a color field is attached to the module this port allows to select
+if changes should affect only the <em>Alpha</em> channel or <em>All</em>
+channels.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

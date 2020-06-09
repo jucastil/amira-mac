@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputeTensorOutOfCore</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "ComputeTensorOutOfCore" "computes a symmetric second order tensor from diffusion-weighted images" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module computes a symmetric second order (diffusion) tensor from a set
+of $$N$$ ($$N \geq 7$$) diffusion weighted images. The images must be available
+on disk as AmiraMesh files. The module will load them in using <font face="helvetica">Amira</font>'s
+LargeDiskData format, which can handle data sizes above the maximum 
+size of available main memory.</p>
+<p>The gradient measurements and the gradients for a data set are
+specified by the parameter section of an AmiraMesh file.</p>
+<pre> 
+# AmiraMesh3D BINARY 2.0
+
+# define a dummy lattice to make this AmiraMesh valid
+define Lattice 1 1 1
+Lattice { byte Data } @1
+@1
+a
+
+Parameters {
+   BoundingBox -1 1 -1 1 -1 1,
+   CoordType "uniform",
+   Data {
+       directory "C:/MyData/",
+       gradients "MyGradients",
+       # file0 is always the b=0 
+       # measurement (no gradient)
+       file0 {
+          name "201/Anonymized.am",
+       }
+       # fileN are entries for 
+       # each gradient measurement
+       file1 {
+          name "201/Anonymized2.am",
+          # use the gradient in 
+          # the gradient list with index 0
+          gradient "0"
+       }
+       ...
+   }
+   MyGradients
+      1 0 0
+      0 1 0
+      ...
+}      
+</pre>
+<p>The module creates a tensor data set and two additional fields that
+contain statistics about the quality of the tensor fit. The correlation
+field contains the correlation of the tensor diffusion values with
+the diffusion values in the raw data (per gradient direction). A large
+value indicates that the tensor fits the raw data well. The Bingham
+statistics ensure that the diffusion tensor is statistically different
+from a uniform distribution (see Benger et al. "Visualizing Neuronal Structures
+in the Human Brain via Diffusion Tensor MRI", Journal of Neuroscience, 2006).
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Specification</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect an AmiraMesh file which contains the specification
+for the computation in its parameter section.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connect a scalar field like a label field to specify for which
+material the tensors should be computed. This will remove the undefined
+tensors in parts of the data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Diffusion weighting factor</span>  
+<div class="portsnapshot"><img src="HxComputeTensorOutOfCore_diffusionweightingfactor.png" /><br /></div>
+<div class="body"><p>Diffusion weighted factor (b-value, after LeBihan et al.,1986) which
+is defined by the gradient sequence used to generate the gradient
+images. In this version only a single b-value can be assigned to
+all volumes of the measurement sequence.</p>
+
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MaskExpr</span>  
+<div class="portsnapshot"><img src="HxComputeTensorOutOfCore_MaskExpr.png" /><br /></div>
+<div class="body"><p>An expression to select a specific region in the data. This port is
+only visible if a scalar field is connected to the Mask port. 
+If a label field is connected, you can select a material by using
+an expression like A==1 which would select the first non-exterior
+material region for the tensor computation.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

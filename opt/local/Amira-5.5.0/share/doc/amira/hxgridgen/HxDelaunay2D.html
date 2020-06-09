@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Delaunay2D</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Delaunay2D" "simple Delaunay method to generate a 3D surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module takes a set of 3D vertices and produces a
+triangulated surface with 2D topology, using a Delaunay algorithm. 
+In order to do so the vertices
+are internally projected either into the xy-, xz-, or yz-plane or alternatively
+onto a cylinder or sphere whose axis is parallel to the x-, y-, or z-axis. 
+By default the cylinder or sphere is automatically positioned so that it 
+matches the center of the vertices. However this <a class="link" href="#A6">projection center</a> can be defined by the user. 
+The incoming data object must be derived from a vertex set, cf.
+<a class="link" href="../usersguide/vertexset.html#A1">Section 3.2.5</a>. 
+
+Note that the Delaunay algorithm may
+take some time and possibly memory, especially for large data sets. 
+The closed sphere or closed cylinder projection mode may imply significant additional computation time.
+If the input is not of planar topology, like, e.g., a sphere, 
+the result will probably not be useful. If multiple 3D vertices project
+to the same 2D vertex, the result is undefined. In the latter case,
+it might be help to issue a <tt>jitterPoints 0.001 0.001 0.001</tt> command
+on the command line.</p>
+<p>If the input data set is of type <a class="link" href="../hxcluster/HxCluster.html#A1">Cluster</a> and if this
+cluster has data associated with it, then these data values are converted
+into one or more surface scalar fields.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The vertex set to be triangulated.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Projection</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_projection.png" /><br /></div>
+<div class="body"><p>Lets you select whether the 3D points should be projected into a
+ plane or onto a cylinder or a sphere. If <i>closed cylinder</i> or 
+ <i>closed sphere</i> is selected, a closed surface will be created. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Plane</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_plane.png" /><br /></div>
+<div class="body"><p>This port lets you select on which plane the 3D vertices should be
+ projected on in case of a planar projection.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Axis</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_axis.png" /><br /></div>
+<div class="body"><p>This port lets you select the orientation of the cylinder or sphere axis
+ in case of a cylindrical or spherical projection.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Projection center</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_projectionCenter.png" /><br /></div>
+<div class="body"><p>This port let you change the center for cylindrical or spherical projections. By default, this is the center of vertices of input data.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Reset projection center</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_resetProjectionCenter.png" /><br /></div>
+<div class="body"><p>Lets reset the center coordinates to origin (0,0,0) or vertices center.
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Parameters</span>  
+<div class="portsnapshot"><img src="HxDelaunay2D_parameters.png" /><br /></div>
+<div class="body"><p>The first number defines an optional internal scaling applied to the
+ 3D vertices. The direction in which the scaling is applied depends
+ on the selected projection type. The option is useful if the 3D points
+ are distributed non-isotropically, i.e., if the average feature size
+ in different in the three coordinates. <em>Note that an external
+ scaling defined with the transformation editor is currently not taken
+ into account by this module.</em></p>
+<p> The second number lets you specify a maximum edge length in 3D space.
+ Delaunay triangles with edges longer than this limit are discarded.
+ When computing the 3D edge length the scaling factor defined by the
+ first parameter is taken into account. When a new input is connected
+ and no other input was connected before the max edge length field is
+ initialized with half of the average edge length of the bounding box
+ of the data set. A maximum edge length of 0 indicates that no triangles
+ should be discarded.</p>
+
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setTriangulator &#123;0|1&#125;</span>  
+
+<div class="body"><p>
+	Lets you select the triangulation algorithm. McDelaunay is provided 
+ for compatibility with former version. MeshVizDelaunay (0:default)
+ is a faster implementation.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

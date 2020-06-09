@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MoleculeLabel</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MoleculeLabel" "allows labeling of a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module allows you to label certain parts of the molecule. If a
+ <em>MoleculeLabel</em> module is connected to an object of type <em>Molecule</em>, all clicks in the viewing window normally handled by a
+ viewing module connected to the same molecule will instead be
+ handled by the <em>MoleculeLabel</em> module, by default. Handling of a
+ click by the <em>MoleculeLabel</em> module means that it will change
+ the labeling, i.e., add or remove a label. The kind of label to be
+ displayed depends on the viewing module and the current selection
+ mode. For example, if the selection mode is <em>atoms</em>, a label for
+ the selected atom will be displayed; if it is <em>residues</em>, a
+ label for the residue the atom belongs to will be displayed. Up to
+ two data items per label can be displayed. Which data is displayed,
+ can be set in the <em>Attributes</em> port (see below).</p>
+<p> The user interface is built as follows. The <em>levels</em> port allows
+ you to choose a label level. The other ports, except the last one,
+ <em>Options</em>, correspond to this level. They allow you to specify
+ how the labels of the selected level will be displayed, i.e., what
+ data is displayed for each label, and in which color and size labels
+ are displayed. Do not assume that a label of the selected level will
+ appear if you click parts of the molecule. This solely depends on
+ the selection mode as mentioned above. You may also hide all labels
+ of the current level.</p>
+<p> The last port, <em>Options</em>, does not refer to any level, but
+ determines the overall behavior of the module.</p>
+<p> There are a few Tcl commands that allow you to set labels. The
+ <tt>setLabelString</tt> command enables you to set arbitrary labels
+ to an atom or a group of atoms. See the description of commands at
+ the end of this page for more information.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule to be labeled.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Levels</span>  
+<div class="portsnapshot"><img src="HxMolLabel_levels.png" /><br /></div>
+<div class="body"><p>Choose a level to change the display properties of all labels of
+ this level. The <a class="link" href="#A4">Attributes</a>,
+ <a class="link" href="#A5">Level Option</a>,
+ <a class="link" href="#A6">Buttons</a>,
+ <a class="link" href="#A7">Font size</a>, and
+ <a class="link" href="#A8">Color</a> ports have individual values for each 
+ level.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Attributes</span>  
+<div class="portsnapshot"><img src="HxMolLabel_attributes.png" /><br /></div>
+<div class="body"><p>Port to select two attributes that will make up the label string for
+ the current level. By default, only one attribute is displayed.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Level Option</span>  
+<div class="portsnapshot"><img src="HxMolLabel_levelOption.png" /><br /></div>
+<div class="body"><p>If the level option <i>is visible</i> is set, all currently selected
+ labels of this level are displayed. In order to hide all labels of a
+ certain level without removing them, deselect this option.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Labels</span>  
+<div class="portsnapshot"><img src="HxMolLabel_buttons.png" /><br /></div>
+<div class="body"><p>The four buttons of this port affect only the labels of the current
+ level. The first button displays all labels, the second adds a label
+ for each completely highlighted group, the third button removes all
+ labels. Finally, the fourth button updates the label strings
+ according to the currently selected attributes, then updates the
+ positions of the labels to display them as well as possible.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Font size</span>  
+<div class="portsnapshot"><img src="HxMolLabel_fontSize.png" /><br /></div>
+<div class="body"><p>Change the font size of the level's labels.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxMolLabel_color.png" /><br /></div>
+<div class="body"><p>Color of the level's labels. To change the color, click on the <em>Color</em> button. As result, a color editor will be displayed in
+ which you can choose the color you wish.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxMolLabel_options.png" /><br /></div>
+<div class="body"><p>Overall options. If the first option is selected, clicks that are
+ normally handled by the viewing modules will instead be handled by
+ the <em>MoleculeLabel</em> module, resulting in new labels being
+ displayed and already visible labels being removed. The second
+ option allows you to compose labels of one level differently. If the
+ option is not set, the currently displayed labels will not be
+ changed if the <i>Attribute</i> port changes, otherwise they will.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p> 
+ There are a few commands to set labels via the command line
+ interface.</p>
+
+<div class="hxcommand">
+  <span class="headline">setLabel &lt;levelName/&#123;groupName|groupRange&#125;&gt; [&lt;attr1&gt;]
+ [&lt;attr2&gt;]</span>  
+
+<div class="body"><p>
+ This command sets new labels for a group or a range of
+ groups specified by the first argument. If one or two
+ attributes are given (as strings), those attributes will be 
+ assigned as labels to the group(s). If no attribute is given,
+ the currently selected attributes of the level are used. For
+ more information about specifying a group or a range of
+ groups, see the <tt>list</tt> command
+ in the description of <a class="link" href="HxMolecule.html#A1">Molecule</a>. <br />
+
+ Example: </p>
+<pre> setLabel residues/NIL14-NIL98 name index </pre>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">unsetLabel &lt;levelName/&#123;groupName|groupRange&#125;&gt; </span>  
+
+<div class="body"><p>
+ Hides the labels of the specified group or range of groups.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLabelString &lt;levelName/groupName&gt; &lt;string&gt;</span>  
+
+<div class="body"><p>
+ Assign the label `string' to the specified group.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

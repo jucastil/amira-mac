@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.6 <font face="helvetica">Amira</font> License Manager</a></h2>
+<p></p>
+<h3><a name="A2">4.6.1 Contents</a></h3>
+<p></p>
+<ul><li><a class="link" href="#A3">About Password Protection</a></li><li><a class="link" href="#A4">About the <font face="helvetica">Amira</font> License Manager</a></li><li><a class="link" href="#A6">Troubleshooting</a></li><li><a class="link" href="#A7">Using TGS_LICENSE_DEBUG</a></li><li><a class="link" href="#A10">Contacting the License Administrator</a></li><li><a class="link" href="#A11">Contacting Technical Support</a></li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">4.6.2 About Password Protection</a></h3>
+<p>Your <font face="helvetica">Amira</font> software is "password enabled". Each time the software runs, it checks
+for a valid password. If a valid password is found, the application runs.
+Otherwise, a license dialog is displayed, allowing you to enter a valid <font face="helvetica">Amira</font>
+license.
+<br />
+<br />
+ Generally, your software is also "computer ID locked". Computer ID locking is a
+form of software license control that allows the software to run only on
+specifically licensed systems. If your license is for a specific system, your
+password string will include a computer ID.<br />
+</p>
+<p>If your site has purchased <font face="helvetica">Amira</font> floating licenses for use with FLEXNet,
+you will find information in a specific section about <a class="link" href="flexnet.html#A1">Configuring FLEXNet Licensing</a>,
+including instructions for <a class="link" href="flexnet.html#A14">installing the Client License Files</a>.
+This documentation may be found in</p>
+<p>   <tt>&lt;install directory&gt;/share/license/FLEXNet</tt></p>
+<p></p>
+<h3><a name="A4">4.6.3 About the <font face="helvetica">Amira</font> License Manager</a></h3>
+<p>The <font face="helvetica">Amira</font> License Manager dialog is displayed when you attempt to start
+<font face="helvetica">Amira</font> on a system for which no valid <font face="helvetica">Amira</font> license is found:<br />
+<br />
+</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=QxLicenseDialogAmira.png.html><img width=375 src="QxLicenseDialogAmira.png" /></a><br />
+<div class="caption">
+<b>Figure 52:</b>
+<font face="helvetica">Amira</font> license manager</div>
+
+ 
+</div><p></p>
+<p>The <font face="helvetica">Amira</font> License Manager has an editable text field displaying the contents of the active
+license file. The path of the active license file is given in the box above. You may enter new license
+keys by directly typing into the text field or by pasting the contents of the clipboard. Alternatively, you may
+import licenses by clicking the <i>Import license file ...</i> button and pointing the file browser to
+the file containing the license keys, or use Drag &amp; Drop onto the text field to load the license file.
+The contents of the file will be appended to the active license file. License keys that are valid are
+printed in green, invalid licenses are printed in red.
+To run the application there has to be a valid license for the product "<font face="helvetica">Amira</font>". Thus, the file may contain
+valid (i.e. green) license keys for product options 
+
+other than "<font face="helvetica">Amira</font>", and still <font face="helvetica">Amira</font> will
+not start.</p>
+<p>Once <font face="helvetica">Amira</font> finds a valid "<font face="helvetica">Amira</font>" license it will start. If you want to update the license key or enter
+additional license keys for options 
+
+you will need to select <b>Help $$>$$ License Manager</b> from the <font face="helvetica">Amira</font>
+menu bar and apply one of the methods described above to update the license.</p>
+<p></p>
+<h3><a name="A6">4.6.4 Troubleshooting</a></h3>
+<p>Having trouble entering your <font face="helvetica">Amira</font> license? License is not valid? When you try to
+run <font face="helvetica">Amira</font>, the License Manager dialog is displayed again?</p>
+<p>Here are steps for remedying the situation.</p>
+<p></p>
+<ol><li><p>If you are using an evaluation or demo license,<br />
+<br />
+</p>
+<p>   <tt>License <font face="helvetica">Amira</font> <font face="helvetica">5.5</font> 31-Oct-2011 0 7f3a8i5u4j4j "Demo License"</tt><br />
+<br />
+</p>
+<p> make sure that expiration date is in the future and your system time is set correctly.</p>
+<p> <b>Action:</b> Ask your <font face="helvetica">Amira</font> reseller for an extension of the trial period or purchase a license.<br />
+<br />
+</p></li><li><p>If your license key has a computer ID, for example,<br />
+<br />
+</p>
+<p>   <tt>License <font face="helvetica">Amira</font> <font face="helvetica">5.5</font> 31-Oct-2011 0 7f3a8i5u4j4j "Demo License" 001422505396</tt><br />
+<br />
+</p>
+<p> make sure that the computer ID of your license key matches the computer ID shown
+ in the computer ID field of the License Manager.</p>
+<p> <b>Action:</b> If the computer IDs do not match, you will need to <b>request a new license
+ from the</b> <a class="link" href="#A10">License Administrator</a> (see below). Please supply the computer ID from the
+ License Manager dialog as well as your existing license key for reference.<br />
+<br />
+</p></li><li>If the above suggestions do not resolve the license problem, it will be necessary to debug
+ the problem using environment variable TGS_LICENSE_DEBUG. See below for instructions.</li>
+</ol><p></p>
+<p></p>
+<p></p>
+<h3><a name="A7">4.6.5 Using TGS_LICENSE_DEBUG</a></h3>
+<p>If the TGS_LICENSE_DEBUG environment variable is set to a file name, when <font face="helvetica">Amira</font> is run,
+licensing debug output is written to the specified file. You can open and read this debug file
+yourself. However, most likely you will need to send it to the <a class="link" href="#A11">technical support team</a>
+(see below) for analysis.</p>
+<p>Below are instructions for setting this environment variable on <a class="link" href="#A8">Windows</a> and on <a class="link" href="#A9">Linux/UNIX</a> systems.</p>
+<p>
+</p>
+<h4><a name="A8">4.6.5.1 Windows</a></h4>
+<p>On Windows, you can set the environment variable via the Control Panel or you can set it in a command prompt.</p>
+<p><b>Windows - Control Panel</b></p>
+<p></p>
+<ol><li>You can get to the Control Panel via the Windows Start menu.</li><li>In the Control Panel, select the System application.</li><li>Click on the Advanced tab.</li><li>Press the Environment variables button.</li><li>In either the User or System variables, press the New button.</li><li>For the Variable name enter TGS_LICENSE_DEBUG.</li><li>For the Variable value enter "debug.txt" (without the quotes).</li><li>Click all of the OK buttons to exit the dialog.</li><li>Run <font face="helvetica">Amira</font> from the Start menu. When the License Manager dialog comes up, dismiss it.</li><li>Then look for a file named "debug.txt" in the top level of 
+ the <font face="helvetica">Amira</font> installation directory. Send that file to <a class="link" href="#A11">tech support</a> for analysis.</li>
+</ol><p></p>
+<p><b>Windows - Command Prompt</b></p>
+<p></p>
+<ol><li>On Windows you can get to a command prompt via the Windows Start menu as follows:
+ Start $$>$$ Programs $$>$$ Accessories $$>$$ Command Prompt</li><li>In the command prompt window, type:
+ <br />
+  <tt>set TGS_LICENSE_DEBUG=debug.txt</tt></li><li>Change the current directory to where your <font face="helvetica">Amira</font> executable is. For example,
+ <br />
+  <tt>cd /Program Files/Amira<font face="helvetica">5</font>/bin/arch-Win32VC8-Optimize</tt></li><li>Run <font face="helvetica">Amira</font> as follows:
+ <br />
+  <tt>Amiramain.exe</tt></li><li>When the License Manager dialog comes up, dismiss it.</li><li>Look for the file debug.txt in the current directory. Send that file to <a class="link" href="#A11">tech support</a> for analysis.</li>
+</ol><p></p>
+<p>
+</p>
+<h4><a name="A9">4.6.5.2 On Linux/UNIX</a></h4>
+<p></p>
+<ol><li><p>On Linux/UNIX systems, the exact command to use for setting environment variables
+ depends on the kind of shell you are using. Here are examples for a few commonly
+ used shells.</p>
+<p> Bash shell:
+ <br />
+  <tt>export TGS_LICENSE_DEBUG=debug.txt</tt></p>
+<p> C shell:
+ <br />
+  <tt>setenv TGS_LICENSE_DEBUG debug.txt</tt></p></li><li>In the window in which you set the environment variable, cd to the directory containing
+ the <font face="helvetica">Amira</font> executable. For example,<br />
+
+ <br />
+  <tt>cd /opt/Amira<font face="helvetica">5</font></tt></li><li>Run <font face="helvetica">Amira</font> as follows:<br />
+
+ <br />
+  <tt>bin/start</tt></li><li>When the License Manager dialog comes up, dismiss it.</li><li><p>Look for the file debug.txt in the current directory. Send that file to <a class="link" href="#A11">tech support</a> for analysis.</p>
+<p> NOTE: If you don't see the debug.txt file there, possibly you do not have privilege
+ to write into the <font face="helvetica">Amira</font> installation directory. In this case, set TGS_LICENSE_DEBUG to a
+ path where you can write. For example, /home/your_login_name/debug.txt</p></li>
+</ol><p></p>
+<p></p>
+<h3><a name="A10">4.6.6 Contacting the License Administrator</a></h3>
+<p><a href="vsglicense@fei.com">vsglicense@fei.com</a>
+</p>
+<p></p>
+<h3><a name="A11">4.6.7 Contacting Technical Support</a></h3>
+<p><a href="mailto:vsghotline@fei.com">vsghotline@fei.com</a>
+
+
+</p></body>
+</html>

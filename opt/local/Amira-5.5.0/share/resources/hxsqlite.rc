@@ -1,0 +1,5 @@
+module -name "SQLite" \
+       -class "HxSQLite" \
+       -category "Database" \
+       -package "hxsqlite"
+

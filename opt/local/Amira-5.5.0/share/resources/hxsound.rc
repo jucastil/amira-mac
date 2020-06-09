@@ -1,0 +1,11 @@
+################################################################################
+#
+# Resource file of custom package hxsound
+#
+################################################################################
+
+
+module -name     "Sound" \
+       -class    "HxSound" \
+       -category "Animation/Demo" \
+       -package  "hxsound"

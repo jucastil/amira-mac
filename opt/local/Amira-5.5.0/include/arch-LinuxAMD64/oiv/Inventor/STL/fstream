@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_FSTREAM
+#define  OIV_STL_FSTREAM
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

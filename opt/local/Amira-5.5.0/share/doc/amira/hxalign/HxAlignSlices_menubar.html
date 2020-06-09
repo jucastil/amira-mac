@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Menu Bar</a></h3>
+<p></p>
+<h4><a name="A2">View</a></h4>
+<p><a name="A3"></a>
+</p>
+<ul><li><b>Zoom In:</b> Increases the magnification factor of the image.</li><li><b>Zoom Out:</b> Decreases the magnification factor of the image.</li><li><b>Red/Green:</b> If this option is set, the two images are displayed
+ in magenta and green, respectively. If both images match perfectly, a
+ gray image is obtained. Color images are first converted to grayscale
+ and then transformed to magenta and green.</li><li><b>Checkerboard:</b> If this option is set, one image is displayed
+ in the white parts of a checkerboard pattern while the other image is
+ displayed in the black parts. The size of the parts can be adjusted
+ in the <em>Options</em> dialog (see below).</li><li><b>Average:</b> If this option is set the, two images are averaged or
+ blended in the viewer window.</li><li><b>Invert:</b> If this option is set, the lower image is inverted. The
+ inverted image is then blended with the upper image. If both images
+ match perfectly, a constant gray image is obtained. This option is the
+ default.</li><li><b>Transform parameters:</b> If enabled, an additional toolbar is added
+which displays the transformation and flip state of the currently editable slice.
+</li><li><b>Coronal view:</b> If enabled, displays a coronal view of the data
+and a toolbar for controlling the displayed slice number and its zoom factor.</li><li><p><b>Sagittal view:</b> If enabled, displays a sagittal view of the data
+and a toolbar for controlling the displayed slice number and its zoom factor.
+</p>
+<p>If either or both of these views are enabled, an additional toolbar is displayed.
+Two text fields allow you to specify the min and max Z values of interest.
+Activate the <em>Auto update</em> toggle for the orthogonal views to be automatically
+updated each time you change a slice in the main align window. Press the 
+<em>Update</em> button to request an explicit update.</p></li>
+</ul><p></p>
+<p></p>
+<h4><a name="A4">Options</a></h4>
+<p><a name="A5"></a>
+</p>
+<ul><li><b>Undo:</b> This menu provides an undo feature that undoes the last 
+ operation. Successive invocation of <em>Undo</em> is possible, allowing several
+ operations to be undone. Each operation made manually or automatically (translation, 
+ rotation, automatic alignment, landmarks editing) can be undone.
+ The maximum number of operations that can be undone is 100.</li><li><b>Redo:</b> This menu provides a redo feature that redoes the last 
+ undone operation. Successive invocation of <em>Redo</em> is possible after 
+ several undo operations.</li><li><b>Reset all:</b> Set the translations on X and Y and the rotation to 0
+ for all slices.</li><li><b>Reset:</b> Set the translations on X and Y and the rotation to 0 for
+ the current slice (the slice that is currently editable).</li><li><b>Transform all:</b> <a name="A6"></a>
+This is a toggle option.
+ If the option is ON, the transformations made for the editable slice are
+ also made for all slices above when the editable slice is the upper one. 
+ That means that the existing alignment of all other slices not
+ involved in the current transformation will be preserved.</li><li><b>Fix reference: </b> This option decides if a certain slice is used as 
+a reference slice during the entire alignment procedure. The reference slice 
+is marked by a red tag in the <em>Slice slider</em>. The other slices will be
+aligned according to this slice.</li><li><b>Read transformation:</b> Reads the <em>AlignTransform</em> and 
+ <em>AlignPoints</em> parameters from the input data and sets the transformation
+ values accordingly. This is useful to return to a previous saved alignment.
+ This can be seen as another kind of reset or undo.</li><li><b>Save transformation:</b> Save the actual translations, rotations, and
+ landmarks as parameters in the input data.</li>
+</ul><p></p>
+<p>
+</p>
+<h4><a name="A7">Align</a></h4>
+<p>This menu offers several alignment algorithms that can be selected in order to
+obtain the best alignment. The performance of each algorithm is dependent
+on the data to be aligned. There are four alignment algorithms that
+can be chosen:</p>
+<p></p>
+<ul><li><b>Gravity centers:</b> Align gravity centers and principal axes</li><li><b>Gray values:</b> Least squares algorithm based on gray values</li><li><b>Landmarks:</b> Align user-defined sets of landmarks</li><li><b>Edge detection:</b> Align the outer bounds of the objects</li>
+</ul><p></p>
+<p>In addition, this menu allows you to specify which slices to align,
+as follows:</p>
+<p></p>
+<ul><li><b>Align current pair:</b> Align just the current two slices</li><li><b>Align all slices:</b> Align all slices</li>
+</ul><p></p>
+<p>Finally, the <em>Options</em> button of the <em>Align</em> menu opens a tabbed 
+dialog window allowing you to define
+a variety of alignment-related options. Each tab will be handled separately
+below. The tabs are: <em>General</em>, <em>Output</em>, <em>View</em>, <em>Edge Detection</em>, 
+and <em>Least Squares</em>.
+
+
+
+</p>
+<p></p>
+<h4><a name="A8">Align/Options/General</a></h4>
+<p></p>
+<ul><li><b>Allow rotation in automatic alignment:</b> If this option is checked, rotations are
+considered during the alignment process. By default this option is
+checked. Translations are always considered.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A9">Align/Options/Output</a></h4>
+<p>The <em>Output</em> dialog allows the user to give the output images of the image stack a 
+different size than the input images. This is especially useful if the slices are 
+rotated or moved during the alignment procedure and some areas of single slices are outside
+the borders of the image stack. Beside this, a background color for the new areas in the image 
+can be determined. The following image shows the dialog box.</p>
+<p></p><div style="text-align:center"><a name="A10"></a><a href=HxAlignSlices_resizeOptions.png.html><img width=450 src="HxAlignSlices_resizeOptions.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The <em>Output options</em> window.</div>
+
+
+</div><p></p>
+<p>
+The following parameters can be set using this dialog:</p>
+<p></p>
+<ul><li><b>Automatic size:</b> If this feature is activated, a minimal image size is calculated which contains all 
+pixels of all slices. The dimensions and the position of the new bounding box 
+are set such that all slices fit in this new bounding box.</li><li><b>Image width:</b> Sets the width of the output image.</li><li><b>Image height:</b> Sets the height of the output image.</li><li><b>Show borders:</b> Shows the new image borders of the output image in the <em>Slice Aligner</em>.</li><li><b>Background color:</b> The user can set the background color for the output image. The color 
+ can be set as a gray value or as an RGB color, depending on the type of the input image. The current
+ background color is depicted in the box to the right.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A11">Align/Options/View</a></h4>
+<p></p>
+<ul><li><b>Size of checkerboard:</b> Adjusts the size of the pattern if view
+ mode is set to <em>checkerboard</em>.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A12">Align/Options/Edge Detection</a></h4>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=HxAlignSlices_edgeDetectionOptions.png.html><img width=450 src="HxAlignSlices_edgeDetectionOptions.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+The <em>Edge detection options</em> window.</div>
+
+
+</div><p></p>
+<p>The parameters for the <em>Edge detection</em> algorithm can be set using this dialog:
+</p>
+<ul><li><b>Matrix dimension:</b> This is the dimension of the matrix which scans the image and
+ decides whether a pixel belongs to the object or the background.</li><li><b>Matrix percentage:</b> This percentage defines the amount of pixels in the surrounding of a
+ pixel which have to belong to the object to indicate that this pixel belongs likewise to the object.
+ The considered surrounding is defined by the matrix dimension.</li><li><b>Matrix rastering:</b> This indicates if the surrounding should be rasterized. If so, the alignment
+ is done in a shorter time.</li><li><b>Image rastering</b> This decides if the image should be downsampled during the alignment procedure.
+ This speeds up the alignment.</li><li><b>Flipping:</b> This option indicates if a possible flipping of the images should be considered.</li><li><b>Calculate threshold:</b> This activates an automatic calculation of the threshold.</li><li><b>Set threshold:</b> This allows the threshold to be set manually.</li><li><b>Background property:</b> This must be set to describe the background of the image. According to this
+ setting, the threshold is interpreted as an upper or a lower boundary of gray values which separate the
+ object from the background.</li><li><b>Angle stepsize:</b> This sets the size of the search algorithm's angular steps (in degrees). A 
+ higher value speeds up alignment at the cost of accuracy.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A14">Align/Options/Least Squares</a></h4>
+<p></p><div style="text-align:center"><a name="A15"></a><a href=HxAlignSlices_leastSquaresOptions.png.html><img width=450 src="HxAlignSlices_leastSquaresOptions.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+The <em>Least squares options</em> window.</div>
+
+
+</div><p></p>
+<p>The following parameters for the gray values algorithm can be set using this dialog:</p>
+<p></p>
+<ul><li><b>Max number of iterations:</b> This is only intended to prevent an
+ infinite loop.</li><li><b>Step size for translations:</b> The step size used to search for
+ better positions in X and Y. A small step size, though in general may
+ lead to more accurate results, also slows down alignment.</li><li><b>Step size for rotations:</b> The step size used for rotations.</li><li><b>Scale factor:</b> During the alignment procedure, the image can be 
+ downsampled for the first iterationsteps so that a better result 
+ can be reached in a shorter time.</li>
+</ul><p></p>
+<p>More information about the align methods and the appropriate settings for the methods can be found in the <a class="link" href="HxAlignSlices_alignmethods.html#A1">alignment section</a>. </p>
+<p></p>
+<p></p>
+<h4><a name="A16">Landmarks</a></h4>
+<p><a name="A17"></a>
+The buttons of this menu are only active if <a class="link" href="HxAlignSlices_toolbar.html#A4">Edit
+landmarks</a> mode is selected. The buttons have the following meaning:</p>
+<p></p>
+<ul><li><b>Add:</b> set the shape of the mouse cursor to a black landmark and
+ clicking on the slice a new landmark is created.</li><li><b>Remove:</b> delete the selected landmark. This menu item is active
+ only when a landmark is selected and the number of landmarks is greater
+ than 3.</li>
+</ul><p></p>
+<p>
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

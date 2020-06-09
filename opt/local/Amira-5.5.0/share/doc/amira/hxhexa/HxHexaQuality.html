@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> HexaQuality</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "HexaQuality" "computes quality criterion and displays histogram for hexahedral grids" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>HexaQuality</em> module computes different quality measures for hexahedral grids. 
+ For this purpose it can be attached to a HexaGrid object as well as a
+ <a class="link" href="HxHexaView.html#A1">GridVolume</a> module.
+ Quality is calculated for all hexahedra in the first case, and for all hexahedra 
+ selected by the GridVolume module in the second case. 
+ The output is a scalar field defined on the hexahedral grid and equal to 0 
+ on the non-selected hexahedra.</p>
+<p> The user can create a histogram of the quality for the hexahedral grid. 
+ By default, the histogram is shown with a logarithmic scale to
+ direct the focus on the hexahedra with worst quality.</p>
+<p> Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>The tetrahedral grid.</p>
+</div></div>
+<div class="hxconnection_default">
+ <span class="headline">Grid volume</span>  
+
+<div class="body"><p>A <a class="link" href="HxHexaview.html">GridVolume</a> module that selects the 
+	hexhedra for which the quality is calculated.</p>
+<p>Either the <b>Data</b> or <b>Grid volume</b> connection is required. The other one then becomes optional.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Quality Measure</span>  
+<div class="portsnapshot"><img src="HxHexaQuality_quality.png" /><br /></div>
+<div class="body"><p>The option menu lets you choose between different quality measures:
+ </p>
+<ul><li><p><b>Squish:</b> the cell squish measures the angular divergence between the vector $$\vec d_{cc\rightarrow fc_i}$$ pointing from the cell centroid 
+ to each face centroid and the face normal vector $$\vec n$$ pointing out of the cell:</p>
+\[\max_i\left[1-\frac{\vec n\cdot \vec d_{cc\rightarrow fc_i}}{|\vec n||\vec d_{cc\rightarrow fc_i}|}\right]
+    \]<p>
+ In the best case the cell squish is equal to 0, whereas it is close to 1 in the worst case where the cell is degenerate.</p></li><li><p><b>Equiangle skew:</b> the equiangle skew measures the cell quality on the basis of its angles and is defined as follows:</p>
+\[\max\left[\frac{\theta_{max}-\theta_e}{180-\theta_e},\frac{\theta_e-\theta_{min}}{\theta_e}\right]
+    \]<p>
+ where $$\theta_{max}$$ is the largest cell angle, $$\theta_{min}$$ is the smallest cell angle
+ and $$\theta_e$$ is the equiangular cell angle (equal to 90 here, in the hexahedral grid case).
+ In the best case the cell is equiangular and the skew is equal to 0, whereas it is close to 1 in the worst case where the cell is degenerate.
+ A cell with an equiangle skew lower than 0.5 is considered as good and as acceptable if the skew is lower than 0.75.</p></li><li><b>Maximum angle:</b> largest cell angle.</li><li><b>Minimum angle:</b> smallest cell angle.</li><li><b>Aspect ratio:</b> the aspect ratio measures the cell stretching and is defined as the ratio between the maximum
+ cell centroid to face centroid distance and the minimum node to node distance.
+ In the best case the ratio is equal to 0.5 and an aspect ratio smaller than 5 is generally considered as acceptable.</li>
+</ul>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxHexaQuality_samples.png" /><br /></div>
+<div class="body"><p>This slider lets you select the number of samples for the histogram.
+ The default values should be adequate.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Histogram</span>  
+<div class="portsnapshot"><img src="HxHexaQuality_histogram.png" /><br /></div>
+<div class="body"><p>If you select this toggle, a plot window will appear, once you've pressed <em>Apply</em>,
+ showing the histogram
+	of qualities for all selected hexahedra.
+	If no hexahedra have been selected, the plot window will not be shown.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

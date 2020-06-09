@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Stacked-Slices</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "Stacked-Slices" "info file grouping together 2D images (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This file format allows a stack of individual image files to be read, with
+optional z-values for each slice. The slice distance need not to be
+constant. The images must be one-channel images in an image format
+supported by <font face="helvetica">Amira</font> (e.g., TIFF). The reader operates on an ASCII description
+file, which can be written with any editor. Here is an example of a
+description file:</p>
+<pre>
+    # Amira Stacked Slices
+
+    # Directory where image files reside
+    pathname C:/data/pictures
+
+    # Pixel size in x- and y-direction
+    pixelsize 0.1 0.1
+
+    # Image list with z-positions
+    picture1.tif 10.0
+    picture7.tif 30.0
+    picture13.tif 60.0
+    colstars.jpg 330.0
+    end
+</pre>
+<p>Some remarks about the syntax:</p>
+
+<ul><li><tt># Amira Stacked Slices</tt> is an optional header, which allows
+<font face="helvetica">Amira</font> to automatically determine the file format.</li><li><tt>pathname</tt> is optional and can be included in case the pictures
+are not in the same directory as the description file. A space separates
+the tag "pathname" from the actual pathname.</li><li><tt>pixelsize</tt> is optional too. The statement specifies the pixel
+size in the x and y direction. The bounding box of the resulting 3D image
+is set from 0 to pixelsize*(number_of_pixels-1).</li><li><tt>picture1.tif 10.0</tt> is the name of the slice and its z-value,
+separated by a blank.</li><li><tt>end</tt> indicates the end of the description file.</li><li>Comments are indicated by a hashmark character (<tt>#</tt>).</li>
+</ul>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

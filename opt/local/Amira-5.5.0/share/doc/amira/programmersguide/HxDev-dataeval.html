@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.5.1 Procedural Interface for 3D Fields</a></h3>
+<p>The internal representation of a data field very much depends on whether
+the field is defined on a regular, tetrahedral, or hexahedral grid. There
+are even data types such as <tt>HxAnnaScalarField3</tt> or
+<tt>HxAnnaVectorField3</tt> for
+fields that are defined by an analytical mathematical expression. To allow
+for writing a module which operates on any scalar field without having to
+bother about the particular data representation, a transparent interface is
+needed. One could think of a function like</p>
+<p><font size="2"></font></p><pre>
+    float value = field-&gt;evaluate(x,y,z);
+</pre><p><font size="2"></font></p>
+<p>For the sake of efficiency, a slightly different interface is used in <font face="helvetica">Amira</font>.
+Evaluating a field defined on tetrahedral grid at an arbitrary location
+usually involves a global search to detect the tetrahedron which contains
+that point. The situation is similar for other grid types. In most
+algorithms, however, the field is typically evaluated at points not
+far from each other, e.g., when integrating a field line. To take
+advantage of this fact, the concept of an abstract <tt>Location</tt> class has
+been introduced. A <tt>Location</tt> describes a point in 3D space. Depending 
+on the underlying grid, <tt>Location</tt> may keep track of additional
+information such as the current grid cell number. The <tt>Location</tt> class
+provides two different search strategies, a global one and a local one.
+In this way performance can be improved significantly. Here is an example
+of how to use a <tt>Location</tt> class:
+<font size="2"></font></p><pre>
+    float pos[3];
+    float value;
+    ...
+    HxLocation3* location = field-&gt;createLocation();
+    if (location-&gt;set(pos))
+        field-&gt;eval(location, &amp;value);
+    ...
+    if (location-&gt;move(pos))
+        field-&gt;eval(location, &amp;value);
+    ... 
+    delete location;
+</pre><p><font size="2"></font></p>
+<p>First a location is created by calling the virtual method <tt>createLocation</tt> of the field to be evaluated. The two methods, <tt>location-&gt;set(pos)</tt> and <tt>location-&gt;move(pos)</tt>, both take an array of
+three floats as argument, which describe a point in 3D space. The <tt>set</tt> method always performs a global search in order to locate the point.
+In contrast, <tt>move</tt> first tries to locate the new point using a local
+search strategy starting from the previous position. You should call <tt>move</tt> when the new position differs only slightly from the previous one. 
+Both <tt>set</tt> and <tt>move</tt> may return 0 in order to indicate that
+the requested point could not be located, i.e., that it is not contained
+in any grid cell.In order to locate the field at a particular location, <tt>field-&gt;eval( location, &amp;value)</tt> is called. The result is written to the
+variable pointed to by the second argument. Internally the <tt>eval</tt>
+method does two things. First it interpolates the field values, for
+example, using the values at the corners of the cell the current point is
+contained in. Secondly, it converts the result to a float value if the
+field is represented internally by a different primitive data type.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

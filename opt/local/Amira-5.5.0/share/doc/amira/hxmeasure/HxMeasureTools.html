@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Measurement</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Measurement" "provides tools for measuring lengths, angles, and curvature" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module provides access to two-dimensional and three-dimensional measuring tools. 
+The idea is to click directly into the rendered scene and draw. The 2D tools draw 
+anywhere in the viewer window, whereas the 3D tools work only on geometry displayed 
+in the viewer.</p>
+<p>You can access the tools via the <em>View/Measuring</em> menu or via the
+measuring tool button at the top of the viewer. Click on the tiny
+triangle at the lower right corner of the tool icon to display a
+pulldown menu from which you can select the desired measuring tool: 
+(2D or 3D length, 2D or 3D angle, and 2D or 3D annotation).
+
+To change the position of a selected tool, click on one of its red handles and
+drag it to a new location.
+Some tools also provide text entries that allow changing their position.</p>
+<p>Once the <em>Measurement</em> tool is activated, the mouse pointer changes its shape. 
+While the tool is activated, every measurement you perform will be automatically added to the list.
+For example, you can activate the 2D Length tool to measure a distance, measure a second one, then 
+activate the 2D Angle tool and add an angle measurement. The three measurement objects 
+will be added to the list one by one automatically.</p>
+<p>Every tool has attributes (visible, locked, render in front, text,
+color, line width, and font size) that are accessible via the <em>Tools</em> port 
+of the <em>Measurement</em> object which was created in the Pool.</p>
+<p><b>Note:</b> 2D distance measurements require orthographic view and the measurement is in pixels.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+
+<div class="hxport">
+ <span class="headline">Tools</span>  
+<div class="portsnapshot"><img src="HxMeasureTools_tools.png" /><br /></div>
+<div class="body"><p>Each tool is displayed as a row in the toolbox. 
+The columns have the following meaning (from left to right):
+</p>
+<ul><li><em>visible</em>: Click on the eye icon to toggle visibility
+ of the tool in the viewer. When the eye is empty, the
+ tool is invisible.
+ Click and drag over multiple rows to toggle the visibility 
+ of multiple tools.</li><li><em>locked</em>: Click on the padlock icon to lock/unlock
+ the tool. When the padlock is locked, the tool is locked
+ and can't be modified in the viewer.
+ Click and drag over multiple rows to lock/unlock multiple tools.</li><li><em>render in front</em>: Click on the render-in-front icon to 
+ toggle whether the tool is always rendered in
+ front of the scene and no longer hidden by objects that
+ are nearer to the camera. It also is always pickable.
+ Click and drag over multiple rows to change the icon for 
+ multiple tools.</li><li><em>type</em>: The fourth column indicates the type of the tool (2D length, etc.).</li><li><em>text</em>: The fifth column displays the value of the measured quantity.
+ Double clicking on it allows you to change the display format for 
+ numerical values, and the text string for text tools.</li>
+</ul><p>
+If you select a tool in the toolbox, it is highlighted in the viewer 
+with red squares (handles) that you can drag using the mouse. You can select more than one tool
+at the same time. 
+With the color button, the line width dropdown menu and spin box, and the font size spin box,
+you can change the appearance of the selected tools. The line width 
+affects the size the of red tool handles as well.</p>
+<p>
+With the <em>Export</em> button you can export all containing Measurement tools information to a <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">SpreadSheet</a>.</p>
+<p>With the <em>Delete</em> button you can delete the currently selected tool(s).
+</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">tool init</span>  
+
+<div class="body"><p>	Erase all points and settings of a tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool getValue &lt;id&gt;</span>  
+
+<div class="body"><p>	Return the value of the tool with the specified id. If the tool is an Angle or a Distance, a float will be returned. If the tool is an Annotation, the annotation text will be returned.
+	The same command can be called as: tool&lt;id&gt; getValue.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tools getPoints &lt;id&gt;</span>  
+
+<div class="body"><p>	Return the points of the tool with the specified id. If the tool is a 2D Angle or Distance, 2 points are returned as a TCL list. If the tool is a 3D Angle or Distance, 3 points are returned as a TCL list. If the tool is an Annotation 1 point is returned.The coordinates are normalized between 0 and 1 for the 2D points.
+	The same command can be called as: tool&lt;id&gt; getPoints.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tools getName &lt;id&gt;</span>  
+
+<div class="body"><p>	Return the name of the tool with the specified id.
+	The same command can be called as: tool&lt;id&gt; getName.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tools getNumberTools</span>  
+
+<div class="body"><p>	Returns the number of elements in the tool form.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tools exportSpreadSheet</span>  
+
+<div class="body"><p>	Export all containing Measurement tools information to a <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">SpreadSheet</a>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tools dump</span>  
+
+<div class="body"><p>	Returns a TCL list containing all the Measurement tools information.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool&lt;id&gt; point &lt;p1&gt;[&lt;p2&gt;...]</span>  
+
+<div class="body"><p>	Set the points for the specified tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool&lt;id&gt; format "&lt;frm&gt;"</span>  
+
+<div class="body"><p>	Set the format for the specified tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool&lt;id&gt; color &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>	Set the color for the specified tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool&lt;id&gt; pointSize &lt;size&gt;</span>  
+
+<div class="body"><p>	Set the pointSize for the specified tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">tool&lt;id&gt; name &lt;newName&gt;</span>  
+
+<div class="body"><p>	Set the name for the specified tool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addLine 2D</span>  
+
+<div class="body"><p>Create a 2D line as a tool object. By using the previous TCL commands, the line properties can be set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addLine 3D</span>  
+
+<div class="body"><p>Create a 3D line as a tool object. By using the previous TCL commands, the line properties can be set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addAngle 2D</span>  
+
+<div class="body"><p>Create a 2D angle as a tool object. By using the previous TCL commands, the angle properties can be set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addAngle 3D</span>  
+
+<div class="body"><p>Create a 3D angle as a tool object. By using the previous TCL commands, the angle properties can be set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addAnnotation 2D</span>  
+
+<div class="body"><p>Create a 2D annotation as a tool object. By using the previous TCL commands, the annotation properties can be set.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addAnnotation 3D</span>  
+
+<div class="body"><p>Create a 3D annotation as a tool object. By using the previous TCL commands, the annotation properties can be set.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

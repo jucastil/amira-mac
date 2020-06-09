@@ -1,0 +1,97 @@
+# ----------------------------------------------------------------------
+#   Statistics package
+# ----------------------------------------------------------------------
+
+module -name "Histogram" \
+    -primary "HxSurfaceField HxTetraData HxHexaData HxLattice3 HxVolumeDataObject"\
+    -check { [$PRIMARY nDataVar ]==1 } \
+    -class "HxHistogram" \
+    -category "Measure"	\
+    -dso "libhxstatistics.so"
+
+module -name "Histogram" \
+    -primary "HxLineSetInterface HxSpreadSheet"\
+    -class "HxHistogram" \
+    -category "Measure"	\
+    -package "hxstatistics"
+
+dataClass -name "SpreadSheet" \
+    -class "HxSpreadSheet" \
+    -category "Data" \
+    -dso "libhxstatistics.so"
+
+amiramesh -ContentType HxSpreadSheet \
+    -load "HxSpreadSheet::readAmiraMesh" \
+    -dso "libhxstatistics.so"
+
+editor -name "Spreadsheet Editor" \
+    -data "HxSpreadSheet" \
+    -class "HxSpreadSheetEditor" \
+    -dso "libhxstatistics.so" \
+    -icon "HxSpreadSheetEditor.png"
+
+module -name "SurfaceArea" \
+    -primary "HxSurface" \
+    -class "HxSurfaceArea" \
+    -category "Measure" \
+    -dso "libhxstatistics.so"
+
+module -name "MaterialStatistics" \
+    -primary "HxLabelLattice3" \
+    -category "Measure" \
+    -class "HxTissueStatistics" \
+    -dso "libhxstatistics.so"
+
+module -name "ConnectedComponents" \
+    -primary "HxUniformScalarField3" \
+    -check { [$PRIMARY primType] == 0 || \
+             [$PRIMARY primType] == 1 || \
+             [$PRIMARY primType] == 2 || \
+             [$PRIMARY primType] == 7 || \
+             [$PRIMARY primType] == 8 || \
+             [$PRIMARY primType] == 9 } \
+    -category "Labelling" \
+    -class "HxConnectedComponentAnalysis" \
+    -dso "libhxstatistics.so"
+
+module -name "CorrelationPlot" \
+    -primary "HxRegScalarField3 HxMultiChannelField3" \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -category "Measure Labelling" \
+    -class "HxCorrelationPlot" \
+    -dso "libhxstatistics.so"
+
+module -name "PlotSpreadSheet" \
+    -primary "HxSpreadSheet HxLineSetInterface" \
+    -category "Display" \
+    -class "HxPlotSpreadSheet" \
+    -dso "libhxstatistics.so"
+
+module -name "ShowViewerSpreadSheet" \
+    -primary "HxSpreadSheet" \
+    -category "Display" \
+    -class "HxShowViewerSpreadSheet" \
+    -dso "libhxstatistics.so"
+
+module -name "SpreadsheetFilter" \
+    -primary "HxSpreadSheet" \
+    -category "Compute" \
+    -class "HxSpreadsheetFilter" \
+    -dso "libhxstatistics.so"
+
+dataFile -name "CSV" \
+         -option "csv"\
+         -ext ".csv" \
+         -load "readCSVData" \
+         -loadInOwnThread true \
+         -dso "libhxstatistics.so"
+
+#
+# do not release in 2.3
+#
+#module -name "SliceHistogram" \
+#    -primary "HxRegScalarField3" \
+#    -category "Compute" \
+#    -class "HxSliceHistogram" \
+#    -dso "libhxstatistics.so"
+

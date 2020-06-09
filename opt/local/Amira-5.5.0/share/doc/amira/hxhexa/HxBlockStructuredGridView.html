@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> GridView (Block Structured)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "GridView (Block Structured)" "displays a block-structured grid or parts of it" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>GridView</em> module displays a <a class="link" href="../hxfield/HxBlockStructuredGrid.html#A1">block-structured grid</a> or parts of it.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="../hxfield/HxBlockStructuredGrid.html#A1">block-structured grid</a> to be shown.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Arbitrary scalar field which is mapped onto the grid volume
+using pseudo-coloring. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap is used for pseudo-coloring the grid volume.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxBlockStructuredGridView_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from the 
+<a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a> 
+class and, therefore, the description can be found there.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxBlockStructuredGridView_colormap.png" /><br /></div>
+<div class="body"><p>This port becomes visible only if a scalar field has been 
+connected to the <i>ColorField</i> port. For further details
+see section <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxBlockStructuredGridView_buffer.png" /><br /></div>
+<div class="body"><p>This port lets you <i>add</i> and <i>remove</i> highlighted faces
+(being displayed in red wireframe) to an internal buffer. 
+For a further description and for the functionality of each 
+of the port buttons see <a class="link" href="../hxsurface/HxViewBase.html#A3">ViewBase</a>.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxBlockStructuredGridView_Options.png" /><br /></div>
+<div class="body"><p>Toggle viewing the boundary of the blocks.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+<a name="A1"></a>
+</p>
+<h2><a name="A2">29.4 Math</a></h2>
+<p>Doc2html uses MathJaX to render math. Every .html file automatically
+gets a special header entry that links to the MathJaX library. This
+means that LaTeX math environments can be copied "as is"
+from input .doc/.tex to output .html files. The MathJaX library must
+be located in the same path as the .html documentation subfolders,
+usually /share/doc/amira/mathjax. It need not be copied 
+to AMIRA_LOCAL because doc2html changes the path accordingly when building
+the docs in AMIRA_LOCAL. </p>
+<p>MathJaX can be downloaded from http://mathjax.org.</p>
+<p>
+</p>
+<h3><a name="A3">29.4.1 Inline</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+$ MATH_TEXT $ </td>
+<td align=left>
+ $&#8204;$ MATH_TEXT $&#8204;$ </td>
+<td align=left>
+ inline math
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h3><a name="A4">29.4.2 Equations</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;&#8204;[ MATH_TEXT &#92;&#8204;] </td>
+<td align=left>
+ &#92;&#8204;[ MATH_TEXT &#92;&#8204;] </td>
+<td align=left>
+ math paragraph</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;eqnarray&#125; <br />
+MATH_TEXT<br />
+&#92;end&#123;eqnarray&#125; </td>
+<td align=left>
+ &#92;&#8204;[ &#92;begin&#123;eqnarray&#125; <br />
+MATH_TEXT<br />
+&#92;end&#123;eqnarray&#125; &#92;&#8204;] </td>
+<td align=left>
+ equation array</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;eqnarray*&#125;<br />
+MATH_TEXT<br />
+&#92;end&#123;eqnarray*&#125; </td>
+<td align=left>
+ &#92;&#8204;[ &#92;begin&#123;eqnarray*&#125; <br />
+MATH_TEXT<br />
+&#92;end&#123;eqnarray*&#125; &#92;&#8204;] </td>
+<td align=left>
+ equation array (don't enumerate equations)
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+<br />
+
+</p></body>
+</html>

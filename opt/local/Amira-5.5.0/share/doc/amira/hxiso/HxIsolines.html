@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Isolines</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Isolines" "displays isolines on a 2D cutting plane" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes isolines and their annotations for an arbitrary 3D scalar field on a
+ 2D cutting plane. The plane itself is defined by another module
+ which must be connected to port <em>Module</em>. Isolines are computed
+ using two different algorithms depending on the type of the incoming
+ scalar field. If the scalar field is defined on a tetrahedral grid
+ then all tetrahedra intersecting the plane are determined first. 
+ The straight isoline segments are generated for these tetrahedra
+ according to the requested threshold values.
+ If the incoming scalar field is not a tetrahedral one then the field 
+ is sampled on a regular 2D raster first. Each 
+ rectangular cell of the raster is then checked for isolines. Note,
+ that this approach may lead to artifacts if the sampling density is
+ too low.</p>
+<p> To execute a demo script illustrating the isoline module click
+ <a href="../../../examples/HxIsolines.hx">here</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Scalar field for which isolines are to be computed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Module</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>	Module defining cutting plane used for isoline computation.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap used for pseudo-coloring. If no colormap is connected
+	all isolines have equal color.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Spacing</span>  
+<div class="portsnapshot"><img src="HxIsolines_spacing.png" /><br /></div>
+<div class="body"><p>	Control how isoline thresholds are being defined. In <em>uniform</em>
+	a certain number of isovalues are distributed equidistantly within
+	a user-defined interval. In <em>explicit</em> mode the threshold for
+	each isoline has to be set manually.
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Values</span>  
+<div class="portsnapshot"><img src="HxIsolines_uniform.png" /><br /></div>
+<div class="body"><p>In <em>uniform</em> mode this port contains three text fields allowing
+	the user to define the lower and upper bound of the isoline
+	interval as well as the number of isolines being computed in this
+	interval. </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Values</span>  
+<div class="portsnapshot"><img src="HxIsolines_explicit.png" /><br /></div>
+<div class="body"><p>In <em>explicit</em> mode an arbitrary number of blank-separated
+	threshold values can be defined in this text field. For each 
+	threshold a corresponding
+	isoline is displayed.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Parameters</span>  
+<div class="portsnapshot"><img src="HxIsolines_parameters.png" /><br /></div>
+<div class="body"><p>The <em>resolution</em> value determines the resolution of the
+	sampling raster used for computing isolines. This parameter is
+	ignored if the incoming scalar field is defined on a tetrahedral
+	grid and the <em>resample</em> option is off. The second input of
+	this port determines the width of the isolines in pixels.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxIsolines_options.png" /><br /></div>
+<div class="body"><p>Two toggle buttons are provided. If <em>update min-max</em> is set
+	then the isoline thresholds are automatically reset to some
+	default values whenever the data range of the incoming scalar
+	field changes. The toggle called <em>resample</em> allows you to
+	compute isolines using the resampling approach even if the incoming
+	scalar field is defined on a tetrahedral grid.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxIsolines_colormap.png" /><br /></div>
+<div class="body"><p>Port to select a colormap.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Annotations path</span>  
+<div class="portsnapshot"><img src="HxIsolines_annotationsPath.png" /><br /></div>
+<div class="body"><p>Indicates how annotations are drawn on isolines. If choice 
+ is <em>tangential path</em> then annotations are drawn according 
+ the tangent line of isolines. <em>Camera aligned</em> means 
+ that annotations are drawn always facing the camera.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Font</span>  
+<div class="portsnapshot"><img src="HxIsolines_font.png" /><br /></div>
+<div class="body"><p>Select the font and color of annotations of contour lines. The font size is a 
+ multiplicative factor of the domain size. The font size impacts 
+ annotations position and number of annotations. As much as possible, 
+ the annotations are placed to avoid crossing mesh lines or mesh contours. </p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Text scale</span>  
+<div class="portsnapshot"><img src="HxIsolines_text scale.png" /><br /></div>
+<div class="body"><p>Font size factor of annotations of contour lines. It's a multiplicative 
+ factor of font size. Useful when using projection, a heuristic is applied
+ to keep a ratio font size / mesh size. Sometimes to obtain a better effect 
+ the default factor must be customized.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Text spacing</span>  
+<div class="portsnapshot"><img src="HxIsolines_text gap.png" /><br /></div>
+<div class="body"><p>Curvilinear distance between two annotations of a same contour line. 
+It is a multiplicative factor of the domain size.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Annotate every</span>  
+<div class="portsnapshot"><img src="HxIsolines_annotationsPeriod.png" /><br /></div>
+<div class="body"><p>The <em>major period</em> defines the major and the minor contour lines. 
+ <em>majorPeriod</em> is the period of major contour lines. Only major contour 
+ lines can be annotated.
+ The <em>first major</em> defines the first major contour lines.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

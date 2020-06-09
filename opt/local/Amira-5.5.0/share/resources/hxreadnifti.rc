@@ -1,0 +1,17 @@
+# ------------------------------------------------------
+#  Nifty formats
+# ------------------------------------------------------
+
+dataFile -name "Nifti" \
+    -ext ".nii,.hdr,.nii.gz,.hdr.gz,.nii.Z,.hdr.Z" \
+    -option "nifti" \
+    -load "readNifti" \
+    -loadInOwnThread true \
+    -package "hxreadnifti"
+
+dataFile -name "Nifti" \
+    -ext ".nii"	\
+    -option "nifti" \
+    -save "writeNifti" \
+    -type "HxUniformScalarField3" \
+    -package "hxreadnifti"

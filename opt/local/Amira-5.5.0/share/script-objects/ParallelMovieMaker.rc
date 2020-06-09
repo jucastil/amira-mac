@@ -1,0 +1,14 @@
+########################################
+# scro ParallelMovieMaker
+########################################
+
+module -name "ParallelMovieMaker" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -check { [__isProduct "Avizo"] } \
+    -proc {
+	set mod [[create HxScriptObject] setLabel ParallelMovieMaker]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/ParallelMovieMaker.scro
+	$mod fire
+    }	
+

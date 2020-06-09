@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Observables</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "Observables" "displays information about a molecular trajectory" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module is used to display information about a molecular
+ trajectory. All properties stored in the trajectory can be displayed,
+ e.g., <em>potential energy</em>, <em>kinetic energy</em>, <em>total
+ energy</em> etc. 
+ </p></div>
+<p></p>
+<p> </p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecular trajectory for which properties should be displayed.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A time object that may be connected to the module in order to
+ synchronize, e.g., a viewing module with the line in the plot window,
+ indicating the position of the time step within the trajectory.
+ </p></div></div>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Option</span>  
+<div class="portsnapshot"><img src="HxMolObservables_option.png" /><br /></div>
+<div class="body"><p>The two options allow you to specify which kind of value, <i>root mean square deviation (rmsd)</i> or some observable value,
+ should be displayed. The observable type needs to be further
+ specified by the <i>Observable</i> port.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alignment</span>  
+<div class="portsnapshot"><img src="HxMolObservables_transformation.png" /><br /><img src="HxMolObservables_selection.png" /><br /><img src="HxMolObservables_selectionInfo.png" /><br /></div>
+<div class="body"><p>The three ports above specify how the molecules are transformed
+ before computing the <i>rmsd</i> value. See the description in the
+ general section on <a class="link" href="molpositioning.html#A5">alignment of
+ molecules</a> for a detailed explanation.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Observable Type</span>  
+<div class="portsnapshot"><img src="HxMolObservables_observables.png" /><br /></div>
+<div class="body"><p>Choose the type of property that should be plotted.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxMolObservables_action.png" /><br /></div>
+<div class="body"><p>Plot the <i>Observable Type</i> within a new window.</p>
+<p> <a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Plot Option</span>  
+<div class="portsnapshot"><img src="HxMolObservables_plotoptions.png" /><br /></div>
+<div class="body"><p>Select the first toggle if the values of the plotted properties at the
+ current time are shown in the plot window. If the second option is 
+ selected, only a single plot will be shown, and changing the <em>Observable Type</em> will update the current plot.</p>
+<p> <a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxMolObservables_time.png" /><br /></div>
+<div class="body"><p>This port is most useful in conjunction with a viewing module in order
+ to see the property of the displayed time step. In order to create a
+ time object, click the <em>Time</em> slider with the right mouse
+ button and select <i>Create time</i> from the menu. As a result a
+ time object will appear in the Pool, which should be
+ connected with an object of type <a class="link" href="HxMolecule.html#A1">Molecule</a>
+ which can be visualized with, for example, the
+ <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a> module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

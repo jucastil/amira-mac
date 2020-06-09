@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">24.7 Adding a Read Routine</a></h2>
+<p>As will be explained in more detail in <a class="link" href="HxDev-reader.html#A1">Section 25.2</a>, read
+routines are global C++ functions used to create one or more
+<font face="helvetica">Amira</font> data objects from the contents of a file stored in a certain file
+format. To create the template of a new read routine, first the
+name of the routine must be specified (see <a class="link" href="#A2">Figure 186</a>).
+The name must be a valid C++ name. It must not contain blanks or any other
+special characters.
+</p><div style="text-align:center"><a name="A2"></a><a href=dev6.png.html><img width=450 src="dev6.png" /></a><br />
+<div class="caption">
+<b>Figure 186:</b>
+Creating the template of a read routine.</div>
+
+
+</div><p></p>
+<p>Moreover, the name of the file format and the preferred file name extension
+must be specified. The extension will be used by the file browser in order
+to identify the file format. The format name will be displayed next to any
+matching file.
+Finally, a toggle can be set in order to create the template of a read
+routine supporting the input of multiple files. Such a routine will have
+a slightly different signature. It allows you to create a single data object
+from multiple input files. For example, multiple 2D image files can be
+combined in a single 3D image volume. Details are provided in
+<a class="link" href="HxDev-readdetails.html#A1">Section 25.2.3</a>.
+After you press <em>OK</em> a new file <tt>&lt;name&gt;.cpp</tt> will be created in the
+package directory, where <tt>&lt;name&gt;</tt> denotes the name of the read
+routine. In addition, the read routine will be registered in the package
+resource file. Some file formats can be identified by a unique file header,
+not just by the file name extension. In such a case you may want
+to modify the resource file entry as described in
+<a class="link" href="HxDev-readppm3d.html#A1">Section 25.2.1</a>. </p>
+<p>Remember, that after you have added a new read routine to a package you
+need to recreate the build system files before you can compile it. Details
+are described in <a class="link" href="HxDev-devcreatebuildsystem.html#A1">Section 24.9</a>.</p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Light</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Light" "represents a light in the Amira viewer window" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Light objects are used to define additional lights in the <font face="helvetica">Amira</font> viewer
+ windows. Actually light objects are neither modules nor standard data
+ objects. Nevertheless, they are displayed in the Pool. Like
+ modules they provide some ports allowing the user to adjust the object's
+ properties. In particular, three different light types are supported,
+ namely directional lights, point lights, and spot lights. Lights can be
+ define d in scene coordinates or in camera coordinates (camera slave mode).
+ In order to interactively change the light parameters appropriate 
+ Open Inventor draggers can be activated.</p>
+<p> Note that the <font face="helvetica">Amira</font> viewers define separate headlights by default. Light
+ objects represent additional light sources and are not related to the
+ viewer's head light. New lights can be interactively created using the
+ <a class="link" href="../usersguide/viewmenu.html#A5">View Lights</a> menu of the <font face="helvetica">Amira</font> main window. This
+ menu also allows activation of new light settings consisting of multiple
+ lights. A light setting is stored as an <font face="helvetica">Amira</font> script in the subdirectory
+ <tt>share/lights</tt> in the <font face="helvetica">Amira</font> installation directory. New settings can
+ be added dynamically by copying new scripts into this directory.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="HxLight_type.png" /><br /></div>
+<div class="body"><p>This radio box determines the light type. Three different types
+ are supported:</p>
+<p>	A <em>directional light</em> emits parallel light. It is faster to
+ compute than the other lights. Another advantage is that it has
+ no particular location (although the dragger used to edit the
+ light is located somewhere). Therefore light settings consisting
+ of directional lights only can be easily applied to new scenes,
+ regardless of the actual size or position of the objects in that
+ scene.</p>
+<p> <img src="directional.png" /></p>
+<p> The second type is a <em>point light</em>. A point light is
+ specified by its location only. It emits light symmetrically
+ in all directions.</p>
+<p> <img src="point.png" /></p>
+<p> The third type is a <em>spot light</em>, which has a position like
+ a point light, but which also defines cone restricting the shape
+ of the light being emitted.</p>
+<p> <img src="spot.png" /></p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxLight_options.png" /><br /></div>
+<div class="body"><p>First, this port provides a color button indicating the color
+ of the light. Pressing the button pops up the color dialog and lets
+ you change the light's color.</p>
+<p> The next toggle called <em>camera slave</em> specifies, whether the
+ light remains fixed relative to the camera. If not, the light's
+ position and direction are fixed with respect to other objects in
+ the scene.</p>
+<p>	Finally, the last toggle called <em>show dragger</em> allows you to
+ activate an Open Inventor dragger which can be used to move the
+ light or to modify its direction.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Direction</span>  
+<div class="portsnapshot"><img src="HxLight_direction.png" /><br /></div>
+<div class="body"><p>Shows the direction of the emitted light. The values represent the
+ direction in world or camera coordinates depending on the <em>camera
+ slave</em> setting. The port is not available for point lights.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Location</span>  
+<div class="portsnapshot"><img src="HxLight_location.png" /><br /></div>
+<div class="body"><p>Shows the location of the light source. The values represent the
+ location in world or camera coordinates depending on the <em>camera
+ slave</em> setting. The port is not available for directional lights.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Spot</span>  
+<div class="portsnapshot"><img src="HxLight_spot.png" /><br /></div>
+<div class="body"><p>Here the two additional parameters for spot lights are specified:</p>
+<p> The <em>cut off angle</em> determines the spread of the cone of
+ the emitted light, measured from one edge of the cone to
+ another.</p>
+<p>	The <em>drop off rate</em> controls how concentrated the light is. The
+	light's intensity is highest in the center of the cone. It's
+	attenuated toward the edges of the cone. A value of 0 produces very
+ sharp edges, A value of 1 produces very	soft edges.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxObject.html#A1">Object</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getColor</span>  
+
+<div class="body"><p>Returns the color of the light as an RGB tuple of floating point number.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;color&gt;</span>  
+
+<div class="body"><p>Sets the color of the light. The color can be specified either as
+ a tuple of three RGB integer values in the range 0...255, or as a tuple
+ of three RGB floating point values in the range 0...1, or as a text string.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getIntensity</span>  
+
+<div class="body"><p>Returns the intensity of the light.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setIntensity &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the intensity of the light. The intensity modulates the light's color.
+ Instead of modifying the light's intensity the brightness of the light's
+ color could be changed as well.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDirection</span>  
+
+<div class="body"><p>Returns the direction of the light (undefined for a point light).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDirection &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the direction of the light. Has no effect for a point light.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLocation</span>  
+
+<div class="body"><p>Returns the location of the light. For a directional light the
+ location of the associated light dragger is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLocation &lt;x&gt; &lt;y&gt; &lt;z&gt;</span>  
+
+<div class="body"><p>Sets the location of the light. For a directional light the location of
+ the associated light dragger is set.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

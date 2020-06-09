@@ -1,0 +1,40 @@
+# Amira-Script-Object V0.1
+
+# This will be called only once, it creates all ports.
+proc constructor {} {
+    global this
+
+    $this newPortTime Time
+    $this Time setLabel Time:
+    $this Time setMinMax 1 5
+    $this Time setSubMinMax 1 5
+    $this Time setIncrement 0.2
+    $this Time setDiscrete 0
+}
+
+if {[$this isFirstCall]} {
+    constructor
+}
+
+if { [ $this Time isNew ] && [ exists Arithmetic ] } {
+
+    set time [ $this Time getValue ]
+
+    set i [ expr int($time) ]
+
+    if { $i < 0 } { set i 0 }
+    if { $i > 4 } { set i 4 }
+
+    set u [ expr $time - $i ]
+
+    set inputA [ format "r_%06d.am" [ expr 2*$i ] ]
+    set inputB [ format "r_%06d.am" [ expr 2*($i+1) ] ]
+
+    Arithmetic inputA connect $inputA
+    Arithmetic inputB connect $inputB
+
+    set expr [ format "A+%s*(B-A)" $u ]
+    Arithmetic expr setValue $expr
+    Arithmetic doIt hit
+    Arithmetic fire
+}

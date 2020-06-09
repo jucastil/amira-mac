@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">29.5 Meta-Level Commands</a></h2>
+<p>Note: Some of the following commands refer to internal features of the official <font face="helvetica">Amira</font> 
+documentation. In particular, it is not possible to generate a PDF file from the documentation of the 
+<tt>AMIRA_LOCAL</tt> resources. Therefore, no PDF-related commands should be used when documenting local resources,
+and the only important information in this section is probably on how to <a class="link" href="#A5">include different
+input files</a>.
+<a name="A2"></a>
+</p>
+<h3><a name="A3">29.5.1 Conditions Using &#92;ifdefined</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+
+
+&#92;ifdefined &#92;VARIABLE TEXT &#92;fi </td>
+<td align=left>
+ TEXT </td>
+<td align=left>
+ if &#92;VARIABLE is set</td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ no output if &#92;VARIABLE is not set</td>
+</tr><tr><td align=left>
+
+ 
+&#92;ifdefined &#92;VARIABLE TEXT_1 
+&#92;else TEXT_2 &#92;fi </td>
+<td align=left>
+ TEXT_1 </td>
+<td align=left>
+ if &#92;VARIABLE is set</td>
+</tr><tr><td align=left>
+
+ </td>
+<td align=left>
+ TEXT_2 </td>
+<td align=left>
+ if &#92;VARIABLE is not set
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p><br />
+</p>
+<p>The TEXT is parsed normally; it may also contain any LaTeX commands.
+The following variables are available:<br />
+</p>
+<p> 
+</p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+ 
+
+&#92;VARIABLE </td>
+<td align=left>
+ Effect</td>
+</tr><tr><td align=left>
+ 
+
+
+&#92;Amira </td>
+<td align=left>
+ True if building docs for Amira</td>
+</tr><tr><td align=left>
+ 
+
+&#92;PDFONLY </td>
+<td align=left>
+ True if rendering the PDF version, false if rendering HTML</td>
+</tr><tr><td align=left>
+ 
+
+&#92;FEIONLY </td>
+<td align=left>
+ True if building docs for FEI Edition
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p>
+<br />
+</p>
+<p></p>
+<h3><a name="A4">29.5.2 Differentiate between PDF and HTML Output</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;begin&#123;hxhtml&#125; TEXT &#92;end&#123;hxhtml&#125; </td>
+<td align=left>
+ TEXT </td>
+<td align=left>
+ The text is copied "as is" to the output</td>
+</tr><tr><td align=left>
+
+ 
+&#92;begin&#123;hxtex&#125; TEXT &#92;end&#123;hxtex&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ No output is rendered
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>Use &#123;hxhtml&#125; to write HTML code directly to the output file. It
+does not appear in the PDF version. Use &#123;hxtex&#125; to write text that
+only appears in the PDF version, and is not rendered in the HTML files.</p>
+<p>In contrast to "&#92;ifdefined &#92;PDFONLY..."
+(see above), the TEXT written into the hxhtml environment is not parsed
+by doc2html, it is written to the output file "as is".</p>
+<p>
+</p>
+<h3><a name="A5">29.5.3 Include Different Input Files</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;input&#123;FILENAME&#125; </td>
+<td align=left>
+ -starts new file- </td>
+<td align=left>
+ No output rendered in the current file. The content of FILENAME is parsed,
+and written to a new output file named FILENAME.html.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p><br />
+</p>
+<p>FILENAME is usually a string like "../../hxtracking/doc/HxVR-trackemu.tex"
+(without quotes). All paths are relative to the "usersguide/doc"
+directory because usersguide/doc/index.doc is the root file, which
+includes all others. If the command is used for files in AMIRA_LOCAL, the relative
+path need not be adopted (doc2html treats AMIRA_LOCAL and AMIRA_ROOT together
+as if it was a single directory relative to the "usersguide/doc" directory).</p>
+<p>
+</p>
+<h3><a name="A6">29.5.4 Exclude Files</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+&#92;hxpackname&#123;exclude&#125; </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ No output rendered in this file. The complete file is discarded, and
+parsing continues with the next file in queue.
+</td>
+</tr><tr><td align=left>
+
+
+</tr></table></div><p></p>
+<p>
+</p>
+<h3><a name="A7">29.5.5 Comments</a></h3>
+<p></p><div class="d2htable"><table border=0 cellspacing=4>
+<tr>
+ <td align=left>
+
+ 
+LaTeX </td>
+<td align=left>
+ XHTML </td>
+<td align=left>
+ Info</td>
+</tr><tr><td align=left>
+
+ 
+ 
+%............. </td>
+<td align=left>
+ -no output- </td>
+<td align=left>
+ LaTeX comment: the rest of the line after the % is ignored</td>
+</tr><tr><td align=left>
+
+ 
+</tr></table></div><p></p>
+<p>
+
+</p></body>
+</html>

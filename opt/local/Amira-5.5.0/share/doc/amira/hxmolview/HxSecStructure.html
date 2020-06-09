@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SecStructureView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "SecStructureView" "displays secondary structures of a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module provides the functionality for viewing 
+ the secondary structure of a molecule. It relies
+ on the information given in the data entry of the connected
+ molecule. Helices, sheets, and turns can only be displayed if
+ information about these structures has been read in (for example
+ from a <a class="link" href="../hxmolio/HxFileFormat_PDB.html#A1">pdb</a> file).</p>
+<p> The <b>backbone</b> will be interpolated by using the coordinates
+ of those atoms whose type is set to "N", "C" and "CA".
+ If the atom-type attribute does not exist (for example,
+ molecules that have been imported from UniChem files) no
+ backbone can be viewed.</p>
+<p> The <b>user interface</b> of the module includes general ports
+ to configure the overall appearance of the molecule, as well
+ as specific ports for each secondary structure type.
+ The latter let you adjust type-specific parameters, such as
+ colors or widths. To switch between the specific ports,
+ click on the structure type you want to configure in the
+ <a class="link" href="#A5">View Options</a> port.</p>
+<p> <b>Selecting and Highlighting:</b> Parts of the molecule can be
+ selected by clicking onto specific regions 
+ in the selection mode (you can switch to the selection mode of
+ the viewer by pressing the ESC key). The default level of the structure 
+ that is selected is the "residue" level. 
+ A detailed description of the selection concept can be found 
+ in the section <a class="link" href="../hxmolecule/moldisplay.html#A10">visualization of molecules</a>.
+ Selected structures will be highlighted in the color that you choose
+ in the port <a class="link" href="#A10">Highlighting Color</a>. </p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The molecule that is to be viewed.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<p><font size="+1"><b>General Ports:</b></font></p>
+<p><a name="A3"></a>
+</p>
+<div class="hxport">
+ <span class="headline">General Shape</span>  
+<div class="portsnapshot"><img src="HxSecStructure_generalShape.png" /><br /></div>
+<div class="body"><p>This port determines the general shape for viewing
+ the secondary structure. The following view modes
+ are available:</p>
+
+<ul><li><b>Cartoons:</b> In the <em>cartoon</em> mode, you can select a view mode for
+ each secondary structure type separately. The backbone and the turns will
+ be shown as tubes that run through the central atoms of each residue.
+ For helices and sheets, additional (more abstract) view modes like
+ cylinders or arrows are available. You can configure these submodes
+ in the specific port sections for the secondary structure type.
+ This is the mode most frequently used for representing the secondary 
+ structure of a molecule. However, due to its complex triangulation,
+ the rendering performance is distinctly worse than that of the 
+ other two modes.</li><li><b>Threads:</b> The backbone will be drawn as a set of lines running
+ parallel to the peptide planes of the amino acids. 
+ This mode will show the surface 
+ orientation of the backbone, thus making parts containing 
+ symmetries (like helices or sheets) easily recognizable.
+ It is also the view mode which can be rendered fastest.</li><li><b>Flat Ribbons:</b> Same as the thread mode, but the areas between the lines
+ will be a filled surface, thus giving a better surface impression with 
+ the trade-off of slightly lower rendering performance.</li><li><b>Solid Ribbons:</b> Unlike flat ribbons, solid ribbons will have an
+ elliptic cross section.</li>
+</ul>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threads Line Width</span>  
+<div class="portsnapshot"><img src="HxSecStructure_threadsLineWidth.png" /><br /></div>
+<div class="body"><p>This slider lets you adjust the width of the threads-lines.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">View Options</span>  
+<div class="portsnapshot"><img src="HxSecStructure_options.png" /><br /></div>
+<div class="body"><p>To switch between the options of the different structure types, you can
+ use these radio buttons. The option ports for the different structure
+ will then be visible.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">View Structures</span>  
+<div class="portsnapshot"><img src="HxSecStructure_structures.png" /><br /></div>
+<div class="body"><p>This port can be used to filter out the display of 
+ all sheets, helices, or turns. The backbone parts will
+ be displayed as random coil tubes instead. </p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter</span>  
+
+<div class="body"><p>The secondary structure view also employs a filter which can be used to
+ hide certain parts of the molecule. You can hide sections by using the
+ <a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">selection browser</a>.
+ This port is explained further
+ in the section <a class="link" href="../hxmolecule/moldisplay.html#A13">visualization of molecules</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Complexity</span>  
+<div class="portsnapshot"><img src="HxSecStructure_complexity.png" /><br /></div>
+<div class="body"><p>The <em>Complexity</em> port allows the adjustment of the overall 
+ exactness of the structures displayed. It will influence 
+ the number of points with which the backbone coordinates 
+ will be interpolated as well as the detail of triangulation or
+ the number of lines in the thread view mode.
+ If you are viewing large molecules on a machine with slow 
+ graphics hardware, turn this value down to a more appropriate value. <br />
+</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting</span>  
+<div class="portsnapshot"><img src="HxSecStructure_highlighting.png" /><br /></div>
+<div class="body"><p>This port lets you select residues with a lasso style selection mechanism
+ or a ROI box. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting Color</span>  
+<div class="portsnapshot"><img src="HxSecStructure_highlightingColor.png" /><br /></div>
+<div class="body"><p>Lets you choose in which color selected residues will be
+ highlighted.
+</p></div></div><p>
+<font size="+1"><b>Backbone Ports:</b></font></p>
+<p><a name="A11"></a>
+</p>
+<div class="hxport">
+ <span class="headline">Backnone Width</span>  
+<div class="portsnapshot"><img src="HxSecStructure_backboneWidth.png" /><br /></div>
+<div class="body"><p>With this port you can adjust the width of the 
+ backbone shown as threads or ribbons.
+ A similar port exist for the other secondary structure type.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Backnone Eccentricit</span>  
+<div class="portsnapshot"><img src="HxSecStructure_backboneEccentricity.png" /><br /></div>
+<div class="body"><p>If the general shape is <i>solid ribbons</i>
+ this ports lets you configure the elliptical eccentricity
+ in the range between 0 (completely flat ellipse)
+ to 1 (circle). A similar port exists for the other secondary
+ structure types.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Backbone Tube Radius</span>  
+<div class="portsnapshot"><img src="HxSecStructure_backboneTubeRadius.png" /><br /></div>
+<div class="body"><p>This port lets you change the backbone radius.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxSecStructure_colorschemeBB.png" /><br /><img src="HxSecStructure_continuousColormapBB.png" /><br /><img src="HxSecStructure_discreteColormapBB.png" /><br /><img src="HxSecStructure_defineColorBB.png" /><br /></div>
+<div class="body"><p>The four ports above are described in the section
+ on <a class="link" href="../hxmolecule/moldisplay.html#A4">visualization of molecules</a>.
+ Similar ports exist for helices, sheets, and turns.<br />
+
+</p></div></div><p>
+<font size="+1"><b>Helix Ports:</b></font></p>
+<p><a name="A15"></a>
+</p>
+<div class="hxport">
+ <span class="headline">Helix shape</span>  
+<div class="portsnapshot"><img src="HxSecStructure_helixShape.png" /><br /></div>
+<div class="body"><p>This port lets you choose between different methods
+ for viewing helices in <em>cartoon</em> mode.</p>
+
+<ul><li><b>Tube:</b> The tube view will show the 
+ helix by drawing a tube connecting
+ the interpolated backbone coordinates.</li><li><b>Cylinder:</b>
+ The cylinder view will approximate the axis using a 
+ least squares error minimization for the 
+ sum of the distances between the backbone
+ coordinates of the helix and the axis.
+ These axes will be used to center
+ the cylinders for the helices.</li><li><b>Ribbon:</b>
+ The ribbon view
+ is similar to the tube representation
+ except that the backbone is shown using
+ a surface whose normals are set perpendicular
+ to the peptide planes.</li>
+</ul>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Helix Radius</span>  
+<div class="portsnapshot"><img src="HxSecStructure_helixTubeRadius.png" /><br /></div>
+<div class="body"><p>With this port you can adjust the radius of the
+ shown tubes, or cylinders.<br />
+
+</p></div></div><p>
+<font size="+1"><b>Sheet Ports:</b></font></p>
+<p><a name="A17"></a>
+</p>
+<div class="hxport">
+ <span class="headline">SheetShape</span>  
+<div class="portsnapshot"><img src="HxSecStructure_sheetShape.png" /><br /></div>
+<div class="body"><p>This port lets you choose between different methods
+ for viewing sheets in <em>cartoon</em> mode.</p>
+
+<ul><li><b>Tube:</b> The tube view will display the
+ sheet using a tube connecting
+ the interpolated backbone coordinates.</li><li><b>Arrow:</b> The arrow view
+ will display arrows that indicate the orientation of
+ the peptide planes, thus showing the surface determined by
+ the hydrogen bonds between the strands.</li>
+</ul>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sheet Arrow Width</span>  
+<div class="portsnapshot"><img src="HxSecStructure_sheetArrowWidth.png" /><br /></div>
+<div class="body"><p>This port is visible if you view the sheets as
+ arrows. It determines the width of the arrows.</p>
+<p><a name="A19"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sheet Arrow Height</span>  
+<div class="portsnapshot"><img src="HxSecStructure_sheetArrowHeight.png" /><br /></div>
+<div class="body"><p>This port is visible if you view the sheets as
+ arrows. It determines the height of the arrows.
+ If the height is 0 an optimized (and faster) triangulation
+ will be used.</p>
+<p><a name="A20"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sheet Arrow Options</span>  
+<div class="portsnapshot"><img src="HxSecStructure_sheetArrowOptions.png" /><br /></div>
+<div class="body"><p>The <em>broad head</em> option will show the start of the
+ arrow head wider than the arrow tail.
+ The <em>smoothed</em> option will Bezier interpolate
+ the backbone coordinates of the sheet to produce a smoother
+ visualization of the surface.</p>
+<p><a name="A21"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sheet Radius</span>  
+<div class="portsnapshot"><img src="HxSecStructure_sheetRadius.png" /><br /></div>
+<div class="body"><p>If you view the sheets as tubes, this port
+ lets you configure the radius of the tubes.<br />
+
+</p></div></div><p>
+<font size="+1"><b>Turn Ports:</b></font></p>
+<p><a name="A22"></a>
+</p>
+<div class="hxport">
+ <span class="headline">Turn radius</span>  
+<div class="portsnapshot"><img src="HxSecStructure_turnTubeRadius.png" /><br /></div>
+<div class="body"><p>This port lets you specify the radius
+ of the <em>turn</em> tubes.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<p> The console window offers some additional
+ functionality.
+ The easiest way to use the console for a SecStructureView is to click on 
+ the viewer object in the Pool and then press the <tt>TAB</tt> key
+ in the console window to display the name of the selected
+ object. After the name you can use the following selection
+ commands:</p>
+
+<div class="hxcommand">
+  <span class="headline">setResidueTransparency &lt;residueIndex&gt; &lt;transparency&gt;</span>  
+
+<div class="body"><p>Will set the transparency of the residue with index $$<$$residueIndex$$>$$
+ to the value of $$<$$transparency$$>$$ which must be in the interval
+ [0,1]. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSecStructTransparency &lt;secIndex&gt; &lt;transparency&gt;</span>  
+
+<div class="body"><p>Same as above but will affect all residues of the secondary structure
+ $$<$$secIx$$>$$.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setResidueColor &lt;residueIndex&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>Will set the color of the residue with index $$<$$residueIndex$$>$$
+ to the color which is given in rgb values in the interval
+ [0,1]. The effect of the change will be undone as soon
+ as you change a coloring port of the module.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSecStructColor &lt;secIndex&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>Same as above but will affect all residues of the secondary structure
+ $$<$$secIndex$$>$$.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSpeculatiry &lt;s&gt;</span>  
+
+<div class="body"><p>Set the specularity to $$<$$s$$>$$ where 0
+ is minimal and 1 is maximal specularity.</p>
+</div></div>
+</div>
+<p>
+
+
+</p></body>
+</html>

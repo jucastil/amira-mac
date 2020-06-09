@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">5.4 <font face="helvetica">Amira</font> Script Files</a></h2>
+<p>It is worth noticing that an <font face="helvetica">Amira</font> network is simply a Tcl script that
+will regenerate the current <font face="helvetica">Amira</font> state. Therefore it is often 
+efficient to interactively create an <font face="helvetica">Amira</font> network, save it with
+"Save Network", and use this as a starting point for scripting.
+The simplest way to execute Tcl commands in <font face="helvetica">Amira</font> is to type them into
+the <font face="helvetica">Amira</font> console window. This, however, is not practical for multi-line
+constructs, like loops or procedures. In this case, it is recommended
+to write the Tcl code into a file and execute the file with the
+command <tt>source <i>filename</i></tt>. You can also use the <tt>source</tt>
+command inside a file in order to include the contents of a file into
+another file.</p>
+<p>Alternatively one can also use the command <tt>load <i>filename</i></tt>
+or the <i>Load</i> menu entry from the <i>File</i> menu and the file
+browser. Then, however, in order to let <font face="helvetica">Amira</font> recognize the file
+format, either the file name must end with <tt>.hx</tt>, or the
+file contents must start with the header line </p>
+<p></p><pre> 
+  # Amira Script
+</pre><p>
+
+</p>
+<p>There are some Tcl files that are loaded automatically when <font face="helvetica">Amira</font> starts.
+At startup, the program looks for a 
+file called <tt>.<font face="helvetica">Amira</font></tt> in the current
+directory or in the home directory (see
+<a class="link" href="startup.html#A1">Section 4.4 (Start-up script)</a> for details). If no
+such user-defined start-up script is found, the default initialization
+script <tt><font face="helvetica">Amira</font>.init</tt> is loaded from the directory
+<tt>$AMIRA_LOCAL/share/resources/<font face="helvetica">Amira</font></tt> or <tt>$AMIRA_ROOT/share/resources/<font face="helvetica">Amira</font></tt>. This
+script then reads in all files ending with <tt>.rc</tt> from the <tt>share/resources</tt> subdirectory. The <tt>.rc</tt> files are needed to register
+modules and data types. Therefore one can customize the startup behavior of
+<font face="helvetica">Amira</font> by simply adding a new <tt>.rc</tt> file to that directory or by
+modifying the <tt><font face="helvetica">Amira</font>.init</tt> file.
+Another way of executing Tcl code is to define procedures that are
+associated with function keys.
+If predefined procedures with the names <tt>onKeyF2, onKeyF3, ...,
+onKeyShiftF2, ..., onKeyCtrlF2, ..., onKeyCtrlShiftF2, ...</tt> exist, these
+procedures will be automatically called when the respective key is pressed in
+the <font face="helvetica">Amira</font> main window, console window, or viewer window. Note that F1 is
+reserved for help. To define these procedures, write them into a file and
+<tt>source</tt> it or write them into <tt><font face="helvetica">Amira</font>.init</tt> or in one of the <tt>.rc</tt> files. An example is </p>
+<p></p><pre> 
+  proc onKeyF2 { } {
+      echo "Key F2 was hit"
+      viewer 0 viewAll
+  }
+</pre><p></p>
+<p>Finally, Tcl scripts can also be represented in the GUI and be combined
+with a user interface. In <font face="helvetica">Amira</font> this is called a
+<a class="link" href="../hxscriptobj/HxScriptObject.html#A1">script object</a>. There is 
+<a class="link" href="../hxscriptobj/HxScriptObject.html#A1">separate documentation</a> for that.
+
+</p></body>
+</html>

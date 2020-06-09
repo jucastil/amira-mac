@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.2.1 A Reader for Scalar Fields</a></h3>
+<p>In this section we present a simple read routine designed for reading image
+volumes, i.e., 3D scalar fields, from a very simple file format, which we
+have invented for this example. The file format is called PPM3D (because it
+is similar to the ppm 2D image format). The PPM3D format will be an ASCII
+file format containing a header, three integer numbers specifying the size of
+the 3D image volume, and the pixel data as integer numbers in the range 0
+to 255. An example file could look like this:
+<font size="2"></font></p><pre>
+# PPM3D
+4 4 3
+43 44 213 9 23 234 3 3 3 44 213 9 23 234 36 63   
+44 213 9 23 234 35 3 5 44 213 9 23 234 31 13 12
+44 213 9 23 234 35 3 5 44 213 9 23 234 31 13 12
+</pre><p><font size="2"></font></p>
+<p>The full source code of the read routine is contained in the demo package
+provided with <font face="helvetica">Developer Option</font>. In order to follow the example
+below, first create a local <font face="helvetica">Amira</font> directory using the
+<a class="link" href="HxDev-wizard.html#A1">Development Wizard</a>. Be sure that the toggle <em>copy
+demo package</em> is activated, as described in <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>.
+The read routine can then be found in the local <font face="helvetica">Amira</font> directory under <tt>packages/mypackage/readppm3d.cpp</tt>.</p>
+<p>Let us first take a look at the commented source code of the reader. Some
+general remarks follow below.</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Sample read routine for the PPM3D file format
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;hxcore/HxMessage.h&gt;
+#include &lt;hxfield/HxUniformScalarField3.h&gt;
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+MYPACKAGE_API int readppm3d(const char* filename)
+{
+    FILE* f = fopen(filename, "r"); // open the file
+    
+    if (!f) {
+        theMsg-&gt;ioError(filename);
+        return 0; // indicate error
+    }
+    
+    // Skip header (first line). We could do some checking here:
+    char buf[80];
+    fgets(buf, 80, f);
+    
+    // Read size of volume:
+    int dims[3];
+    dims[0] = dims[1] = dims[2] = 0;
+    fscanf(f, "%d %d %d", &amp;dims[0], &amp;dims[1], &amp;dims[2]);
+
+    // Do some consistency checking.
+    if (dims[0]*dims[1]*dims[2] &lt;= 0) {
+        theMsg-&gt;printf("Error in file %s.", filename);
+        fclose(f);
+        return 0;
+    }
+
+    // Now create 3D image data object. The constructor takes 
+    // the dimensions and the primary data type. In this case
+    // we create a field containing unsigned bytes (8 bit). 
+    HxUniformScalarField3* field = 
+        new HxUniformScalarField3(dims, McPrimType::mc_uint8);
+
+    // The HxUniformScalarField3 stores its data in a member
+    // variable called lattice. We know that the data is unsigned
+    // 8 bit because we specified this in the constructor. 
+    unsigned char* data =
+        (unsigned char*) field-&gt;lattice.dataPtr();
+    
+    // Now we must read dims[0]*dims[1]*dims[2] data values
+    for (int i=0; i&lt;dims[0]*dims[1]*dims[2]; i++) {
+        int val=0;
+        fscanf(f,"%d",&amp;val);
+        data[i] = (unsigned char) val;
+    }
+        
+    // We are done with reading, close the file.
+    fclose(f);
+    
+    // Register the data object to make it visible in the
+    // Pool. The name for the new object is automatically
+    // generated from the filename. 
+    HxData::registerData(field, filename);
+
+    return 1; // Indicate success
+}
+</pre><p><font size="2"></font></p>
+<p>The source file starts with some includes. First, the file <em>HxMessage.h</em> is included. This header file provides the global pointer <em>theMsg</em> which allows us to print out text messages in the <font face="helvetica">Amira</font> console
+window. In our read routine we use <em>theMsg</em> to print out error messages
+if a read error occurred.
+Next, the header file containing the declaration of the data class to be
+created is included, i.e., <em>HxUniformScalarField3.h</em>. As a general
+rule, every class in <font face="helvetica">Amira</font> is declared in a separate header file. The name
+of the header file is identical to the name of the C++ class.</p>
+<p>Finally, the file <em>mypackageAPI.h</em> is included. This file provides
+import and export storage-class specifiers for Windows systems. These are
+encoded in the macro <tt>MYPACKAGE_API</tt>. On Unix systems this macro is
+empty and can be omitted.
+The read routine itself takes one argument, the name of the data
+file to be read. It should return 1 on success, or 0 if an error occurred
+and no data object could be created. The body of the read routine is rather
+straightforward. The file is opened for reading. The size of the image
+volume is read. A new data object of type <em>HxUniformScalarField3</em> is
+created and the rest of the data is written into the data object. Finally,
+the file is closed again and the data object is put into the Pool by
+calling <tt>HxData::registerData</tt>. In principle, all read routines look
+like this example. Of course, the type of data object being created and the
+way that this object is initialized may differ.
+In order to make the new read routine known to <font face="helvetica">Amira</font>, an entry must be added
+to the package resource file, i.e., to the file <tt>mypackage/share/resources/mypackage.rc</tt>. In our case this entry looks as
+follows:
+<font size="2"></font></p><pre>
+dataFile -name "PPM3D Demo Format"  \
+    -header "PPM3D"                 \
+    -load "readppm3d"               \
+    -package "mypackage"
+</pre><p><font size="2"></font></p>
+<p>The <tt>dataFile</tt> command registers a new file format called <em>PPM3D
+Demo Format</em>. The option <tt>-header</tt> specifies a regular expression which
+is used for automatic file format detection. If the first 64 bytes of a
+file match this expression, the file will be automatically loaded using this
+read routine. Of course, some data formats do not have a unique file
+header. In this case, the format may also be detected from a standard file
+name extension. Such an extension may be specified using the <tt>-ext</tt>
+option of the <tt>dataFile</tt> command. Multiple extensions can be specified
+as a comma-separated list. The actual C++ name of the read routine is
+specified via <tt>-load</tt>. Finally, the package containing the read routine
+must be specified using the <tt>-package</tt> option.
+If you have compiled the example in the mypackage demo package, you can try
+to load the demo file <tt>mypackage/data/test.ppm3d</tt>. As you will see, the
+file browser automatically detects the file format and displays <em>PPM3D
+Demo Format</em> in its file list.</p>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.5 Vertex Set</a></h3>
+<p>Another example of data abstraction and inheritance is the
+<a class="link" href="../hxcore/HxVertexSet.html#A1">VertexSet</a> class. Many data objects in <font face="helvetica">Amira</font> are derived
+from this class, e.g., landmark sets, molecules, surfaces, or tetrahedral
+grids. All these objects provide a list of points with x-, y-, and
+z-coordinates. Other modules which require a list of points as input only
+need to access the <em>VertexSet</em> base class, but don't need to know the
+actual type of the data object.</p>
+<p>One such example of a generic module operating on <em>VertexSet</em> objects
+is the <a class="link" href="../hxvertexset/HxDisplayVertices.html#A1">VertexView</a> module. This module allows you to
+visualize vertex positions by drawing dots or little spheres at each point.
+
+</p></body>
+</html>

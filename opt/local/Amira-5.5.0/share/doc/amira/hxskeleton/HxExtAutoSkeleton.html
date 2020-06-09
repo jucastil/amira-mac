@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AutoSkeleton</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "AutoSkeleton" "extracts a centerline from images and label fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module extracts the centerline of filamentous structures from image data.
+The module works on labelfields as well as on gray value images, in which case the image
+is segmented on the fly with a user-defined threshold value. The module basically 
+wraps up a couple of single compute modules that had to be executed in sequence. 
+It first calculates a distance map of the segmented image 
+(see <a class="link" href="HxExtDistanceMap.html#A1">DistanceMapSkeleton</a>), then performs a thinning of the
+labelfield such that finally a string of connected voxels remains (see <a class="link" href="HxExtThinner.html#A1">Thinner</a>).
+The voxel skeleton is then converted to a <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object 
+(<a class="link" href="HxExtTraceLines.html#A1">TraceLines</a>). The Euclidean distance to the nearest boundary 
+(boundary distance map) is stored at every point in the SpatialGraph object as thickness 
+attribute (<a class="link" href="HxExtEvalOnLines.html#A1">EvalOnLines</a>). This value may be used as an estimate of the 
+local thickness.
+The module takes both regular image data (<a class="link" href="../hxfield/HxUniformScalarField3.html#A1">uniform scalar field</a>) 
+as well as out-of-core image data in the <a class="link" href="HxExternalDiskData.html">LargeDiskData</a> format 
+as input. The result are lines with thickness information stored in the SpatialGraph format. 
+Push the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The image or label data set to be processed. Data can be of type HxUniformScalarField3,
+HxUniformLabelField3, or HxDiskData.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_Threshold.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is connected to a gray value image. In this case
+this port specifies the threshold by which the data is segmented prior to extracting the
+centerline.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Preview</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_Preview.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is connected to a gray value image. If the box
+is checked a <a class="link" href="../hxvolren/HxVolren.html#A1">Volren</a> visualization with diffuse shading is created using 
+the value at port <em>Threshold</em> as minimum and maximum range.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_alpha.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is connected to a gray value image. The slider
+lets the user adjust the transparency of the volume rendering in order to view the simultaneous
+display of the SpatialGraph data.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Max Radius</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_param.png" /><br /></div>
+<div class="body"><p>This port is available only if the module is connected to a LargeDiskData object.
+The value at this port specifies the maximum radius (in voxel) an object may have for the 
+distance transformation to be calculated correctly.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_Options.png" /><br /></div>
+<div class="body">
+<ul><li><b>Smooth</b> Check this option to perform a smoothing of the traced SpatialGraph object. The
+default setting is 'on'.</li><li><b>create SpatialView</b> Check this option to automatically visualize the extracted
+SpatialGraph object. The default setting is 'on'.</li>
+</ul>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coefficients</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_coefficients.png" /><br /></div>
+<div class="body"><p>This port is available when the <em>Smooth</em> option is checked. The value at <em>smooth</em> is 
+a coefficient that controls the influence of neighboring points on the position of a point.
+The parameter can take values greater than 0 and smaller than 1. The greater the value
+the smoother the result SpatialGraph becomes. 
+The value at <em>attach to the data</em> controls the influence of the initial coordinate on the 
+new position. The higher the value the more the initial position will be retained. The values 
+should not be equal or greater 1. The default is 0.25.</p>
+<p>
+<a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of iterations</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_numberOfIterations.png" /><br /></div>
+<div class="body"><p>This port is available when the <em>Smooth</em> option is checked. Specify here the number of 
+iterations the smoothing should be performed. The default setting is 10. </p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Expose Objects</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_ExposeObjects.png" /><br /></div>
+<div class="body"><p>Checking one or more of the 3 boxes makes <em>AutoSkeleton</em> exposing intermediate
+data objects in the <b>Pool</b>.</p>
+
+<ul><li><b>Distance map</b> Check this option to have the distance map as separate 
+ object in the <b>Pool</b>.</li><li><b>Thinned data</b> Check this option to have the thinned label field as separate object 
+ in the <b>Pool</b>.</li><li><b>Trace line</b> Check this option to get the raw SpatialGraph object in the <b>Pool</b>.<br />
+</li>
+</ul>
+<p>The following ports are available only if the module is connected to a LargeDiskData object.
+In this case the location of intermediate files are specified in the ports below.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Distance map output</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_DistanceMapOutput.png" /><br /></div>
+<div class="body"><p>Specify the output filename of the distance map.</p>
+<p>
+<a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Thinned output</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_ThinnedOutput.png" /><br /></div>
+<div class="body"><p>Specify the output filename of the thinned labelfield.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Thinned tmp output</span>  
+<div class="portsnapshot"><img src="HxExtAutoSkeleton_ThinnedTmpOutput.png" /><br /></div>
+<div class="body"><p>Specify the output filename of the raw traced line.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">FilamentType</span>  
+
+<div class="body"><p>This port is available only if the module is connected to image data of type (<a class="link" href="../hxfield/HxUniformScalarField3.html#A1">uniform scalar field</a>).
+Specify here the type of filamentous structures, which could be one of the following:
+</p>
+<ul><li><b>Bright on dark</b> Bright filaments on a dark background (Default).</li><li><b>Dark on bright</b> Dark filaments on a bright background.</li>
+</ul>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">25.4.2 Writing an AmiraMesh File</a></h3>
+<p>As a concrete example, in this section we want to show how a colormap is
+written in AmiraMesh format. In particular, we consider colormaps of type <tt>HxColormap256</tt>, consisting of N discrete RGBA tuples. Like most other write
+methods, the AmiraMesh writer is a global C++ function. Let us first look at the
+code before discussing the details.
+<font size="2"></font></p><pre>
+HXCOLOR_API
+int writeAmiraMesh(HxColormap256* map, const char* filename)
+{
+    float minmax[2];
+    minmax[0] = map-&gt;minCoord();
+    minmax[1] = map-&gt;maxCoord();
+    int size = map-&gt;getLength();
+    
+    AmiraMesh m;
+    m.parameters = map-&gt;parameters;
+    m.parameters.set("MinMax", 2, minmax);
+    m.parameters.set("ContentType", "Colormap");
+    
+    AmiraMesh::Location* loc = 
+        new AmiraMesh::Location("Lattice", 1, &amp;size);
+    m.insert(loc);
+
+    AmiraMesh::Data* data = new AmiraMesh::Data("Data", loc,
+        McPrimType::mc_float, 4, (void*) map-&gt;getDataPtr());
+    m.insert(data);
+    
+    if ( !m.write(filename,1) ) {
+        theMsg-&gt;ioError(filename);
+        return 0;
+    }
+
+    setLoadCmd(filename);
+    return 1;
+}
+</pre><p><font size="2"></font></p>
+<p>In the first part of the routine a variable <tt>m</tt> of type <tt>AmiraMesh</tt> is
+defined. The parameters of the colormap are copied into <tt>m</tt>. In addition,
+two more parameters are set. The first one, called <em>MinMax</em>, describes the
+coordinate range of the colormap. The second one indicates the content type of
+the AmiraMesh file. This parameter ensures that the colormap can be read back
+again by a matching AmiraMesh read routine (see <a class="link" href="HxDev-amread.html#A1">Section 25.4.3</a>).</p>
+<p>Before the RGBA data values can be stored, a <tt>Location</tt> of the right
+size must be created and inserted into the <tt>AmiraMesh</tt> class. Afterwards,
+an instance of a <tt>Data</tt> class is created and inserted. The constructor
+of the <tt>Data</tt> class takes a pointer to the <tt>Location</tt> as an argument.
+Moreover, a pointer to the RGBA data values is specified. Each RGBA tuple
+consists of four numbers of type float.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

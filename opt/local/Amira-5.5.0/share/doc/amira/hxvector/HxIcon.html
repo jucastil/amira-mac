@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> VectorProbe</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "VectorProbe" "provides an icon for local flow visualization" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>VectorProbe</em> module allows you to interactively investigate
+ a 3D vector field by moving around a dynamic vector field probe.
+ The probe displays certain quantities associated to the first order
+ derivative of the field in an intuitive way. This kind of probe has
+ been originally proposed by W.C. de Leeuw and J.J. van Wijk in
+ <em>A Probe for Local Flow Field Visualization, Proceedings of
+ Visualization'93, pp. 39-45</em>. It looks as follows:</p>
+<div style="text-align:center"><a name="A2"></a><a href=HxIcon_icon.png.html><img width=375 src="HxIcon_icon.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Components of the vector field probe.</div>
+
+ 
+ </div>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A3"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D vector field to be visualized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Dragger</span>  
+<div class="portsnapshot"><img src="HxIcon_dragger.png" /><br /></div>
+<div class="body"><p>Shows or hides the dragger and the vector field probe attached to
+ it. The dragger provides a cylinder handle and a square plate
+ handle. The cylinder handle allows you to translate the icon along
+ the center axis. The orientation of the cylinder can be changed
+ using the <tt>[Ctrl]</tt> key while the mouse is located somewhere
+ over the dragger.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxIcon_buffer.png" /><br /></div>
+<div class="body"><p>Adds the current vector field probe to an internal buffer. In
+ this way multiple probes can be displayed at once.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxIcon_scale.png" /><br /></div>
+<div class="body"><p>Scales the overall size of the vector field probe.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Length</span>  
+<div class="portsnapshot"><img src="HxIcon_length.png" /><br /></div>
+<div class="body"><p>Adjusts the length of the probe's arrow part.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

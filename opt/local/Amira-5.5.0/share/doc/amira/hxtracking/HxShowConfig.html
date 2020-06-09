@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ShowConfig</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Virtual Reality Option</li></ul></div>
+<! HxIndex: "amiraVR" "Module" "ShowConfig" "shows a model of the virtual environment" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module displays a model of the currently loaded <font face="helvetica">Virtual Reality Option</font> configuration.
+ It's intended to give the visual feedback needed during the configuration
+ process and for easier error detection. It shows the projection planes, camera, sensor 
+ and scene positions as well as the button state. Therefore the fourth viewer is used.</p>
+<p>
+ Objects associated with a local coordinate system are drawn with an axis 
+ consisting of three colored line segments. The x axis is red, y is green, and z is blue.<br />
+
+ <img src="HxShowConfig_cross.png" /><br /></p>
+<p>
+ The camera position is marked with a red cone and two small gray spheres, one for each eye. 
+ The eye spheres are translated according to the configured eye offset value. One eye sphere 
+ is marked with the letter <em>R</em> which means that this is the sphere for the right eye.<br />
+
+ <img src="HxShowConfig_camera.png" /><br /></p>
+<p> The default object- or scene position is marked with a green sphere.<br />
+
+ <img src="HxShowConfig_object.png" /><br /></p>
+<p> Blue spheres represent sensors (3D-tracker), one for every sensor. If one of the buttons is pressed, 
+ the blue sphere of the first sensor turns white until all buttons are released.<br />
+
+ <img src="HxShowConfig_sensor.png" /><br /></p>
+<p> If the camera is bound to one of the 3D sensors, which means that head tracking is turned on,
+ the red cone representing the camera is glued to the blue sensor sphere and follows its movement.
+ At the moment the head-tracking feature is turned off, the camera model snaps back to the
+ default camera position.<br />
+
+ <img src="HxShowConfig_trackedcamera.png" /><br /></p>
+<p> Finally the projection planes are drawn at the positions and dimensions specified in the configuration file.
+ The following two images are showing an environment with a single projection plane.
+ The front side looks blue and a projection plane observed from its back side appears red. 
+ By observing the color one can verify that the edge points were specified in the right order.<br />
+</p>
+<p> front view<br />
+
+ <img src="HxShowConfig_wallfront.png" /><br /></p>
+<p> rear view<br />
+
+ <img src="HxShowConfig_wallback.png" /><br /></p>
+<p> The user-defined name of the plane is drawn in its center.
+ Since projection planes are given as a set of four edge points it is possible to produce a non-planar
+ polygon. This misconfiguration leads to a clearly visible edge crossing the plane.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect the <a class="link" href="HxTracking.html#A1"><font face="helvetica">VRSettings</font> control module</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p>
+<p>
+
+</p></body>
+</html>

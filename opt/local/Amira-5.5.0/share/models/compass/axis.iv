@@ -1,0 +1,81 @@
+#Inventor V2.1 ascii
+
+Separator {
+
+  Transform {
+    scaleFactor 1 1 1
+  }
+  
+  DEF XAXIS Separator {
+    Material {
+      diffuseColor 1 0 0
+    }
+    DrawStyle { 
+      lineWidth  2
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+        vertex [ -3.5 -3.5 -3.5,
+                  3.5 -3.5 -3.5 ]
+      }
+    }
+  }  
+  
+  DEF XSTRING Separator {
+    Translation {
+      translation 4.5 -3.5 -3.5
+    }
+    Text2 {
+      string "x"
+    }  
+  }
+  
+  DEF YAXIS Separator {
+    Material {
+      diffuseColor 0 1 0
+    }
+    DrawStyle { 
+      lineWidth  2
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+        vertex [ -3.5 -3.5 -3.5,
+                 -3.5 3.5 -3.5 ]
+      }
+    }
+  }
+  
+  DEF YSTRING Separator {
+    Translation {
+      translation -3.5 4.5 -3.5
+    }
+    Text2 {
+      string "y"
+    }  
+  }  
+  
+  DEF ZAXIS Separator {
+    Material {
+      diffuseColor 0 0 1
+    }
+    DrawStyle { 
+      lineWidth  2
+    }
+    LineSet {
+      vertexProperty VertexProperty {
+        vertex [ -3.5 -3.5 -3.5,
+                 -3.5 -3.5 3.5 ]
+      }
+    }
+  }
+  
+  DEF ZSTRING Separator {
+    Translation {
+      translation -3.5 -3.5 4.5
+    }
+    Text2 {
+      string "z"
+    }  
+  }  
+  
+}

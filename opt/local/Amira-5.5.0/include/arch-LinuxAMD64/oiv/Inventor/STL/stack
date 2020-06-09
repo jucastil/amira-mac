@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_STACK
+#define  OIV_STL_STACK
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

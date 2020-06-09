@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ContrastControl</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ContrastControl" "changes the data window of an OrthoSlice or ObliqueSlice" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>ContrastControl </em> module (<em>Contrast </em> in short) is an
+ extension to the <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> and
+ <a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> modules. It is particularly useful
+ for the gray or color value analysis of scalar fields like 3D
+ image data, as well as a preliminary stage for image segmentation. It
+ allows a fast and intuitive adjustment of the transfer function,
+ mapping scalar values stored with the image data to those values used
+ for visualization.</p>
+<p> With the help of <em>ContrastControl </em> the linear mapping of the data
+ values to a subset of scalar values or indices to color values, defined by
+ a <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>, can be modified. The term <em>windowing 
+ </em> is often used within this context. The <em>window </em> defines a possibly
+ narrowed view to the data's scalar values, for enhancing the contrast of
+ certain structures within the image data. The width of the <em>window </em>
+ defines the range of data values between a lower and an upper threshold
+ which shall be mapped to a range of values specified by the height of the
+ <em>window</em>. In terms of gray value mapping a subset of thousands of
+ possible data values can be mapped to i.e. 256 gray values, linearly
+ distributed on a ramp, varying from black (0) to white (255). Black values
+ are represented by the lower border of the <em>window </em> and white values
+ by the upper border. The center of the <em>window </em> might be located at
+ any value of the image data, thus the entire window can be shifted to
+ various points for data evaluation.</p>
+<div style="text-align:center"><p>
+ <img src="HxContrast_WindowGraph.png" />
+	</p></div>
+<p> The <em>window</em>'s center and width can be modified with the two sliders
+ in the Properties Area of the <em>Contrast </em> module. These values can
+ either be adjusted by shifting the sliders to the left or right, varying
+ the values by a certain percentage of the image data range, or they can be
+ specified numerically via the appropriate entry fields.</p>
+<p> For an overview of the current mapping, a graphical representation of the
+ mapping function can be displayed within the
+ <a class="link" href="../hxalign/HxAlignSlices.html#A2">viewer window</a>. In order to do so the toggle button
+ in the Properties Area with the <em>Window Show </em> label must be
+ activated. The
+ horizontal extent of the <em>window graph </em> specifies the image data
+ range from the lowest to the highest value. The linear ramp indicates the
+ mapping function where the area below or above the ramp represents the
+ currently chosen mapping <em>window </em>.</p>
+<p> Experienced users can directly use the mouse for a fast and simultaneous
+ modification of the <em>window</em>'s center <em>and </em> width.
+ The contrast can be adjusted via the left mouse button while the shift
+ button is pressed. Moving the mouse to the left or right moves the center
+ of the <em>window </em> accordingly. Up and down movements increase or
+ decrease the width of the <em>window</em>. A vertical line (that means lower
+ and upper
+ threshold are identical respectively the <em>window </em> width equals zero)
+ indicates a binary mapping of the image data values. All values below the
+ <em>window</em>'s center will be mapped to black and all other values will be
+ mapped to white. Moving the mouse further down will invert the mapping,
+ thus exchanging black and white values.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to an <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> or
+<a class="link" href="HxObliqueSlice.html#A1">ObliqueSlice</a> module. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the scalar field is
+ automatically established via the OrthoSlice module.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Data Window</span>  
+<div class="portsnapshot"><img src="HxContrast_info.png" /><br /></div>
+<div class="body"><p>This port displays information on the image data range. In verbose mode
+	the current data window will be displayed, too.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Center</span>  
+<div class="portsnapshot"><img src="HxContrast_center.png" /><br /></div>
+<div class="body"><p>The window center can be positioned between the minimum and maximum value
+ of the image data range. The increment value for slider movement is 1 
+ percent of the image data range. More accurate values can be specified via
+ the numeric input field.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Width</span>  
+<div class="portsnapshot"><img src="HxContrast_width.png" /><br /></div>
+<div class="body"><p>The window width can be adjusted between 0 and the total image data
+ range. The increment value for slider movement is 1 percent of the image
+ data range. More accurate values can be specified via the numeric input
+ field.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Window</span>  
+<div class="portsnapshot"><img src="HxContrast_display.png" /><br /></div>
+<div class="body"><p>This port enables or disables the display of a graphical representation of
+ the linear transfer function within the viewer. If it is enabled an
+ additional port appears, which allows the specification of the graph's
+ position. The graph will be updated synchronously with the contrast
+ adjustment.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxContrast_position.png" /><br /></div>
+<div class="body"><p>This port is only visible when <em>Window Show </em> is enabled. The input
+ values are the X- and Y position of the graph within the viewer. The lower
+ left corner of the viewer has the coordinates (0, 0). Negative coordinates
+ are relative to the right respectively upper border of the viewer. Both
+ values can also be modified by moving the mouse pointer into the appropriate entry
+ field, pressing the shift key and moving the mouse.</p>
+</div></div>
+</div>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">verboseMode &#123;0|1&#125;</span>  
+
+<div class="body"><p>Setting verboseMode to a value not equal to zero leads to a permanent
+ refresh of the current data window settings via the mapping port. Due to
+ the possibilities of changing the window settings quickly this leads to
+ flickering results and furthermore reduces the interactive adjustment
+ speed. A value of 0 is the default.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">showWindowGraph</span>  
+
+<div class="body"><p>This is just a command line interface for the window port, bringing the
+ window graph up front.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hideWindowGraph</span>  
+
+<div class="body"><p>This is the counterpart to showWindowGraph, removing the window graph.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">info</span>  
+
+<div class="body"><p>Prints out a short info to the <em>ContrastControl </em> module.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLineColor &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>Using setLineColor you can change the visual appearance of the window
+ graph. This is useful when the currently chosen background color
+ interferes with the line color of the graph. The RGB triple specifies how
+ much a certain color component contributes to the resulting color. These
+ values are clipped to 0 and 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMouseSensitivity [&lt;value&gt;]</span>  
+
+<div class="body"><p>Direct contrast adjustment with the mouse (Shift - Left Mouse Button) in
+ interactive mode can be amplified or damped using this command. The
+ default value is 0.5 times 1 percent of the total image data range. The
+ value is clipped to 0.1 and 1</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPosition &lt;x&gt; &lt;y&gt;</span>  
+
+<div class="body"><p>The position of the window graph can be modified with
+ setPosition. Negative values are relative to the right and upper border of
+ the viewer. If no window graph appears with showWindowGraph try
+ setPosition 0 0 which should set the display to the lower left corner.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setScaleFactor &lt;factor&gt;</span>  
+
+<div class="body"><p>The size of the window graph can be modified using setScaleFactor. This
+ might be useful if the window graph is disturbing the visual output of the
+ viewer.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

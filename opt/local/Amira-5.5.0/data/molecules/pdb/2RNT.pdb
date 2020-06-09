@@ -1,0 +1,1252 @@
+HEADER    HYDROLASE(ENDORIBONUCLEASE)             06-JUL-88   2RNT      2RNT   3
+COMPND    LYS 25-RIBONUCLEASE T=1= (LYS 25-/RN$ASE T=1=)                2RNTB  1
+COMPND   2 (E.C.3.1.27.3)                                               2RNTB  2
+COMPND   2 COMPLEX WITH GUANYLYL-2(PRIME),5(PRIME)-GUANOSINE            2RNT   5
+SOURCE    (ASPERGILLUS $ORYZAE)                                         2RNT   6
+AUTHOR    W.SAENGER,J.KOEPKE,M.MASLOWSKA,U.HEINEMANN                    2RNT   7
+REVDAT   3   31-JUL-94 2RNTB   1       COMPND                           2RNTB  3
+REVDAT   2   15-JUL-93 2RNTA   1       REMARK                           2RNTA  1
+REVDAT   1   15-OCT-89 2RNT    0                                        2RNT   8
+JRNL        AUTH   J.KOEPKE,M.MASLOWSKA,U.HEINEMANN,W.SAENGER           2RNT   9
+JRNL        TITL   THREE-DIMENSIONAL STRUCTURE OF RIBONUCLEASE T=1=     2RNT  10
+JRNL        TITL 2 COMPLEXED WITH GUANYLYL-2(PRIME),5(PRIME)-GUANOSINE  2RNT  11
+JRNL        TITL 3 AT 1.8 ANGSTROMS RESOLUTION                          2RNT  12
+JRNL        REF    J.MOL.BIOL.                   V. 206   475 1989      2RNT  13
+JRNL        REFN   ASTM JMOBAK  UK ISSN 0022-2836                  070  2RNT  14
+REMARK   1                                                              2RNT  15
+REMARK   1 REFERENCE 1                                                  2RNT  16
+REMARK   1  AUTH   D.KOSTREWA,H.-*W.CHOE,U.HEINEMANN,W.SAENGER          2RNT  17
+REMARK   1  TITL   CRYSTAL STRUCTURE OF GUANOSINE-*FREE RIBONUCLEASE    2RNT  18
+REMARK   1  TITL 2 T=1=, COMPLEXED WITH VANADATE(V), SUGGESTS           2RNT  19
+REMARK   1  TITL 3 CONFORMATIONAL CHANGE UPON SUBSTRATE BINDING         2RNT  20
+REMARK   1  REF    BIOCHEMISTRY                  V.  28  7592 1989      2RNT  21
+REMARK   1  REFN   ASTM BICHAW  US ISSN 0006-2960                  033  2RNT  22
+REMARK   1 REFERENCE 2                                                  2RNT  23
+REMARK   1  AUTH   R.ARNI,U.HEINEMANN,R.TOKUOKA,W.SAENGER               2RNT  24
+REMARK   1  TITL   THREE-DIMENSIONAL STRUCTURE OF THE RIBONUCLEASE      2RNT  25
+REMARK   1  TITL 2 T=1=(ASTERISK)2(PRIME)-/GMP$ COMPLEX AT              2RNT  26
+REMARK   1  TITL 3 1.9-*ANGSTROMS RESOLUTION                            2RNT  27
+REMARK   1  REF    J.BIOL.CHEM.                  V. 263 15358 1988      2RNT  28
+REMARK   1  REFN   ASTM JBCHA3  US ISSN 0021-9258                  071  2RNT  29
+REMARK   1 REFERENCE 3                                                  2RNT  30
+REMARK   1  AUTH   R.ARNI,U.HEINEMANN,W.SAENGER                         2RNT  31
+REMARK   1  TITL   STRUKTUR UND FUNKTION DES ENZYMS RIBONUCLEASE T=1=   2RNT  32
+REMARK   1  TITL 2 (GERMAN)                                             2RNT  33
+REMARK   1  REF    FRESENIUS Z.ANAL.CHEM.        V. 327    67 1987      2RNT  34
+REMARK   1  REFN   ASTM ZACFAU  GW ISSN 0016-1152                  596  2RNT  35
+REMARK   1 REFERENCE 4                                                  2RNT  36
+REMARK   1  AUTH   R.ARNI,U.HEINEMANN,M.MASLOWSKA,R.TOKUOKA,W.SAENGER   2RNT  37
+REMARK   1  TITL   RESTRAINED LEAST-*SQUARES REFINEMENT OF THE CRYSTAL  2RNT  38
+REMARK   1  TITL 2 STRUCTURE OF THE RIBONUCLEASE                        2RNT  39
+REMARK   1  TITL 3 T=1=(ASTERISK)2(PRIME)GUANYLIC ACID COMPLEX AT 1.9   2RNT  40
+REMARK   1  TITL 4 ANGSTROMS RESOLUTION                                 2RNT  41
+REMARK   1  REF    ACTA CRYSTALLOGR.,SECT.B      V.  43   549 1987      2RNT  42
+REMARK   1  REFN   ASTM ASBSDK  DK ISSN 0108-7681                  622  2RNT  43
+REMARK   1 REFERENCE 5                                                  2RNT  44
+REMARK   1  AUTH   U.HEINEMANN,W.SAENGER                                2RNT  45
+REMARK   1  TITL   MECHANISM OF GUANOSINE RECOGNITION AND /RNA$         2RNT  46
+REMARK   1  TITL 2 HYDROLYSIS BY RIBONUCLEASE T=1=                      2RNT  47
+REMARK   1  REF    PURE APPL.CHEM.               V.  57   417 1985      2RNT  48
+REMARK   1  REFN   ASTM PACHAS  UK ISSN 0033-4545                  511  2RNT  49
+REMARK   1 REFERENCE 6                                                  2RNT  50
+REMARK   1  AUTH   C.HILL,G.DODSON,U.HEINEMANN,W.SAENGER,Y.MITSUI,      2RNT  51
+REMARK   1  AUTH 2 K.NAKAMURA,S.BORISOV,G.TISCHENKO,K.POLYAKOV,         2RNT  52
+REMARK   1  AUTH 3 S.PAVLOVSKY                                          2RNT  53
+REMARK   1  TITL   THE STRUCTURAL AND SEQUENCE HOMOLOGY OF A FAMILY OF  2RNT  54
+REMARK   1  TITL 2 MICROBIAL RIBONUCLEASES                              2RNT  55
+REMARK   1  REF    TRENDS BIOCHEM.SCI.(PERS.     V.   8   364 1983      2RNT  56
+REMARK   1  REF  2 ED.)                                                 2RNT  57
+REMARK   1  REFN   ASTM TBSCDB  NE ISSN 0376-5067                  946  2RNT  58
+REMARK   1 REFERENCE 7                                                  2RNT  59
+REMARK   1  AUTH   U.HEINEMANN,W.SAENGER                                2RNT  60
+REMARK   1  TITL   RIBONUCLEASE T=1=. MECHANISM OF SPECIFIC GUANINE     2RNT  61
+REMARK   1  TITL 2 RECOGNITION AND /RNA$ HYDROLYSIS                     2RNT  62
+REMARK   1  REF    JERUSALEM SYMP.QUANTUM CHEM.  V.  16   265 1983      2RNT  63
+REMARK   1  REF  2 BIOCHEM.                                             2RNT  64
+REMARK   1  REFN   ASTM JSQCA7  IS ISSN 0075-3696                  860  2RNT  65
+REMARK   1 REFERENCE 8                                                  2RNT  66
+REMARK   1  AUTH   U.HEINEMANN,W.SAENGER                                2RNT  67
+REMARK   1  TITL   CRYSTALLOGRAPHIC STUDY OF MECHANISM OF RIBONUCLEASE  2RNT  68
+REMARK   1  TITL 2 T=1=-*CATALYSED SPECIFIC /RNA$ HYDROLYSIS            2RNT  69
+REMARK   1  REF    J.BIOMOL.STRUCT.DYN.          V.   1   523 1983      2RNT  70
+REMARK   1  REFN   ASTM JBSDD6  US ISSN 0739-1102                  646  2RNTA  2
+REMARK   1 REFERENCE 9                                                  2RNT  72
+REMARK   1  AUTH   U.HEINEMANN,W.SAENGER                                2RNT  73
+REMARK   1  TITL   SPECIFIC PROTEIN-NUCLEIC ACID RECOGNITION IN         2RNT  74
+REMARK   1  TITL 2 RIBONUCLEASE T=1=-2(PRIME)-GUANYLIC ACID COMPLEX.    2RNT  75
+REMARK   1  TITL 3 AN X-RAY STUDY                                       2RNT  76
+REMARK   1  REF    NATURE                        V. 299    27 1982      2RNT  77
+REMARK   1  REFN   ASTM NATUAS  UK ISSN 0028-0836                  006  2RNT  78
+REMARK   1 REFERENCE 10                                                 2RNT  79
+REMARK   1  AUTH   U.HEINEMANN,M.WERNITZ,A.PAEHLER,W.SAENGER,G.MENKE,   2RNT  80
+REMARK   1  AUTH 2 H.RUETERJANS                                         2RNT  81
+REMARK   1  TITL   CRYSTALLIZATION OF A COMPLEX BETWEEN RIBONUCLEASE    2RNT  82
+REMARK   1  TITL 2 T=1= AND 2(PRIME)-GUANYLIC ACID                      2RNT  83
+REMARK   1  REF    EUR.J.BIOCHEM.                V. 109   109 1980      2RNT  84
+REMARK   1  REFN   ASTM EJBCAI  IX ISSN 0014-2956                  262  2RNT  85
+REMARK   2                                                              2RNT  86
+REMARK   2 RESOLUTION. 1.8 ANGSTROMS.                                   2RNT  87
+REMARK   3                                                              2RNT  88
+REMARK   3 REFINEMENT. BY THE USE OF THE RESTRAINED LEAST-SQUARES       2RNT  89
+REMARK   3  PROCEDURE OF J. KONNERT AND W. HENDRICKSON (PROGRAM         2RNT  90
+REMARK   3  *PROLSQ*) AND PROGRAM *FRODO*.  THE R VALUE IS 0.149 FOR    2RNT  91
+REMARK   3  6511 REFLECTIONS IN THE RANGE 6.0 TO 1.8 ANGSTROMS WITH     2RNT  92
+REMARK   3  FOBS .GT. 3*SIGMA(FOBS).                                    2RNT  93
+REMARK   3                                                              2RNT  94
+REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES (THE VALUES OF             2RNT  95
+REMARK   3      SIGMA, IN PARENTHESES, ARE THE INPUT ESTIMATED          2RNT  96
+REMARK   3      STANDARD DEVIATIONS THAT DETERMINE THE RELATIVE         2RNT  97
+REMARK   3      WEIGHTS OF THE CORRESPONDING RESTRAINTS)                2RNT  98
+REMARK   3    DISTANCE RESTRAINTS (ANGSTROMS)                           2RNT  99
+REMARK   3      BOND DISTANCE                            0.016(0.020)   2RNT 100
+REMARK   3      ANGLE DISTANCE                           0.059(0.050)   2RNT 101
+REMARK   3      PLANAR 1-4 DISTANCE                      0.053(0.050)   2RNT 102
+REMARK   3    PLANE RESTRAINT (ANGSTROMS)                0.008(0.015)   2RNT 103
+REMARK   3    CHIRAL-CENTER RESTRAINT (ANGSTROMS**3)     0.196(0.150)   2RNT 104
+REMARK   3    NON-BONDED CONTACT RESTRAINTS (ANGSTROMS)                 2RNT 105
+REMARK   3      SINGLE TORSION CONTACT                   0.151(0.150)   2RNT 106
+REMARK   3      MULTIPLE TORSION CONTACT                 0.138(0.150)   2RNT 107
+REMARK   3      POSSIBLE HYDROGEN BOND                   0.133(0.150)   2RNT 108
+REMARK   3    CONFORMATIONAL TORSION ANGLE RESTRAINT (DEGREES)          2RNT 109
+REMARK   3      PLANAR (OMEGA)                             1.7(3.0)     2RNT 110
+REMARK   3      STAGGERED                                 16.3(15.0)    2RNT 111
+REMARK   3      ORTHONORMAL                               24.7(20.0)    2RNT 112
+REMARK   3    ISOTROPIC THERMAL FACTOR RESTRAINTS (ANGSTROMS**2)        2RNT 113
+REMARK   3      MAIN-CHAIN BOND                          0.728(1.000)   2RNT 114
+REMARK   3      MAIN-CHAIN ANGLE                         1.204(1.500)   2RNT 115
+REMARK   3      SIDE-CHAIN BOND                          1.597(1.500)   2RNT 116
+REMARK   3      SIDE-CHAIN ANGLE                         2.423(2.000)   2RNT 117
+REMARK   4                                                              2RNT 118
+REMARK   4 THE PROTEIN USED IN THIS STUDY IS THE ISOZYME OF             2RNT 119
+REMARK   4 RIBONUCLEASE T1 WHERE A LYSINE RESIDUE REPLACES GLUTAMINE    2RNT 120
+REMARK   4 25 OF THE SEQUENCED RIBONUCLEASE T1 (K.TAKAHASHI,            2RNT 121
+REMARK   4 J.BIOCHEM.,V. 98, P. 815, 1985).                             2RNT 122
+REMARK   5                                                              2RNT 123
+REMARK   5 GUANYLYL-2(PRIME),5(PRIME)-GUANOSINE IS IDENTIFIED AS GPG    2RNT 124
+REMARK   5 IN THIS ENTRY.                                               2RNT 125
+REMARK   6                                                              2RNTA  3
+REMARK   6 CORRECTION. STANDARDIZE CODEN FOR REFERENCE 8.               2RNTA  4
+REMARK   6   15-JUL-93.                                                 2RNTA  5
+REMARK   7                                                              2RNTB  4
+REMARK   7 CORRECTION. INSERT MISSING PARENTHESIS IN COMPND RECORD.     2RNTB  5
+REMARK   7  31-JUL-94.                                                  2RNTB  6
+SEQRES   1    104  ALA CYS ASP TYR THR CYS GLY SER ASN CYS TYR SER SER  2RNT 126
+SEQRES   2    104  SER ASP VAL SER THR ALA GLN ALA ALA GLY TYR LYS LEU  2RNT 127
+SEQRES   3    104  HIS GLU ASP GLY GLU THR VAL GLY SER ASN SER TYR PRO  2RNT 128
+SEQRES   4    104  HIS LYS TYR ASN ASN TYR GLU GLY PHE ASP PHE SER VAL  2RNT 129
+SEQRES   5    104  SER SER PRO TYR TYR GLU TRP PRO ILE LEU SER SER GLY  2RNT 130
+SEQRES   6    104  ASP VAL TYR SER GLY GLY SER PRO GLY ALA ASP ARG VAL  2RNT 131
+SEQRES   7    104  VAL PHE ASN GLU ASN ASN GLN LEU ALA GLY VAL ILE THR  2RNT 132
+SEQRES   8    104  HIS THR GLY ALA SER GLY ASN ASN PHE VAL GLU CYS THR  2RNT 133
+FTNOTE   1                                                              2RNT 134
+FTNOTE   1 RESIDUES 39 AND 55 ARE CIS PROLINES.                         2RNT 135
+HET    GPG    105      43     GUANYLYL-2(PRIME),5(PRIME)-GUANOSINE      2RNT 136
+HET     CA    223       1     CALCIUM ION                               2RNT 137
+FORMUL   2  GPG    C20 H24 N10 O12 P1                                   2RNT 138
+FORMUL   3   CA    CA1 ++                                               2RNT 139
+FORMUL   4  HOH   *105(H2 O1)                                           2RNT 140
+HELIX    1   A SER     13  ASP     29  1                                2RNT 141
+SHEET    1  S1 2 TYR     4  CYS     6  0                                2RNT 142
+SHEET    2  S1 2 ASN     9  SER    12 -1  O  TYR    11   N  TYR     4   2RNT 143
+SHEET    1  S2 5 PRO    39  TYR    42  0                                2RNT 144
+SHEET    2  S2 5 PRO    55  LEU    62 -1  O  GLU    58   N  HIS    40   2RNT 145
+SHEET    3  S2 5 ASP    76  ASN    81 -1  O  VAL    78   N  TRP    59   2RNT 146
+SHEET    4  S2 5 GLN    85  THR    91 -1  O  ILE    90   N  ARG    77   2RNT 147
+SHEET    5  S2 5 PHE   100  CYS   103 -1  N  VAL   101   O  THR    91   2RNT 148
+TURN     1  B1 CYS     6  ASN     9                                     2RNT 149
+TURN     2  B2 SER    12  ASP    15     N-TERMINUS OF ALPHA-HELIX       2RNT 150
+TURN     3  B3 HIS    27  GLY    30     C-TERMINUS OF ALPHA-HELIX       2RNT 151
+TURN     4  B4 GLY    34  SER    37                                     2RNT 152
+TURN     5  B5 ASN    44  GLY    47                                     2RNT 153
+TURN     6  G1 PHE    48  PHE    50     GAMMA-TURN                      2RNT 154
+TURN     7  B6 LEU    62  GLY    65                                     2RNT 155
+TURN     8  B7 ASN    81  ASN    84                                     2RNT 156
+TURN     9  B8 HIS    92  ALA    95                                     2RNT 157
+TURN    10  B9 SER    96  ASN    99                                     2RNT 158
+SSBOND   1 CYS      2    CYS     10                                     2RNT 159
+SSBOND   2 CYS      6    CYS    103                                     2RNT 160
+CRYST1   47.440   50.900   40.430  90.00  90.00  90.00 P 21 21 21    4  2RNT 161
+ORIGX1      0.021079  0.000000  0.000000        0.00000                 2RNT 162
+ORIGX2      0.000000  0.019646  0.000000        0.00000                 2RNT 163
+ORIGX3      0.000000  0.000000  0.024734        0.00000                 2RNT 164
+SCALE1      0.021079  0.000000  0.000000        0.00000                 2RNT 165
+SCALE2      0.000000  0.019646  0.000000        0.00000                 2RNT 166
+SCALE3      0.000000  0.000000  0.024734        0.00000                 2RNT 167
+ATOM      1  N   ALA     1       6.179  56.137   4.223  1.00 14.83      2RNT 168
+ATOM      2  CA  ALA     1       5.820  55.439   5.499  1.00 15.76      2RNT 169
+ATOM      3  C   ALA     1       6.593  54.132   5.622  1.00 15.50      2RNT 170
+ATOM      4  O   ALA     1       6.998  53.563   4.577  1.00 15.37      2RNT 171
+ATOM      5  CB  ALA     1       4.327  55.136   5.470  1.00 16.46      2RNT 172
+ATOM      6  N   CYS     2       6.770  53.640   6.838  1.00 15.15      2RNT 173
+ATOM      7  CA  CYS     2       7.522  52.374   6.958  1.00 14.68      2RNT 174
+ATOM      8  C   CYS     2       6.653  51.148   6.936  1.00 14.31      2RNT 175
+ATOM      9  O   CYS     2       5.607  51.191   7.602  1.00 14.01      2RNT 176
+ATOM     10  CB  CYS     2       8.217  52.399   8.332  1.00 15.64      2RNT 177
+ATOM     11  SG  CYS     2       9.163  53.884   8.729  1.00 15.59      2RNT 178
+ATOM     12  N   ASP     3       7.058  50.093   6.242  1.00 14.25      2RNT 179
+ATOM     13  CA  ASP     3       6.271  48.856   6.268  1.00 14.82      2RNT 180
+ATOM     14  C   ASP     3       6.500  48.234   7.663  1.00 14.92      2RNT 181
+ATOM     15  O   ASP     3       5.601  47.600   8.226  1.00 15.03      2RNT 182
+ATOM     16  CB  ASP     3       6.703  47.940   5.153  1.00 16.20      2RNT 183
+ATOM     17  CG  ASP     3       6.225  48.479   3.811  1.00 16.74      2RNT 184
+ATOM     18  OD1 ASP     3       5.074  48.869   3.741  1.00 17.62      2RNT 185
+ATOM     19  OD2 ASP     3       7.004  48.519   2.878  1.00 17.31      2RNT 186
+ATOM     20  N   TYR     4       7.686  48.388   8.219  1.00 14.61      2RNT 187
+ATOM     21  CA  TYR     4       8.075  47.877   9.550  1.00 14.04      2RNT 188
+ATOM     22  C   TYR     4       8.853  48.954  10.297  1.00 13.64      2RNT 189
+ATOM     23  O   TYR     4       9.780  49.530   9.686  1.00 13.14      2RNT 190
+ATOM     24  CB  TYR     4       8.980  46.616   9.479  1.00 14.95      2RNT 191
+ATOM     25  CG  TYR     4       8.267  45.499   8.733  1.00 16.36      2RNT 192
+ATOM     26  CD1 TYR     4       7.425  44.617   9.405  1.00 17.20      2RNT 193
+ATOM     27  CD2 TYR     4       8.413  45.302   7.375  1.00 16.87      2RNT 194
+ATOM     28  CE1 TYR     4       6.766  43.593   8.767  1.00 18.47      2RNT 195
+ATOM     29  CE2 TYR     4       7.761  44.281   6.679  1.00 18.96      2RNT 196
+ATOM     30  CZ  TYR     4       6.934  43.418   7.394  1.00 19.31      2RNT 197
+ATOM     31  OH  TYR     4       6.266  42.403   6.770  1.00 19.83      2RNT 198
+ATOM     32  N   THR     5       8.549  49.246  11.555  1.00 13.18      2RNT 199
+ATOM     33  CA  THR     5       9.291  50.245  12.319  1.00 11.87      2RNT 200
+ATOM     34  C   THR     5       9.877  49.496  13.524  1.00 11.77      2RNT 201
+ATOM     35  O   THR     5       9.055  49.024  14.323  1.00 12.27      2RNT 202
+ATOM     36  CB  THR     5       8.363  51.406  12.820  1.00 12.59      2RNT 203
+ATOM     37  OG1 THR     5       7.711  51.962  11.642  1.00 12.79      2RNT 204
+ATOM     38  CG2 THR     5       9.178  52.527  13.429  1.00 11.36      2RNT 205
+ATOM     39  N   CYS     6      11.172  49.409  13.668  1.00 11.70      2RNT 206
+ATOM     40  CA  CYS     6      11.882  48.713  14.743  1.00 12.09      2RNT 207
+ATOM     41  C   CYS     6      12.539  49.809  15.559  1.00 12.27      2RNT 208
+ATOM     42  O   CYS     6      13.689  50.185  15.301  1.00 12.62      2RNT 209
+ATOM     43  CB  CYS     6      12.927  47.776  14.137  1.00 11.08      2RNT 210
+ATOM     44  SG  CYS     6      12.257  46.450  13.131  1.00 12.71      2RNT 211
+ATOM     45  N   GLY     7      11.779  50.325  16.510  1.00 13.27      2RNT 212
+ATOM     46  CA  GLY     7      12.414  51.451  17.322  1.00 14.37      2RNT 213
+ATOM     47  C   GLY     7      12.323  52.664  16.359  1.00 15.02      2RNT 214
+ATOM     48  O   GLY     7      11.251  53.096  15.966  1.00 14.76      2RNT 215
+ATOM     49  N   SER     8      13.482  53.167  16.020  1.00 15.79      2RNT 216
+ATOM     50  CA  SER     8      13.721  54.293  15.143  1.00 17.18      2RNT 217
+ATOM     51  C   SER     8      14.090  53.802  13.751  1.00 17.04      2RNT 218
+ATOM     52  O   SER     8      14.216  54.696  12.897  1.00 19.16      2RNT 219
+ATOM     53  CB  SER     8      14.973  55.008  15.691  1.00 18.59      2RNT 220
+ATOM     54  OG  SER     8      14.704  55.366  17.065  1.00 23.09      2RNT 221
+ATOM     55  N   ASN     9      14.279  52.523  13.530  1.00 15.39      2RNT 222
+ATOM     56  CA  ASN     9      14.666  52.021  12.183  1.00 14.34      2RNT 223
+ATOM     57  C   ASN     9      13.450  51.741  11.338  1.00 13.87      2RNT 224
+ATOM     58  O   ASN     9      12.500  51.072  11.766  1.00 14.62      2RNT 225
+ATOM     59  CB  ASN     9      15.586  50.813  12.381  1.00 13.41      2RNT 226
+ATOM     60  CG  ASN     9      16.957  51.155  12.933  1.00 13.65      2RNT 227
+ATOM     61  OD1 ASN     9      17.453  52.289  12.824  1.00 12.81      2RNT 228
+ATOM     62  ND2 ASN     9      17.690  50.211  13.529  1.00 10.98      2RNT 229
+ATOM     63  N   CYS    10      13.460  52.244  10.146  1.00 13.24      2RNT 230
+ATOM     64  CA  CYS    10      12.356  52.125   9.172  1.00 12.92      2RNT 231
+ATOM     65  C   CYS    10      12.687  51.185   8.032  1.00 12.59      2RNT 232
+ATOM     66  O   CYS    10      13.703  51.461   7.402  1.00 12.71      2RNT 233
+ATOM     67  CB  CYS    10      12.131  53.581   8.692  1.00 13.39      2RNT 234
+ATOM     68  SG  CYS    10      10.764  53.744   7.522  1.00 15.24      2RNT 235
+ATOM     69  N   TYR    11      11.920  50.167   7.766  1.00 12.48      2RNT 236
+ATOM     70  CA  TYR    11      12.217  49.259   6.684  1.00 12.23      2RNT 237
+ATOM     71  C   TYR    11      10.983  49.135   5.779  1.00 12.64      2RNT 238
+ATOM     72  O   TYR    11       9.865  49.235   6.305  1.00 12.33      2RNT 239
+ATOM     73  CB  TYR    11      12.465  47.862   7.279  1.00 11.58      2RNT 240
+ATOM     74  CG  TYR    11      13.692  47.823   8.165  1.00 12.41      2RNT 241
+ATOM     75  CD1 TYR    11      13.527  47.625   9.556  1.00 11.66      2RNT 242
+ATOM     76  CD2 TYR    11      14.982  47.972   7.672  1.00 11.53      2RNT 243
+ATOM     77  CE1 TYR    11      14.644  47.611  10.383  1.00 11.38      2RNT 244
+ATOM     78  CE2 TYR    11      16.084  47.931   8.511  1.00 12.58      2RNT 245
+ATOM     79  CZ  TYR    11      15.910  47.749   9.875  1.00 12.96      2RNT 246
+ATOM     80  OH  TYR    11      17.038  47.745  10.643  1.00 13.22      2RNT 247
+ATOM     81  N   SER    12      11.253  48.921   4.516  1.00 12.82      2RNT 248
+ATOM     82  CA  SER    12      10.126  48.736   3.580  1.00 12.73      2RNT 249
+ATOM     83  C   SER    12      10.102  47.250   3.318  1.00 13.08      2RNT 250
+ATOM     84  O   SER    12      11.031  46.479   3.667  1.00 13.04      2RNT 251
+ATOM     85  CB  SER    12      10.434  49.394   2.219  1.00 13.65      2RNT 252
+ATOM     86  OG  SER    12      11.675  48.875   1.726  1.00 12.32      2RNT 253
+ATOM     87  N   SER    13       9.073  46.772   2.665  1.00 13.47      2RNT 254
+ATOM     88  CA  SER    13       8.957  45.335   2.317  1.00 14.01      2RNT 255
+ATOM     89  C   SER    13      10.154  44.817   1.542  1.00 13.70      2RNT 256
+ATOM     90  O   SER    13      10.638  43.679   1.681  1.00 15.15      2RNT 257
+ATOM     91  CB  SER    13       7.729  45.147   1.423  1.00 14.38      2RNT 258
+ATOM     92  OG  SER    13       6.606  45.315   2.252  1.00 19.25      2RNT 259
+ATOM     93  N   SER    14      10.667  45.627   0.652  1.00 13.82      2RNT 260
+ATOM     94  CA  SER    14      11.828  45.322  -0.199  1.00 13.31      2RNT 261
+ATOM     95  C   SER    14      13.062  45.123   0.672  1.00 13.22      2RNT 262
+ATOM     96  O   SER    14      13.819  44.184   0.336  1.00 13.46      2RNT 263
+ATOM     97  CB  SER    14      12.019  46.320  -1.303  1.00 13.70      2RNT 264
+ATOM     98  OG  SER    14      12.320  47.578  -0.782  1.00 17.04      2RNT 265
+ATOM     99  N   ASP    15      13.264  45.913   1.719  1.00 11.42      2RNT 266
+ATOM    100  CA  ASP    15      14.406  45.756   2.613  1.00 11.77      2RNT 267
+ATOM    101  C   ASP    15      14.398  44.345   3.270  1.00 11.26      2RNT 268
+ATOM    102  O   ASP    15      15.414  43.642   3.383  1.00 11.78      2RNT 269
+ATOM    103  CB  ASP    15      14.388  46.772   3.772  1.00 10.29      2RNT 270
+ATOM    104  CG  ASP    15      14.659  48.189   3.261  1.00 12.03      2RNT 271
+ATOM    105  OD1 ASP    15      15.504  48.427   2.395  1.00 12.02      2RNT 272
+ATOM    106  OD2 ASP    15      13.991  49.136   3.761  1.00 11.96      2RNT 273
+ATOM    107  N   VAL    16      13.191  44.020   3.694  1.00 11.60      2RNT 274
+ATOM    108  CA  VAL    16      12.958  42.713   4.347  1.00 12.50      2RNT 275
+ATOM    109  C   VAL    16      13.194  41.583   3.350  1.00 12.94      2RNT 276
+ATOM    110  O   VAL    16      13.894  40.631   3.735  1.00 13.09      2RNT 277
+ATOM    111  CB  VAL    16      11.523  42.673   4.894  1.00 12.20      2RNT 278
+ATOM    112  CG1 VAL    16      11.045  41.305   5.390  1.00 13.41      2RNT 279
+ATOM    113  CG2 VAL    16      11.361  43.729   6.005  1.00 12.69      2RNT 280
+ATOM    114  N   SER    17      12.604  41.613   2.171  1.00 13.74      2RNT 281
+ATOM    115  CA  SER    17      12.768  40.562   1.150  1.00 14.32      2RNT 282
+ATOM    116  C   SER    17      14.235  40.343   0.832  1.00 14.74      2RNT 283
+ATOM    117  O   SER    17      14.688  39.175   0.764  1.00 14.96      2RNT 284
+ATOM    118  CB  SER    17      12.083  40.868  -0.186  1.00 15.92      2RNT 285
+ATOM    119  OG  SER    17      10.717  40.790   0.117  1.00 19.92      2RNT 286
+ATOM    120  N   THR    18      15.007  41.397   0.601  1.00 14.04      2RNT 287
+ATOM    121  CA  THR    18      16.422  41.245   0.312  1.00 14.13      2RNT 288
+ATOM    122  C   THR    18      17.140  40.585   1.497  1.00 14.50      2RNT 289
+ATOM    123  O   THR    18      17.965  39.700   1.200  1.00 15.50      2RNT 290
+ATOM    124  CB  THR    18      17.032  42.661   0.115  1.00 13.93      2RNT 291
+ATOM    125  OG1 THR    18      16.244  43.213  -0.974  1.00 16.63      2RNT 292
+ATOM    126  CG2 THR    18      18.504  42.738  -0.216  1.00 15.26      2RNT 293
+ATOM    127  N   ALA    19      16.856  40.999   2.711  1.00 13.29      2RNT 294
+ATOM    128  CA  ALA    19      17.534  40.406   3.892  1.00 13.45      2RNT 295
+ATOM    129  C   ALA    19      17.208  38.908   3.999  1.00 13.72      2RNT 296
+ATOM    130  O   ALA    19      18.087  38.052   4.166  1.00 14.29      2RNT 297
+ATOM    131  CB  ALA    19      17.104  41.123   5.165  1.00 10.84      2RNT 298
+ATOM    132  N   GLN    20      15.939  38.651   3.914  1.00 13.52      2RNT 299
+ATOM    133  CA  GLN    20      15.398  37.272   4.017  1.00 13.59      2RNT 300
+ATOM    134  C   GLN    20      16.024  36.378   2.972  1.00 13.65      2RNT 301
+ATOM    135  O   GLN    20      16.472  35.269   3.310  1.00 12.44      2RNT 302
+ATOM    136  CB  GLN    20      13.885  37.315   3.992  1.00 15.01      2RNT 303
+ATOM    137  CG  GLN    20      13.178  35.984   4.081  1.00 17.26      2RNT 304
+ATOM    138  CD  GLN    20      11.697  36.086   3.918  1.00 19.59      2RNT 305
+ATOM    139  OE1 GLN    20      11.036  37.135   4.029  1.00 22.33      2RNT 306
+ATOM    140  NE2 GLN    20      11.120  34.921   3.607  1.00 19.21      2RNT 307
+ATOM    141  N   ALA    21      16.074  36.855   1.728  1.00 14.22      2RNT 308
+ATOM    142  CA  ALA    21      16.672  36.028   0.670  1.00 15.08      2RNT 309
+ATOM    143  C   ALA    21      18.091  35.625   1.026  1.00 15.23      2RNT 310
+ATOM    144  O   ALA    21      18.505  34.465   0.858  1.00 16.65      2RNT 311
+ATOM    145  CB  ALA    21      16.589  36.755  -0.667  1.00 16.49      2RNT 312
+ATOM    146  N   ALA    22      18.910  36.506   1.529  1.00 15.16      2RNT 313
+ATOM    147  CA  ALA    22      20.302  36.266   1.898  1.00 14.60      2RNT 314
+ATOM    148  C   ALA    22      20.411  35.188   2.979  1.00 14.20      2RNT 315
+ATOM    149  O   ALA    22      21.243  34.297   2.924  1.00 14.59      2RNT 316
+ATOM    150  CB  ALA    22      20.898  37.573   2.396  1.00 13.27      2RNT 317
+ATOM    151  N   GLY    23      19.563  35.349   3.971  1.00 13.61      2RNT 318
+ATOM    152  CA  GLY    23      19.493  34.485   5.141  1.00 14.29      2RNT 319
+ATOM    153  C   GLY    23      19.067  33.066   4.784  1.00 14.27      2RNT 320
+ATOM    154  O   GLY    23      19.638  32.073   5.246  1.00 13.84      2RNT 321
+ATOM    155  N   TYR    24      18.039  33.065   3.961  1.00 13.65      2RNT 322
+ATOM    156  CA  TYR    24      17.552  31.735   3.542  1.00 15.10      2RNT 323
+ATOM    157  C   TYR    24      18.597  30.977   2.721  1.00 15.26      2RNT 324
+ATOM    158  O   TYR    24      18.706  29.759   2.841  1.00 15.47      2RNT 325
+ATOM    159  CB  TYR    24      16.227  31.878   2.785  1.00 16.26      2RNT 326
+ATOM    160  CG  TYR    24      15.579  30.507   2.583  1.00 18.46      2RNT 327
+ATOM    161  CD1 TYR    24      15.544  29.992   1.276  1.00 20.15      2RNT 328
+ATOM    162  CD2 TYR    24      15.025  29.774   3.631  1.00 19.06      2RNT 329
+ATOM    163  CE1 TYR    24      14.956  28.764   1.009  1.00 20.58      2RNT 330
+ATOM    164  CE2 TYR    24      14.435  28.533   3.395  1.00 20.60      2RNT 331
+ATOM    165  CZ  TYR    24      14.432  28.047   2.084  1.00 21.35      2RNT 332
+ATOM    166  OH  TYR    24      13.848  26.830   1.885  1.00 23.95      2RNT 333
+ATOM    167  N   LYS    25      19.336  31.655   1.889  1.00 15.81      2RNT 334
+ATOM    168  CA  LYS    25      20.373  31.035   1.044  1.00 16.54      2RNT 335
+ATOM    169  C   LYS    25      21.462  30.416   1.905  1.00 16.55      2RNT 336
+ATOM    170  O   LYS    25      21.880  29.244   1.664  1.00 16.17      2RNT 337
+ATOM    171  CB  LYS    25      20.858  32.085   0.078  1.00 19.80      2RNT 338
+ATOM    172  CG  LYS    25      21.999  31.742  -0.877  1.00 23.84      2RNT 339
+ATOM    173  CD  LYS    25      23.251  32.475  -0.409  1.00 27.97      2RNT 340
+ATOM    174  CE  LYS    25      23.399  33.991  -0.426  1.00 30.18      2RNT 341
+ATOM    175  NZ  LYS    25      23.860  34.511   0.919  1.00 31.54      2RNT 342
+ATOM    176  N   LEU    26      21.929  31.151   2.908  1.00 15.79      2RNT 343
+ATOM    177  CA  LEU    26      22.956  30.593   3.814  1.00 14.85      2RNT 344
+ATOM    178  C   LEU    26      22.356  29.378   4.509  1.00 15.13      2RNT 345
+ATOM    179  O   LEU    26      23.040  28.329   4.644  1.00 15.03      2RNT 346
+ATOM    180  CB  LEU    26      23.472  31.676   4.791  1.00 15.82      2RNT 347
+ATOM    181  CG  LEU    26      24.444  32.692   4.204  1.00 17.14      2RNT 348
+ATOM    182  CD1 LEU    26      24.870  33.697   5.273  1.00 17.18      2RNT 349
+ATOM    183  CD2 LEU    26      25.748  32.062   3.686  1.00 17.14      2RNT 350
+ATOM    184  N   HIS    27      21.119  29.506   4.940  1.00 14.86      2RNT 351
+ATOM    185  CA  HIS    27      20.375  28.434   5.626  1.00 15.59      2RNT 352
+ATOM    186  C   HIS    27      20.384  27.166   4.736  1.00 16.99      2RNT 353
+ATOM    187  O   HIS    27      20.762  26.072   5.202  1.00 16.99      2RNT 354
+ATOM    188  CB  HIS    27      18.922  28.806   6.061  1.00 15.74      2RNT 355
+ATOM    189  CG  HIS    27      18.146  27.581   6.549  1.00 15.98      2RNT 356
+ATOM    190  ND1 HIS    27      18.474  26.894   7.689  1.00 16.73      2RNT 357
+ATOM    191  CD2 HIS    27      17.131  26.947   5.938  1.00 16.56      2RNT 358
+ATOM    192  CE1 HIS    27      17.645  25.872   7.742  1.00 17.62      2RNT 359
+ATOM    193  NE2 HIS    27      16.815  25.875   6.733  1.00 17.34      2RNT 360
+ATOM    194  N   GLU    28      19.916  27.304   3.519  1.00 17.62      2RNT 361
+ATOM    195  CA  GLU    28      19.901  26.112   2.634  1.00 18.95      2RNT 362
+ATOM    196  C   GLU    28      21.322  25.613   2.347  1.00 19.08      2RNT 363
+ATOM    197  O   GLU    28      21.481  24.400   2.017  1.00 18.89      2RNT 364
+ATOM    198  CB  GLU    28      19.393  26.494   1.273  1.00 22.38      2RNT 365
+ATOM    199  CG  GLU    28      18.016  27.014   0.998  1.00 27.40      2RNT 366
+ATOM    200  CD  GLU    28      17.750  27.018  -0.507  1.00 30.73      2RNT 367
+ATOM    201  OE1 GLU    28      16.883  26.329  -1.037  1.00 32.05      2RNT 368
+ATOM    202  OE2 GLU    28      18.527  27.797  -1.138  1.00 32.74      2RNT 369
+ATOM    203  N   ASP    29      22.305  26.506   2.422  1.00 18.27      2RNT 370
+ATOM    204  CA  ASP    29      23.683  26.089   2.147  1.00 18.84      2RNT 371
+ATOM    205  C   ASP    29      24.353  25.497   3.368  1.00 18.51      2RNT 372
+ATOM    206  O   ASP    29      25.418  24.921   3.122  1.00 18.50      2RNT 373
+ATOM    207  CB  ASP    29      24.525  27.184   1.486  1.00 20.40      2RNT 374
+ATOM    208  CG  ASP    29      24.016  27.434   0.071  1.00 22.90      2RNT 375
+ATOM    209  OD1 ASP    29      23.108  26.794  -0.497  1.00 22.94      2RNT 376
+ATOM    210  OD2 ASP    29      24.564  28.382  -0.545  1.00 24.70      2RNT 377
+ATOM    211  N   GLY    30      23.738  25.655   4.500  1.00 18.14      2RNT 378
+ATOM    212  CA  GLY    30      24.329  25.084   5.747  1.00 17.46      2RNT 379
+ATOM    213  C   GLY    30      25.602  25.820   6.117  1.00 17.65      2RNT 380
+ATOM    214  O   GLY    30      26.613  25.257   6.590  1.00 17.69      2RNT 381
+ATOM    215  N   GLU    31      25.492  27.123   5.864  1.00 17.31      2RNT 382
+ATOM    216  CA  GLU    31      26.571  28.081   6.133  1.00 17.77      2RNT 383
+ATOM    217  C   GLU    31      26.063  29.173   7.093  1.00 17.41      2RNT 384
+ATOM    218  O   GLU    31      24.856  29.426   7.224  1.00 17.25      2RNT 385
+ATOM    219  CB  GLU    31      27.149  28.801   4.921  1.00 18.89      2RNT 386
+ATOM    220  CG  GLU    31      28.138  27.923   4.130  1.00 22.13      2RNT 387
+ATOM    221  CD  GLU    31      28.402  28.213   2.687  1.00 23.59      2RNT 388
+ATOM    222  OE1 GLU    31      29.351  27.684   2.117  1.00 24.97      2RNT 389
+ATOM    223  OE2 GLU    31      27.616  28.982   2.101  1.00 23.99      2RNT 390
+ATOM    224  N   THR    32      27.042  29.791   7.727  1.00 17.83      2RNT 391
+ATOM    225  CA  THR    32      26.730  30.869   8.697  1.00 18.37      2RNT 392
+ATOM    226  C   THR    32      27.661  32.049   8.618  1.00 18.05      2RNT 393
+ATOM    227  O   THR    32      28.753  31.833   8.067  1.00 17.80      2RNT 394
+ATOM    228  CB  THR    32      27.008  29.921   9.937  1.00 19.20      2RNT 395
+ATOM    229  OG1 THR    32      25.685  29.416  10.360  1.00 21.21      2RNT 396
+ATOM    230  CG2 THR    32      27.891  30.352  11.051  1.00 18.84      2RNT 397
+ATOM    231  N   VAL    33      27.319  33.188   9.190  1.00 18.07      2RNT 398
+ATOM    232  CA  VAL    33      28.278  34.331   9.152  1.00 18.43      2RNT 399
+ATOM    233  C   VAL    33      28.208  35.030  10.530  1.00 18.33      2RNT 400
+ATOM    234  O   VAL    33      27.105  34.999  11.088  1.00 17.46      2RNT 401
+ATOM    235  CB  VAL    33      28.099  35.339   8.027  1.00 19.96      2RNT 402
+ATOM    236  CG1 VAL    33      28.359  34.843   6.585  1.00 22.01      2RNT 403
+ATOM    237  CG2 VAL    33      26.725  35.964   8.021  1.00 20.83      2RNT 404
+ATOM    238  N   GLY    34      29.324  35.601  10.942  1.00 18.45      2RNT 405
+ATOM    239  CA  GLY    34      29.260  36.312  12.254  1.00 18.71      2RNT 406
+ATOM    240  C   GLY    34      29.571  35.434  13.447  1.00 18.94      2RNT 407
+ATOM    241  O   GLY    34      29.409  34.200  13.441  1.00 18.80      2RNT 408
+ATOM    242  N   SER    35      30.004  36.135  14.493  1.00 19.23      2RNT 409
+ATOM    243  CA  SER    35      30.378  35.432  15.718  1.00 19.35      2RNT 410
+ATOM    244  C   SER    35      29.209  34.721  16.365  1.00 19.17      2RNT 411
+ATOM    245  O   SER    35      29.507  33.782  17.133  1.00 19.61      2RNT 412
+ATOM    246  CB  SER    35      31.042  36.388  16.715  1.00 20.26      2RNT 413
+ATOM    247  OG  SER    35      32.363  36.518  16.180  1.00 23.34      2RNT 414
+ATOM    248  N   ASN    36      28.027  35.207  16.064  1.00 18.89      2RNT 415
+ATOM    249  CA  ASN    36      26.831  34.576  16.666  1.00 18.85      2RNT 416
+ATOM    250  C   ASN    36      26.199  33.564  15.728  1.00 17.28      2RNT 417
+ATOM    251  O   ASN    36      25.091  33.101  15.962  1.00 16.47      2RNT 418
+ATOM    252  CB  ASN    36      25.827  35.601  17.121  1.00 23.32      2RNT 419
+ATOM    253  CG  ASN    36      25.422  35.430  18.566  1.00 27.54      2RNT 420
+ATOM    254  OD1 ASN    36      24.244  35.083  18.874  1.00 29.10      2RNT 421
+ATOM    255  ND2 ASN    36      26.512  35.678  19.338  1.00 29.32      2RNT 422
+ATOM    256  N   SER    37      26.903  33.222  14.685  1.00 15.98      2RNT 423
+ATOM    257  CA  SER    37      26.438  32.223  13.713  1.00 15.86      2RNT 424
+ATOM    258  C   SER    37      25.045  32.420  13.123  1.00 14.29      2RNT 425
+ATOM    259  O   SER    37      24.131  31.617  13.391  1.00 14.78      2RNT 426
+ATOM    260  CB  SER    37      26.603  30.829  14.398  1.00 17.35      2RNT 427
+ATOM    261  OG  SER    37      28.003  30.658  14.582  1.00 20.03      2RNT 428
+ATOM    262  N   TYR    38      24.880  33.447  12.317  1.00 12.80      2RNT 429
+ATOM    263  CA  TYR    38      23.577  33.688  11.666  1.00 11.88      2RNT 430
+ATOM    264  C   TYR    38      23.587  33.079  10.255  1.00 11.98      2RNT 431
+ATOM    265  O   TYR    38      24.657  33.100   9.603  1.00 11.71      2RNT 432
+ATOM    266  CB  TYR    38      23.244  35.156  11.432  1.00 12.00      2RNT 433
+ATOM    267  CG  TYR    38      23.001  35.822  12.782  1.00 13.05      2RNT 434
+ATOM    268  CD1 TYR    38      21.766  35.759  13.418  1.00 12.73      2RNT 435
+ATOM    269  CD2 TYR    38      24.066  36.505  13.322  1.00 13.07      2RNT 436
+ATOM    270  CE1 TYR    38      21.600  36.392  14.643  1.00 13.84      2RNT 437
+ATOM    271  CE2 TYR    38      23.941  37.160  14.541  1.00 14.22      2RNT 438
+ATOM    272  CZ  TYR    38      22.707  37.066  15.140  1.00 15.38      2RNT 439
+ATOM    273  OH  TYR    38      22.612  37.714  16.328  1.00 18.31      2RNT 440
+ATOM    274  N   PRO    39      22.450  32.599   9.797  1.00 12.57   1  2RNT 441
+ATOM    275  CA  PRO    39      21.161  32.550  10.479  1.00 12.30   1  2RNT 442
+ATOM    276  C   PRO    39      21.158  31.446  11.514  1.00 13.05   1  2RNT 443
+ATOM    277  O   PRO    39      21.919  30.493  11.308  1.00 13.86   1  2RNT 444
+ATOM    278  CB  PRO    39      20.142  32.228   9.381  1.00 12.41   1  2RNT 445
+ATOM    279  CG  PRO    39      20.989  31.548   8.332  1.00 13.16   1  2RNT 446
+ATOM    280  CD  PRO    39      22.422  31.997   8.441  1.00 12.54   1  2RNT 447
+ATOM    281  N   HIS    40      20.387  31.544  12.560  1.00 13.98      2RNT 448
+ATOM    282  CA  HIS    40      20.398  30.411  13.527  1.00 13.63      2RNT 449
+ATOM    283  C   HIS    40      18.979  30.255  13.983  1.00 14.27      2RNT 450
+ATOM    284  O   HIS    40      18.126  31.122  13.766  1.00 12.77      2RNT 451
+ATOM    285  CB  HIS    40      21.437  30.466  14.639  1.00 15.87      2RNT 452
+ATOM    286  CG  HIS    40      21.282  31.647  15.505  1.00 15.62      2RNT 453
+ATOM    287  ND1 HIS    40      20.260  31.909  16.345  1.00 16.89      2RNT 454
+ATOM    288  CD2 HIS    40      22.097  32.705  15.622  1.00 17.63      2RNT 455
+ATOM    289  CE1 HIS    40      20.444  33.079  16.965  1.00 17.55      2RNT 456
+ATOM    290  NE2 HIS    40      21.580  33.575  16.543  1.00 18.76      2RNT 457
+ATOM    291  N   LYS    41      18.722  29.133  14.613  1.00 14.47      2RNT 458
+ATOM    292  CA  LYS    41      17.356  28.873  15.092  1.00 15.14      2RNT 459
+ATOM    293  C   LYS    41      16.765  29.956  15.982  1.00 14.77      2RNT 460
+ATOM    294  O   LYS    41      17.480  30.501  16.823  1.00 14.67      2RNT 461
+ATOM    295  CB  LYS    41      17.543  27.567  15.899  1.00 17.54      2RNT 462
+ATOM    296  CG  LYS    41      16.239  26.931  16.152  1.00 20.61      2RNT 463
+ATOM    297  CD  LYS    41      16.197  25.410  16.343  1.00 24.53      2RNT 464
+ATOM    298  CE  LYS    41      14.662  25.201  16.343  1.00 26.23      2RNT 465
+ATOM    299  NZ  LYS    41      14.223  25.566  17.729  1.00 29.12      2RNT 466
+ATOM    300  N   TYR    42      15.512  30.252  15.830  1.00 14.62      2RNT 467
+ATOM    301  CA  TYR    42      14.786  31.256  16.638  1.00 15.43      2RNT 468
+ATOM    302  C   TYR    42      13.744  30.411  17.384  1.00 16.36      2RNT 469
+ATOM    303  O   TYR    42      12.826  29.844  16.817  1.00 16.90      2RNT 470
+ATOM    304  CB  TYR    42      14.228  32.431  15.833  1.00 14.46      2RNT 471
+ATOM    305  CG  TYR    42      13.470  33.362  16.767  1.00 14.61      2RNT 472
+ATOM    306  CD1 TYR    42      12.077  33.298  16.730  1.00 14.69      2RNT 473
+ATOM    307  CD2 TYR    42      14.102  34.227  17.657  1.00 14.31      2RNT 474
+ATOM    308  CE1 TYR    42      11.306  34.124  17.572  1.00 14.65      2RNT 475
+ATOM    309  CE2 TYR    42      13.335  35.028  18.474  1.00 15.15      2RNT 476
+ATOM    310  CZ  TYR    42      11.955  34.949  18.440  1.00 14.94      2RNT 477
+ATOM    311  OH  TYR    42      11.225  35.763  19.290  1.00 16.19      2RNT 478
+ATOM    312  N   ASN    43      13.897  30.342  18.694  1.00 18.00      2RNT 479
+ATOM    313  CA  ASN    43      13.023  29.525  19.549  1.00 18.90      2RNT 480
+ATOM    314  C   ASN    43      11.642  30.050  19.797  1.00 19.24      2RNT 481
+ATOM    315  O   ASN    43      10.722  29.250  20.094  1.00 21.08      2RNT 482
+ATOM    316  CB  ASN    43      13.850  29.274  20.819  1.00 20.65      2RNT 483
+ATOM    317  CG  ASN    43      15.059  28.379  20.538  1.00 22.07      2RNT 484
+ATOM    318  OD1 ASN    43      14.870  27.256  20.029  1.00 23.94      2RNT 485
+ATOM    319  ND2 ASN    43      16.284  28.781  20.806  1.00 22.98      2RNT 486
+ATOM    320  N   ASN    44      11.423  31.350  19.699  1.00 18.50      2RNT 487
+ATOM    321  CA  ASN    44      10.103  31.917  19.958  1.00 18.05      2RNT 488
+ATOM    322  C   ASN    44       9.708  31.816  21.442  1.00 18.06      2RNT 489
+ATOM    323  O   ASN    44       8.548  31.659  21.875  1.00 17.95      2RNT 490
+ATOM    324  CB  ASN    44       9.017  31.484  18.994  1.00 17.90      2RNT 491
+ATOM    325  CG  ASN    44       7.832  32.426  18.998  1.00 18.13      2RNT 492
+ATOM    326  OD1 ASN    44       7.975  33.612  19.347  1.00 17.65      2RNT 493
+ATOM    327  ND2 ASN    44       6.662  31.868  18.651  1.00 17.25      2RNT 494
+ATOM    328  N   TYR    45      10.740  32.000  22.252  1.00 17.75      2RNT 495
+ATOM    329  CA  TYR    45      10.546  32.015  23.732  1.00 18.65      2RNT 496
+ATOM    330  C   TYR    45       9.528  33.139  24.017  1.00 19.35      2RNT 497
+ATOM    331  O   TYR    45       8.705  33.046  24.934  1.00 19.40      2RNT 498
+ATOM    332  CB  TYR    45      11.834  32.237  24.514  1.00 19.92      2RNT 499
+ATOM    333  CG  TYR    45      12.983  31.267  24.451  1.00 20.88      2RNT 500
+ATOM    334  CD1 TYR    45      12.807  29.881  24.574  1.00 22.11      2RNT 501
+ATOM    335  CD2 TYR    45      14.286  31.693  24.301  1.00 21.77      2RNT 502
+ATOM    336  CE1 TYR    45      13.860  28.992  24.523  1.00 22.12      2RNT 503
+ATOM    337  CE2 TYR    45      15.381  30.835  24.233  1.00 23.13      2RNT 504
+ATOM    338  CZ  TYR    45      15.141  29.458  24.344  1.00 23.11      2RNT 505
+ATOM    339  OH  TYR    45      16.255  28.658  24.275  1.00 24.90      2RNT 506
+ATOM    340  N   GLU    46       9.513  34.235  23.249  1.00 19.38      2RNT 507
+ATOM    341  CA  GLU    46       8.608  35.359  23.420  1.00 18.50      2RNT 508
+ATOM    342  C   GLU    46       7.147  35.001  23.202  1.00 18.65      2RNT 509
+ATOM    343  O   GLU    46       6.197  35.643  23.703  1.00 18.70      2RNT 510
+ATOM    344  CB  GLU    46       8.972  36.574  22.574  1.00 17.91      2RNT 511
+ATOM    345  CG  GLU    46      10.224  37.314  22.999  1.00 18.47      2RNT 512
+ATOM    346  CD  GLU    46      11.560  36.705  22.758  1.00 18.97      2RNT 513
+ATOM    347  OE1 GLU    46      11.698  35.710  22.047  1.00 18.65      2RNT 514
+ATOM    348  OE2 GLU    46      12.412  37.344  23.361  1.00 18.11      2RNT 515
+ATOM    349  N   GLY    47       6.919  33.947  22.453  1.00 18.68      2RNT 516
+ATOM    350  CA  GLY    47       5.571  33.457  22.161  1.00 18.48      2RNT 517
+ATOM    351  C   GLY    47       4.896  34.367  21.186  1.00 19.25      2RNT 518
+ATOM    352  O   GLY    47       3.741  34.614  21.442  1.00 19.06      2RNT 519
+ATOM    353  N   PHE    48       5.474  34.883  20.130  1.00 19.40      2RNT 520
+ATOM    354  CA  PHE    48       4.757  35.757  19.220  1.00 20.52      2RNT 521
+ATOM    355  C   PHE    48       3.805  34.888  18.426  1.00 22.56      2RNT 522
+ATOM    356  O   PHE    48       3.853  33.675  18.282  1.00 22.96      2RNT 523
+ATOM    357  CB  PHE    48       5.766  36.419  18.257  1.00 18.92      2RNT 524
+ATOM    358  CG  PHE    48       6.727  37.401  18.861  1.00 17.41      2RNT 525
+ATOM    359  CD1 PHE    48       6.271  38.543  19.535  1.00 16.79      2RNT 526
+ATOM    360  CD2 PHE    48       8.107  37.191  18.751  1.00 16.75      2RNT 527
+ATOM    361  CE1 PHE    48       7.139  39.448  20.118  1.00 15.14      2RNT 528
+ATOM    362  CE2 PHE    48       9.008  38.111  19.337  1.00 16.38      2RNT 529
+ATOM    363  CZ  PHE    48       8.494  39.212  19.993  1.00 15.62      2RNT 530
+ATOM    364  N   ASP    49       2.896  35.538  17.818  1.00 24.70      2RNT 531
+ATOM    365  CA  ASP    49       1.770  35.398  16.921  1.00 27.67      2RNT 532
+ATOM    366  C   ASP    49       1.997  35.020  15.475  1.00 27.70      2RNT 533
+ATOM    367  O   ASP    49       1.224  35.436  14.578  1.00 29.01      2RNT 534
+ATOM    368  CB  ASP    49       1.184  36.826  16.925  1.00 31.54      2RNT 535
+ATOM    369  CG  ASP    49       1.805  38.150  17.288  1.00 34.34      2RNT 536
+ATOM    370  OD1 ASP    49       2.455  38.432  18.350  1.00 34.69      2RNT 537
+ATOM    371  OD2 ASP    49       1.511  38.891  16.289  1.00 36.06      2RNT 538
+ATOM    372  N   PHE    50       3.052  34.246  15.284  1.00 27.35      2RNT 539
+ATOM    373  CA  PHE    50       3.401  33.889  13.870  1.00 26.27      2RNT 540
+ATOM    374  C   PHE    50       2.322  33.067  13.205  1.00 26.17      2RNT 541
+ATOM    375  O   PHE    50       1.945  32.121  13.874  1.00 25.96      2RNT 542
+ATOM    376  CB  PHE    50       4.830  33.408  13.799  1.00 24.66      2RNT 543
+ATOM    377  CG  PHE    50       5.956  34.226  14.370  1.00 23.25      2RNT 544
+ATOM    378  CD1 PHE    50       6.048  35.619  14.304  1.00 22.69      2RNT 545
+ATOM    379  CD2 PHE    50       7.008  33.524  14.984  1.00 22.63      2RNT 546
+ATOM    380  CE1 PHE    50       7.122  36.320  14.816  1.00 21.97      2RNT 547
+ATOM    381  CE2 PHE    50       8.099  34.222  15.526  1.00 21.95      2RNT 548
+ATOM    382  CZ  PHE    50       8.159  35.627  15.432  1.00 21.22      2RNT 549
+ATOM    383  N   SER    51       1.950  33.487  12.009  1.00 25.92      2RNT 550
+ATOM    384  CA  SER    51       0.909  32.765  11.274  1.00 26.45      2RNT 551
+ATOM    385  C   SER    51       1.488  31.750  10.300  1.00 26.15      2RNT 552
+ATOM    386  O   SER    51       0.776  31.234   9.441  1.00 26.66      2RNT 553
+ATOM    387  CB  SER    51       0.036  33.773  10.542  1.00 27.19      2RNT 554
+ATOM    388  OG  SER    51       0.751  34.210   9.396  1.00 29.27      2RNT 555
+ATOM    389  N   VAL    52       2.734  31.448  10.417  1.00 25.53      2RNT 556
+ATOM    390  CA  VAL    52       3.483  30.494   9.565  1.00 25.05      2RNT 557
+ATOM    391  C   VAL    52       4.054  29.490  10.540  1.00 24.65      2RNT 558
+ATOM    392  O   VAL    52       4.341  29.888  11.693  1.00 24.76      2RNT 559
+ATOM    393  CB  VAL    52       4.346  31.552   8.834  1.00 25.39      2RNT 560
+ATOM    394  CG1 VAL    52       5.835  31.292   8.869  1.00 25.43      2RNT 561
+ATOM    395  CG2 VAL    52       3.766  31.896   7.468  1.00 24.67      2RNT 562
+ATOM    396  N   SER    53       4.268  28.266  10.126  1.00 24.01      2RNT 563
+ATOM    397  CA  SER    53       4.804  27.224  11.023  1.00 23.80      2RNT 564
+ATOM    398  C   SER    53       6.301  27.250  11.240  1.00 22.96      2RNT 565
+ATOM    399  O   SER    53       7.067  27.778  10.446  1.00 22.15      2RNT 566
+ATOM    400  CB  SER    53       4.335  25.877  10.470  1.00 25.46      2RNT 567
+ATOM    401  OG  SER    53       4.915  25.767   9.167  1.00 28.00      2RNT 568
+ATOM    402  N   SER    54       6.707  26.676  12.340  1.00 22.73      2RNT 569
+ATOM    403  CA  SER    54       8.108  26.563  12.773  1.00 23.50      2RNT 570
+ATOM    404  C   SER    54       8.723  25.347  12.050  1.00 23.41      2RNT 571
+ATOM    405  O   SER    54       7.985  24.584  11.370  1.00 24.14      2RNT 572
+ATOM    406  CB  SER    54       8.143  26.511  14.295  1.00 24.41      2RNT 573
+ATOM    407  OG  SER    54       7.962  25.171  14.709  1.00 27.51      2RNT 574
+ATOM    408  N   PRO    55      10.014  25.134  12.126  1.00 22.17   1  2RNT 575
+ATOM    409  CA  PRO    55      10.977  25.952  12.867  1.00 20.94   1  2RNT 576
+ATOM    410  C   PRO    55      11.189  27.293  12.211  1.00 19.52   1  2RNT 577
+ATOM    411  O   PRO    55      10.885  27.514  11.045  1.00 19.21   1  2RNT 578
+ATOM    412  CB  PRO    55      12.229  25.080  12.889  1.00 21.65   1  2RNT 579
+ATOM    413  CG  PRO    55      12.147  24.296  11.616  1.00 21.72   1  2RNT 580
+ATOM    414  CD  PRO    55      10.654  24.000  11.449  1.00 22.45   1  2RNT 581
+ATOM    415  N   TYR    56      11.719  28.230  12.951  1.00 17.99      2RNT 582
+ATOM    416  CA  TYR    56      12.044  29.607  12.597  1.00 16.16      2RNT 583
+ATOM    417  C   TYR    56      13.536  29.798  12.732  1.00 15.14      2RNT 584
+ATOM    418  O   TYR    56      14.254  29.121  13.506  1.00 14.91      2RNT 585
+ATOM    419  CB  TYR    56      11.357  30.602  13.545  1.00 15.99      2RNT 586
+ATOM    420  CG  TYR    56       9.876  30.421  13.688  1.00 16.83      2RNT 587
+ATOM    421  CD1 TYR    56       9.009  30.578  12.591  1.00 17.81      2RNT 588
+ATOM    422  CD2 TYR    56       9.305  30.105  14.937  1.00 17.53      2RNT 589
+ATOM    423  CE1 TYR    56       7.627  30.417  12.763  1.00 18.97      2RNT 590
+ATOM    424  CE2 TYR    56       7.926  29.946  15.101  1.00 17.66      2RNT 591
+ATOM    425  CZ  TYR    56       7.095  30.093  14.012  1.00 18.80      2RNT 592
+ATOM    426  OH  TYR    56       5.748  29.956  14.094  1.00 19.47      2RNT 593
+ATOM    427  N   TYR    57      13.984  30.760  11.924  1.00 14.26      2RNT 594
+ATOM    428  CA  TYR    57      15.388  31.176  11.845  1.00 13.44      2RNT 595
+ATOM    429  C   TYR    57      15.410  32.715  11.862  1.00 12.64      2RNT 596
+ATOM    430  O   TYR    57      14.475  33.320  11.307  1.00 12.61      2RNT 597
+ATOM    431  CB  TYR    57      16.154  30.640  10.611  1.00 14.04      2RNT 598
+ATOM    432  CG  TYR    57      15.980  29.129  10.517  1.00 13.68      2RNT 599
+ATOM    433  CD1 TYR    57      16.888  28.347  11.252  1.00 15.19      2RNT 600
+ATOM    434  CD2 TYR    57      14.973  28.542   9.760  1.00 13.66      2RNT 601
+ATOM    435  CE1 TYR    57      16.789  26.948  11.261  1.00 14.60      2RNT 602
+ATOM    436  CE2 TYR    57      14.875  27.138   9.752  1.00 14.67      2RNT 603
+ATOM    437  CZ  TYR    57      15.772  26.373  10.519  1.00 14.82      2RNT 604
+ATOM    438  OH  TYR    57      15.659  25.014  10.439  1.00 15.02      2RNT 605
+ATOM    439  N   GLU    58      16.480  33.229  12.473  1.00 12.00      2RNT 606
+ATOM    440  CA  GLU    58      16.579  34.705  12.529  1.00 11.51      2RNT 607
+ATOM    441  C   GLU    58      17.833  35.129  11.795  1.00 10.74      2RNT 608
+ATOM    442  O   GLU    58      18.802  34.379  11.818  1.00 10.24      2RNT 609
+ATOM    443  CB  GLU    58      16.691  35.169  13.934  1.00 13.01      2RNT 610
+ATOM    444  CG  GLU    58      17.785  34.559  14.811  1.00 16.09      2RNT 611
+ATOM    445  CD  GLU    58      17.848  35.345  16.097  1.00 18.09      2RNT 612
+ATOM    446  OE1 GLU    58      17.669  34.871  17.180  1.00 19.92      2RNT 613
+ATOM    447  OE2 GLU    58      18.108  36.540  15.973  1.00 18.18      2RNT 614
+ATOM    448  N   TRP    59      17.783  36.336  11.207  1.00  9.71      2RNT 615
+ATOM    449  CA  TRP    59      18.860  36.881  10.407  1.00 10.01      2RNT 616
+ATOM    450  C   TRP    59      18.822  38.401  10.580  1.00 10.27      2RNT 617
+ATOM    451  O   TRP    59      17.703  38.886  10.511  1.00 10.05      2RNT 618
+ATOM    452  CB  TRP    59      18.525  36.403   8.958  1.00 10.24      2RNT 619
+ATOM    453  CG  TRP    59      19.476  36.980   7.982  1.00  8.84      2RNT 620
+ATOM    454  CD1 TRP    59      19.120  37.989   7.147  1.00 10.03      2RNT 621
+ATOM    455  CD2 TRP    59      20.852  36.683   7.692  1.00  9.68      2RNT 622
+ATOM    456  NE1 TRP    59      20.201  38.367   6.375  1.00 10.71      2RNT 623
+ATOM    457  CE2 TRP    59      21.258  37.561   6.677  1.00  9.76      2RNT 624
+ATOM    458  CE3 TRP    59      21.723  35.758   8.241  1.00  9.18      2RNT 625
+ATOM    459  CZ2 TRP    59      22.536  37.557   6.171  1.00  9.73      2RNT 626
+ATOM    460  CZ3 TRP    59      23.025  35.731   7.721  1.00 10.34      2RNT 627
+ATOM    461  CH2 TRP    59      23.397  36.626   6.695  1.00  9.58      2RNT 628
+ATOM    462  N   PRO    60      19.967  39.027  10.786  1.00 10.21      2RNT 629
+ATOM    463  CA  PRO    60      19.980  40.503  10.986  1.00 10.35      2RNT 630
+ATOM    464  C   PRO    60      19.437  41.218   9.756  1.00 10.93      2RNT 631
+ATOM    465  O   PRO    60      19.565  40.746   8.625  1.00 10.54      2RNT 632
+ATOM    466  CB  PRO    60      21.453  40.852  11.218  1.00  9.75      2RNT 633
+ATOM    467  CG  PRO    60      21.990  39.545  11.726  1.00 10.39      2RNT 634
+ATOM    468  CD  PRO    60      21.281  38.483  10.898  1.00 10.41      2RNT 635
+ATOM    469  N   ILE    61      18.825  42.374   9.980  1.00 10.63      2RNT 636
+ATOM    470  CA  ILE    61      18.294  43.267   8.928  1.00 10.78      2RNT 637
+ATOM    471  C   ILE    61      19.020  44.562   9.398  1.00 11.87      2RNT 638
+ATOM    472  O   ILE    61      18.873  44.905  10.584  1.00 10.83      2RNT 639
+ATOM    473  CB  ILE    61      16.767  43.316   8.685  1.00 10.64      2RNT 640
+ATOM    474  CG1 ILE    61      16.515  44.298   7.472  1.00  9.83      2RNT 641
+ATOM    475  CG2 ILE    61      15.992  43.785   9.961  1.00  9.99      2RNT 642
+ATOM    476  CD1 ILE    61      15.025  44.469   7.028  1.00 11.25      2RNT 643
+ATOM    477  N   LEU    62      19.788  45.212   8.519  1.00 12.01      2RNT 644
+ATOM    478  CA  LEU    62      20.540  46.410   8.918  1.00 12.86      2RNT 645
+ATOM    479  C   LEU    62      19.935  47.735   8.481  1.00 13.34      2RNT 646
+ATOM    480  O   LEU    62      19.391  47.854   7.370  1.00 11.89      2RNT 647
+ATOM    481  CB  LEU    62      21.953  46.140   8.350  1.00 12.32      2RNT 648
+ATOM    482  CG  LEU    62      22.733  44.892   8.746  1.00 13.48      2RNT 649
+ATOM    483  CD1 LEU    62      24.158  45.045   8.203  1.00 12.50      2RNT 650
+ATOM    484  CD2 LEU    62      22.805  44.680  10.288  1.00 12.91      2RNT 651
+ATOM    485  N   SER    63      20.044  48.713   9.387  1.00 13.80      2RNT 652
+ATOM    486  CA  SER    63      19.446  50.017   8.986  1.00 14.94      2RNT 653
+ATOM    487  C   SER    63      20.243  50.668   7.856  1.00 16.19      2RNT 654
+ATOM    488  O   SER    63      19.694  51.559   7.191  1.00 16.62      2RNT 655
+ATOM    489  CB  SER    63      19.300  50.945  10.178  1.00 15.26      2RNT 656
+ATOM    490  OG  SER    63      20.592  51.102  10.712  1.00 16.64      2RNT 657
+ATOM    491  N   SER    64      21.464  50.273   7.608  1.00 17.08      2RNT 658
+ATOM    492  CA  SER    64      22.267  50.879   6.535  1.00 18.73      2RNT 659
+ATOM    493  C   SER    64      21.802  50.433   5.179  1.00 19.28      2RNT 660
+ATOM    494  O   SER    64      22.320  51.064   4.242  1.00 20.59      2RNT 661
+ATOM    495  CB  SER    64      23.717  50.433   6.648  1.00 19.31      2RNT 662
+ATOM    496  OG  SER    64      23.732  49.027   6.494  1.00 20.51      2RNT 663
+ATOM    497  N   GLY    65      20.946  49.440   5.087  1.00 19.10      2RNT 664
+ATOM    498  CA  GLY    65      20.454  48.911   3.835  1.00 18.89      2RNT 665
+ATOM    499  C   GLY    65      21.404  47.834   3.307  1.00 19.10      2RNT 666
+ATOM    500  O   GLY    65      21.023  47.243   2.279  1.00 19.38      2RNT 667
+ATOM    501  N   ASP    66      22.534  47.572   3.932  1.00 18.55      2RNT 668
+ATOM    502  CA  ASP    66      23.438  46.533   3.443  1.00 18.74      2RNT 669
+ATOM    503  C   ASP    66      22.971  45.163   3.950  1.00 17.95      2RNT 670
+ATOM    504  O   ASP    66      22.256  45.135   4.944  1.00 17.77      2RNT 671
+ATOM    505  CB  ASP    66      24.866  46.629   3.925  1.00 22.27      2RNT 672
+ATOM    506  CG  ASP    66      25.714  47.830   3.675  1.00 25.29      2RNT 673
+ATOM    507  OD1 ASP    66      26.740  47.990   4.387  1.00 28.75      2RNT 674
+ATOM    508  OD2 ASP    66      25.386  48.616   2.783  1.00 27.46      2RNT 675
+ATOM    509  N   VAL    67      23.398  44.095   3.293  1.00 17.46      2RNT 676
+ATOM    510  CA  VAL    67      23.049  42.721   3.690  1.00 17.23      2RNT 677
+ATOM    511  C   VAL    67      24.081  42.393   4.770  1.00 17.30      2RNT 678
+ATOM    512  O   VAL    67      25.263  42.691   4.593  1.00 18.38      2RNT 679
+ATOM    513  CB  VAL    67      23.006  41.785   2.475  1.00 17.83      2RNT 680
+ATOM    514  CG1 VAL    67      23.145  40.283   2.790  1.00 17.65      2RNT 681
+ATOM    515  CG2 VAL    67      21.686  41.974   1.747  1.00 16.47      2RNT 682
+ATOM    516  N   TYR    68      23.683  41.741   5.843  1.00 16.54      2RNT 683
+ATOM    517  CA  TYR    68      24.622  41.387   6.926  1.00 16.28      2RNT 684
+ATOM    518  C   TYR    68      25.731  40.459   6.429  1.00 16.94      2RNT 685
+ATOM    519  O   TYR    68      25.422  39.444   5.801  1.00 17.03      2RNT 686
+ATOM    520  CB  TYR    68      23.795  40.786   8.088  1.00 13.88      2RNT 687
+ATOM    521  CG  TYR    68      24.668  40.326   9.246  1.00 12.66      2RNT 688
+ATOM    522  CD1 TYR    68      24.866  38.964   9.485  1.00 12.19      2RNT 689
+ATOM    523  CD2 TYR    68      25.253  41.280  10.071  1.00 13.09      2RNT 690
+ATOM    524  CE1 TYR    68      25.686  38.595  10.542  1.00 12.63      2RNT 691
+ATOM    525  CE2 TYR    68      26.071  40.897  11.130  1.00 12.21      2RNT 692
+ATOM    526  CZ  TYR    68      26.274  39.543  11.353  1.00 11.64      2RNT 693
+ATOM    527  OH  TYR    68      27.083  39.240  12.433  1.00 13.18      2RNT 694
+ATOM    528  N   SER    69      26.954  40.813   6.767  1.00 17.78      2RNT 695
+ATOM    529  CA  SER    69      28.069  39.943   6.321  1.00 19.59      2RNT 696
+ATOM    530  C   SER    69      29.018  39.623   7.478  1.00 20.30      2RNT 697
+ATOM    531  O   SER    69      30.119  39.105   7.236  1.00 20.62      2RNT 698
+ATOM    532  CB  SER    69      28.763  40.576   5.130  1.00 20.72      2RNT 699
+ATOM    533  OG  SER    69      29.342  41.817   5.444  1.00 23.41      2RNT 700
+ATOM    534  N   GLY    70      28.610  39.890   8.704  1.00 20.27      2RNT 701
+ATOM    535  CA  GLY    70      29.444  39.627   9.901  1.00 20.72      2RNT 702
+ATOM    536  C   GLY    70      29.542  40.964  10.623  1.00 20.46      2RNT 703
+ATOM    537  O   GLY    70      29.104  42.049  10.231  1.00 21.80      2RNT 704
+ATOM    538  N   GLY    71      30.183  40.934  11.779  1.00 20.60      2RNT 705
+ATOM    539  CA  GLY    71      30.358  42.143  12.600  1.00 18.85      2RNT 706
+ATOM    540  C   GLY    71      29.086  42.258  13.433  1.00 18.04      2RNT 707
+ATOM    541  O   GLY    71      28.350  41.288  13.531  1.00 17.93      2RNT 708
+ATOM    542  N   SER    72      28.861  43.432  14.009  1.00 17.36      2RNT 709
+ATOM    543  CA  SER    72      27.675  43.648  14.857  1.00 15.64      2RNT 710
+ATOM    544  C   SER    72      26.395  43.526  14.051  1.00 15.17      2RNT 711
+ATOM    545  O   SER    72      26.270  44.171  12.993  1.00 14.23      2RNT 712
+ATOM    546  CB  SER    72      27.766  45.012  15.547  1.00 17.22      2RNT 713
+ATOM    547  OG  SER    72      26.579  45.263  16.318  1.00 17.88      2RNT 714
+ATOM    548  N   PRO    73      25.481  42.697  14.548  1.00 14.00      2RNT 715
+ATOM    549  CA  PRO    73      24.184  42.503  13.858  1.00 13.53      2RNT 716
+ATOM    550  C   PRO    73      23.151  43.577  14.153  1.00 13.37      2RNT 717
+ATOM    551  O   PRO    73      22.057  43.523  13.568  1.00 13.49      2RNT 718
+ATOM    552  CB  PRO    73      23.695  41.161  14.467  1.00 13.63      2RNT 719
+ATOM    553  CG  PRO    73      24.287  41.116  15.830  1.00 13.30      2RNT 720
+ATOM    554  CD  PRO    73      25.600  41.888  15.764  1.00 13.99      2RNT 721
+ATOM    555  N   GLY    74      23.475  44.524  15.055  1.00 12.63      2RNT 722
+ATOM    556  CA  GLY    74      22.506  45.593  15.419  1.00 11.68      2RNT 723
+ATOM    557  C   GLY    74      21.399  44.891  16.232  1.00 11.23      2RNT 724
+ATOM    558  O   GLY    74      21.489  43.779  16.794  1.00 10.63      2RNT 725
+ATOM    559  N   ALA    75      20.247  45.544  16.330  1.00 10.42      2RNT 726
+ATOM    560  CA  ALA    75      19.117  45.016  17.087  1.00 10.52      2RNT 727
+ATOM    561  C   ALA    75      17.965  44.354  16.360  1.00 10.17      2RNT 728
+ATOM    562  O   ALA    75      17.155  43.715  17.021  1.00 10.70      2RNT 729
+ATOM    563  CB  ALA    75      18.390  46.326  17.589  1.00  9.43      2RNT 730
+ATOM    564  N   ASP    76      17.852  44.527  15.065  1.00  9.60      2RNT 731
+ATOM    565  CA  ASP    76      16.747  44.047  14.266  1.00  9.78      2RNT 732
+ATOM    566  C   ASP    76      16.983  42.738  13.541  1.00  8.87      2RNT 733
+ATOM    567  O   ASP    76      18.115  42.613  13.144  1.00  8.82      2RNT 734
+ATOM    568  CB  ASP    76      16.327  45.152  13.262  1.00 10.10      2RNT 735
+ATOM    569  CG  ASP    76      16.255  46.555  13.882  1.00 12.26      2RNT 736
+ATOM    570  OD1 ASP    76      15.891  46.625  15.070  1.00 11.46      2RNT 737
+ATOM    571  OD2 ASP    76      16.605  47.576  13.223  1.00 13.51      2RNT 738
+ATOM    572  N   ARG    77      15.921  41.977  13.468  1.00  9.68      2RNT 739
+ATOM    573  CA  ARG    77      15.986  40.683  12.792  1.00 10.03      2RNT 740
+ATOM    574  C   ARG    77      14.748  40.377  11.976  1.00 10.03      2RNT 741
+ATOM    575  O   ARG    77      13.586  40.751  12.178  1.00 10.60      2RNT 742
+ATOM    576  CB  ARG    77      16.020  39.552  13.858  1.00 10.85      2RNT 743
+ATOM    577  CG  ARG    77      17.041  39.677  14.967  1.00 11.33      2RNT 744
+ATOM    578  CD  ARG    77      18.396  39.300  14.430  1.00 11.29      2RNT 745
+ATOM    579  NE  ARG    77      19.353  39.415  15.517  1.00 12.71      2RNT 746
+ATOM    580  CZ  ARG    77      20.051  40.482  15.890  1.00 12.32      2RNT 747
+ATOM    581  NH1 ARG    77      19.996  41.601  15.177  1.00 11.37      2RNT 748
+ATOM    582  NH2 ARG    77      20.807  40.493  16.982  1.00 12.64      2RNT 749
+ATOM    583  N   VAL    78      14.960  39.581  10.940  1.00 10.47      2RNT 750
+ATOM    584  CA  VAL    78      13.954  39.058  10.015  1.00 10.87      2RNT 751
+ATOM    585  C   VAL    78      13.766  37.625  10.538  1.00 11.00      2RNT 752
+ATOM    586  O   VAL    78      14.792  37.005  10.873  1.00 12.08      2RNT 753
+ATOM    587  CB  VAL    78      14.511  39.185   8.565  1.00 12.45      2RNT 754
+ATOM    588  CG1 VAL    78      14.088  38.168   7.559  1.00 13.19      2RNT 755
+ATOM    589  CG2 VAL    78      14.134  40.609   8.101  1.00 12.14      2RNT 756
+ATOM    590  N   VAL    79      12.577  37.094  10.660  1.00 11.08      2RNT 757
+ATOM    591  CA  VAL    79      12.376  35.716  11.143  1.00 11.63      2RNT 758
+ATOM    592  C   VAL    79      11.743  34.946   9.956  1.00 12.29      2RNT 759
+ATOM    593  O   VAL    79      10.689  35.464   9.575  1.00 11.92      2RNT 760
+ATOM    594  CB  VAL    79      11.508  35.666  12.397  1.00 13.10      2RNT 761
+ATOM    595  CG1 VAL    79      11.139  34.238  12.815  1.00 13.82      2RNT 762
+ATOM    596  CG2 VAL    79      12.292  36.328  13.553  1.00 12.72      2RNT 763
+ATOM    597  N   PHE    80      12.333  33.895   9.476  1.00 12.38      2RNT 764
+ATOM    598  CA  PHE    80      11.747  33.129   8.354  1.00 13.48      2RNT 765
+ATOM    599  C   PHE    80      11.690  31.640   8.781  1.00 14.29      2RNT 766
+ATOM    600  O   PHE    80      12.371  31.229   9.735  1.00 13.93      2RNT 767
+ATOM    601  CB  PHE    80      12.474  33.331   7.010  1.00 12.20      2RNT 768
+ATOM    602  CG  PHE    80      13.925  32.997   7.085  1.00 12.57      2RNT 769
+ATOM    603  CD1 PHE    80      14.889  33.954   7.415  1.00 12.66      2RNT 770
+ATOM    604  CD2 PHE    80      14.385  31.696   6.844  1.00 13.29      2RNT 771
+ATOM    605  CE1 PHE    80      16.225  33.636   7.483  1.00 12.73      2RNT 772
+ATOM    606  CE2 PHE    80      15.735  31.336   6.904  1.00 13.54      2RNT 773
+ATOM    607  CZ  PHE    80      16.670  32.337   7.232  1.00 14.15      2RNT 774
+ATOM    608  N   ASN    81      10.901  30.878   8.012  1.00 14.78      2RNT 775
+ATOM    609  CA  ASN    81      10.801  29.432   8.342  1.00 15.96      2RNT 776
+ATOM    610  C   ASN    81      11.548  28.619   7.253  1.00 16.24      2RNT 777
+ATOM    611  O   ASN    81      12.215  29.085   6.341  1.00 15.25      2RNT 778
+ATOM    612  CB  ASN    81       9.357  29.059   8.551  1.00 17.31      2RNT 779
+ATOM    613  CG  ASN    81       8.468  28.930   7.323  1.00 18.20      2RNT 780
+ATOM    614  OD1 ASN    81       8.875  29.130   6.169  1.00 19.16      2RNT 781
+ATOM    615  ND2 ASN    81       7.193  28.624   7.536  1.00 17.79      2RNT 782
+ATOM    616  N   GLU    82      11.337  27.311   7.353  1.00 17.09      2RNT 783
+ATOM    617  CA  GLU    82      11.921  26.345   6.442  1.00 18.56      2RNT 784
+ATOM    618  C   GLU    82      11.508  26.478   4.981  1.00 18.92      2RNT 785
+ATOM    619  O   GLU    82      12.282  26.076   4.093  1.00 18.37      2RNT 786
+ATOM    620  CB  GLU    82      11.527  24.916   6.926  1.00 21.10      2RNT 787
+ATOM    621  CG  GLU    82      12.558  24.279   7.854  1.00 24.21      2RNT 788
+ATOM    622  CD  GLU    82      13.942  24.117   7.325  1.00 25.10      2RNT 789
+ATOM    623  OE1 GLU    82      14.288  24.024   6.162  1.00 27.86      2RNT 790
+ATOM    624  OE2 GLU    82      14.762  24.124   8.250  1.00 26.80      2RNT 791
+ATOM    625  N   ASN    83      10.306  27.026   4.831  1.00 19.49      2RNT 792
+ATOM    626  CA  ASN    83       9.722  27.248   3.497  1.00 20.09      2RNT 793
+ATOM    627  C   ASN    83       9.982  28.644   2.942  1.00 20.16      2RNT 794
+ATOM    628  O   ASN    83       9.389  29.058   1.915  1.00 19.42      2RNT 795
+ATOM    629  CB  ASN    83       8.219  27.032   3.606  1.00 22.74      2RNT 796
+ATOM    630  CG  ASN    83       7.805  25.684   4.141  1.00 26.02      2RNT 797
+ATOM    631  OD1 ASN    83       6.907  25.521   4.987  1.00 27.48      2RNT 798
+ATOM    632  ND2 ASN    83       8.509  24.682   3.624  1.00 26.71      2RNT 799
+ATOM    633  N   ASN    84      10.883  29.356   3.632  1.00 19.02      2RNT 800
+ATOM    634  CA  ASN    84      11.199  30.724   3.182  1.00 18.69      2RNT 801
+ATOM    635  C   ASN    84       9.941  31.592   3.277  1.00 17.85      2RNT 802
+ATOM    636  O   ASN    84       9.708  32.497   2.470  1.00 17.83      2RNT 803
+ATOM    637  CB  ASN    84      11.920  30.770   1.844  1.00 20.05      2RNT 804
+ATOM    638  CG  ASN    84      12.658  32.046   1.520  1.00 21.63      2RNT 805
+ATOM    639  OD1 ASN    84      12.926  32.274   0.321  1.00 23.79      2RNT 806
+ATOM    640  ND2 ASN    84      12.996  32.837   2.525  1.00 20.61      2RNT 807
+ATOM    641  N   GLN    85       9.117  31.375   4.290  1.00 17.58      2RNT 808
+ATOM    642  CA  GLN    85       7.904  32.206   4.484  1.00 16.94      2RNT 809
+ATOM    643  C   GLN    85       8.344  33.210   5.564  1.00 15.73      2RNT 810
+ATOM    644  O   GLN    85       9.056  32.826   6.484  1.00 15.07      2RNT 811
+ATOM    645  CB  GLN    85       6.654  31.462   4.902  1.00 17.80      2RNT 812
+ATOM    646  CG  GLN    85       6.161  30.599   3.730  1.00 19.90      2RNT 813
+ATOM    647  CD  GLN    85       5.175  29.626   4.331  1.00 20.68      2RNT 814
+ATOM    648  OE1 GLN    85       5.474  28.788   5.174  1.00 21.22      2RNT 815
+ATOM    649  NE2 GLN    85       3.938  29.779   3.870  1.00 22.37      2RNT 816
+ATOM    650  N   LEU    86       7.934  34.449   5.461  1.00 15.12      2RNT 817
+ATOM    651  CA  LEU    86       8.321  35.471   6.463  1.00 14.52      2RNT 818
+ATOM    652  C   LEU    86       7.450  35.262   7.676  1.00 13.71      2RNT 819
+ATOM    653  O   LEU    86       6.228  35.281   7.448  1.00 14.45      2RNT 820
+ATOM    654  CB  LEU    86       8.137  36.893   5.903  1.00 14.15      2RNT 821
+ATOM    655  CG  LEU    86       8.343  38.079   6.830  1.00 14.57      2RNT 822
+ATOM    656  CD1 LEU    86       9.793  38.172   7.318  1.00 14.49      2RNT 823
+ATOM    657  CD2 LEU    86       7.989  39.333   6.032  1.00 16.02      2RNT 824
+ATOM    658  N   ALA    87       8.017  35.104   8.858  1.00 13.61      2RNT 825
+ATOM    659  CA  ALA    87       7.213  34.930  10.080  1.00 13.35      2RNT 826
+ATOM    660  C   ALA    87       7.016  36.322  10.638  1.00 14.07      2RNT 827
+ATOM    661  O   ALA    87       5.887  36.568  11.058  1.00 15.33      2RNT 828
+ATOM    662  CB  ALA    87       7.945  34.104  11.111  1.00 13.40      2RNT 829
+ATOM    663  N   GLY    88       8.018  37.174  10.655  1.00 13.34      2RNT 830
+ATOM    664  CA  GLY    88       7.853  38.536  11.185  1.00 13.41      2RNT 831
+ATOM    665  C   GLY    88       9.189  39.269  11.272  1.00 12.70      2RNT 832
+ATOM    666  O   GLY    88      10.219  38.681  10.932  1.00 12.79      2RNT 833
+ATOM    667  N   VAL    89       9.118  40.505  11.720  1.00 12.12      2RNT 834
+ATOM    668  CA  VAL    89      10.334  41.346  11.868  1.00 11.94      2RNT 835
+ATOM    669  C   VAL    89      10.303  41.700  13.346  1.00 11.70      2RNT 836
+ATOM    670  O   VAL    89       9.235  42.100  13.866  1.00 11.92      2RNT 837
+ATOM    671  CB  VAL    89      10.306  42.504  10.836  1.00 10.98      2RNT 838
+ATOM    672  CG1 VAL    89      11.570  43.322  10.920  1.00 11.49      2RNT 839
+ATOM    673  CG2 VAL    89      10.095  41.984   9.409  1.00 11.74      2RNT 840
+ATOM    674  N   ILE    90      11.452  41.491  14.012  1.00 12.10      2RNT 841
+ATOM    675  CA  ILE    90      11.499  41.747  15.486  1.00 11.58      2RNT 842
+ATOM    676  C   ILE    90      12.758  42.509  15.853  1.00 11.61      2RNT 843
+ATOM    677  O   ILE    90      13.699  42.553  15.054  1.00 11.95      2RNT 844
+ATOM    678  CB  ILE    90      11.428  40.351  16.228  1.00 12.01      2RNT 845
+ATOM    679  CG1 ILE    90      12.646  39.474  15.828  1.00 13.10      2RNT 846
+ATOM    680  CG2 ILE    90      10.056  39.646  15.966  1.00 10.72      2RNT 847
+ATOM    681  CD1 ILE    90      12.770  38.090  16.541  1.00 14.28      2RNT 848
+ATOM    682  N   THR    91      12.717  43.053  17.071  1.00 11.47      2RNT 849
+ATOM    683  CA  THR    91      13.895  43.807  17.504  1.00 10.50      2RNT 850
+ATOM    684  C   THR    91      14.123  43.719  18.999  1.00 10.35      2RNT 851
+ATOM    685  O   THR    91      13.185  43.433  19.747  1.00  9.51      2RNT 852
+ATOM    686  CB  THR    91      13.606  45.305  17.048  1.00 11.67      2RNT 853
+ATOM    687  OG1 THR    91      14.785  46.094  17.387  1.00 11.51      2RNT 854
+ATOM    688  CG2 THR    91      12.316  45.895  17.606  1.00 12.60      2RNT 855
+ATOM    689  N   HIS    92      15.360  43.980  19.329  1.00  9.61      2RNT 856
+ATOM    690  CA  HIS    92      15.713  44.008  20.746  1.00 10.91      2RNT 857
+ATOM    691  C   HIS    92      15.436  45.441  21.252  1.00 10.83      2RNT 858
+ATOM    692  O   HIS    92      15.457  45.704  22.494  1.00 11.21      2RNT 859
+ATOM    693  CB  HIS    92      17.217  43.911  20.907  1.00 12.49      2RNT 860
+ATOM    694  CG  HIS    92      17.714  42.502  20.766  1.00 13.20      2RNT 861
+ATOM    695  ND1 HIS    92      17.195  41.552  21.578  1.00 14.54      2RNT 862
+ATOM    696  CD2 HIS    92      18.611  41.877  19.973  1.00 13.72      2RNT 863
+ATOM    697  CE1 HIS    92      17.756  40.412  21.288  1.00 13.91      2RNT 864
+ATOM    698  NE2 HIS    92      18.627  40.561  20.320  1.00 14.73      2RNT 865
+ATOM    699  N   THR    93      15.233  46.373  20.305  1.00 10.81      2RNT 866
+ATOM    700  CA  THR    93      15.005  47.772  20.729  1.00 11.14      2RNT 867
+ATOM    701  C   THR    93      13.735  47.892  21.565  1.00 12.35      2RNT 868
+ATOM    702  O   THR    93      12.695  47.441  21.056  1.00 13.43      2RNT 869
+ATOM    703  CB  THR    93      14.946  48.749  19.483  1.00 10.98      2RNT 870
+ATOM    704  OG1 THR    93      16.285  48.651  18.955  1.00 11.59      2RNT 871
+ATOM    705  CG2 THR    93      14.633  50.233  19.816  1.00 10.58      2RNT 872
+ATOM    706  N   GLY    94      13.802  48.484  22.766  1.00 12.77      2RNT 873
+ATOM    707  CA  GLY    94      12.567  48.604  23.571  1.00 13.09      2RNT 874
+ATOM    708  C   GLY    94      12.176  47.319  24.295  1.00 14.00      2RNT 875
+ATOM    709  O   GLY    94      11.013  47.251  24.763  1.00 14.85      2RNT 876
+ATOM    710  N   ALA    95      13.065  46.343  24.375  1.00 13.87      2RNT 877
+ATOM    711  CA  ALA    95      12.770  45.067  25.074  1.00 14.52      2RNT 878
+ATOM    712  C   ALA    95      13.848  44.882  26.142  1.00 15.05      2RNT 879
+ATOM    713  O   ALA    95      14.983  45.219  25.757  1.00 14.76      2RNT 880
+ATOM    714  CB  ALA    95      12.727  43.879  24.137  1.00 12.96      2RNT 881
+ATOM    715  N   SER    96      13.601  44.417  27.382  1.00 16.54      2RNT 882
+ATOM    716  CA  SER    96      14.771  44.323  28.275  1.00 17.55      2RNT 883
+ATOM    717  C   SER    96      15.740  43.193  27.877  1.00 18.55      2RNT 884
+ATOM    718  O   SER    96      15.345  42.147  27.356  1.00 18.82      2RNT 885
+ATOM    719  CB  SER    96      14.454  44.113  29.740  1.00 18.79      2RNT 886
+ATOM    720  OG  SER    96      13.349  43.257  29.737  1.00 22.54      2RNT 887
+ATOM    721  N   GLY    97      16.996  43.473  28.181  1.00 19.34      2RNT 888
+ATOM    722  CA  GLY    97      18.143  42.604  27.931  1.00 19.87      2RNT 889
+ATOM    723  C   GLY    97      18.124  42.194  26.448  1.00 20.31      2RNT 890
+ATOM    724  O   GLY    97      18.020  43.006  25.519  1.00 20.29      2RNT 891
+ATOM    725  N   ASN    98      18.205  40.867  26.327  1.00 20.96      2RNT 892
+ATOM    726  CA  ASN    98      18.228  40.192  25.023  1.00 20.42      2RNT 893
+ATOM    727  C   ASN    98      16.878  39.678  24.589  1.00 19.32      2RNT 894
+ATOM    728  O   ASN    98      16.737  38.799  23.729  1.00 19.04      2RNT 895
+ATOM    729  CB  ASN    98      19.369  39.169  25.063  1.00 24.09      2RNT 896
+ATOM    730  CG  ASN    98      20.732  39.818  25.250  1.00 27.46      2RNT 897
+ATOM    731  OD1 ASN    98      21.725  39.254  25.753  1.00 29.75      2RNT 898
+ATOM    732  ND2 ASN    98      21.020  41.078  24.853  1.00 29.11      2RNT 899
+ATOM    733  N   ASN    99      15.783  40.182  25.161  1.00 17.95      2RNT 900
+ATOM    734  CA  ASN    99      14.440  39.773  24.751  1.00 16.94      2RNT 901
+ATOM    735  C   ASN    99      14.210  40.583  23.446  1.00 15.07      2RNT 902
+ATOM    736  O   ASN    99      15.007  41.441  23.105  1.00 13.52      2RNT 903
+ATOM    737  CB  ASN    99      13.351  40.109  25.735  1.00 20.76      2RNT 904
+ATOM    738  CG  ASN    99      13.553  39.208  26.976  1.00 23.68      2RNT 905
+ATOM    739  OD1 ASN    99      14.445  39.547  27.751  1.00 24.97      2RNT 906
+ATOM    740  ND2 ASN    99      12.720  38.184  27.035  1.00 26.32      2RNT 907
+ATOM    741  N   PHE   100      13.109  40.267  22.804  1.00 14.77      2RNT 908
+ATOM    742  CA  PHE   100      12.656  40.889  21.566  1.00 13.83      2RNT 909
+ATOM    743  C   PHE   100      11.221  41.340  21.684  1.00 14.27      2RNT 910
+ATOM    744  O   PHE   100      10.471  40.835  22.535  1.00 15.16      2RNT 911
+ATOM    745  CB  PHE   100      12.508  39.829  20.438  1.00 13.50      2RNT 912
+ATOM    746  CG  PHE   100      13.827  39.452  19.827  1.00 13.44      2RNT 913
+ATOM    747  CD1 PHE   100      14.469  40.328  18.981  1.00 12.83      2RNT 914
+ATOM    748  CD2 PHE   100      14.394  38.207  20.094  1.00 13.40      2RNT 915
+ATOM    749  CE1 PHE   100      15.679  40.060  18.381  1.00 14.23      2RNT 916
+ATOM    750  CE2 PHE   100      15.616  37.888  19.522  1.00 14.00      2RNT 917
+ATOM    751  CZ  PHE   100      16.189  38.836  18.659  1.00 13.60      2RNT 918
+ATOM    752  N   VAL   101      10.837  42.262  20.816  1.00 13.56      2RNT 919
+ATOM    753  CA  VAL   101       9.487  42.802  20.692  1.00 13.61      2RNT 920
+ATOM    754  C   VAL   101       9.259  42.834  19.163  1.00 13.59      2RNT 921
+ATOM    755  O   VAL   101      10.276  42.807  18.441  1.00 13.97      2RNT 922
+ATOM    756  CB  VAL   101       9.146  44.154  21.329  1.00 13.38      2RNT 923
+ATOM    757  CG1 VAL   101       9.056  44.075  22.836  1.00 12.83      2RNT 924
+ATOM    758  CG2 VAL   101      10.112  45.257  20.933  1.00 13.03      2RNT 925
+ATOM    759  N   GLU   102       8.007  42.897  18.777  1.00 14.19      2RNT 926
+ATOM    760  CA  GLU   102       7.818  42.943  17.312  1.00 16.32      2RNT 927
+ATOM    761  C   GLU   102       7.998  44.323  16.725  1.00 16.71      2RNT 928
+ATOM    762  O   GLU   102       7.789  45.310  17.442  1.00 17.04      2RNT 929
+ATOM    763  CB  GLU   102       6.396  42.532  16.967  1.00 19.61      2RNT 930
+ATOM    764  CG  GLU   102       6.196  41.016  16.847  1.00 25.40      2RNT 931
+ATOM    765  CD  GLU   102       4.856  40.626  16.267  1.00 27.51      2RNT 932
+ATOM    766  OE1 GLU   102       4.641  40.430  15.083  1.00 30.54      2RNT 933
+ATOM    767  OE2 GLU   102       3.965  40.531  17.123  1.00 29.71      2RNT 934
+ATOM    768  N   CYS   103       8.348  44.452  15.453  1.00 16.26      2RNT 935
+ATOM    769  CA  CYS   103       8.466  45.755  14.790  1.00 16.59      2RNT 936
+ATOM    770  C   CYS   103       7.007  46.055  14.422  1.00 17.82      2RNT 937
+ATOM    771  O   CYS   103       6.193  45.129  14.113  1.00 19.37      2RNT 938
+ATOM    772  CB  CYS   103       9.418  45.829  13.635  1.00 13.85      2RNT 939
+ATOM    773  SG  CYS   103      11.043  45.360  14.329  1.00 12.49      2RNT 940
+ATOM    774  N   THR   104       6.614  47.294  14.447  1.00 18.48      2RNT 941
+ATOM    775  CA  THR   104       5.196  47.596  14.146  1.00 19.95      2RNT 942
+ATOM    776  C   THR   104       5.004  48.127  12.757  1.00 20.67      2RNT 943
+ATOM    777  O   THR   104       3.793  48.246  12.434  1.00 22.22      2RNT 944
+ATOM    778  CB  THR   104       4.665  48.544  15.305  1.00 20.12      2RNT 945
+ATOM    779  OG1 THR   104       5.609  49.658  15.267  1.00 21.57      2RNT 946
+ATOM    780  CG2 THR   104       4.746  48.015  16.732  1.00 20.67      2RNT 947
+ATOM    781  OXT THR   104       5.907  48.413  11.985  1.00 20.89      2RNT 948
+TER     782      THR   104                                              2RNT 949
+HETATM  783 AO5*AGPG   105      18.236  34.156  24.504  0.67 30.64      2RNT 950
+HETATM  784 AO5*BGPG   105      20.222  36.074  23.710  0.33 29.53      2RNT 951
+HETATM  785 AC5*AGPG   105      19.493  34.832  24.326  0.67 30.05      2RNT 952
+HETATM  786 AC5*BGPG   105      21.281  35.142  23.450  0.33 29.39      2RNT 953
+HETATM  787 AC4*AGPG   105      19.871  34.932  22.889  0.67 29.83      2RNT 954
+HETATM  788 AC4*BGPG   105      21.124  34.464  22.122  0.33 29.37      2RNT 955
+HETATM  789 AO4* GPG   105      19.897  33.657  22.154  1.00 29.42      2RNT 956
+HETATM  790 AC3*AGPG   105      18.831  35.740  22.027  0.67 29.84      2RNT 957
+HETATM  791 AC3*BGPG   105      20.973  35.419  20.889  0.33 29.55      2RNT 958
+HETATM  792 AO3*AGPG   105      18.965  37.126  22.236  0.67 29.90      2RNT 959
+HETATM  793 AO3*BGPG   105      21.719  34.918  19.761  0.33 29.77      2RNT 960
+HETATM  794 AC2* GPG   105      19.468  35.287  20.679  1.00 29.77      2RNT 961
+HETATM  795 AO2*AGPG   105      20.583  36.200  20.460  0.67 30.71      2RNT 962
+HETATM  796 AO2*BGPG   105      18.813  35.655  19.451  0.33 29.58      2RNT 963
+HETATM  797 AC1* GPG   105      19.333  33.790  20.887  1.00 28.11      2RNT 964
+HETATM  798 AN9  GPG   105      17.934  33.256  20.785  1.00 25.49      2RNT 965
+HETATM  799 AC8  GPG   105      17.491  32.108  20.148  1.00 24.23      2RNT 966
+HETATM  800 AN7  GPG   105      16.206  31.858  20.167  1.00 23.15      2RNT 967
+HETATM  801 AC5  GPG   105      15.721  32.906  20.855  1.00 22.16      2RNT 968
+HETATM  802 AC6  GPG   105      14.441  33.382  21.299  1.00 21.25      2RNT 969
+HETATM  803 AO6  GPG   105      13.405  32.749  21.050  1.00 20.12      2RNT 970
+HETATM  804 AN1  GPG   105      14.292  34.597  22.053  1.00 20.61      2RNT 971
+HETATM  805 AC2  GPG   105      15.406  35.416  22.399  1.00 21.18      2RNT 972
+HETATM  806 AN2  GPG   105      15.229  36.521  23.090  1.00 21.26      2RNT 973
+HETATM  807 AN3  GPG   105      16.620  34.976  21.972  1.00 22.13      2RNT 974
+HETATM  808 AC4  GPG   105      16.756  33.786  21.249  1.00 23.29      2RNT 975
+HETATM  809  P  AGPG   105      20.931  37.385  19.426  0.67 31.64      2RNT 976
+HETATM  810  P  BGPG   105      19.189  37.057  18.857  0.33 30.14      2RNT 977
+HETATM  811  O1PAGPG   105      19.817  37.187  18.418  0.67 31.02      2RNT 978
+HETATM  812  O1PBGPG   105      19.040  37.936  20.098  0.33 30.14      2RNT 979
+HETATM  813  O2PAGPG   105      22.348  37.389  18.957  0.67 31.56      2RNT 980
+HETATM  814  O2PBGPG   105      19.061  38.030  17.773  0.33 29.54      2RNT 981
+HETATM  815 BO5*AGPG   105      20.892  38.850  19.995  0.67 30.88      2RNT 982
+HETATM  816 BO5*BGPG   105      20.615  36.446  18.422  0.33 30.61      2RNT 983
+HETATM  817 BC5*AGPG   105      21.897  39.711  20.580  0.67 30.14      2RNT 984
+HETATM  818 BC5*BGPG   105      21.515  37.309  19.080  0.33 31.62      2RNT 985
+HETATM  819 BC4*AGPG   105      22.562  40.758  19.726  0.67 29.67      2RNT 986
+HETATM  820 BC4*BGPG   105      22.120  37.374  20.425  0.33 32.07      2RNT 987
+HETATM  821 BO4*AGPG   105      21.959  42.037  19.488  0.67 28.79      2RNT 988
+HETATM  822 BO4*BGPG   105      23.153  38.301  19.952  0.33 32.48      2RNT 989
+HETATM  823 BC3*AGPG   105      23.928  41.147  20.347  0.67 29.55      2RNT 990
+HETATM  824 BC3*BGPG   105      21.559  38.047  21.671  0.33 32.27      2RNT 991
+HETATM  825 BO3*AGPG   105      24.950  40.965  19.408  0.67 29.42      2RNT 992
+HETATM  826 BO3*BGPG   105      22.248  37.751  22.866  0.33 32.28      2RNT 993
+HETATM  827 BC2*AGPG   105      23.731  42.530  20.995  0.67 29.47      2RNT 994
+HETATM  828 BC2*BGPG   105      21.662  39.533  21.303  0.33 32.42      2RNT 995
+HETATM  829 BO2*AGPG   105      24.731  43.511  20.725  0.67 29.54      2RNT 996
+HETATM  830 BO2*BGPG   105      21.667  40.506  22.319  0.33 32.32      2RNT 997
+HETATM  831 BC1*AGPG   105      22.543  43.085  20.255  0.67 28.80      2RNT 998
+HETATM  832 BC1*BGPG   105      23.051  39.464  20.719  0.33 32.64      2RNT 999
+HETATM  833 BN9 AGPG   105      21.556  43.739  21.159  0.67 27.96      2RNT1000
+HETATM  834 BN9 BGPG   105      23.602  40.815  20.434  0.33 33.16      2RNT1001
+HETATM  835 BC8 AGPG   105      20.824  43.304  22.245  0.67 27.68      2RNT1002
+HETATM  836 BC8 BGPG   105      24.467  41.056  19.411  0.33 33.20      2RNT1003
+HETATM  837 BN7 AGPG   105      20.014  44.196  22.756  0.67 27.49      2RNT1004
+HETATM  838 BN7 BGPG   105      24.947  42.236  19.198  0.33 33.20      2RNT1005
+HETATM  839 BC5 AGPG   105      20.219  45.312  21.971  0.67 27.27      2RNT1006
+HETATM  840 BC5 BGPG   105      24.386  42.935  20.210  0.33 33.55      2RNT1007
+HETATM  841 BC6 AGPG   105      19.723  46.679  21.868  0.67 26.84      2RNT1008
+HETATM  842 BC6 BGPG   105      24.413  44.305  20.679  0.33 33.68      2RNT1009
+HETATM  843 BO6 AGPG   105      18.872  47.174  22.609  0.67 25.96      2RNT1010
+HETATM  844 BO6 BGPG   105      25.098  45.170  20.102  0.33 34.00      2RNT1011
+HETATM  845 BN1 AGPG   105      20.211  47.589  20.861  0.67 26.80      2RNT1012
+HETATM  846 BN1 BGPG   105      23.647  44.705  21.823  0.33 33.75      2RNT1013
+HETATM  847 BC2 AGPG   105      21.190  47.219  19.886  0.67 26.85      2RNT1014
+HETATM  848 BC2 BGPG   105      22.817  43.814  22.576  0.33 33.82      2RNT1015
+HETATM  849 BN2 AGPG   105      21.580  48.114  19.003  0.67 26.25      2RNT1016
+HETATM  850 BN2 BGPG   105      22.173  44.338  23.605  0.33 33.96      2RNT1017
+HETATM  851 BN3 AGPG   105      21.641  45.933  19.984  0.67 27.00      2RNT1018
+HETATM  852 BN3 BGPG   105      22.812  42.525  22.112  0.33 33.58      2RNT1019
+HETATM  853 BC4 AGPG   105      21.183  45.042  20.954  0.67 27.33      2RNT1020
+HETATM  854 BC4 BGPG   105      23.524  42.091  20.990  0.33 33.50      2RNT1021
+HETATM  855 CA    CA   223      15.387  50.927   3.089  1.00 22.95      2RNT1022
+HETATM  856  O   HOH   106       8.027  51.301   3.501  1.00 20.95      2RNT1023
+HETATM  857  O   HOH   107      14.310  52.301   4.745  1.00 16.19      2RNT1024
+HETATM  858  O   HOH   108       9.226  47.958  -0.649  1.00 22.92      2RNT1025
+HETATM  859  O   HOH   109      17.739  44.698   3.751  1.00 15.91      2RNT1026
+HETATM  860  O   HOH   110      17.708  47.420   5.277  1.00 14.29      2RNT1027
+HETATM  861  O   HOH   111      20.794  41.397   6.123  1.00 13.09      2RNT1028
+HETATM  862  O   HOH   112      26.620  37.165   3.584  1.00 40.34      2RNT1029
+HETATM  863  O   HOH   114      27.396  22.645   4.867  1.00 20.13      2RNT1030
+HETATM  864  O   HOH   115      27.618  39.318  17.101  1.00 27.06      2RNT1031
+HETATM  865  O   HOH   116      21.126  27.324  14.780  1.00 29.31      2RNT1032
+HETATM  866  O   HOH   117       1.926  29.292  18.476  1.00 38.78      2RNT1033
+HETATM  867  O   HOH   119       3.507  35.193  10.511  1.00 23.73      2RNT1034
+HETATM  868  O   HOH   120      16.868  51.421   7.104  1.00 27.85      2RNT1035
+HETATM  869  O   HOH   121      27.102  37.708  14.932  1.00 16.51      2RNT1036
+HETATM  870  O   HOH   122      30.368  39.014  14.436  1.00 19.75      2RNT1037
+HETATM  871  O   HOH   124      10.088  41.260  25.758  1.00 31.47      2RNT1038
+HETATM  872  O   HOH   125       9.128  27.436  23.758  1.00 44.97      2RNT1039
+HETATM  873  O   HOH   126      13.606  46.036  32.179  1.00 35.64      2RNT1040
+HETATM  874  O   HOH   127      20.049  45.381  13.014  1.00  9.94      2RNT1041
+HETATM  875  O   HOH   128       3.476  27.747   7.177  1.00 27.57      2RNT1042
+HETATM  876  O   HOH   129      10.637  48.803  20.062  1.00 18.09      2RNT1043
+HETATM  877  O   HOH   130      27.714  43.191   7.992  1.00 25.62      2RNT1044
+HETATM  878  O   HOH   131      19.965  44.155   5.748  1.00 10.07      2RNT1045
+HETATM  879  O   HOH   133      20.690  26.713  12.042  1.00 33.99      2RNT1046
+HETATM  880  O   HOH   134       9.293  27.335  17.700  1.00 29.02      2RNT1047
+HETATM  881  O   HOH   135       8.190  25.838  21.074  1.00 40.64      2RNT1048
+HETATM  882  O   HOH   136       9.368  48.036  17.969  1.00 31.29      2RNT1049
+HETATM  883  O   HOH   138       5.444  50.767  10.622  1.00 18.17      2RNT1050
+HETATM  884  O   HOH   139       8.885  41.411   2.685  1.00 32.12      2RNT1051
+HETATM  885  O   HOH   140      16.924  34.594  27.143  1.00 42.90      2RNT1052
+HETATM  886  O   HOH   142      16.637  46.229  -1.409  1.00 29.52      2RNT1053
+HETATM  887  O   HOH   143      20.375  27.909   9.358  1.00 23.58      2RNT1054
+HETATM  888  O   HOH   144       6.599  41.549  12.423  1.00 25.88      2RNT1055
+HETATM  889  O   HOH   145      31.315  26.621   3.460  1.00 24.05      2RNT1056
+HETATM  890  O   HOH   146       5.872  55.265   9.001  1.00 22.05      2RNT1057
+HETATM  891  O   HOH   147      16.130  49.139  16.276  1.00 16.37      2RNT1058
+HETATM  892  O   HOH   148       5.842  42.793  20.665  1.00 19.06      2RNT1059
+HETATM  893  O   HOH   149      14.822  49.313  -3.086  1.00 31.34      2RNT1060
+HETATM  894  O   HOH   151      14.365  55.610   6.352  1.00 31.21      2RNT1061
+HETATM  895  O   HOH   152      16.880  49.957   4.727  1.00 22.54      2RNT1062
+HETATM  896  O   HOH   153       6.240  35.319   3.130  1.00 30.43      2RNT1063
+HETATM  897  O   HOH   154      26.396  32.814  -0.337  1.00 47.21      2RNT1064
+HETATM  898  O   HOH   155      11.945  23.397  -4.225  1.00 21.87      2RNT1065
+HETATM  899  O   HOH   157       4.047  45.501   1.618  1.00 42.11      2RNT1066
+HETATM  900  O   HOH   158      15.619  53.678   9.153  1.00 28.36      2RNT1067
+HETATM  901  O   HOH   159      33.695  38.394  13.972  1.00 37.38      2RNT1068
+HETATM  902  O   HOH   160      30.285  32.082  11.938  1.00 31.38      2RNT1069
+HETATM  903  O   HOH   161      15.566  23.938  19.520  1.00 44.67      2RNT1070
+HETATM  904  O   HOH   162      20.985  48.136  12.167  1.00 14.48      2RNT1071
+HETATM  905  O   HOH   163       5.323  23.215   2.714  1.00 43.36      2RNT1072
+HETATM  906  O   HOH   164      27.215  44.874  10.442  1.00 28.13      2RNT1073
+HETATM  907  O   HOH   165      17.412  54.377  11.323  1.00 33.63      2RNT1074
+HETATM  908  O   HOH   166      20.198  24.830   9.988  1.00 42.77      2RNT1075
+HETATM  909  O   HOH   167      10.848  27.099  21.744  1.00 40.21      2RNT1076
+HETATM  910  O   HOH   168       5.936  45.913  19.651  1.00 33.51      2RNT1077
+HETATM  911  O   HOH   169       6.016  42.266   4.143  1.00 35.98      2RNT1078
+HETATM  912  O   HOH   170       9.978  38.975   2.523  1.00 32.50      2RNT1079
+HETATM  913  O   HOH   172      22.852  27.675   8.392  1.00 24.76      2RNT1080
+HETATM  914  O   HOH   173       6.992  39.598  14.098  1.00 38.94      2RNT1081
+HETATM  915  O   HOH   174       8.408  25.807   8.061  1.00 35.51      2RNT1082
+HETATM  916  O   HOH   176      14.915  48.113  -0.563  1.00 24.55      2RNT1083
+HETATM  917  O   HOH   177       1.398  47.582  13.280  1.00 37.88      2RNT1084
+HETATM  918  O   HOH   178      21.730  45.807   0.232  1.00 37.06      2RNT1085
+HETATM  919  O   HOH   181       0.836  28.563  23.030  1.00 31.08      2RNT1086
+HETATM  920  O   HOH   185       7.318  54.799  11.241  1.00 26.43      2RNT1087
+HETATM  921  O   HOH   187      18.662  49.973  16.606  1.00 31.05      2RNT1088
+HETATM  922  O   HOH   189      30.729  29.513  14.871  1.00 35.63      2RNT1089
+HETATM  923  O   HOH   190      27.139  44.307   5.524  1.00 33.47      2RNT1090
+HETATM  924  O   HOH   191      10.351  25.274  19.613  1.00 35.12      2RNT1091
+HETATM  925  O   HOH   192      13.554  50.908   1.413  1.00 23.13      2RNT1092
+HETATM  926  O   HOH   193      24.187  26.325  10.329  1.00 31.86      2RNT1093
+HETATM  927  O   HOH   195      17.203  50.977   1.633  1.00 32.66      2RNT1094
+HETATM  928  O   HOH   198       8.270  40.744  30.901  1.00 37.76      2RNT1095
+HETATM  929  O   HOH   199       8.082  49.986  16.874  1.00 30.75      2RNT1096
+HETATM  930  O   HOH   200      18.880  28.271  19.354  1.00 38.39      2RNT1097
+HETATM  931  O   HOH   203      10.910  43.518  27.512  1.00 35.96      2RNT1098
+HETATM  932  O   HOH   204      23.848  53.633   4.853  1.00 33.78      2RNT1099
+HETATM  933  O   HOH   205      18.400  56.601   3.086  1.00 33.06      2RNT1100
+HETATM  934  O   HOH   206      24.183  53.644   7.430  1.00 30.39      2RNT1101
+HETATM  935  O   HOH   207       8.595  42.633  -1.485  1.00 46.07      2RNT1102
+HETATM  936  O   HOH   209      17.617  38.861  28.217  1.00 36.35      2RNT1103
+HETATM  937  O   HOH   210      25.269  44.985   0.707  1.00 38.37      2RNT1104
+HETATM  938  O   HOH   211      15.358  53.135   2.261  1.00 27.15      2RNT1105
+HETATM  939  O   HOH   212       6.774  48.651   0.206  1.00 28.80      2RNT1106
+HETATM  940  O   HOH   213      17.561  33.406  -1.806  1.00 35.05      2RNT1107
+HETATM  941  O   HOH   214      25.559  30.232   1.047  1.00 37.16      2RNT1108
+HETATM  942  O   HOH   216      16.467  25.342   3.232  1.00 39.40      2RNT1109
+HETATM  943  O   HOH   217      34.933  40.761  13.878  1.00 43.75      2RNT1110
+HETATM  944  O   HOH   218       2.547  34.776  38.557  1.00 51.06      2RNT1111
+HETATM  945  O   HOH   219       3.340  38.432  13.863  1.00 39.71      2RNT1112
+HETATM  946  O   HOH   221      18.530  49.472  20.003  1.00 27.56      2RNT1113
+HETATM  947  O   HOH   222      16.588  52.940  -0.086  1.00 40.01      2RNT1114
+HETATM  948  O   HOH   224      -2.345  32.372  14.237  1.00 40.58      2RNT1115
+HETATM  949  O   HOH   225      17.949  25.328  21.126  1.00 46.00      2RNT1116
+HETATM  950  O   HOH   226       6.364  44.517  -1.820  1.00 50.48      2RNT1117
+HETATM  951  O   HOH   229       4.135  35.216   5.308  1.00 29.12      2RNT1118
+HETATM  952  O   HOH   230      24.785  38.452  17.828  1.00 36.55      2RNT1119
+HETATM  953  O   HOH   231      25.544  32.417  19.363  1.00 40.75      2RNT1120
+HETATM  954  O   HOH   232      26.814  47.391   7.635  1.00 56.39      2RNT1121
+HETATM  955  O   HOH   233      -2.116  34.837  12.565  1.00 38.61      2RNT1122
+HETATM  956  O   HOH   234      25.351  36.754   0.425  1.00 45.14      2RNT1123
+HETATM  957  O   HOH   235      19.422  23.432   5.488  1.00 32.48      2RNT1124
+HETATM  958  O   HOH   238       1.254  29.436  27.556  1.00 39.13      2RNT1125
+HETATM  959  O   HOH   239       2.265  26.023  27.855  1.00 31.39      2RNT1126
+HETATM  960  O   HOH   240      14.353  35.579  26.222  1.00 44.46      2RNT1127
+HETATM  961  O   HOH   241      17.248  52.638   4.202  1.00 33.96      2RNT1128
+HETATM  962  O   HOH   242      23.996  45.507  18.727  0.67 20.65      2RNT1129
+CONECT   11   10   68                                                   2RNT1130
+CONECT   12    8   13             72                                    2RNT1131
+CONECT   32   22   33            781                                    2RNT1132
+CONECT   35   34                 774                                    2RNT1133
+CONECT   44   43  773                                                   2RNT1134
+CONECT   68   11   67                                                   2RNT1135
+CONECT   72   71                                 12                     2RNT1136
+CONECT  179  178                 215                                    2RNT1137
+CONECT  215  213  216                           179                     2RNT1138
+CONECT  231  226  232            265                                    2RNT1139
+CONECT  234  233                 262                                    2RNT1140
+CONECT  254  253                 793  813                               2RNT1141
+CONECT  262  258  263                           234                     2RNT1142
+CONECT  265  264                                231                     2RNT1143
+CONECT  273  272                 813  816                               2RNT1144
+CONECT  290  288  289            793                                    2RNT1145
+CONECT  312  302  313            800  803                               2RNT1146
+CONECT  319  317                 800                                    2RNT1147
+CONECT  320  314  321            803                                    2RNT1148
+CONECT  328  322  329            803                                    2RNT1149
+CONECT  347  346                 804                                    2RNT1150
+CONECT  348  346                 806                                    2RNT1151
+CONECT  446  445                 796  811                               2RNT1152
+CONECT  447  445                 811  814                               2RNT1153
+CONECT  558  557                 821                                    2RNT1154
+CONECT  579  578  580            814                                    2RNT1155
+CONECT  582  580                 814  815                               2RNT1156
+CONECT  582                      821                                    2RNT1157
+CONECT  593  592                 658                                    2RNT1158
+CONECT  608  599  609            644                                    2RNT1159
+CONECT  644  643                                608                     2RNT1160
+CONECT  658  652  659                           593                     2RNT1161
+CONECT  698  696  697            812  815                               2RNT1162
+CONECT  728  727                 792  806                               2RNT1163
+CONECT  731  730                 826                                    2RNT1164
+CONECT  732  730                 830                                    2RNT1165
+CONECT  773   44  772                                                   2RNT1166
+CONECT  774  770  775                            35                     2RNT1167
+CONECT  781  776                                 32                     2RNT1168
+CONECT  783  785                                                        2RNT1169
+CONECT  784  786                                                        2RNT1170
+CONECT  785  783  787                                                   2RNT1171
+CONECT  786  784  788                                                   2RNT1172
+CONECT  787  785  789  790                                              2RNT1173
+CONECT  788  786  789  791                                              2RNT1174
+CONECT  789  787  788  797                                              2RNT1175
+CONECT  790  787  792  794                                              2RNT1176
+CONECT  791  788  793  794                                              2RNT1177
+CONECT  792  790                                728                     2RNT1178
+CONECT  793  791                                254  290                2RNT1179
+CONECT  794  790  791  795                                              2RNT1180
+CONECT  794  796  797                                                   2RNT1181
+CONECT  795  794  809                                                   2RNT1182
+CONECT  796  794  810                           446                     2RNT1183
+CONECT  797  789  794  798                                              2RNT1184
+CONECT  798  797  799  808                                              2RNT1185
+CONECT  799  798  800                                                   2RNT1186
+CONECT  800  799  801                           312  319                2RNT1187
+CONECT  801  800  802  808                                              2RNT1188
+CONECT  802  801  803  804                                              2RNT1189
+CONECT  803  802                                312  320                2RNT1190
+CONECT  803                                     328                     2RNT1191
+CONECT  804  802  805                           347                     2RNT1192
+CONECT  805  804  806  807                                              2RNT1193
+CONECT  806  805                                348  728                2RNT1194
+CONECT  807  805  808                                                   2RNT1195
+CONECT  808  798  801  807                                              2RNT1196
+CONECT  809  795  811  813  815                                         2RNT1197
+CONECT  810  796  812  814  816                                         2RNT1198
+CONECT  811  809                                446  447                2RNT1199
+CONECT  812  810                                698                     2RNT1200
+CONECT  813  809                                254  273                2RNT1201
+CONECT  814  810                                447  579                2RNT1202
+CONECT  814                                     582                     2RNT1203
+CONECT  815  809  817                           582  698                2RNT1204
+CONECT  816  810  818                           273                     2RNT1205
+CONECT  817  815  819                                                   2RNT1206
+CONECT  818  816  820                                                   2RNT1207
+CONECT  819  817  821  823                                              2RNT1208
+CONECT  820  818  822  824                                              2RNT1209
+CONECT  821  819  831                           558  582                2RNT1210
+CONECT  822  820  832                                                   2RNT1211
+CONECT  823  819  825  827                                              2RNT1212
+CONECT  824  820  826  828                                              2RNT1213
+CONECT  825  823                                                        2RNT1214
+CONECT  826  824                                731                     2RNT1215
+CONECT  827  823  829  831                                              2RNT1216
+CONECT  828  824  830  832                                              2RNT1217
+CONECT  829  827                                                        2RNT1218
+CONECT  830  828                                732                     2RNT1219
+CONECT  831  821  827  833                                              2RNT1220
+CONECT  832  822  828  834                                              2RNT1221
+CONECT  833  831  835  853                                              2RNT1222
+CONECT  834  832  836  854                                              2RNT1223
+CONECT  835  833  837                                                   2RNT1224
+CONECT  836  834  838                                                   2RNT1225
+CONECT  837  835  839                                                   2RNT1226
+CONECT  838  836  840                                                   2RNT1227
+CONECT  839  837  841  853                                              2RNT1228
+CONECT  840  838  842  854                                              2RNT1229
+CONECT  841  839  843  845                                              2RNT1230
+CONECT  842  840  844  846                                              2RNT1231
+CONECT  843  841                                                        2RNT1232
+CONECT  844  842                                                        2RNT1233
+CONECT  845  841  847                                                   2RNT1234
+CONECT  846  842  848                                                   2RNT1235
+CONECT  847  845  849  851                                              2RNT1236
+CONECT  848  846  850  852                                              2RNT1237
+CONECT  849  847                                                        2RNT1238
+CONECT  850  848                                                        2RNT1239
+CONECT  851  847  853                                                   2RNT1240
+CONECT  852  848  854                                                   2RNT1241
+CONECT  853  833  839  851                                              2RNT1242
+CONECT  854  834  840  852                                              2RNT1243
+MASTER      117    2    2    1    7   10    0    6  961    1  114    8  2RNTB  7
+END                                                                     2RNT1245

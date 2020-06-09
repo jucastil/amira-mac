@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Hypermesh</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "FileFormat" "Hypermesh" "used by Altair HyperWorks FEM software (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>The <em>Hypermesh (TM)</em> file format is used by the <em>Altair HyperWorks</em>
+product family. The format describes 3D geometries consisting of 3D
+vertices and a number of cells based on them. <font face="helvetica">Amira</font> can only read <em>Hypermesh</em> files in plain ASCII format containing 3D triangular surfaces,
+tetrahedral grids, or so-called <em>tria6</em> components (a special kind of
+triangles). If tetrahedral components are present, the result of the import
+is a TetraGrid, otherwise it is a 3D surface.</p>
+<p>Tetrahedral grids and 3D surfaces can also be exported in <em>Hypermesh</em>
+format. Every 3D surface component (patch) is saved with its
+interior-exterior material names, separated by a "-". However, it is not
+guaranteed that other applications understand this coding. A tetrahedral
+grid is saved together with its boundary surface. The patch structure of
+the boundary surface is retained. In order to separate the boundary into
+different patches, the boundary condition ids are interpreted. The material
+ids of every tetrahedron are also saved. </p>
+<p><font face="helvetica">Amira</font> identifies <em>Hypermesh</em> files by the extensions <tt>.hm</tt>
+or <tt>.hmascii</tt>. The decision whether the file contains a 3D surface or a
+tetragrid is made after reading and analyzing the content.</p>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

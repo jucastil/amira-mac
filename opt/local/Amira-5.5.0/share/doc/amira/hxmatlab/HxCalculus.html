@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CalculusMatlab</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CalculusMatlab" "establishes a connection to MATLAB" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module is available for Windows (32-bit and 64-bit), Linux, and Mac OS X.</p>
+<p>This module establishes a connection to MATLAB (The MathWorks, Inc.).</p>
+<p>The module works like a compute module and allows the computation on
+<font face="helvetica">Amira</font> data objects in the MATLAB workspace. <font face="helvetica">Amira</font> data objects can be
+attached to the module and a MATLAB script file can be specified. The
+following actions are performed:
+</p>
+<ul><li>all data objects attached are duplicated into MATLAB data objects</li><li>the script is executed</li><li>all variables defined are copied back into <font face="helvetica">Amira</font></li>
+</ul>
+<p>There are limitations on the type of data objects used.</p>
+<p>HxLattice3 objects are stored as 3D/4D arrays A, A1, ... , An ($$n>1$$)
+in order of connection or optional in structs named 'field'. If
+several HxLattice3 objects are transferred, the name includes a counter
+'AID' or 'fieldID'.</p>
+<p>The struct looks like:
+</p><pre>
+field.data       - 3D/4D array of data values 
+                   (scalar/vector);
+field.coordsType - string indicating the type 
+                   of coordinates
+field.bbox       - 1D array of bounding box 
+                   (xmin xmax ymin ymax zmin zmax)
+field.name       - string of the object name
+field.type       - primeType of the object
+</pre>
+<p>HxSurface objects are stored in a struct named 'surf'. If several HxSurface objects are
+transferred, the name includes a counter 'surfID'.</p>
+<p>The struct looks like:
+</p><pre>
+surf.vertices        - 2D array of coordinates 
+                       (numPoints x 3)
+surf.faces           - 2D array of vertex-IDs 
+                       (numTriangles x 3)
+surf.FaceVertexCData - 2D array of triangle vertex-colors
+                       (numTriangles x 3)
+surf.FaceColor       - string 'flat'
+surf.EdgeColor       - string 'none'
+surf.bbox            - 1D array of bounding box 
+                      (xmin xmax ymin ymax zmin zmax)
+surf.type            - primeType of the object
+surf.name            - string of the object name
+</pre>
+<p>HxSurfaceField objects are stored in a struct named 'surf'. If several HxSurfaceField
+objects are transferred, the name includes a counter 'surfID'. The underlying surface 
+is transferred. The structure is the same as for HxSurface.</p>
+<p>The struct looks like:
+</p><pre>
+surf.data - 2D-array of data values 
+            (nD x numPoints/numTrinagles/numEdges)
+</pre>
+<p>HxLineSet objects are stored in a struct named 'lineset'. If several HxLineSet objects are
+transferred, the name includes a counter 'linesetID'.</p>
+<p>The struct looks like:
+</p><pre>
+lineset.points - 3D array of coordinates 
+                 (3 x numPoints)
+lineset.lines  - cell array of vectors describing the line
+lineset.data   - (optional) data array 
+                 (numDataPoints x numPoints)
+lineset.type   - primeType of the object
+lineset.name   - string of the object name
+</pre>
+<p>Note: In <font face="helvetica">Amira</font> the numbering of points starts with 0 while the
+numbering in MATLAB starts with 1, since C arrays start counting with 0
+while MATLAB arrays start with 1.</p>
+<p>For HxTime objects a single scalar value 't' is transferred to MATLAB. If several HxTime
+objects are transferred, the name includes a counter 'tID'.</p>
+<p>The counter ID is added in order of connection to the module.</p>
+<p>Every other object will be mapped to a struct array named the same as the
+object in the objectpool, where '.' and ':' are replaced by '_'. The
+struct entries contain information about the object's ports as name
+and value of the port.</p>
+<p>Data matrices with 4 or fewer dimensions are copied back to <font face="helvetica">Amira</font>.
+</p>
+<ul><li>1D - mapped to uniform scalar fields</li><li>2D - mapped to uniform scalar fields</li><li>3D - mapped to uniform scalar fields</li><li>4D - is interpreted as X, x-dim, y-dim, z-dim</li>
+</ul>
+<p>where X may be one of the following:
+</p>
+<ul><li>X=1 is mapped to a uniform scalar field</li><li>X=2 is mapped to a uniform complex scalar field</li><li>X=3 is mapped to a uniform vector field</li><li>X=4 is mapped to a color field (value 0 to 255 per component with data type uint8)</li><li>X=6 is mapped to a uniform complex vector field</li>
+</ul>
+<p>Structs which contain fields as above are copied back to suitable objects.
+If the field 'name' exists <font face="helvetica">Amira</font> tries to use this name for the
+resulting object. In the other case the variable name of the struct is used.</p>
+<p>Time Sliders provide a way to define scalar variables that can be used to control
+the script (similar to parameters). In order to define a time slider, use the
+<font face="helvetica">Amira</font> <em>Create/Data/Time</em> menu entry and connect it as well to this module.
+If there are multiple time sliders, they will be named t, t1, t2, ... , t<i>n</i> 
+where <i>n</i> is a
+number greater 0.<br />
+<br />
+</p>
+<p><b>Important Notes:</b><br />
+
+On Linux 64-bit, the
+<tt>AMIRA_LD_LIBRARY_PATH</tt>
+environment variable should be set to 
+<tt>&lt;matlab_installation_path&gt;/bin/glnxa64</tt>.
+The <tt>PATH</tt> environment variable should be set to <tt>&lt;matlab_installation_path&gt;/bin</tt>.<br />
+<br />
+
+On Mac OS X, the
+<tt>AMIRA_LD_LIBRARY_PATH</tt>
+environment variable should be set to
+<tt>&lt;matlab_installation_path&gt;/bin/maci</tt> (for instance: <tt>/Applications/MATLAB_R2008b.app/bin/maci</tt>).<br />
+<br />
+
+On Windows, the
+<tt>PATH</tt>
+environment variable should be set to
+<tt>&lt;matlab_installation_path&gt;/bin/&lt;win32|win64&gt;</tt> (for instance: <tt>C:/Program Files/MATLAB/bin/win32</tt>).<br />
+<br />
+</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>You can add any number of data objects to the module. Look at the
+ description above to know how the objects are represented in MATLAB.</p>
+<p>
+<a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">New port</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>After attaching a new data icon to the module, a new port is generated
+which can be used to attach additional data.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">File</span>  
+<div class="portsnapshot"><img src="HxCalculus_File.png" /><br /></div>
+<div class="body"><p>You can specify a text file which contains MATLAB script. Note that
+only scripts but not functions are allowed. An example script could look
+like this:
+</p><pre>
+   % A is the first connected HxLattice3 data object 
+   % (in double precision).
+   % X is newly created and will be sent back to 
+   % the application.
+   X = fftn(A);
+   magnitude = abs(X);
+   amplitude = unwrap(angle(X));
+   clear A % clear all variables that you do not wish 
+           % to export
+</pre><p>
+After the script is executed the 'X', 'magnitude', an
+d 'amplitude'
+variables are copied back into the <font face="helvetica">Amira</font> workspace.</p>
+<p>Here is a list of the supported MATLAB data types and how
+to create each one in the MATLAB workspace.
+<font size="2"></font></p><pre>
+   Z1  = randn(10,10,10,1);    % HxUniformScalarField3
+   Z11 = randn(10,10,10);      % HxUniformScalarField3
+   Z12 = randn(1,10,10,10);    % HxUniformScalarField3
+   Z2  = rand(2,10,10,10);     % HxUniformComplexScalarField3
+   Z3  = rand(3,10,10,10);     % HxUniformVectorField3
+   Z4  = uint8(rand(4,10,10,10).*255); % HxUniformColorField3
+   Z5  = randn(5,10,10,10);    % definition of Z5 will 
+                               % produce an error
+   Z6  = randn(6,10,10,10);    % HxUniformComplexVectorField3
+</pre><p><font size="2">
+</font></p>
+<p>A minimal field as struct could be
+</p><pre>
+F1.data = rand(10,10,10);
+F1.bbox = [0 1 0 1 0 1];
+</pre>
+<p>A minimal lineset could be
+</p><pre>
+LS1.points = [0 0 0; 1 1 1]';
+LS1.lines{1} = [1 2];
+</pre>
+<p>describing one line from (0, 0, 0) to (1, 1, 1). Be aware of
+transposing the point array. The optional data array behaves the same,
+e.g.
+</p><pre>
+LS1.data = [1 2 3; 4 5 6]';
+</pre>
+<p>would add 3 data values for the two points of the above lineset.</p>
+<p>Here is a more complex example which implements anisotropic diffusion:
+<font size="2"></font></p><pre>
+% anisotropic diffusion in 2D (Perona Malik) 
+% adapted from Peter Kovesi
+erg = A;
+for i=1:size(A,3), 
+   ima = double(reshape(A(:,:,i),size(A,1),size(A,2)));
+   [r,c] = size(ima);
+   diff = ima; 
+   niter = 4; 
+   kappa = 50;    % condition as function of gradient
+   lambda = .25;  % speed of diffusion
+   if exist('t') == 1, % control by connected time slider
+      niter = t;  % number of iterations
+   end;
+   if exist('t1') ==1,% control by connected time slider
+      kappa = t1;
+   end;
+   for j=1:niter,
+      diffl = zeros(r+2,c+2);
+      diffl(2:r+1,2:c+1) = diff;
+      deltaN = diffl(1:r,2:c+1)   - diff;
+      deltaS = diffl(3:r+2,2:c+1) - diff;
+      deltaE = diffl(2:r+1,3:c+2) - diff;
+      deltaW = diffl(2:r+1,1:c)   - diff;
+      cN = exp(-(deltaN/kappa).^2);
+      cS = exp(-(deltaS/kappa).^2);
+      cE = exp(-(deltaE/kappa).^2);
+      cW = exp(-(deltaW/kappa).^2);
+      diff = diff + lambda* \
+         (cN.*deltaN + cS.*deltaS + cE.*deltaE + cW.*deltaW);
+   end;
+   erg(:,:,i) = diff;
+end;
+clear delta* c* diff* i j niter ima lambda kappa A r;
+</pre><p><font size="2">
+</font>
+This example also illustrates the time slider feature of the module here in order to control the number of iterations.</p>
+<p>Here is an example of working with non-scalar data. In this case
+we have a colorfield attached to input A.
+<font size="2"></font></p><pre>
+useimage=1;                   % which image from the stack
+if exist('A') == 1,           % input?
+   if size(size(A),2) == 4,   % input 4D?
+      if size(A,1) == 4,      % the first dimension 
+                              % should be 4 (RGBA)
+         ima(:,:,1) = reshape(A(1,:,:,useimage),
+                              size(A,2),
+                              size(A,3));
+         ima(:,:,2) = reshape(A(2,:,:,useimage),
+                              size(A,2),
+                              size(A,3));
+         ima(:,:,3) = reshape(A(3,:,:,useimage),
+                              size(A,2),
+                              size(A,3));
+         mi = min(min(min(ima))); ma = max(max(max(ima)));
+         ima = (float(ima)-mi)./(ma-mi);
+         imagesc(ima);        % display the color image
+      end;
+   end;
+end;
+clear mi ma ima useimage A field    % remove local variables
+</pre><p><font size="2">
+</font></p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Execute</span>  
+<div class="portsnapshot"><img src="HxCalculus_execute.png" /><br /></div>
+<div class="body"><p>Starts the execution of the MATLAB script. All generated messages will be
+printed in the <font face="helvetica">Amira</font> console window.</p>
+<p>You can either execute the contents of the text buffer below (<em>Buffer</em>) or execute
+a selection of the text in the buffer (<em>Selection</em>).</p>
+<p>You can specify whether the MATLAB workspace should be cleared
+before running the script (<em>Clear Workspace</em>). If activated,
+all variables in the workspace will be deleted. Otherwise, all
+variables, including <font face="helvetica">Amira</font>-MATLAB transfer variables, will
+be kept. Note that variables with identical names will be overwritten.</p>
+<p>You can specify a custom list of variables that will be transferred
+back to <font face="helvetica">Amira</font> instead of all variables. To specify
+variables, create the cell array 'MatlabExportList'. Store names of
+variable to be copied to the <font face="helvetica">Amira</font> object pool as strings in
+the list. The transfer will be restricted to these variables.
+<font face="helvetica">Amira</font> will show a warning if more than 5 variables are to be
+transferred without explicitly specifying them in the transfer
+list.</p>
+<p>Here is an example of working with a custom list:
+</p><pre>
+a = 1; b = 2; c = 3;
+MatlabExportList{1} = 'a';
+MatlabExportList{2} = 'b';
+</pre>
+<p>or
+</p><pre>
+MatlabExportList = {'a' 'b'};
+</pre>
+<p>The variables names 'a' and 'b' are stored in the cell array and
+will be copied to <font face="helvetica">Amira</font>. The variable 'c' will be skipped.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">MatlabBuffer</span>  
+<div class="portsnapshot"><img src="HxCalculus_MatlabBuffer.png" /><br /></div>
+<div class="body"><p>Enter or change a loaded script in this buffer.</p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxCalculus_Options.png" /><br /></div>
+<div class="body"><p>This module starts a MATLAB session in the background. Its interface
+can be made visible, thus the user can interact with the running MATLAB
+process and inspect variables in its workspace. This option is restricted
+to Windows only. Note: Even if the MATLAB interface is toggled to be
+visible, it may be minimized and therefore not displayed.<br />
+
+<b>Warning:</b> If you close the MATLAB interface, MATLAB is closed and
+the CalculusMatlab module will not work any more.</p>
+<p>The second option 'lattice to struct' enables the storage of HxLattice3
+objects as structs in MATLAB as described above.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

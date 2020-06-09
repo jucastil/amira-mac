@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MasterConnection</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "MasterConnection" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port represents a special connection port which is provided
+ by every data object. It allows connection of the data object to a
+ particular slot of a compute module or to an editor. A master
+ connection is not available for script objects.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxConnection.html#A1">Connection</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">editor</span>  
+
+<div class="body"><p>Returns the name the editor which currently has control over the
+ data object, i.e., which possibly modifies the data object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">connect &lt;source&gt; [&lt;slot&gt;]</span>  
+
+<div class="body"><p>If this command is called with only one argument, it behaves like
+ the <tt>connect</tt> command of an ordinary connection. If this
+ command is called with two arguments and if the source object is a
+ compute module, it connects the data object the master connection
+ belongs to to the specified result slot of the compute module.
+ Result slots are used to allow compute modules to have multiple
+ result objects.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

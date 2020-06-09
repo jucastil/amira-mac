@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortColormap</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortColormap" "interface to a colormap object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides a connection to a <a class="link" href="HxColormap256.html#A1">colormap</a>
+ object. In contrast to a standard <a class="link" href="../hxcore/HxConnection.html#A1">connection</a>
+ port, this port has a user interface, i.e., it is represented in
+ the Properties Area like any other port if the object icon is selected.
+ In particular, the contents of the connected colormap as well as
+ its range are shown. New colormaps can be quickly connected to the
+ port by right-clicking the colormap area of the port or by pushing
+ the <em>Edit</em> button.</p>
+<p> Some modules with this port in addition provide range sliders to
+ conveniently adjust minimum and maximum of the data window. In order 
+ to facilitate adjustment the histogram of the connected data field is 
+ displayed as overlay on the colormap gradient. Minimum and maximum
+ can be adjusted independently by dragging the respective handle along
+ the intensity scale. Alternatively, the handles can be moved coordinately
+ by dragging in the space between the handles. If minimum and maximum handle 
+ touch, i.e. minimum = maximum, the sliders can be moved by dragging
+ the circle shown at the top of the handles.</p>
+<p> The context menu item <em>Adjust to data range</em> allows you to automatically adjust
+ the colormap range to the connected data range. </p>
+<p> If the connected data provides a histogram, the context menu shows three additional items:</p>
+
+<ul><li>Adjust to histogram: The colormap range is adjusted so that the minimum is set 
+ to one percent of the data values and the maximum is set to 99 percent. 
+ Both <em>Adjust to data range</em> and Adjust to histogram won't change the current zoom of the 
+ colormap display, unless the minimum or maximum values aren't covered by the colormap display. 
+ In that case the zoom of the colormap display will be adjusted so that the minimum and maximum 
+ values are covered by the colormap display.</li><li>Zoom in range: The colormap display is zoomed so that the whole colormap display covers the range 
+ currently adjusted by the minimum and maximum values. Minimum and maximum values remain the same.</li><li>Show full range: The colormap display is zoomed so that the entire data range is covered by the 
+ colormap display. Minimum and maximum values remain the same.</li>
+</ul>
+<p> In addition the colormap display can be zoomed using the mouse wheel. </p>
+<p>
+ If no colormap is connected to the port, still a default color and
+ a default alpha value can be defined. This corresponds to the <em>Constant</em> 
+ item in the context menu. The default colors can be
+ modified via the <font face="helvetica">Amira</font> color dialog which is popped up by
+ double-clicking on the colormap area with the left mouse button. If a
+ colormap is connected, a left mouse button double-click makes the icon of
+ the colormap visible in the Pool.</p>
+<p> Colormaps present (yet possibly hidden) in the Pool can be selected in the 
+ <em>Loaded colormaps</em> item. You can also use <em>Load colormap...</em> to get a 
+ colormap from a specific directory. When a colormap is selected, it can be 
+ edited. To that end, click on <em>Edit colormap...</em> in the context menu and the 
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">ColormapEditor</a> will appear.</p>
+<p> <img src="HxPortColormap.png" /></p>
+<p> <b>See also:</b>
+ <a class="link" href="HxColormap256.html#A1">Colormap</a>,
+ <a class="link" href="../hxcolormapeditor/HxColormapEditor.html#A1">ColormapEditor</a></p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxConnection.html#A1">Connection</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">setDefaultColor &lt;red&gt; &lt;green&gt; &lt;blue&gt;</span>  
+
+<div class="body"><p>Sets the default color of the port. An RGB tuple of three floating
+ point values between 0...1 must be specified.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDefaultColor</span>  
+
+<div class="body"><p>Returns the default color of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDefaultAlpha &lt;alpha&gt;</span>  
+
+<div class="body"><p>Sets the default alpha (opacity) value of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDefaultAlpha</span>  
+
+<div class="body"><p>Returns the default alpha (opacity) value of the port.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">enableAlpha &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the display of the alpha channel in the port's
+ colormap area. Even if the alpha channel is not displayed by the
+ port it is up to the owning module to interpret alpha values or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isAlphaEnabled</span>  
+
+<div class="body"><p>Checks is alpha values are displayed by the port or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLocalRange &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disable the local range feature (see description above).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLocalRange</span>  
+
+<div class="body"><p>Checks if the local range feature is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setLocalMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the coordinate range used for mapping data values to colors
+ when the local range feature is enabled. The port is touched but
+ the network is not fired.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLocalMinValue</span>  
+
+<div class="body"><p>Returns the lower bound of the local range.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getLocalMaxValue</span>  
+
+<div class="body"><p>Returns the upper bound of the local range.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the coordinate range used for mapping data values to colors.
+ If local range is enabled or if no colormap is connected the
+ local range is updated. Otherwise the range of the connected
+ colormap is updated. In both cases the network is fired, i.e., the
+ module owning this port or modules connected to the modified
+ colormap are updated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMinValue</span>  
+
+<div class="body"><p>Returns the lower bound of the range used for mapping data values to colors. 
+ If local range is enabled or if no colormap is connected the
+ the lower bound of the local range is returned. Otherwise the 
+ the lower bound of the range of the connected colormap is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxValue</span>  
+
+<div class="body"><p>Returns the upper bound of the range used for mapping data values to colors. 
+ If local range is enabled or if no colormap is connected the
+ the upper bound of the local range is returned. Otherwise the 
+ the upper bound of the range of the connected colormap is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumColumns &lt;columns&gt;</span>  
+
+<div class="body"><p>Sets the number of digits of the minimum and maximum text fields (default is 8).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumColumns</span>  
+
+<div class="body"><p>Returns the number of digits of the minimum and maximum text fields.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

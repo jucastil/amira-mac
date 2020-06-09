@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">2.10 Visualization of Vector Fields</a></h2>
+<p>This step-by-step-tutorial briefly explains some <font face="helvetica">Mesh Option</font> modules for vector
+field visualization. The use of these modules is explained by visualizing data 
+representing the blood flow inside the carotid artery obtained with a simple numerical simulation. 
+The image data used to segment the carotid are courtesey of Dr. Sell, University of 
+Erlangen, Germany. </p>
+<p>The following topics will be covered in this tutorial:</p>
+<p></p>
+<ol><li>How to simply represent of a vector field</li><li>Use of Illuminated Stream Lines to visualize the flow</li><li>Extend the visualization with animated Particle Plot</li>
+</ol><p> </p>
+<p>
+</p>
+<h3><a name="A2">2.10.1 Simple Vector Representation</a></h3>
+<p>As in the previous tutorials, we will use the file dialog to import data.</p>
+<p></p>
+<ul><li>Load the surface model of the carotids <em>bloodFlow.surf.am</em> from the 
+ tutorial directory <tt>data/tutorials/vector</tt>.</li><li>Attach an <em>SurfaceView</em> module to this data object (see 
+ the <a class="link" href="tutsurfrec.html#A1">Surface reconstruction</a> tutorial).</li><li>Load the data set called <tt>bloodFlow.vector.am</tt> from the
+ tutorial directory <tt>data/tutorials/vector</tt>.</li><li>Connect a <em>Vectors</em> module to the vector field <em>bloodFlow.vector.am</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=tutvectorAmira1.png.html><img width=450 src="tutvectorAmira1.png" /></a><br />
+<div class="caption">
+<b>Figure 29:</b>
+Surface of the carotis clipped and the inner vector field represented with simple vecotrs</div>
+
+
+</div><p> </p>
+<p>The vector field itself is stored in <font face="helvetica">Amira</font>'s native <em>AmiraMesh</em> file format. 
+The data represents the simulated flow inside the carotids computed on a regular grid.
+By selecting the green data icon <em>bloodFlow.vector.am</em>, you can find out in the Properties 
+that the number of grid nodes in x,y,z-direction is 116 x 81 x 227.</p>
+<p>Besides <em>SurfaceView</em>, two new objects are available now in the Pool, <em>Vectors</em> and <em>EmptyPlane</em>. The module <em>Vectors</em> 
+specifies how the vectors are visualized and the module <em>EmptyPlane</em> 
+identifies on which the plane. </p>
+<p></p>
+<ul><li>Set the <em>Resolution</em> of the <em>Vectors</em> module to 100 in X and Y</li><li>Check in <em>Options</em> the toggles <em>constant</em> and keep <em>arrows</em> checked</li><li>Right-click on the colorbar of the port <em>Colormap</em>, select the 
+ <em>physics</em> colormap and set the upper value to 0.002.</li><li>In the module <em>EmptyPlane</em> click on the "YZ" button and on the "Clip" button 
+ on the upper-right corner of the Properties (beside to the question mark button).</li><li>Rotate the object in the viewer and slide the slider of the port <em>Translate</em> 
+ of <em>EmptyPlane</em> to explore the vector field inside the carotid.</li>
+</ul><p></p>
+<p>The vectors are represented as arrows equal in length, but varying in color. 
+The color, taken from the colormap, indicates the vector's magnitude. To use 
+the length of the arrows to indicate the magnitude, deselect the toggle 
+<em>constant</em> in the <em>Options</em> port.</p>
+<p></p>
+<h3><a name="A4">2.10.2 Illuminated Stream Lines</a></h3>
+<p><em>Illuminated Stream Lines</em> is a technique for interactive 3D
+vector field visualization which makes use of large numbers of
+properly illuminated stream lines. A realistic shading model is
+employed which significantly increases realism of the resulting images
+and enhances spatial perception.</p>
+<p>Now you will learn which tools are used for illuminated stream line
+visualization and how to use them to get a 3D impression of our blood flow
+vector field.</p>
+<p></p>
+<ul><li>Remove the <em>Vectors</em> module.</li><li>Connect a <em>DisplayISL</em> module to the vector field <em>bloodFlow.vector.am</em> 
+ by right-clicking on it and selecting <em>Display-&gt;DisplayISL</em>.</li><li>Set <em>Num Lines</em> to 300.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>A <em>TabBox</em> appears in the viewer. Only stream lines flowing through
+this box are visible. The green tabs at the corners and edges of the 
+box allow you to change the dimensions of the box. </p>
+<p></p>
+<ul><li>Switch the viewer into interact mode.</li><li>Try out what happens if you click with the left mouse button on
+ one of the green tabs on the corners or edges of the <em>TabBox</em> and
+ drag them around.</li><li>To move the whole <em>TabBox</em>, click with the left mouse button
+ in the box and move it.</li><li>Try to get the <em>TabBox</em> into a shape and position as shown in
+ the image.</li><li>Press <em>Apply</em> button again in order to recalculate the stream
+ lines.</li><li>As we did before, slide the slider of the port <em>Translate</em> of 
+ <em>EmptyPlane</em> to explore the vector field inside the carotid.</li>
+</ul><p></p>
+<p>You can colorize of the stream lines according to a scalar data set of the same 
+size and even animate the lines. </p>
+<p></p>
+<ul><li>Load <em>bloodFlow.density.am</em> from the 
+ tutorial directory <tt>data/tutorials/vector</tt>. This data set represents the 3D scalar field
+ of the simulated fluid densitiy associated with the 3D vector field.</li><li>Click on the white little square of the <em>DisplayISL</em> icon, select Color Field
+ and attach <em>bloodFlow.density.am</em>.</li><li>The port <em>Colormap</em> is now available in the Properties window of <em>DisplayISL</em>. 
+ Right-click on the color bar and select <em>temperature.icol</em>, 
+ set the colormap interval to 0-1 and press <em>Apply</em>.</li><li>To animate the stream lines just check the toggle <em>animate</em> in the port <em>Options</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutvectorAmira2.png.html><img width=450 src="tutvectorAmira2.png" /></a><br />
+<div class="caption">
+<b>Figure 30:</b>
+Illuminated blood flow stream lines with particle plot</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A6">2.10.3 Animated Particle Plot</a></h3>
+<p>This module visualizes scalar vector fields by particles (cones) pointing 
+in the direction of the local flow. The placement of particles can be done 
+similar to the distribution modes of the DisplayISL module we have seen above. 
+The particles are animated to generate a sequence of objects "walking" through the vector field.</p>
+<p></p>
+<ul><li>Remove the <em>DisplayISL</em> module.</li><li>Connect a <em>ParticlePlot</em> module to the vector field <em>bloodFlow.vector.am</em>.</li><li>In the port <em>Option</em> and <em>Option2</em> set <em>NumCones</em> to 10, <em>Height</em> to 0.8 
+ and <em>Radius</em> to 0.5.</li><li>Right-click on the slider of the port Animate and select <em>Loop</em>. 
+ Click now the play button to start the animation.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=tutvectorAmira3.png.html><img width=450 src="tutvectorAmira3.png" /></a><br />
+<div class="caption">
+<b>Figure 31:</b>
+Blood flow visualized with particle plot and the reconstructed carotid surface</div>
+
+
+</div><p>
+
+</p></body>
+</html>

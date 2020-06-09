@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p>
+<h1><a name="A1">16 <font face="helvetica">Skeleton Option</font> User's Guide</a></h1>
+<p>This is a step-by-step tutorial on how to use 
+<a class="link" href="../hxexternaldata/HxExternalData.html#A1">Large Disk Data</a> to analyze micro-vascular networks
+in human brain tissue. 
+Please note that another <a class="link" href="tutneuron.html#A1">tutorial</a> is available to learn how to
+extract filament networks from vessels or neuron images. 
+To follow this tutorial you should be familiar with the basic concepts of
+<font face="helvetica">Amira</font>. In particular you should be able to load files, to interact with the 3D
+viewer, and to connect display modules to data modules. All these issues are
+discussed in the <a class="link" href="tutstart.html#A1">getting started</a> section.</p>
+<p>We are going to load 4 overlapping bricks of a large data set. The goal is to
+merge these bricks into one large volume (Large Disk Data).
+The volume will be stored on disk only -- subvolumes can be loaded into
+memory. Some basic operations can directly be applied to the large volume.</p>
+<p>For the tutorial you should have access to a directory to which you're allowed
+to write files.</p>
+<p>We don't provide any <a class="link" href="../hximio/HxFileFormat_TIFF.html#A1">TIFF</a> data with this tutorial. Hopefully you have a couple 
+of blocks (<a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A1">AmiraMesh</a> format) to test the algorithm on. Generally it is a good idea to import
+them into <font face="helvetica">Amira</font> and specify an approximate bounding box near the
+correct position.</p>
+<p></p>
+<h2><a name="A2">16.1 Importing your Image Data</a></h2>
+<p>You should have your image data as stacks of numbered 2D images. The topmost
+slice should have the lowest number. File formats recognized by <font face="helvetica">Amira</font> can
+be found in the <a class="link" href="HxIndexFileFormat.html">File Formats section</a> of the 
+user's guide. A good choice is <a class="link" href="../hximio/HxFileFormat_TIFF.html#A1">TIFF</a> because it
+provides lossless compression and is readable on many different systems.</p>
+<p>You should also know the position in 3D of the lower left front corner of 
+the brick you're going to import and the voxel size.</p>
+<p>Choose <em>File/Open Data...</em>. A <a class="link" href="fileBrowser.html#A1">File Dialog</a> pops up. 
+You can now select all of the 2D images comprising the brick. 
+After you press <em>Load</em>, another dialog pops up:</p>
+<p></p><div style="text-align:center"><p>
+<img src="tutskeleton_import.png" />
+</p></div><p></p>
+<p>Enter the position and the voxel size of your block.
+After you press <em>OK</em>, the files are loaded into one block. A new green icon
+will appear in the Pool. Select it and select <em>File/Save Data As...</em> to
+store it on disk. Name it <em>1ta.am</em>. In this way you should proceed
+with all of your data.</p>
+<p></p>
+<h2><a name="A3">16.2 Arranging the Bricks</a></h2>
+<p>After importing your data, you should copy the files to another directory
+where all the processing will be done. In this way the original data
+is not touched and you can revert back to it if something goes wrong.</p>
+<p><font face="helvetica">Amira</font> has a special data object to store links to files on disk and 
+arrange them in 3D. It is called <a class="link" href="../hxskeleton/HxMosaic.html#A1">Mosaic</a>. </p>
+<p></p>
+<ul><li>Create a Mosaic by selecting <em>Mosaic</em> from the <em>Create/Skeleton</em>
+menu of the <font face="helvetica">Amira</font> main window.</li>
+</ul><p></p>
+<p>A green icon appears. When you select it you see that it contains no bricks.
+The buttons below the info line are used to add data objects.</p>
+<p></p>
+<ul><li>Press the <em>add files</em> button.</li><li>Select the files, e.g
+ <tt>1ta.am, 1tb.am, 2ta.am, 2tb.am</tt> in the directory
+ <tt>AMIRA_ROOT/data/tutorials/skeleton</tt>. 
+ You can select multiple files at once 
+ by clicking on the first one and shift clicking on the last one.</li><li>Press <em>Load</em>.</li>
+</ul><p></p>
+<p>The selected files are added to the Mosaic. The Info port shows the overall number
+of the bricks added up to now.
+You can visualize the bricks with the <a class="link" href="../hxskeleton/HxDisplayMosaic.html#A1">DisplayMosaic</a>
+module.</p>
+<p></p>
+<ul><li>Create a <em>DisplayMosaic</em> module by right clicking on the Mosaic 
+ and selecting <em>Display/DisplayMosaic</em> from the context menu.</li><li>Select the yellow DisplayMosaic icon and switch the highlighted brick
+ by dragging the slider in the interaction area.</li><li>Save the Mosaic.</li>
+</ul><p></p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<h2><a name="A4">16.3 Aligning Bricks</a></h2>
+<p>A special module allows the bricks to be exactly aligned based on their 
+gray values.
+</p>
+<p></p>
+<ul><li>Attach an <a class="link" href="../hxskeleton/HxAlignBlocks.html#A1">AlignBlocks</a> module to the Mosaic
+ by selecting <em>Compute/AlignBlocks</em> in the
+ data context menu.</li><li>If you saved the mosaic already, its filename appears in
+ <em>Mosaic name</em>.</li><li>Press the <em>Apply</em> button to start the processing.</li>
+</ul><p></p>
+<p>A maximum intensity projection (mip) of each block is computed. These mips are aligned and the 
+resulting transformations are applied to the bricks on disk.</p>
+<p></p>
+<h2><a name="A5">16.4 Filtering, Correcting Z-Drop, Resampling</a></h2>
+<p>It is possible to apply the same operation to all the bricks at once.
+To do this you must create a template for this operation. This could
+either be one brick with an editor 
+(e.g. <a class="link" href="../hximproc/HxImageEditor.html#A1">Digital Image Filters</a>) attached or a 
+compute module (e.g. <a class="link" href="../hxarith/HxResample.html#A1">Resample</a>). We're going to 
+demonstrate these two examples now. But first we should correct for
+the Z-Drop:</p>
+<p></p>
+<ul><li>Load one brick of the mosaic by using the <em>File/Open Data...</em> menu.</li><li>Attach a <a class="link" href="../hxneuro/HxCorrectZDrop.html#A1">Deconv/CorrectZDrop</a>
+ module to the brick.</li><li>Press <em>Apply</em> to start the correction procedure and check the 
+ result.</li><li>Attach an <a class="link" href="../hxskeleton/ApplyTemplateToMosaic_scro.html#A1">ApplyTemplateToMosaic</a>
+ script object by right clicking on the Mosaic and
+ selecting <em>ApplyTemplate</em> from the <em>Skeleton</em> submenu in the context menu.</li><li>Attach the <em>Template</em> connection of the ApplyTemplateToMosaic
+ module to the CorrectZDrop module.</li><li>Select <em>ApplyTemplateToMosaic</em> and press <em>Apply</em>.</li>
+</ul><p></p>
+<p>Next we're going to apply a digital filter to all blocks:</p>
+<p></p>
+<ul><li>Load one brick of the mosaic by using the <em>File/Open Data...</em> menu.</li><li>Select the data icon of the brick.</li><li>Attach a <a class="link" href="../hximproc/HxImageEditor.html#A1">Digital Image Filter</a> by pressing
+ the <em>Digital Filters</em> button in the Properties Area.</li><li>Select <em>Gauss</em> from the <em>Filter</em> port, and apply it.
+ To check the results you can attach an <em>OrthoSlice</em>.</li><li>Attach the <em>Template</em> connection of the ApplyTemplateToMosaic
+ module to the filter object (with the data attached).</li><li>Select <em>ApplyTemplateToMosaic</em> and press <em>Apply</em>.</li>
+</ul><p></p>
+<p>Another useful filter might be <em>Median2D</em> or the <em>Median3D</em>. 
+For <em>Median3D</em>, select <em>Median</em> from the first pulldown menu of the <em>Filter</em>
+port, and <em>3D</em> from the second pulldown menu.
+The application of the latter filter takes some time but leads to good results.</p>
+<p>The script object starts to load each brick of the mosaic, applies the
+filter to it, and writes it back to the same location on disk. <em>There are no 
+warnings about this overwrite.</em> </p>
+<p>In the next step we're going to resample
+every brick to an isotropic voxel size. This is only an optional step
+and might lead to smoother central lines in the following processing. But
+it increases size of the data on disk by a factor of about three. You should
+carefully consider whether you want to perform this step or not.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxarith/HxResample.html#A1">Resample</a> module to the brick loaded
+ before and select
+ <em>Mode: voxel size</em> and adjust <em>Voxel size: z</em> to get
+ an isotropic result.</li><li>Press <em>Apply</em> to start the resampling procedure and check the 
+ result.</li><li>Attach the Resample module to 
+ the <em>Template</em> connection of the ApplyTemplateToMosaic
+ module.</li><li>Press <em>Apply</em> of the ApplyTemplateToMosaic module.</li>
+</ul><p></p>
+<p>All bricks are resampled and saved to the same position. It is a good
+idea to sample all bricks to an isotropic voxel size. It improves the
+result of the distance map and the skeletonization we're going to apply.</p>
+<p>As a standard prefiltering procedure you should:</p>
+<p></p>
+<ul><li>Apply the ZDropCorrection.</li><li>Apply a 2D median filter.</li><li>Apply a 3D Gaussian filter with a small sigma (1 or smaller).</li>
+</ul><p></p>
+<p>If the results are not satisfactory, you should try to extend the prefiltering step. </p>
+<p></p>
+<h2><a name="A6">16.5 Creating the Large Disk Data</a></h2>
+<p>The next step is to create a new Large Disk Data object and sample the bricks onto it. 
+The overlapping regions can be blended with each other and a border can be added.</p>
+<p><b>Note:</b> The thinning algorithm expects a black border around the data. The 
+border should be at least of size <em>lenOfEnds</em> used during thinning (see below).
+By default a border of 15 voxels on each side in each dimension.
+Be sure to check this if you manually set <em>lenOfEnds</em>.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxskeleton/HxMosaicToDiskData.html#A1">MosaicToLargeDiskData</a>
+ to the Mosaic by right
+ clicking on the Mosaic and selecting <em>Convert/MosaicToLargeDiskData</em>
+ from the submenu in the
+ context menu.</li><li>Select the red MosaicToLargeDiskData icon.</li>
+</ul><p></p>
+<p>You can see some options in the Properties Area. The default options are fine 
+for the tutorial.</p>
+<p></p>
+<ul><li>A default filename derived from the mosaic is displayed in the <em>Filename</em> port. 
+ You might want to override it.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>A new green icon which represents the new data object will appear in the Pool. 
+After this the bricks will be loaded one after the other and will be
+sampled. This may take some time.</p>
+<p></p>
+<ul><li>Select the new green icon (titled Image).</li>
+</ul><p></p>
+<p>In the Properties Area some information about the data stored on disk is
+displayed. Next, </p>
+<p></p>
+<ul><li>Delete or switch off the DisplayMosaic module.</li><li>Connect a BoundingBox to the Mosaic icon.</li><li>Connect a BoundingBox to the Image icon.</li>
+</ul><p></p>
+<p>The second box is slightly bigger than the bounding box of the Mosaic. This is
+due to the border added by the MosaicToLargeDiskData module.</p>
+<p></p>
+<h2><a name="A7">16.6 Accessing the Large Disk Data</a></h2>
+<p>You can't directly visualize the Large Disk Data by e.g. attaching an OrthoSlice. Before
+you can do this, you must select a subvolume and load this subvolume into the
+Pool. The Subvolume will be an ordinary <font face="helvetica">Amira</font> field and you can use all
+the modules that you normally use. 
+It may be a good idea to clean up the Pool now, but it's not required. The
+Mosaic is no longer needed.</p>
+<p></p>
+<ul><li>Connect an <a class="link" href="../hxexternaldata/HxExternalDataAccess.html#A1">LatticeAccess</a>
+ to the Image object by right
+ clicking on it and selecting <em>LatticeAccess</em> from the popup menu.</li><li>Select the red <em>LatticeAccess</em> icon.</li>
+</ul><p></p>
+<p>In the viewer you can see a dragger box in one corner of the bounding box of
+the Large Disk Data.
+You can click and drag the corners or the faces of the box to specify
+the subvolume you want to load.
+In the Properties Area the corresponding dimensions are displayed.</p>
+<p></p>
+<ul><li>Drag the box somewhere inside the volume (For this you need to 
+ switch the viewer into interaction mode).</li><li>Press the <em>Apply</em> button.</li><li>Attach an OrthoSlice to the new green icon (Image.view).</li><li>Select the <em>LatticeAccess</em> object, then toggle on the <em>auto-refresh</em> check box.</li><li>Drag the box in the viewer.</li>
+</ul><p></p>
+<p>By setting <em>auto-refresh</em> on, every time you drag the box an automatic reload is
+started and all modules downstream of the view are recomputed. 
+This is an easy way to scan through the large volume.
+Try different display modules on the Image.view, e.g., an isosurface.</p>
+<p></p>
+<h2><a name="A8">16.7 Computing directly on the Large Disk Data</a></h2>
+<p>Some computation modules are able to handle the Large Disk Data directly.
+These include
+thresholding, computation of a distance map, thinning, extracting a line
+set from a voxel skeleton, and computation of the thickness of the lines
+(evaluating the distance map at the points of the lineset).
+All these steps are presented in this subsection.</p>
+<p>The first step is to apply a simple thresholding.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxskeleton/HxExtLabelVoxel.html#A1">Threshold</a> to the <em>Image</em>
+ icon by right clicking on it and selecting <em>Threshold</em> from
+ the <em>Compute</em> submenu in the popup menu.</li><li>Select an appropriate threshold in the Properties Area.</li><li>Select a filename you want to store the result to. In the tutorial we
+ will use the default name <em>Image.labels</em>.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>A new green icon that contains the labels will appear. Connect an
+<em>LatticeAccess</em> module to it as described above and have a look at the results.</p>
+<p>You might want to correct the result of the segmentation procedure manually.
+This might be useful to fill big vessels or remove uninteresting parts. <font face="helvetica">Amira</font>
+has a <a class="link" href="../hxsegeditor/GI.html#A1">segmentation editor</a> to perform this task. Due to the size
+of the data, you will have to work on subblocks of the whole data set.</p>
+<p>In the next step we'll calculate a distance map of the object.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxskeleton/HxLDAChamferCalc.html#A1">ChamferMap</a> to the 
+ <em>Image.labels</em> icon by right clicking on it and selecting
+ <em>ChamferMap </em> from the <em>Skeleton</em> submenu in the 
+ popup menu.</li><li>Specify an filename (the default is OK for the tutorial).</li><li>Press <em>Apply</em>.</li>
+</ul><p></p>
+<p>A new green icon named Image.dm will appear. Connect an <em>LatticeAccess</em> module and have
+a look at the distance map.</p>
+<p>The thinning procedure needs the labels and the distance map as input.</p>
+<p><b>Note:</b> The thinning algorithm automatically detects endpoints of vessels.
+ A parameter is used to distinguish them from "noise" on the surface of the
+ vessels to avoid spurious branches. You might want to change this parameter
+ manually in the console. Use <tt>Thinner setVar lenOfEnds 10</tt> to set the length of the 
+ ends to 10 voxels before they are detected as unconnected ends. This is
+ a rather large value leading to only a few branches. The drawback is that
+ you also might miss real endpoints. It will be really hard to detect
+ such errors during the network check. But in general we think it
+ is a good idea to avoid spurious branches directly during thinning.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxskeleton/HxExtThinner.html#A1">Thinner</a> to the 
+ <em>Image.labels</em> icon by right clicking on it and selecting
+ <em>Thinner</em> from the <em>Skeleton</em> submenu in the 
+ popup menu.</li><li>Connect the port for the distance map to the Image.dm icon. You can
+ achieve this by right clicking on the white square on the
+ left side of the ExtThinner icon and selecting Distmap. A blue line is
+ attached to the mouse pointer; after you click on the Image.dm icon,
+ the two modules are connected.</li><li>Specify a filename (the default is fine for the tutorial).</li><li>Press <em>Apply</em>.</li>
+</ul><p></p>
+<p>A new green icon named Image.thinned will appear and the thinning process is
+started. It may take some time before it finishes. We will directly go
+on and convert the result into a lineset before visualizing it.</p>
+<p></p>
+<ul><li>Attach a <a class="link" href="../hxskeleton/HxExtTraceLines.html#A1">TraceLines</a> to the 
+ <em>Image.thinned</em> icon by right clicking on it and selecting
+ <em>TraceLines</em> from the <em>Skeleton</em> submenu in the 
+ popup menu.</li><li>Unselect the <em>cluster</em> toggle in the Properties Area.</li><li>Press <em>Apply</em>.</li>
+</ul><p></p>
+<p>The new icon that is visible now in the Pool is a lineset, which you are 
+probably already familiar with. You can visualize it by connecting a 
+<a class="link" href="../hxlines/HxDisplayLineSet.html#A1">LineSetView</a>.</p>
+<p></p>
+<ul><li>Create an <em>LineSetView</em> module by right clicking on the 
+ Image.lineset and selecting LineSetView from the context menu.</li>
+</ul><p></p>
+<p>The lines are rather jaggy because they connect centers of voxels. To get
+smoother lines you can use a Tcl command in the console.</p>
+<p></p>
+<ul><li>Type <tt>Image.lineset smooth</tt> into the <font face="helvetica">Amira</font> console window. You can
+ repeat this if you would prefer even smoother lines.</li>
+</ul><p></p>
+<p>You can use the <a class="link" href="../hxskeleton/HxCheckNetworkManually.html#A1">CheckNetwork</a> module from the 
+<em>Skeleton</em> submenu in the context menu to remove short ends.</p>
+<p>In the last step of this subsection we will compute a thickness for every point
+on the lines. For the thickness we use the values of the distance map.</p>
+<p></p>
+<ul><li>Attach an <a class="link" href="../hxskeleton/HxExtEvalOnLines.html#A1">EvalOnLines</a> to the 
+ <em>Image.lineset</em> icon by right clicking on it and selecting
+ <em>EvalOnLines</em> from the <em>Compute</em> submenu in the 
+ popup menu.</li><li>Connect the port for the distance map to the Image.dm icon. You can
+ achieve this by right clicking on the white square on the
+ left side of the EvalOnLines icon and selecting 
+ <em>Field</em>. A blue
+ line is attached to the mouse pointer; after you click on the
+ Image.dm icon, the two modules are connected.</li><li>Press <em>Apply</em>.</li>
+</ul><p></p>
+<p>The module doesn't create a new data icon. It is more like an editor and changes
+the connected lineset. It adds a data value for every vertex in the lineset and
+calculates the value of the field at the point of the vertex.
+You can visualize the data with the LineSetView.</p>
+<p></p>
+<ul><li>Select the LineSetView by clicking on it.</li><li>In the Properties Area there is a drop down menu called 
+ <em>ColorMode</em>. Click on it and select <em>Data 0</em>.</li><li>Right click on the rectangular area in the row <em>Colormap</em>. A popup 
+ menu appears. Select <em>physics.icol</em>.</li><li>Change the range of the colormap by clicking into text field right of
+ the colormap and type in 15.</li>
+</ul><p></p>
+<p>You see that the lines are now colored. The color is an indicator for the
+local radius of the original object. </p>
+<p></p>
+<h2><a name="A9">16.8 Region of Interest</a></h2>
+<p>During visualization of large data sets there is often the need to restrict the
+displayed geometry to a subvolume of the total data set. It would be nice if
+different modules shared the same volume and the volume could be changed
+simultaneously for all of them. In <font face="helvetica">Amira</font> there is a special module that provides
+this possibility; it is called <a class="link" href="../hxfield/HxSelectRoi.html#A1">SelectRoi</a>. You can attach
+it to every spatial data object. Some display modules have a connection called
+<em>ROI</em> that can be attached to the SelectRoi module to restrict the view.</p>
+<p></p>
+<ul><li>Remove all objects except for the Image.lineset and the LineSetView.</li><li>Create a <em>SelectRoi</em> module by right clicking on the 
+ Image.lineset and selecting SelectRoi from the <em>Display</em>
+ submenu of the context menu.</li><li>Connect the Connection named ROI of the LineSetView to the SelectRoi
+ module. To do this, right click on the white square on the
+ left side of the LineSetView icon and select <em>ROI</em>. A blue
+ line is attached to the mouse pointer; after you click on the
+ SelectRoi icon, the two modules are connected.</li><li>Switch the viewer to interaction mode and click and drag one of the
+ green squares. This will adjust the Region of Interest and the
+ LineSetView will adopt the new restriction immediately.</li><li>By clicking and dragging on the (invisible) faces of the cuboid 
+ you can move it to another position.</li>
+</ul><p></p>
+<p>When working with a small subset of the lineset, it is possible to do
+more involved visualizations that require more graphics power. For
+example, the lines can be displayed as tubes that
+reflect the local thickness.</p>
+<p></p>
+<ul><li>Choose a rather small part of the lineset.</li><li>Select the <em>LineSetView</em>.</li><li>Click on the <em>Shape</em> drop down menu and select <em>Circle</em>.</li><li>Click on the <em>ScaleMode</em> drop down menu and select <em>Data 0</em>.</li><li>Move the <em>ScaleFactor</em> slider to 2.</li>
+</ul><p></p>
+<p>In the viewer the lines are now displayed as tubes. The thickness is scaled
+with the data associated with the lines.</p>
+<p><b>Note:</b> The data value associated with the lines is the local
+ radius. The LineSetView scales by the local diameter.
+ To scale to the physical size you therefore must use
+ a ScaleFactor of 2.</p>
+<p>In the next step we're going to load a part of the image data that is also
+determined by the SelectRoi module. You can then easily load the same subvolume
+from different lda files if you connect all <em>LatticeAccess</em> modules to one
+common SelectRoi module.</p>
+<p></p>
+<ul><li>Load the file <tt>Image</tt> that you saved before.</li><li>Attach an <em>LatticeAccess</em> module to it (see above if you don't know how).</li><li>Connect the Connection named ROI of the <em>LatticeAccess</em> 
+ to the SelectRoi module. This is done the same way as with the
+ LineSetView.</li><li>Select the <em>LatticeAccess</em> module, then press the <em>Apply</em> button.</li><li>Attach a ProjectionView display module to the newly
+ displayed green <em>Image.view</em> icon.</li><li>You can do the same for the <tt>Image.labels</tt> file.</li>
+</ul><p></p>
+<p>All <em>LatticeAccess</em> modules you created are now restricted to the same
+volume and can easily be moved by one click-and-drag operation.</p>
+<p></p>
+<h2><a name="A10">16.9 Check Network</a></h2>
+<p>In this subsection we'd like to present a module that can be used to jump to
+all endpoints of a lineset and create some nice views for checking if the 
+endpoints are fine or if they should be edited.</p>
+<p></p>
+<ul><li>Create a <a class="link" href="../hxskeleton/HxCheckNetworkManually.html#A1">CheckNetwork</a> module by 
+ right clicking on the <em>Image.lineset</em> and selecting
+ <em>CheckNetwork</em> from the <em>Skeleton</em>
+ submenu of the popup menu.</li><li>Connect the <em>SelectRoi</em> connection of the <em>CheckNetwork</em> to
+ the <em>SelectRoi</em> module (right click on the white square 
+ at the left of CheckNetwork, select SelectRoi, click on
+ the yellow SelectRoi icon).</li><li>Select the <em>LatticeAccess</em> module, and toggle on the
+ <em>auto-refresh</em> check box.</li><li>Adjust the size of the lines by selecting the <em>LineSetView</em> and
+ changing the <em>ScaleFactor</em> slider to approximately 0.15.</li><li>Select the <em>CheckNetwork</em> module.</li><li>Press the <em>Next Endpoint</em> button.</li><li>By repeating the last step you can jump through all endpoints.</li>
+</ul><p></p>
+<p>
+</p>
+<p></p>
+<h2><a name="A11">16.10 Coloring a Lineset According to its Depth Value</a></h2>
+<p>It can be useful to color the lines in different ways. In the next example
+we're going to color the lineset by the local z value. This
+is done in two steps:
+</p>
+<ul><li>Create a Scalarfield which provides the depth (z value).</li><li>Evaluate this value on the lines and use a LineSetView.</li>
+</ul><p></p>
+<p>To create the Scalarfield:</p>
+<p></p>
+<ul><li>Select <em>Create/Data/Scalarfield</em>.</li><li>Select the newly created icon.</li><li>Type <em>z</em> into the <em>Expr</em> field.</li>
+</ul><p></p>
+<p>The next step it to evaluate this scalarfield on the lineset. You can do 
+this by selecting the lineset and typing into the console.</p>
+<p><b>Hint:</b> Press the <tt>&lt;TAB&gt;</tt> key to get the name 
+ of the selected module.</p>
+<p></p>
+<ul><li>Type <tt>lines computeData scalarfield 2</tt> to evaluate the
+ data (Fill in your specific names for <tt>lines and scalarfield</tt>).
+ The 2 indicates to store the data values as data 2 in the
+ lineset.</li><li>Attach a LineSetView and use <em>data2</em> for color coding.</li>
+</ul><p>
+
+</p></body>
+</html>

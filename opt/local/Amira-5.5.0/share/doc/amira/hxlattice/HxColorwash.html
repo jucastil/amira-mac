@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Colorwash</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Colorwash" "visualizes an additional scalar field on an OrthoSlice" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Colorwash</em> module helps you to visualize two scalar fields
+ in combination, e.g., CT data and a dose distribution. The
+ module is attached to an <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> module
+ visualizing the first field, e.g., medical CT data. The image of
+ the <em>OrthoSlice</em> is modulated so that it also encodes the
+ second field, e.g., a dose distribution. The standard modulation
+ technique is a weighted sum between the two scalar fields.</p>
+<p> In order to use the module, first select the scalar field to be
+ colorwashed, e.g., a dose distribution. Then choose <em>Colorwash</em>
+ from the popup menu of an existing <em>OrthoSlice</em> modules. The
+ new <em>Colorwash</em> module automatically connects to the selected
+ scalar field. Alternatively, of course you can also connect the
+ <em>Data</em> port of the module by hand.</p>
+<p> By default, the <em>Colorwash</em> module uses the colormap
+ <em>physics.icol</em>. This default can be overwritten by defining
+ the global Tcl variable <em>ColorwashMap</em>. If the
+ default colormap does not exist, the colormap found in the object
+ pool will be used.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalar field to be colorwashed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to the underlying <a class="link" href="HxOrthoSlice.html#A1">OrthoSlice</a> module. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Colormap</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Fusion Method</span>  
+<div class="portsnapshot"><img src="HxColorwash_mode.png" /><br /></div>
+<div class="body"><p>Specifies how the underlying <em>OrthoSlice</em> image is modulated. In
+ any case the scalar field connected to the <em>Data</em> port is first
+ mapped to a color image using the colormap connected to the <em>Colormap</em> port. This color image is then combined with the <em>OrthoSlice</em> background. The following modes are supported:</p>
+<p> <em>Multiply:</em> The colors (scaled to the range 0...1) are multiplied.
+ A colormap containing bright colors or white should be used, such as
+ <font face="helvetica">Amira</font>'s <em>temperature.icol</em>.
+ Click <a href="../../../examples/HxColorwash.hx">here</a> for an example.</p>
+<p> <em>Add:</em> The colors (scaled to the range 0...1) are added and
+ clamped. Both the background image and the colormap should not be too
+ bright in order to avoid overflows.</p>
+<p> <em>Weighted Sum:</em> The background image and the color image are
+ blended using a weight factor which can be adjusted in a separate
+ port (see below). If the weight factor is 0.5 the two images are
+ just averaged.</p>
+<p> <em>Magic Lens:</em> A checkerboard pattern is generated, displaying the
+ two images in the different squares. The square size can be adjusted
+ in a separate port (see below).</p>
+<p> <em>Overlay:</em> In this mode a data range can be specified. Inside
+ this range the background image is replaced by the color image.</p>
+<p> <em>Alpha Blending:</em> The background image and the color image are
+ blended depending on the alpha values stored in the colormap. </p>
+<p> <em>Luminance Blending:</em> The background image and the color image are
+ blended like in standard alpha blending. However, instead of the
+ alpha values stored in the colormap the luminance of the color values
+ are used. Bright colors are more opaque than dark colors. This mode
+ is useful for non-transparent colormaps.</p>
+<p> <em>Label Blending:</em> The colors of the overlaid image are defined by the
+ <tt>Materials</tt> parameter bundle of the input label field. The background
+ image and the color image are blended using alpha blending. The
+ transparency of the overlaid image can be controlled by the slider in the
+ <em>Alpha</em> port. The display of the material <tt>Exterior</tt> can be turned
+ on/off using the <em>Options</em> port. Data values, for which no material
+ color has been defined, can be colored using a colormap (see <em>Options</em>
+ port below), allowing for non-label data to be overlaid. </p>
+<p> <em>None:</em> The background image is not modified at all. The module
+ is essentially disabled.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">WeightFactor</span>  
+<div class="portsnapshot"><img src="HxColorwash_weightFactor.png" /><br /></div>
+<div class="body"><p>Interpolation factor used in <em>WeightedSum</em> mode.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">LenseWidth</span>  
+<div class="portsnapshot"><img src="HxColorwash_lenseWidth.png" /><br /></div>
+<div class="body"><p>Width of the checkerboard tiles in <em>MagicLens</em> mode.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">OverlayRange</span>  
+<div class="portsnapshot"><img src="HxColorwash_overlayRange.png" /><br /></div>
+<div class="body"><p>Range of data values where the overlay image replaces the background
+ in <em>Overlay</em> mode.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Alpha</span>  
+<div class="portsnapshot"><img src="HxColorwash_alpha.png" /><br /></div>
+<div class="body"><p>Transparency of the overlaid color data. Only available when the fusion
+ method <em>Label Blending</em> is selected.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxColorwash_options.png" /><br /></div>
+<div class="body"><p>The option <em>Color Exterior</em> toggles the colored display of voxels with
+ label <tt>Exterior</tt>. When this material has not been defined, this setting
+ applies to voxels with value 0. </p>
+<p> The option <em>Use colormap when material color not defined</em> toggles the
+ display of voxels for which no material color has been defined in the
+ parameters. When checked, the current colormap is used for assigning a
+ color to such voxels. This option allows for the colored display of
+ non-label data. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">setNearestNeighbor</span>  
+
+<div class="body"><p>
+ Enables nearest neighbor interpolation for regular scalar fields.
+ By default regular fields are interpolated trilinearly, except
+ for label fields, which are evaluated using nearest neighbor
+ interpolation in any case.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PseudoElectronDensity</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "PseudoElectronDensity" "computes a pseudo electron density" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a "pseudo electron density" for a given
+ molecule by representing its atoms by three-dimensional Gaussian
+ functions, which are summed up on a regular grid. The
+ three-dimensional density can then be visualized with the
+ <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> or <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a>
+ modules.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Molecule for which the density should be computed.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Voxel Size</span>  
+<div class="portsnapshot"><img src="HxPseudoElectronDensity_voxelSize.png" /><br /></div>
+<div class="body"><p>Voxel size of the regular grid to be computed.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Down Factor</span>  
+<div class="portsnapshot"><img src="HxPseudoElectronDensity_downFactor.png" /><br /></div>
+<div class="body"><p>The <em>down factor</em> influences the width of the Gaussian functions.
+The smaller the value, the larger the width of the Gaussian function.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Minimal Value</span>  
+<div class="portsnapshot"><img src="HxPseudoElectronDensity_minValue.png" /><br /></div>
+<div class="body"><p>The <em>minimal value</em> determines the cut off distance for each
+Gaussian function. The smaller the value the smoother the density will
+look.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scalarfield dimensions</span>  
+<div class="portsnapshot"><img src="HxPseudoElectronDensity_scalarfieldDimensions.png" /><br /></div>
+<div class="body"><p>This info port gives you the size of the density field to be
+computed, so that you can adjust the parameters, in particular the
+voxel size, to meet a field size that is acceptable to you.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Cutting distance</span>  
+<div class="portsnapshot"><img src="HxPseudoElectronDensity_cuttingDistance.png" /><br /></div>
+<div class="body"><p>Maximal cutting distance of the Gaussian functions according to the
+specified <em>down factor</em> and <em>minimal value</em>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

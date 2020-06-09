@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+****** THIS FILE SHOULD ONLY BE EDITED BY MEMBERS OF SIGDEMO ******
+***
+*** FOR SIGDEMO MEMBERS:
+*** The following restriction apply for attribute names and their values:
+*** names must consist of letters [a-z] only
+*** values must consist of character [a-z0-9\-] only
+*** values are comma separated. do not add spaces
+***
+****** THIS FILE SHOULD ONLY BE EDITED BY MEMBERS OF SIGDEMO ******
+
+
+
+In this file all attributes and their possible values are listed that can
+be used in the <attributes>-section in a specific description.xml-file.
+<attribute type="version" values="zib-2006-2" /> means that the demo
+is successfully tested against the zib-2006-2-release
+In each demo file, a section like the following should be added
+the values="" contains a comma separated list (don't use spaces)
+<attributes>
+      <attribute name="display" values="normal" />
+      <attribute name="version" values="zib-2006-2" />
+      <attribute name="topic" values="flow" />
+      <attribute name="state" values="released" />
+</attributes>
+
+Order of attributes and their values in the comma separated list matter:
+- the order will be respected in the DemoGUI display
+- the default setting in the demo-gui can be set by attribute default
+
+An attribute can either allow or forbid to select all values
+select-any="yes" means that no value has to be specified for the given attribute when selecting demos. Then all demos match
+select-any="no" means that a value has to be specified for the given attribute when selecting demos
+
+The attribute "state" is currently the only attribute that has to be explicitly specified
+There, "released" is the default setting. This means that all demos that 
+do not provide a type="state" attribute or with value="experimental" will not
+be seen in the default view of the DemoGUI.
+
+Each attribute has a default value. this can be either "any" or a value of the values-list.
+This default value is set as default in the demo gui, and in invocations of prepareDemos.tcl
+with an - -attributes option set
+
+
+-->
+<attributes>
+  <attribute name="display" select-any="yes" default="any"      values="normal,wide" />
+  <attribute name="version" select-any="yes" default="any"      values="zib-2006-2" />
+  <attribute name="topic"   select-any="yes" default="any"      values="astro,bio,flow,medical,molecules,tensor" />
+  <attribute name="state"   select-any="yes"  default="released" values="released,experimental" />
+</attributes>

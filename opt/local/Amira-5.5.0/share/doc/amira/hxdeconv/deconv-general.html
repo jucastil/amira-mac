@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">14.1.1 General remarks about image deconvolution</a></h3>
+<p>Deconvolution is a technique for removing out-of-focus light in a series of
+images recorded via optical sectioning microscopy. Intended to investigate 
+3D biological objects, optical sectioning microscopy works by creating
+multiple images (optical sections) of a fluorescing object, each with a
+different focal plane. However, besides the in-focus structures, the images
+usually also contain out-of-focus light from other parts of the object,
+causing haze and severe axial blurring. This is even the case for a confocal
+laser scanning microscope, where most of the out-of-focus light is removed
+from the image by a pinhole system. Mathematically, the image produced by
+any microscopic system can be described as the convolution of the ideal
+unblurred image of the specimen and the microscope's so-called point spread
+function (PSF), i.e., the image of an ideal point light source. With the
+inverse of this process, called deconvolution, a deblurred image of the
+specimen can be obtained, provided the point spread function is known, or at
+least can be estimated.
+The <font face="helvetica">Amira</font> deconvolution modules mainly provide two variants of a powerful
+iterative maximum-likelihood image restoration algorithm, namely a
+non-blind one and a blind one. The difference between them is
+that in the first case a measured or computed point spread function is
+used, while in the second case the PSF is estimated along with the data
+itself. Maximum-likelihood image restoration can be considered as the
+de-facto standard for deconvolution of 3D optical sections. Although
+computationally quite expensive, the method is able to significantly
+enhance image quality. At the same time it is very robust and insensitive
+with respect to noise artifacts. However, it should be noted that, although
+rejecting most of the out-of-focus light, by no means all of it is
+rejected. Therefore, some noticeable haze remains in the images. Also,
+the images retain a substantial axial smearing in z-direction, which cannot
+be removed by any deconvolution algorithm.</p>
+<p>At first sight, one may wonder why both a non-blind and a blind
+deconvolution algorithm are provided; blind deconvolution 
+seems to be more general because the PSF is calculated automatically. One
+answer is that blind deconvolution is computationally even more expensive
+than non-blind iterative maximum-likelihood image restoration. The other
+answer is that in a blind deconvolution algorithm a meaningful estimate of
+the PSF can only be computed if severe constraints are imposed. For
+example, a trivial solution of the blind deconvolution problem would be
+an image which is identical to the input image and a PSF with the
+shape of an ideal delta peak. Obviously, this solution isn't useful at all.
+Therefore, if for example confocal data is to be deconvolved, the algorithm
+fits the actual PSF in such a way that it looks like a possible measured PSF of a confocal microscope.
+More precisely, the fit is constrained to be in agreement with the experimental
+parameters (the refractive index of the medium, the numerical aperture of the objective,
+and the voxel sizes).
+Sometimes this can lead to wrong results, for example when the confocal
+pinhole aperture of the microscope wasn't stopped down sufficiently 
+during confocal image acquisition, in which case the microscope
+actually didn't behave like a true confocal microscope. As a matter of fact
+you should try which approach provides the best results for your own image
+data, blind deconvolution or non-blind deconvolution with either a measured
+or an automatically computed PSF.</p>
+<p></p>
+<p>
+</p></body>
+</html>

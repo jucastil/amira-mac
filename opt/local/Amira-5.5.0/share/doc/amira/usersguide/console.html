@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.9 Console Window</a></h3>
+<p>The <em>console window</em> is a command shell allowing to access <font face="helvetica">Amira</font>'s
+advanced control features. It serves two purposes. First, it gives you some
+feedback on what is currently going on. Such feedback messages include
+warnings, error indications and notes on problems as well as information on
+results. Second, it provides a command line interface where <font face="helvetica">Amira</font> commands
+can be entered.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=console.png.html><img width=450 src="console.png" /></a><br />
+<div class="caption">
+<b>Figure 47:</b>
+<font face="helvetica">Amira</font>'s console window displays info messages and lets you
+ enter Tcl commands.</div>
+
+
+</div><p></p>
+<p><font face="helvetica">Amira</font>'s console commands are based on the <em>Tcl</em> script language <em>(Tool Command Language)</em>. Examples are:</p>
+<p></p><pre>
+    load C:/MyData/something.am
+    viewer 0 setSize 200 200
+    viewer 0 snapshot C:/snapshot.tif
+</pre><p></p>
+<p>The <font face="helvetica">Amira</font> scripting syntax and the specific commands are described in the
+<a class="link" href="scripting.html#A1">Chapter 5 (Scripting)</a>. To execute a single console
+command just type in its name and arguments and press `Enter'. If you
+select an object and then press the <tt>[TAB]</tt> key on the empty command
+line, then the name of the object will be automatically inserted. </p>
+<p>You can also type the beginning of a command word and type the <tt>[TAB]</tt>
+key to complete the word. This only works if the beginning is unique.
+Pressing <tt>[TAB]</tt> a second time will show the possible completions. 
+Often, this saves a lot of typing. Commands provided by data objects and
+modules are documented in the reference section of the users guide.
+Pressing the <tt>[F1]</tt> key for such a command without any arguments pops up
+the help text for this command. This is also true for commands provided
+by the <a class="link" href="../hxcore/HxPort.html#A1">ports</a> of an object.</p>
+<p>Additionally the <em>console window</em> provides a command history mechanism.
+Use `up arrow' and `down arrow' to scroll up and down in the history list.</p>
+<p>To execute a file containing many Tcl commands use <tt>source 
+&lt;filename&gt;</tt> or load the script file via <font face="helvetica">Amira</font>'s file dialog from the file
+menu. <font face="helvetica">Amira</font> script files are usually identified by the extension <tt>.hx</tt>.
+For advanced script examples take a look at <font face="helvetica">Amira</font>'s demo files located in
+<tt>$AMIRA_ROOT/share/demo</tt>.
+
+</p></body>
+</html>

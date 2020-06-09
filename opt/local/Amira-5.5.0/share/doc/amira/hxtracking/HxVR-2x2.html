@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.4.3 Example: A Tiled 4-channel 2x2 Monitor Configuration</a></h3>
+<p>There are some interesting graphics workstations with two two-channel
+graphics pipes. 
+One example is the SGI Octane Fuel. With such a computer
+four different monitors or projectors can be used. For some purposes it
+is useful to have a single viewer subdivided into 2x2 parts and each
+part being displayed by a different monitor. Such a configuration can
+be easily created using <font face="helvetica">Virtual Reality Option</font>.</p>
+<p>We assume that the graphics computer has two pipes with two channels each.
+The two pipes are configured as two separate X11 screens, <tt>:0.0</tt> and
+<tt>:0.1</tt>. The left and right part of each screen is output on the two
+different channels of the particular pipe. Then the configuration files
+looks as follows:</p>
+<p></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Upper left monitor"
+        display         ":0.0"
+        channelOrigin   0 0
+        channelSize     0.5 1
+        tileOrigin      0 0.5
+        tileSize        0.5 0.5
+        threadGroup     0
+    }
+    SoScreen {
+        name            "Upper right monitor"
+        display         ":0.0"
+        channelOrigin	0.5 0
+        channelSize	0.5 1
+        tileOrigin      0.5 0.5
+        tileSize        0.5 0.5
+        threadGroup     0
+    }
+    SoScreen {
+        name            "Lower left monitor"
+        display         ":0.1"
+        channelOrigin   0 0
+        channelSize     0.5 1
+        tileOrigin      0 0
+        tileSize        0.5 0.5
+        threadGroup     1
+    }
+    SoScreen {
+        name            "Lower right monitor"
+        display         ":0.1"
+        channelOrigin	0.5 1
+        channelSize	0.5 1
+        tileOrigin      0.5 0
+        tileSize        0.5 0.5
+        threadGroup     1
+    }
+}
+</pre><p></p>
+<p></p>
+<h4><a name="A2">Multi-pipe rendering</a></h4>
+<p>Since the two X11 screens <tt>:0.0</tt> and <tt>:0.1</tt> are driven by two
+independent graphics pipes it makes sense to perform the rendering on these
+pipes in parallel. This is done by assigning the corresponding screens two
+different thread groups. </p>
+<p></p>
+<ul><li>Note that for all common current graphics
+architectures it makes no sense to render multiple windows on the same
+pipe in parallel. Typically, this even implies a significant performance
+decrease. Therefore, here we use only two thread groups instead of four.</li><li>In order to actually activate parallel rendering <font face="helvetica">Amira</font> must be started
+with the command line option <tt>-mt</tt>. Alternatively, the environment
+variable <tt>AMIRA_MULTITHREAD</tt> &nbsp;can be defined.</li>
+</ul><p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

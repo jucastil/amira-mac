@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> BlockFaceCorrection</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "BlockFaceCorrection" "corrects for slice based intensity fluctuations" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module corrects for slice-based intensity fluctuations, which often occur with, but are not restricted to,
+block face scanning data. To use the module, the user must create a <em>LabelField</em> and
+connect it to the <a class="link" href="#A3"><em>LabelField</em></a> connection port. This <em>LabelField</em>
+specifies on each slice a homogeneous region
+(e.g., by using the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a>). Clicking <em>Apply</em> starts the
+computation of the mean intensity for the segmented region in each slice, and the global mean for all
+slices. Each slice is then linearly scaled to match the global mean. The output is the corrected data and
+has the same size as the input data.
+Depending on the imaged object, the region segmented on each slice can belong to any homogeneous region such
+as identical tissue types.
+If the <em>LabelField</em> contains two materials, it is assumed that each material specifies voxels of two
+different homogeneous regions (e.g., one for background and the other for foreground). In this case,
+<em>BlockFaceCorrection</em> calculates a linear regression from the means and uses the mean slope for
+correcting the slices. In the case of only one material, only the means are used for the correction.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The image data to be corrected. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Label field</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A <em>LabelField</em> containing one or two non-Exterior materials specifying on each slice voxels of a homogeneous region.
+These homogeneous regions should contain identical tissue/material types with a minimum of 30 voxels in each slice.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

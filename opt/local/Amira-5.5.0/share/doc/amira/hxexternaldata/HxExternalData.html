@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+</p><div class="generic_head"><h2><a name="A1"> LargeDiskData</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "LargeDiskData" "lattice data stored on disk which can be accessed blockwise" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ A LargeDiskData object is useful for working with large image data. It allows you to extract subvolumes
+ loaded as a normal field object. In this way <font face="helvetica">Amira</font> can manage data that is larger than main
+ memory. Note that only uniform coordinates are supported.</p>
+<p> A selection of file formats can be loaded as LargeDiskData: 
+ (<a class="link" href="HxFileFormat_AmiraMeshAsExternalData.html#A1">AmiraMesh</a>, 
+ <a class="link" href="HxFileFormat_RawAsExternalData.html#A1">Raw Data</a>, 
+ <a class="link" href="HxFileFormat_StackedSlicesAsExternalData.html">Stacked-Slices</a>, and
+ <a class="link" href="../hxdiskdata/HxFileFormat_DiskData.html#A1">LargeDiskData</a>).</p>
+<p> To access the data, you must attach an <a class="link" href="HxExternalDataAccess.html#A1">Access</a> module.
+ It provides an interface to load a subblock into <font face="helvetica">Amira</font>. You can use all the 
+ <font face="helvetica">Amira</font> visualization techniques on this subblock.</p>
+<p> Like every other <font face="helvetica">Amira</font> data object, a LargeDiskData object has parameters associated with
+ it. In contrast to most other data types, the LargeDiskData cannot be saved
+ directly. But some of the mentioned file formats allow you to save the actual parameters 
+ to the file defining the LargeDiskData. This is done by pressing the <em>save parameters</em>
+ button. It is only visible if you have write access to the file.</p>
+<p> The <em>Save As</em> menu entry allows export of the data into a common image file format 
+ or as raw data. It does not save parameters. This might seem strange at a first glance,
+ but in contrast to all other data formats, the LargeDiskData values are not in main memory. The
+ actual data resides only on disk and cannot be saved to another place by <font face="helvetica">Amira</font>.</p>
+</div>
+<p></p>
+<p>
+
+
+
+
+</p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxExternalData_action.png" /><br /></div>
+<div class="body"><p>Save parameters to the file defining the LargeDiskData.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

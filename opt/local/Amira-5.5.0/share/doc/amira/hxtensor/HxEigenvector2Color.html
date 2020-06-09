@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> EigenvectorToColor</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "EigenvectorToColor" "creates a color representation of a vector field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module creates a color representation of the connected vector field.
+It also needs to be connected to a second vector field which first component
+will be used as a weighting of the color per voxel.</p>
+<p>Connected to the first eigenvector of a tensor field and a vector field
+representing the eigenvalues (both produced by <a class="link" href="HxExtractEigenvalues.html#A1">ExtractEigenvalues</a>)
+this module will generate a color representation which describes the directions
+of the first principal direction of the tensor field by a color code.</p>
+<p>The output of this field is a regular color field. It contains in its
+components:
+</p>
+<dl>
+<dt>(red)</dt>
+<dd> $$|e_1(x)| FA$$</dd>
+<dt>(green)</dt>
+<dd> $$|e_1(y)| FA$$</dd>
+<dt>(blue)</dt>
+<dd> $$|e_1(z)| FA$$</dd>
+<dt>(alpha)</dt>
+<dd> the fractional anisotropy $$FA = \frac{1}{\sqrt{2}}
+\frac{\sqrt{ (\lambda_1 - \lambda_2)^2 + (\lambda_2-\lambda_3)^2 +
+    (\lambda_1-\lambda_3)^2}}{\lambda_1 + \lambda_2 + \lambda_3}$$</dd>
+</dl><p>
+The alpha channel is scaled from 0 to 255 as well as the three element
+vector containing the red, green, and blue component.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The largest eigenvector (pca1) of a tensor field. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Eigenvalues</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The length sorted eigenvalues of the tensor (a 3 element field).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A label field which can be used in order to calculate the color
+data for one or more selected materials. For example, one can exclude 
+the background from the computation. See <em>MaskExpr</em> below.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">MaskExpr</span>  
+<div class="portsnapshot"><img src="HxEigenvector2Color_MaskExpr.png" /><br /></div>
+<div class="body"><p>This field is only visible if a mask label set is connected to the
+data. The expression selects a specific material or a group of 
+materials from the connected label set. Example are: "A!=0" to
+exclude the exterior or "A==3" to select the fourth material from the
+material list of the Segmentation Editor display of the mask.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Exposure</span>  
+<div class="portsnapshot"><img src="HxEigenvector2Color_Exposure.png" /><br /></div>
+<div class="body"><p>Controls the exposure $$e$$ of the color representation. Larger values
+will make the images brighter. It is computed as:
+</p>\[
+C_{r=x,g=y,b=z} = ( 1 - \exp\left( -|e_1(x,y,z)| FA\right) e ) 255
+\]<p>
+where $$C$$ is the value assigned to the color component, $$e_1$$ is the
+connected first principal direction (pca1) and $$FA$$ describes the fractional
+anisotropy computed from the connected eigenvalues.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Option</span>  
+<div class="portsnapshot"><img src="HxEigenvector2Color_Option.png" /><br /></div>
+<div class="body"><p>If enabled colors will be scaled by the fractional anisotropy $$FA$$.
+Thus the visibility of areas with a high fractional anisotropy will be enhanced.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

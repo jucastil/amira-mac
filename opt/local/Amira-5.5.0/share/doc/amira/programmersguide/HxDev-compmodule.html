@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">26.1 A Compute Module</a></h2>
+<p>As already mentioned <em>compute modules</em> usually take one or more input
+data objects and calculate a new resulting data object from these. The
+resulting data object is deposited in the Pool. Compute modules are
+represented by red icons in the Pool. They are derived from
+the base class <tt>HxCompModule</tt>.</p>
+<p>In order to learn how to implement a new compute module, we will take a look
+at a concrete example. In particular, we want to write a compute module
+which performs a threshold operation on a 3D image, i.e., on an input
+object of type <em>HxUniformScalarField3</em>. The module produces another 3D
+image as output. In the resulting image, all voxels with a value below a
+user-specified minimum value or above a maximum value should be set to
+zero. 
+For easier understanding we start with a very simple and limited
+version of the module. Then we iteratively improve the code. In
+particular, we proceed in three steps:</p>
+<p></p>
+<ul><li><a class="link" href="HxDev-compmodule1.html#A1">Version 1</a>: merely scans the input image, does
+ not yet produce a result</li><li><a class="link" href="HxDev-compmodule2.html#A1">Version 2</a>: creates an output object as result,
+ uses the progress bar</li><li><a class="link" href="HxDev-compmodule3.html#A1">Version 3</a>: adds an <em>Apply</em> button, overwrites
+ the existing result if possible</li>
+</ul><p></p>
+<p>You can find the source code of all three versions in the demo package
+provided with <font face="helvetica">Developer Option</font>, i.e., under <tt>packages/mypackage</tt> in the local <font face="helvetica">Amira</font> directory. For each version there
+are two files: a header file called <tt>MyComputeThresholdN.h</tt> and a
+source code file called <tt>MyComputeThresholdN.cpp</tt> (where <tt>N</tt> is
+either 1, 2, or 3). Since the names are different, you can compile and
+execute all three versions in parallel.</p>
+<p><br />
+ 
+Afterwards we describe how to implement an <a class="link" href="HxDev-compmoduleITK.html#A2">ITK image to image filter compute module</a>. 
+<br />
+ 
+</p>
+<p>In order to create a new local <font face="helvetica">Amira</font> directory, please follow the
+instructions given in <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>. In order to compile
+the demo package, please refer to <a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling
+and Debugging)</a>.</p>
+<p>
+
+
+
+</p>
+<p></p>
+<p>
+
+</p></body>
+</html>

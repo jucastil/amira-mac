@@ -1,0 +1,122 @@
+module -name "LineProbe"	\
+    -primary "HxField3 HxIvData HxTetraGrid HxSurface"         \
+    -class "HxLineProbe"	\
+    -category "Measure"         \
+    -dso "libhxdataprobe.so"
+
+module -name "PointProbe"	\
+    -primary "HxField3"	        \
+    -class "HxPointProbe"	\
+    -category "Measure"         \
+    -dso "libhxdataprobe.so"
+
+module -name "SplineProbe"	\
+    -primary "HxField3"	        \
+    -class "HxSplineProbe"	\
+    -category "Measure"         \
+    -dso "libhxdataprobe.so"
+
+module -name "LineSetProbe"	\
+    -primary "HxField3"	        \
+    -secondary "HxLineSetInterface"      \
+    -class "HxLineSetProbe"	\
+    -category "Measure"         \
+    -dso "libhxdataprobe.so"
+
+module -name "ProbeToLineSet" \
+    -primary "HxSplineProbe HxLineProbe" \
+    -secondary "HxLineSet" \
+    -category "Main"	\
+    -class "HxProbeToLineSet" \
+    -dso "libhxdataprobe.so"
+
+#
+# And now to something completely different ...
+#
+# ############################################################################
+#
+# This procedure is called whenever function key 4 has been hit within the
+# plot window.
+#
+# It duplicates the curve with the same name as an existing Amira module
+# of type HxSplineProbe or HxLineProbe. This can be used to take probes at
+# different positions which can be compared afterwards. This module has to
+# be selected for identification only when this procedure is called for
+# the first time. Subsequent function key hits will act on the previosly
+# identified module resp. curve.
+# Usage: Press the function key before you probe at a new position!
+#
+# To use other function keys just change the '4' to the appropriate
+# number. If you like to use modifier keys (i.e. Shift-, Control- or Alt-key
+# pressed at the same time) insert 'Shift', 'Ctrl' and/or 'Alt' after
+# 'onPWKey'. 
+#
+# Note: The global variable 'thePlot' is created and removed by Amira.
+#
+# Take that procedure as an example on how to use function keys within a
+# plot window.
+#
+#
+proc onPWKeyF4 {} {
+    global thePlot nCopiedCurves modDataProbe curveCols
+
+    # works only if there is a plot window
+    if { ![ info exists thePlot ] } {
+        echo "There is no plot window"
+        catch { unset nCopiedCurves modDataProbe }
+        return
+    }
+
+    # create colour table to assign different colours to each curve
+    if { ![ info exists curveCols ] } {
+        set curveCols [list { 1.  1.  1.  } { 1.  0.  0.  } { 0.  1.  0.  } \
+                            { 0.  0.  1.  } { 1.  1.  0.  } { 1.  0.  1.  } \
+                            { 0.  1.  1.  } { 0.5 0.5 0.5 } ]
+
+    }
+
+    if [ info exists modDataProbe ]  {
+        # use previously identified data probe module
+        set curve $modDataProbe
+        incr nCopiedCurves 
+    } else {
+        # look for a selected module of type HxSplineProbe or HxLineProbe
+        set allselmod [all -selected]
+        set len [llength $allselmod]
+        if { $len > 0} {
+            set selmod [ lindex $allselmod [expr $len-1] ]
+            set selmodtype [$selmod getTypeId]
+            if { [ string compare $selmodtype "HxLineProbe"]   == 0 ||
+                 [ string compare $selmodtype "HxSplineProbe"] == 0 } {
+                set modDataProbe $selmod
+            } else {
+                echo "$selmod is not of type HxSpl/LineProbe"
+                return
+            }
+        } else {
+            echo "No module selected"
+            return
+        }
+        set curve $modDataProbe
+        set nCopiedCurves 1
+    }
+
+    # copy the curve
+    if [catch { set newcurve [$thePlot copyObj $curve] } ] {
+        echo "Curve $curve not found"
+        return
+    }
+       
+    # append the copy
+    $thePlot appendObj $curve
+
+    # change the label of the copied curve and ...
+    $thePlot $newcurve setLabel $newcurve
+
+    # ... give it a different colour
+    set colind [expr $nCopiedCurves % [llength $curveCols]]
+    $thePlot $newcurve setAttr color [lindex $curveCols $colind]
+
+    # update the plot window
+    $thePlot update
+}

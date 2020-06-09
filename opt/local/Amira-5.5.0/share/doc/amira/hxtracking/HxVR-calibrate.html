@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">11.6 Calibrating the Tracking System</a></h2>
+<p></p>
+<h3><a name="A2">11.6.1 Overview</a></h3>
+<p>This section describes how to calibrate a tracking system for use in
+<font face="helvetica">Virtual Reality Option</font>. Here, calibration essentially means finding the transformation
+between the raw tracker coordinates and the coordinates in which the
+geometry of the display system, i.e., the corners of the screens, has
+been defined. <font face="helvetica">Amira</font> allows users to do this interactively by moving a 
+tracked device sequentially to specified <em>reference points</em>. 
+Calibrating the tracking system does not involve changing
+the trackd config file <em>trackd.conf</em> in any way. Instead the
+calibration data is completely stored in the <font face="helvetica">Virtual Reality Option</font> config file. </p>
+<p>Usually the tracking system need to be calibrated only once. A new calibration
+is necessary for example if the antenna of an electromagnetic tracking
+system is moved with respect to the display system, if the screen of a
+single-wall immersive workbench is tilted, or if a new 3D input device
+is used where the 3D sensor is oriented in a different way. </p>
+<p>The only part of the calibration process which one might repeat many a time is
+picking the wand. 
+Stereo eye offset for may also need to be adjusted sometimes depending on the user.</p>
+<p></p>
+<h4><a name="A3">Wand offset</a></h4>
+<p>Picking the wand means to specify the offset between
+the actual position of the 3D input device and the visual representation
+of the wand in <font face="helvetica">Amira</font>. Sometimes it is useful not to have any offset, while
+sometimes an offset provides more pleasant and less exhausting working
+conditions. The wand offset can be quickly adapted even multiple times
+within a single <font face="helvetica">Virtual Reality Option</font> session.</p>
+<p></p>
+<h4><a name="A4">Eye offset</a></h4>
+<p>Eye offset for stereoscopy can be defined in the configuration file. 
+It is not a mandatory step of the interactive calibration process described below.
+However the <font face="helvetica">VRSettings</font> control module allows for eye offset adjustment at any time 
+(if stereo is enabled), and you can then save the configuration.</p>
+<p></p>
+<h3><a name="A5">11.6.2 Tracking system essentials</a></h3>
+<p>Before starting calibration make sure that you have a valid
+<font face="helvetica">Virtual Reality Option</font> config file for your particular display system (you may test it 
+independently from tracking system).
+Also make sure that the trackd software and the tracking system itself 
+are setup in the right way. </p>
+<p></p>
+<h4><a name="A6">Troubleshooting the tracker</a></h4>
+<p>A number of factors can affect the tracking system and the returned sensors coordinates, 
+and should be kept in mind when calibrating and using <font face="helvetica">Virtual Reality Option</font>, 
+in particular for choosing the reference points used for calibration. 
+Here is summary of the most common possible issues:</p>
+<p></p>
+<ul><li>Range. Symptom: instable or wrong tracker coordinates.<br />
+
+ The calibration reference points or working area may be too far away or hidden from the tracking system. You may check the physical range of your device. You may need to choose reference points closer to tracker, or off the screen(s), for instance using ruler to offset in front of the screen.</li><li>Hemisphere. Symptom: mirrored coordinates along one axis, reversed rotations after calibration<br />
+
+You should make sure that the tracker coordinates are reported in a right-handed coordinate system.
+Many electromagnetic tracking systems
+cannot distinguish between two opposite hemispheres. In the <em>trackd.conf</em> file you have to specify in which hemisphere you want to
+operate (e.g. +x, -z..., relative to emitter antenna orientation). 
+If the wrong hemisphere is specified a left-handed coordinate
+system is used, which cannot be correctly calibrated in <font face="helvetica">Amira</font>.</li><li>Magnetic perturbation. Symptom: instable/wrong coordinates.<br />
+
+With electro-magnetic tracking systems you should avoid calibrating and working too close to metallic parts such as ferro-magnetic screen frames or sources of magnetic fields such as CRT display monitors. You may need to offset reference points off the screen.</li><li>Acoustic perturbation. Symptom: instable/wrong coordinates.<br />
+
+With acoustic or hybrid tracking systems, you may need to avoid calibrating and working too close from emitters/receivers. You may need to offset reference points off the screen.</li><li>Optical perturbation. Symptom: inaccurate coordinates, intermittent or no detection.<br />
+
+With optical trackers, some possible issues are occlusion, loss of accuracy at the limits of view field, insufficient or excessive lighting.
+Depending on cameras location, you may need to offset reference points off the screen.</li><li>Sensor connection. Symptom: no coordinate change, or exchanged head/wand sensors.<br />
+ 
+The serial port can be disconnected or busy (check system configuration). Wrong head or wand sensor identifier may be specified in configuration file (headTrackerId, wandTrackerId). <font face="helvetica">Amira</font> can display on the screen coordinates and button status for checking.</li><li>Heat. Symptom: intermittent failures.<br />
+ 
+Some hardware may become unstable with excessive heat. Make sure cooling is sufficient.</li><li>Report rate. Symptom: irregular moves.<br />
+
+Report rate from trackd may need to be lowered with slow computers or increased for better accuracy. The symptom can also relate to graphics performance, with large data and low end hardware. Remember that using a multi-pipe or cluster rendering system can accelerate performance.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A7">Tracking configuration examples</a></h4>
+<p>In the following you'll find two example configurations, one using <em>Mechdyne's trackd</em> and one using
+<em>VRPN</em> as tracking system.</p>
+<p></p>
+<h5><a name="A8">trackd</a></h5>
+<p>The <em>Mechdyne's trackd</em> daemon is used to collect device input for <font face="helvetica">Amira</font>. It is typically started with:<br />
+
+ <tt>trackd [-file &lt;trackd-configuration-file&gt;]</tt> (trackd.conf by default).<br />
+
+Please refer to the trackd documentation for details on how to use and configure trackd.</p>
+<p>Here is an example of trackd.conf configuration file:</p>
+<p><font size="2"></font></p><pre>
+# Device: e.g. Ascension's Flock-of-Birds 2 sensors
+DefineDevice FOB fobirds 2
+
+# standalone box (device-specific option)
+DeviceOption FOB srt 1
+
+# device attached to serial port com1
+DeviceOption FOB port com1           
+
+# device communication baud rate
+DeviceOption FOB baud 38400          
+
+# reset device at start (optional, delays startup)
+DeviceOption FOB reset yes
+
+# use 3D mouse controller (device-specific)
+DeviceOption FOB mouse 1
+
+# working hemisphere 
+DeviceOption FOB hemisphere +x
+
+# sampling factor (device-specific, optional)
+DeviceOption FOB reportrate 2
+
+#Defines output for tracker info (head and wand position+orientation):
+# report 2 sensors to application
+DefineConnector Shm1 shm out 2       
+
+# tracker shared memory key
+ConnectorOption Shm1 key 4148        
+
+# position+orientation for each sensor device
+ConnectorOption Shm1 data tracker
+
+#Defines output for controller info (3D mouse/wand buttons...):
+# report 1 controller to application
+DefineConnector Shm2 shm out 1
+
+# controller shared memory key
+ConnectorOption Shm2 key 4147 
+
+# buttons+valuators state for each controller device
+ConnectorOption Shm2 data controller 
+</pre><p><font size="2">
+</font></p>
+<p>Here is an example of <font face="helvetica">Amira</font> VR configuration with corresponding tracking information:
+<font size="2"></font></p><pre>
+Separator {
+    SoScreen {
+        name           "desk"
+        lowerLeft       0 0 0
+        lowerRight      170 0 0
+        upperRight      170 130 0
+        upperLeft       0 130 0
+        cameraMode      ACTIVE_STEREO
+    }
+    SoTracker {
+        server          "4127:4126"
+        wandTrackerId   0
+        headTrackerId   1
+        defaultCameraPosition 85 65 140
+        defaultObjectPosition 85 65 0
+        referencePoints [ 0 0 0, 170 0 0, 170 130 0, 0 130 0 ]
+    }
+}
+</pre><p><font size="2"></font></p>
+<p></p>
+<ul><li>Notice the shared memory keys specified in <em>server</em> field, corresponding to those specified in the trackd.conf file above</li><li>The wandTrackerId and headTrackerId must correspond to the tracker's sensors actually used for head and wand.</li><li>Reference points for calibration are located at the corners of the screen. One should make sure that these points can be properly reach by the tracking system.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A9">Some trackd tips</a></h4>
+<p></p>
+<ul><li><em>trackd -status</em> displays configuration information, then once per second the device inputs such as coordinates, orientation, buttons state.... Notice that <font face="helvetica">Amira</font> can also report tracker coordinates on the screen (see below).</li><li>Input devices can be attached to remote machines. A trackd server can then fowards inputs to the trackd daemon running on the application machine, for which the trackd license must be set.</li><li>trackd supports DirectX devices (mouses, 3D joysticks, etc...). Notice that device name can be dependent on international language used on your computer.</li><li>A controller device can be used to emulate a tracker.</li>
+</ul><p></p>
+<p></p>
+<h5><a name="A10">VRPN</a></h5>
+<p>The <em>VRPN server</em> is typically started with:<br />
+
+ <tt>vrpn_server [-f &lt;vrpn-configuration-file&gt;]</tt> (vrpn.cfg by default).<br />
+
+Please refer to the VRPN documentation for details on how to use and configure VRPN.</p>
+<p>Here is an example of a vrpn.cfg configuration file:</p>
+<p><font size="2"></font></p><pre>
+# e.g. Ascension's Flock-of-Birds with 1 sensor and a Wanda
+vrpn_Tracker_Flock      MyTracker       1    /dev/ttyS0  38400   1   N
+vrpn_Wanda      Wanda    /dev/ttyS1      1200   60.0
+</pre><p><font size="2">
+</font></p>
+<p>Here is an example of an <font face="helvetica">Amira</font> VR configuration:
+<font size="2"></font></p><pre>
+Separator {
+    SoScreen {
+        ...
+    }
+    SoTracker {
+        server          "vrpn MyTracker@localhost:3883 MyWanda@localhost:3883"
+        wandTrackerId   0
+        headTrackerId   1
+        defaultCameraPosition 85 65 140
+        defaultObjectPosition 85 65 0
+        referencePoints [ 0 0 0, 170 0 0, 170 130 0, 0 130 0 ]
+    }
+}
+</pre><p><font size="2"></font></p>
+<p></p>
+<h3><a name="A11">11.6.3 Calibration step by step</a></h3>
+<p>Here is a complete step-by-step description of the calibration process. </p>
+<p></p>
+<ol><li>Make sure that the trackd software is running and that the
+ tracking system is operating.</li><li>Start <font face="helvetica">Amira</font> and choose the appropriate
+ configuration from the main window's <em>VR</em> menu.</li><li><p>In the <font face="helvetica">VRSettings</font> control module, <em>connect</em> to the tracking
+ system if necessary. Activate the <em>values</em> toggle in order to
+ display the current 3D coordinates in the upper left corner of the
+ main screen. Make sure that the coordinates are changing if you
+ move the 3D input device and the head sensor (unless head tracking
+ is disabled in the <font face="helvetica">Virtual Reality Option</font> config file). Also make sure that the
+ button status changes if you press a button of the 3D input device.</p>
+<p> Note: Unless you are in calibration mode the coordinates reported by
+ the <em>values</em> option are transformed coordinates, i.e., they
+ are in the same coordinate system in which the screens in the
+ config file have been defined.</p>
+<p> Hint: If the wand tracker and the head tracker seem to be exchanged
+ modify the fields <em>wandTrackerId</em> and <em>headTrackerId</em> in the
+ <font face="helvetica">Virtual Reality Option</font> config file.<br />
+</p></li><li><p>Click the <em>Calibrate</em> button of the <font face="helvetica">VRSettings</font> control
+ module. You are now in calibration mode. A fixed 2D control grid is
+ displayed on all screens. You are requested to click at the first
+ reference point (highlighted in red). 
+ In the current version of <font face="helvetica">Virtual Reality Option</font>, the control grid is
+ not guaranteed to match the actual reference points. However, you
+ could choose the reference points in the config file to be at the
+ corners of the control grid (one third and two thirds of the screen
+ width in horizontal direction, one half of the screen height in
+ vertical direction). Besides the number of the reference point its
+ coordinates as specified in the config file are displayed in the
+ upper left corner of the main screen.</p>
+<p> Now move the 3D input device at the first reference point and click
+ any button of the device.</p>
+<p> Note: Make sure that the raw tracker coordinates which are displayed in
+ the upper left corner of the main screen are valid at the reference
+ point. Some devices just report zero values if the sensor is outside
+ the operating range of the tracking system. Some other devices report
+ non-sense values, typically with large oscillations. If you don't
+ get stable values at a reference point, choose some other point in
+ the <font face="helvetica">Virtual Reality Option</font> config file.<br />
+</p></li><li><p>Next you are asked to click at second reference point using
+ the 3D input device. Repeat the above procedure until all reference
+ points have been located.</p>
+<p> Note: If less than three different reference points are specified in
+ the config file, then by default the upper left, lower left, and lower right
+ corners of the first screen are used as reference points. You may want
+ to specify other reference points or a larger number of reference
+ points in order to improve accuracy. <em>The reference points must not
+ lie all on one line</em>. However, they may well be located in a common
+ plane, e.g., in the plane of the main screen.<br />
+</p></li><li><p>Next, you need to align the glasses for head tracking. However, if
+ head tracking is disabled in the <font face="helvetica">Virtual Reality Option</font> config file, this step is
+ omitted.</p>
+<p> Align the glasses parallel to the x-axis of the screen coordinate
+ system. Usually the x-axis will oriented horizontally with respect
+ to the front screen of the display system. The up-direction of the
+ glasses should be aligned parallel to the y-axis of the screen
+ coordinate system. Usually the y-axis will be oriented vertically
+ with respect to the front screen. Once you have aligned the glasses
+ click any button of the 3D input device.<br />
+</p></li><li><p>Now camera calibration is done and correct stereoscopic images should
+ be displayed. As a final step you are requested to pick the wand in
+ order to define the wand offset. The wand avatar is displayed half-way
+ between the current eye position (or the default camera position, if
+ head tracking is disabled) and the default object position. Now move
+ the 3D input device near the origin of the wand (or at any other
+ position) and click any button. The virtual wand remains stuck to the
+ 3D input device in exactly that position. You can repeat this last
+ calibration step any time by clicking on the <em>pick wand</em> button
+ of the <font face="helvetica">VRSettings</font> module.</p>
+<p> Hint: If you don't get a clear 3D image of the wand make sure left
+ and right eye images are not exchanged. If the eyes are exchanged you
+ get a result which somehow also looks 3D but which isn't comfortable
+ to work with at all. Also make sure that the fields <em>leftEyeOffset</em>
+ and <em>rightEyeOffset</em> are set correctly in the config file. 
+ You can optionally tune stereo eye offset with <font face="helvetica">VRSettings</font> control module.<br />
+</p></li><li><p>At this point, the calibration is finished. You may now want to
+ write a new <font face="helvetica">Virtual Reality Option</font> config file (or to overwrite the original one)
+ in order to save the calibration data permanently. This can be achieved
+ most easily by pressing the <em>write config</em> button of the <font face="helvetica">VRSettings</font>
+ control module. Pressing this button causes the <font face="helvetica">Amira</font> file browser to be
+ activated. You can accept the name of the previous config file or
+ choose a new one.</p>
+<p> When reloading the new configuration calibrated tracker data will be
+ generated automatically. You can verify the correctness of the
+ calibration process by turning on the <em>values</em> toggle and moving
+ the 3D input device to one of the reference points. The reported values
+ should be almost the same as the coordinates of the reference point
+ specified in the config file.</p></li>
+</ol><p></p>
+<p></p>
+<h4><a name="A12">Manual calibration</a></h4>
+<p>In some case you may want to enter directly in the configuration file the calibration information corresponding to the defined reference points. 
+The <em>calibration</em> field contains the tracker coordinates for 3 points with following coordinates relative to the screen's reference defined by:<br />
+
+ origin x=0 y=0 z=0<br />
+
+ point1 x=X y=0 z=0, where X is the physical width of the first screen in config file<br />
+
+ point2 x=0 y=1 z=0<br />
+
+For instance considering a screen of 170x130 cm, with tracker origin located at the lower left of the screen and tracker coordinates reported in decimeters, with same axis x, y, z.<br />
+
+- ReferencePoints: [0 0 0, 170 0 0, 170 130 0, 0 130 0]<br />
+
+- Corresponding tracker coordinates: [0 0 0, 17 0 0, 17 13 0, 0 13 0]<br />
+
+- Resulting calibration field: calibration [0 0 0, 17 0 0, 0 0.1 0]<br />
+</p>
+<p></p>
+<h4><a name="A13">Checking immersive displays</a></h4>
+<p>Here are some further hints for checking whether the immersive system is configured and working properly when used with stereo and head tracking:</p>
+<p></p>
+<ul><li>Does the virtual wand avatar follow the actual wand rotations ?<br />
+
+With electromagnetic tracker, if rotations look wrong or reversed along some axis, the wand has probably crossed the tracker's working hemisphere when calibrating. Change the working hemisphere in trackd.conf and calibrate again.</li><li>Stereo disparity, reversed eyes ?<br />
+
+If stereo effect looks too strong, uncomfortable or inconsistent, check screen coordinates in the configuration file and eye offset in configuration file or with the <font face="helvetica">VRSettings</font> module. For reversed eyes you may either change eye offsets, or change your system's display properties, e.g. 'stereo reverse eyes' in display control panel.</li><li>Is the plane of projection located on the physical screen ?
+The screen projection of virtual objects located behind physical screen should look smaller as eyes get closer to the screen. Projection of virtual points located on the physical screen shouldn't move as eyes are moving. Otherwise check screen coordinates and tracker calibration.</li><li>With multiple screens, do straight lines keep straight across screen edges ?
+Otherwise check screen coordinates, calibration, tracking, eye offset.</li><li>Does wand avatar follow the sensor ?
+Otherwise check calibration and screen coordinates. If immersive display is correct, 
+but the wand does not appear when you are requested to "pick" the wand, check the default camera and object positions.</li>
+</ul><p>
+
+</p></body>
+</html>

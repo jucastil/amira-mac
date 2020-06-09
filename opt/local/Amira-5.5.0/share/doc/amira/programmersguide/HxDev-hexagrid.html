@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.4.1 Hexahedral Grids</a></h3>
+<p>Hexahedral grids in <font face="helvetica">Amira</font> are implemented by the class <tt>HxHexaGrid</tt>
+and its base class <tt>HexaGrid</tt>. Looking at the reference documentation
+of <tt>HexaGrid</tt> we observe that a hexahedral grid essentially consists
+of a number of dynamic arrays such as <tt>points</tt>, <tt>hexas</tt>, or
+<tt>materialIds</tt>.</p>
+<ul><li>The <tt>points</tt> array is a list of all 3D points contained in the
+grid. A single point is stored as an element of type <tt>McVec3f</tt>. This
+class has the same layout as the Open Inventor class <tt>SbVec3f</tt>. Thus, a
+pointer to <tt>McVec3f</tt> can be cast to a pointer to <tt>SbVec3f</tt> and
+vice versa.</li><li>The <tt>hexas</tt> array describes the actual hexahedra. For each
+hexahedron the indices of the eight points and the indices of the six
+faces it consists of are stored. The numbering of the points is shown in
+<a class="link" href="#A2">Figure 193</a>. Degenerate cells such as prisms or tetrahedra may
+be defined by choosing the same index for neighboring points.</li><li>The <tt>materialIds</tt> array contains 8-bit labels, which assign a
+material identifier to every hexahedron. Like the case of label fields or
+surfaces, the set of possible material identifiers 
+is stored in the parameter list of the grid data
+object.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=hexa.png.html><img width=311 src="hexa.png" /></a><br />
+<div class="caption">
+<b>Figure 193:</b>
+Numbering of points in a hexadron with positive volume.
+</div>
+
+
+</div><p></p>
+<p>The three arrays, <tt>points</tt>, <tt>hexas</tt>, and <tt>materialIds</tt>, must be
+provided by the 'user'. The faces of the grid are stored in an additional
+array called <tt>faces</tt>. This array can be constructed automatically by
+calling the member method <tt>createFaces</tt>. This method computes the faces
+from scratch and sets the face indices of all hexahedra defined in <tt>hexas</tt>.</p>
+<p>Note that, in contrast to tetrahedral grids, in a hexahedral grid
+degenerate cells are allowed, i.e., cells where neighboring corners in a
+cell coincide. In this way grids with mixed cell types can be defined.
+The faces of a hexahedron are stored in a small dynamic array called
+<tt>faces</tt>. For a degenerate cell this array contains less then six
+faces.Also note that, although non-conformal grids are allowed, i.e., grids with
+hanging nodes on edges and faces, currently the method <em>createFaces</em>
+does not detect the connectivity between neighboring hexahedra sharing
+less than four points. Thus, faces between such cells are considered to
+be external cells.
+</p></body>
+</html>

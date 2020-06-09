@@ -1,0 +1,30 @@
+interfaceFactory -class "HxVsLabelDataToHxLabelLatticeFactory" \
+    -adapts "HxVsLabelData" \
+    -package "hxlatticex" 
+
+interfaceFactory -class "HxVsDataToHxLatticeFactory" \
+    -adapts "HxVsData" \
+    -package "hxlatticex"
+
+amiramesh -ContentType VsVolume \
+    -load "HxVsData::readAmiraMesh" \
+    -package "hxvsdata"
+
+dataFile -name "AmiraMesh (Examine)" \
+    -ext ".am" \
+    -save "HxVsData::writeAmiraMesh" \
+    -type "HxVsData" \
+    -package "hxvsdata"
+
+dataFile -name "AmiraMesh (Standard)" \
+    -ext ".am" \
+    -save "HxVsData::writeStandardAmiraMesh" \
+    -type "HxVsData" \
+    -package "hxvsdata"
+
+module -name "Labels" \
+    -primary "HxVsData" \
+    -check { [$PRIMARY hasLabels] } \
+    -category "Main" \
+    -class "HxVsLabelData" \
+    -package "hxvsdata"

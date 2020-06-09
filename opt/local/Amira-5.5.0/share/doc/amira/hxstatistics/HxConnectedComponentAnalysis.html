@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ConnectedComponents</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "ConnectedComponents" "counts connected components in a 3D image" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module searches for connected regions in a 3D image volume. In the case
+ of a gray value image the regions are detected based on thresholding, i.e., 
+ a connected region is a set of adjacent voxels with intensity values lying 
+ inside a user-defined range. In the case of a label image, i.e., an image 
+ where the intensity values represent different materials (tissues or 
+ regions), the module looks for connected regions within each label and 
+ eventually assigns it new labels.
+ The module is useful for quantifying large numbers of small items in a 3D 
+ image volume. If the items provide sufficient contrast to the background
+ and do not touch each other, <em>ConnectedComponents</em> can be used directly
+ with the grey image volume. Otherwise it is recommended to create a binary
+ image with one of <font face="helvetica">Amira</font>'s segmentation tools. See also the 
+ documentation of the <a class="link" href="../hxsegeditor/GIOverview.html#A1">Segmentation Editor</a> and the
+ <a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a> module for details.
+ If in the binary image multiple items are so close that they form a single
+ connected region, you may want to use module 
+ <a class="link" href="../hxmulticomp/HxWatershedSegmentation.html#A1">WatershedSegmentation</a> and/or 
+ <a class="link" href="HxMorphologicalSeparation.html">MorphologicalSeparation</a> to separate the
+ items. The output of <em>ConnectedComponents</em> can also be analyzed with
+ respect to shape parameters. See the documentation for 
+ <a class="link" href="../hxmulticomp/HxShapeAnalysis.html#A1">ShapeAnalysis</a> for details.
+ 
+ If the number of connected components is larger than the output data type's
+ data range (e.g., byte fields can represent at most 256 unique labels), the 
+ module will issue a warning in the <em>Console</em> and assign the same label 
+ to multiple components. In this case you may want to change the output data 
+ type and repeat the computation.
+ Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Image data set to be analyzed. Only byte, short, ushort, and integer
+ fields are supported.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_info.png" /><br /></div>
+<div class="body"><p>Once the computation has been performed, this port displays the number of 
+ detected regions, the volume of the smallest and the largest region, and the
+ average volume.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Input image</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_InputImage.png" /><br /></div>
+<div class="body"><p>If <em>Gray image</em> is checked, a binary segmentation is performed prior to
+ analyzing connected regions. The segmentation is done according to the 
+ intensity range specified in port <em>Intensity</em>. If <em>Label image</em> is
+ checked, voxel values are considered labels and connectivity is analyzed
+ for each label.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Intensity</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_intensity.png" /><br /></div>
+<div class="body"><p>If port <em>Input image</em> is set to <em>Gray image</em>, voxels with values 
+ outside the specified intensity range are considered to be part of the 
+ background. This port will be insensitive if in port <em>Input image</em> the 
+ <em>Label image</em> option is selected.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Connectivity</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_fillType.png" /><br /></div>
+<div class="body"><p>This port defines the connectivity type. In the case of <em>Face</em> voxels
+ with a common face are considered connected. In the case of <em>Edge </em> 
+ voxels with at least one common edge are considered connected, and, in the 
+ case of <em>Corner</em>, voxels with at least one common vertex are considered 
+ connected.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_size.png" /><br /></div>
+<div class="body"><p>Minimal and maximal size in voxels of the regions. Regions smaller or
+ larger than this range are considered part of the background. If <em>Max</em> is zero no upper size limit will be implied.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Output</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_options.png" /><br /></div>
+<div class="body"><p>If <em>Label image</em> is checked, a scalar field will be
+ created. Voxels which were considered to belong to a region are
+ set to some non-zero value, while background voxels are set to
+ zero. Different connected regions will be assigned different
+ values, so that the regions can be visualized using color
+ coding. Depending on the output type (see below) the region labels
+ are not unique if more components are found than are representable
+ with the selected output type. The regions can be visualized in 3D
+ by using e.g. an <a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> module with
+ threshold <i>0.5</i>.</p>
+<p> If <em>Spreadsheet</em> is checked, a <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a>
+ object will be created, containing a table with the size and position of
+ all detected regions.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Output type</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_outputType.png" /><br /></div>
+<div class="body"><p>The output type defines the maximum number of labels in the output field. 
+ This also corresponds to the maximum number of objects to be detected
+ (excluding backround). These are:
+ </p>
+<ul><li>255 for <em>LabelField (8 bit)</em></li><li>65,535 for <em>Unsigned short (16 bit)</em></li><li>4,294,967,295 for <em>Unsigned int (32 bit)</em></li>
+</ul>
+</div></div>
+<div class="hxport">
+ <span class="headline">Preserve exterior</span>  
+<div class="portsnapshot"><img src="HxConnectedComponentAnalysis_preserveExterior.png" /><br /></div>
+<div class="body"><p>If checked, all voxels labelled as background (= 0) in the input label 
+ field will be assigned to background in the output image, independent of
+ whether they are connected or not. Otherwise, if multiple regions are found 
+ in the backgrond label, the first region encountered will be labelled as
+ background and all others will be assigned non-background labels.
+ This port will be insensitive if in port <em>Input image</em> the 
+ <em>Gray image</em> option is selected.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

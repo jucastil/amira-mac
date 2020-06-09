@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> BondCalculation</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "BondCalculation" "calculates bonds in a given molecular structure" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The module calculates bonds in a given
+ molecular structure by analyzing the distances between
+ the individual atoms of the structure. A maximal distance value
+ will be used to determine whether two atoms are connected or not.</p>
+<p> This module is especially useful when being used with a molecule
+ that is derived from a trajectory. Each newly displayed time step
+ will cause the bonds to be recalculated.
+ A similar module for bond calculation is available
+ via the <a class="link" href="HxMoleculeEditor.html#A1">molecule editor</a>. This editor
+ module offers advanced functionality but cannot be used dynamically 
+ in the work flow of the Pool.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Molecule for which a new molecule with a complete bond structure
+ should be computed.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxBondCalc_mode.png" /><br /></div>
+<div class="body"><p>Select bond calculation method. For more information on bond calculation methods please refer to
+<a class="link" href="HxMoleculeEditor.html#A1">Molecule Editor's</a> documentation.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximal atom distance</span>  
+<div class="portsnapshot"><img src="HxBondCalc_maximaldistance.png" /><br /></div>
+<div class="body"><p>Available only when 'Mode' is set to 'distance'.
+ The value determines the maximal distance between two atoms (in &#8491;)
+ below which they are considered to be connected by a bond.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxBondCalc_action.png" /><br /></div>
+<div class="body"><p>Starts the computation of the new molecule. "Add" will compute new bonds according to 
+ the chosen parameters and add the newly computed bonds to the molecule, "Remove" will 
+ remove bonds that match the respective parameters. Some of these bonds might 
+ not be present in the molecule, but this is not a problem. "Replace" will first 
+ remove all bonds and then add those that match the given parameter configuration.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

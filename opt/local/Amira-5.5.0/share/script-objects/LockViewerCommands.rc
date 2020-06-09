@@ -1,0 +1,13 @@
+########################################
+# scro LockViewerCommands 
+########################################
+
+module -name "ViewerCommandsLock" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel ViewerCommandsLock]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/LockViewerCommands.scro
+	$mod fire
+    }	
+

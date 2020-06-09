@@ -1,0 +1,186 @@
+# Amira-Script-Object V3.0
+
+####################################################################
+#
+# RotateObject 1.0
+#
+# rotate an object around a local axis, so that multiple objects 
+# can be rotated independently
+#
+# author: Hartmut Schirmacher
+# (C) copyright 2005-2012, Visualization Sciences Group (VSG) SAS
+#
+####################################################################
+
+
+# the constructor is called when a scro is created or restarted
+#  and is used to create the user interface and initialize member variables 
+$this proc constructor {} {
+
+    # hide the script file port, the user does not need it
+    # $this script hide
+
+    # ID for this
+    $this setVar scroTypeRotateObject 1
+
+    # port for connecting a plane module (for defining normal direction)
+    $this newPortConnection normalPlane HxPlanarMod
+    $this normalPlane setLabel "normal plane"
+
+    # master time slider
+    $this newPortTime time
+
+    # rotation axis
+    $this newPortFloatTextN axis 3 
+    $this axis setLabel "Axis:"
+    $this axis setValue 0 0 
+    $this axis setValue 1 1 
+    $this axis setValue 2 0 
+
+    # center of rotation
+    $this newPortFloatTextN center 3 
+    $this center setLabel "Center:"
+    $this center setValue 0 0 
+    $this center setValue 1 0
+    $this center setValue 2 0 
+    
+    # set center / axis automatically
+    $this newPortButtonList action 2
+    $this action setLabel "Action:"
+    $this action setLabel 0 "Use plane normal"
+    $this action setLabel 1 "Use bbox center"
+    $this action setSensitivity 0 0
+    $this action setCmd 0 {$this usePlaneNormal}
+    $this action setCmd 1 {$this useBBoxCenter}
+
+    # amount of rotation
+    $this newPortFloatTextN degrees 1
+    $this degrees setLabel "Rotation degrees:"
+    $this degrees setValues 360 
+
+    # options
+    $this newPortToggleList options 1
+    $this options setLabel "Options:"
+    $this options setLabel 0 "explicit redraw"
+    $this options setValue 0 0
+}
+
+# destructor is called when DemoMaker is destroyed
+$this proc destructor {} {
+}
+
+
+# the "compute" method is called whenever a port has changed
+$this proc compute {} {
+
+    # is a plane attached or detached? 
+    if [$this normalPlane isNew] {
+	set plane [$this normalPlane source]
+	if {$plane == ""} {
+	    $this detachNormalPlane
+	    $this action setSensitivity 0 0
+	} else {
+	    $this attachNormalPlane $plane
+	    $this action setSensitivity 0 1
+	}
+    }
+
+    # when the time slider is touched, rotate object
+    if [$this time isNew] {
+	set tminmax [$this time getMinMax]
+	$this rotateObject [$this time getValue] \
+	    [lindex $tminmax 0] [lindex $tminmax 1] \
+	    [$this degrees getValue] \
+	    [$this axis getValue 0] \
+	    [$this axis getValue 1] \
+	    [$this axis getValue 2] \
+	    [$this center getValue 0] \
+	    [$this center getValue 1] \
+	    [$this center getValue 2] 
+    }
+	
+}
+
+
+# normal plane has been attached by the user
+$this proc attachNormalPlane {plane} {
+
+    # if the plane module is not attached to a data object, do it now
+    set plane [$this normalPlane source]
+    set obj [$plane data source]
+    if {$obj == ""} {
+	$plane data connect [$this data source]
+	$plane fire
+    }
+}
+
+
+# normal plane has been detached by the user
+$this proc detachNormalPlane {} {
+}
+
+
+# check if a suitable data object is connected to the module
+$this proc checkData {} {
+
+    # check if a suitable object is connected
+    set obj [$this data source]
+    if {$obj == ""} {
+	echo "$this: no data object connected."
+	$this time stop
+	return 0
+    }
+    if {![$obj hasInterface HxSpatialData]} {
+	echo "$this: $obj is not a spatial data object."
+	$this data disconnect
+	return 0
+    }
+    return 1
+}
+
+
+# set the rotation axis to the normal of the attached plane
+$this proc usePlaneNormal {} {
+    set plane [$this normalPlane source]
+    set axis [$plane getNormal]
+    $this axis setValue 0 [lindex $axis 0]
+    $this axis setValue 1 [lindex $axis 1]
+    $this axis setValue 2 [lindex $axis 2]
+}
+
+# use bbox center as center of rotation
+$this proc useBBoxCenter {} {
+    if {![$this checkData]} {return}
+    set obj [$this data source]
+    set bb [$obj getBoundingBox]
+    set cx [expr [lindex $bb 0] + ([lindex $bb 1] - [lindex $bb 0]) * 0.5]
+    set cy [expr [lindex $bb 2] + ([lindex $bb 3] - [lindex $bb 2]) * 0.5]
+    set cz [expr [lindex $bb 4] + ([lindex $bb 5] - [lindex $bb 4]) * 0.5]
+    $this center setValue 0 $cx
+    $this center setValue 1 $cy
+    $this center setValue 2 $cz
+}
+
+
+# rotate attached object $obj into the position corresponding to 
+#   time step $t in $t_minmax. $degrees is the total degrees the object is to 
+#   rotated within $t_minmax
+$this proc rotateObject {t tmin tmax degrees x y z cx cy cz} {
+
+    # return if no data object is connected
+    if {![$this checkData]} {return}
+    set obj [$this data source]
+
+    # compute the current rotation degree
+    set rot [expr double($t-$tmin)/double($tmax-$tmin) * $degrees]
+
+    # do rotation 
+    $obj setRotation -center $cx $cy $cz $x $y $z $rot
+    $obj touch 1 ;# touch transformation
+    $obj fire 
+    
+    # explicit redraw?
+    if [$this options getValue 0] {
+	viewer redraw
+    }   
+}

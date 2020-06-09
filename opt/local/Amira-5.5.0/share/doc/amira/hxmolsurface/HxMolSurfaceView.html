@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolSurfaceView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MolSurfaceView" "visualizes molecular surface objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module visualizes data objects of type
+ <a class="link" href="HxMolSurface.html#A1">MolSurface</a>. Objects of type <i>MolSurface</i>
+ can be either molecular surfaces, such as <i>van der Waals,
+ solvent accessible,</i> or <i>solvent excluded surfaces</i>, generated
+ by the <a class="link" href="HxCompMolSurface.html#A1">CompMolSurface</a> module, or it can be
+ molecular interfaces, generated with the
+ <a class="link" href="HxCompMolInterface.html#A1">CompMolInterface</a> module. Apart from a
+ connection to the molecular surface, this module also should be
+ connected to the molecules the surface was generated from, in order
+ to exploit the full functionality of the <em>MolSurfaceView</em>. If
+ the molecular surface was generated in the current <font face="helvetica">Amira</font> session
+ and the molecules were not deleted in between, the <em>MolSurfaceView</em> will be automatically connected to these
+ molecules.</p>
+<p> Like the other molecular visualization modules, this module allows
+ you to color the molecule, i.e., its surface, according to various
+ different color schemes, using <font face="helvetica">Molecular Option</font>'s
+ <a class="link" href="../hxmolecule/moldisplay.html#A4">coloring component</a>. The <em>MolSurfaceView</em> has several pick modes implemented. Depending on
+ the pick mode, clicking on the surface results in different actions.
+ E.g., you can highlight parts of the surface by clicking on it with
+ the left mouse button. How the click is interpreted depends on the
+ current selection mode. If <i>default</i> colors are used, clicking
+ is interpreted as in the <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>
+ module. Clicking on the surface with the middle mouse button
+ displays information about the clicked on part of the molecule. See
+ the description on the <a class="link" href="#A14">pick
+ action</a> port for more information.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Object of class <em>MolSurface</em>.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ColorField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Scalar field to color the surface according to physical or
+chemical properties.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Colormap for pseudocoloring the surface according to the values
+in a scalar field.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Molecule</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Object of type molecule. Needed if information about the surface is
+required.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Continuous CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Needed for coloring the molecular surface according to atomic
+information. </p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Discrete CM</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Needed for coloring the molecular surface according to atomic
+information. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A8"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_drawStyle.png" /></div>
+<div class="body"><p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_cullingMode.png" /></div>
+<div class="body"><p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_colormap.png" /></div>
+<div class="body"><p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BaseTrans</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_baseTrans.png" /><br /></div>
+<div class="body"><p>See the description of MolSurfaceView's <a class="link" href="../hxsurface/HxViewBase.html#A1">base class</a>
+for an explanation of the first four ports.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color Mode</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_colorMode.png" /><br /></div>
+<div class="body"><p>There are three color modes. The first mode uses default colors to
+color the outside triangles differently than the inside triangles. If
+one or two molecules are connected to the <em>MolSurfaceView</em>, you
+can choose the second mode to color the molecular surface according to
+the <a class="link" href="../hxmolecule/moldisplay.html#A4">coloring</a> component(s). The last mode,
+finally, allows you to color the surface by use of a scalar field
+(representing chemical or physical properties). This mode can only be
+chosen if the <em>ColorField</em> port is connected to a field.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Default Colors</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_defaultColors.png" /><br /></div>
+<div class="body"><p>You can change the default colors by clicking on them. A
+color editor will appear, enabling you to change the color.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Pick Action</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_pickAction.png" /><br /></div>
+<div class="body"><p>You can change the behavior of the pick action by selecting one of
+three modes. If the first mode, <i>molecule</i>, is selected,
+left-clicking on the surface highlights the selected parts of the
+surface, while picking with the middle mouse button leads to
+information about the picked atom(s) being displayed in the upper left
+corner of the viewer. If <i>clipping</i> is selected, left-clicking on
+the surface clips all those parts of the surface further away than the
+value specified by the <i>clipping distance</i>. Finally, if the mode
+<i>surface</i> is selected, the behavior will be like this in the
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Clipping Distance</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_selectionDistance.png" /><br /></div>
+<div class="body"><p>Distance threshold used for clipping.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Highlighting</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_highlighting.png" /><br /></div>
+<div class="body"><p>This port provides functionality for selecting (or highlighting) atom
+surface patches in the viewer window. For more information, see the
+general section on 
+<a class="link" href="../hxmolecule/moldisplay.html#A10">highlighting</a>.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxMolSurfaceView_buffer.png" /><br /></div>
+<div class="body"><p>This port is the front end to a filter that determines the atom surface
+patches being displayed by the <i>MolSurfaceView</i>. The functionality
+of the port's buttons are described in the general section on
+<a class="link" href="../hxmolecule/moldisplay.html#A13">highlighting</a>.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Coloring</span>  
+<div class="portsnapshot"><img src="HxMolView_colorscheme.png" /><br /><img src="HxMolView_continuousColormap.png" /><br /><img src="HxMolView_discreteColormap.png" /><br /><img src="HxMolView_defineColor.png" /><br /></div>
+<div class="body"><p>The four ports above belong to the <a class="link" href="../hxmolecule/moldisplay.html#A4">coloring</a>
+component. There will be one component for each molecule connected to
+the <em>MolSurfaceView</em>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

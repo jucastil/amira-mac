@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputeHBonds</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "ComputeHBonds" "computes hydrogen bonds of molecules" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module creates a molecule with a new level (the hydrogen bond level 'hBonds')
+ containing possibly found hydrogen bonds. 
+ Chemical criteria are used to identify potential donors and acceptors. All
+ non carbon heavy atoms with at least one hydrogen (explicit or implicit) 
+ are used as donors and all atoms with at least one lone electron pair
+ are used as acceptors. Several geometric criteria are then checked including distance
+ and angle between donor and acceptor atoms. The hydrogen bond 
+ calculation represents the base for further computations, such as the secondary 
+ structure detection.</p>
+<p> Press the <em>Apply</em> button to start the calculation of hydrogen bonds.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Molecule</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A molecule for which the hydrogen bond level should be generated.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Minimum Angle</span>  
+<div class="portsnapshot"><img src="HxComputeHBonds_minangle.png" /><br /></div>
+<div class="body"><p>This angle determines the minimum angle a hydrogen bond must have. The angle
+ of each bond is defined as the angle between the three atoms involved in the
+ bond (donor - acceptor - heavy atom bonded to the acceptor). </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximum Distance</span>  
+<div class="portsnapshot"><img src="HxComputeHBonds_maxdist.png" /><br /></div>
+<div class="body"><p>This value determines the maximum distance between the donor and the acceptor atom.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Restrict</span>  
+<div class="portsnapshot"><img src="HxComputeHBonds_restrict.png" /><br /></div>
+<div class="body"><p>Specifies optional restrictions for the hydrogen bond calculation. Removing
+ atoms from HET residues and/or water molecules may produce a cleaner result. You can
+ also restrict the computation to the enriched backbone to obtain hydrogen bonds
+ between the backbone cabonyl and amine groups only.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p></body>
+</html>

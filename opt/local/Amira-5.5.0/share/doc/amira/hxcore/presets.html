@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">1 Configuring Menus with Presets</a></h2>
+<p>The purpose of the preset mechanism is to show only some subset of
+objects in GUI. The createMenu is reduced, as well as the
+default-right-click menu and the left-click-on-object menu in the
+object pool. The set of buttons displayed on selection of an object is
+reduced, too. No (other) functionality should be reduced.</p>
+<p>The subset of objects to be shown is specified in an .rc file, syntax:
+preset &lt;name&gt; &lt;key&gt;*. It contains object keys and is parsed by
+interpreter. Only objects referred to by those keys are shown in gui.
+The key is the className of an object, or if that does not exist (e.g. 
+for .scro), the object name. A preset with name "ALL" exists without
+an .rc file and shows all objects in GUI.</p>
+<p>presets can be set in the console with: thePresetMgr setPreset &lt;name&gt;</p>
+<p>The last preset is saved and reloaded on new start of <font face="helvetica">Amira</font>.</p>
+<p>In this manager the presets can be chosen without using the console.
+The actual valid preset is the default, when the manager opens.</p>
+<p>To write a preset file with all current modules the Tcl command
+"writePresetObjects" is introduced.
+
+</p></body>
+</html>

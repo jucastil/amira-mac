@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.3.1 A Simple Plot Example</a></h3>
+<p>In this section we show how to plot some simple curves using the class
+<tt>PzEasyPlot</tt>. As mentioned above, the curves represent the
+number of voxels per slice for the materials of a label field. For this
+purpose we define a new module called <tt>MyPlotAreaPerSlice</tt>.</p>
+<p>Like the other examples, this module is contained in the <font face="helvetica">Amira</font> demo package.
+In order to check out the demo package, you must create a local
+<font face="helvetica">Amira</font> directory as described in <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>. In order to
+compile the demo package, please refer to
+<a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling and Debugging)</a>.</p>
+<p>Let us first look at the header file <tt>MyPlotAreaPerSlice.h</tt>:</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Example of a plot module (header file)
+//
+/////////////////////////////////////////////////////////////////
+#ifndef MY_PLOT_AREA_PER_SLICE_H
+#define MY_PLOT_AREA_PER_SLICE_H
+
+#include &lt;hxcore/HxModule.h&gt;
+#include &lt;hxcore/HxPortButtonList.h&gt;
+#include &lt;hxplot/PzEasyPlot.h&gt; // simple plot window
+#include &lt;mypackage/mypackageAPI.h&gt;
+
+class MYPACKAGE_API MyPlotAreaPerSlice : public HxModule
+{
+    HX_HEADER(MyPlotAreaPerSlice);
+
+  public:
+    // Constructor.
+    MyPlotAreaPerSlice();
+
+    // Shows the plot window.
+    HxPortButtonList portAction;
+
+    // Performs the actual computation.
+    virtual void compute();
+
+  protected:
+    McHandle&lt;PzEasyPlot&gt; plot;
+};
+
+#endif
+</pre><p><font size="2"></font></p>
+<p>The class declaration is very simple. The module is derived directly from
+<tt>HxModule</tt>. It provides a constructor, a compute method, and a port of
+type <tt>HxPortButtonList</tt>. In fact, we will only use a single push button
+in order to let the user pop up the plot window. The plot window class <tt>PzEasyPlot</tt> itself is referenced by a smart pointer, i.e., by a
+variable of type <tt>McHandle&lt;PzEasyPlot&gt;</tt>. We have already used smart
+pointers in <a class="link" href="HxDev-dispmodule1.html#A1">Section 26.2.1</a>, for details see there.
+Now let us take a look at the source file <tt>MyPlotAreaPerSlice.cpp</tt>:</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////////////////////
+//
+// Example of a plot module (source code)
+//
+/////////////////////////////////////////////////////////////////
+
+#include &lt;hxcore/HxWorkArea.h&gt;
+#include &lt;hxfield/HxLabelLattice3.h&gt;
+#include &lt;mypackage/MyPlotAreaPerSlice.h&gt;
+
+HX_INIT_CLASS(MyPlotAreaPerSlice,HxModule)
+
+MyPlotAreaPerSlice::MyPlotAreaPerSlice() :
+    HxModule(HxLabelLattice3::getClassTypeId()),
+    portAction(this,"action",1)
+{
+    portAction.setLabel(0,"Show Plot");
+    plot = new PzEasyPlot("Area per slice");
+    plot-&gt;autoUpdate(0);
+}
+
+void MyPlotAreaPerSlice::compute()
+{
+    HxLabelLattice3* lattice = (HxLabelLattice3*)
+        portData.source(HxLabelLattice3::getClassTypeId());
+
+    // Check if valid input is available.
+    if (!lattice) {
+        plot-&gt;hide();
+        return;
+    }
+
+    // Return if plot window is invisible and show button
+    // wasn't hit
+    if (!plot-&gt;isVisible() &amp;&amp; !portAction.isNew())
+        return;
+
+    theWorkArea-&gt;busy(); // activate busy cursor
+
+    int i,k,n;
+    const int* dims = lattice-&gt;dims();
+    unsigned char* data = lattice-&gt;getLabels();
+    int nMaterials = lattice-&gt;materials()-&gt;nBundles();
+
+    // One counter per material and slice
+    McDArray&lt; McDArray&lt;float&gt; &gt; count(nMaterials);
+
+    for (n=0; n&lt;nMaterials; n++) {
+        count[n].resize(dims[2]);
+        count[n].fill(0);
+    }
+
+    // Count number of voxels per material and slice
+    for (k=0; k&lt;dims[2]; k++) {
+        for (i=0; i&lt;dims[1]*dims[0]; i++) {
+            int label = data[k*dims[0]*dims[1]+i];
+            if (label&lt;nMaterials)
+                count[label][k]++;
+        }
+    }
+
+    plot-&gt;remData(); // remove old curves
+
+    for (n=0; n&lt;nMaterials; n++) // add new curves
+        plot-&gt;putData(lattice-&gt;materials()-&gt;bundle(n)-&gt;name(),
+            dims[2], count[n].dataPtr());
+
+    plot-&gt;update(); // refresh display
+    plot-&gt;show(); // show or raise plot window
+
+    theWorkArea-&gt;notBusy(); // deactivate busy cursor
+}
+</pre><p><font size="2"></font></p>
+<p>In the constructor the base class <tt>HxModule</tt> is initialized with the
+class type ID of the class <tt>HxLabelLattice3</tt>. This class is not a data
+class derived from <tt>HxData</tt> but a so-called <em>interface</em>. Interfaces
+are used to provide a common API for objects not directly related by
+inheritance. In our case, <tt>MyPlotAreaPerSlice</tt> can be connected to
+any data object providing a <tt>HxLabelLattice3</tt> interface. This might
+be a <tt>HxUniformLabelField3</tt> but also a <tt>HxStackedLabelField3</tt> or
+something else.Also in the constructor, a new plot window of type <tt>PzEasyPlot</tt> is
+created and stored in <tt>plot</tt>. Then the method <tt>plot-&gt;autoUpdate(0)</tt>
+is called. This means that we must explicitly call the <tt>update</tt>
+method of <tt>PzEasyPlot</tt> after the contents of the plot window are changed.
+Auto-update should be disabled when more than one curve is being changed
+at once.</p>
+<p>As usual, the actual work is performed by the compute method. First, we
+retrieve a pointer to the label lattice. Since we want to use an interface
+instead of a data object itself, we must specify the class type ID of
+the interface as an argument of the <tt>source</tt> method of <tt>portData</tt>.
+Otherwise we would get a pointer to the object providing the interface,
+but we can't be sure about the type of this object.</p>
+<p>The method returns if no label lattice is present or if the plot window is
+not visible and the show button has not been pressed. Otherwise, the contents
+of the plot window are recomputed from scratch. For this purpose a dynamic
+array of arrays called <tt>count</tt> is defined. The array provides a counter
+for each material and for each slice of the label lattice. Initially all
+counters are set to zero. Afterwards, they are incremented while the voxels
+are traversed in a nested for-loop.</p>
+<p>The actual initialization of the plot window happens subsequently. First, old
+curves are removed by calling <tt>plot-&gt;remData</tt>. Then, for each material,
+a new curve is added by calling <tt>plot-&gt;putData</tt>. Afterwards,
+<tt>plot-&gt;update</tt> is called. If we had not disabled `auto update' in
+the constructor, the plot window would have been updated automatically in
+each call of <tt>putData</tt>. The <tt>putData</tt> method creates a curve with
+the given name and sets the values. If a curve of the given name exists, the
+old values are overridden. The method returns a pointer to the curve which
+in turn can be used to set attributes for the curve individually (see
+below). Finally, the plot window is popped up and the `busy' cursor we have
+activated before is switched off again.To test the module, first compile the demo package. For
+instructions, see <a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling and Debugging)</a>.
+Then load the file <tt>data/tutorials/lobus.labels.am</tt> from the <font face="helvetica">Amira</font>
+
+root directory. Attach <tt>PlotAreaPerSlice</tt> to it and press the show
+button. You then should get a result like that shown in <a class="link" href="#A2">Figure 190</a>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=plot.png.html><img width=450 src="plot.png" /></a><br />
+<div class="caption">
+<b>Figure 190:</b>
+Plot produced by sample module <em>PlotAreaPerSlice</em>.</div>
+
+
+</div><p>
+
+</p></body>
+</html>

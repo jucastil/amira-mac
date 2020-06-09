@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.5 Sequential and Structural Alignment</a></h3>
+<p>In this tutorial you will become familiar with the
+<a class="link" href="../hxmolalign/HxSeqAlign.html#A1">AlignSequences</a> and
+<a class="link" href="../hxmolalign/HxAlignMolecules.html#A1">AlignMolecules</a> modules.</p>
+<p>The <em>AlignSequences</em> tool facilitates the comparison of two
+sequences. It can be applied to both proteins and nucleic acids except
+for t-rna molecules containing modified bases. The <em>AlignSequences</em> module is <em>not</em> highly advanced, but it might
+suffice for some purposes.</p>
+<p>Having done the sequential alignment, you can use the correspondence
+produced by the sequence alignment to do a structural alignment of the
+molecules.</p>
+<p></p>
+<ul><li>Load the files <tt>1IGM.pdb</tt> and <tt>2JEL.pdb</tt> from the
+directory <tt>data/molecules/pdb/</tt> and connect a <em>MoleculeView</em>
+to each of them.</li>
+</ul><p></p>
+<p>You should know how to do this from the
+<a class="link" href="molgettingstarted.html#A1">first tutorial</a>. For both <em>MoleculeViews</em></p>
+<p></p>
+<ul><li>select <em>residues</em> from the first menu of the <em>Color</em> port.</li>
+</ul><p></p>
+<p>A colormap (<em>Discrete CM</em>) with constant color will appear. To
+distinguish the molecules, choose a different color for one of
+them. In order to do so</p>
+<p></p>
+<ul><li>double-click on the colorbar (the <em>Color Dialog</em> should appear) and</li><li>change the current color by dragging and dropping any of the
+ custom colors.</li><li>Press the <em>OK</em> button of the color editor.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A2">10.1.5.1 Sequence Alignment</a></h4>
+<p>We will now use the <em>AlignSequences</em> module to align the sequences
+of the two molecules. In the next section we will use the
+associated amino acid pairs for a structural alignment.</p>
+<p></p>
+<ul><li>Right-click on the <em>1IGM.pdb</em> icon and select <em>AlignSequences</em> from the <em>Compute</em> submenu.</li><li>Right-click the white square on the far left side of the <em>AlignSequences</em> icon.</li>
+</ul><p></p>
+<p>A pop-up menu displaying all connection ports opens.</p>
+<p></p>
+<ul><li>Select <em>MoleculeB</em> from it and connect the port to the
+<em>2JEL.pdb</em> icon by clicking on it.</li>
+</ul><p></p>
+<p>There should now be two blue lines connecting the <em>AlignSequences</em> icon with the <em>1IGM.pdb</em> and <em>2JEL.pdb</em> icons,
+respectively.</p>
+<p></p>
+<ul><li>Select the module <em>AlignSequences</em> by clicking on its icon
+ in the Pool.</li><li>Choose <em>semiglobal</em> from the second menu of the <em>Align
+ Type</em> port.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>If the alignment has been successful, a window displaying several
+slightly different alignments will appear.</p>
+<p></p>
+<ul><li>Press the <em>AcceptAll</em> button. Then press the <em>Close</em> button.</li>
+</ul><p></p>
+<p>This action results in the alignments being written to the molecules
+as new levels. In order to check this,</p>
+<p></p>
+<ul><li>type <tt>1IGM.pdb list</tt> in the <font face="helvetica">Amira</font> console window.</li>
+</ul><p></p>
+<p>In addition to levels such as <em>atoms, bonds, residues, etc.</em> you
+will also see levels named <em>semiGlobalSeqAlign1</em> to <em>semiGlobalSeqAlign10</em>. <em>2JEL.pdb</em> has the same levels with an
+equal number of groups.</p>
+<p></p>
+<h4><a name="A3">10.1.5.2 Align Molecules by using the Mean Distance Criteria</a></h4>
+<p>We can now use the levels <em>semiGlobalSeqAlign*</em> for a structural
+alignment. In order to do so,</p>
+<p></p>
+<ul><li>right-click the icon <em>1IGM.pdb</em> and select <em>AlignMolecules</em> from the <em>Alignment</em> submenu.</li><li>Right-click the white square at the far left side of the <em>AlignMolecules</em> icon, select the <em>MoleculeB</em> entry, and connect the module to <em>2JEL.pdb</em>.</li><li>Select the <em>AlignMolecules</em> icon to make it appear in the
+ Properties Area.</li><li>Select any of the levels named <em>semiGlobalSeqAlign*</em> in the
+ <em>AlignLevel</em> port and press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>If you want to follow the alignment process, </p>
+<p></p>
+<ul><li>click the <em>show alignment</em> option before pressing the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>Compare your result to the
+<a href="../../demo/molecules/pdb/flexible_aligned.hx">online demo</a>.</p>
+<p>
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AtomicMolecularDensity</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "AtomicMolecularDensity" "computes the spatial density of atoms on a regular grid" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module computes the spatial distribution density of atoms on a regular grid. Inputs can be either molecules, trajectories of trajectory bundle objects.
+Atoms can be filtered according to mmff94 atom types. Using the module makes most sense for TrajectoryBundles containing a set of molecules
+from which you want to derive some spatial distribution property like pharmacophores. TrajectoryBundles can be created from single molecules
+with the MolTrajBundleConverter module.</p>
+
+<h3><a name="A2">Preparing data</a></h3>
+<p>The following example demonstrates how to compute pharmacophore densities for hiv protease. We compute the densities from
+two known ligands but the example can be easily extended to a large number:
+</p><pre>
+# fetch molecules from pdb
+newMolFromPDB 1pro
+newMolFromPDB 1hvr
+# use 1pro as reference and align others to it
+1hvr alignToProtein 1pro
+1hvr applyTransform
+# restrict to the ligands
+1pro sel r/type=A88
+1pro restrictToSelection 
+1hvr sel r/type=XK2
+1hvr restrictToSelection
+# compute bonds orders and add hydrogens
+1pro computeBonds
+1pro addHydrogns
+1hvr computeBonds
+1hvr addHydrogns
+mergeMolecules
+</pre>
+<p>The last command will create a MolTrajBundleConverter module. In this object you select TrajectoryBundle and press apply.
+The molecules are now combined in one bundle which can be used as input for the AtomicMolecularDensity module. 
+Parameterizing the MMFF atom types and filtering for certain atom types (like hydrogen acceptors) allows the creation of pharmacophore
+densities for this type.</p>
+
+<h3><a name="A3">Options</a></h3>
+<p>First you will need to determine on which grid the density is generated. The 'Bounding Box: Compute' button will generate the
+smallest possible bounding box surrounding all atoms of the input object. You can show and manually modify the bounding box.
+By default the module will generate a density for all atoms. A filter based on mmff94 atom types can be applied by selecting
+'Atom Types: MMFF' and using the atom type selector. The input data must, however, first have mmff94 atom types assigned.
+You can do this with the 'Parameterization: MMFF' button. If the input is a trajectory or a bundle of trajectories which have an observable describing the energy of
+each time step, you can weigh each time step according to this energy. To do so, select an appropriate 'Energy weighting option' and
+enter the name of the observable.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A4"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Input data which can either be a single molecule, a trajectory or a trajectory-bundle.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A5"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Lattice Box</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_box.png" /><br /></div>
+<div class="body"><p>Allows to show the bounding box for manual adjustment.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Port field voxel size</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_portFieldVoxelSize.png" /><br /></div>
+<div class="body"><p>Determines the size of a voxel. Adjust the voxel size according to the bounding box size, so that the grid dimensions
+do not become too large.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Bounding Box</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_boundingBox.png" /><br /></div>
+<div class="body"><p>Allows to compute the smallest bounding box enclosing all atoms in the data object.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius Options</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_radiusOption.png" /><br /></div>
+<div class="body"><p>During the computation, each grid point within the radius of an atom is added to the density. The larger the atom
+radius the smoother the density will be but also the more blurred. The 'fixed' option will use the radius which is given
+in the float slider below for every atom. 'VDW' means that the standard vdW radius is used for each atomic number.
+'MMFF VDW' means that the vdW radius will be derived from half of the euqilibrium vdW distance between to atoms of this type.
+In the latter cases, the float slider acts as a factor which scales the radius.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Radius</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_atomRadius.png" /><br /></div>
+<div class="body"><p>Determines the fixed radius or the scale factor depending on the radius option.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Types</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_atomTypes.png" /><br /></div>
+<div class="body"><p>By default, all atoms will be counted in the computation. By selecting 'MMFF' you can select a subset of atoms
+by filtering for specific MMFF atom types with the atom type selector.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Selector</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_atomTypesSelector.png" /><br /></div>
+<div class="body"><p>Shows the atom type selector which allows to select one or several atom types or classes of atoms types. 
+If the MMFF option is chosen in the atom type options, only atoms matching these types will be considered in the computation.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Parameterization</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_atomTypesParameterization.png" /><br /></div>
+<div class="body"><p>This allows to asssign MMFF parameters to the input data so that MMFF atom type filtering is possible.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">EnergyWeighting Method</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_energyWeightingOption.png" /><br /></div>
+<div class="body"><p>If the input data trajectories contain an observable, this can be used to assign a weight to each timestep.
+Weight means that the observable value will be used as the weight directly, i.e. the density contribution of
+this timestep will be multiplied with the value. 'Sum' will divide the contribution by the sum of all observable values.
+'Boltzmann-Sum' will multiply the contribution with the boltzmann factor of the value. This makes sense if the observable 
+describes the energy. 'Linear-minmax' scales the contribution linearly so that the timesteps with the minimum observable value are multiplied with
+one while the timestep with the hightest value is multiplied with 0.</p>
+<p>
+<a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Energy Weighting Observable</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_weightingObservable.png" /><br /></div>
+<div class="body"><p>Name of the observable that is used for energy weighting.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">BBox Restrict</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_portBBoxRestrict.png" /><br /></div>
+<div class="body"><p>Allows to restrict the input data to the current bounding box. The computation will be faster after applying this
+restriction but this changes the input data object.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Field Normalization</span>  
+<div class="portsnapshot"><img src="HxCompMolecularDensity_fieldNormalizationOption.png" /><br /></div>
+<div class="body"><p>Allows to normalize the generated density so that the sum of all grid points is 1.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

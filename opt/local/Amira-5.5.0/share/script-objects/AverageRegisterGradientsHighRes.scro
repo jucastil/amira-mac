@@ -1,0 +1,309 @@
+# Amira-Script-Object v3.0
+
+#
+# This script registers a set of gradient weighted images using
+# affine registration. Volume with the same gradient are aligned
+# and averaged.
+#
+# Hauke Bartsch, San Diego, 2012, Visualization Sciences Group (VSG) SAS
+#
+
+#$this script show
+
+$this proc constructor {} {
+   $this newPortFilename dicom
+   # allow to add multiple files
+   $this dicom setMode 2
+   $this newPortFilename gradientList
+   $this newPortFilename anatomical
+   $this anatomical setMode 2
+   $this newPortDoIt action
+}
+
+$this proc compute {} {
+    if { ![$this action wasHit] } {
+	return
+    }
+ 
+    set DD [$this dicom getValue]
+    if { $DD == "" } {
+	echo "Error: no dicom files"
+	return
+    }
+
+    set AA [$this anatomical getValue]
+    if { $AA == "" } {
+	echo "Warning: no anatomical dataset selected, use b0 as master"
+    }
+
+    set G [$this gradientList getValue]
+    if { $G == "" } {
+	echo "Error: no gradient file specified"
+	return
+    }
+
+    
+    set env(AMIRA_MHT_STEREOTAXIS) 1
+    set allbefore [all HxUniformScalarField3]
+    set cmd "load -dicom $DD"
+    eval $cmd
+    set allafter [all HxUniformScalarField3]
+
+    set volumes [list]
+    foreach a $allafter {
+        set found 0
+	foreach b $allbefore {
+	    if { $a == $b } {
+		set found 1
+		break;
+	    }
+	}
+	if { $found == 0 } {
+	    lappend volumes $a
+	}
+    }    
+
+    # hide the volumes for now
+    foreach u $volumes { 
+	$u hideIcon
+    }
+
+    # read in the anatomical scan if present
+    set ANA ""
+    if { $AA != "" } {
+	set allbefore [all HxUniformScalarField3]
+	set cmd "load -dicom $AA"
+	eval $cmd
+	set allafter [all HxUniformScalarField3]
+	
+	set anaVolumes [list]
+	foreach a $allafter {
+	    set found 0
+	    foreach b $allbefore {
+		if { $a == $b } {
+		    set found 1
+		    break;
+		}
+	    }
+	    if { $found == 0 } {
+		lappend anaVolumes $a
+	    }
+	}    
+	
+	if { [llength $anaVolumes] > 0 } {
+	    set ANA [lindex $anaVolumes 0]
+	}
+    }
+
+    # now read the gradients from the gradient file
+    set gradients [list]
+    set fp [open $G "r"]
+    while { [gets $fp line] >= 0 } {
+	set line [string trim $line]
+	set numbers [regexp -inline -all -- {\S+} $line] 
+	lappend gradients $numbers
+    }
+    close $fp
+
+    echo $gradients
+    if { [llength $gradients] != [llength $volumes] } {
+	echo "Error: the number of gradients does not match the number of generated volumes [llength $gradients]/[llength $volumes]"
+	return
+    }
+
+    # merge files and gradients
+    set data [list]
+    for { set i 0 } { $i < [llength $volumes] } { incr i } {
+	lappend data [list [lindex $volumes $i] [lindex $gradients $i]]
+    }
+
+    # now sort the gradients into groups
+    set data [lsort -command different $data]
+
+    set RES ""
+    set i 0
+    set masterVolume [lindex [lindex $data 0] 0]
+    if { $ANA != "" } {
+	# register the b0 to the anatomical scan
+        set ret [registerMasterVolume $masterVolume $ANA]
+        set masterToAnaTrans [lindex $ret 1]
+	set masterVolume [lindex $ret 0]
+	
+	# apply the transformation to all gradient data
+	foreach u $volumes {
+	    set cmd "$u setTransform $masterToAnaTrans"
+	    eval $cmd
+	}
+    }
+
+    set numVol 0
+    while { $i < [llength $data] } {
+	set j [expr $i + 1]
+	while { ![different [lindex $data $i] [lindex $data $j]] } {
+	    incr j
+	    if { $j == [llength $data] } {
+		break;
+	    }
+	}
+	
+	set result [mergeThese [lrange $data $i [expr $j-1]] $masterVolume]
+	set grad [lindex [lindex $data $i] 1]
+	set RES "$RES\nDataset is: $result with gradient $grad"
+	$result parameters setValue "DTIGradient" $grad
+	$result setLabel [format "gradient_%.4f_%.4f_%.4f" [lindex $grad 0] [lindex $grad 1] [lindex $grad 2]]
+
+	set i $j
+    }
+
+    # clean up
+    foreach u $volumes {
+	remove $u
+    }
+}
+
+proc different { a b } {
+    set g1 [lindex $a 1]
+    set g2 [lindex $b 1]
+
+    set l1 [format "%.4f %.4f %.4f" [lindex $g1 0] [lindex $g1 1] [lindex $g1 2]]
+    set l2 [format "%.4f %.4f %.4f" [lindex $g2 0] [lindex $g2 1] [lindex $g2 2]]
+
+    return [string compare $l1 $l2]
+}
+
+# this would work better with skull stripped T1
+proc registerMasterVolume { masterVolume ana } {
+    # move the masterVolume to the anatomical scan
+
+    set af [create HxAffineRegistration]
+    $af model connect $masterVolume
+    $af reference connect $ana
+    $af fire
+    # set normalized mutual information
+    $af metric setValue 5
+    $af fire
+    # set rigid, iso, aniso
+    $af transform setValue 0 1
+    $af transform setValue 1 0
+    $af transform setValue 2 0
+    $af transform setValue 3 0
+    
+    # only look for local improvements
+    $af step setValue 20
+    $af fire
+
+    # register the center first
+    $af action setValue 0 1
+    $af fire
+
+    # now register the full transformation
+    $af action setValue 2 1
+    $af fire
+    
+    set trans [$masterVolume getTransform]
+
+    # resample the master to the anatomical dataset
+    set resa [create HxResample]
+    $resa data connect $masterVolume
+    $resa reference connect $ana
+    $resa fire
+    # use reference
+    $resa mode setValue 2
+    $resa fire
+    $resa action hit
+    $resa fire
+    
+    set r [$resa getResult]
+
+    # remove other datasets
+
+    return [list $r $trans]
+}
+
+# register and resample all volumes against the master volume
+# but only average without master volume
+proc mergeThese { l masterVolume } {
+    # if there is only a single volume we are done
+    if { [llength $l] == 1 } {
+	return $l
+    }
+
+    set group [list]
+    for { set i 0 } { $i < [llength $l]} { incr i } {
+	set u [lindex $l $i]
+	set ft [lindex $u 0]
+        if { $ft == $masterVolume } {
+	    lappend group [$ft duplicate]
+	    continue
+	}
+
+	# register against the first volume
+	set af [create HxAffineRegistration]
+	$af model connect $ft
+	$af reference connect $masterVolume
+	$af fire
+	# set mutual information
+	$af metric setValue 5
+	$af fire
+	# set rigid, iso, aniso, shear
+	$af transform setValue 0 1
+	$af transform setValue 1 1
+	$af transform setValue 2 1
+	$af transform setValue 3 1
+
+	# only look for local improvements
+	$af step setValue 10
+	$af fire
+	
+	$af action setValue 2 1
+	$af fire
+
+	# now ft is registered, continue with resample
+	set resa [create HxResample]
+	$resa data connect $ft
+	$resa reference connect $masterVolume
+	$resa fire
+	# use reference
+	$resa mode setValue 2
+	$resa fire
+	$resa action hit
+	$resa fire
+
+	set r [$resa getResult]
+	lappend group $r
+
+	$r master disconnect
+	remove $resa
+
+	remove $af
+    }
+
+    # all values in the group have to be averaged
+    set erg [lindex $group 0]
+    for { set i 1 } { $i < [llength $group] } { incr i } {
+	set d2 [lindex $group $i]
+	set ar [create HxArithmetic]
+	$ar inputA connect $erg
+	$ar inputB connect $d2
+	$ar fire
+	if { $i == [expr [llength $group]-1] } {
+	    # the last volume needs to be divided by the number of sets to get the mean
+	    $ar expr0 setValue "(A+B)/[llength $group]"
+        } else {
+	    $ar expr0 setValue "A+B"
+	}
+
+	$ar fire
+	$ar doIt hit
+	$ar fire
+
+	set r [$ar getResult]
+	$ar inputA disconnect
+	$ar inputB disconnect
+	remove $erg
+	remove $ar
+	remove $d2
+	set erg $r
+    }
+    return $erg
+}

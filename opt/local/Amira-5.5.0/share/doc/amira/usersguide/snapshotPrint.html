@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.13 Snapshot Dialog</a></h3>
+<p>The <em>Snapshot Dialog</em> provides the user interface of the viewer's
+snapshot facility. You get the dialog by clicking on the camera icon in
+the <a class="link" href="../hxalign/HxAlignSlices.html#A2">viewer</a> toolbar.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=snapshot.png.html><img width=300 src="snapshot.png" /></a><br />
+<div class="caption">
+<b>Figure 50:</b>
+The snapshot dialog allows you to save or print the
+ contents of a viewer window.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li><b>Output:</b> Specifies the output device. With <em>to file</em>
+ the grabbed image is saved to a file, with <em>to printer</em> the
+ image is sent directly to the printer, and with <em>to clipboard</em> it
+ is sent to the clipboard. In the <em>to printer</em> mode you first must
+ select and configure a printer by pressing the <em>Configure</em> button.
+ In addition, you may enter an arbitrary text string which is printed as 
+ an annotation text below the snapshot image.</li><li><p><b>Offscreen:</b> Lets you grab images larger than the actual screen 
+ size. When this option is checked, the output dimensions can be 
+ specified in the <em>width</em> and <em>height</em> text fields. If one of the 
+ offscreen dimension is bigger than 4096, the tiles algorithm is automatically used. 
+ Notice that the offscreen option overwrites the tiles option.</p>
+<p> <b>Note:</b> Depending on the graphic board this option might not work properly. In this case,
+ please use the on screen capture.</p></li><li><b>Render tiles:</b> Use this option to render snapshots of
+ virtually unlimited resolution (e.g. for high quality printouts). In
+ this mode the scene is divided into n x m tiles where n and m can be
+ entered into the adjacent text fields. Then the camera position is
+ set such that each tile fills the current viewer and a snapshot is
+ taken. Finally the tiles are internally merged to a single image and
+ sent to the device specified in the <em>Output</em> port.
+ Note that [<a class="link" href="../hxcore/HxAnnotation.html#A1">Annotations</a>|<a class="link" href="../hxcolor/HxDisplayColormap.html#A1">Colormap displays</a>|<a class="link" href="../hxplot/HxPlot2Viewer.html#A1">Plot Viewer</a>|<a class="link" href="../hxstatistics/HxShowViewerSpreadSheet.html#A1">SpreadSheet Viewer</a>|<a class="link" href="../hxmeasure/HxScale.html#A1">Scale</a>] will 
+ change their size when using tiling with snapshots.</li><li><b>Antialias:</b> Use this option to render snapshots with
+ antialiasing enabled. In this mode, the antialiasing is performed by using
+ the tiling rendering followed by a downscale. The Antialias factor determines
+ the degree of antialiasing.</li><li><b>Filename:</b> Lets you specify the filename if the <em>to
+ file</em> option is set. The <em>Browse</em> button allows you to browse to a
+ desired location within the filesystem.</li><li><b>Format:</b> The format option lets you select the file format
+ to be produced for file output. The following formats are supported: TIFF (<tt>.tif,.tiff</tt>), SGI-RGB (<tt>.rgb,.sgi,.bw</tt>), JPEG (<tt>.jpg,.jpeg</tt>), PPM (<tt>.pgm,.ppm</tt>), BMP (<tt>.bmp</tt>), PNG (<tt>.png</tt>), and Encapsulated PostScript (<tt>.eps</tt>). In addition, this
+ port offers three radio buttons to choose between <em>grayscale</em>,
+ <em>rgb</em>, and <em>rgb alpha</em> type of raster images. If <em>rgb
+ alpha</em> option is set, images are produced such that the viewer
+ background is assigned to the alpha channel. This option is not
+ available for file formats that do not support an alpha channel.</li><li><b>Auto-save network:</b> Use this option to save a network
+ in addition to the snapshot.
+ If the option is checked, a network will be saved at the same location as the 
+ snapshot specified by Filename, and ending with ".hx".
+ (i.e snapshot.jpg.hx )</li>
+</ul><p>
+
+</p></body>
+</html>

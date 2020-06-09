@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<p></p><div class="generic_head"><h2><a name="A1"> DoseVolume (Tetrahedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "DoseVolume (Tetrahedra)" "computes a value-volume histogram for tetra scalar fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>Dose Volume</em> module creates a value-volume-histogram 
+ for a scalar field defined on a 
+ <a class="link" href="../hxfield/HxTetraGrid.html#A1">tetrahedral grid</a>, e.g.
+ a temperature-volume-histogram for a scalar field that
+ represents a temperature distribution.
+ For this purpose it has to be attached to a
+ <a class="link" href="HxGridVolume.html#A1">GridVolume</a> module and a selection 
+ of tetrahedra specifying parts of the grid or the complete
+ grid must be made there. A histogram is constructed for the
+ selected tetrahedra only. This is done in the following way: <br />
+</p>
+<p> The range of scalar values is divided into subranges given
+ by the number of sample points. With respect to each subrange
+ one or more sub-volumes of the tetrahedral grid are determined
+ where the scalar field values fall into that range. Then the
+ volumetric sizes of the sub-volumes are computed and these are
+ depicted as differential histogram function values over the
+ total range of scalar field values or used to calculate cumulative
+ histogram values. <br />
+</p>
+<p> If the selected tetrahedra are members of different regions, 
+ histograms are calculated separately for each region, as well 
+ as for all selected tetrahedra (called 'total Volume'). <br />
+</p>
+<p> The histograms can be shown in several ways:
+ </p>
+<ul><li><b>differential</b>: shows a differential form of the histogram.</li><li><b>absolute</b> and <b>relative</b>: show an integral form of
+ the histogram, i.e., for each value the partial volume is shown
+ where <em>at least</em> that value is assumed. For the integral form
+ either the <b>absolute</b> volume [ccm] or the <b>relative</b> volume,
+ i.e., the percentage of the total volume of the corresponding region, 
+ can be shown. With the latter type of representation you can easily 
+ find out which value is at least assumed in 90 percent of a selected
+ region.</li>
+</ul></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A scalar field defined on a tetrahedral grid.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">PortGridVol</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>	A <a class="link" href="HxGridVolume.html#A1">GridVolume</a> module that selects the 
+	tetrahedra for which the histogram is calculated.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Histograms</span>  
+<div class="portsnapshot"><img src="HxCalcVolume_histograms.png" /><br /></div>
+<div class="body"><p>If you select one of these toggles, a plot window appears showing 
+	the corresponding histogram for all tetrahedra selected by the 
+	<em>GridVolume</em> module. If no tetrahedra have been selected, the 
+ plot window will not be shown. For the three different modes
+ of representation see above.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Samples</span>  
+<div class="portsnapshot"><img src="HxCalcVolume_samples.png" /><br /></div>
+<div class="body"><p>This slider lets you select the number of samples for the histogram.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

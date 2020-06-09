@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p>
+<h2><a name="A1">25.1 On file formats</a></h2>
+<p>Before going into detail, let us clarify some general concepts. In <font face="helvetica">Amira</font>,
+all data loaded into the system are encapsulated in C++ <em>data classes</em>.
+<a class="link" href="HxDev-dataobjs.html#A1">Chapter 27</a> provides more information about the standard
+data classes. For example, there is a class to represent tetrahedral grids
+(<em>HxTetraGrid</em>), a separate one for scalar fields defined on
+tetrahedral grids (<em>HxTetraScalarField</em>), and another one for 3D image
+data (<em>HxUniformScalarField3</em>). Every instance of a data class is
+represented by a green icon in the <font face="helvetica">Amira</font> Pool.
+The way in which data are stored in a disk file is called a file format.
+Although there is a relationship between data classes and file formats,
+these are two different things. It is especially important to understand
+that there is no one-to-one correspondence between them.</p>
+<p>Typically, a specific data class (like 3D image data) can be stored in many
+different file formats (3D TIFF, DICOM, a set of 2D JPEG files, and so
+on). On the other hand, a specific file format does not necessarily
+correspond to exactly one data class. For example, a data file in Fluent
+UNS format can either contain hexahedral grids (<em>HxHexaGrid</em>) or
+tetrahedral grids (<em>HxTetraGrid</em>).</p>
+<p>Note that there is also no one-to-one correspondence between the instance
+of a data class (a green icon in <font face="helvetica">Amira</font>) and the instance of a file format
+(the actual file). Often multiple files correspond to a single data
+object, for example 2D images forming a single 3D image volume. On the
+other hand, a single file can contain the data of multiple data objects.
+For example, an AVS UCD file can contain a tetrahedral grid as well as
+multiple scalar fields defined on it.</p>
+<p>Finally, note that information may get lost when saving a data object to a
+file in a specific format. For example, when saving a 3D image volume to a
+set of 2D JPEG images, the bounding box information will be lost. Likewise,
+there are user-defined parameters or attributes in <font face="helvetica">Amira</font> that cannot be
+encoded in most standard file formats. On the other hand a file reader
+often does not interpret all information provided by a specific
+file format.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

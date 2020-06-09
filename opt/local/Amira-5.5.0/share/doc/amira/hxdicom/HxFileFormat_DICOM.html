@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DICOM import</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>DICOM Reader</li></ul></div>
+<! HxIndex: "amiraDicomReader" "FileFormat" "DICOM import" "standard file format for medical images (r)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The DICOM data format and its predecessor the ACR-NEMA
+ format are widely used to exchange medical image data, provided by various
+ modalities, but also in many other areas dealing with volume image data. 
+ DICOM stands for <b>D</b>igital <b>I</b>maging in <b>Co</b>mmunications and <b>M</b>edicine, and it was originally designed as
+ pure transfer format between imaging modalities and image retrieval systems
+ (client/server). The data stream has a so called <i>tagged</i>
+ format, with a variable amount of tags (DICOM data elements). Each
+ element is defined by a unique group-element identifier. These
+ group-element pairs are always sorted in ascending order within
+ the DICOM data stream.</p>
+<p> In <font face="helvetica">Amira</font> the import of sequences of axis-aligned CT or MRI images
+ <i>stored</i> in DICOM or ACR-NEMA format is supported. It will be 
+ checked whether the spacing between subsequent slices is constant
+ or not. In the first case an image stack with uniform z-coordinates
+ is created, in the latter one so called stacked coordinates are
+ used. Nonuniform stacks can be easily converted into uniform
+ stacks using the <a class="link" href="../hxarith/HxArithmetic.html#A1">arithmetic module</a>. Both
+ image stacks, either uniform or stacked, can be segmented using
+ the <a class="link" href="../hxsegeditor/GI.html#A1">image segmentation editor</a>. Such labeled data can
+ be converted into polygonal models using the <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a>
+ module, and furthermore into tetrahedral models using the
+ <a class="link" href="../hxgridgen/HxTetraGen2.html#A1">TetraGen</a> module.</p>
+<p> When reading DICOM or ACR-NEMA image stacks, all files of the data
+ volume must be selected simultaneously within the file
+ browser. This is done by selecting each file with a mouse click
+ holding the control key down or by clicking the first file and
+ then shift-clicking the last one. <font face="helvetica">Amira</font> automatically identifies
+ files in DICOM or ACR-NEMA format if the file name suffix is <tt>.dcm</tt>, <tt>dc3</tt>, <tt>.ima</tt> or <tt>.ani</tt>, if the file name
+ matches a DICOM unique instance ID, e.g., <tt>1.3.12.2.1107.5.1.2.20395.19980429...</tt>, or if the <tt>DICM</tt>
+ sequence can be found at byte position 128 within the data stream.
+ Individual files are automatically uncompressed if they were compressed
+ using <tt>gzip</tt> or <tt>compress</tt>, and if the file name ends with
+ the suffix <tt>.gz</tt> or <tt>.Z</tt>.</p>
+<div style="text-align:center"><a name="A2"></a><a href=DicomFileSelection.png.html><img width=450 src="DicomFileSelection.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+Selecting multiple DICOM files 
+ in the file dialog.</div>
+
+ 
+ </div>
+<p> After choosing files from the file selection dialog, a list of
+ images is displayed within the DICOM loader dialog
+ view (see below), which allows you to adjust several parameters 
+ for image stack generation. This intermediate step is
+ necessary because the conversion of
+ sequences of DICOM images into image stacks can be ambiguous, although
+ in many cases the standard settings will produce the desired
+ results. The
+ evolution of the ACR-NEMA/DICOM file format is fast and
+ striking. However, the primary goal of reading image stacks into
+ <font face="helvetica">Amira</font> is the consistency of the entire data volume. The Loader has
+ to handle <i>retired</i> data elements, different <i>transfer
+ syntaxes</i>, explicit or implicit <i>value representation</i>, <i>image compression</i>, and <i>multi-frame data</i>, to name a few
+ specialties. Furthermore, the availability of certain tags is not
+ always guaranteed, and so-called <i>private</i> data elements can
+ be added at will by any creating instance. Further information on
+ the DICOM 3.0 data format can be found in NEMA: Standards
+ Publications PS3.x</p>
+
+<h3><a name="A3">The DICOM Load Dialog</a></h3>
+<p><a name="A4"></a>
+After selection of DICOM/ACR-NEMA files from the
+ file selection dialog, all images stored within these files are listed within
+ the DICOM Loader dialog. The images are initially sorted by
+ location in ascending order. Images of different studies are
+ grouped into separate image stacks. Each stack is represented by a
+ stack symbol and the patient's name if available. Stacks with
+ equally distributed images are depicted with a uniform stack
+ symbol, and stacks with variable spacing have a non-uniform stack
+ symbol. Single slices are represented by image icons within the
+ list view. Clicking on a stack or on one of its images will
+ display additional information in the top area of the dialog's
+ view. To preview an individual image, right click on it and select
+ <em>Image Preview</em> from the popup menu. </p>
+<div style="text-align:center"><a name="A5"></a><a href=DicomLoader.png.html><img width=450 src="DicomLoader.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The DICOM load dialog.</div>
+
+ 
+ </div>
+<p> Sorting order and policy can be modified by clicking on the column
+ headers or by moving columns from one position to another. The
+ order of the columns' precedence defines the significance of the
+ sort keys. Clicking on a column's header toggles the sorting order
+ between ascending and descending, depicted by an arrow within the
+ column's header. The leftmost column has the highest
+ priority. Rows with equal contents, e.g., equal slice locations,
+ can be subsorted depending on the order and contents of all
+ remaining columns.</p>
+<div style="text-align:center"><a name="A6"></a><a href=DicomLoader-ColShift.png.html><img width=450 src="DicomLoader-ColShift.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Reordering columns in the load dialog.</div>
+
+ 
+ </div>
+<p> Sorted sequences of images are automatically broken into substacks
+ when certain image parameters do not coincide, i.e., the
+ image/pixel size or the bits/samples per pixel vary. Furthermore
+ there are stack criteria like patient name, patient id, series
+ instance uid etc. that are supposed to enforce stack consistency
+ but can be overridden or additionally be set by the user.</p>
+<p> Building image stacks for 3D reconstruction requires unique
+ per-slice locations, thus image stacks of a single study are
+ automatically broken into substacks if duplicate slice locations
+ occur. This is especially the case when large areas were
+ scanned in several steps. Such duplicate slices can be removed by
+ right clicking on the image row, choosing <em>remove image</em>
+ from the popup menu. Remaining images are automatically combined
+ to one stack if they are not affected by any other stack break
+ criterion. Stack break criteria can be modified or disabled within
+ the dialog that is displayed after you press the
+ <em>Stack Break Criteria</em> button on the DICOM Loader.</p>
+<div style="text-align:center"><a name="A7"></a><a href=DicomLoadOptions.png.html><img width=300 src="DicomLoadOptions.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+Dialog for specifying stack break criteria.</div>
+
+ 
+ </div>
+<p> The slice location options are defined as follows:
+</p>
+<ul><li><b>ignore:</b> Do not use the slice location as the criterion to break the stack.</li><li><b>constant:</b> Within a stack, slice location must be constant. In this case, 
+the stack would be, for example, a time stack instead of a volume stack.</li><li><b>monotonic:</b> For two consecutive slices, the slice location must be equal to or
+ greater/smaller than the previous throughout the entire stack. Stacks may have two slices at the
+ same location and slice distance may vary.</li><li><b>strictly monotonic:</b> For two consecutive slices, the slice location must be
+ greater/smaller than the previous throughout the entire stack. No two slices may have the
+ same location, but slice distance may vary.</li><li><b>linear:</b> Slice distance must be equal.</li>
+</ul><p>
+Similar options are available for other numerical stack break criteria.</p>
+<p> Load options can also be removed completely by choosing the
+ appropriate column, right clicking on the column's header and
+ selecting <em>remove column</em> from the popup menu showing up at
+ this point. Options are disabled when <em>ignore</em> is selected
+ from the Stack Break Criteria dialog. After any modification of load
+ options, the new settings can be applied to the list of images by
+ either pressing the <em>Apply</em> button or accepting all options by
+ leaving the dialog with <em>OK</em>. Any changes are immediately
+ visible through rearrangement of the images and stacks within the list
+ view.</p>
+<p> Initially the major stack criteria, like slice location, image
+ number, patient name, patient id, series id and date, as well as
+ the file name and the load index, are shown in different
+ columns. If any of the parameters remain constant for all images
+ (except the slice location), the respective column will not show
+ up. Columns can be manually removed by clicking on the column's
+ header with the right mouse button and choosing <em>remove column</em>
+ from the popup menu. New columns can also be added to the list view.</p>
+<p> Imagine that you were loading a time series of images showing
+ cardiac motion or the distribution of nuclear tracers. The
+ location could be the same for all images but there might be another 
+ parameter of interest describing the order of
+ acquisition. Usually the image number or even the file name will
+ suffice to represent such an order, but there are other parameters
+ that might be of interest, too. Clicking on any image row with the
+ right mouse button shows a popup menu where the menu option <em>DICOM parameters</em> will open up a list of all DICOM data elements
+ for the belonging image series.</p>
+<div style="text-align:center"><a name="A8"></a><a href=DicomParameter.png.html><img width=450 src="DicomParameter.png" /></a><br />
+<div class="caption">
+<b>Figure 5:</b>
+Dialog listing all DICOM parameters.</div>
+
+ 
+ </div>
+<p> The parameter list is sorted by the group-element pairs as
+ described in the <a class="link" href="#A1">DICOM format</a>. It can
+ be sorted by element description or parameter values as well, for
+ easily finding a certain data element. Any parameter can be
+ appended as stack criterion by pressing the <em>Add</em>
+ button. Moving this parameter column to the first position will
+ break sequences of images according to the load option in effect,
+ which can be either <em>constant</em> for alphanumeric values or
+ incrementing for numerical values.</p>
+<p> If you would like to force all images into one stack of a given
+ sorting order, remove all insignificant columns or set
+ their load options to <em>ignore</em>. This will only fail if any of
+ the stringent stack criteria (image size, etc.) varies. If the
+ sorting order conflicts with the order of slice locations, or no
+ slice locations are given at all, you will be prompted for the
+ position of the first image within the list view and the spacing
+ between two adjacent images. Note that this will always result in
+ stacks with uniform image distribution.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

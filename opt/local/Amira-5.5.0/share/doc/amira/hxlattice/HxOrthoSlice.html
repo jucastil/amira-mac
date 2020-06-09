@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> OrthoSlice</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "OrthoSlice" "visualizes 3D image or scalar data on an orthogonal slice" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>OrthoSlice</em> module is an important tool for visualizing scalar
+ data fields defined on uniform Cartesian grids, e.g., 3D image volumes.
+ Such data are visualized by extracting an arbitrary axial, frontal,
+ or sagittal slice out of the volume. 
+ 
+ The data values can be mapped
+ to colors or gray levels by one of two mapping methods. The less complex
+	mapping technique uses an external colorfield with two threshold
+ values. The default colormap is a	linear gray ramp, so the range determines 
+	which data values are mapped to black and which are mapped to white. 
+	Alternatively, a contrast limited histogram
+ equalization technique may be applied. With this method, there is no unique
+ correspondence between gray levels and data values any more. The method tries
+ to visualize all features of an image.</p>
+<p> The <em>OrthoSlice</em> module is also capable of extracting slices of an RGBA
+ color field or of a 3D multi-channel field. In these cases the slices are
+ displayed as is and no mapping method need to be chosen.
+</p></div>
+<p></p>
+<p>
+</p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D field to be visualized. Currently, regular scalar fields,
+ multi-channel fields, and RGBA color fields with uniform or stacked
+ coordinates are supported.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional colormap used to map scalar data to colors. This port is
+ hidden when <em>histogram</em> mapping is selected. See
+ also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_sliceOrientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for setting the slice orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_options.png" /><br /></div>
+<div class="body"><p>If the <em>adjust view</em> toggle is set, the camera of the main 
+	viewer is reset each time a new slice orientation is selected. 
+	The <em>bilinear</em> toggle
+	determines how color is interpolated within a slice. By default, the
+	toggle is off and constant interpolation is used. With constant
+	interpolation individual pixels become visible. Bilinear
+	interpolation often produces somewhat blurry results.
+	Checking the <em>lighting</em> option simulates the slice being illuminated
+	by a head light. Thereby, the intensity of the slice is modulated
+	according to the direction of the slice's normal. Thus, the more obliquely
+	the slice is viewed the darker it becomes.
+	The <em>bump mapping</em> option, enables a bump mapping visualization of the
+	slice.</p>
+<p>		
+<a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Depth</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_depth.png" /><br /></div>
+<div class="body"><p>Factor controlling the bump mapping visual depth effect		</p>
+<p>
+<a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mapping Type</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_mappingType.png" /><br /></div>
+<div class="body"><p>	This option menu lets you select between the two different mapping
+	methods, namely <em>histogram</em> equalization, and <em>colormap</em> mode. 
+	The port is not available if
+ the <em>OrthoSlice</em> module is connected to an RGBA color field or
+ to a 3D multi-channel field.</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Contrast Limit</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_contrastLimit.png" /><br /></div>
+<div class="body"><p>This port is displayed if <em>histogram</em> equalization is selected.
+	The number determines the contrast of the resulting image. The higher
+	the value, the more contrast is contained in the resulting image.
+ A value of zero means that contrast will not be limited at all.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_colormap.png" /><br /></div>
+<div class="body"><p>Choose colormap if <em>mapping type</em> is set to <em>colormap</em>. The
+		default colormap is a linear gray ramp.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice Number</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_sliceNumber.png" /><br /></div>
+<div class="body"><p>This slider allows you to select different slices. The slices may also
+	be picked with the mouse and dragged directly in the 3D viewer.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transparency</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_transparency.png" /><br /></div>
+<div class="body"><p>This radio box port determines the transparency of the slice.
+	<em>None</em> means that the slices are fully opaque. <em>Binary</em> means
+ that black parts are fully transparent while other parts are
+ opaque when using <em>linear mapping</em> or that only fully
+ transparent parts are transparent while others are fully opaque
+ when using <em>colormap mapping</em>.
+	<em>Alpha</em> means that opacity is proportional to luminance. If a
+ colormap is used for visualization opacity values are taken from there.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Channels</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_channels.png" /><br /></div>
+<div class="body"><p>This port is displayed if the module is attached to a 3D multi-channel
+ object. It allows you to toggle individual channels on or off. Each
+ channel is mapped using a linear intensity ramp. The data window for
+ each channel can be adjusted in the multi-channel object itself.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">createImage &lt;image base name&gt; </span>  
+
+<div class="body"><p>This command creates a 2D image and adds it
+to the Pool. The image base name can be omitted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

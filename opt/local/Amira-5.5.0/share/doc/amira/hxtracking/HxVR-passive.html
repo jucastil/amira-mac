@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">11.4.1 Example: A 2-channel Passive Stereo Configuration</a></h3>
+<p>For a single-screen passive stereo projection system two video projectors
+emitting orthogonally polarized light are required. One projector displays
+the left eye image, the other one the right eye image. This is illustrated
+in Figure <a class="link" href="#A2">62</a>. Both images are
+projected onto a non-depolarizing screen either using front projection or
+rear projection. Observers wear suitable light-weight polarized glasses
+so that each eye only sees its own image, but not the image determined
+for the other eye. </p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=HxVR-passive.png.html><img width=450 src="HxVR-passive.png" /></a><br />
+<div class="caption">
+<b>Figure 62:</b>
+Sketch of a single-screen passive stereo projection system.</div>
+
+
+</div><p></p>
+<p></p>
+<h4><a name="A3">Simple dual-head wide desktop configuration</a></h4>
+<p>Without special-purpose hardware such a passive stereo
+projection system can be driven in full screen mode even using an
+inexpensive low-end dual-head graphics adapter. 
+We assume that the dual-head graphics computer is configured so that the
+left half of the desktop is output on one channel and the right half is
+output on the other channel. Here is the <font face="helvetica">Virtual Reality Option</font> configuration file:</p>
+<p></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Left eye view"
+        channelOrigin   0 0
+        channelSize     0.5 1
+        tileOrigin      0 0
+        tileSize        1 1
+        cameraMode      LEFT_VIEW
+    }
+    SoScreen {
+        name            "Right eye view"
+        channelOrigin   0.5 0
+        channelSize     0.5 1
+        tileOrigin      0 0
+        tileSize        1 1
+        cameraMode      RIGHT_VIEW
+    }
+}
+</pre><p></p>
+<p>The fields <em>channelOrigin</em> and <em>channelSize</em> indicate that the
+two windows exactly cover the left half and the right half of the desktop.
+The fields <em>tileOrigin</em> and <em>tileSize</em> indicate that both screens
+should display the full viewer window, i.e., there is no tiling at all.
+Finally, the field <em>cameraMode</em> indicates that one screen should
+display the left eye view and the other the right eye view. Note that
+the graphics computer need not to support active stereo for this
+configuration. </p>
+<p></p>
+<h4><a name="A4">Controlling stereoscopy</a></h4>
+<p>The <a class="link" href="HxTracking.html#A1"><font face="helvetica">VRSettings</font></a> module provides ports 
+in order to change the default stereo parameters <em>eye offset</em> and <em>stereo balance</em>.<br />
+
+<a href=HxTracking_zeroParallaxBalance.png.html><img width=450 src="HxTracking_zeroParallaxBalance.png" /></a><br />
+<a href=HxTracking_cameraOffset.png.html><img width=450 src="HxTracking_cameraOffset.png" /></a><br />
+Here <tt>&lt;offset&gt;</tt> denotes the eye offset and <tt>&lt;balance&gt;</tt> denotes
+the stereo balance, i.e., the location of the zero parallax plane.
+Depending on the balance value objects appear to be in front of the
+projection screen or behind it.</p>
+<p>The following standard <font face="helvetica">Amira</font> Tcl command can also be used:
+</p><pre>
+    viewer 0 setStereo [-b &lt;balance&gt;] &lt;offset&gt;
+</pre><p></p>
+<p></p>
+<h4><a name="A5">Active-to-passive configuration</a></h4>
+<p>The simple configuration above may not be convenient if you often need to manipulate 2D user interface, windows and mouse cursor. Because these are displayed only once on the desktop, they are visible only on one eye and 'ghosted' because or superimposed other image.
+Some graphics boards or special hardware support active stereo with conversion to passive stereo, automatically replicating desktop 2D users interface on both outputs. </p>
+<p>On Windows, you may check in the display properties panel the available settings of you graphics board for stereoscopy.
+On Linux, you may add active-to-passive settings in your X11 configuration, for instance in /etc/X11/XFree86Config or /etc/X11/Xorg.conf, depending on your specific system and graphics board. It may look like this:
+</p><pre>
+Option "TwinView" "True"
+Option "TwinViewOrientation" "Clone"
+Option "Stereo" "4"
+</pre><p>
+</p>
+<p></p>
+<h4><a name="A6">Cluster configurations</a></h4>
+<p>Here is a configuration for cluster, with 2 nodes. The graphics boards can be configured for 'single head' way with full desktop used for each eye channel. 
+The rendering performance can be dramatically improved as each graphics board has to render only half of the frames as compared to the dual-head configuration above.
+One of the nodes is used as master: the master <font face="helvetica">Amira</font> is started on the master node, where the used mouse and keyboard are attached. You can notice that the hostname doesn't need to be specified for the master's screen. Also the default channel and tile origin and size (0 0 and 1 1) are used for full scene display on full screen. </p>
+<p></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoScreen {
+        name            "Left eye view"
+        cameraMode      LEFT_VIEW
+    }
+    SoScreen {
+        name            "Right eye view"
+        hostname "slave.cluster"
+        cameraMode      RIGHT_VIEW
+    }
+}
+</pre><p></p>
+<p>Here is a configuration for cluster with 3 nodes. A third node is used as separate master, with default MONOSCOPIC cameraMode. The manipulations of 2D user interface will then be invisible in the left/right projected screen. The <em>keepMasterViewerInsideGUI</em> field is used for convenience to force the master screen within a standard viewer window (then specifying channel size and origin would have no effect on the master). </p>
+<p></p><pre>
+#Inventor V2.1 ascii
+
+Separator {
+    SoVRProperty {
+        keepMasterViewerInsideGUI TRUE
+    }
+    SoScreen {
+        name            "Master view"
+    }
+    SoScreen {
+        name            "Left eye view"
+        hostname "slave1.cluster"
+        cameraMode      LEFT_VIEW
+    }
+    SoScreen {
+        name            "Right eye view"
+        hostname "slave2.cluster"
+        cameraMode      RIGHT_VIEW
+    }
+}
+
+</pre><p>
+
+</p></body>
+</html>

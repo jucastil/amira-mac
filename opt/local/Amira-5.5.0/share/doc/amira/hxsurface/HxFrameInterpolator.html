@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Interpolate</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Interpolate" "interpolates between matching surfaces, meshes, or fields" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module takes two or more data objects as input, e.g. two surfaces or
+two tetrahedral grids, and computes an output object by linearily
+interpolating the vertex positions. This can be used to create a smooth
+transition between the two objects. In addition, it is possible to
+interpolate data fields attached to the surfaces or grids as well.</p>
+<p>Note that the two input data sets must have the same number of
+points. For example, the second input could actually be a copy of the
+first one with an applied transformation.</p>
+<p>Usually, the transition is specified by a parameter u varying between 0 and
+n-1, where n is the number of input objects. However, it is also possible
+to associate a physical time with each input. For this, each input must
+define an entry <em>Time</em> in its parameter list which specifies the actual
+physical time of this input. The time value of any input must be bigger
+than the time value of the preceding input. If these conditions are met
+the toggle <em>physical time</em> described below becomes active. A <em>Time</em>
+parameter can be defined interactively using the parameter editor.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+<p>
+
+<a name="A3"></a>
+</p>
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>First input object to be interpolated. Must either be a surface, a
+tetrahedral grid, a hexahedral grid, a field defined on one of these
+objects, or a lattice object like a 3D image.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Input2</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Second input object to be interpolated. This object must be of the
+same type as the first one. </p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Input3</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional third input object. Once a third input object is connected
+automatically additional input ports will be created. In this way it
+is possible to connect an arbitrary number of inputs.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxFrameInterpolator_info.png" /><br /></div>
+<div class="body"><p>This info port reports the number of input objects, and - if available -
+the current physical time or the current fractional time step depending
+on whether the physical time toggle is activated or not.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxFrameInterpolator_options.png" /><br /></div>
+<div class="body"><p>If the input is a surface, a tetrahedral grid or a hexahedral grid and if
+there are additional fields connected to these objects the first toggle
+allows you to interpolate the data fields as well. If the input itself is
+such a data field the first toggle allows you to interpolate the mesh too.
+In this case the toggle's label will be changed appropriately.</p>
+<p>The second toggle allows you to activate physical time mode, provided the
+input objects have a <em>Time</em> entry in their parameter list. In this
+case the time slider (see below) denotes physical time, whereas otherwise
+it denotes a fractional time step.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Time</span>  
+<div class="portsnapshot"><img src="HxFrameInterpolator_time.png" /><br /></div>
+<div class="body"><p>Interpolation parameter. For t=0 the output will be identical to the
+first input. For t=1 output will be second input. If physical time mode is
+active, this port specifies the physical time for which an output object
+should be computed.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Vertex Morph</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Vertex Morph" "interpolates between corresponding vertex set objects" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module takes two <a class="link" href="../hxcore/HxVertexSet.html#A1">Vertex Set</a> objects as input,
+e.g. two surfaces or two tetrahedral grids, and computes an output
+surface by linearily interpolating the vertex positions. This can be
+used to create a smooth transition between the two objects. Note,
+that the two input data sets must be related in order to produce
+meaningful results. For example, the second input could actually be a
+copy of the first one with an applied transformation. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Input1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>First input data set. This data set is duplicated to produce the output.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Input2</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Second input data set, must have at least as many points as the first input.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">t</span>  
+<div class="portsnapshot"><img src="HxSimpleInterpolVertexSets_parameter.png" /><br /></div>
+<div class="body"><p>Interpolation parameter. For t=0 the output will be identical to the
+first input. For t=1 output will be second input.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

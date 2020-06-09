@@ -1,0 +1,647 @@
+# Amira-Script-Object V3.0
+
+$this setNoRemoveAll 1;
+
+$this newPortButtonList action 4;
+$this action setLabel " ";
+
+$this action setLabel 0 "create Mosaic";
+$this action setCmd 0 "$this createMosaic";
+
+$this action setLabel 1 "alignBlocks";
+$this action setCmd 1 "$this alignBlocks";
+
+$this action setLabel 2 "correctZDrop";
+$this action setCmd 2 "$this correctZDrop";
+
+$this action setLabel 3 "filtering";
+$this action setCmd 3 "$this applyFilters";
+
+$this newPortButtonList action2 4;
+$this action2 setLabel " ";
+
+$this action2 setLabel 0 "create LDA";
+$this action2 setCmd 0 "$this createLDA";
+
+$this action2 setLabel 1 "threshold";
+$this action2 setCmd 1 "$this thresholdLDA";
+
+$this action2 setLabel 2 "distmap";
+$this action2 setCmd 2 "$this calcDistmap";
+
+$this action2 setLabel 3 "thinner";
+$this action2 setCmd 3 "$this runThinner";
+
+$this newPortButtonList action3 4;
+$this action3 setLabel " ";
+
+$this action3 setLabel 0 "trace lines";
+$this action3 setCmd 0 "$this traceLines";
+
+$this action3 setLabel 1 "smooth";
+$this action3 setCmd 1 "$this smoothLines";
+
+$this action3 setLabel 2 "eval thickness";
+$this action3 setCmd 2 "$this evalThickness";
+
+$this action3 setLabel 3 "use ROI";
+$this action3 setCmd 3 "$this useROI";
+
+$this newPortButtonList action4 4;
+$this action4 setLabel " ";
+
+$this action4 setLabel 0 "ROI and Image";
+$this action4 setCmd 0 "$this useROIwithImage";
+
+$this action4 setLabel 1 "depth coloring";
+$this action4 setCmd 1 "$this colorByDepth";
+
+$this action4 setLabel 2 "check";
+$this action4 setCmd 2 "$this checkNetwork";
+
+$this action4 setLabel 3 "reconstruct labels";
+$this action4 setCmd 3 "$this reconstructLabels";
+
+
+$this proc createMosaic {} {
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set mo [create HxMosaic];
+
+    echo $mo;
+
+    $mo addBrick [file join $dir 1ta.am];
+    $mo addBrick [file join $dir 1tb.am];
+    $mo addBrick [file join $dir 2ta.am];
+    $mo addBrick [file join $dir 2tb.am];
+
+    $mo save "AmiraMesh Binary" [file join $dir Mosaic]
+
+    set di [create HxDisplayMosaic];
+    $di data connect $mo;
+    $di fire
+    viewer viewAll
+
+    $this select;
+}
+
+$this proc alignBlocks {} {
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set mo [load [file join $dir Mosaic]];
+
+    set di [create HxDisplayMosaic];
+    $di data connect $mo;
+    $di fire;
+    viewer viewAll;
+
+    set al [create HxAlignBlocks];
+    $al data connect Mosaic;
+    $al fire;
+    $al doIt hit;
+    $al fire;
+
+    $this select;
+}
+
+$this proc correctZDrop {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set mo [load [file join $dir Mosaic]];
+
+    set di [create HxDisplayMosaic];
+    $di data connect $mo;
+    $di fire;
+    viewer viewAll;
+
+    set in [$mo getBrick 0];
+    set zd [create HxCorrectZDrop];
+    $zd data connect $in;
+    $zd fire;
+    $zd action hit;
+    $zd fire;
+
+    set at [load $AMIRA_ROOT/share/script-objects/ApplyTemplateToMosaic.scro];
+    $at data connect $mo;
+    $at template connect $zd;
+    $at fire;
+    $at action hit;
+    $at fire;
+
+    $this select;
+}
+
+$this proc applyFilters {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set mo [load [file join $dir Mosaic]];
+
+    set di [create HxDisplayMosaic];
+    $di data connect $mo;
+    $di fire;
+    viewer viewAll;
+
+    set in [$mo getBrick 0];
+    set fi [create HxImageVisionEditor];
+    $fi attach $in;
+    $fi fire;
+    $fi filter setValue 5;
+    $fi fire;
+     
+    set at [load $AMIRA_ROOT/share/script-objects/ApplyTemplateToMosaic.scro];
+    $at data connect $mo;
+    $at template connect $in;
+    $at fire;
+    $at action hit;
+    $at fire;
+
+    $fi filter setValue 6;
+    $fi filter setValue 1 3;
+#    $fi param0 setValue 0 0.8;
+#    $fi param1 setValue 1 0.8;
+#    $fi param2 setValue 2 0.8;
+    $fi fire;
+
+    $at action hit;
+    $at fire;
+
+    $this select;
+}
+
+$this proc createLDA {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set mo [load [file join $dir Mosaic]];
+
+    set bbmo [create HxBoundingBox];
+    $bbmo data connect $mo;
+    $bbmo fire;
+    viewer viewAll;
+
+    set mtldd [create HxMosaicToDiskData];
+    $mtldd data connect $mo;
+    $mtldd fire;
+    $mtldd doIt hit;
+    $mtldd fire;
+
+    set dd [$mtldd getResult];
+    set bbdd [create HxBoundingBox];
+    $bbdd data connect $dd;
+    $bbdd fire;
+    viewer viewAll;
+
+    $this select;
+}
+
+
+$this proc thresholdLDA {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set dd [load [file join $dir image]];
+
+    set bbdd [create HxBoundingBox];
+    $bbdd data connect $dd;
+    $bbdd fire;
+    viewer viewAll;
+
+    set lab [create HxExtLabelVoxel];
+    $lab data connect $dd;
+    $lab fire;
+    $lab threshold setValue 40;
+    $lab fire;
+    $lab doIt hit;
+    $lab fire;
+
+    $this select;
+}  
+
+$this proc calcDistmap {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set dd [load [file join $dir image.labels]];
+
+    set bbdd [create HxBoundingBox];
+    $bbdd data connect $dd;
+    $bbdd fire;
+    viewer viewAll;
+
+    set dm [create HxLDAChamferCalc];
+    $dm data connect $dd;
+    $dm fire;
+    $dm maskSize setValue 2;
+    $dm doIt hit;
+    $dm fire;
+
+    $this select;
+}  
+
+$this proc runThinner {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set dd [load [file join $dir image.labels]];
+    set dddm [load [file join $dir image.dm]];
+
+    set bbdd [create HxBoundingBox];
+    $bbdd data connect $dd;
+    $bbdd fire;
+    viewer viewAll;
+
+    set thin [create HxExtThinner];
+    $thin data connect $dd;
+    $thin distmap connect $dddm;
+    $thin fire;
+    $thin setVar lenOfEnds 10;
+    $thin action hit;
+    $thin fire;
+
+    $this select;
+}  
+
+$this proc traceLines {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set dd [load [file join $dir image.thinned]];
+
+    set bbdd [create HxBoundingBox];
+    $bbdd data connect $dd;
+    $bbdd fire;
+    viewer viewAll;
+
+    set tr [create HxExtTraceLines];
+    $tr data connect $dd;
+    $tr fire;
+    $tr doIt hit;
+    $tr fire;
+    
+    set res [$tr getResult];
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $res;
+    $lv fire;
+
+    $res save "AmiraMesh" [file join $dir image.lineset];
+
+    $this select;
+}  
+
+$this proc smoothLines {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+
+    echo "smoothing lines 4 times";
+    $li smooth;
+    $li smooth;
+    $li smooth;
+    $li smooth;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+
+    $li save "AmiraMesh" [file join $dir image.lineset];
+
+    $this select;
+}
+
+$this proc evalThickness {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set dddm [load [file join $dir image.dm]];
+
+    set ev [create HxExtEvalOnLines];
+    $ev data connect $li;
+    $ev field connect $dddm;
+    $ev fire; 
+    $ev doIt hit;
+    $ev fire; 
+
+    set glow [load $AMIRA_ROOT/data/colormaps/glow.col];
+    $glow hideIcon;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+    $lv colorMode setValue 1;
+    $lv colormap connect $glow;
+    $lv colormap setMinMax 7 0;
+    $lv fire;
+
+    $li save "AmiraMesh" [file join $dir image.lineset];
+
+    $this select;
+}
+
+$this proc useROI {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set glow [load $AMIRA_ROOT/data/colormaps/glow.col];
+    $glow hideIcon;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+    $lv colorMode setValue 1;
+    $lv colormap connect $glow;
+    $lv colormap setMinMax 7 0;
+    $lv fire;
+
+    set roi [create HxSelectRoi];
+    $roi data connect $li;
+    $roi fire;
+    $roi minimum setValue 0 1173;
+    $roi minimum setValue 1 653;
+    $roi minimum setValue 2 0;
+    $roi maximum setValue 0 1342;
+    $roi maximum setValue 1 796;
+    $roi maximum setValue 2 207;
+    $roi fire;
+
+    set lv2 [create HxDisplayLineSet]; 
+    $lv2 data connect $li;
+    $lv2 ROI connect $roi;
+    $lv2 fire;
+    $lv2 shape setValue 6;
+    $lv2 scaleMode setValue 1;
+    $lv2 scaleFactor setValue 2;
+    $lv2 fire;
+
+    $this select;
+}
+
+$this proc useROIwithImage {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set glow [load $AMIRA_ROOT/data/colormaps/glow.col];
+    $glow hideIcon;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+    $lv colorMode setValue 1;
+    $lv colormap connect $glow;
+    $lv colormap setMinMax 7 0;
+    $lv fire;
+
+    set roi [create HxSelectRoi];
+    $roi data connect $li;
+    $roi fire;
+    $roi minimum setValue 0 1173;
+    $roi minimum setValue 1 653;
+    $roi minimum setValue 2 0;
+    $roi maximum setValue 0 1342;
+    $roi maximum setValue 1 796;
+    $roi maximum setValue 2 207;
+    $roi fire;
+
+    set lv2 [create HxDisplayLineSet]; 
+    $lv2 data connect $li;
+    $lv2 ROI connect $roi;
+    $lv2 fire;
+    $lv2 shape setValue 6;
+    $lv2 scaleMode setValue 1;
+    $lv2 scaleFactor setValue 2;
+    $lv2 fire;
+
+    set dd [load [file join $dir image]];
+    set ac [create HxExternalDataAccess];
+    $ac data connect $dd;
+    $ac ROI connect $roi;
+    $ac fire;
+    $ac doIt snap 1;
+    $ac fire;
+  
+    set bl [$ac getResult];
+    set pr [create HxProjectionView];
+    $pr data connect $bl;
+    $pr fire;
+
+    viewer setViewDirection 0 0 -1;
+    viewer setCameraType 0; 
+    viewer viewAll;
+    viewer redraw;
+
+    $this select;
+}
+
+$this proc colorByDepth {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set physics [load $AMIRA_ROOT/data/colormaps/physics.icol];
+    $physics hideIcon;
+
+
+    set de [create HxAnnaScalarField3];
+    $de expr setValue "z";
+    $de fire;
+    $li computeData $de 2;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+    $lv shape setValue 3;
+    $lv scaleMode setValue 1;
+    $lv scaleFactor setValue 1;
+    $lv colorMode setValue 3;
+    $lv colormap connect $physics;
+    $lv colormap setMinMax 0 210;
+    $lv fire;
+
+    set roi [create HxSelectRoi];
+    $roi data connect $li;
+    $roi fire;
+    $roi minimum setValue 0 1173;
+    $roi minimum setValue 1 653;
+    $roi minimum setValue 2 0;
+    $roi maximum setValue 0 1342;
+    $roi maximum setValue 1 796;
+    $roi maximum setValue 2 207;
+    $roi fire;
+
+    set lv2 [create HxDisplayLineSet]; 
+    $lv2 data connect $li;
+    $lv2 ROI connect $roi;
+    $lv2 fire;
+    $lv2 shape setValue 6;
+    $lv2 scaleMode setValue 1;
+    $lv2 scaleFactor setValue 2;
+    $lv2 setViewerMask 0;
+    $lv2 fire;
+
+    set dd [load [file join $dir image]];
+    set ac [create HxExternalDataAccess];
+    $ac data connect $dd;
+    $ac ROI connect $roi;
+    $ac fire;
+    $ac doIt snap 1;
+    $ac fire;
+  
+    set bl [$ac getResult];
+    set pr [create HxProjectionView];
+    $pr data connect $bl;
+    $pr fire;
+    $pr mapping setValue 2;
+    $pr colormap connect $physics;
+    $pr fire;
+
+    viewer setViewDirection 0 0 -1;
+    viewer setCameraType 0; 
+    viewer viewAll;
+    viewer redraw;
+
+    $this select;
+}
+
+
+$this proc checkNetwork {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set glow [load $AMIRA_ROOT/data/colormaps/glow.col];
+    $glow hideIcon;
+
+    set lv [create HxDisplayLineSet]; 
+    $lv data connect $li;
+    $lv fire;
+    $lv colorMode setValue 1;
+    $lv colormap connect $glow;
+    $lv colormap setMinMax 7 0;
+    $lv fire;
+    $lv setViewerMask 0;
+
+    set roi [create HxSelectRoi];
+    $roi data connect $li;
+    $roi fire;
+    $roi minimum setValue 0 1173;
+    $roi minimum setValue 1 653;
+    $roi minimum setValue 2 0;
+    $roi maximum setValue 0 1342;
+    $roi maximum setValue 1 796;
+    $roi maximum setValue 2 207;
+    $roi setViewerMask 0;
+    $roi fire;
+
+    set lv2 [create HxDisplayLineSet]; 
+    $lv2 data connect $li;
+    $lv2 ROI connect $roi;
+    $lv2 fire;
+    $lv2 shape setValue 6;
+    $lv2 scaleMode setValue 1;
+    $lv2 scaleFactor setValue 2;
+    $lv2 fire;
+
+    set dd [load [file join $dir image]];
+    set ac [create HxExternalDataAccess];
+    $ac data connect $dd;
+    $ac ROI connect $roi;
+    $ac fire;
+    $ac setViewerMask 0;
+    $ac doIt snap 1;
+    $ac fire;
+  
+    set bl [$ac getResult];
+    set pr [create HxProjectionView];
+    $pr data connect $bl;
+    $pr fire;
+
+    set iso [create HxIsosurface];
+    $iso data connect $bl;
+    $iso fire;
+    $iso threshold setValue 40;
+    $iso doIt snap;
+    $iso fire; 
+
+    set ch [create HxCheckNetworkManually];
+    $ch data connect $li;
+    $ch selectRoi connect $roi;
+    $ch fire;
+    $ch options setValue 1 1;
+    $ch action hit;
+    $ch fire;
+
+    viewer setViewDirection 0 0 -1;
+    viewer viewAll;
+
+    $ch select; 
+    $this select;
+}
+
+$this proc reconstructLabels {} {
+    global AMIRA_ROOT;
+
+    remove -all
+    set dir [file dirname [$this script getValue]];
+
+    set li [load [file join $dir image.lineset]];
+    set conv [create HxLineSetToLDD];
+    $conv data connect $li;
+    $conv fire;
+    $conv filename setValue [file join $dir image.reconstructed];
+    $conv apply hit;
+    $conv fire;
+
+    $this select;
+}
+
+$this proc processAll {} {
+   $this createMosaic;
+   $this alignBlocks;
+   $this correctZDrop;
+   $this applyFilters;
+   $this createLDA;
+   $this thresholdLDA;
+   $this calcDistmap;
+   $this runThinner;
+   $this traceLines;
+   $this smoothLines;
+   $this evalThickness;
+   $this useROI;
+   $this useROIwithImage;
+   $this colorByDepth;
+   $this checkNetwork;
+   $this reconstructLabels;
+}

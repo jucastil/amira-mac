@@ -1,0 +1,31 @@
+#Inventor V8.0 ascii
+
+ Group {
+
+  Info {
+	 string "0.000000"
+  }
+  PerspectiveCamera {
+	 position -23.6674 46.3143 12.2586
+	 orientation 0.136946 -0.60979 -0.780642  2.81732
+	 nearDistance 39.6844
+	 farDistance 78.4447
+	 focalDistance 59.4295
+	 heightAngle 0.783693
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "10.000000"
+  }
+  PerspectiveCamera {
+	 position -16.0604 14.5061 3.94714
+	 orientation 0.06258 -0.614142 -0.786711  2.93041
+	 nearDistance 6.72704
+	 farDistance 42.0812
+	 focalDistance 33.7447
+	 heightAngle 0.783693
+  } 
+}

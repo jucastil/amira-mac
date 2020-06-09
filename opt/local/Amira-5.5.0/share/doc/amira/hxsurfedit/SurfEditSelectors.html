@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Selectors</a></h3>
+<p>This section describes tools for automatically highlighting certain parts
+of the surface. The selectors are listed in a combo box on the very left just
+beneath the main toolbar. Most selectors provide some additional controls
+which are displayed right beside this combo box.</p>
+<p></p>
+<ul><li><em>Materials</em>: Just as in a <a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a>
+ module, this selector allows you to highlight parts of the surface
+ separating two particular regions from each other. The two regions
+ are specified in two additional combo boxes which are shown once
+ the selector is activated.
+ <br />
+</li><li><em>Boundary ids</em>: Highlights all triangles with a particular
+ boundary id. The boundary ids defined in the surface are listed in a
+ separate combo box. Boundary ids can be modified using the <em>Set
+ boundary ids...</em> option of the <em>Surface/Edit</em> menu.
+ <br />
+</li><li><em>Patches</em>: Highlights all triangles belonging to a particular
+ patch of the surface. The different patches can be selected using
+ a slider displayed right beside the selector combo box. A patch is
+ a group of triangles separating the same two regions and having the
+ same boundary id.
+ <br />
+</li><li><em>Intersection test</em>: Performs an intersection test and highlights
+ intersecting triangles. The <em>compute</em> button actually initiates
+ the test, while the <em>back</em> and <em>forward</em> buttons allow you to
+ cycle through the list of intersecting faces. The total number of
+ intersections is printed in the console window. Intersections can be
+ repaired automatically using the <em>Fix intersections</em> tool from the
+ <em>Surface/Edit</em> menu, or manually using the edit tools described 
+ <a class="link" href="SurfEditTools.html#A1">below</a> (edge flip, edge collapse, edge bisection, 
+ vertex movement).
+ <br />
+</li><li><em>Orientation test</em>: Performs an orientation test and highlights
+ falsely oriented triangles. You should have removed all intersections
+ before applying this check. For simple configurations the wrong
+ triangles are removed automatically. The number of inconsistently
+ oriented triangles and the number of removed triangles are printed in the
+ console window. If the automatic method could not remove all incorrect
+ orientations, you can proceed as in the case of intersections and try
+ to repair them manually. <b>Important:</b> A prerequisite for the
+ orientation test is that the outer triangles of the surface be
+ assigned to material <em>Exterior</em>. If the surface does not contain
+ such a material or if the assignment to <em>Exterior</em> is not correct,
+ the test will falsely report orientation errors.
+ <br />
+</li><li><em>Aspect Ratio</em>, <em>Dihedral Angle</em>, and <em>Tetra Quality</em>
+ sort all surface triangles according to different quality measures.
+ The <em>aspect ratio</em> is the ratio of the radii of the circumcircle and the
+ incircle of a triangle. The largest aspect ratio should be
+ below 20 (better 10). The <em>dihedral angle</em> is the angle between two
+ adjacent triangles at their common edge. The smallest dihedral angle
+ should be above 5 degrees (better 10). <em>Tetra quality</em> may be
+ useful if you want to create a tetrahedral volume mesh from the
+ surface. For each surface triangle the aspect ratios of the tetrahedra
+ which will probably be created for that triangle are calculated. The
+ largest tetrahedral aspect ratio should be below 50 (better 25). The 
+ worst triangle according to the selected quality measure is
+ displayed, and the worst quality is printed in the console window.
+ Using the <em>back</em> and <em>forward</em> buttons right beside the
+ selector combo box you can cycle through all other triangles and edit
+ the surface if necessary. In the <em>Surface/Edit</em> menu, there are 
+ automatic tools for improving all of the quality measures: 
+ <em>Flip edges</em> for the triangle aspect ratio, 
+ <em>Fix small dihedral angles</em> for the dihedral angle, and 
+ <em>Fix tetra quality</em> for the tetrahedron quality.
+ <br />
+</li><li><em>Non-manifold test</em>: This test detects non-manifolds on surfaces 
+ and displays every non-manifold location including the incident triangles.
+ <br />
+</li><li><em>Holes test</em>: This test detects holes on triangular meshes, which
+ can be closed by the triangulators available from the
+ <a class="link" href="SurfEditMenu.html#A1">Fill Hole...</a> menu entry. 
+ </li>
+</ul><p>
+
+</p></body>
+</html>

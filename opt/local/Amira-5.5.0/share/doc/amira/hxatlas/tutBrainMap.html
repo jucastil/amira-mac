@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">15.2 Brain-to-Brain Mapping Tutorial</a></h2>
+<p><b>Abstract</b> In brain research it is often required to report the locations 
+of structures or lesions in terms of a standardized reference frame.
+In this tutorial we want to demonstrate the steps involved in registering a 
+patient's brain to a reference brain. The latter will be a simulated T1 MR
+volume from the MNI BrainWeb page, henceforth the <em>Reference</em>, and the former 
+will be an arbitray MRI scan of a human head, henceforth the <em>Patient</em>. The 
+result of the procedure is a patient brain that is registered with the reference 
+and has the same resolution, voxel size and position in space.
+Each of the steps in this tutorial can be adapted to a different part of the 
+body, another modality or species and can be easily applied to a larger number 
+of studies.</p>
+<p>The tutorial will cover the following topics:
+</p>
+<ul><li>Loading raw and DICOM image data</li><li>Manual and automatic registration in the <em>Multiplanar Viewer</em></li><li>Using the <em>Segmentation Editor</em> to create a brain mask</li><li>Extracting brains from image volumes (skull stripping) with 
+ <em>Arithmetic</em></li><li>Reformatting transformed image and label data</li>
+</ul><p></p>
+<p>Only one data set used in this tutorial is part of the tutorial data found in
+<tt>data/tutorials/BrainMap</tt>. A second data set used as reference has to be downloaded from an
+external web page.</p>
+<p></p>
+<h3><a name="A2">15.2.1 Download reference brain data</a></h3>
+<p></p>
+<ul><li>Navigate with your web browser to http://brainweb.bic.mni.mcgill.ca/brainweb/.
+ Select the <em>Normal Brain Database</em> link, leave the default settings there
+ and click <em>Download</em>. On the download page request file format "raw
+ short (12 bit)" and no compression. Save the volume to disk.</li><li>Write down the "MINC volume info" printed on the download page.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">15.2.2 Load and visualize data</a></h3>
+<p></p>
+<ul><li>Navigate the <em>Amira</em> file browser to the directory where the 
+ reference brain data set has been saved to. Select 
+ <tt>t1_icbm_normal_1mm_pn3_rf20.raws</tt> and click <em>Load</em>. Choose <em>Raw 
+ Data</em> from the dialog and enter the parameters from the "MINC volume info": 
+ <em>Data type</em>: short; <em>Dimensions:</em> 181, 217, 181; <em>Endianess:</em> big 
+ endian; <em>Min.coord:</em> -90, -126, -72.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutbrainmap0.png.html><img width=450 src="tutbrainmap0.png" /></a><br />
+<div class="caption">
+<b>Figure 155:</b>
+Raw Data Parameters dialog showing the parameters to be entered to load
+ the reference data set. With a voxel size of 1 (mm) in each direction and 
+ minimum coordinates of [-90, -126, -72] scaling and position of the reference
+ are fixed.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>In order to make the settings permanent, save the data set to disk as
+ <em>AmiraMesh</em>.</li><li>Load the patient data set from <tt>data/tutorials/BrainMap/DICOM</tt>. To do so, 
+ highlight all slices in the file browser, click <em>Load</em> and finally confirm 
+ the <em>Dicom Loader Dialog</em> by clicking OK.</li><li>Launch the <em>Multiplanar Viewer</em> from the <em>sub-application task 
+ bar</em>.</li><li>Set up the reference image as <em>Primary Data</em> and the patient image as
+ <em>Secondary Data</em>. In the <em>2D Settings</em> panel use the <em>gray ramp</em> 
+ colormap for the primary and <em>physics.icol</em> for the secondary data, in the
+ <em>3D Settings</em> panel use the <em>volrenGlow.am</em> and <em>volrenGreen.col</em>
+ color maps, respectively. For min/max settings and rendering types refer to 
+ Fig. <a class="link" href="#A5">156</a>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=tutbrainmap1.png.html><img width=450 src="tutbrainmap1.png" /></a><br />
+<div class="caption">
+<b>Figure 156:</b>
+Screen shot of the Multiplanar Viewer showing reference and patient
+ data in image fusion.</div>
+
+
+</div><p></p>
+<p>The <em>Multiplanar Viewer</em> sub-application is designed to visualize one or 
+two image volumes at the same time in a set of three MPR (multi planar reformat)
+viewers and one 3D volume rendering viewer. Please refer to the 
+<a class="link" href="../hxvisageviewer/HxVisageViewer.html#A1">Multiplanar Viewer</a> help page for a detailed description 
+of the functionality of the viewer.</p>
+<p>Here we will use the cross-hair (red, green and blue scout lines) to browse 
+through the slices. Use the <em>Primary/Overlay slider</em> to blend the display 
+from the reference to the patient image. Doing so, you will note that the 
+patient data needs to be rotated from a prone to a supine orientation. This, and 
+a rough alignment, will be done using the manual registration tool of the 
+<em>Multiplanar Viewer</em>.</p>
+<p></p>
+<h3><a name="A6">15.2.3 Manual registration in the Multiplanar Viewer</a></h3>
+<p></p>
+<ul><li>Invoke the manual registration tool from the viewer tool bar. This draws 
+ a manipulator in the shape of a crossed double arrow in each MPR viewer.</li><li><p>In the XY [Axial] viewer, move the mouse pointer over the outer third of
+ the manipulator until the pointer turns into the rotate symbol (see Fig. 
+ <a class="link" href="#A7">157</a>).</p>
+<div style="text-align:center"><a name="A7"></a><a href=tutbrainmap2.png.html><img width=450 src="tutbrainmap2.png" /></a><br />
+<div class="caption">
+<b>Figure 157:</b>
+Rotate tool of the manual registration tool in the <em>Multiplanar 
+ Viewer</em></div>
+
+
+</div></li><li>Rotate the image by 180 degrees.</li><li>Still in the XY [Axial] viewer, grab the manipulator in a more central 
+ region and translate the image for a better fit.</li><li>In the YZ [Sagittal] viewer use the rotate functionality of the 
+ manipulator to tilt the patient image by a few degrees clock-wise. Finally, 
+ use the translate functionality to center the (smaller) patient brain within 
+ the (larger) reference brain. The manually registered images should look 
+ similar to Fig. <a class="link" href="#A8">158</a>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=tutbrainmap3.png.html><img width=450 src="tutbrainmap3.png" /></a><br />
+<div class="caption">
+<b>Figure 158:</b>
+Manually registered patient data shown in the <em>Multiplanar Viewer</em></div>
+
+
+</div><p></p>
+<p>In general, manual registration is subjective and tedious. Thus we would like to
+use the automatic registration tool of the <em>Multiplanar Viewer</em>. However, 
+since automatic registration uses all intensity information in an image the 
+result of the automatic registration might be biased by non-brain tissue such as 
+skull, fat and skin. Therefore it is favorable to mask out non-brain regions in 
+each image. In the next section we will extract the brain from both the reference 
+and the patient image. This will provide us with two new data sets that we can 
+use during automatic registration.</p>
+<p></p>
+<h3><a name="A9">15.2.4 Creating a brain mask</a></h3>
+<p>The following steps demonstrate an interactive method for quickly obtaining the
+brain mask. Users with a valid Neuro Option license may want to perform this
+automatically using module <a class="link" href="HxSegmentBrain.html#A1">SegmentBrain</a>. They can skip
+this section and proceed with section <a class="link" href="#A11">15.2.4.1</a>.</p>
+<p>The mask need not be absolutely correct in that it follows all gyri and sulci of
+the brain surface. Rather, the mask should provide a rough separation of brain
+and non-brain tissue.
+</p>
+<ul><li>Clear workspace by calling <em>Pool</em>/<em>Remove All Objects</em>.</li><li>Load the saved copy of the reference data (voxel size and position are
+ assumed to be correct. See section <a class="link" href="#A3">15.2.2</a>)</li><li>Invoke the <a class="link" href="../hxsegeditor/GI.html#A1">Segmentation Editor</a> from the sub-application 
+ task bar. The <em>Image Data</em> drop down list should display the name of the 
+ reference data. If not, select the reference data set in that drop down list.</li><li>Click the <em>New</em> button next to the <em>Label Data</em> drop down list.</li><li>Select a central axial slice (e.g. slice #90) and enable masking in the 
+ <em>Display and Masking</em> group of controls.</li><li>Adjust the range slider in the <em>Display and Masking</em> group of 
+ controls such that the brain tissue represents an isolated area (e.g. 604 
+ 4095).</li><li>Select the <em>Magic Wand Tool</em> from the Tool Box on the lower left of
+ the application window and make sure that its <em>All slices</em> option is
+ unchecked.</li><li>Click somewhere on the brain to select the region belonging to brain, 
+ press the <b>f</b> key to fill small holes and finally <b>Ctrl+m</b> to smooth
+ the border of the selection.</li><li>Proceed to slice 70 and repeat this procedure.</li><li><p>Proceed to slice 50. Here you will note that the selection "bleeds out" 
+ (selects non-brain voxels). Use the <em>Draw limit line</em> tool (shortcut 'l')
+ and draw lines similar as shown in Fig. <a class="link" href="#A10">159</a>. Also here, use 'f' to fill and 
+ Ctrl+m to smooth.</p>
+<div style="text-align:center"><a name="A10"></a><a href=tutbrainmap4.png.html><img width=450 src="tutbrainmap4.png" /></a><br />
+<div class="caption">
+<b>Figure 159:</b>
+To prevent the Magic Wand tool to select non-brain voxels draw limit 
+ lines as shown in this Figure</div>
+
+
+</div></li><li>Make a selection in one of the described methods for slices 157, 150, 
+ 130, 110, 60, 30, 20 and 13.</li><li>Call <em>Interpolate</em> from the <em>Selection</em> menu or press <b>Ctrl+i</b>.</li><li>Make sure that the <em>All slices</em> radio button in the <em>Selection</em> 
+ group of controls is selected and click the <em>Grow Selection</em> button 
+ two or three times.</li><li>Rename material "Inside" to "Brain" (double-click the name to edit) and 
+ click '+' in the <em>Selection</em> group of controls to assign all selected 
+ voxels to material <em>Brain</em>. Leave material <em>Exterior</em> as is.</li><li>Exit the Segmentation Editor by selecting <em>GraphView</em> from the 
+ sub-application task bar and save the <em>*.Labels</em> object as 
+ <tt>t1_icbm_normal_1mm_pn3_rf20-BrainLabels.am</tt>.</li><li>Create also a mask for the patient data set. This time you could choose
+ a coronal (XZ) orientation of the viewer (click the <em>Single Viewer</em> button
+ once). Save the result label field as <tt>Patient-BrainLabels.am</tt>.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A11">15.2.4.1 Creating a brain mask automatically</a></h4>
+<p>The following steps show how to obtain the brain mask automatically using module
+<a class="link" href="HxSegmentBrain.html#A1">SegmentBrain</a>. Users without a valid Neuro Option
+license are referred to the preceding section.</p>
+<p></p>
+<ul><li>Clear workspace by calling <em>Pool/Remove All Objects</em>.</li><li>Load the saved copy of the reference data (voxel size and position are assumed
+to be correct. See section <a class="link" href="#A3">15.2.2</a>)</li><li>Right-click the green data icon in the Pool and select from
+<em>Compute</em>&rarr;<em><a class="link" href="HxSegmentBrain.html#A1">SegmentBrain</a></em>.</li><li>In the Properties of <em>SegmentBrain</em> set <em>Smoothing</em> to 20. Click Apply.</li><li>Repeat the above steps for the patient data set that you can load from
+<tt>data/tutorials/BrainMap/DICOM</tt>.</li>
+</ul><p></p>
+<p>As result you will have two additional data objects with the suffix *.BrainLabels in
+the Object Pool.</p>
+<p></p>
+<h3><a name="A12">15.2.5 Extracting brain-only images</a></h3>
+<p></p>
+<ul><li>Attach <em>Compute</em>&rarr;<em>Arithmetic</em> to the reference data set icon.
+ Connect the <em>InputB</em> connection port with the *.BrainLabels object.</li><li>In the <em>Expr.:</em> field of <em>Arithmetic</em> enter <em>$$A * (B>0)$$</em> 
+ and click <em>Apply</em>. Attach an <em>OrthoSlice</em> to the <em>Result</em> object. 
+ The display should look similar to Fig. <a class="link" href="#A13">160</a>.</li><li>Save <em>Result</em> as <tt>t1_icbm_normal_1mm_pn3_rf20-BrainOnly.am</tt>.</li><li>Repeat the above procedure with the patient data set and save the result
+ object to <tt>Patient-BrainOnly.am</tt>.</li>
+</ul><p></p>
+<p>
+</p><div style="text-align:center"><a name="A13"></a><a href=tutbrainmap5.png.html><img width=450 src="tutbrainmap5.png" /></a><br />
+<div class="caption">
+<b>Figure 160:</b>
+Central axial slice of the skull stripped refrence data set</div>
+
+
+</div><p></p>
+<p>
+</p>
+<h3><a name="A14">15.2.6 Automatic affine registration of the brain-only images</a></h3>
+<p></p>
+<ul><li>Launch the <em>Multiplanar Viewer</em> again by selecting its icon in the 
+ sub-application task bar.</li><li><p>Set up <em>Primary</em>/<em>Overlay Data</em> as well as 2D/3D Settings as 
+ shown in Fig. <a class="link" href="#A15">161</a>. The color maps used in this example are 
+ <em>Gray Ramp</em> / <em>physics.icol</em> for <em>2D Settings</em> and 
+ <em>volrenGlow.am</em> / <em>volrenGreen.col</em> for the <em>3D Settings</em>.</p>
+<div style="text-align:center"><a name="A15"></a><a href=tutbrainmap6.png.html><img width=450 src="tutbrainmap6.png" /></a><br />
+<div class="caption">
+<b>Figure 161:</b>
+Data and window level settings of the <em>Multiplanar Viewer</em> for the 
+ automatic registration</div>
+
+
+</div></li><li>Select the automatic registration tool from the Tool Box.</li><li>Click the <em>Align centers</em> button first and then the <em>Align 
+ principal axes</em> button to get a rough alignment.</li>
+</ul><p>
+The <em>Align centers</em> and <em>Align principal axes</em> buttons can be used
+to pre-align images prior to the affine registration. Pre-alignment is crucial 
+to a successful registration. Most failure to get a reasonable co-registration 
+are due to a bad pre-alignment. If pre-alignment fails (e.g. the principal axis
+alignment selects the wrong axis) use the manual registration tool as described
+in <b>Section <a class="link" href="#A6">15.2.3</a></b>.
+</p>
+<ul><li>In addition to the <em>Rigid</em> check box also enable the <em>Iso</em>, and 
+ <em>Aniso scale</em> options of the registration tool. Leave the <em>Monitor</em>
+ box checked to watch the registration tool while it is working.</li><li>Press the <em>Register</em> button and enjoy!</li>
+</ul><p></p>
+<p>
+</p>
+<h3><a name="A16">15.2.7 Reformatting the patient data set to the dimensions of the 
+ reference brain</a></h3>
+<p>The final step in our small tutorial consists of reformatting the patient data 
+to match the reference data set in terms of dimensions. 
+</p>
+<ul><li>Switch back to <em>Pool</em> by selecting the <em>Object Pool</em> icon of the 
+ sub-application task bar.</li>
+</ul><p></p>
+<p>You will note that the label of the <em>Patient-BrainOnly.am</em> data icon is 
+printed with an <em>italic</em> type face. This indicates that the data is 
+transformed. Transformations in Amira actually do not alter the dimensions or 
+voxel values of the data but only affect their display within the scene 
+(viewer). To apply a given transformation onto the data requires resampling of
+the transformed data onto an axis-aligned lattice. In the case of our brain it 
+is favorable (but not mandatory) to resample the transformed brain onto the 
+same lattice as that of our reference data set.</p>
+<p>
+</p>
+<ul><li>Attach module <em>Compute</em>&rarr;<em>ApplyTransform</em> to the patient 
+ brain-only data set.</li><li>Connect the <em>Reference</em> connection port with your reference data set
+ (click white square of <em>ApplyTransform</em> icon) and select <em>Lanczos</em> in
+ port <em>Interpolation</em>.</li><li>Click <em>Apply</em>.</li>
+</ul><p></p>
+<p>The result is a new image volume that matches the reference image in terms of 
+dimensions as well as position in space. </p>
+<p></p>
+<h3><a name="A17">15.2.8 Reformatting patient labels to the dimensions of the reference 
+ brain</a></h3>
+<p>If you need to report the location of some lesion or interesting structure in 
+terms of the coordinates of the reference brain you will need to transform and 
+reformat the label field coordinately. Since the label field was derived from 
+the patient data set we just need to copy the registration transformation onto 
+it to get it perfectly co-registered with the patient data set. An 
+<em>ApplyTransform</em> will then reformat the label field to the reference
+coorddinate system.</p>
+<p></p>
+<ul><li>Load file <tt>data/Patient-VentriclesLabels.am</tt>.</li>
+</ul><p>
+This is a label field where the ventricles of the patient data set have been 
+ segmented.
+</p>
+<ul><li>Open the <em>Transform Editor</em> of the transformed patient data set 
+ and click the <em>Copy</em> button. Close the <em>Transform Editor</em>.</li><li>Open the <em>Transform Editor</em> of the label field. Click the <em>Paste</em> 
+button. Close the <em>Transform Editor</em>.</li><li>Attach an <em>ApplyTransform</em> module to the label field.</li><li>Connect the <em>Reference</em> connection port of <em>ApplyTransform</em> with 
+ your reference data set.</li><li>Click <em>Apply</em>.</li><li>Attach a <em>Measure</em>&rarr;<em>MaterialStatistics</em> module to the result 
+ object and click Apply. A new data object 
+ <tt>Patient-VentriclesLabels.MaterialStatistics</tt> will be in the <em>Pool</em>.
+ Press the <em>Show</em> button in the Properties of this object and read out
+ the coordinates of the ventricles. The numbers in columns <em>CenterX</em>, 
+ <em>CenterY</em> and <em>CenterZ</em> columns should be similar to those shown in
+ Fig. <a class="link" href="#A18">162</a>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A18"></a><a href=tutbrainmap7.png.html><img width=450 src="tutbrainmap7.png" /></a><br />
+<div class="caption">
+<b>Figure 162:</b>
+The output of module <em>Material Statistics</em> shows the X,Y,Z 
+ coordinates of material <em>Ventricles</em></div>
+
+
+</div><p></p>
+<p>
+</p></body>
+</html>

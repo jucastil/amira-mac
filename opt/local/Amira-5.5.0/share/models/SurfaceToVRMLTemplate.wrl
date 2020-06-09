@@ -1,0 +1,586 @@
+#VRML V2.0 utf8 CosmoWorlds V1.0
+
+Transform {
+
+  children	[
+    DEF viewFrom Viewpoint {
+##viewfrom_position
+#      position	98.2973 144.1294 266.921
+#      orientation	0 -1 0  0.0197981
+      fieldOfView	0.785398
+      description	"Home"
+   }
+    DEF Navigator_Info NavigationInfo {
+      speed	50
+      type	"EXAMINE"
+    }
+     Background {
+	skyColor     [ 0.38 0.63 0.75 ]
+     }
+
+##coordinate_system_follows
+
+    DEF X_axis Transform {
+
+       children [
+	  DEF X_SlicerCoords Transform {
+	     children	[
+		DEF DragSensorX PlaneSensor {
+		   minPosition	-1 0
+		   maxPosition	0 0
+		}
+		DEF xSlicer Transform {
+		   children	Shape {
+		      appearance	Appearance {
+			 material	Material {
+			    ambientIntensity	0.25
+			    diffuseColor	0.904409 0.150314 0
+			    specularColor	0.0955906 0.0955906 0.0955906
+			    emissiveColor	0 0 0
+			    shininess	0.078125
+			    transparency	0
+			 }
+			 
+		      }
+		      
+		      geometry	Sphere {
+			 radius	0.025
+		      }
+		      
+		   }
+		   
+		   translation	0 0 0
+		   rotation	0 0 1  0
+##X_SPHERE_SCALE
+#		   scale	0.25 0.25 0.25
+		}
+	       ]
+	     translation	1 0 0
+	  }
+	  
+	  Transform {
+	     children	Shape {
+		appearance	Appearance {
+		   material	Material {
+		      ambientIntensity	0.25
+		      diffuseColor	0.504157 0.607004 0.748016
+		      specularColor	0.309091 0.309091 0.309091
+		      emissiveColor	0 0 0
+		      shininess	0.8
+		      transparency	0
+		   }
+		   
+		}
+		
+		geometry	Cylinder {
+		   radius	0.01
+		   height	1
+		}
+		
+	     }
+	     rotation	0 0 1  0
+	     scaleOrientation	0 0 1  0
+	     translation 0 0.5 0
+	  }
+	 ]
+##X_AXIS_TRANSFORM
+      scaleOrientation	0 0 1  0
+    }
+    DEF Y_axis Transform {
+
+       children	[
+	  DEF Y_SlicerCoords Transform {
+	     children	[
+		DEF DragSensorY PlaneSensor {
+		   minPosition	0 -1
+		   maxPosition	0 0
+		}
+		DEF ySlicer Transform {
+		   children	Shape {
+		      appearance	Appearance {
+			 material	Material {
+			    ambientIntensity	0.25
+			    diffuseColor	0.904409 0.150314 0
+			    specularColor	0.0955906 0.0955906 0.0955906
+			    emissiveColor	0 0 0
+			    shininess	0.078125
+			    transparency	0
+			 }
+
+		      }
+
+		      geometry	Sphere {
+			 radius	0.025
+		      }
+
+		   }
+
+		   translation	0 0 0
+		   rotation	0 0 1  0
+##Y_SPHERE_SCALE
+#		   scale	0.25 0.25 0.25
+		}
+	       ]
+	     translation	0 1 0
+	  }
+	  Transform {
+	     children Shape {
+		appearance	Appearance {
+		   material	Material {
+		      ambientIntensity	0.25
+		      diffuseColor	0.504157 0.607004 0.748016
+		      specularColor	0.309091 0.309091 0.309091
+		      emissiveColor	0 0 0
+		      shininess	0.8
+		      transparency	0
+		   }
+		}
+		geometry	Cylinder {
+		   radius	0.01
+		   height	1
+		}
+		
+	     }
+	     rotation	0 0 1  1.57079632679
+	     translation	0.5 0 0
+	  }
+	 ]
+##Y_AXIS_TRANSFORM
+      scaleOrientation	0 0 1  0
+    }
+    DEF Z_axis Transform {
+       children [
+	  DEF Z_SlicerCoords Transform {
+	     children	[
+		DEF DragSensorZ PlaneSensor {
+		   minPosition	-0 0
+		   maxPosition	1 0
+		}
+		DEF zSlicer Transform {
+		   children	Shape {
+		      appearance	Appearance {
+			 material	Material {
+			    ambientIntensity	0.25
+			    diffuseColor	0.904409 0.150314 0
+			    specularColor	0.0955906 0.0955906 0.0955906
+			    emissiveColor	0 0 0
+			    shininess	0.078125
+			    transparency	0
+			 }
+
+		      }
+
+		      geometry	Sphere {
+			 radius	0.025
+		      }
+
+		   }
+
+		   translation	0 0 0
+		   rotation	0 0 1  0
+##Z_SPHERE_SCALE
+#		   scale	0.25 0.25 0.25
+		}
+	       ]
+	     translation	0 0 1
+	     rotation	0 1 0  1.57079632679
+	     scale	1 1 1
+	  }
+	  Transform {
+	     children Shape {
+		appearance	Appearance {
+		   material	Material {
+		      ambientIntensity	0.25
+		      diffuseColor	0.504157 0.607004 0.748016
+		      specularColor	0.309091 0.309091 0.309091
+		      emissiveColor	0 0 0
+		      shininess	0.8
+		      transparency	0
+		   }
+		}
+		
+		geometry	Cylinder {
+		   radius	0.01
+		   height	1
+		}
+		
+	     }
+	     rotation	1 0 0  1.57079632679
+	     translation	0 0 0.5
+	  }
+	 ]
+##Z_AXIS_TRANSFORM
+#!       scale	0.1 5 0.1
+       scaleOrientation	0 0 1  0
+       }
+
+     DEF imageBoundingBox Transform {
+	children [
+#X_slicer_follows
+	   DEF xSlices Transform {
+	      children	[
+		 DEF setXSliceNumber Script {
+		    eventOut	  SFInt32	  xSliceNumberToShow
+		    eventIn	  SFVec3f	  xSlicePointer
+##XSLICE_SCRIPT
+		    url	"vrmlscript:
+                 function xSlicePointer(value, time)
+                 {
+#!                 xSliceNumberToShow = 
+                 }
+                "
+		 }
+		 DEF toSeletedXSlice Switch {
+		    whichChoice	1000
+		    choice	[
+
+##XSLICES_BEGIN
+
+				 Transform {
+				    children	Shape {
+				       appearance	Appearance {
+					  texture	ImageTexture {
+##XSLICES_TEXTURE_URL
+#!	        url 
+					     repeatS	TRUE
+					     repeatT	TRUE
+					  }
+				       }
+				       geometry	IndexedFaceSet {
+					  coord	Coordinate {
+					     point   [ 
+						      0 0 0,
+						      0 1 0,
+						      0 1 1,
+						      0 0 1
+						     ]
+					  }
+					  coordIndex	[ 0, 1, 2, 3, -1 ]
+					  texCoord	TextureCoordinate {
+					     point   [ 0 1,
+						       1 1,
+						       1 0,
+						       0 0 ]
+					  }
+					  solid	FALSE
+				       }
+				    }
+
+##SLICES_TRANSLATION_X
+#!        translation 
+				    scale 1 1 1
+				 }
+##XSLICES_END
+				]
+		 }
+		]
+	   }
+
+#Y_slicer_follows
+	   DEF ySlices Transform {
+	      children	[
+		 DEF setYSliceNumber Script {
+		    eventOut	  SFInt32	  ySliceNumberToShow
+		    eventIn	  SFVec3f	  ySlicePointer
+##YSLICE_SCRIPT
+		    url	"vrmlscript:
+                 function ySlicePointer(value, time)
+                 {
+#!                 ySliceNumberToShow = 
+                 }
+                "
+		 }
+		 DEF toSeletedYSlice Switch {
+		    whichChoice	1000
+		    choice	[
+
+##YSLICES_BEGIN
+
+				 Transform {
+				    children	Shape {
+				       appearance	Appearance {
+					  texture	ImageTexture {
+##YSLICES_TEXTURE_URL
+#!	        url 
+					     repeatS	TRUE
+					     repeatT	TRUE
+					  }
+				       }
+				       geometry	IndexedFaceSet {
+					  coord	Coordinate {
+					     point   [ 
+						      0 0 0
+						      1 0 0
+						      1 0 1
+						      0 0 1
+						     ]
+					  }
+					  coordIndex	[ 0, 1, 2, 3, -1 ]
+					  texCoord	TextureCoordinate {
+					     point   [ 0 1,
+						       1 1,
+						       1 0,
+						       0 0 ]
+					  }
+					  solid	FALSE
+				       }
+				    }
+
+##SLICES_TRANSLATION_Y
+#!        translation 
+				    scale 1 1 1
+				 }
+##YSLICES_END
+				]
+		 }
+		]
+	   }
+#Z_slicer_follows
+	   DEF zSlices Transform {
+	      children	[
+		 DEF setZSliceNumber Script {
+		    eventOut	  SFInt32	  zSliceNumberToShow
+		    eventIn	  SFVec3f	  zSlicePointer
+##ZSLICE_SCRIPT
+		    url	"vrmlscript:
+                 function zSlicePointer(value, time)
+                 {
+#!                 zSliceNumberToShow = 
+                 }
+                "
+		 }
+		 DEF toSeletedZSlice Switch {
+		    whichChoice	1000
+		    choice	[
+
+##ZSLICES_BEGIN
+
+				 Transform {
+				    children	Shape {
+				       appearance	Appearance {
+					  texture	ImageTexture {
+##ZSLICES_TEXTURE_URL
+#!	        url 
+					     repeatS	TRUE
+					     repeatT	TRUE
+					  }
+				       }
+				       geometry	IndexedFaceSet {
+					  coord	Coordinate {
+					     point   [ 
+						      0 0 0
+						      1 0 0
+						      1 1 0
+						      0 1 0
+						     ]
+					  }
+					  coordIndex	[ 0, 1, 2, 3, -1 ]
+					  texCoord	TextureCoordinate {
+					     point   [ 0 1,
+						       1 1,
+						       1 0,
+						       0 0 ]
+					  }
+					  solid	FALSE
+				       }
+				    }
+
+##SLICES_TRANSLATION_Z
+#!        translation 
+				    scale 1 1 1
+				 }
+##ZSLICES_END
+				]
+		 }
+		]
+	   }
+    ]
+##image_bounding_box
+ }
+##coordinate_system_ends
+
+
+
+
+##SWITCHED_OBJECTS_BEGIN
+    DEF toggeldObject Transform {
+      children	[
+##SWITCHED_OBJECTS_SCRIPT
+	DEF hideShowObject Script {
+	  eventOut	  SFInt32	  showThisObject 
+	  eventIn	  SFTime	  startTimer
+	  eventIn	  SFBool	  toggleValue
+	  url	"vrmlscript:
+                 function initialize() { showThisObject = 1; }
+                 function toggleValue()
+                 {
+                   if( showThisObject==0)
+                     showThisObject = 1;
+                   else
+                     showThisObject = 0;
+                   return showThisObject;
+                 }
+
+                 function startTimer(value, time)
+                 {
+                   toggleValue();
+                 }
+                "
+	}
+##SWITCHED_OBJECTS_SWITCH
+	DEF hideOrShow Switch {
+	  whichChoice	1
+	  choice	[
+			 Transform {
+			 }
+	    DEF Object Transform {
+	      children	[
+##SWITCHED_OBJECTS_TOUCHSENSOR2
+		DEF mouseClickOnSurface TouchSensor {
+		}
+##SWITCHED_OBJECTS_PATCHLOOP_BEGIN
+		Shape {
+		  appearance	Appearance {
+		    material	Material {
+		      ambientIntensity	0.25
+##SWITCHED_OBJECTS_OBJECT_COLOR
+#!		      diffuseColor	
+		      emissiveColor	0 0 0
+		      shininess	0.25
+		    }
+
+		  }
+
+		  geometry	IndexedFaceSet {
+##INSERT_CREASE_ANGLE
+		    coord	Coordinate {
+		      point	[ 
+##SWITCHED_OBJECTS_POINT_ARRAY
+				]
+		    }
+
+		    coordIndex	[ 
+##SWITCHED_OBJECTS_COORDINDEX
+				]
+##SWITCHED_OBJECTS_BACKFACE_CULLING
+#!		    solid	
+		  }
+
+		}
+##SWITCHED_OBJECTS_PATCHLOOP_END
+	      ]
+##SWITCHED_OBJECTS_TRANSLATION
+#!	      translation	
+	      rotation	0 0 1  0
+##SWITCHED_OBJECTS_SCALE
+#!	      scale
+	       scaleOrientation	0 0 1  0
+	    }
+	  ]
+	}
+
+      ]
+      translation	0 0 0
+      rotation	0 0 1  0
+       scale	1 1 1
+       scaleOrientation	0 0 1  0
+    }
+##SWITCHED_OBJECTS_END
+
+  ]
+
+##GLOBAL_BOUNDING_BOX
+
+}
+
+
+DEF MyGlobalProximitySensor ProximitySensor {
+  center	0 0 0
+  size	10000 10000 10000
+}
+
+DEF MyInverseCamera Transform {
+   children	[
+##SWITCHED_SPHERES_BEGIN
+      Transform {
+	 children [
+##SWITCHED_SPHERES_SENSOR
+#           DEF mouseClickStaticBall%2d TouchSensor { }
+#	    DEF mouseStaticBallSwitch%2d Switch {
+	       whichChoice 1
+	       choice [
+			 Shape {
+			    appearance	Appearance {
+			       material	Material {
+##SWITCHED_SPHERES_COLOR
+#		     diffuseColor	 1 0 0 
+			       }
+			    }
+			    geometry	Sphere {
+			       radius 0.01
+			    }
+			 }
+			 Shape {
+			    appearance	Appearance {
+			       material	Material {
+##SWITCHED_SPHERES_COLOR
+#		     diffuseColor	 1 0 0 
+			       }
+			    }
+			    geometry	Box {
+			       size 0.01 0.01 0.01
+			    }
+			 }
+			]
+	    }
+	    Transform {
+	       children [
+	       Shape {
+		  geometry Text {
+##SWITCHED_SPHERES_TEXT
+#		     string "  Add custom text here"
+		     fontStyle FontStyle {
+			justify "Left"
+			family "SANS"
+			style  "BOLD"
+		     size   0.02
+		     }
+		  }
+	       }
+		 ]
+	       translation	 0.01 -0.006 0
+	    }
+
+	   ]
+##SWITCHED_SPHERES_TRANSLATION
+#	 translation -0.5 -0.3 -1
+      }
+##SWITCHED_SPHERES_END
+     ]
+##SWITCHED_SPHERES_TRANSFORM
+}
+
+
+#ROUTE viewFrom.position_changed TO MyInverseCamera.set_translation
+#ROUTE viewFrom.orientation_changed TO MyInverseCamera.set_rotation
+
+
+
+##slider_routes_follow
+#the Route for the slice sliders.
+ROUTE DragSensorX.translation_changed TO xSlicer.set_translation
+ROUTE DragSensorY.translation_changed TO ySlicer.set_translation
+ROUTE DragSensorZ.translation_changed TO zSlicer.set_translation
+
+#the routes for the slice selection.
+ROUTE xSlicer.translation_changed TO setXSliceNumber.xSlicePointer
+ROUTE setXSliceNumber.xSliceNumberToShow TO toSeletedXSlice.set_whichChoice
+ROUTE ySlicer.translation_changed TO setYSliceNumber.ySlicePointer
+ROUTE setYSliceNumber.ySliceNumberToShow TO toSeletedYSlice.set_whichChoice
+ROUTE zSlicer.translation_changed TO setZSliceNumber.zSlicePointer
+ROUTE setZSliceNumber.zSliceNumberToShow TO toSeletedZSlice.set_whichChoice
+##slider_routes_end
+
+##INSERT_ROUTES_FOR_SWITCHED_OBJECTS
+
+##END_INSERT_ROUTES_FOR_SWITCHED_OBJECTS (three for each one)

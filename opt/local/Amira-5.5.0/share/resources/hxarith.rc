@@ -1,0 +1,182 @@
+# ----------------------------------------------------------------------
+# hxarith package
+# ----------------------------------------------------------------------
+
+module -name "Magnitude" \
+    -primary "HxLattice3 \
+              HxTetraData \
+              HxHexaData \
+              HxSurfaceField" \
+    -check { [$PRIMARY nDataVar ] > 1 } \
+    -proc { $this doIt snap 1 } \
+    -class "HxMagnitude" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Displace" \
+    -primary "HxTetraVectorField3 \
+              HxHexaVectorField3 \
+              HxSurfaceVectorField" \
+    -class "HxDisplace" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "ChannelWorks" \
+    -primary "HxLattice3 HxHexaData HxTetraData HxSurfaceField" \
+    -class "HxChannelWorks" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "VectorField" \
+       -primary "HxLattice3 HxHexaData HxTetraData HxSurfaceField" \
+       -category "Main" \
+       -check { [llength [all -selected]] == 3 } \
+       -proc { \
+            set components [lsort [all -selected]]; \
+            set myChannelWorks [create HxChannelWorks]; \
+            $myChannelWorks Input1 connect [lindex $components 0]; \
+            $myChannelWorks Input2 connect [lindex $components 1]; \
+            $myChannelWorks Input3 connect [lindex $components 2]; \
+            $myChannelWorks fire; \
+            $myChannelWorks output setValue 2; \
+            $myChannelWorks fire; \
+            $myChannelWorks channel1 setValue 0; \
+            $myChannelWorks channel2 setValue 1; \
+            $myChannelWorks channel3 setValue 2; \
+            $myChannelWorks action snap; \
+            $myChannelWorks fire; \
+       }
+
+
+module -name "Gradient" \
+    -primary "HxLattice3 HxTetraData" \
+    -class "HxGradient" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+#    -check { [$PRIMARY primType ]==3 } \
+
+module -name "Shear" \
+    -primary "HxUniformScalarField3" \
+    -class "HxShear" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Divergence" \
+    -primary "HxUniformVectorField3" \
+    -check { [$PRIMARY primType ]==3 } \
+    -proc { $this doIt snap 1 } \
+    -class "HxDivergence" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Lambda2" \
+    -primary "HxRegVectorField3 HxTetraVectorField3" \
+    -check { [$PRIMARY primType ]==3 } \
+    -proc { $this doIt snap 1 } \
+    -class "HxLambda2" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Curl" \
+    -primary "HxUniformVectorField3" \
+    -check { [$PRIMARY primType ]==3 } \
+    -proc { $this doIt snap 1 } \
+    -class "HxRotation" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Arithmetic" \
+    -primary "HxTetraGrid HxHexaGrid HxField3 HxSurface HxSurfaceField" \
+    -class "HxArithmetic" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Arithmetic" \
+       -class "HxArithmetic" \
+       -category "Data"\
+       -package "hxarith"
+
+module -name "VectorProduct"\
+       -primary "HxVectorField3 HxSurfaceVectorField"\
+       -category "Compute" \
+       -check { [llength [all -selected]] == 2 && ([[lindex [all -selected] 0] hasInterface HxVectorField3] || [[lindex [all -selected] 0] hasInterface HxSurfaceVectorField]) && ([[lindex [all -selected] 1] hasInterface HxVectorField3] || [[lindex [all -selected] 1] hasInterface HxSurfaceVectorField]) }\
+       -proc {\
+            set inFields [all -selected];\
+            if {[lindex $inFields 0] == $PRIMARY} {\
+                set inFields {[lindex $inFields 1] [lindex $inFields 0]};\
+            };\
+            set myArithmetic [create HxArithmetic VectorProduct];\
+            $myArithmetic inputA connect [lindex $inFields 0];\
+            $myArithmetic inputB connect [lindex $inFields 1];\
+            $myArithmetic fire;\
+            $myArithmetic resultChannels setValue 0;\
+            $myArithmetic fire;\
+            $myArithmetic expr0 setValue "Ay*Bz-By*Az";\
+            $myArithmetic expr1 setValue "Az*Bx-Bz*Ax";\
+            $myArithmetic expr2 setValue "Ax*By-Bx*Ay";\
+            $myArithmetic doIt snap;\
+            $myArithmetic fire;\
+            }
+
+module -name "ScalarProduct"\
+       -primary "HxVectorField3 HxSurfaceVectorField"\
+       -category "Compute" \
+       -check { [llength [all -selected]] == 2 && ([[lindex [all -selected] 0] hasInterface HxVectorField3] || [[lindex [all -selected] 0] hasInterface HxSurfaceVectorField]) && ([[lindex [all -selected] 1] hasInterface HxVectorField3] || [[lindex [all -selected] 1] hasInterface HxSurfaceVectorField]) }\
+       -proc {\
+            set inFields [all -selected];\
+            set myArithmetic [create HxArithmetic ScalarProduct];\
+            $myArithmetic inputA connect [lindex $inFields 0];\
+            $myArithmetic inputB connect [lindex $inFields 1];\
+            $myArithmetic fire;\
+            $myArithmetic resultChannels setValue 1;\
+            $myArithmetic fire;\
+            $myArithmetic expr0 setValue "Ax*Bx+Ay*By+Az*Bz";\
+            $myArithmetic doIt snap;\
+            $myArithmetic fire;\
+            }
+               
+
+module -name "ColorCombine"   \
+    -primary "HxRegScalarField3 HxRegColorField3"  \
+    -class "HxColorCombine"    \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "MagAndPhase" \
+    -primary "HxUniformComplexScalarField3" \
+    -class "HxMagAndPhase" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "CastField" \
+    -primary "HxLattice3" \
+    -class "HxCastField" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Resample" \
+    -primary "HxLattice3 HxMultiChannelField3" \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -class "HxResample" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "ApplyTransform" \
+    -primary "HxLattice3" \
+    -check { [$PRIMARY coordType ]==1 } \
+    -class "HxApplyTransform" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "Merge" \
+    -primary "HxLattice3" \
+    -class "HxMerge" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+
+module -name "SplitVolume" \
+    -primary "HxLattice3" \
+    -class "HxSplitLattice" \
+    -category "Compute" \
+    -dso "libhxarith.so"
+

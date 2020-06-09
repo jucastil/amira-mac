@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortFloatSlider</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortFloatSlider" "slider for specification of floating point values" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This port provides a slider allowing the user to specify a floating point
+ number. The floating point number is limited to the current range of the
+ slider. The range can be changed either using the Tcl command <tt>setMinMax</tt>
+ or interactively using a configure dialog, which can be popped up by pressing
+ the right mouse button over the slider.</p>
+<p> Optionally the slider may have arrow buttons allowing the user to decrease
+ or increase the value by some predefined increment. The slider may also have
+ so-called subrange buttons allowing the user to restrict the actual range of
+ the slider to a smaller subrange. In this way it is possible to interactively
+ adjust the slider's value with high precision. In order to numerically adjust
+ the lower (left) subrange value, the command <tt>L &lt;value&gt;</tt> can be typed in
+ the slider's text field. In order to numerically adjust the upper (right)
+ subrange value, the command <tt>R &lt;value&gt;</tt> can be typed in the slider's text
+ field.</p>
+<p> <img src="HxPortFloatSlider.png" /></p>
+<p> This port is used for example to specify the threshold of the
+ <a class="link" href="../hxiso/HxIsosurface.html#A11">Isosurface</a> module.
+</p></div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue</span>  
+
+<div class="body"><p>Returns the float value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;float&gt;</span>  
+
+<div class="body"><p>Sets the float value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMinValue</span>  
+
+<div class="body"><p>Returns the lower bound.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMaxValue</span>  
+
+<div class="body"><p>Returns the upper bound.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the lower and upper bounds of the slider.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setFormat &lt;format&gt;</span>  
+
+<div class="body"><p>Sets the format used for the slider's text field in printf syntax.
+ Typically, the default format is <tt>%g</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getFormat</span>  
+
+<div class="body"><p>Returns the printf format used for the slider's text field.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setIncrement &lt;increment&gt;</span>  
+
+<div class="body"><p>Sets the increment. The increment is used for adjusting the slider value
+ using the optional arrows buttons. It is also used to constrain the slider
+ value in discrete mode (see below).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getIncrement</span>  
+
+<div class="body"><p>Returns the slider's increment.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setButtons &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the display of the optional arrow buttons.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasButtons</span>  
+
+<div class="body"><p>Checks whether the optional arrow buttons are enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSliderWidth &lt;width&gt;</span>  
+
+<div class="body"><p>Sets the width of the slider in pixels.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSliderWidth</span>  
+
+<div class="body"><p>Returns the width of the slider in pixels.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setNumColumns &lt;columns&gt;</span>  
+
+<div class="body"><p>Sets the width of the slider's text field in characters.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getNumColumns</span>  
+
+<div class="body"><p>Returns the width of the slider's text field in characters.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTracking &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables tracking mode. If tracking mode is enabled, the network
+ is fired permanently while the user is moving the slider. Otherwise it is fired
+ only once when the slider is released.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTracking</span>  
+
+<div class="body"><p>Checks whether tracking mode is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setDiscrete &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables discrete mode. If discrete mode is enabled, the slider
+ value will always be equal to the lower bound plus an integer multiple
+ of the current increment.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getDiscrete</span>  
+
+<div class="body"><p>Checks whether discrete mode is enabled or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSubRangeButtons &#123;0|1&#125;</span>  
+
+<div class="body"><p>Enables or disables the subrange buttons (see description above),</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hasSubRangeButtons</span>  
+
+<div class="body"><p>Checks whether the subrange buttons are enabled or not.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

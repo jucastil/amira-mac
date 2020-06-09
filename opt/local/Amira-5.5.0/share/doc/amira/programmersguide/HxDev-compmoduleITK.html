@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">26.1.4 Implement an ITK image to image filter</a></h3>
+<p><a name="A2"></a>
+At this point basic understanding of Amira's compute module architecture
+is assumed.</p>
+<p>This example will show how to write an Amira compute module implementing an ITK image to image filter. 
+In a step by step manner we will show how to 
+</p>
+<ul><li>use Amira's ports to specify parameters needed by ITK filters,</li><li>import an Amira image data object into the ITK filter pipeline and export the ITK 
+result image data object, respectively,</li><li>monitor the progress of ITK image filters within Amira's global 
+progress bar,</li><li>update the ITK filter pipeline by the Amira compute module.</li>
+</ul><p></p>
+<p>In our example an ITK mean image filter with a variable kernel size will be implemented.</p>
+<p>You will find the source code within the ITK demo package provided with the <font face="helvetica">Developer Option</font>, 
+i.e. under <tt>packages/myitkpackage</tt> in the local <font face="helvetica">Amira</font> directory. There will
+be two files: a header file called <tt>MyITKFilter.h</tt> and a source code file called 
+<tt>MyITKFilter.cpp</tt>. </p>
+<p>Let us look at the header file <tt>MyITKFilter.h</tt> first.</p>
+<p><font size="2"></font></p><pre>
+/////////////////////////////////////////////////
+//
+// Example of an ITK compute module
+//
+/////////////////////////////////////////////////
+
+#ifndef MYITKFILTER_H
+#define MYITKFILTER_H
+
+#include &lt;hxcore/HxCompModule.h&gt;
+#include &lt;hxcore/HxPortIntSlider.h&gt;
+#include &lt;hxcore/HxPortDoIt.h&gt;
+
+// storage-class specification
+#include &lt;myitkpackage/myitkpackageAPI.h&gt;  
+
+class MYITKPACKAGE_API MyITKFilter : public HxCompModule
+    HX_HEADER(MyITKFilter);
+
+  public:
+
+    MyITKFilter();
+    ~MyITKFilter();
+
+    HxPortIntSlider   portKernelSize;
+    HxPortDoIt        portDoIt;
+
+    virtual void compute();
+};
+
+#endif // MYITKFILTER_H
+</pre><p><font size="2"></font></p>
+<p>As usual in C++ code, the file starts with a define statement that
+prevents the contents of the file from being included multiple times.
+Then four header files are included. <tt>HxCompModule.h</tt> contains the
+definition of the base class of our compute module. The next two files, 
+<tt>HxPortIntSlider.h</tt> and <tt>HxPortDoIt.h</tt>, contain the definitions 
+of two <em>ports</em> we want to use in our class.</p>
+<p>In our example we use the <tt>HxPortIntSlider</tt> to specify the kernel size
+of the filter and the <tt>HxPortDoIt</tt> port in order to apply the computation.</p>
+<p>The <tt>myitkpackageAPI.h</tt> header file is included to provide import export 
+storage-class specifiers for Windows systems. These are encoded in the macro 
+<tt>MYITKPACKAGE_API</tt>.
+A class declared without this macro will not be accessible from outside the
+DLL it is defined in. On Unix systems the macro is empty and can be
+omitted.</p>
+<p>In the rest of the header file nothing more is done than deriving a new
+class from <tt>HxCompModule</tt> and defining three member functions, namely
+the constructor, destructor and an overloaded virtual method called <tt>compute</tt>.
+The <tt>compute</tt> method is called when the module has been created and
+whenever a change of state occurs on one of the module's input data objects
+or ports. </p>
+<p>Let's look at some code snippets of the source code file <tt>MyITKFilter.cpp</tt> 
+in order to clarify important parts of the implementation.</p>
+<p>In our example the following headers from Amira's <tt>hxitk</tt> package are included,
+providing convenience functionality for wrapping ITK image data objects and monitoring
+the progress of ITK process objects. </p>
+<p>Note that ITK headers have to be included without specifying a path in front of the header file name. </p>
+<p><font size="2"></font></p><pre>
+...
+#include &lt;hxitk/HxItkImageImporter.h&gt;
+#include &lt;hxitk/HxItkImageExporter.h&gt;
+#include &lt;hxitk/HxItkProgressObserver.h&gt;
+
+#include "itkMeanImageFilter.h"
+...
+</pre><p><font size="2"></font></p>
+<p>As usual the module's compute method will be triggered automatically 
+if the module is created and whenever the kernel size port or the data respectively 
+have changed.
+However our compute method should return immediately unless the <em>Apply</em> button 
+has been pressed. This will be done by the following piece of code at the beginning of
+the compute method:</p>
+<p><font size="2"></font></p><pre>
+    ...
+    // Check whether doIt button was hit
+    if (!portDoIt.wasHit()) return;
+    ...
+</pre><p><font size="2"></font> </p>
+<p>The <tt>getResult</tt> method checks whether there is a data set whose master
+port is connected to the compute module. This typically is the object
+set by a previous call to <tt>setResult</tt>. However, it also may be any
+other object. Therefore, a run-time type check will be performed by
+casting the result returned by <tt>getResult</tt> via a <tt>mcinterface_cast</tt>. If the
+result returned by <tt>getResult</tt> cannot be casted to the type of a <tt>HxUniformScalarField3</tt>, 
+the variable <tt>resultField</tt> will be set to null. Then a check is made whether the output
+object has the same dimensions and the same primitive data type as the
+input object. If this test fails, <tt>resultField</tt> will also be set to null.
+Note, that only if the variable <tt>resultField</tt> is null a new output 
+object of type <tt>HxUniformScalarField3</tt> will be created later on.</p>
+<p><font size="2"></font></p><pre>
+void MyITKFilter::compute()
+{
+    ...
+    // Access the input data object. The member portData 
+    // (which is of type HxConnection) is inherited from 
+    // the base class HxModule.
+    HxUniformScalarField3* inField = 
+        hxconnection_cast&lt;HxUniformScalarField3&gt;( portData ); 
+
+    // Check whether the input port is connected
+    if (!inField) return;
+
+    // Access size of data volume:
+    const int* dims = inField-&gt;lattice.dims();
+
+    // Check if there is a result which we can reuse.
+    McHandle&lt;HxUniformScalarField3&gt; resultField = 
+        mcinterface_cast&lt;HxUniformScalarField3&gt;( getResult() );
+
+    // Check for proper type.
+    if (resultField &amp;&amp; 
+           !resultField-&gt;isOfType(
+           HxUniformScalarField3::getClassTypeId() )
+       )
+        resultField = 0;
+
+    // Check if size and primType still match the current input:
+    if (resultField) {
+        const int* outdims = resultField-&gt;lattice.dims();
+        if (dims[0]!=outdims[0] || 
+            dims[1]!=outdims[1] || 
+            dims[2]!=outdims[2] || 
+            resultField-&gt;primType() != resultField-&gt;primType())
+        resultField=0;
+    }
+    ...
+</pre><p><font size="2"></font> </p>
+<p>Due to the fact, that ITK is a template library we have to translate the implicitly 
+encoded type information of Amira's data objects into template code. This is achieved 
+by instantiating different versions of a function template <tt>meanImageFilter</tt> where the 
+actual ITK filtering is implemented. </p>
+<p><font size="2"></font></p><pre>
+    ...
+    switch (inField-&gt;lattice.primType()) {
+            case McPrimType::mc_uint8:
+                meanImageFilter&lt;unsigned char&gt;(inField, 
+                resultField, kernelSize);
+                break;
+            case McPrimType::mc_uint16:
+                meanImageFilter&lt;unsigned short&gt;(inField, 
+                resultField, kernelSize);
+                break;
+            case McPrimType::mc_int16:
+                meanImageFilter&lt;short&gt;(inField, 
+                resultField, kernelSize);
+            ....
+    }
+    ...
+</pre><p><font size="2"></font> </p>
+<p>The following steps implement the ITK image to image filter pipeline within
+the <tt>meanImageFilter</tt> function template.</p>
+<p></p>
+<ul><li><p>Create the ITK filter pipeline by defining certain ITK typedefs of input and output 
+ images and filters with respect to the template type <tt>Type</tt>. In our example we 
+ create a single ITK process object e.g. a mean image filter. </p>
+<p><font size="2"></font></p><pre>
+    ...
+    typedef itk::Image&lt; Type, 3 &gt; ImageType;
+    typedef itk::MeanImageFilter&lt;ImageType, 
+        ImageType &gt; FilterType;
+
+    FilterType::Pointer filter = FilterType::New();
+    ...
+</pre><p><font size="2"></font></p></li><li><p>Wrap the Amira input data object of type <tt>HxUniformScalarField3</tt> into 
+ an ITK image object with the help of the <tt>HxItkImageImporter</tt> template class.
+ The result of <tt>HxItkImageImporter::getOutput()</tt> has to be passed as input image 
+ to the first process object of the filtering pipeline. Note that the <tt>HxItkImageImporter</tt>
+ only maps the data of the <tt>HxUniformScalarField3</tt> into the ITK image data object. 
+ Meaning that no additional memory will be allocated, but the ITK image data object will use
+ the memory allocated by the Amira data object.</p>
+<p><font size="2"></font></p><pre>
+    ...
+    HxItkImageImporter&lt;Type&gt; importer(inField);
+    filter-&gt;SetInput(importer.GetOutput());
+    ...
+</pre><p><font size="2"></font></p></li><li><p>Provide an Amira data object of type <tt>HxUniformScalarField3</tt> where the result image of 
+ the ITK filter pipeline should be written. Therefore the ouput image of the last ITK 
+ process object of the filter pipeline has to be wrapped by the <tt>HxItkImageExporter</tt> 
+ template class. If an existing <tt>resultField</tt> has been passed to the constructor the data 
+ of the <tt>HxUniformScalarField3</tt> will be mapped into the ITK image data object. 
+ Again, the ITK output image will not allocate memory, but use the data allocated by 
+ the Amira data object. If no valid pointer of type <tt>HxUniformScalarField3</tt> has been 
+ provided via the constructor ITK will allocate the memory. Later on, a new Amira data 
+ object of type <tt>HxUniformScalarField3</tt> will be created by <tt>HxItkImageExporter::getResult()</tt>, 
+ which afterward takes over the buffer allocated by the ITK image (see below). </p>
+<p><font size="2"></font></p><pre>
+    ...
+    HxItkImageExporter&lt;ImageType&gt; exporter(
+        filter-&gt;GetOutput(), 
+        resultField );
+    ...
+</pre><p><font size="2"></font></p></li><li><p>Observe the ITK process object's progress and visualize it within Amira's global progressbar. 
+ Therefore an instance of <tt>HxItkProgressObserver</tt> needs to be instantiated. In order to monitor the 
+ progress of an ITK process object it has to be registered via the <tt>HxItkProgressObserver::startObservingProcessObject()</tt>
+ member function. </p>
+<p><font size="2"></font></p><pre>
+    ...
+    /// Display filter progress within Amira's progressbar
+    HxItkProgressObserver progress;
+    progress.startObservingProcessObject(filter);
+    progress.setProgressMessage(
+        McString("Applying mean filter...") );
+    ...
+</pre><p><font size="2"></font></p></li><li><p>Update the ITK filter pipeline and get the result. If a null pointer 
+ has been passed to the constructor of <tt>HxItkImageExporter</tt>, 
+ <tt>HxItkImageExporter::getResult()</tt> will create a new Amira data object, 
+ which takes over the buffer allocated by the ITK image.</p>
+<p> In order to avoid memory leaks <tt>HxItkImageExporter</tt> holds a handle (see <tt>McHandle</tt>) 
+ on the newly created Amira data object of type <tt>HxUniformScalarField3</tt>. Thus a variable of type 
+ <tt>McHandle&lt;HxUniformScalarField3&gt;</tt> has to be used in order to store the result and increase 
+ the reference count of the Amira data object. Otherwise the newly created result data object will be 
+ deleted within the exporter's destructor.</p>
+<p> If an existing result field of type <tt>HxUniformScalarField3</tt> has been passed to the constructor
+ of <tt>HxItkImageExporter</tt>, calling <tt>HxItkImageExporter::getResult()</tt> isn't necessary because the 
+ pointer to the reused Amira data object won't change.</p>
+<p><font size="2"></font></p><pre>
+    ...
+    // Execute the filter
+    filter-&gt;Update();
+    resultField = exporter.getResult();
+</pre><p><font size="2"></font></p></li>
+</ul><p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,15 @@
+if { [app hasLicense "AmiraNeuro"] } {
+        module -name "ConvertTalairach" \
+                -package "hxscriptobj" \
+                -primary "HxUniformScalarField3" \
+                -category "Compute" \
+                -proc {
+                        set mod [[create HxScriptObject] setLabel ConvertTalairach]
+                                $mod script setValue $AMIRA_ROOT/share/script-objects/ConvertTalairach.scro
+                                if { [exists $PRIMARY] } {
+                                        echo $PRIMARY
+                                }
+                        $mod data connect $PRIMARY
+                                $mod fire
+                }
+}

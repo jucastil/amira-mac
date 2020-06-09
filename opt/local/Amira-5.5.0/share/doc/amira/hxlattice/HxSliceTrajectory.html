@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Trajectory</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Trajectory" "control position and orientation of an ArbitraryCut" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can control position and orientation of an HxArbitraryCut
+sliding it along a given curve or lineset.
+The Trajectory can be activated from an HxObliqueSlice, for instance.
+Typical usage scenarios are 1) show a slice at a fixed position while sliding,
+2) use a stencil mask to visualize only a circular region around the
+trajectory.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The lineset where the trajectory is part of.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_required">
+ <span class="headline">Module</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The HxArbitraryCut modules whose slice position and orientation will
+ be adjusted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Line</span>  
+<div class="portsnapshot"><img src="HxSliceTrajectory_line.png" /><br /></div>
+<div class="body"><p>The number of the line within the lineset that should be used as trajectory.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxSliceTrajectory_slice.png" /><br /></div>
+<div class="body"><p>Position on the trajectory. Can be the vertex number or line-segment number
+ depending on the toggle "Use Line Segments"</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">View</span>  
+<div class="portsnapshot"><img src="HxSliceTrajectory_view.png" /><br /></div>
+<div class="body"><p>If <em>Up front</em> is selected, the camera of the actual viewer is adjusted to the
+ position and tangent of the trajectory position.</p>
+<p> If <em>Frame</em> is selected, the border frame of the connected HxArbitraryCut module
+ is switched on, otherwise it is switched off.</p>
+<p> If <em>Orthographic</em> is selected, the camera is switched into orthographic projection mode.</p>
+<p> If <em>Use Line Segments</em> is not selected, the slice position is set to the vertex positions
+ of the trajectory. The normal direction for the plane is defined by the predecessor and the
+ successor vertex of the line. If the option is set, the plane is positioned at the center of
+ a line segment, and the line segment is used as plane normal.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

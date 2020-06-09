@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.3 Alignment of Molecules</a></h3>
+<p>In this section you will learn how to </p>
+<p></p>
+<ol><li>align molecules by considering selected atoms,</li><li>compute a <a class="link" href="../hxmolconformation/HxMeanMolecule.html#A1">mean molecule</a>,</li><li>compute a <a class="link" href="../hxmolconformation/HxConfDensity.html#A1">configurational density</a>,</li><li>compare metastable molecular conformations.</li>
+</ol><p></p>
+<p></p>
+<h4><a name="A2">10.1.3.1 Comparing two Molecules</a></h4>
+<p>In this section we will compare two different three-dimensional
+structures of the same molecule. </p>
+<p></p>
+<ul><li>Load the data file <tt>alkane.zmf</tt> from the directory <tt>data/molecules/alkane</tt>.</li><li>Select <em>MolTrajectory</em> from the pop-up menu of the <em>alkane.zmf</em> icon.</li><li>Select <em>Molecule</em> from the pop-up menu of the <tt>MolTrajectory</tt> icon.</li><li>Attach a <em>MoleculeView</em> module to the molecule.</li><li>Repeat the last two steps, creating two new objects, <em>Molecule2</em> and <em>MoleculeView2</em></li>
+</ul><p></p>
+<p>The <em>alkane.zmf</em> icon represents a bundle of molecular
+trajectories, in this case butane, pentane, and hexane. By attaching a
+<em>MolTrajectory</em> to it, we extract a single trajectory. By default,
+the first trajectory, which is butane, is selected. We can now extract
+single time steps from the trajectory by attaching a <em>Molecule</em>
+object to the trajectory. We have done this twice since we want to
+compare two time steps with each other. Currently, both molecules
+extract the same time step. This is the reason for only seeing a
+single molecule. In order to get more information about the data
+structures, go to the section on <a class="link" href="moldatastruct.html">molecular data
+ structures</a>.</p>
+<p></p>
+<ul><li>Select the <em>MoleculeView</em> icon and change the <em>Mode</em> port to <em>balls and sticks</em> and the <em>Quality</em> port to
+ correct.</li><li>Repeat this action for the <em>MoleculeView2</em>.</li><li>Select the <em>Molecule2</em> icon and change the value of the <em>Time</em> port to 2.</li>
+</ul><p></p>
+<p>You should now see two butane molecules in the viewer, slightly
+displaced.</p>
+<p></p>
+<ul><li>Right-click on the white square at the far left side of the
+ <em>Molecule2</em> icon and select <em>AlignMaster</em> from the pop-up
+ menu.</li><li>Connect the blue line to the <em>Molecule</em> icon.</li><li>Select the <em>Molecule2</em> icon.</li><li>Press the <em>all</em> button of <em>Molecule2's</em> <em>Select</em> port.</li>
+</ul><p></p>
+<p>You have now aligned the molecules <em>Molecule</em> and <em>Molecule2</em>
+using a least squares fitting of all atoms. This only works for
+molecules with the same number of atoms. In the following we will
+align the two molecules by considering only three carbon atoms.</p>
+<p></p>
+<ul><li>Deactivate the <em>MoleculeView</em> by clicking on the orange
+ square of the <em>MoleculeView</em> icon.</li><li><tt>Ctrl</tt>-click on three consecutive carbon atoms.</li>
+</ul><p></p>
+<p>The frame of a red cube should appear around each of them.</p>
+<p></p>
+<ul><li>Activate the <em>MoleculeView</em> by clicking on the gray square
+ on the <em>MoleculeView</em> icon.</li><li>Select the <em>Molecule2</em> icon and press the <em>in
+ slave</em> button of the <em>Select</em> port.</li>
+</ul><p></p>
+<p>The three selected atoms should now fit better onto the corresponding
+atoms of the object labeled <em>Molecule</em>.</p>
+<p></p>
+<h4><a name="A3">10.1.3.2 Computing a Mean Molecule</a></h4>
+<p>In this section we will compute a mean molecule of a metastable
+molecular conformation of butane.</p>
+<p></p>
+<ul><li>Remove the objects <em>Molecule</em> and <em>Molecule2</em>.</li><li>Select the <em>MolTrajectory</em> icon.</li><li>Load the data file <tt>but_cluster_3_1.idx</tt> from the directory
+ <tt>data/molecules/alkane</tt>.</li>
+</ul><p></p>
+<p><em>but_cluster_3_1.idx</em> is a subtrajectory of <em>MolTrajectory</em>,
+i.e., a subset of all configurations in the trajectory.</p>
+<p></p>
+<ul><li>Attach a molecule to the icon <em>but_cluster_3_1.idx</em>.</li><li>Select the <em>MeanMolecule</em> entry from the <em>Compute</em> submenu of <em>but_cluster_3_1.idx</em>'s pop-up menu.</li><li>Right-click with the mouse on the white square at the far left side of
+ the <em>MeanMolecule</em> icon and select <em>AlignMaster</em>.</li><li>Connect the <em>AlignMaster</em> port to the <em>Molecule</em> icon by
+ attaching the blue line to it.</li><li>Select the <em>MeanMolecule</em> icon and press the <em>all</em>
+ button of the <em>Select</em> port of the <em>MeanMolecule</em> module.</li><li>Press the <em>Apply</em> button to compute the mean molecule.</li><li>Visualize the mean molecule <em>but_cluster_3_1.mean</em> by
+ attaching a <em>MoleculeView</em> to it.</li><li>Connect the <em>AlignMaster</em> port of the module <em>MeanMolecule</em>
+ to the <em>but_cluster_3_1.mean</em> icon.</li><li>Press the <em>Apply</em> button of the <em>MeanMolecule</em> module two
+ or three times.</li>
+</ul><p></p>
+<p>You have now computed a mean molecule of the subtrajectory <em>but_cluster_3_1.idx</em>. The <em>AlignMaster</em> is used to align all
+time steps before accumulating the atom positions. Changing the <em>AlignMaster</em> to the previously computed mean molecule and repeating
+the computation of the mean molecule will improve it. This procedure
+should converge. </p>
+<p>A better way to compute a mean molecule is to use the module
+<a class="link" href="../hxmolalign/HxPrecomputeAlignment.html#A1">PrecomputeAlignment</a>, using the <em>Multiple Alignment</em> option of the <em>Mode</em> port. This module
+creates an object containing a transformation for each structure in
+the trajectory. This object can then get connected to the <em>PrecomputeAlignment</em> connection port of the <em>MeanMolecule</em>
+module.</p>
+<p></p>
+<h4><a name="A4">10.1.3.3 Computing and Visualizing a Configuration Density</a></h4>
+<p>For the subset of configurations contained in the subtrajectory <em>but_cluster_3_1.idx</em>, we will now compute a
+<a class="link" href="../hxmolconformation/HxConfDensity.html#A1">configuration density</a> and visualize it with the
+<a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> display module.</p>
+<p></p>
+<ul><li>Select the entry <em>ConfigurationDensity</em> from the 
+ <em>Compute</em> submenu of <em>but_cluster_3_1.idx</em>'s pop-up menu.</li><li>Connect the <em>AlignMaster</em> port of the <em>ConfigurationDensity</em> icon to the <em>but_cluster_3_1.mean</em>
+ icon.</li><li>Select the <em>ConfigurationDensity</em> icon.</li><li>Press the <em>all</em> button of the <em>Select</em> port.</li><li>Press the <em>Field</em> button of the <em>Compute</em> port to
+ compute the density.</li><li>Visualize the created scalar field <em>but_cluster_3_1.scalar</em>
+ with an isosurface by first selecting the <em>Isosurface</em> entry 
+ from the <em>Display</em> submenu of the icon's pop-up menu,</li><li>second, setting the <em>Isosurface</em>'s <em>Threshold</em> value to
+ 0.1,</li><li>and third, pressing the <em>Apply</em> button.</li><li>Try different <em>Threshold</em> values.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A5">10.1.3.4 Comparing Metastable Molecular Conformations</a></h4>
+<p>The set of configurations in the subtrajectory <em>but_cluster_3_1.idx</em> belongs to a metastable conformation
+of butane. In this section we will compute the density of a second
+metastable conformation and compare the two with each other.</p>
+<p></p>
+<ul><li>Select the <em>MolTrajectory</em> icon.</li><li>Load the data file <tt>but_cluster_3_2.idx</tt> from the directory
+ <tt>data/molecules/alkane</tt>.</li><li>Compute the mean molecule of the subtrajectory <em>but_cluster_3_2.idx</em> by repeating the steps described
+ <a class="link" href="#A3">above</a> for the
+ subtrajectory <em>but_cluster_3_1.idx</em>.</li><li>Visualize the second mean molecule with the <em>MoleculeView</em>
+ module.</li><li>Select three consecutive carbon atoms in the second mean
+ molecule as was done in the first tutorial.</li><li>Attach the <em>AlignMaster</em> of the object <em>but_cluster_3_2.mean</em> to the first mean molecule <em>but_cluster_3_1.mean</em>.</li><li>Select the <em>but_cluster_3_2.mean</em> icon and press the
+ <em>in slave</em> button of the mean molecule's <em>Select</em> port.</li>
+</ul><p></p>
+<p>The two mean molecules should now be aligned to each other, i.e., the
+three selected carbon atoms should superimpose.</p>
+<p></p>
+<ul><li>Compute the density for the second subtrajectory using the
+ <em>but_cluster_3_2.mean</em> molecule as <em>AlignMaster</em>.</li><li>Visualize the computed density with an <em>Isosurface</em> module.</li><li>Double-click on the colormap of the <em>Isosurface2</em> module and
+ select a different color to better distinguish the two isosurfaces
+ from each other.</li>
+</ul><p></p>
+<p>You should now clearly see how the two conformations of butane differ.
+For larger molecules it might be interesting to color the isosurface
+according to the atom's colors. This can be done using the same <em>ConfigurationDensity</em> modules by selecting the <em>Color
+ Field</em> option of the <em>Field</em> port. Attach the computed color field to
+the <em>ColorField</em> connection port of the <em>Isosurface</em> module.</p>
+<p>Notice that you can also visualize the densities with the 
+<a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> module of the <em>Display</em> submenu.</p>
+<p></p>
+<p>
+</p></body>
+</html>

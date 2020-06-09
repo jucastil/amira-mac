@@ -1,0 +1,709 @@
+#!/bin/bash -a
+
+#set -x
+
+# Note: Option -a means to export all shell variables.
+
+# This is the Amira startup script.
+
+# Set a default display if needed
+if [ "$DISPLAY" = "" ]
+then
+    DISPLAY=":0.0"
+fi
+
+# Find out where Amira is installed. First look at the directory name...
+dirname=`dirname "$0"`
+if [ "$dirname" = "$0" ]
+then
+    dirname="$PWD"
+fi
+
+# This is necessary with Mesa 3.0:
+MESA_GLX_VISUAL_HACK=1
+
+# This is necessary for multi-threaded multi-pipe OIV
+OIV_MAX_CACHES=6
+
+#
+# If $0 is an symbolic link, call target. Otherwise $dirname would not be
+# the AMIRA_ROOT installation directory...
+#
+# note Sun only understands -h for symlink detection, although this is deprecated
+# Don't replace -h with -L without testing SunOS
+if [ -h "$0" ]
+then
+    # Filter out the target the link is pointing to
+    # This should also work if the link or the target contain blanks
+    nextlink=`ls -l "$0" | sed -e's/^.*-> //'`
+    case "$nextlink" in
+	/*)  nextdir="$nextlink" ;;
+	.*)  nextdir="$dirname/$nextlink" ;;
+	*)   nextdir="$dirname/$nextlink";;
+    esac
+    echo Executing $nextdir...
+    exec "$nextdir" "$@"
+    echo Exec failed.
+    exit 0;
+fi
+
+# At this point we are sure that $0 is a real file and that $dirname
+# is a directory. Lets get the absolute path name.
+absdir=`cd "$dirname"; pwd`
+if [ ! -d "${absdir}/bin" ]
+then
+    absdir=`dirname "$absdir"`
+fi
+
+if [ "$AMIRA_ROOT" = "" ]
+then
+    AMIRA_ROOT="$absdir"
+
+    # Workaround for some problems with automounters
+    # (not implemented in sh script...)
+    #    AMIRA_ROOT=${absdir#/tmp_mnt}
+
+    # This message should only be printed if there is a developer version
+    # installed, i.e., if at least the kernel headers exist.
+    if [ -d "$AMIRA_ROOT/kernel" ]
+    then
+	if [ "$1" != "-help" ]
+	then
+	    echo Please set AMIRA_ROOT=$AMIRA_ROOT for package development.
+	fi
+    fi
+else
+	echo "AMIRA_ROOT is already defined and set to $AMIRA_ROOT."
+	echo "Searching for a skin file in $AMIRA_ROOT/share/resources/ ..."
+	echo "NOTE: unset AMIRA_ROOT to be sure to load the right skin file."
+fi
+
+######################################################################
+#
+#   Process command line options. All of them are exclusive.
+#
+######################################################################
+
+if [ "$1" = "-help" ]
+then
+    echo
+    echo "  This is the startup script. The following options are supported:"
+    echo
+    echo "  -help         Displays this help message."
+    echo "  -version      Displays version string."
+    echo "  -cmd command_string [-host hostname] [-port port]"
+    echo "                Send TCL command to running the program. Optionally the hostname"
+    echo "                and the port number can be specified. Type 'app -listen'"
+    echo "                in the console of the receiving program before."
+    echo "  -logfile <file> Specify a file to which the program sends all output"
+    echo "                from its console."
+    echo "  -no_stencils  Tell the program not to ask for stencil buffers. Needed on"
+    echo "                some PC graphics boards to exploit hardware acceleration."
+    echo "  -remoterender Enables Open Inventor's remoterender mechanism."
+    echo "  -remoterendergl Enables Open Inventor's remoterender mechanism using OpenGL textures."
+    echo "                Using this option might fix color problems occuring with '-remoterender'."
+    echo "                Note, $DISPLAY must support OpenGL."
+    echo "  -mesa         Use Mesa for software rendering (if available)."
+    echo "  -nomesa       Don't use Mesa for software rendering."
+    echo "  -64           Use the 64 bit version (if available)."
+    echo "  -32           Use the 32 bit version (if available)."
+    echo
+    echo "The following options are only relevant for the Developer Version:"
+    echo
+    echo "  -root         Find out where the program is installed"
+    echo "  -debug        Executes the debug version."
+    echo "  -optimize     Executes the optimized version."
+    echo "  -globus       Use the version w/ globus support."
+    echo "  -ddd          Starts the ddd debugger (Linux)."
+    echo "  -gdb          Starts the gdb debugger (Linux)."
+    echo "  -kdbg         Starts the kdbg debugger (Linux with KDE)."
+    echo "  -idb          Starts the idb debugger (Linux)."
+    echo "  -ddd          Starts the ddd debugger (Linux)."
+    echo "  -val          Starts the program with valgrind (Linux)."
+    echo "  -test         Executes unit tests (if available)."
+    echo "  -ldd          Uses ldd to print library depedencies (ELF system)."
+    echo "  -otool-L      Uses otool -L to print library depedencies (Mac OS X)."
+    echo
+    exit 1
+fi
+
+if [ "$1" = "-root" ]
+then
+    echo
+    echo "The program is installed in $AMIRA_ROOT"
+    echo
+    exit
+fi
+    
+if [ "$1" = "-makefile" ]
+then
+    if [ -f GNUmakefile ]
+    then
+        echo 'Error: A GNUmakefile already exists in the current directory!'
+	exit 1;
+    fi
+
+    if [ ! -r "$AMIRA_ROOT/GNUmakefile.template" ]
+    then
+	echo "Error: You don't have a developer's version!"
+	exit 1;
+    fi
+
+    cp "$AMIRA_ROOT/GNUmakefile.template" ./GNUmakefile
+
+    if [ ! -f ../GNUmakefile.rules ]
+    then
+        if [ ! -r "$AMIRA_ROOT/packages/GNUmakefile.rules" ]
+	then
+	    echo "Error: Your version is missing a packages/GNUmakefile.rules file!"
+	    exit 1;
+        fi
+        echo 'Warning: No GNUmakefile.rules found in the parent directory - created one!'
+        cp "$AMIRA_ROOT/packages/GNUmakefile.rules" ..
+    fi
+
+    echo "Created a package Makefile in the current directory."
+    echo "Please edit 'GNUmakefile' for your needs."
+    exit 1
+fi
+
+
+######################################################################
+#
+# Various shell functions
+#
+######################################################################
+
+use_mesa()
+{
+    AMIRA_MESA=1
+    MESADIR="${AMIRA_ROOT}/lib/Mesa${arch#arch}"
+    MESADIR=${MESADIR%-Optimize}
+    MESADIR=${MESADIR%-Debug}
+    if test -r "$MESADIR/libGL.so" -o -r "$MESADIR/libGL.sl" 
+    then
+        LD_LIBRARYN32_PATH="${MESADIR}:${LD_LIBRARYN32_PATH}"
+        LD_LIBRARY_PATH="${MESADIR}:${LD_LIBRARY_PATH}"
+        SHLIB_PATH="${MESADIR}:${SHLIB_PATH}"
+	    AMIRA_MESA=true
+        echo The program will use Mesa library from ${MESADIR}.
+    else
+        echo Mesa library not found in ${MESADIR}.
+        unset AMIRA_MESA
+    fi
+}
+
+use_debugger()
+{
+    EXEC="exec $1"
+    MALLOC_FASTCHK=1
+    MALLOC_VERBOSE=2
+    MAKE_CFG=Debug
+    echo "Starting the program with $1 debugger."
+}
+
+######################################################################
+#
+# Parse non-exclusive arguments. For MAKE_LOCAL_CFG see comment below.
+#
+######################################################################
+unset EXEC
+
+#
+# Parse startup parameters independent from the given order.
+# Still startup parameters must precede any filenames.
+#
+# Note: If you add options here, also describe them in the -help section
+AMIRAMAIN_FILE=amiramain
+ZIBAMIRAMAIN_FILE=zibamira
+
+amiramain_PRODUCT_NAME=Amira
+zibamira_PRODUCT_NAME=ZIBAmira
+
+[ "`uname -m`" = "x86_64" ] && AMIRA64=true
+if [ "`uname -s`" = "Darwin" ]
+then 
+    unset AMIRA64
+    OIV_WHEEL_DELTA=8
+fi
+
+unset EXECUTABLE
+
+# Set EXECUTABLE unless this script is named 'start'.
+basename=`basename "$0"`
+case "$basename" in
+    start)
+        ;;
+    *)
+        EXECUTABLE="$basename"
+        ;;
+esac
+
+args=( )
+while [ $# -gt 0 ]; do
+    case $1 in
+      -mesa)           AMIRA_MESA=1;      shift ;;
+      -nomesa)         unset AMIRA_MESA;  shift ;;
+      -remoterender)   OIV_REMOTERENDER=ON; OIV_REMOTERENDER_DEBUG=ON;     shift ;;
+      -remoterendergl) OIV_REMOTERENDER=ON; OIV_REMOTERENDER_DEBUG=ON; OIV_LOWRESRENDER=1; shift ;;
+      -64)             AMIRA64=true; FORCED_ARCH=true;      shift ;;
+      -32)             unset AMIRA64; FORCED_ARCH=true;     shift ;;
+      -ddd)            use_debugger ddd;  shift ;;
+      -gdb)            use_debugger "gdb --args";  shift ;;
+      -kdbg)           use_debugger kdbg;  shift ;;
+      -idb)            use_debugger "/opt/intel/idb_9.0/bin/idb -gui ";  shift ;;
+      -val|-valgrind)  use_debugger "valgrind --show-reachable=yes --leak-check=full --error-limit=no -v"; shift ;;
+      -callgrind)      use_debugger "valgrind --tool=callgrind --instr-atstart=no -v"; shift ;;
+      -drd)            use_debugger "valgrind --tool=hellgrind -v"; shift ;;
+      -hellgrind)      use_debugger "valgrind --tool=drd -v"; shift ;;
+      -massif)         use_debugger "valgrind --tool=massif -v"; shift ;;
+      -purify)         AMIRA_PURIFY=true; shift ;;
+      -purify-inst)    AMIRA_PURIFY_INST=true; shift ;;
+      -totalview)      use_debugger /usr/totalview/bin/totalview;  shift ;;
+      -ldd)            use_debugger ldd;  shift ;;
+      -otool-L)        use_debugger "otool -L";  shift ;;
+      -ogldebug)       use_debugger ogldebug;  shift ;;
+      -debug)          MAKE_CFG=Debug;    MAKE_LOCAL_CFG=Debug; args=( "${args[@]}" "$1" ); shift ;;
+      -optimize)       MAKE_CFG=Optimize; MAKE_LOCAL_CFG=Optimize; shift ;;
+      -globus)         EXECUTABLE=amiraglobusmain; shift ;;
+      -opt)            MAKE_CFG=Optimize; MAKE_LOCAL_CFG=Optimize; shift ;;
+      -clusterdaemon)  EXECUTABLE=hxvrdaemon; shift ;;
+      -teamworkserver) EXECUTABLE=hxteamworkserver; shift ;;
+      -servicemanager) EXECUTABLE=hxservicemanager; shift ;;
+      -amira)          EXECUTABLE=$AMIRAMAIN_FILE; shift ;;
+      -zib)            EXECUTABLE=$ZIBAMIRAMAIN_FILE; shift ;;
+      -test)           AMIRA_TEST=true; shift ;;
+      -+*)             AMIRA_START_SCRIPT_NAME=$1; shift ;;
+      HDF5://*)        AMIRA_HDF5_URL="${AMIRA_HDF5_URL} $1";      shift ;;
+      hdf5://*)        AMIRA_HDF5_URL="${AMIRA_HDF5_URL} $1";      shift ;;
+      gsiftp://*)      AMIRA_HDF5_URL="${AMIRA_HDF5_URL} $1";    shift ;;
+      --)              shift; break ;;
+      *)               args=( "${args[@]}" "$1" ); shift ;;
+    esac
+done
+
+args=( "${args[@]}" "$@" )
+
+EXPLICIT_CFG=1
+if [ "$MAKE_CFG" = "" ]
+then
+#
+# By default, start the Optimize variant.
+# The default must be identical to the default chosen by the
+# arch script.
+#
+# Comment: Might be better no to set MAKE_CFG to default value here
+# but to get the arch script's default setting by parsing the
+# arch script's output. MAKE_CFG may be undefined when invoking arch.
+# (TODO)
+#
+	MAKE_CFG=Optimize
+        EXPLICIT_CFG=0
+fi
+
+######################################################################
+#
+# Setting architecture variable.
+#
+# This is the architecture we are running on (IRIX, HP-UX, Linux, ...)
+# When calling $AMIRA_ROOT/bin/arch the variable MAKE_CFG must already
+# been set. We get some result like 'arch-IRIX-Debug'.
+#
+arch=`"$AMIRA_ROOT/bin/arch"`
+
+
+######################################################################
+#
+# To fix the right product to use.
+#
+######################################################################
+
+#
+# Check whether the requested exec version exists. If it does not exist
+# try something else.
+#
+check_requested_arch()
+{
+
+MSG_DEBUG_TO_OPT=""
+MSG_OPT_TO_DEBUG=""
+
+if [ ! -x "$AMIRA_ROOT/bin/$arch/$1" ]
+then
+    case $MAKE_CFG in
+	Debug)
+            [ $EXPLICIT_CFG -eq 1 ] && MSG_DEBUG_TO_OPT="This program is not installed in debug version, starting optimize."
+            MAKE_CFG=Optimize ;;
+
+	Optimize)
+            [ $EXPLICIT_CFG -eq 1 ] && MSG_OPT_TO_DEBUG="This program is not installed in optimized version, starting debug version."
+            MAKE_CFG=Debug ;;
+	*)	
+            echo "Can't find a running version for $arch."
+            exit 1;
+    esac
+
+    # 
+    # Note: the arch script uses the environment variable
+    # $arch, if set. Since this is set to a nonfunctional value
+    # at this point, it needs to be unset before invoking the arch
+    # script here. Remember that ALL variables are exported due to
+    # the -a setting at the first line of the shell script.
+    #
+    unset arch
+    arch=`"$AMIRA_ROOT/bin/arch"`
+fi
+}
+
+#
+# if architecture was forced by a architecture flag "-32" or "-64" and 
+# executable was not found, retry without any architecture flag.
+#
+check_requested_forced_arch()
+{
+
+MSG_32_TO_64=""
+MSG_64_TO_32=""
+
+if  [ ! -z "$FORCED_ARCH" ] && [ ! -x "$AMIRA_ROOT/bin/$arch/$1" ]
+then
+    if [ -z "$AMIRA64" ]; then 
+	MSG_32_TO_64="This program is not installed in 32-bit version, trying to start 64-bit version."
+	AMIRA64=true 
+    else
+	MSG_64_TO_32="This program is not installed in 64-bit version, trying to start 32-bit version."
+	unset AMIRA64
+    fi
+
+    arch=`"$AMIRA_ROOT/bin/arch"`
+
+    if [ ! -x "$AMIRA_ROOT/bin/$arch/$1" ]; then
+	case $MAKE_CFG in
+	    Debug)
+                [ $EXPLICIT_CFG -eq 1 ] && MSG_DEBUG_TO_OPT="This program is not installed in debug version, starting optimize."
+		MAKE_CFG=Optimize ;;
+	    Optimize)
+		[ $EXPLICIT_CFG -eq 1 ] && MSG_OPT_TO_DEBUG="This program is not installed in optimized version, starting debug version."
+		MAKE_CFG=Debug ;;
+	    *)
+		echo "Can't find a running version for $arch."
+		exit 1;
+	esac
+	arch=`"$AMIRA_ROOT/bin/arch"`
+    fi
+fi
+}
+
+#
+# To display messages about arch modifications.
+#
+display_msgs()
+{
+    if [ "$MSG_DEBUG_TO_OPT" != "" ]; then
+	echo $MSG_DEBUG_TO_OPT
+    fi
+    if [ "$MSG_OPT_TO_DEBUG" != "" ]; then
+	echo $MSG_OPT_TO_DEBUG
+    fi
+    if [ "$MSG_32_TO_64" != "" ]; then
+	echo $MSG_32_TO_64
+    fi
+    if [ "$MSG_64_TO_32" != "" ]; then
+	echo $MSG_64_TO_32
+    fi
+}
+
+# To know the registry filename according to the product.
+PRODUCT_REG_FILENAME=".AmiraRegistry"
+
+# To save some variables values.
+OLD_ARCH=$arch
+OLD_MAKE_CFG=$MAKE_CFG
+OLD_AMIRA64=$AMIRA64
+
+#
+# If no Amira executable exist, we try to launch the ZIBAmira version.
+#
+if [ "$EXECUTABLE" = "" ]; then
+    # Searching for a version.
+    for main in $AMIRAMAIN_FILE $ZIBAMIRAMAIN_FILE
+    do
+        # We had to reset some variables that might have been modified during search in earlier iteration.
+        arch=$OLD_ARCH
+        MAKE_CFG=$OLD_MAKE_CFG
+        AMIRA64=$OLD_AMIRA64
+        check_requested_arch $main
+        check_requested_forced_arch $main
+        if [ -f "$AMIRA_ROOT/bin/$arch/$main" ]; then
+            # An amira version has been found.
+            # Messages about arch modification can be displayed.
+            display_msgs
+            EXECUTABLE=$main
+            break
+        fi
+    done
+else
+    # Searching for the specified product.
+    check_requested_arch $EXECUTABLE
+    check_requested_forced_arch $EXECUTABLE
+    if [ -f "$AMIRA_ROOT/bin/$arch/$EXECUTABLE" ]; then
+	# Messages about arch modification can be displayed (product was found).
+	display_msgs
+    else
+	echo "$EXECUTABLE file was not found in $arch!"
+	exit 1
+    fi
+fi
+
+if [ "$EXECUTABLE" = "" ]; then
+    # No product has been found.
+    echo "No product found in $arch!"
+    exit 1
+fi
+
+PRODUCT_NAME="$(eval echo \${${EXECUTABLE}_PRODUCT_NAME})"
+
+echo Using $arch ...
+
+if [ "$MAKE_LOCAL_CFG" = "" ]
+then
+#
+# MAKE_LOCAL_CFG specifies whether local packages should be taken from
+# the Debug or from the Optimize tree. Usually, MAKE_LOCAL_CFG should be
+# the same as MAKE_CFG.
+# The official developer version only contains the Optimize tree. In this
+# case MAKE_CFG is set automatically to Optimize (see above). However,
+# using the -debug option it is still possible to run local packages in
+# Debug mode.
+#
+    MAKE_LOCAL_CFG=$MAKE_CFG
+fi
+
+localarch=`env -i MAKE_CFG=$MAKE_LOCAL_CFG AMIRA64=$AMIRA64 "$AMIRA_ROOT/bin/arch"`
+#
+# Handling MESA flag.
+#
+if [ "$AMIRA_MESA" = 1 ]
+then
+    use_mesa;
+fi
+
+######################################################################
+#
+#   Set more required environment variables
+#
+######################################################################
+
+# The variable HX_DATADIR may contain a list of data directories which
+# are included in the file browser's easy access menu. $AMIRA_ROOT/data
+# should always be included in this list so that users can easily
+# execute the tutorials and demos.
+HX_DATADIR=${HX_DATADIR:-$AMIRA_ROOT/data}
+
+# This is used by IRIX. It allows the system to locate Amira's shared
+# libraries automatically. 
+# AMIRA_LOCAL is handled by c++ code
+LD_LIBRARYN32_PATH="${AMIRA_ROOT}/lib/$arch:${AMIRA_LD_LIBRARY_PATH}:${LD_LIBRARYN32_PATH}:/usr/lib32"
+
+# This is for Linux.
+LD_LIBRARY_PATH="${AMIRA_ROOT}/lib/$arch:${AMIRA_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}"
+
+# This is for HP-UX
+SHLIB_PATH="${AMIRA_ROOT}/lib/$arch:/usr/lib:${AMIRA_LD_LIBRARY_PATH}:${SHLIB_PATH}"
+
+# this is for mac
+DYLD_LIBRARY_PATH="${AMIRA_ROOT}/lib/$arch:/usr/lib:${AMIRA_LD_LIBRARY_PATH}:${DYLD_LIBRARY_PATH}"
+
+PYTHONPATH="${AMIRA_ROOT}/lib/python:${AMIRA_LOCAL:+${AMIRA_LOCAL}/lib/$localarch:}${AMIRA_ROOT}/lib/$arch:${PYTHONPATH}"
+
+# if exists lib/arch-ARCH/python?.?, set PYTHONHOME to it
+PYTHONHOME="${PYTHONHOME}:${AMIRA_ROOT}/lib/$arch"
+PYTHONHOME=${PYTHONHOME%-Optimize}
+PYTHONHOME=${PYTHONHOME%-Debug}
+[ -e $PYTHONHOME/lib/python?.? ] || unset PYTHONHOME
+
+# On HP-UX we are using Open Inventor from Mercury Computer Systems which
+# requires this variables to be set...
+if [ "$OIVHOME" = "" ]
+then
+    OIVHOME="${AMIRA_ROOT}/lib/oiv"
+fi
+
+if [ "$OIV_PSFONT_PATH" = "" ]
+then
+    OIV_PSFONT_PATH="${AMIRA_ROOT}/share/fonts"
+
+if [ -d /usr/lib/X11/fonts/Type1 ]
+then
+    OIV_PSFONT_PATH="/usr/lib/X11/fonts/Type1"
+fi
+if [ -d /usr/openwin/lib/X11/fonts/Type1/outline ]
+then
+    OIV_PSFONT_PATH="/usr/openwin/lib/X11/fonts/Type1/outline"
+fi
+if [ -d /usr/lib/X11/fonts/type1.st/typefaces ]
+then
+    OIV_PSFONT_PATH="/usr/lib/X11/fonts/type1.st/typefaces"
+fi
+
+# echo "OIV_PSFONT_PATH=$OIV_PSFONT_PATH"
+fi
+
+if [ "$HOSTNAME" = "" ]
+then
+    HOSTNAME=`hostname|tr '[a-z]' '[A-Z]'`
+fi
+
+# Store the architecture string in an environment variable. Some methods
+# in HxResource.cc rely on this.
+AMIRA_EXEC_ARCH=$arch
+
+# These variables are used to configure Amira's job list. Don't know
+# exactly the details...
+HX_SCHEDULE_DEBUG=0
+HX_SCHEDULE_PORT=5432
+
+# Set DCMTK DICOM dictionary path
+DCMDICTPATH="$AMIRA_ROOT/share/dicom/dicom.dic"
+
+# Since Amira is 32 bit on Mac, its matlab module needs the
+# 32 bit version of Matlab.
+[ "`uname -s`" = "Darwin" ] && export MATLAB_ARCH=maci
+
+######################################################################
+#
+#   Execute the application
+#
+######################################################################
+
+# Special feature: Start amira with some start script from the data
+# directory by specifying the name of the script on the command line.
+# E.g. amira +berte  will invoke amira AMIRADIR/data/scripts/berte.hx
+# (AMIRA_LOCAL has precedence before AMIRA_ROOT)
+if [ -n "$AMIRA_START_SCRIPT_NAME" ]; then
+    case $AMIRA_START_SCRIPT_NAME in
+        +\?)
+            echo Available start options:
+            echo -----------------------------
+            for f in "${AMIRA_ROOT}"/data/scripts/*
+            do
+                TEXT=`head -1 "$f"`
+                n=${f#${AMIRA_ROOT}/data/scripts/}
+                echo "+${n%.hx} :	${TEXT#\#}"
+            done
+            exit 0;;
+
+        +*) START_SCRIPT=${1#+}.hx
+        if [ -r "${AMIRA_ROOT}/data/scripts/${AMIRA_START_SCRIPT}" ]
+        then
+            AMIRA_START_SCRIPT="${AMIRA_ROOT}/data/scripts/${START_SCRIPT}"
+        fi
+        if [ -r "${AMIRA_LOCAL}/data/scripts/${AMIRA_START_SCRIPT}" ]
+        then
+            AMIRA_START_SCRIPT="${AMIRA_LOCAL}/data/scripts/${START_SCRIPT}"
+        fi
+        if [ ! -r "${AMIRA_START_SCRIPT}" ]
+        then
+            echo Could not find ${AMIRA_START_SCRIPT} .
+            echo Please try $0 '+?' for a list of available start scripts.
+            exit 1;
+        fi
+        ;;
+    esac
+fi
+# source additional config files
+APP_ROOT="$AMIRA_ROOT"
+confdir="$dirname/env.d"
+if [ -d "$confdir" -a -r "$confdir" -a -x "$confdir" ]; then
+    for i in "$confdir"/*.sh; do
+        if [ -f "$i" -a -r "$i" ] ; then 
+            echo "sourcing $i"                         
+            . "$i" 
+        fi
+    done
+fi
+unset i
+
+if [ -n "$AMIRA_PURIFY_INST" ]
+then
+    echo "Instrumenting executable $EXECUTABLE"
+    purify "${args[@]}" "${AMIRA_ROOT}/bin/${arch}/$EXECUTABLE"
+    mv amira.pure "${AMIRA_ROOT}/bin/${arch}/amira.pure"
+    echo You may start the purified version with -purify now.
+    exit 0
+fi
+
+if [ -n "$AMIRA_PURIFY" ]
+then
+    echo "Starting purified executable"
+    "${AMIRA_ROOT}/bin/${arch}/amira.pure" "${args[@]}"
+    exit 0
+fi
+
+LOAD="${AMIRA_ROOT}/lib/${arch}/ld-linux.so.2"
+if [ -x "$LOAD" ]
+then
+    export LD_PRELOAD="libGLU.so "
+    EXEC="$LOAD"
+fi
+
+if [ "$EXEC" = "" ] 
+then
+    EXEC=exec
+fi
+
+# Check if SELinux is enabled and optionally adjust the security context.
+if [ -x /usr/sbin/selinuxenabled ] && /usr/sbin/selinuxenabled; then
+    needsPatch=false
+    for filename in "${AMIRA_ROOT}"/lib/${arch}/lib*.so; do
+   	if !(ls --scontext -L $filename | grep -q textrel_shlib_t); then
+            needsPatch=true
+            break   
+        fi 
+    done   
+ 
+    if $needsPatch; then
+        echo "You seem to have SELinux enabled."
+        echo ""
+        echo "In order to function properly, ${PRODUCT_NAME} requires the modification of the security"
+        echo "context of some shared object files so they can be relocated in memory. By"
+        echo "entering \"y\", you accept the required modifications and the following command"
+        echo "will be applied:"
+        echo ""
+        echo "    chcon -v -t texrel_shlib_t "${AMIRA_ROOT}"/lib/${arch}/lib*.so"
+        echo ""
+        echo "By entering \"n\", the command will not be applied and ${PRODUCT_NAME} will not be able"
+        echo "to load some modules and operate properly. Please consult the Amira console"
+        echo "for details."
+        echo ""
+        echo "Note: If you started this script in the background, you will not be able to"
+        echo "enter your choice directly. In this case, put the script into the foreground"
+        echo "by entering \"fg\" at the prompt below, and then make you choice."
+        echo "" 
+        echo "Do you accept the security context modifications? (Y/n)"
+        read choice
+        if [ "$choice" != "n" ] && [ "$choice" != "N" ]; then
+            chcon -v -t texrel_shlib_t "${AMIRA_ROOT}"/lib/${arch}/lib*.so > /dev/null
+        fi
+    fi
+fi
+
+# Actually start Amira
+EXECUTABLE="${AMIRA_ROOT}/bin/${arch}/$EXECUTABLE"
+case $arch in
+    *Win*)
+        unset AMIRA_ROOT
+        ;;
+esac
+
+if [ -n "$AMIRA_TEST" ]
+then
+    echo "Executing unit tests ..."
+    ${EXEC} "$EXECUTABLE" -no_gui -logfile /dev/null -tclcmd '[create HxTestRunner] runTests'
+fi
+
+if [ "$AMIRA_START_SCRIPT" != "" ] ; then
+    XMODIFIERS="" ${EXEC} "$EXECUTABLE" "$AMIRA_START_SCRIPT" "${args[@]}" 
+else
+    XMODIFIERS="" ${EXEC} "$EXECUTABLE" "${args[@]}" 
+fi

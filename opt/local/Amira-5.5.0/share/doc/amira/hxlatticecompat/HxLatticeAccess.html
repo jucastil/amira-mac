@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LatticeAccess</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "LatticeAccess" "loads a block from a Lattice object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be attached to <font face="helvetica">Amira</font> data objects providing a <em>Lattice</em>
+interface. The <em>Lattice</em> interface is designed to access large data
+sets in a block-by-block fashion on different resolution levels. However,
+many <font face="helvetica">Amira</font> modules require data sets to be stored completely in memory. The
+<em>LatticeAccess</em> modules makes is possible to use such modules by
+converting a subblock of a large volume into a traditional memory-resident
+data object.</p>
+<p>You may select the subblock either by typing numbers in the ports or by
+using a dragger in the viewer. Additionally, it is possible to request a
+subsampled version of the data. Depending on the actual data object
+providing the <em>Lattice</em> interface lower resolution levels are stored on
+disk and might be accessed rather quickly or they are calculated on the fly,
+which might take some time. After selecting a subblock you should press the
+<em>load</em> button. A memory-resident data object is created and filled with
+the data from disk. All standard visualization techniques may now be
+applied on the subblock.</p>
+<p>Press the <em>Apply</em> button to load the subblock.
+If you check the <em>auto-refresh</em> box,
+the subblock will be immediately
+reloaded once the selection has been modified. This is useful for
+interactively exploring a large volume.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A data object providing a <em>Lattice</em> interface.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Time</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional connection to a time object, only useful if the input object provides time-dependent data.
+If the port is connected to a time object the time of that object is used.
+In this way multiple modules with a time port can be synchronized.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_info.png" /><br /></div>
+<div class="body"><p>This port displays the size of the subblock to be loaded.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Dataset</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_dataset.png" /><br /></div>
+<div class="body"><p>If the input object provides multiple data sets this port allows you
+to select the data set to be converted into a memory-resident data object.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box min</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_boxMin.png" /><br /></div>
+<div class="body"><p>The lattice index of the lower corner of the subblock.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box size</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_boxSize.png" /><br /></div>
+<div class="body"><p>The size of the subblock to be loaded. The size is in lattice indices in
+the base resolution. The numbers will not change if you select subsampling
+but the real size of the subblock to be loaded will change. This is
+indicated in the <em>Info</em> port.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Box max</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_boxMax.png" /><br /></div>
+<div class="body"><p>Convenience buttons to use the maximum box size for the width, height and depth, respectively.
+Also enables the subsampling open to quickly load a coarse version of the whole volume.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_options.png" /><br /></div>
+<div class="body"><p>Hides the dragger and/or enables subsampling.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Subsample</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_subsample.png" /><br /></div>
+<div class="body"><p>The number of voxels to be averaged in each dimension, if subsampling is
+enabled.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Timestep</span>  
+<div class="portsnapshot"><img src="HxLatticeAccess_timeSlider.png" /><br /></div>
+<div class="body"><p>If the input object provides time-dependent data, this port allows you
+to select the time step to be loaded.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

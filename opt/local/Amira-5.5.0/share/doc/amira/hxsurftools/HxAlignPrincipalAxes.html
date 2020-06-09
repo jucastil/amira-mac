@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AlignPrincipalAxes</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "AlignPrincipalAxes" "aligns the principal axes of two triangulated surfaces" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes a rigid transformation for a 
+ triangulated surface, such that its principal axes
+ are aligned to a reference coordinate system. This
+ can either be the standard basis in 3D or the principal 
+ axes of a reference triangulated surface.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Model</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Model surface that will be transformed.</p>
+<p> <a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Reference</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Reference surface, whose principal axes will serve
+ as a reference coordinate system.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxAlignPrincipalAxes_options.png" /><br /></div>
+<div class="body"><p>This port is only visible when a reference surface is connected.
+ For each possible solution (see explanation below at 
+ <a class="link" href="#A7">Port Action</a>), the root mean 
+ square distance is computed when the option 'Optimize distance'
+ is chosen. The final transformation will be the one yielding the 
+ minimum value.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Axis1</span>  
+<div class="portsnapshot"><img src="HxAlignPrincipalAxes_axis1.png" /><br /></div>
+<div class="body"><p>If no reference surface is connected, the principal axes with
+ the largest moment of inertia will be aligned to the axis specified
+ at this port.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Axis2</span>  
+<div class="portsnapshot"><img src="HxAlignPrincipalAxes_axis2.png" /><br /></div>
+<div class="body"><p>If no reference surface is connected, the principal axes with
+ the second largest moment of inertia will be aligned to the axis 
+ specified at this port.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxAlignPrincipalAxes_action.png" /><br /></div>
+<div class="body"><p>The <em>Go</em> button starts the alignment. Since the principal axes
+ are only computed up to their orientation, the model surface can
+ subsequently be rotated 180 degree around each of its principal
+ axes by pressing one of the <em>Rot</em> buttons. The number corresponds
+ to the first, second, or third largest moment respectively.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getRefSystem</span>  
+
+<div class="body"><p>
+	Prints the center of gravity, the axes of inertia, and
+	the moments of inertia in the console.
+ </p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

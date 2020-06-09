@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AmiraMesh Format</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "FileFormat" "AmiraMesh Format" "Amira's native general purpose format (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ <em>AmiraMesh</em> is <font face="helvetica">Amira</font>'s native general-purpose file format. It is
+ used to store many different data objects like fields defined on
+ regular or tetrahedral grids, segmentation results, colormaps, or
+ vertex sets such as landmarks. The format itself is very flexible. In
+ fact, it can be used to save arbitrary multi-dimensional arrays into a
+ file. In order to create an <font face="helvetica">Amira</font> data object from an AmiraMesh file
+ the contents of the file are analyzed and interpreted. For example,
+ a tetrahedral grid is expected to have a one-dimensional array <em>Nodes</em> containing entries of type <tt>float[3]</tt> called <em>Coordinates</em>, as well as a one-dimensional array <em>Tetrahedra</em>
+ containing entries of type <tt>int[4]</tt> called <em>Nodes</em>. If the
+ AmiraMesh file contains an entry <em>ContentType</em> in its
+ parameter section, the value of this parameter directly determines
+ what kind of <font face="helvetica">Amira</font> data object is to be created.</p>
+<p> <b>Note on binary encodings</b>
+ Data contained in an <em>AmiraMesh</em> file can be encoded in ascii or
+ in binary format (see below). For binary encodings both big-endian mode
+ and little-endian mode are supported. The default mode for <em>AmiraMesh</em>
+ binary export was big-endian in previous product versions, but has been
+ changed to little-endian in <font face="helvetica">Amira</font> 5.0. The behaviour can be
+ configured using the following Tcl command:</p>
+<pre>
+    amiramesh -endianess {big|little|native}
+    </pre>
+<p> If you prefer to export AmiraMesh binary files in big-endian mode, you
+ can add the above Tcl command with the argument <tt>big</tt> in the
+ <tt>Amira.init</tt> file in the <font face="helvetica">Amira</font> installation directory under
+ <tt>share/resources</tt>.</p>
+<p> <b>A first example.</b>
+ In order to describe the syntax of an AmiraMesh file, we first give a
+ short example. This example describes a scalar field defined on a
+ tetrahedral grid. <a class="link" href="#A2">Concrete examples of how to
+ encode other data objects are given below</a>.</p>
+<pre>
+    # AmiraMesh ASCII 1.0
+
+    define Nodes 4
+    define Tetrahedra 1
+
+    Parameters {
+        Info "This is an AmiraMesh example",
+        Pi 3.1459
+    }
+
+    Materials { {
+        Name "Stone",
+        Color 0.8 0.3 0.1
+    } {
+        Name "Water",
+        Color 0 0.3 0.8
+    } }
+
+    Nodes { float[3] Coordinates } = @1
+    Tetrahedra { int[4] Nodes } = @4
+
+    Nodes { float Values } = @8
+    Tetrahedra { byte Materials } = @12
+
+    Field { float Example } = Linear(@8)
+
+    @1
+    0 0 0
+    1 0 0
+    0 1 0
+    0 0 1
+
+    @4
+    1 2 3 4
+
+    @8
+    0 0 0 1
+
+    @12
+    1
+    </pre>
+<p> The first line of an AmiraMesh file should be a special comment 
+ including the identifier <tt>AmiraMesh</tt>. Moreover, if the tag
+ <tt>ASCII</tt> is specified in this line, all data arrays are stored in
+ plain ASCII text. If the tag <tt>BINARY</tt> is specified, the data arrays
+ are stored in IEEE big-endian binary format. If the tag
+ <tt>BINARY-LITTLE-ENDIAN</tt> is specified, the data arrays
+ are stored in IEEE little-endian binary format. The header
+ section of an AmiraMesh file is always stored as ASCII text, even
+ if the data itself is binary encoded.</p>
+<p> The statement <tt>define Nodes 4</tt> defines a one-dimensional array
+ of size 4. Later on, this array can be referenced using the
+ name <tt>Nodes</tt>. Similarly, a statement <tt>define Array 100 100</tt>
+ defines a two-dimensional array of size 100 x 100. The actual kind of
+ data stored per array element will be specified later on.</p>
+<p> The optional section <tt>Parameters</tt> allows the user to define
+ arbitrary additional parameters. Each parameter consists of a name
+ (like <tt>Pi</tt>) and a value (like <tt>3.1459</tt>). Values may be one or
+ multiple integer or floating point numbers or a string. Strings have
+ to be quoted using a pair of <tt>"</tt>-characters.</p>
+<p> The optional section <tt>Materials</tt> allows the user to define
+ additional material information. This is useful for finite element
+ applications. The material section consists of a comma-separated list
+ of parameters just as in the <tt>Parameters</tt> section.</p>
+<p> The statement <tt>Nodes &#123; float[3] Coordinates &#125; = @1</tt> specifies
+ that for each element of the array <tt>Nodes</tt> defined earlier, three
+ floating point numbers (floats) should be stored. These data are given
+ the name <tt>Coordinates</tt> and a tag in this line and will appear below
+ as a tagged block with the marker <tt>@1</tt>. Such data markers must always
+ begin with the <tt>@</tt> character.</p>
+<p> Similar, the following lines define additional data to be stored 
+ in the arrays called <tt>Nodes</tt> and <tt>Tetrahedra</tt>. The primitive
+ data types must be one of <tt>byte</tt>, <tt>short</tt>, <tt>int</tt>,
+ <tt>float</tt>, <tt>double</tt>, or <tt>complex</tt>. Vectors of primitive
+ data types are allowed, aggregate structs are not, however.</p>
+<p> The statement <tt>Field &#123; float Example &#125; = Linear(@8)</tt> defines
+ a continuous scalar field with the name <tt>Example</tt>. This field
+ will be generated by linear interpolation from the data values
+ <tt>Values</tt> defined on the nodes of the tetrahedral grid. Other
+ interpolation methods include <tt>Constant(@X)</tt> and <tt>EdgeElem(@X)</tt>.</p>
+<p> After the marker <tt>@1</tt>, the coordinate values of the grid are
+ stored. Likewise, the other data arrays are given after their
+ corresponding markers. In case of a <tt>BINARY</tt> file the line
+ containing the marker is read up to the next new line character.
+ Then the specified number of bytes is read in binary format. It
+ is assumed that sizeof(short) is 2, sizeof(int) is 4, sizeof(float)
+ is 4, sizeof(double) is 8, and sizeof(complex) is 8. Multidimensional
+ arrays indexed via <tt>[k][j][i]</tt> are read with <tt>i</tt> running
+ fastest.</p>
+<p> <br />
+</p>
+<p> <b>Backward compatibility.</b> For backward compatibility the following
+ statements are considered to be equal:</p>
+<p> <tt>nNodes 99</tt> is equal to <tt>define Nodes 99</tt><br />
+
+ <tt>nTriangles 99</tt> is equal to <tt>define Triangles 99</tt><br />
+
+ <tt>nTetrahedra 99</tt> is equal to <tt>define Tetrahedra 99</tt><br />
+
+ <tt>nEdges 99</tt> is equal to <tt>define Edges 99</tt><br />
+</p>
+<p> <tt>NodeData</tt> is equal to <tt>Nodes</tt><br />
+
+ <tt>TriangleData</tt> is equal to <tt>Triangles</tt><br />
+
+ <tt>TetrahedraData</tt> is equal to <tt>Tetrahedra</tt><br />
+
+ <tt>EdgeData</tt> is equal to <tt>Edges</tt></p>
+<p> <br />
+</p>
+<p> <a name="A2"></a>
+<b>Other data objects.</b> Of course, not only
+ scalar fields defined on tetrahedral grids can be encoded using the
+ AmiraMesh format. Many other data objects are supported as well. In
+ each case there are certain rules about what data arrays have to be
+ written and how these arrays have to be named. Below, we describe how
+ to encode the following data objects:</p>
+
+<ul><li><a class="link" href="AmiraMeshUniform.html#A1">Fields with uniform coordinates</a></li><li><a class="link" href="AmiraMeshStacked.html#A1">Fields with stacked coordinates</a></li><li><a class="link" href="AmiraMeshRectilinear.html#A1">Fields with rectilinear coordinates</a></li><li><a class="link" href="AmiraMeshCurvilinear.html#A1">Fields with curvilinear coordinates</a></li><li><a class="link" href="AmiraMeshLabels.html#A1">Label fields for segmentation</a></li><li><a class="link" href="AmiraMeshLandmarkSet.html#A1">Landmarks for registration</a></li><li><a class="link" href="AmiraMeshLineSet.html#A1">Line segments</a></li><li><a class="link" href="AmiraMeshColormap.html#A1">Colormaps</a></li><li><a class="link" href="AmiraMeshSpatialGraph.html#A1">Spatial Graph</a></li>
+</ul>
+</div>
+<p></p>
+<p> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

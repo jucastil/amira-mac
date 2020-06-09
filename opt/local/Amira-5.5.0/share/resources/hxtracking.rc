@@ -1,0 +1,14 @@
+dso open libhxtracking.so
+
+module  -name       "VRSettings"          \
+        -class      "HxTracking"        \
+        -package    "hxtracking"        \
+        -category   "None"
+
+
+module  -name       "ShowConfig"       \
+        -primary    "HxTracking"        \
+        -class      "HxShowConfig"      \
+        -category   "Main"              \
+        -package    "hxtracking"
+

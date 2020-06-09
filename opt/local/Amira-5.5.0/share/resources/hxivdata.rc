@@ -1,0 +1,32 @@
+# ----------------------------------------------------------------------
+#   Inventor geometry package
+# ----------------------------------------------------------------------
+
+dataFile -name "Open Inventor"	\
+    -option "iv"		\
+    -header "Inventor"	        \
+    -ext ".iv"			\
+    -load "HxIvData::read"	\
+    -dso "libhxivdata.so"
+
+dataFile -name "VRML"	        \
+    -option "wrl"		\
+    -header "VRML"	        \
+    -ext ".wrl"			\
+    -load "HxIvData::read"	\
+    -loadInOwnThread true 	\
+    -dso "libhxivdata.so"
+
+dataFile -name "DXF"     	\
+    -option "dxf"		\
+    -ext ".dxf"		        \
+    -load "HxIvData::readDxf"	\
+    -loadInOwnThread true 	\
+    -dso "libhxivdata.so"
+
+module -name "IvDisplay"	\
+    -primary "HxIvData"		\
+    -category "Main Display"	\
+    -class "HxIvDisplay"	\
+    -dso "libhxivdata.so"
+

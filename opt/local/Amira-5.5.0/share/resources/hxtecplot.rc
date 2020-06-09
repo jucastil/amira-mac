@@ -1,0 +1,19 @@
+if { ![app hasLicense "WindEdition"] } {
+
+################################################################################
+#
+# Resource file of custom package Tecplot
+#
+################################################################################
+dataFile -name "Tecplot ASCII" \
+    -option "tec" \
+    -ext "tec" \
+    -load "readTecplotASCII" \
+    -package "hxtecplot"
+dataFile -name "Tecplot Binary" \
+    -option "plt" \
+    -ext "plt" \
+    -load "readTecplotBinary" \
+    -package "hxtecplot"
+
+}

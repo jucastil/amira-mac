@@ -1,0 +1,12 @@
+HEADER                                                                          
+COMPND                                                                          
+TITLE                                                                           
+AUTHOR Exported by AmiraMol                                                     
+HETATM    1  O   H2O     1      -1.384  -0.115  -0.001  0.00  0.00           O0+
+HETATM    2  H   H2O     1      -2.479  -0.111  -0.001  0.00  0.00           H0+
+HETATM    3  H   H2O     1      -1.311  -1.212  -0.004  0.00  0.00           H0+
+CONECT    1    2    3                                                           
+CONECT    2    1                                                                
+CONECT    3    1                                                                
+MASTER        0    0    0    0    0    0    0    0    3    0    3    0          
+END                                                                             

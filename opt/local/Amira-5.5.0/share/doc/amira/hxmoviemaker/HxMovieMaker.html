@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MovieMaker</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "MovieMaker" "creates a movie as single images or MPEG " !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be used to create an MPEG 1 movie or an animation
+consisting of a series of 2D images in JPEG, TIFF, PNG or RGB format. The
+module requires a
+<a class="link" href="../hxtime/HxTime.html#A1">time object</a> as input. When creating the movie, the module
+iteratively sets the time value, fires the network so that other objects
+can adjust themselves, and takes a snapshot of the viewer window. The
+snapshots are appended on-the-fly to the specified MPEG file. In order to
+create an initial time object that a movie maker module can be attached
+to, choose <em>Time</em> from the main window's <em>Create</em> menu.
+Note: The movie is always generated using the contents of viewer 0.
+No other viewer can be used for generating a movie.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connection to a time object. It is not required that the connected time
+is defined in seconds or in any particular unit. Instead the number
+of frames and the frame rate are specified (see below). For
+example, if 100 frames are to be recorded, the connected time is moved from
+its minimum values to its maximum values in 100 steps.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Viewer</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_viewer.png" /><br /></div>
+<div class="body"><p>Select the viewer to record the movie from and the antialiasing option to enhance the resulting image quality. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">File format</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_fileFormat.png" /><br /></div>
+<div class="body"><p>The format of the resulting movie or image file(s). In order to write a series of JPEG, TIFF, 
+PNG or RGB files, select the corresponding image types. To create a MPEG movie, select <em>MPEG movie</em>. 
+On Microsoft Windows it is also possible to select <em>AVI movie</em> as file format.
+The selection also has an influence on which ports are shown/not shown in the Properties area.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_filename.png" /><br /></div>
+<div class="body"><p>The name of the resulting movie or image file(s). A file dialog pops up when the <em>Browse</em> button is
+pressed. For image sequences the filename should contain a series of hash marks <em>####</em>. The hash 
+marks will be replaced by the actual frame number. The output format is bound to the previously selected 
+movie format.
+If no filename is specified, the file name will be asked on apply. If no file name was given or on pressing 
+cancel, the movie/images will not be created.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Frames</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_frames.png" /><br /></div>
+<div class="body"><p>The number of frames to be recorded. This value has nothing to do with the
+range of the connected time object. If the input time is already defined
+in seconds and if you don't want any scaling, then the number of frames
+should be set to the number of seconds of the time object times the desired
+frame rate.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Frame rate</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_frameRateSlider.png" /><br /></div>
+<div class="body"><p>Specifies the desired frame rate. It depends on the particular movie player
+if the specified frame rate is actually achieved when playing the <a class="link" href="HxMovieData.html#A1">Movie</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Frame rate</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_frameRate.png" /><br /></div>
+<div class="body"><p>Some movie file formats are only capable of storing movies in specific frame rates.
+In that case this port is shown with all possible rates of the requested format.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">AVI encoder</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_aviEncoder.png" /><br /></div>
+<div class="body"><p>This port is only shown when selecting <em>AVI movie</em> as desired file format. You can select 
+the codec in which the AVI movie should be compressed with. The <em>Options</em> button shows 
+the codec's property page and is only active if the codec provides such.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Quality</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_compressionQuality.png" /><br /></div>
+<div class="body"><p>This port is displayed if a lossy output file format was chosen. It allows you the adjustment 
+of the degree of compression. Small values indicate high compression and
+low quality, high values indicate low compression and high quality.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_type.png" /><br /></div>
+<div class="body"><p>The moviemaker is able to create monoscopic and stereoscopic movies. Set up the movie type here.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Format</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_format.png" /><br /></div>
+<div class="body"><p>This port specifies the pixel format of the screenshots. If <em>RGBA</em> is chosen, 
+the screenshots are generated with an 8-bit alpha channel blending out the 
+scene background. Using the alpha feature has the advantage
+of smaller image files on complex scene backgrounds (gradient). 
+The second advantage of movies containing an alpha channel is that one 
+can choose another scene background during movie playback.
+Note that not all image or movie file formats are capable of storing a fourth channel.
+To create alpha image files choose the suffix <em>.tif</em> since TIFF is capable of storing alpha channels.
+The disadvantages of alpha movies are slower playback speed on some architectures and larger data files
+on non-complex backgrounds (uniform).</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tiles</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_tiles.png" /><br /></div>
+<div class="body"><p>In order to create movies with a higher resolution than the screen, specify the number of tiles
+to render in each direction. Since the anti-aliasing feature of the former MovieMaker is gone, you
+can create high resolution single image files and downsample them in a batch to get smooth edges.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Size</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_size.png" /><br /></div>
+<div class="body"><p>Radio box allowing you to adjust the size of the recorded images. If <em>current</em> is specified, the current viewer size adjusted to multiples of 16
+pixels will be used. <em>VHS/PAL</em> means 720 by 576 pixels. <em>VHS/NTSC</em> means 640 by 480 pixels. Finally, if <em>Input XxY</em> is
+specified, the size can be specified explicitly.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Resolution</span>  
+<div class="portsnapshot"><img src="HxMovieMaker_resolution.png" /><br /></div>
+<div class="body"><p>This port will only be shown if <em>Input XxY</em> is chosen for the <em>Size</em>
+port. It allows you to set the image size of the resulting movie.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">filename &lt;filename&gt;</span>  
+
+<div class="body"><p>Set the file name for the movie that will be generated by the MovieMaker</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">action setValue 0</span>  
+
+<div class="body"><p>This command instructs the MovieMaker module that 
+ everything is ready for movie to be generated. Then a subsequent 
+ "fire" command is needed to start the movie making process</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">fire</span>  
+
+<div class="body"><p>Issues an event notice to MovieMaker module. This command will force
+ MovieMaker to update all its ports. When action setValue 0 
+ is executed before hand then the module will start the movie 
+ making process. </p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

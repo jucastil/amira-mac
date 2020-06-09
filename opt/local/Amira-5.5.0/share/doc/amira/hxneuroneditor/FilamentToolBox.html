@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">The Tool Box</a></h3>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=FilamentViewToolbox.png.html><img width=375 src="FilamentViewToolbox.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+The View tab.</div>
+
+
+</div><p></p>
+<p><b>The <em>View</em> tab</b></p>
+<p><b><em>3D Settings:</em></b></p>
+<p>The set of display options provided here constitute a subset of the most important ports of module <a class="link" href="../hxspatialgraph/HxSpatialGraphView.html#A1">SpatialGraphView</a>. To get the full potential of this module you have to switch to the <em>Pool</em> and visualize your <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> objects directly there.</p>
+<p></p>
+<ul><li><b>Show:</b> Check <em>Nodes</em> to display all nodes of the graph data, check <em>Segments</em> to display segments.</li><li><b>Segment style:</b> Check <em>Lines</em> to display segments as lines, check <em>Points</em> to display the points, check both to display them as points and lines.</li><li><b>Node scaling factor:</b> Set the size of nodes.</li><li><b>Node coloring:</b> <em>Constant</em> displays all nodes with the default color. Select a label attribute for coloring, if available.</li><li><b>Segment line width:</b> Set the segment line width.</li><li><b>Segment coloring:</b> <em>Constant</em> displays all segments with the default color. Select a label attribute for coloring, if available.</li><li><b>Point size:</b> Set the size of the points.</li><li><b>Transparency (non-selected):</b> Set a constant transparency for nodes and segments that are not selected.</li>
+</ul><p> </p>
+<p><b><em>2D Settings:</em></b></p>
+<p></p>
+<ul><li><b>Node size:</b> Set the size of the nodes in the 2D slice and 2D segment viewer.</li><li><b>Line width:</b> Set the line width of segments in the 2D slice and 2D segment viewer.</li>
+</ul><p></p>
+<p><b><em>Selection:</em></b></p>
+<p></p>
+<ul><li><b>Hide selection:</b> Hides all selected nodes and segments.</li><li><b>Invert selection:</b> Inverts the selection.</li><li><b>View all:</b> Shows all nodes, segments.</li><li><b>Focus selection at picked point:</b> This check box has three states: When filled, selecting a node or segment in the 3D viewer moves the slice of the 2D slice viewer in the current orientation to the picked position. When checked, the slice moves to the picked position and is oriented tangential to the corresponding segment. When empty, the slice orientation and position are not affected by selecting an item in the 3D viewer.</li>
+</ul><p></p>
+<p><b><em>Stepping:</em></b></p>
+<p>This tool steps through all <em>Nodes</em> or <em>Segments</em> and their corresponding <em>Points</em> while keeping the slice of the 2D slice viewer tangential to the current point or node. The following options are available:</p>
+<p></p>
+<ul><li><b>Label:</b> Restrict the set of segments/nodes to step through by a label group. Within a label group select the <em>Not assigned</em> item to step through segments/nodes that are not assigned to a label of this label group. Select the <em>All</em> item to disable restriction to a label.</li><li><b>Node:</b> Step through all nodes of the current set of nodes. Next to the <em>Node</em> spin box the total number of nodes within the current set of nodes is displayed.</li><li><b>Segment:</b> Step through all segments of the current set of segments. Next to the <em>Segment</em> spin box the total number of negments within the current set of segments is displayed.</li><li><b>Point:</b> Step through all points of the currently selected segment. Next to the <em>Points</em> spin box the total number of points of the currently selected segment is displayed.</li><li><b>Focus selection at picked point in 3D viewer:</b> When checked, the element selected by the step tool (node or edge) is centered in the 3D viewer. The camera distance from the object can be adjusted with the <b>Focal distance</b> option. The distance is given in units.</li><li><b>Hide surrounding elements:</b> When checked, only elements close to the selected element are displayed. Elements to be displayed are selected by their vertices: For each vertex within a certain radius of a reference point the whole connected component attached to it is shown. Everything else is hidden in the 3D viewer. The reference point is the coordinate of the selected node if the node stepper is active. If the edge stepper is active, the middle between the edges end nodes is used as reference. The maximum distance for objects to be displayed can be adjusted with the <b>Max vertex distance</b> option. It is given in units.</li>
+</ul><p> </p>
+<p>
+</p><div style="text-align:center"><a name="A3"></a><a href=FilamentTraceToolboxVI.png.html><img width=525 src="FilamentTraceToolboxVI.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+The Trace tab.</div>
+
+
+</div><p>
+</p>
+<p><b>The <em>Trace</em> tab</b></p>
+<p>The <em>Trace</em> tab provides a set of tools to perform an automatic or interactive tracing on either the gray value image stack or a label field that was segmented previously using other methods. The tool always works on the data set currently selected in the <em>Image Data</em> drop-down menu, either image data or a label field.</p>
+<p><b><em>AutoSkeleton:</em></b></p>
+<p>The <em>Run</em> button triggers the computation of the graph. The result of the computation is a new SpatialGraph data object that will be automatically selected in the <em>Graph Data</em> drop-down menu.
+The following options are available:
+</p>
+<ul><li><b>Smooth</b>: If checked, the result will have reduced staircase artifacts.</li><li><b>Distance Map</b>: If checked, an intermediate <a class="link" href="../hxdistmap/HxComputeDistanceMap.html#A1">distance map</a> object will be exposed in the <em>Pool</em>.</li><li><b>Thinned Data</b>: If checked, the thinned data object (see <a class="link" href="../hxskeleton/HxExtThinner.html#A1">thinning</a> algorithm) will be exposed in the <em>Pool</em>.</li>
+</ul><p></p>
+<p><b><em>Interactive tracing:</em></b></p>
+<p>To activate interactive tracing, click the <em>Trace filament</em> icon in the toolbar. Note that the interactive tracing tool is always active while the <em>Trace filament</em> icon is highlighted and can be triggered only if the 2D slice viewer is active.</p>
+<p>The tool offers two <b>tracing methods</b> that differ with respect to the thickness of the traced fibers. The <em>Thick Structures</em> tool is optimized for fibers that are several voxels in diameter. It also calculates on the fly a thickness estimate of the traced fiber and stores it in the <em>thickness</em> point attribute of the graph data.
+The <em>Thin Structures</em> tool can also handle very thin fibers. Note that the algorithm of the <em>thin</em> tracer is designed for fine and unbranched fibers; in case of thick branching sections the fiber diameter can be incorrectly estimated. The tool also offers a third option, <em>Linear</em>, which connects points by straight lines and does not estimate thickness. Attribute <em>thickness</em> is set to 1 for those segments. The <em>Linear</em> mode can be useful for low quality data for which the other modes fail.</p>
+<p>Once the tracing tool is activated, the cursor of the 2D slice viewer will indicate if the current voxel's gray value is inside the data range specified by the <em>Window Level</em> control. You may limit this specified window even further by manually setting a range in the <em>Intensity range</em> control. Whenever a simple cross (outside cursor) appears, the voxel is outside the range. A circle with cross hair (inside cursor) indicates voxels inside the range.</p>
+<p>Interactive tracing starts by clicking in the 2D slice viewer onto a foreground pixel which adds a node at the selected position. Once a node has been added, the tracer is in <em>append mode</em>, which is indicated by the cursor turning red. The next click onto a foreground pixel adds a second node and starts the automatic tracing algorithm by calculating the shortest line connecting these two nodes within the current data range.
+Note that after the automatic tracing has finished, the tracer is still in <em>append mode</em>, so that the next click onto an inside voxel will append another point connected to the previous point, and so on. To terminate a tracing sequence, click onto the last added node or onto a pixel which is outside the specified range. The cursor color turns white again.</p>
+<p></p>
+<ul><li><b>Tracing Methods</b>: The radio buttons allow you to select the <em>Thick Structure</em> or <em>Thin Structure</em> tracing algorithm, or to connect two points by a straight line (see below for a detailed explanation).</li><li><p><b>Filament Type</b>:
+</p>
+<ul><li><em><b>Bright on Dark</b></em> Foreground voxels have a higher intensity than background pixels (default).</li><li><em><b>Dark on Bright</b></em> Foreground voxels have a lower intensity than background pixels.</li>
+</ul><p>
+Note that toggling the <em>Filament Type</em> also affects the rendering in the 2D and 3D viewers. For dark filaments on a bright background the 2D viewers switches from maximum intensity projection (MIP) to minimum intensity projection (MinIP) and for volume rendering the transfer function (colormap) is inverted.</p>
+</li><li><b>Tracing Options</b>: If <em>Snap to Graph</em> has been checked, picking a voxel while either P (point) or E (edge, the line between two points) is visible in the mouse cursor, the graph is branched by inserting a node into the graph at the picked position or, if N (node) is in the cursor, the graph is extended by using the node next to the cursor position.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=FilamentEditToolbox.png.html><img width=375 src="FilamentEditToolbox.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+The Edit tab.</div>
+
+
+</div><p></p>
+<p><b>The <em>Edit</em> tab</b></p>
+<p><b><em>Editing and Labeling Tools:</em></b></p>
+<p></p>
+<ul><li><b>Identify Graphs:</b> This button identifies graphs, that is all sets of connected segments. The results are stored as a label group <em>Identified_graphs</em> in the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object. Use the Label Editor and the graph display options (<em>View</em> tab, <em>3D Settings</em>) to visualize identified graphs.</li><li><b>Identify Loops:</b> When clicking this button the graph is traversed to detect so called <em>loops</em>, i.e., all nodes that are connected to a particular root node by more than one set of segments. This tool is useful when tracing neurons, where the dendritic arborizations must follow a strict tree-like topology.
+The result of the computation is stored as a label group <em>Identified_Loops</em> in the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object. Use the Label Editor and the graph display options (<em>View</em> tab, <em>3D Settings</em>) to visualize identified loops.
+Note that a segment is defined by two nodes. Therefore, when you remove a node, the connected segment will be also removed. If you delete a loop including its nodes, it might be possible that some connected segments will be also deleted. Hence the <em>Identified_Loops</em> contain the looping segments, but not the nodes connecting them. However this may produce isolated points which can be removed by the <em>Remove Isolated Points</em> button.</li><li><b>Set Root:</b> Use this button to automatically determine the tree topology of a graph. To do so, the tool needs a root segment which can be set by selecting a segment and clicking this button. At the same time all other segments will be automatically labeled with a rank. With <em>rank</em> we denote the branching level with respect to the root. For example, beginning with the root segment (rank 0), every branching point increments the rank of the subsequent segments by 1 level.
+The results are stored as a label group <em>Rank</em> in the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> object. Use the Label Editor and the graph display options to visualize the rank.
+Note that calculating the topology and thus determining the ranks will be aborted when loops are detected within the graph. If this happens, use the <em>Identify Loops</em> button to tag all loops and then use the graph editing tools to resolve them.</li><li><b>Remove Isolated Nodes:</b> Press this button to remove nodes that are not connected to other nodes.</li><li><b>Graph Info:</b> Pressing this button triggers the computation of basic statistical information of the current graph. If parts of a graph are selected, the information is calculated for the current selection. If there is no selection, this is done for the whole graph. The information is displayed in a separate spreadsheet window (see <a class="link" href="../hxspatialgraph/HxSpatialGraphStats.html">SpatialGraphStatistics</a>).</li>
+</ul><p></p>
+<p><b><em>Smooth segments:</em></b></p>
+<p>To smooth the currently selected <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a> press the <em>Smooth selection</em> button. The following options are available:
+</p>
+<ul><li><b>Number of points to average:</b> Number of neighboring points that should be averaged for each point.</li><li><b>Direction:</b> Restrict smoothing onto certain directions, e.g., if only <em>z</em> direction checkbox is checked, smoothing will only be applied in z direction of the <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1">SpatialGraph</a>.</li>
+</ul><p>
+
+</p></body>
+</html>

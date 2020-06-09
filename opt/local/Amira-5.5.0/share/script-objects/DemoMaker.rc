@@ -1,0 +1,45 @@
+########################################
+# scro DemoMaker 
+########################################
+
+module -name "DemoMaker" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel DemoMaker]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/DemoMaker.scro
+	$mod fire
+    }	
+
+
+########################################################
+# have Camera Paths in the popup menu of DemoMaker scros
+########################################################
+
+module -name "CameraPath" \
+    -primary HxScriptObject \
+    -check { [$PRIMARY hasVar scroTypeDemoMaker] } \
+    -class "HxKeyframeCameraPath" \
+    -category "None" \
+    -dso "libhxcamera.so" \
+    -proc {
+      if {$PRIMARY != ""} {
+         $this time connect $PRIMARY
+         $this time setTightness 1
+      }
+    }
+
+module -name "CameraRotate" \
+    -primary HxScriptObject \
+    -check { [$PRIMARY hasVar scroTypeDemoMaker] } \
+    -class "HxCircularCameraPath" \
+    -category "None" \
+    -dso "libhxcamera.so" \
+    -proc {
+      if {$PRIMARY != ""} {
+         $this time connect $PRIMARY
+         $this time setTightness 1
+      }
+    }
+
+

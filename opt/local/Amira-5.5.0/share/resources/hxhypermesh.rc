@@ -1,0 +1,29 @@
+
+dataFile -name "Hypermesh ascii" \
+    -ext ".hmascii,.hm" \
+    -option hypermesh \
+    -load "hxReadHyperMesh" \
+    -loadInOwnThread true \
+    -dso "libhxhypermesh.so"
+
+dataFile -name "Hypermesh ascii" \
+    -ext ".hmascii,.hm" \
+    -save "hxWriteHyperMesh" \
+    -type HxSurface \
+    -type HxTetraGrid \
+    -dso "libhxhypermesh.so"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

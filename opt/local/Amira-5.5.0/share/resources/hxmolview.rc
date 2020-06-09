@@ -1,0 +1,39 @@
+# ----------------------------------------------------------------------
+# hxmolview package
+# ----------------------------------------------------------------------
+module -name "MoleculeView"\
+    -primary "HxMolecule"\
+    -class "HxMolView"\
+    -category "Main Display"\
+    -dso "libhxmolview.so"
+
+module -name "BondAngleView"\
+    -primary "HxMolecule"\
+    -class "HxBondAngle"\
+    -category "Display"\
+    -dso "libhxmolview.so"      
+
+module -name "SecStructureView"\
+    -primary "HxMolecule"\
+    -class "HxSecStructure"\
+    -category "Display"\
+    -dso "libhxmolview.so"     
+    
+module -name "TubeView"\
+    -primary "HxMolecule"\
+    -class "HxTubeView"\
+    -category "Display"\
+    -dso "libhxmolview.so"        
+
+module -name "Measurement"\
+    -primary "HxMolecule"\
+    -class "HxMeasurement"\
+    -category "Display"\
+    -dso "libhxmolview.so"      
+
+module -name "HBondView"\
+    -primary "HxMolecule"\
+    -class "HxHBondView"\
+    -category "Display"\
+    -dso "libhxmolview.so"
+

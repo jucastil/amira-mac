@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CreateSphere</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CreateSphere" "creates a triangulated sphere" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module enables you to create a triangulated sphere as an object
+ of class <a class="link" href="../hxsurface/HxSurface.html#A1">Surface</a>. Center, radius, and resolution
+ of the sphere can be specified. Furthermore, you can choose among
+ two different ways of triangulation; they are shortly described
+ below.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_unused">
+ <span class="headline">Data</span> <span class="connectiontype">[not used]</span> 
+
+<div class="body"></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Sphere Type</span>  
+<div class="portsnapshot"><img src="HxCreateSphere_type.png" /><br /></div>
+<div class="body"><p>If the first option, <em>latitude</em>, is specified, the triangulation
+ is done by first placing a number of small circles on the sphere.
+ Neighboring small circles are placed equidistantly to each other in
+ terms of their geodesic distance. We then place a number of points
+ on each small circle, such that neighboring points on each circle
+ are again equidistant to each other. The distance between the rings
+ and points on each ring is close to a specified edge length. We then
+ connect neighboring points on each small circle by edges. In the
+ next step, we connect points on neighboring small circles with each
+ other to form a complete triangulation. Here, points are connected
+ such that the edge lengths are as short as possible. Finally, we add
+ points at the north and south pole and connect them to all points on
+ the smallest circles, respectively.<br />
+
+ The second option, <em>octahedron</em>, triangulates a sphere by
+ starting with an octahedron. The octahedron is then retriangulated
+ to match the given edge length, and the points of this triangulation
+ are projected onto the surface of the sphere. The edge lengths using
+ this triangulation differ much more than with the <em>latitude</em>
+ triangulation.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxCreateSphere_radius.png" /><br /></div>
+<div class="body"><p>Radius of the sphere.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Point coords</span>  
+<div class="portsnapshot"><img src="HxCreateSphere_coords.png" /><br /></div>
+<div class="body"><p>Center coordinates of the sphere.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edge length</span>  
+<div class="portsnapshot"><img src="HxCreateSphere_edgeLength.png" /><br /></div>
+<div class="body"><p>Desired edge length of the triangles.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of points per Unit^2</span>  
+<div class="portsnapshot"><img src="HxCreateSphere_nopPerUnit2.png" /><br /></div>
+<div class="body"><p>Number of points per unit square. This port influences the edge
+ length, and vice versa.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.2.7 Parameters</a></h3>
+<p>For any data object an arbitrary number of additional parameters or
+attributes may be defined. Parameters can be interactively added, deleted,
+or edited using the <a class="link" href="../hxcore/HxParameterEditor.html#A1">parameter editor</a>. Parameters
+are useful for example to store certain parameters of a simulation or of an
+experiment. In this way the history of a data object can be followed.</p>
+<p>There are certain parameters which are interpreted by several
+<font face="helvetica">Amira</font> modules. The meaning of these parameters is summarized in the
+following list:</p>
+<p></p>
+<ul><li><tt>Colormap name</tt><br />
+
+ This specifies the name of the default colormap used to visualize
+ the data. Some modules automatically search the Pool for
+ this colormap and for example use it for pseudocoloring.</li><li><tt>DataWindow minVal maxVal</tt><br />
+
+ This indicates the preferred data range used for visualizing the
+ data. The OrthoSlice module automatically maps values below
+ <tt>minVal</tt> to black and values above <tt>maxVal</tt> to white.</li><li><tt>LoadCmd cmd</tt><br />
+
+ This parameter is usually set by import filters when a data object
+ is read. It is used when saving the current network into a file and it
+ allows the object to be restored automatically. Internal use only.</li>
+</ul><p></p>
+<p>Note that there are many file formats which do not allow to store
+parameters. Therefore, information might get lost when you save the data
+set in such a format. If in doubt, use the <font face="helvetica">Amira</font> specific
+<a class="link" href="../amiramesh/HxFileFormat_AmiraMesh.html#A1">AmiraMesh</a> format.
+
+</p></body>
+</html>

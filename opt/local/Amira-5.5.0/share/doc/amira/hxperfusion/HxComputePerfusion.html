@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ComputePerfusion</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "ComputePerfusion" "computes mean transit time, blood flow and blood volume from a perfusion weighted image series" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Computes mean transit time (MTT), blood flow (CBF), and blood volume (CBV) from a perfusion weighted image series (MR or CT). The different computations for CT or MRI images are selected based on the DICOM tag <i>echo time</i> (0018,0081). For MR data this tag should contain a value larger than 0.</p>
+<p>Load your (DICOM) images as a time series and connect this module to the <em>TimeSeriesControl</em> module. The module requires a spreadsheet as secondary input. This table can be created by the module using the sample button functionality. Press a sample button (e.g. AIF) and in interactive mode select a vessel for arterial inflow or venous outflow using the middle mouse button. A spreadsheet object should be created which contains the sampled time-density curve at that location.</p>
+<p>The algorithm implemented in this module performs the perfusion computation based on deconvolution.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect this port to a <em>TimeSeriesControl</em> module. The connected time series will be used for computation.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">AIF</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>This port can be connected to a SpreadSheet object. The spreadsheet should contain a single float-valued column "AIF" (arterial input function) with a sample for each time point in the series. A second column "VOF" can be provided for the venous output function. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If a mask dataset is connected, the computation is restricted to areas that are not marked as Exterior.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_Options.png" /><br /></div>
+<div class="body"><p>This checkbox enables the ports described below.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sample</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_Sample.png" /><br /></div>
+<div class="body"><p>The sample port provides two functions, one for sampling the arterial input and one for the
+venous output function. The data should be visualized using an <em>OrthoSlice</em> module (or similar) to provide the point
+of interest in 3D space. Press one of the buttons and, in the interactive mode (cursor
+shows arrow), select a point on the slice using the middle mouse button. This 3D location is used as
+a seed point for a search algorithm that looks for the voxels with the strongest signal within a
+radius specified in port <em>Search Radius</em>. An average over several of the voxels is used to calculate the
+time-density function from the connected time series. The result is stored in a <em>SpreadSheet</em>
+object connected to the AIF port of this module.</p>
+<p>The voxel positions used for the computation of the input and output functions can be stored in a
+<em>LabelField</em>. The creation of such a <em>LabelField</em> can be enabled with the Tcl command
+<tt>createLabelfield</tt> <tt>1</tt>. It includes 5 materials: "Exterior", "AIF_search_area",
+"AIF_measurement", "VOF_search_area" und "VOF_measurement"</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Inter-frame time</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_InterFrameTime.png" /><br /></div>
+<div class="body"><p>This port specifies the time between image frames in seconds.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Smoothing</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_Smoothing.png" /><br /></div>
+<div class="body"><p>Activates Gaussian smoothing.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Smoothing Kernel Size</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_SmoothingKernelSize.png" /><br /></div>
+<div class="body"><p>Specifies the size of the Gaussian filter kernel.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Smoothing Kernel Sigma</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_SmoothingKernelSigma.png" /><br /></div>
+<div class="body"><p>Specifies the sigma of the Gaussian filter kernel.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Phases in baseline</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_PhasesInBaseline.png" /><br /></div>
+<div class="body"><p>The number of images used to compute the pre-contrast baseline. Adjust this value if less than the default number of phases before contrast adaptation are recorded.</p>
+<p>Note that for MRI data the first image will always be removed from the computation as it usually contains an artificially high signal intensity.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Limit to phase</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_LimitToPhase.png" /><br /></div>
+<div class="body"><p>With this port the computation can be restricted to a number of volumes smaller than the full recorded time series. In some cases this can reduce the effect of noise on the computation and limit the effect of recirculation on the computation.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Density factor</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_DensityFactor.png" /><br /></div>
+<div class="body"><p>This value describes the density of brain tissue. The value should not be changed for normal operation.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Hematocrit large vessel</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_HematocritLargeVessel.png" /><br /></div>
+<div class="body"><p>A ratio which is used by the algorithm. The value should not be changed for normal operation.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Hematocrit small vessel</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_HematocritSmallVessel.png" /><br /></div>
+<div class="body"><p>A ratio which is used by the algorithm. The value should not be changed for normal operation.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Tikhonov delta</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_TikhonovDelta.png" /><br /></div>
+<div class="body"><p>This value sets a regularization factor used during the deconvolution step. As a matrix inversion is required, this regularization attempts to reduce the influence of noise on the result of the reconstruction. Use a lower value to regularize more.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Signal-to-noise</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_SignalToNoise.png" /><br /></div>
+<div class="body"><p>A warning message is produced if the signal-to-noise ratio of the images in the baseline (before contrast) is smaller than this value. In case this warning is produced, the value of the phases in baseline should be adapted to not include the initial inflow of contrast. The warning might also be produced if the data contains more than the normal amount of noise.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Search Radius</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_SearchRadius.png" /><br /></div>
+<div class="body"><p>This port specifies the radius in mm around the seed point that is searched for optimum signal
+strength of the AIF and VOF. Note, the measurement unit is only in mm if the voxel size or bounding
+box of the data set is specified in mm.</p>
+<p><a name="A16"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter Voxel</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_FilterVoxels.png" /><br /></div>
+<div class="body"><p>This port enables averaging of the artirial input and venous output functions.</p>
+<p><a name="A17"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Minimum Uptake Difference</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_MinUptakeDifference.png" /><br /></div>
+<div class="body"><p>The minimum uptake difference can be adjusted, which is required to use a voxel for the AIF/VOF
+calculation. The difference is calculated between voxel values at the first time point and all consecutive
+time points.</p>
+<p><a name="A18"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Maximum Starting Value</span>  
+<div class="portsnapshot"><img src="HxComputePerfusion_MaxStartValue.png" /><br /></div>
+<div class="body"><p>The maximum value that a voxel of the AIF/VOF can have to be a valid seed point.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

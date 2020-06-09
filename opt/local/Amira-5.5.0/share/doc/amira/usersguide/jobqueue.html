@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">3.1.11 Job Dialog</a></h3>
+<p>Certain time-consuming operations in <font face="helvetica">Amira</font> can be performed in batch mode.
+For this purpose <font face="helvetica">Amira</font> provides a job queue, where jobs like generation of
+a tetrahedral grid can be submitted. You can inspect the current status of
+the job queue, start and delete jobs from the queue by selecting <em>Dialogs -&gt; Jobs</em>
+from <font face="helvetica">Amira</font>'s edit menu. This will bring up the <em>Job Dialog</em>.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=jobdialog.png.html><img width=337 src="jobdialog.png" /></a><br />
+<div class="caption">
+<b>Figure 49:</b>
+The job dialog lets you start, stop, examine, and delete batch
+ jobs.</div>
+
+
+</div><p></p>
+<p>In the upper part of the job dialog the current list of jobs of a user
+is shown. For each job a short description is displayed, as well as the
+time when the job has been submitted and the current state of the job.
+A job may be waiting for execution, running, finished, or it may have
+been killed.</p>
+<p></p>
+<h4><a name="A3">The job directory</a></h4>
+<p>For each job a temporary directory is created containing any required input
+data, scripts, state information, and log files. On Unix systems this
+directory is created at the location specified by the environment variable
+<tt>TMPDIR</tt>. If no such variable exists, <tt>/tmp</tt> is used. On Windows
+systems the default temporary directory is used. Typically this will be
+<tt>C:/TEMP</tt>.</p>
+<p></p>
+<h4><a name="A4">Controlling the job queue</a></h4>
+<p>A job's state may be manipulated using the action buttons shown above the
+job list. In order to start the job queue select the first job waiting
+for execution and then press the <em>Start</em> button. Note that only one
+job can be executed at a time. In order to kill a running job, select
+it in the job list and press the <em>Kill</em> button. You may delete a job
+from the job queue using the <em>Delete</em> button. When deleting a job
+the temporary job directory will be removed as well.</p>
+<p></p>
+<h4><a name="A5">Information about a job</a></h4>
+<p>Once you have selected a job in the job queue, more detailed information
+about it will be displayed in the lower part of the dialog window, notably
+the state of the job, the temporary job directory, the submit
+time, the time when the job has been started, the run time, and the name
+of the command to be executed. Any console output of
+a running job will be redirected to a log file located in the temporary job
+directory. Once such a log file exists and has non-zero size you may
+inspect it by pushing the <em>View output</em> button.</p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">job submit <i>cmd</i> <i>info</i> <i>[tmpdir]</i></span>  
+
+<div class="body"><p>
+ Submits a new job to the job queue. <i>cmd</i> specifies the
+ command to be executed. <i>info</i> specifies the info string
+ displayed in the job dialog. <i>tmpdir</i> specifies the temporary
+ job directory. If this argument is omitted a temporary job
+ directory is created by <font face="helvetica">Amira</font> itself. In any case, the directory
+ will be automatically deleted when the job is removed from the
+ job queue. Example: <tt>job submit "clock.exe" "Test job"</tt></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">job run</span>  
+
+<div class="body"><p>
+ Starts the first job in job queue pending for execution. When
+ a job is finished, execution of the next job in the queue
+ starts automatically, thus all jobs in the queue will be
+ executed consecutively by <tt>job run</tt>.</p>
+</div></div>
+</div>
+<p>
+
+</p></body>
+</html>

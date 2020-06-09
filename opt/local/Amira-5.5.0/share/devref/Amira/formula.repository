@@ -1,0 +1,31 @@
+\form#0:$R^3$
+\form#1:$p$
+\form#2:$2^{(3*n)}$
+\form#3:$(r_i, c_j)_{i,j}$, $i,j \in \{1,2,3\}$
+\form#4:$ \mbox{McMat4f} * \left( \begin{tabular}{c} src\\ 1 \\ \end{tabular} \right) =\left( \begin{tabular}{c} dst\\ 1 \\ \end{tabular} \right)$
+\form#5:$ \left( \begin{tabular}{c} src\\ 1 \\ \end{tabular} \right) * \mbox{McMat4f} =\left( \begin{tabular}{c} dst\\ 1 \\ \end{tabular} \right)$
+\form#6:$2^(2*n)$
+\form#7:$( x_0, y)$ - $( x_1, y)$
+\form#8:$( x, y)$
+\form#9:$ m_d $
+\form#10:$ d $
+\form#11:$ m_d - 1 $
+\form#12:$ m_1, \ldots, m_d $
+\form#13:\[ \{ [i_1, i+1] \times \ldots \times [i_d, i_d+1] | 0 \leq i_j < m_j - 1\} \]
+\form#14:$ R^d $
+\form#15:\[ x_{q}(i_q) = min_{q} + \frac{max_{q} - min_{q}}{m_{q} - 1} i_q \quad ; \quad 0 \leq i_q < m_q \quad , \quad 0 \leq q \leq 2 \]
+\form#16:\[ x_{q} (i_q) = coords_{q} [i_q] \quad ; \quad 0 \leq i_q < m_q \quad , \quad 3 \leq q < d \]
+\form#17:\[ x_{q}(i_q) = min_{q} + \frac{max_{q} - min_{q}}{m_{q} - 1} i_q \quad ; \quad 0 \leq i_q < m_q \quad , \quad 0 \leq q \leq 1 \]
+\form#18:\[ x_{q} (i_q) = coords_{q} [i_q] \quad ; \quad 0 \leq i_q < m_q \quad , \quad 2 \leq q < d \]
+\form#19:\[ x_{q} (i_q) = coords_{q} [i_q] \quad ; \quad 0 \leq i_q < m_q \quad , \quad 0 \leq q < d \]
+\form#20:\[ x_{q}(i_0, i_1, i_2) = coords_{q}[i_0, i_1, i_2] \quad ; \quad 0 \leq q \leq 2 \]
+\form#21:$\cos(0) = 1 = \text{const.}$
+\form#22:$x$
+\form#23:$x=[0,2\pi], y=[0,2\pi]$
+\form#24:$\cos(y) = \text{pconst(x)}$
+\form#25:$-1 \leq \cos(x) \leq 1 \neq \text{pconst(x)}$
+\form#26:$a+b = b+a$
+\form#27:$a*b = b*a$
+\form#28:$a^b \neq b^a$
+\form#29:$0.1$
+\form#30:$(0 \le newAlpha \le 1)$

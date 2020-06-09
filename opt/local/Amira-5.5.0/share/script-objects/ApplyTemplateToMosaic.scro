@@ -1,0 +1,105 @@
+# Amira-Script-Object V3.0
+
+# constructor
+
+$this newPortConnection template HxObject;
+$this newPortDoIt action ;
+$this action setLabel 0 "apply";
+
+$this proc compute {} {
+    set in [$this data source];
+    set tmpl [$this template source];
+    if { $tmpl == "" || $in == ""} {
+        return;
+    }
+    if {![$this action wasHit 0]} {
+        return;
+    }
+    if {[$tmpl hasInterface HxData]} {
+        echo "using editor (attached to $tmpl) as template";
+        set editor [$tmpl master editor];
+        if {$editor == ""} {
+            echo "no editor found";
+            return;
+        }
+        $this setVar state [$this getFullState $editor];
+        $this setVar type [$editor getTypeId] ;
+        $this foreachBlock applyEditor;
+    } elseif {[$tmpl hasInterface HxCompModule]} {
+        echo "using CompModule ($tmpl) as template";
+        $this setVar state [$this getFullState $tmpl];
+        $this setVar type [$tmpl getTypeId] ;
+        $this foreachBlock applyCompModule;
+    } else {
+        echo "template don't match";
+        return;
+    }
+    echo "updating $in";
+    $in action hit 1;
+    $in fire;
+    $in touch;
+}
+
+$this proc applyEditor {obj} {
+    echo "applying [$this getVar type] to $obj...";
+    set ed [create [$this getVar type]];
+    $ed attach $obj;
+    $ed fire;
+    $this setFullState $ed [$this getVar state];
+# normally last one is the action port
+    if { [catch {$ed action hit}] && [catch {$ed doIt hit}] && [catch {$ed [lindex [$ed allPorts] end] hit}] } {
+        error "can't hit action button";
+    }
+    $ed fire;
+    remove $ed;
+    return $obj;
+}
+
+$this proc applyCompModule {obj} {
+    echo "applying [$this getVar type] to $obj...";
+    set ed [create [$this getVar type]];
+    $ed data connect $obj;
+    $ed fire;
+    $this setFullState $ed [$this getVar state];
+# normally last one is the action port
+    if { [catch {$ed action hit}] && [catch {$ed doIt hit}] && [catch {$ed [lindex [$ed allPorts] end] hit}] } {
+        error "can't hit action button";
+    }
+    $ed fire;
+    set out [$ed getResult];
+    $out master disconnect;
+    remove $ed;
+    return $out;
+}
+
+$this proc foreachBlock {callback} {
+    set mosaic [$this data source];
+
+    for {set i 0} {$i < [$mosaic getNumBricks]} {incr i} {
+        set bl [$mosaic getBrick $i];
+        set out [$this $callback $bl];
+        set saved [$out save "AmiraMesh" [$bl parameters Filename getValue]];
+# try to remove objects
+        catch {remove $bl};
+        catch {remove $out};
+        catch {remove $saved};
+    }
+}
+
+$this proc getFullState {obj} {
+    set state [list];
+    foreach o [$obj allPorts] {
+        if { ![$obj $o isOfType "HxConnection"] } {
+            lappend state $o;
+            lappend state "[$obj $o getState]";
+        }
+    }
+    return $state;
+}
+
+$this proc setFullState {obj fullstate} {
+    foreach {port state} $fullstate {
+        $obj $port setState "$state";
+        $obj fire;
+    }
+}

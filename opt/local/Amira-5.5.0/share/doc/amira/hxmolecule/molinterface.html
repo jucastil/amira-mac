@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.7 Molecular Interfaces</a></h3>
+<p>This tool is particularly interesting for visualizing contact areas
+between parts of a single molecule or between different molecules,
+e.g., enzymes and their ligands. In this example we will consider the
+second case.</p>
+<p></p>
+<ul><li>Please load the file <tt>2RNT.pdb</tt> from the directory <tt>data/molecules/pdb</tt>.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A2">10.1.7.1 Defining groups</a></h4>
+<p>In this section we will create a new level, called <em>interface</em>,
+for the molecule and define two groups of the level, <em>substrate</em>
+and <em>receptor</em>, respectively.</p>
+<p></p>
+<ul><li>Select the <tt>2RNT.pdb</tt> icon in the Pool by clicking on
+ it.</li><li>Now click in the console window to activate it, and press the
+<tt>TAB</tt> key.</li>
+</ul><p></p>
+<p>The name of the selected icon, <tt>2RNT.pdb</tt>, should appear in
+the console window. If it does not,</p>
+<p></p>
+<ul><li>please type <tt>2RNT.pdb</tt>.</li><li>On the same line, type <tt>define interface/substrate residues/HET105</tt></li>
+</ul><p></p>
+<p>The following text should now be written in the console window<br />
+
+<tt>2RNT.pdb define interface/substrate residues/HET105</tt></p>
+<p></p>
+<ul><li>Press the <tt>ENTER</tt> key.</li>
+</ul><p></p>
+<p>You have now defined the group <em>substrate</em> in the level <em>interface</em>. The group consists of the residue HET105. We will now
+define the group <em>receptor</em>.</p>
+<p></p>
+<ul><li>Press the <tt>TAB</tt> key again, then type <tt>defregexp
+ interface/receptor NOT residues/HET105 AND NOT residues/type=HOH</tt></li>
+</ul><p></p>
+<p>With <tt>NOT residues/HET105</tt> we exclude the substrate and with <tt>NOT residues/type=HOH</tt> we exclude all water molecules. Thus, the
+receptor is defined as consisting of all atoms not belonging to either
+the substrate or any water molecule.</p>
+<p>If you now list all levels by typing
+</p>
+<ul><li><tt>2RNT.pdb list</tt></li>
+</ul><p></p>
+<p>you will see an <em>interface</em> level containing two groups.</p>
+<p></p>
+<ul><li>Type <tt>2RNT.pdb list interface</tt></li>
+</ul><p></p>
+<p>and all groups of the <em>interface</em> level will be printed in the
+console window.</p>
+<p></p>
+<h4><a name="A3">10.1.7.2 Computing the Interface</a></h4>
+<p>We will now compute the interface between the receptor and the
+substrate. The interface between two molecules is defined as the
+surface equidistant to both molecules. For the approximation we
+compute, this might not be exactly true for all points on the surface.
+The module to compute the interface is called
+<a class="link" href="../hxmolsurface/HxCompMolInterface.html#A1">CompMolInterface</a>.</p>
+<p>Now, to compute the interface,</p>
+<p></p>
+<ul><li>right-click the icon <tt>2RNT.pdb</tt> and select <em>CompMolInterface</em> from the <em>Compute</em> submenu.</li><li>Select the icon labeled <tt>CompMolInterface</tt> in the Pool.</li><li>Choose <em>interface</em> from the <em>Levels</em> menu of the <em>CompMolInterface</em> module.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p></p>
+<p>Two objects result from this action, an interface object of type <em>MolSurface</em>, <em>2RNT-interface.surf</em>, and a distance field of type
+<em>UniformScalarField3</em>, <em>2RNT-distance.field</em>.</p>
+<p></p>
+<h4><a name="A4">10.1.7.3 Visualizing the interface</a></h4>
+<p>Finally, we will view the computed interface in the viewing window
+with the <a class="link" href="../hxmolsurface/HxMolSurfaceView.html#A1">MolSurfaceView</a> module.</p>
+<p></p>
+<ul><li>Right-click on the <tt>2RNT-interface.surf</tt> icon and select
+ <em>MolSurfaceView</em>.</li><li>Right-click on the white square at the far left side of the <i>MolSurfaceView</i> icon and connect the <i>ColorField</i> port with
+ the distance field <i>2RNT-distance.field</i>.</li>
+</ul><p></p>
+<p>The user interface of the <em>MolSurfaceView</em> module should be
+visible in the Properties Area.</p>
+<p></p>
+<ul><li>Choose the <em>field</em> option from the <em>Color Mode</em> port,
+ resulting in a new port, <i>Colormap</i>, appearing in the
+ user interface.</li><li>Right-click on the colormap bar and choose any colormap.</li><li>Play around with the coloring by changing the colormap range.
+ The full range of values can be seen when you select the <em>2RNT-distance.field</em>, i.e, click on it.</li><li>Also, change the <i>Cutoff distance</i> in the <i>CompMolInterface</i> module, e.g., to 1.0, and the <i>Voxel size</i>,
+ e.g., to 0.5.</li><li>See what happens when you press the <i>Apply</i> button of the
+ <i>CompMolInterface</i> module.</li>
+</ul><p></p>
+<p>Warning: If you choose a very small voxel size, the computation might
+take very long. Also, there might not be enough memory to store such a
+large distance field. Usually, 1.0 or 0.5 are good values.</p>
+<p>After having done the steps described above, what you see should be
+similar to the
+<a href="../../demo/molecules/pdb/2RNT_receptorLigandInterface.hx">Nuclease</a>
+demo on the demo pages. The interface here, however, has been
+generated from two separate files.</p>
+<p>
+
+
+</p>
+<p>
+
+</p></body>
+</html>

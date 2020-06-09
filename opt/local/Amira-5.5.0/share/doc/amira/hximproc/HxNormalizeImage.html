@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> NormalizeImage</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "NormalizeImage" "detect and remove background illumination" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+A module to normalize volumetric images by computing an approximation
+to the background and subtracting it from the image. The image is scaled
+later to the original input data range.</p>
+<p>The background image can be computed in different ways dependent on the
+actual data. The <tt>minimum</tt> option computes the background by using the
+minimum value in a region of interest defined by the <tt>Filter size</tt> port.
+This mode is especially useful for images with non-uniform illumination and
+a larger number of objects. The <tt>maximum</tt> and the <tt>mean</tt> mode compute
+the corresponding maximum and mean of minimum and maximum operation. The
+<tt>maximum</tt> is therefore useful if the background contains larger values
+than the objects.</p>
+<p>The <tt>BSpline</tt> mode uses bi-cubic splines to first down-sample the image
+to the resolution given in the <tt>Filter size</tt> port. This is usually giving
+a smoother approximation of the background. The modules <tt>minimum</tt>,
+<tt>maximum</tt>, <tt>mean</tt>, and <tt>BSpline</tt> use a bi-cubic spline to
+up-sample the low-resolution version back to the original image size
+before subtracting the background from the data thus correcting for
+non-uniform illumination.</p>
+<p>The <tt>Whitening</tt> mode aims to normalize the data to zero mean and
+unit variance. This will set the contrast to be close to uniform
+throughout the image. You should provide the data as either float or
+double in this case.</p>
+<p>Press the <em>Apply</em> button to start the computation.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The data set the correction is performed on.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Type</span>  
+<div class="portsnapshot"><img src="hxNormalizeImage_Type.png" /><br /></div>
+<div class="body"><p>Select a mode for the normalization. Different modes make sense for
+different images. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="hxNormalizeImage_Options.png" /><br /></div>
+<div class="body"><p>You can export the calculated background image as well.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter size</span>  
+<div class="portsnapshot"><img src="hxNormalizeImage_FilterSize.png" /><br /></div>
+<div class="body"><p>This is either the resolution of the down-sampled image (for <tt>minimum</tt>, <tt>mean</tt>, <tt>maximum</tt>, and <tt>BSpline</tt>) or the size of
+the moving filter that is used for the <tt>whitening</tt> operation.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,8 @@
+#ifndef  OIV_STL_CASSERT
+#ifndef sgi
+#  define  OIV_STL_CASSERT
+#endif
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

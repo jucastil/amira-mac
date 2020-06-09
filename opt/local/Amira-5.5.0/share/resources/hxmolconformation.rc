@@ -1,0 +1,52 @@
+# ----------------------------------------------------------------------
+# hxmolconformation package
+# ----------------------------------------------------------------------
+
+module -name "ConfigurationDensity" \
+    -primary "HxMolTrajectory" \
+    -class "HxConfDensity" \
+    -category "Compute"                  \
+    -dso "libhxmolconformation.so"
+
+module -name "MeanMolecule" \
+    -primary "HxMolTrajectory" \
+    -class "HxMeanMolecule" \
+    -category "Compute"                  \
+    -dso "libhxmolconformation.so"
+
+module -name "RankTimeSteps" \
+    -primary "HxMolTrajectory" \
+    -class "HxRepMolecule" \
+    -category "Compute"                  \
+    -dso "libhxmolconformation.so"
+
+module -name "ParetoOptimalSet" \
+    -primary "HxMolTrajectory" \
+    -class "HxParetoOptimalSet" \
+    -category "Compute" \
+    -dso "libhxmolconformation.so"
+
+module -name "BundleToMean" \
+    -primary "HxMolTrajectoryBundle" \
+    -proc {  set mod [load $AMIRA_ROOT/share/script-objects/BundleToMean.scro] 
+        if { [exists $PRIMARY] } {
+            $mod data connect $PRIMARY 
+            $mod fire
+        };
+    }
+    
+module -name "CompareMeans" \
+    -primary "HxMolTrajectory HxMolecule" \
+    -proc {  set mod [load $AMIRA_ROOT/share/script-objects/CompareMeans.scro] 
+        if { [exists $PRIMARY] } {
+            if { [ $PRIMARY getTypeId ] == "HxMolecule" } {
+                $mod data0 connect $PRIMARY 
+                $mod fire 
+            } else {
+                $mod data connect $PRIMARY 
+                $mod fire 
+            }
+        }
+    }
+
+    

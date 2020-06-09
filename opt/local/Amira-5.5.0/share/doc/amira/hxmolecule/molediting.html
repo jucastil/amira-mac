@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.6 Editing of molecules</a></h3>
+<p>An essential tool for manipulating the molecular data structure
+from <font face="helvetica">Molecular Option</font> is the <a class="link" href="../hxmoledit/HxMoleculeEditor.html#A1">Molecule Editor</a>. 
+It allows adding new bonds or changing the overall topology of the 
+molecule as well as manipulating Cartesian or internal coordinates.</p>
+<p>For each of these tasks, there is an example in the following section
+to give you an easy "learn by doing" introduction to the available
+features. Each action performed with the editor affects all currently
+selected atoms. Thus, it is necessary for you to be familiar with the
+functions of the <a class="link" href="QxMolSelectionBrowser.html#A1">SelectionBrowser</a>
+beforehand (see <a class="link" href="molselection.html#A1">section 10.1.2 on selection, labeling, and masking</a>).</p>
+<p></p>
+<ul><li>Load the file <tt>1HVRm.pdb</tt> from the directory <tt>data/molecules/pdb/</tt> and connect a <em>MoleculeView</em> module to
+ it.</li><li>Select the <em>balls and sticks</em> representation for the <em>MoleculeView</em>.</li>
+</ul><p></p>
+<p>The data structure loaded is an enzyme of HIV in complex
+with the inhibitor XK263.</p>
+<p></p>
+<h4><a name="A2">10.1.6.1 Invoking the Molecule Editor</a></h4>
+<p>To start the editor</p>
+<p></p>
+<ul><li>select the <tt>1HVRm.pdb</tt> object in the Pool and
+ press the Molecule Editor button (pencil icon) in
+ its user interface.</li>
+</ul><p></p>
+<p>The molecule editor interface is now visible. However, for the tasks
+we want to perform, we also need the selection browser, which is
+opened by</p>
+<p></p>
+<ul><li>pressing the <em>Show</em> button of the <em>Selection Browser</em>
+ port of <em>1HVRm.pdb</em>.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A3">10.1.6.2 Adding Bonds to a Part of a Molecule</a></h4>
+<p>The inhibitor XK263 is currently without bonds. To add bonds, carry out
+the following steps:</p>
+<p></p>
+<ul><li>Open the selection browser and select the residue with the type <em>XK2</em>
+(it is at the end of the list).</li><li>Switch to the <em>Tools</em> tab in the molecule editor and press the 
+<em>bond-length table</em> button in the <em>Mode</em> section. Then, press the <em>add</em>
+button in the <em>Action</em> section.</li>
+</ul><p></p>
+<p>Adding bonds in the <em>bond length table</em> mode will create new bonds 
+in the selected part
+of the molecule by comparing the distances between the atoms with a
+table of average bond lengths. The result should now look like
+<a class="link" href="#A4">Figure 58</a>.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=molEditingTutorial1.png.html><img width=562 src="molEditingTutorial1.png" /></a><br />
+<div class="caption">
+<b>Figure 58:</b>
+Adding bonds to the ligand</div>
+
+
+</div><p></p>
+<p></p>
+<h4><a name="A5">10.1.6.3 Splitting the Molecule</a></h4>
+<p>We now want to split the molecule into inhibitor and protein. </p>
+<p></p>
+<ul><li>If it is not currently selected, reselect the <em>XK2</em> residue
+ in the selection browser.</li><li>Press the <em>Split</em> button on the <em>Tools</em> tab of
+ the molecule editor.</li>
+</ul><p></p>
+<p>You will notice that the atoms of the inhibitor are no longer
+displayed by the <em>MoleculeView</em> and that a new object, <em>1HVRm2.pdb</em>, has appeared in the Pool. This object contains
+the previously selected atoms of the ligand.</p>
+<p>
+</p>
+<h4><a name="A6">10.1.6.4 Adding another molecule</a></h4>
+<p>The protein of the 1HVR entry is a protease which uses up one
+water molecule to split a polypeptide.
+We now want to add the water to the active site of the enzyme.</p>
+<p></p>
+<ul><li>Load the file <tt>h2o.pdb</tt> from the directory <tt>data/molecules/pdb</tt>.</li><li>Go to the molecule editor and press the <em>Add</em> button in the <em>Change Topology</em> section.</li><li>In the window that opens, all other molecules in the 
+ Pool will be shown. Select the <em>h2o.pdb</em> molecule and press
+ <em>OK</em>.</li>
+</ul><p></p>
+<p>The atoms of the water molecule have now been copied to the <em>1HVRm.pdb</em> object.</p>
+<p></p>
+<h4><a name="A7">10.1.6.5 Moving Parts of the Molecule</a></h4>
+<p>To concentrate our view on the region of interest we will reduce the
+molecular view to amino acids <em>A25</em> and <em>B25</em> between which
+the water molecule should be placed.</p>
+<p></p>
+<ul><li>Type <tt>r/name=?25 OR r/type=H2O</tt> into the selection browser
+ and press the <em>Add</em> button.</li><li>Now move your mouse on the <em>MV</em> heading, press the right
+ mouse button, and activate the <em>Replace</em> option.</li>
+</ul><p></p>
+<p>With only the residues A25 and B25 and the water molecule displayed,
+all that is left to do is to drag the water molecule to its correct
+location.</p>
+<p></p>
+<ul><li>Select the water molecule in the selection browser (the residue
+ at the end of the list).</li><li>Switch to the <em>Transform</em> tab of the molecule editor.</li><li>Show the position of the transform dragger by pressing the
+ <img src="draggerButton.png" /> button in the <em>Position</em>
+ section of the <em>Transform</em> tab.</li><li>Left-click on the dragger and hold the mouse button down. You
+ can now translate the dragger in different planes depending on the
+ side you clicked on. Move the water molecule between the two amino
+ acids as shown in <a class="link" href="#A8">Figure 59</a>.</li><li>To reorient the water molecule, click on the green knobs of
+ the dragger. They allow the dragger to rotate in different planes.</li>
+</ul><p></p>
+<p>Repeat the steps described above until you are satisfied with the
+result.</p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=molEditingTutorial2.png.html><img width=562 src="molEditingTutorial2.png" /></a><br />
+<div class="caption">
+<b>Figure 59:</b>
+Moving
+ the water molecule to the desired
+ location</div>
+
+ 
+</div><p></p>
+<p>To apply the changes that you made to the edited molecule, you must press
+the <em>Apply</em> button or end the editing by using the <em>OK</em>
+button.</p>
+<p>
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

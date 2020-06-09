@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Scale</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Scale" "displays a 2D grid indicating the current scene size" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module displays a 2D coordinate system on top of the rendering area.
+ The coordinates are calculated on a plane perpendicular to the viewing 
+ direction located at the focal distance of the camera. The focal distance 
+ is the point about which rotations are performed.
+ In orthogonal projections the displayed distances are valid for all parts
+ of the picture; in perspective projections only for the mentioned plane.
+ The location and size of the coordinate system can be controlled by 
+ the ports. If fixed size option is unchecked, the module scales things to get "nice" numbers (no fractions).
+ Create an instance with the <em>Create</em> menu. This may be useful, for example, to produce snapshots that
+ contain the scale. For better results, use a 1x1 tiling for the snapshot.
+</p></div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">PosX</span>  
+<div class="portsnapshot"><img src="HxScale_posX.png" /><br /></div>
+<div class="body"><p>The position of the origin (fraction of horizontal size of the viewing area).</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">PosY</span>  
+<div class="portsnapshot"><img src="HxScale_posY.png" /><br /></div>
+<div class="body"><p>The position of the origin (fraction of vertical size of the viewing area).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SizeX</span>  
+<div class="portsnapshot"><img src="HxScale_sizeX.png" /><br /></div>
+<div class="body"><p>Maximum size of the coordinate system (fraction of viewport size).</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SizeY</span>  
+<div class="portsnapshot"><img src="HxScale_sizeY.png" /><br /></div>
+<div class="body"><p>Maximum size of the coordinate system (fraction of viewport size).</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Frame</span>  
+<div class="portsnapshot"><img src="HxScale_frame.png" /><br /></div>
+<div class="body"><p>Select the parts of the frame which should be drawn.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Ticks</span>  
+<div class="portsnapshot"><img src="HxScale_ticks.png" /><br /></div>
+<div class="body"><p>Select whether Ticks, Grid, and/or Text should be drawn.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SubTicks</span>  
+<div class="portsnapshot"><img src="HxScale_subTicks.png" /><br /></div>
+<div class="body"><p>Select whether SubTicks and SubGrid should be drawn.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Unit</span>  
+<div class="portsnapshot"><img src="HxScale_Unit.png" /><br /></div>
+<div class="body"><p>Units label (e.g., meters, mm, etc.) that is displayed at the axes.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Color</span>  
+<div class="portsnapshot"><img src="HxScale_Color.png" /><br /></div>
+<div class="body"><p>Color of the coordinate system.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">LineWidth</span>  
+<div class="portsnapshot"><img src="HxScale_LineWidth.png" /><br /></div>
+<div class="body"><p>Line width of axes and tick marks.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Font</span>  
+<div class="portsnapshot"><img src="HxScale_font.png" /><br /></div>
+<div class="body"><p>Font type, size (in points) and color of displayed text (units and numbers).</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxScale_Options.png" /><br /></div>
+<div class="body"><p>Fixed size : if checked, scale bars screen size is fixed in pixel size. 
+ Otherwise, the module scales things to get "nice" numbers (no fractions), 
+ and scale bars screen size is changing accordingly.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">XFactor</span>  
+<div class="portsnapshot"><img src="HxScale_xFactor.png" /><br /></div>
+<div class="body"><p>Multiplicative factor of horizontal displayed text value. Default value is 1.
+This is used to add a virtual scale, /eg convert pixel size to model size.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">YFactor</span>  
+<div class="portsnapshot"><img src="HxScale_yFactor.png" /><br /></div>
+<div class="body"><p>Multiplicative factor of vertical displayed text value. Default value is 1.
+This is used to add a virtual scale, /eg convert pixel size to model size.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+
+
+<div class="hxcommand">
+  <span class="headline">setTextFormat &lt;format&gt;</span>  
+
+<div class="body"><p>Sets the format used for the dispaled text in printf syntax.
+ For example, the default format is <tt>%.4g</tt>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTextFormat</span>  
+
+<div class="body"><p>Returns the printf format used for the displayed text.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

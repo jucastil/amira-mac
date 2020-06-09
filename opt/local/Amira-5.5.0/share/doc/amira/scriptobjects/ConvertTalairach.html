@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> ConvertTalairach</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Neuro Option</li></ul></div>
+<! HxIndex: "amiraNeuro" "Module" "ConvertTalairach" "Transform brain image data into Talairach coordinates" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ In brain research it is often desired to describe the locations of brain
+structures independent from individual differences in the size and overall shape of the brain.
+In the Talairach coordinate system the anterior commissure and posterior commissure lie on a
+straight line along the y-axis. This coordinate system is completely defined by requiring the
+midsagittal plane to be vertical and the superior part of the brain having positive Z values.
+When specifiying a location in the structure in 3D space, the anterior commissure is used as a
+reference point and origin of the coordinate system. The transformation of brain data into
+Talairach coordinates simplifies registration and spatial warping of image data from the brain.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Connect MRI, PET, CT, SPECT etc. brain image data in a uniform scalar field to this <em>Data</em> input port.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Slice Number</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_sliceNumber.png" /><br /></div>
+<div class="body"><p>Move the slice to different positions in the image data set.</p>
+
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Show</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_showHideSlice.png" /><br /></div>
+<div class="body"><p>Enable/Disable visualization of the slice through the data and the chosen landmarks.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Select</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_selectACPCM_buttons.png" /><br /></div>
+<div class="body"><p>Use these buttons to indicate the anterior commissure (AC), posterior commissure (PC), and a location on the midsagittal plane (MP).</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">AC Location</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_AClocation.png" /><br /></div>
+<div class="body"><p>Coordinates of the anterior commissure.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">PC Location</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_PClocation.png" /><br /></div>
+<div class="body"><p>Coordinates of the posterior commissure.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mid-Plane</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_MPlocation.png" /><br /></div>
+<div class="body"><p>Coordinates of a point on the midsagittal plane.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Transform</span>  
+<div class="portsnapshot"><img src="ConvertTalairach_transform_button.png" /><br /></div>
+<div class="body"><p>Apply the computed transform and resample the data set.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Apply</span>  
+
+<div class="body"><p>Compute the transformation.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> DataPreprocess</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Microscopy Option</li></ul></div>
+<! HxIndex: "resolveRT" "Module" "DataPreprocess" "applies background and flatfield corrections to an image stack" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module can be used to apply both a background and a flatfield correction to a
+raw 3D image stack.</p>
+<p>For the background correction, a single background image must be provided
+at the <i>background</i> port of the module. The background image should be
+a nearly black image recorded with the camera's shutter closed. This image
+is subtracted from all slices of the 3D input data set, thus compensating
+for any dark current of the camera's CCD detector.
+For the flatfield correction, a single flatfield image must be provided
+at the <i>flatfield</i> port of the module. The flatfield image should be
+an unfocused almost white image taken from a drop of homogeneously
+fluorescing dye. The intensities of the 3D input image are then scaled
+according to the normalized intensities of the flatfield images. The input
+image gets brighter at pixels where the flatfield is dark and vice versa.
+In this way non-uniform sensitivity of the camera's CCD detector is
+compensated for. If both a flatfield and a background image are present, the
+background is subtracted from the flatfield too.
+Press the <em>Apply</em> button to start the computation and produce a 
+corrected output data set.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The raw 3D image stack to be corrected. Any regular scalar field with
+uniform coordinates is supported.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Background</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional 2D background image with the same number of voxels in the x and y
+directions as the 3D input image. If an input is present at this port, a
+background correction is performed (see above).</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Flatfield</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>An optional 2D flatfield image with the same number of voxels in the x and y
+directions as the input image. If an input is present at this port, a
+flatfield correction is performed (see above).</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Background</span>  
+<div class="portsnapshot"><img src="HxDataPreprocess_backgroundInfo.png" /><br /></div>
+<div class="body"><p>Displays the mean value and the standard deviation of the background image,
+if such an image is present. Only the first slice is considered.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Flatfield</span>  
+<div class="portsnapshot"><img src="HxDataPreprocess_flatFieldInfo.png" /><br /></div>
+<div class="body"><p>Displays the mean value and the standard deviation of the flatfield image,
+if such an image is present. Only the first slice is considered.</p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

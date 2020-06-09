@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> LineSet Editor</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "LineSet Editor" "select, create, modify, and delete polylines" !>
+<p>&nbsp;<br />
+<img src="HxLinesetEditor_icon.png" />
+</p><div class="hxdescription">
+<h3>Description</h3>
+<p> This component allows you to edit
+<a class="link" href="HxLineSet.html#A1">linesets</a>. 
+It operates by directly interacting with the 3D geometry in the viewer window,
+cf. <a class="link" href="../usersguide/viewer.html#A1">Section 3.1.8</a>. 
+
+In order for this to work, the viewer must be
+switched to interaction mode, e.g., by pressing <tt>ESC</tt> as described
+in its documentation. Points and lines can be selected by clicking on them in
+the viewer. Selected points or lines will be highlighted in red.
+Multiple actions can be performed by pressing one of the buttons in the
+<em>Action</em> port. They are described below.</p>
+
+<p>The <em>Selected</em> port tells you how many points and lines are
+selected at the moment.</p>
+<p>In the <em>Display</em> port you may choose how the lineset is
+displayed. By clicking on the toggles, optionally <em>all points</em>,
+<em>endpoints</em>, and/or <em>lines</em> will be displayed in the viewer. Only
+displayed geometry is selectable. The default is <em>endpoints</em> and <em>lines</em>.</p>
+<p>The <em>Select</em> port provides the following selection modes:</p>
+
+<ul><li><b>All.</b> All lines will be selected.</li><li><b>By Length.</b> An additional dialog pops up
+where you can enter the minimal and maximal numbers of points in lines that
+are to be selected. Pressing the <em>OK</em> button actually selects the
+requested lines.</li><li><b>Clear.</b> The current selection will be cleared.</li><li><b>By Line Index.</b> Brings up a dialog
+that lets you enter a line index. Pressing the <em>OK</em> button selects
+this line.</li>
+</ul>
+<p>The <em>Action</em> port provides the following actions: </p>
+
+<ul><li><b>Connect.</b> This button allows two lines to be connected. In 
+order to do this, exactly two points must be selected, otherwise this button will not be active.</li><li><b>Delete.</b> Selected points and lines will be deleted from the lineset.</li><li><b>Stretch.</b> All selected lines will be smoothed.</li><li><b>Split.</b> All lines will be split at selected points.</li><li><b>Draw.</b> To draw lines.</li><li><b>Values.</b> To set values at selected points.</li>
+</ul>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

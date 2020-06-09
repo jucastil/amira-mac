@@ -1,0 +1,91 @@
+dataClass -name "SurfacePathSet" \
+    -class "HxSurfacePathSet" \
+    -category "Data" \
+    -dso "libhxsurfacepath.so"
+
+amiramesh -ContentType "SurfacePath" \
+    -load "HxSurfacePathSet::read" \
+    -package "hxsurfacepath"
+
+if { ![__isProduct "Amira"] } {
+module -name "SurfacePathView" \
+    -primary "HxSurfacePathSet" \
+    -class "HxDisplaySurfacePathSet" \
+    -category "Main SurfacePath" \
+    -dso "libhxsurfacepath.so"
+} else {
+module -name "SurfacePathView" \
+    -primary "HxSurfacePathSet" \
+    -class "HxDisplaySurfacePathSet" \
+    -category "Main Display" \
+    -dso "libhxsurfacepath.so"
+}
+
+if { ![__isProduct "Amira"] } {
+    module -name "SurfacePathSet" \
+        -primary "HxSurface" \
+        -proc {         set pathset [ create HxSurfacePathSet ]
+            $pathset surface connect $PRIMARY
+            $pathset fire; 
+            $pathset surface setTightness 1;}\
+        -category "SurfacePath" \
+        -dso "libhxsurfacepath.so"
+
+    module -name "SurfaceIntersector" \
+        -primary "HxSurface" \
+        -class "HxSurfaceIntersector" \
+        -category "SurfacePath" \
+        -package "hxsurfacepath"
+} else {
+    module -name "SurfaceIntersector" \
+        -primary "HxSurface" \
+        -class "HxSurfaceIntersector" \
+        -category "Compute" \
+        -package "hxsurfacepath"
+}
+
+namespace eval hxsurfacepath {
+    set connectorAlgorithms [list]
+    set connectorClasses [list]
+    set connectorLibs [list]
+
+    proc declareConnectorClass {algorithm className library} {
+        lappend hxsurfacepath::connectorAlgorithms $algorithm 
+        lappend hxsurfacepath::connectorClasses $className 
+        lappend hxsurfacepath::connectorLibs $library
+    }
+}
+
+hxsurfacepath::declareConnectorClass Dijkstra DijkstraConnector hxsurfacepath
+
+# --------------------------------------------------------------
+#   Plug-in mechanism for path triangulator plug-in registration
+# --------------------------------------------------------------
+namespace eval hxsurfacepath {
+    set pluginPathTriangulatorName [list]
+    set pluginParams               [list]
+    set pluginClasses              [list]
+    set pluginLibs                 [list]
+
+    proc declarePathTriangulatorClass { pathTriangulator params className library } {
+        lappend hxsurfacepath::pluginPathTriangulatorName $pathTriangulator
+        lappend hxsurfacepath::pluginParams               $params
+        lappend hxsurfacepath::pluginClasses              $className
+        lappend hxsurfacepath::pluginLibs                 $library
+    }
+}
+
+# --------------------------------------------------------------
+#   Plug-in mechanism for getPaths functions registration
+# --------------------------------------------------------------
+namespace eval hxsurfacepath {
+    set getPathsFunctions [list]
+    set getPathsLibs      [list]
+
+    proc declareGetPathsFunctions { functionName library } {
+        lappend hxsurfacepath::getPathsFunctions $functionName
+        lappend hxsurfacepath::getPathsLibs      $library
+    }
+}
+
+hxsurfacepath::declareGetPathsFunctions HxSurfacePathSet_getPaths hxsurfacepath

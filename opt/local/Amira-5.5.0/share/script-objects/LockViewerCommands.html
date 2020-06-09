@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML>
+<html>
+<head>
+  <title>Script Object: LockViewerCommands</title>
+</head>
+
+<BODY LANG="EN" BGCOLOR="#ccd8e9" TEXT="#000000">
+
+<A NAME="A897"><H2>Script Object: LockViewerCommands</H2></A>
+<! HxIndex: Module "LockViewerCommands" "disable selected viewer window TCL commands" !>
+
+<H3><FONT COLOR="#800080">Description:</FONT></H3>
+<BLOCKQUOTE>
+
+The <em>LockViewerCommands</em> module allows you to disable selected
+TCL commands that manipulate the 3D viewer window (e.g. commands found
+in saved networks or demo scripts). Select <em>Create /
+Animation/Demos / ViewerCommandsLock</em> from the menu to add a
+<em>LockViewerCommands</em> module to the object pool.
+
+<p>
+
+When creating a <em>LockViewerCommands</em> module, all viewer
+commands that are selected in the <a href=#A900><em>Lock</em></a> port
+are immediately disabled. When destroying the
+<em>LockViewerCommands</em> module all viewer commands are
+automatically re-enabled. One cannot use multiple
+<em>LockViewerCommands</em> modules at one time.
+
+<p>
+
+The <em>LockViewerCommands</em> module is resistant to the <em>Edit /
+Remove All</em> command, so it will not be automatically deleted when
+a new network is loaded.
+
+<P>
+<H3><FONT COLOR="#800080">Ports:</FONT></H3>
+<BLOCKQUOTE>
+
+<A NAME="A900"></A><B>Lock</B>
+<BR>
+<IMG SRC="img/LockViewerCommands_lock.png"><BR>
+
+This port allows to select the individual viewer commands to be
+disabled. If an option is checked, the corresponding command is
+disabled.<p>
+
+<em>bg:</em> disable all "viewer ... setBackground..." commands<br>
+<em>size:</em> disable "viewer ... setSize" command<br>
+<em>pos:</em> disable "viewer ... setPosition" command<br>
+<em>stereo:</em> disable "viewer ... setStereo" command<br>
+<em>deco:</em> disable "viewer ... decoration" command<br>
+<em>cam:</em> disable all "viewer ... setCamera..." commands<br>
+
+</BLOCKQUOTE>
+
+<P>
+
+<P>
+<hr>
+<a href=../doc/hxscriptobj/HxScriptObject.html>script object documentation</a> for script
+programming.
+
+</BODY>
+</HTML>
+
+

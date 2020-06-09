@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CompMolSurface</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "CompMolSurface" "computes different types of molecular surfaces" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module computes molecular surfaces. Three types of molecular
+surfaces can be generated: the <em>van der Waals (vdW) surface</em>, the
+<em>solvent accessible surface (sas)</em>, and the <em>solvent excluded
+surface (ses)</em>. The <em>vdW</em> surface encloses all van der Waals spheres of
+the molecule's atoms. The <em>sas</em> encloses all van der Waals spheres
+extended by some probe radius. Finally, the <em>ses</em> encloses the subspace
+which is not accessible to a probe sphere in the presence of the
+molecule represented by its van der Waals spheres.</p>
+<p>The implemented algorithm allows the computation of the full molecular
+surface as well as of partial surfaces. If the partial surface option
+is selected, the surface will only be computed for all highlighted
+atoms (see, e.g., the description of the
+<a class="link" href="../hxmolecule/QxMolSelectionBrowser.html#A1">Molecule Selection Browser</a>). This
+module will register itself at the Selection Browser, which allows you
+to restrict the computation of the molecular surface to a subset of
+its atoms. For example, if the molecule consists of several chains,
+you can compute the molecular surface of a single chain by deselecting
+the other chains.</p>
+<p>Apart from the option to compute either the full or a partial surface,
+you can also choose between two algorithms that differ in the <em>quality</em> of the surface generated, and also in speed. If time does not
+matter, you should always use the default option, <em>correct</em>. However, if you are interested in the dynamic behavior of
+the molecular surface, time does matter and you might want to use the
+second algorithm. This algorithm works as follows. We start with an
+arbitrary atom contributing to the surface. For this we compute the
+atom's surface contribution. All atoms adjacent to this atom's surface
+are stored in a list. Next, we take the first atom from the list and
+deal with it in the same fashion as for the very first atom. Thus, in
+the case of a <em>vdW</em> surface or an <em>sas</em> we end up with the same
+surface as with the <em>correct</em> algorithm if the surface consists of
+one component. In case of the <em>ses</em> we run into problems if two
+components are further away from each other than the probe's
+diameter. Furthermore, the <em>faster</em> algorithm might not compute all
+cavities, whereas the <em>correct</em> algorithm will.</p>
+<p>A maximum of two molecules may be connected to the module, thus
+enabling the surface computation of a complex consisting of two
+molecules. This can be interesting, for example, if you want to
+compute the surface before and after a docking.</p>
+<p>As a result of the computation a new object, i.e., the molecular
+surface, will appear in the Pool. To visualize the surface,
+attach the <a class="link" href="HxMolSurfaceView.html#A1">MolSurfaceView</a> module to it.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Molecule</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The molecule for which the molecular surface should be computed.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Molecule2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If you want to compute the surface of a complex of two molecules, you
+must connect this port to a second molecule.</p>
+<p>Either of those two ports needs to be connected to some molecule in
+order to compute a molecular surface.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Surface Type</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_surfaceType.png" /><br /></div>
+<div class="body"><p>Choose between <em>van der Waals</em>, <em>solvent accessible</em>,
+and <em>solvent excluded</em> surface.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Quality</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_quality.png" /><br /></div>
+<div class="body"><p>The default option computes the molecular surface correctly, i.e., with
+all, possibly disconnected, components and all enclosed cavities. The
+second algorithm is faster because it does not compute the molecular
+surface contribution for each atom, but only for surface atoms. If the
+surface is not connected, it might miss parts of the surface.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_radius.png" /><br /></div>
+<div class="body"><p>The radius option determines the basic radius of the van-der-Waals 
+spheres for which the surface is computed. When 'const' is selected, 
+a value of 1 will be used. For 'attribute' the radius is determined by 
+the attribute given in 'radius attribute'. Then, for different force 
+fields there exist different radii. 'standard vdW' refers to the 
+original <font face="helvetica">Amira</font> standard vdW radii. 'mmff vdW'
+are the van der Waals radii according to the Merck Molecule Force Field (mmff).</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Radius Attribute</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_radiusAttribute.png" /><br /></div>
+<div class="body"><p>Radius value needs to be specified when attribute option is selected
+with radius port. This option is only available when 'attribute' option is 
+selected with the raduius port.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Atom Radius Scale and Offset</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_atomRadiusScale.png" /><br /><img src="HxCompMolSurface_atomRadiusOffset.png" /><br /></div>
+<div class="body"><p>The radius of each atom as it is used in the molecular surface computation is 
+the default atom radius as determined by the 'radius' port, scaled by 
+the 'atom radius scale' with an 'additional atom radius' offset that is added at the end.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Probe Radius</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_probeRadius.png" /><br /></div>
+<div class="body"><p>The radius of the solvent probe sphere. This port is only visible for
+the surface types <em>sas</em> and <em>ses</em>.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Edge length</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_edgeLength.png" /><br /></div>
+<div class="body"><p>Choose the approximate edge length of the surface's triangles. This
+port corresponds to the number of points per $$\mathrm{\mathrm{\text{&#197;}}{}}^2$$, and vice
+versa. Thus, if you modify the value of this port, the value of the 
+other port will be changed too.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of points</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_nopPerA2.png" /><br /></div>
+<div class="body"><p>With this port you define the approximate number of points per $$\mathrm{\mathrm{\text{&#197;}}{}}^2$$ and
+thereby the granularity of the surface.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_options.png" /><br /></div>
+<div class="body"><p>If the option <em>partial surface</em> is selected, only the surface of
+the currently highlighted atoms will be computed. The second option,
+which is only active if the first option is checked and the surface
+type <em>ses</em> is selected, initiates the computation of the
+highlighted atom's adjacent patches, i.e., toroidal and spherical
+concave patches.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Surface area</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_surfaceArea.png" /><br /></div>
+<div class="body"><p>If either the first or the second option is selected, the exact size
+of the current molecular surface will be computed and the size per
+atom or per residue, respectively, will be written to the molecules
+topology. For the respective level, i.e. <i>atoms</i> or <i>residues</i>, you will find a new attribute <i>area</i>, which contains
+the contribution of each item to the overall surface area. This allows
+you to color the molecule according to the surface contribution. It
+further enables you to select all surface atoms or residues (see
+<a class="link" href="../hxmolecule/molatomexpressions.html#A1">atom expressions</a> for details). If the last
+option is selected, a text field will appear allowing you to specify
+an arbitrary name for the attribute into which the surface areas will
+be written.</p>
+<p><a name="A14"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Attribute name</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_attributeName.png" /><br /></div>
+<div class="body"><p>Specify an attribute name here, if you do not want to save the surface
+area in the attribute <i>area</i>. In order to do so, the third option
+of the <i>Surface area</i> port must be selected.</p>
+<p><a name="A15"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter Options</span>  
+<div class="portsnapshot"><img src="HxCompMolSurface_filterOptions.png" /><br /></div>
+<div class="body"><p>Allows common filters to be applied in addition to the filtering in
+the MolSelectionBrowser. The option <i>ignore waters</i> will remove
+all oxygens and hydrogens which are not bonded to another heavy atoms
+from the computation. The option <i>ignore het</i> ignores all
+HET groups (as defined in a pdb file). </p>
+
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

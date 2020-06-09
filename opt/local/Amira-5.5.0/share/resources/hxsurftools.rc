@@ -1,0 +1,204 @@
+# ----------------------------------------------------------------------
+# hxsurftools package
+# ----------------------------------------------------------------------
+
+module -name "LegoSurfaceGen" \
+    -primary "HxUniformLabelField3" \
+    -category "Compute" \
+    -class "HxLegoSurface" \
+    -dso "libhxsurftools.so"
+
+dataClass -name "VoxelSurface" \
+    -class "HxVoxelSurface" \
+    -dso "libhxsurftools.so"
+
+module -name "SurfaceView" -priority 10 \
+    -primary "HxSurface HxSurfaceScalarField" \
+    -class "HxDisplaySurface" \
+    -category "Main Display" \
+    -dso "libhxsurftools.so"
+
+module -name "ContourView" \
+    -primary "HxSurface" \
+    -category "Display" \
+    -class "HxDisplayContours" \
+    -dso "libhxsurftools.so"
+
+#module -name "BoundaryIds" \
+#    -primary "HxSurface" \
+#    -category "Display" \
+#    -class "HxDisplayBoundaryId" \
+#    -dso "libhxsurftools.so"
+
+#module -name "CuttingPlane" \
+#    -class "HxGeometryCutter" \
+#    -dso "libhxsurftools.so"
+
+module -name "CuttingPlane" \
+    -primary "HxViewBase" \
+    -category "Main" -color "indianred" \
+    -class "HxGeometryCutter" \
+    -dso "libhxsurftools.so"
+
+module -name "IvToSurface" \
+    -class "HxGeometryToSurface" \
+    -dso "libhxsurftools.so"
+
+module -name "IvToSurface" \
+    -primary "HxIvData" \
+    -category "Compute" \
+    -class "HxGeometryToSurface" \
+    -dso "libhxsurftools.so"
+
+module -name "SurfaceGen" \
+    -primary "HxUniformLabelField3 HxStackedLabelField3" \
+    -category "Main" \
+    -class "HxGMC" \
+    -dso "libhxsurftools.so"
+
+# For AmiraImage we needed 16-bit labels. Since these are not directly
+# supported we changed SurfaceGen so that it also works for standard
+# images. For those fields the module is put under "Compute" not "Main".
+module -name "SurfaceGen " \
+     -primary "HxUniformScalarField3 HxStackedScalarField3" \
+     -category "Compute" \
+     -class "HxGMC" \
+     -dso "libhxsurftools.so"
+
+module -name "GetCurvature" \
+    -primary "HxSurface" \
+    -class "HxGetCurvature" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "TriangleQuality" \
+    -primary "HxSurface" \
+    -category "Compute" \
+    -class "HxTriangleQuality" \
+    -dso "libhxsurftools.so"
+
+module -name "Normals" \
+    -primary "HxDisplaySurface" \
+    -category "Main" \
+    -class "HxDisplaySurfaceVectors" \
+    -dso "libhxsurftools.so"
+
+module -name "Vectors" \
+    -primary "HxSurfaceVectorField HxSurfaceComplexVectorField" \
+    -category "Main Display" \
+    -class "HxDisplaySurfaceVectors" \
+    -dso "libhxsurftools.so"
+
+module -name "Isolines" \
+    -primary "HxSurfaceScalarField" \
+    -category "Display" \
+    -class "HxSurfaceIsolines" \
+    -dso "libhxsurftools.so"
+
+module -name "SmoothSurface" \
+    -primary "HxSurface" \
+    -category "Compute" \
+    -class "HxSurfaceSmooth" \
+    -dso "libhxsurftools.so"
+
+editor -name "Simplifier" \
+    -data "HxSurface" \
+    -class "HxSimplifier" \
+    -icon "HxSimplifyEditor.png" \
+    -dso "libhxsurftools.so"
+
+module -name "SurfaceDistance" \
+    -primary "HxSurface" \
+    -secondary "HxSurface" \
+    -category "Compute" \
+    -class "HxSurfaceDistance" \
+    -dso "libhxsurftools.so"
+
+module -name "ShortestEdgeDistance" \
+    -primary "HxSurface" \
+    -secondary "HxVertexSet" \
+    -category "Compute" \
+    -class "HxEdgeDistance" \
+    -dso "libhxsurftools.so"
+
+module -name "AlignSurfaces" \
+    -primary "HxSurface" \
+    -secondary "HxSurface" \
+    -category "Compute" \
+    -class "HxAlignSurfaces" \
+    -dso "libhxsurftools.so"
+
+module -name "VertexDiff" \
+    -primary "HxSurface" \
+    -secondary "HxSurface" \
+    -class "HxSurfDiff" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "VertexShift" \
+    -primary "HxSurface" \
+    -secondary "HxSurfaceVectorField" \
+    -class "HxSurfaceDeform" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "SurfaceNormals" \
+    -primary "HxSurface" \
+    -class "HxSurfaceNormals" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "AlignPrincipalAxes" \
+    -primary "HxVertexSet" \
+    -secondary "HxVertexSet" \
+    -class "HxAlignPrincipalAxes" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "SurfaceField" \
+    -primary "HxSurface" \
+    -secondary "HxUniformScalarField3" \
+    -class "HxComputeSurfaceField" \
+    -category "Compute" \
+    -dso "libhxsurftools.so" 
+
+module -name "ScanConvertSurface" \
+    -primary "HxSurface" \
+    -class "HxScanConvertSurface" \
+    -category "Compute" \
+    -dso "libhxsurftools.so"
+
+module -name "ParametricSurface" \
+       -class "HxParametricSurface" \
+       -category "Others" \
+       -package "hxsurftools"
+
+module -name "TriangleDistortion" \
+       -primary "HxSurface" \
+       -secondary "HxSurface" \
+       -class "HxTriangleDistortion" \
+       -category "Compute" \
+       -package "hxsurftools"
+
+module -name "ExtractSurface" \
+    -color "indianred" \
+    -primary "HxViewBase" \
+    -class "HxViewBaseExtract" \
+    -category "Main" \
+    -package "hxsurftools"
+    
+module -name "ExtractIsolines" \
+    -primary "HxSurfaceIsolines" \
+    -class "HxSurfaceIsolinesExtract" \
+    -category "Main" \
+    -package "hxsurftools"
+
+module -name     "SurfaceThickness" \
+       -primary  "HxSurface" \
+       -class    "HxSurfaceThickness" \
+       -category "Measure" \
+       -package  "hxsurftools"
+
+module -name "CreateSphere"        \
+    -class   "HxCreateSphere"      \
+    -package "hxsurftools"

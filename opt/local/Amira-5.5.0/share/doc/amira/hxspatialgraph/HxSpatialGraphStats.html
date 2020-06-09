@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SpatialGraphStatistics</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "SpatialGraphStatistics" "show quantitative information about egments in a Spatial Graph object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module calculates a tabbed <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">spreadsheet</a> providing some basic statistic information on the <a class="link" href="HxSpatialGraph.html#A1">SpatialGraph</a> data object it is attached to. The content of the spreadsheet can be viewed by pressing the <em>Show</em> button in the Properties Area of the <a class="link" href="../hxstatistics/HxSpreadSheet.html#A1">SpreadSheet</a> object.</p>
+<p>If the spreadsheet is connected to a <a class="link" href="HxSpatialGraphView.html#A1">SpatialGrapView</a> module, selecting rows of the spreadsheet will highlight the corresponding segments in the viewer. Within the <a class="link" href="../hxneuroneditor/HxNeuronEditor.html#A1">Filament Editor</a>, the <em>Graph Info</em> spreadsheet also supports the opposite direction: Selecting segments in one of the viewers highlights the corresponding rows in the spreadsheet.</p>
+<p>The meaning of the columns in the <em>Segment Statistics</em> tab are:
+</p>
+<ul><li><b>Segment ID:</b> Unique ID of the segment in the <em>SpatialGraph</em> data structure.</li><li><b>Length:</b> Length of the segment in units of the bounding box.</li><li><b>Mean Radius:</b> Amira's skeletonization tools (<a class="link" href="HxAutoSkeleton.html">AutoSkeleton</a>, <a class="link" href="../hxskeleton/HxTEASAR.html#A1">CenterlineTree</a>) store at each point an estimate of the local thickness of the filamentous object as point attribute <em>thickness</em>. Thereby, it is assumed that the filament has a circular cross-section with a certain <em>radius</em>. This column presents the mean radius of all points of the segment in units of the bounding box.</li><li><b>Volume:</b> The sum of the partial volumes for all points of a segment assuming truncated cones between paired points.</li><li><b>Label Groups...:</b> One column for each label group of the <em>SpatialGraph</em>. Shows the corresponding label name or <em>&lt;unlabeled&gt;</em> if no label has been defined for a segment.</li>
+</ul>
+<p>For each label group of the <em>SpatialGraph</em> object a table is generated providing segment statistics for every label. The tables are inserted as separate tabs in the spreadsheet where each tab has the name of the label group.</p>
+
+<ul><li><b>Label Name:</b> Name of the label or <em>&lt;unlabeled&gt;</em>.</li><li><b>Mean Length:</b> Mean length of all segments with <em>Label Name</em>.</li><li><b>Mean Radius:</b> Mean radius of all segments with <em>Label Name</em>.</li><li><b>Total Length:</b> Sum of the lengths of all segments with <em>Label Name</em>.</li><li><em>Total Volume:</em> Sum of the volume of all segments with <em>Label Name</em>.</li><li>Number of Segemnts. Total number of segments with <em>Label Name</em>.</li>
+</ul>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <em>SpatialGraph</em> input data object. 
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

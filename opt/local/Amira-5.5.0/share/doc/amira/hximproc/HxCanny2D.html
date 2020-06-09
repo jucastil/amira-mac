@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CannyEdgeDetector</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CannyEdgeDetector" "returns the edges of an image as label field" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Classic edge detector. The algorithm consists of 4 steps:
+ </p>
+<ol><li>Application of Gauss filter.</li><li>Application of Sobel filter (gradient filter).</li><li>Along the gradient direction (normal to edges), a non-maximal suppression 
+ (thinning) is performed.</li><li>A so-called "hysteresis thresholding": edges are connected with 
+ respect to lower and upper bounds provided by the user.</li>
+</ol><p>
+ The result of the computation is a label field where all edge voxels are
+ set to 1 and all others to 0. Press the <em>Apply</em> button to start the 
+ computation.
+ </p></div>
+<p></p>
+<p> </p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>A <a class="link" href="../hxfield/HxUniformScalarField3.html#A1">uniform scalar field</a> has to be connected.</p>
+</div></div>
+</div>
+<p></p>
+<p> </p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Gauss sigma</span>  
+<div class="portsnapshot"><img src="HxCanny2D_sigma.png" /><br /></div>
+<div class="body"><p>Sigma of the 2D Gaussian filter in units of the bounding box.</p>
+<p> <a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Gauss Kernel Size</span>  
+<div class="portsnapshot"><img src="HxCanny2D_kernelSize.png" /><br /></div>
+<div class="body"><p>Size of the 2D Gaussian filter kernel in voxels.</p>
+<p> <a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Suppression range</span>  
+<div class="portsnapshot"><img src="HxCanny2D_suppressionRange.png" /><br /></div>
+<div class="body"><p>Number of neighboring voxels in both gradient directions which shall be 
+ compared to each voxel.</p>
+<p> <a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Connect Edges Mask Size</span>  
+<div class="portsnapshot"><img src="HxCanny2D_connectEdgesMask.png" /><br /></div>
+<div class="body"><p>Parameter for the hysteresis step. A value of 3 means that edges that are 
+ separated by one voxel are considered connected.</p>
+<p> <a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Connect Edges Threshold</span>  
+<div class="portsnapshot"><img src="HxCanny2D_connectEdgesThresh.png" /><br /></div>
+<div class="body"><p>All sobel edge values greater than <em>Upper</em> are regarded as true edges. 
+ If within their neighborhood as defined by
+ <a class="link" href="#A6">connectEdgesMask</a> there is a value greater
+ than <em>Lower</em>, the voxel will be included in the true edges set. 
+
+
+
+
+</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

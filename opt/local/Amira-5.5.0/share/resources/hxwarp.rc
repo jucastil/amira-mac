@@ -1,0 +1,37 @@
+# ----------------------------------------------------------------------
+#   Warping package
+# ----------------------------------------------------------------------
+
+module -name "LandmarkWarp" \
+    -primary "HxLandmarkSet" \
+    -category "Compute" \
+    -class "HxLandmarkWarp" \
+    -dso "libhxwarp.so"
+
+module -name "LandmarkSurfaceWarp" \
+    -primary "HxLandmarkSet" \
+    -category "Compute" \
+    -class "HxLandmarkSurfaceWarp" \
+    -dso "libhxwarp.so"
+
+module -name "VertexMorph" \
+    -primary "HxVertexSet" \
+    -category "Compute" \
+    -class "HxSimpleInterpolVertexSets" \
+    -dso "libhxwarp.so"
+
+#module -name "WarpSkin" \
+#    -primary "HxSurface" \
+#    -class "HxWarpSkin" \
+#    -dso "libhxwarp.so"
+
+#module -name "Compute Landmarks" \
+#    -primary "HxSurface" \
+#    -class "MyRefPointComp" \
+#    -dso "libhxwarp.so"
+
+#module -name "Similarity" \
+#    -primary "HxUniformScalarField3" \
+#    -class "HxSimilarity" \
+#    -dso "libhxwarp.so"
+

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">4.3 Environment Variables</a></h2>
+<p>In order to execute <font face="helvetica">Amira</font> no special environment settings are required. On
+Unix systems some environment variables like the shared library path or the
+<tt>AMIRA_ROOT</tt> &nbsp;directory are set automatically by the <font face="helvetica">Amira</font> start script.
+Other environment variables may be set by the user in order to control
+certain features. These variables are listed below. On Unix systems
+environment variables can be set using the shell commands <tt>setenv</tt> (csh
+or tcsh) or <tt>export</tt> (sh, bash, or ksh). On Windows environment
+variables can be defined in the system properties dialog (Windows 2000/XP/Vista). </p>
+<p></p>
+<ul><li><tt>AMIRA_DATADIR</tt><br />
+
+ A list of data directory names separated by semicolons <tt>[;]</tt> on Windows
+ systems and colons <tt>[:]</tt> on Unix systems. The first directory will
+ be used as the default directory of the file dialog. Other directories
+ are quickly accessible via the file dialog's path list.
+ </li><li><tt>AMIRA_TEXMEM</tt><br />
+
+ Specifies the amount of texture memory in megabytes. If this variable
+ is not set some heuristics are applied to determine the amount of
+ texture memory available on a system. However, these heuristics may not
+ always yield a correct value. In such cases the performance of the <em>Voltex</em> module might be improved using this variable.</li><li><tt>AMIRA_MULTISAMPLE</tt><br />
+
+ On high-end graphics systems, a multi-sample visual
+ is used by default. In this way, efficient scene anti-aliasing is
+ achieved. If you want to disable this feature, set the environment
+ variable <tt>AMIRA_MULTISAMPLE</tt> &nbsp;to 0. Note that on other systems,
+ especially on PCs, anti-aliasing cannot be controlled by the
+ application but has to be activated directly in the graphics driver.</li><li><tt>AMIRA_NO_LICENSE_MESSAGE</tt><br />
+
+ By default, <font face="helvetica">Amira</font> issues warning messages to the console when your <font face="helvetica">Amira</font>
+ license is about to expire. This allows you to take timely
+ action so that your use of <font face="helvetica">Amira</font> is not interrupted unexpectedly
+ when the license expires. To disable these messages, set this 
+ variable to 1.</li><li><tt>AMIRA_NO_OVERLAYS</tt><br />
+
+ If this variable is set, <font face="helvetica">Amira</font> will not use overlay planes in its 3D
+ graphics windows. The same effect can be obtained by means of the <tt>-no_overlays</tt> command line option. Turn off overlays if you experience
+ problems with redirecting <font face="helvetica">Amira</font> on a remote display, or if your X
+ server does not support overlay visuals.</li><li><tt>AMIRA_NO_SPLASH_SCREEN</tt><br />
+
+ If this variable is set, <font face="helvetica">Amira</font> will not display a splash screen while
+ it is initializing.</li><li><tt>AMIRA_LOCAL</tt><br />
+
+ Specifies the location of the local <font face="helvetica">Amira</font> directory containing
+ user-defined modules. IO routines or modules defined in this directory
+ replace the ones defined in the main <font face="helvetica">Amira</font> directory. This environment
+ variable overwrites the local <font face="helvetica">Amira</font> directory set in the development
+ wizard (see <font face="helvetica">Amira</font> programmer's guide for details).
+ </li><li><tt>AMIRA_SMALLFONT</tt><br />
+
+ Unix systems only. If this variable is set a small font will be
+ used in all ports being displayed in the <a class="link" href="mainwin.html#A4">Properties Area</a> 
+ even if the screen resolution is 1280x1024 or bigger. By default,
+ the small font will be used only in case of smaller resolutions.
+ </li><li><tt>AMIRA_XSHM</tt><br />
+
+ Unix systems only. Set this variable to 0 if you want to suppress the
+ use of the X shared memory extension in <font face="helvetica">Amira</font>'s <a class="link" href="../hxsegeditor/GI.html#A1">image
+ segmentation editor</a>.</li><li><tt>AMIRA_SPACEMOUSE</tt><br />
+
+ Spacemouse support is available by default if <font face="helvetica">Amira</font> finds a connected
+ device (see <em>www.spacemouse.com</em>). If the driver is installed a message
+ is printed in the console window. With the spacemouse you can navigate in
+ the 3D viewer window. Two modes are supported, a rotate mode and a fly mode.
+ You can switch between the two modes by pressing the spacemouse buttons 1 or
+ 2. Further configuration options might be available in the <font face="helvetica">Amira</font>.init
+ file.<br />
+
+ <b>Note:</b> Spacemouse support is not available on Mac OS X.
+ </li><li><tt>AMIRA_STEREO_ON_DEFAULT</tt><br />
+
+ If this variable is set the 3D viewer will be opened in OpenGL raw
+ stereo mode by default. In this way some screen flicker can be avoided
+ which otherwise occurs when switching from mono to stereo mode.
+ Currently the variable is supported on Unix systems only.
+ </li><li><tt>TMPDIR</tt><br />
+
+ This variables specifies in which directory temporary data should be
+ stored. If not set, such data will be created under <tt>/tmp</tt>. Among
+ others, this variable is interpreted by <font face="helvetica">Amira</font>'s job queue.</li>
+</ul><p>
+
+</p></body>
+</html>

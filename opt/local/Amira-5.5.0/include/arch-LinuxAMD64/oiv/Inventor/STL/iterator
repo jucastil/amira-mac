@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_ITERATOR
+#define  OIV_STL_ITERATOR
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

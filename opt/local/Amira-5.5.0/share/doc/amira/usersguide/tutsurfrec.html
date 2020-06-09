@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+
+
+
+</p>
+<p></p>
+<h2><a name="A1">2.5 Surface Reconstruction from 3D Images</a></h2>
+<p>By following this step-by-step tutorial, you will learn how to
+generate a triangular surface grid for an object embedded in a voxel
+data set. A surface grid allows for producing a 3D view of the
+object's surface and can be used for numerical simulations.</p>
+<p>The generation process consists of these steps:</p>
+<p></p>
+<ol><li>Extracting surfaces from segmentation results</li><li>Simplifying the surface</li>
+</ol><p> </p>
+<p>As a prerequisite for the following steps, you need a label field,
+which holds the result of a previous image segmentation. You can
+either use the label field which you created in the previous tutorial
+or load the provided <em>lobus.labels</em> data set from the <em>data/tutorials</em> directory.</p>
+<p>
+</p>
+<h3><a name="A2">2.5.1 Extracting Surfaces from Segmentation Results</a></h3>
+<p>Now we let <font face="helvetica">Amira</font> construct a triangular surface of the segmented 
+object. 
+
+
+
+
+
+
+</p>
+<p></p>
+<ul><li>Connect a <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a> module to the <em>lobus.labels</em> data.</li><li>Press the <em>Apply</em> button.</li>
+</ul><p> </p>
+<p>The option <em>add border</em> ensures that the created surface be
+closed. A new data object <em>lobus.labels.surf</em> is generated. Again, it is
+represented by a green icon in the Pool.</p>
+<p></p>
+<h3><a name="A3">2.5.2 Simplifying the Surface</a></h3>
+<p>Usually the number of triangles created by the <em>SurfaceGen</em> module
+is far too large for subsequent operations. Thus, the number of
+triangles must be reduced in a <em>surface simplification</em> step. In
+<font face="helvetica">Amira</font> a <a class="link" href="../hxsurftools/HxSimplifier.html#A1">Surface Simplification Editor</a> is
+provided for this purpose.</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=tutorials_gui11.png.html><img width=450 src="tutorials_gui11.png" /></a><br />
+<div class="caption">
+<b>Figure 21:</b>
+Surface representation of optical lobus as triangular grid</div>
+
+
+</div><p> </p>
+<p></p>
+<ul><li>Select the surface <em>lobus.labels.surf</em>.</li><li>Click on the Simplifier button (triangle mesh icon) in the Properties Area.</li><li>Set the desired number of faces to 3500 in the <em>Simplify</em> port.</li><li>Turn on the <em>fast</em> toggle in the <em>Options</em> port. This
+ option disables some time-consuming intersection tests.</li><li>Push the <em>Simplify now</em> button in the <em>Action</em> port.</li>
+</ul><p> </p>
+<p>The number of triangles is reduced to about 3500 now. The progress bar
+tells you how much of the simplification task has already been done.</p>
+<p>To examine the simplified surface, attach a
+<a class="link" href="../hxsurftools/HxDisplaySurface.html#A1">SurfaceView</a> module to the <em>lobus.labels.surf</em> data object. 
+
+
+
+
+
+
+
+
+</p>
+<p>The <em>SurfaceView</em> module maintains an internal buffer and displays
+all triangles stored in this buffer. By default the buffer shows all
+triangles forming the boundary to the exterior. If you change the
+selection at the <em>Materials</em> port, the newly selected triangles are
+highlighted, i.e., they are displayed using a red wireframe
+representation. The <em>Add</em> and <em>Remove</em> buttons cause the
+highlighted triangles to be added to or removed from the buffer,
+respectively. You may easily visualize a subset of all triangles using
+a 3D selection box or by drawing contours in the 3D viewer. Press the <em>Clear</em>
+button of the <em>Buffer</em> port to see the display shown in Figure <a class="link" href="#A4">21</a>.
+
+</p></body>
+</html>

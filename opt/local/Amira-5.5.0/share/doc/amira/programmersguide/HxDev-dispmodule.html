@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">26.2 A Display Module</a></h2>
+<p>Our next example is a module which displays some geometry in <font face="helvetica">Amira</font>'s
+3D viewer. The module takes a surface model as input and draws
+a little cube at every vertex that belongs to <em>n</em> triangles,
+where <em>n</em> is a user-adjustable parameter.
+From the previous section we already know the basic idea: We derive a new
+class from the base class <tt>HxModule</tt>. Since this time our module does
+not produce a new data set we directly use <tt>HxModule</tt> as base class
+instead of <tt>HxCompModule</tt>. 
+As input the module should accept data of
+class <tt>HxSurface</tt>. We need one additional port allowing the user to
+specify the parameter <em>n</em>. As in the previous section we develop
+different versions of our module, thereby introducing new concepts step by
+step:</p>
+<p></p>
+<ul><li><a class="link" href="HxDev-dispmodule1.html#A1">Version 1</a>:<br />
+
+ creates an Open Inventor scene graph and displays it in the viewer</li><li><a class="link" href="HxDev-dispmodule2.html#A1">Version 2</a>:<br />
+
+ adds a colormap port, provides a parse method for Tcl commands</li><li><a class="link" href="HxDev-dispmodule3.html#A1">Version 3</a>:<br />
+
+ implements a new display mode, dynamically shows or hides a port</li>
+</ul><p></p>
+<p>You can find the source code of all three versions of the module in the
+demo package provided with <font face="helvetica">Developer Option</font>, i.e., under <tt>packages/mypackage</tt> in the local <font face="helvetica">Amira</font> directory. For each version there
+are two files, a header file called <tt>MyDisplayVerticesN.h</tt> and a
+source code file called <tt>MyDisplayVerticesN.cpp</tt> (where <tt>N</tt> is
+either 1, 2, or 3). Since the names are different you can compile and
+execute all three version in parallel.</p>
+<p>In order to create a new local <font face="helvetica">Amira</font> directory, please follow the
+instructions given in <a class="link" href="HxDev-devamiralocal.html#A1">Section 24.2</a>. In order to compile
+the demo package, please refer to <a class="link" href="HxDev-compiling.html#A1">Section 23.5 (Compiling
+and Debugging)</a>. </p>
+<p>
+
+</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

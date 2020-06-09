@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Displace</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Displace" "translates the vertices of a finite-element
+grid or surface" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module takes a displacement vector field defined on a tetrahedral
+or hexahedral grid or on a surface and creates a mesh with translated
+vertices. For example, if a surface vector field is used as input a new
+surface with modified vertex coordinates is computed. The displacement
+vector field must be defined on the vertices of the mesh. Other encodings
+are not supported. The new position of a vertex is computed by adding the
+scaled displacement vector defined at that vertex to the original position.
+The scaling factor can be adjusted globally for all vertices using the
+<em>Scale</em> port.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input vector field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Number of vectors</span>  
+<div class="portsnapshot"><img src="HxDisplace_info.png" /><br /></div>
+<div class="body"><p>Shows the number of displacement vectors of the input field.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxDisplace_scale.png" /><br /></div>
+<div class="body"><p>Scaling factor applied to the displacement vectors ranging from 0 (no
+displacement) to 1 (full displacement).</p>
+
+</div></div>
+</div>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

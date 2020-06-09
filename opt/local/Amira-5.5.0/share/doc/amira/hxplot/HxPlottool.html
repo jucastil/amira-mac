@@ -1,0 +1,454 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Plot Tool</a>
+</h2> <ul class="entry_classification"><li>Editor</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Editor" "Plot Tool" "GUI component for displaying 2D plots" !>
+<p>The <em>Plot Tool</em> is a special-purpose viewer designed to display
+1-dimensional data, e.g., function curves. Instead of being a separate <font face="helvetica">Amira</font>
+module, the <em>Plot Tool</em> is invoked implicitly by certain modules
+such as the <a class="link" href="../hxdataprobe/HxDataProbe.html#A1">data probing modules</a> or the
+<a class="link" href="../hxlattice/HxLabelVoxel.html#A1">LabelVoxel</a> module. Each of these modules generates
+1-dimensional data such as a function plot along a line or a histogram.
+For most of these modules it is possible to display the plot within 
+<font face="helvetica">Amira</font>'s viewer if one connects the <a class="link" href="HxPlot2Viewer.html#A1">ViewerPlot</a>
+module to it.
+While the data-generating modules control the initial settings of the plot
+window, the user can freely adjust these settings afterwards.</p>
+<p></p>
+<h3><a name="A2">Plot Basics</a></h3>
+<p></p><div style="text-align:center"><a name="A3"></a><a href=HxPlottool_plotwin.png.html><img width=457 src="HxPlottool_plotwin.png" /></a><br />
+<div class="caption">
+<b>Figure 1:</b>
+<font face="helvetica">Amira</font>'s plot window.</div>
+
+
+</div><p></p>
+<p>The layout of the plot is determined by objects and groups of objects.
+These entities are processed by a plot engine. In particular, there are
+objects for 
+</p>
+<ul><li>Curves</li><li>Cartesian axes</li><li>Polar axes</li><li>Plot areas</li><li>Legends</li><li>Annotations</li><li>Marker lines</li><li>Lattices</li><li>Colormaps</li>
+</ul><p></p>
+<p>The plot engine processes the objects top to bottom (see Figure
+
+below).
+The sequence of objects
+determines their behavior. Objects of type <em>PlotArea</em> define the area
+within the plot window where objects are placed. This area is given in
+normalized coordinates with the origin at the lower left corner.
+Besides this, a <em>PlotArea</em> object also acts as a grouping object. An axis is
+placed in such an area and establishes, together with the preceding <em>PlotArea</em>,
+a window-viewport (world coordinates to normalized coordinates) transformation.
+Note that the objects must be kept in the following sequence:
+1. <em>PlotArea</em>, 2. <em>Axis</em>, 3. <em>Curves</em> and <em>Marker lines</em>.
+Legends display all succeeding curves in the sequence and can be placed
+wherever needed.
+It is possible to have more than one plot area or axis in a plot setup.</p>
+<p>Every object is identified by a unique name. You will need to know these names
+if you want to change certain object attributes via the command interface
+of the <em>Plot Tool</em>.</p>
+<p></p>
+<h3><a name="A4">Editing Parameters</a></h3>
+<p>In order to change the parameters of a plot object, select the <em>Edit
+Objects...</em> item from the <em>Edit</em> pulldown menu of the <em>Plot Tool</em>.
+A window appears with the list of names of all objects currently in use.
+When you select one of these objects, the parameters of that object are
+displayed and can be changed. The <em>is active</em> toggle near the lower left
+corner of the window can be used to switch the processing of the selected
+object on or off. If the processing of an object which has group functionality 
+(Plot Areas, Plot Groups) is switched off, all objects within that group
+are also not processed.</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=HxPlottool_editaxis.png.html><img width=562 src="HxPlottool_editaxis.png" /></a><br />
+<div class="caption">
+<b>Figure 2:</b>
+Dialog for editing plot objects. On the right hand side the 
+controls for editing axis parameters are shown.</div>
+<a name="A6"></a>
+
+</div><p></p>
+<p>The following sections document all parameters that are not self-explanatory.</p>
+<p></p>
+<h4><a name="A7">Editing axis parameters</a></h4>
+<p>To choose the x- or y-component of an axis, just click on the appropriate
+tab. If you want to change the range, you must switch off the <em>Auto</em> toggle.
+This causes the range fields to become sensitive. The <em>Nice Num</em> toggle sets the
+range to the next "good looking" boundaries. A <em>tick delta</em> can be typed in
+after the <em>number of ticks</em> is set to -1.</p>
+<p>It is possible to zoom interactively into your data using the mouse. To
+do this, drag a rectangle within the plot area by pressing 
+the shift key <em>and</em> the left mouse button while moving the mouse.
+To go back to the automatic
+ranges, click into the plot area with the left mouse button while the Alt key
+is pressed at the same time.</p>
+<p>Every axis object has a hidden grid child object which is not active by
+default. To show the grid, just open the grid child and select it. Then
+set the <em>is active</em> toggle to on.</p>
+<p></p>
+<h4><a name="A8">Editing annotation parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A9"></a><a href=HxPlottool_editannotation.png.html><img width=390 src="HxPlottool_editannotation.png" /></a><br />
+<div class="caption">
+<b>Figure 3:</b>
+Editable annotation parameters.</div>
+
+
+</div><p></p>
+<p>To position an annotation on your plot, you can switch between world coordinates
+or normalized coordinates. Using world coordinates is convenient if you want
+to annotate a certain feature, e.g., an extrema of a curve. In this case you
+must insert the annotation after that curve object.
+You can also position an annotation in the plot window interactively
+by pressing the left mouse button on the annotation, moving the mouse, and
+then releasing it at the new position. 
+<br />
+</p>
+<p></p>
+<h4><a name="A10">Editing legend parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A11"></a><a href=HxPlottool_editlegend.png.html><img width=390 src="HxPlottool_editlegend.png" /></a><br />
+<div class="caption">
+<b>Figure 4:</b>
+Editable legend parameters.</div>
+
+
+</div><p></p>
+<p>There are three types of legends possible: A <em>Legend Block</em> displays
+an entry for each curve together with a short line depicting the appearance
+of the curves. A <em>Name Block</em> is just a list of the curve names. 
+The position and orientation for both types can be manipulated easily
+in the editor window.
+The position denotes the coordinates of the first legend item. Positions of
+legends are always normalized coordinates. The delta
+parameter applies only to the vertical (y) coordinate.
+You can also position a legend in the plot window interactively
+by pressing the left mouse button on one of the names in the legend,
+moving the mouse, and releasing it at the desired position. 
+The third legend type (<em>Name List</em>) displays a list of curve names, too.
+But in contrast to the latter type, you can move every name around separately,
+like you can with annotations (see above). 
+<br />
+</p>
+<p></p>
+<h4><a name="A12">Editing marker line parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A13"></a><a href=HxPlottool_editmline.png.html><img width=390 src="HxPlottool_editmline.png" /></a><br />
+<div class="caption">
+<b>Figure 5:</b>
+Editable marker line parameters.</div>
+
+
+</div><p></p>
+<p>The position of a marker line must be given in world coordinates. Also
+be sure that the marker line is inserted after the appropriate axis.
+You can shift a marker line horizontally or vertically in the plot window
+by pressing the left mouse button on the marker line, moving the mouse, and
+releasing it at the new position. 
+Marker lines can be used to probe those curves which belong to the same 
+group (PlotArea) as the marker line. You can display the value where the
+marker line intersects the selected curve the first time. This intersection
+can also be indicated with a marker symbol.</p>
+<p></p>
+<h4><a name="A14">Editing lattice parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A15"></a><a href=HxPlottool_editlattice.png.html><img width=390 src="HxPlottool_editlattice.png" /></a><br />
+<div class="caption">
+<b>Figure 6:</b>
+Editable lattice parameters.</div>
+
+
+</div><p></p>
+<p>A lattice is a two-dimensional field which is rendered as an image by default.
+If both dimensions are less than or equal to 32, a lattice can also be rendered
+as colored dots in a grid (<em>Gridded</em>) or as dots of different sizes
+(<em>Spot</em>) to represent the values.
+For lattices rendered as images, a gamma value can be set to enhance the image.
+Lattices have a colormap (Default: black to white) which can be set through
+the appropriate <font face="helvetica">Amira</font> modules.
+Global colormaps are not supported within <font face="helvetica">Amira</font>.
+<br />
+</p>
+<p></p>
+<h4><a name="A16">Editing colormap parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A17"></a><a href=HxPlottool_editcolormap.png.html><img width=390 src="HxPlottool_editcolormap.png" /></a><br />
+<div class="caption">
+<b>Figure 7:</b>
+Editable colormap parameters.</div>
+
+
+</div><p></p>
+<p><br />
+
+Colormaps have only a few editable parameters: The minimum and maximum values
+can be given or taken from the axis if there is one. Furthermore the
+colormap can be reversed. The colors itself can only be changed with
+the <font face="helvetica">Amira</font> colormap editor.</p>
+<p></p>
+<h4><a name="A18">Editing (analytical) curve parameters</a></h4>
+<p></p><div style="text-align:center"><a name="A19"></a><a href=HxPlottool_editancurve.png.html><img width=390 src="HxPlottool_editancurve.png" /></a><br />
+<div class="caption">
+<b>Figure 8:</b>
+Editable (analytical) curve parameters.</div>
+
+
+</div><p></p>
+<p><br />
+
+Besides the more or less self-explanatory parameters of both the curve and
+analytical curve (AnCurve) parameters, there are a few things to mention
+regarding AnCurves only. 
+The <em>Function</em> text widget contains the formula which is computed on
+every plot update. The default formula is <em>x</em>, which produces a transversal
+line where x runs from -1 to 1. It is possible to use the name of another
+curve as a variable in the function.
+In this case the x-values of the first curve in the formula are taken
+to evaluate the y-values of all variables in use. These y-values are then
+used for the computation. You can restrict the range of the computation
+by activating the <em>Explicit Range</em> toggle and entering the appropriate
+range values. There are many built-in functions such as sin, cos, tan,
+sqrt, exp, ... which can be used in formulas.</p>
+<p></p>
+<h3><a name="A20">Working with Plot Objects</a></h3>
+<p>You can copy or delete plot objects. For example, it may be useful
+for comparison purposes to copy a curve before the data of the original curve
+will be changed. To do so, you must select the object in the list and then
+choose the <em>Edit/Copy</em> pulldown menu. After that, choose <em>Paste</em> or
+<em>Append</em> in
+the menu and the object will be inserted at the current position (= position
+of the selected object) or the object will be placed behind the selected
+object. </p>
+<p>With the <em>New</em> pulldown menu you can create new objects which will be
+inserted at the appropriate positions in the list of objects.</p>
+<p></p>
+<h3><a name="A21">Printing</a></h3>
+<p>The <em>File</em> pulldown menu of the main plot window provides a <em>Snapshot</em>
+item where you can send the plot directly to the default printer or save it
+as an image file. It is also possible to generate a vector-based PostScript
+file of the plot by using the <tt>print</tt> command (see below).</p>
+<p></p>
+<h3><a name="A22">Saving Data</a></h3>
+<p>The <em>Save Data...</em> item under the <em>File</em> menu lets you save the
+data of all curves in a file. The file dialog presents a list of formats
+suitable for saving the data. </p>
+<p></p>
+<h4><a name="A23">Data formats</a></h4>
+<p>The <em>Amira-Plot-Format</em> (.ampl) is a proprietary format which should be used
+if you want to plot the data later on within the <font face="helvetica">Amira</font> plot facilities.
+Use the <em>Gnuplot-Format</em> (.dat) if you plan to use Gnuplot to plot the data
+outside of <font face="helvetica">Amira</font>. If you need to import the plot data into a spreadsheet
+program like Microsoft's Excel, use the <em>CSV-Format</em> (CSV = Comma Separated
+Values) (.csv). The <em>Spreadsheet-Format</em> (.am) can be loaded and processed by
+<font face="helvetica">Amira</font>.</p>
+<p></p>
+<h3><a name="A24">Saving the Plot State</a></h3>
+<p>If you changed your plot setup a lot, you can save this setup in a similar
+fashion like the <em>Save Network</em> functionality. 
+That is, first save the <font face="helvetica">Amira</font> network, and then save the plot state into a
+second file. To resume an <font face="helvetica">Amira</font> session, invoke <font face="helvetica">Amira</font> and load the two
+script files (1. <font face="helvetica">Amira</font> network, 2. Plot state).
+Note that the size and the position of a plot window is saved automatically
+if it is opened by an <font face="helvetica">Amira</font> module and the <em>Save Network</em> menu item is invoked.</p>
+<p></p>
+<h3><a name="A25">Specific Option</a></h3>
+<p>For the <a class="link" href="../hxdataprobe/HxSplineProbe.html#A1">SplineProbe</a> and <a class="link" href="../hxdataprobe/HxLineProbe.html#A1">LineProbe</a>, 
+a specific plot toolbar is available that let you choose the X axis type:
+</p>
+<ul><li><em>Length </em>: The X axis represents the length of the curve (default).</li><li><em>x-coord </em>: The X axis represents the x coordinate of the curve sampled points.</li><li><em>y-coord </em>: The X axis represents the y coordinate of the curve sampled points.</li><li><em>z-coord </em>: The X axis represents the z coordinate of the curve sampled points.</li>
+</ul><p></p>
+<p> 
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<p>In <font face="helvetica">Amira</font>, Plot Tool commands have the following structure:</p>
+<p><tt>$thePlot</tt> <i>command</i> <tt>[</tt> <i>parameters</i> <tt>]</tt></p>
+<p>or if the command applies to a plot object:</p>
+<p><tt>$thePlot</tt> <i>objectname command</i> <tt>[</tt> <i>parameters</i> <tt>]</tt></p>
+<p>The following general commands are available:</p>
+
+<div class="hxcommand">
+  <span class="headline">getSize</span>  
+
+<div class="body"><p>
+ Returns the size of the plot window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSize &lt;width&gt; &lt;height&gt;</span>  
+
+<div class="body"><p>
+ Sets the size of the plot window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getPosition</span>  
+
+<div class="body"><p>
+ Returns the size of the plot window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setPosition &lt;x&gt; &lt;y&gt;</span>  
+
+<div class="body"><p>
+ Sets the position of the plot window relative to the upper left corner
+ of the screen.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setBackgroundColor &lt;r&gt; &lt;g&gt; &lt;b&gt;</span>  
+
+<div class="body"><p>
+ This command sets the color of the background to a specific value.
+ The color may be specified either as a triple of integer RGB values in
+ the range 0...255, as a triple of rational RGB values in the range
+ 0.0...1.0, or simply as plain text, e.g., white, where the list
+ of allowed color names is defined in /usr/lib/X11/rgb.txt.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">hide</span>  
+
+<div class="body"><p>
+ Hides the plot window.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">show</span>  
+
+<div class="body"><p>
+ Shows the plot window if it is hidden.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getObjects</span>  
+
+<div class="body"><p>
+ Displays a list of all plot objects currently in use.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">update</span>  
+
+<div class="body"><p>
+ Processes the plot object and updates the display.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">snapshot &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Takes a snapshot and saves it under the given name. The suffix of
+ the filename determines the raster format used. Available formats are:
+ TIFF (<tt>.tif,.tiff</tt>), SGI-RGB (<tt>.rgb,.sgi,.bw</tt>),
+ JPEG (<tt>.jpg,.jpeg</tt>), PNM (<tt>.pgm,.ppm</tt>), BMP (<tt>.bmp</tt>),
+ PNG (<tt>.png</tt>), and Encapsulated PostScript (<tt>.eps</tt>)</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">print [options] &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Prints the plot window into a PostScript file (vector based)
+ with the following options:<br />
+
+ <tt>-a4</tt>: generates a4 landscape output (Default).<br />
+
+ <tt>-a5</tt>: generates a5 portrait output.<br />
+
+ <tt>-auto</tt>: switches autoscaling on (Default).<br />
+
+ <tt>-bw</tt>: generates black and white output.<br />
+
+ <tt>-color</tt>: generates color output (Default).<br />
+
+ <tt>-eps</tt>: generates encapsulated PostScript.<br />
+
+ <tt>-fillbg</tt>: fills the background according to the plot window.<br />
+
+ <tt>-frame</tt>: draws a frame around the plot.<br />
+
+ <tt>-landscape</tt>: prints in landscape format.<br />
+
+ <tt>-noauto</tt>: switches autoscaling off.<br />
+
+ <tt>-portrait</tt>: prints in portrait format.<br />
+
+ <tt>-windowsize</tt>: generates output of window size.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">saveData &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Saves the data of all data based plot objects in a proprietary format.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">saveState &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Saves the current plot state into a script file that can be used to restore
+ the plot setup in a future <font face="helvetica">Amira</font> session.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">load &lt;filename&gt;</span>  
+
+<div class="body"><p>
+ Loads data from the filename and stores it in a curve plot object.</p>
+<p><br />
+
+<b>The following commands apply to plot objects:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getMinMax</span>  
+
+<div class="body"><p>
+ Returns the minimum and maximum values of objects of type:
+ <em>Curve, Cartesian Axis, Polaraxis</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setMinMax &lt;minX&gt; &lt;maxX&gt; &lt;minY&gt; &lt;maxY&gt;</span>  
+
+<div class="body"><p>
+ Sets the range of <em>Cartesian Axis, Polaraxis</em>.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getArea</span>  
+
+<div class="body"><p>
+ Returns the plotting area of <em>PlotArea</em> objects.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setArea &lt;lowerleftX&gt; &lt;lowerleftY&gt; &lt;upperrightX&gt; &lt;upperrightY&gt;</span>  
+
+<div class="body"><p>
+ Sets the plotting area of a <em>PlotArea</em> object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getXValues</span>  
+
+<div class="body"><p>
+ Returns the x-values of a <em>Curve</em>. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getYValues</span>  
+
+<div class="body"><p>
+ Returns the y-values of a <em>Curve</em>. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">set[X|Y|Phi|R]TickValues &lt;1. tick&gt; &lt;2. tick&gt; ... &lt;n. tick&gt;</span>  
+
+<div class="body"><p>
+ Sets the position of the ticks along an axis. It is available for
+ objects of type:
+ &#123;Cartesian Axis, Polaraxis&#125;.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">set[X|Y|Phi|R]TickLabels &lt;1. label&gt; &lt;2. label&gt; ... &lt;n. label&gt;</span>  
+
+<div class="body"><p>
+ Sets the labels of the ticks along an axis. It is available for
+ objects of type:
+ &#123;Cartesian Axis, Polaraxis&#125;.
+ If there are fewer labels than ticks the remaining ticks will be
+ unlabeled.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p>
+<p></p>
+<p>
+</p></body>
+</html>

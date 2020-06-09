@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p>
+</p><div class="generic_head"><h2><a name="A1"> CombineLandmarks</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CombineLandmarks" "merges multiple vertex set objects into a
+single landmark set" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module merges an arbitrary number of <a class="link" href="../hxcore/HxVertexSet.html#A1">vertex
+ set</a> objects into a single <a class="link" href="HxLandmarkSet.html#A1">landmark set</a>. The input sets may either be connected to the 
+ <a class="link" href="#A2">Data</a> and <a class="link" href="#A3">Source2 port</a> or they 
+ can be loaded from disk by specifying file names in <a class="link" href="#A4">Select LandmarkSet
+ from file port</a>.</p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Accepts a <a class="link" href="../hxcore/HxVertexSet.html#A1">vertex set</a> object. As soon as this port
+ gets connected, an additional source port will be created. This allows
+ a practically unlimited number of data objects to be merged.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Source2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>See above.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Select LandmarkSet from file</span>  
+<div class="portsnapshot"><img src="HxCombineLandmarks_filename.png" /><br /></div>
+<div class="body"><p>The files to be combined can be selected from the file system.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Unify sets</span>  
+<div class="portsnapshot"><img src="HxCombineLandmarks_unify.png" /><br /></div>
+<div class="body"><p>If this option is chosen, the resulting landmark set will contain only
+ one set of landmarks, i.e., all vertices will be added to the same set.
+ Otherwise, the vertices of the different input objects will be added to
+ different sets. In order to ensure that all sets have the same number
+ of markers the input object with the maximum number of vertices is
+ determined and all other sets are filled with (0,0,0) if necessary.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

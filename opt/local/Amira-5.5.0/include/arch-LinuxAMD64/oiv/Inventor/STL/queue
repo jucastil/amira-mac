@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_QUEUE
+#define  OIV_STL_QUEUE
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

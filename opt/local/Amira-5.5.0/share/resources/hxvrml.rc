@@ -1,0 +1,15 @@
+# ----------------------------------------------------------------------
+#   Vrml package
+# ----------------------------------------------------------------------
+
+module  -name       "VRML-Export"           \
+        -primary    "HxSurface"	            \
+        -category   "Compute"	            \
+        -class      "HxSurfaceToVRML"	    \
+        -dso        "libhxvrml.so"
+
+module  -name       "VRML-Export"           \
+        -primary    "HxTriBase"	            \
+        -category   "Main"	            \
+        -class      "HxSurfaceToVRML"	    \
+        -dso        "libhxvrml.so"

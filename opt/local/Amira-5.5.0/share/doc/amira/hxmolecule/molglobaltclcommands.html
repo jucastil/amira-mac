@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">10.2 Global commands</a></h2>
+<p><font face="helvetica">Molecular Option</font> adds several global tcl commands:</p>
+<p></p>
+<h3><a name="A2">Creating or loading new molecules</a></h3>
+<p></p>
+<ul><li>newMolFromPDB &lt;pdbIX&gt; Will load an entry with the given id from the protein data bank [1]. Fetching the file
+may take a couple of seconds to minutes depending on the speed of your internet connection. Example:
+<pre>
+newMolFromPDB 1hvr
+</pre></li><li>newMolFromSmiles &lt;smilesStr&gt; Will generate a molecule from a smiles string [2]. Smiles string can contain characters which will be interpreted as special characters by the tcl parser. It is therefore safer to enclose the string in curly brackets. Example:
+<pre>
+newMolFromSmiles {C(=O)([O-]CCSC}
+</pre></li><li>newMolFromAminoAcidCode1 &lt;code&gt; Will generate a molecule from a string of 1-letter amino acid codes. Example:
+<pre>
+newMolFromAminoAcidCode1 LSAPG
+</pre></li><li>newMolFromAminoAcidCode3 &lt;code&gt; Will generate a molecule from a string of 3-letter amino acid codes. Example: 
+<pre>
+newMolFromAminoAcidCode3 LYSSERALAPROGLY
+</pre></li><li>newMolFromSelection Will generate a molecule containing the selected atoms of all molecules in the object pool.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A3">Miscellaneous</a></h3>
+<p></p>
+<ul><li>mergeMolecules Creates a MolTrajectoryBundleConverter module and connects all molecules in the object pool as inputs. You can then select whether you want to merge them
+into a bundle or into a single molecule.</li><li>mergeTrajectories Creates a MolTrajectoryBundleConverter module and connects all MolTrajetories in the object pool as inputs.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A4">Selection</a></h3>
+<p>Several commands concerning the selection of atoms which are part of the tcl commands of a molecule data object can also be used globally
+and then work on all molecule in the object pool.</p>
+<p></p>
+<ul><li>sel &lt;atomExpr&gt; Selects atoms matching the atom expression in all molecules</li><li>desel &lt;atomExpr&gt; Deselects atoms matching the atom expression in all molecules</li><li>addSet &lt;name&gt; Adds current selection of each molecule as a group of the given name in the sets level. This can be used to store the current selection and restore it later with the useSet command.</li><li>useSet &lt;name&gt; Restores selection of all molecules to all atoms contained by the group of the sets level with the given name.</li><li>printSelectionByAtoms Prints selected atoms for all molecules.</li><li>printSelection Same as printSelectionByAtoms.</li><li>printSelectionByResidues Prints selected residues for all molecules.</li><li>printSelectionByLevel &lt;levelName&gt; Prints selected groups of a level for all molecules.</li><li>setSelectionLevel [&lt;levelName&gt;] Will set the level that is used to determine which type of group is selected if you click on
+a part of a molecule in the viewer. By default, the coloring level of the viewer module handling this event will be used.
+This will also happend for molecules that do not have a level of the specified name. 
+To return to this default behaviour use setSelectionLevel without an argument. 
+As an alternative to this command several level specific keyboard shortcuts can be used: Use CTRL+SHIFT+ALT and any of the following
+keys: 'a' for atoms, 'r' for residues, 'c' for chains, 's' for secondary structure and 'd' for default.</li>
+</ul><p></p>
+<p></p>
+<h3><a name="A5">Writing you own global commands from object specific commands</a></h3>
+<p>Commands that are part of the <font face="helvetica">Molecular Option</font> data objects can easily be adjusted to operate globally on all objects in the object pool, by
+wrapping them into a tcl function that iterates over all molecules. The following code segment demonstrates this with the sel command:
+</p><pre>
+proc sel { expr } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        $mol sel $expr
+    }
+}
+</pre><p></p>
+<p></p>
+<h3><a name="A6">References</a></h3>
+<p></p>
+<ul><li>[1] http://www.pdb.org</li><li>[2] David Weininger (1988) SMILES, a Chemical Language and Information System. 1. Introduction to Methodology and Encoding Rules, Journal of Chemical Information and Computer Sciences 28:31-36.</li>
+</ul><p></p>
+<p>
+
+
+</p>
+<p>
+
+</p></body>
+</html>

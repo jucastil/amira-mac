@@ -1,0 +1,71 @@
+dataClass -name "LineSet" \
+    -class "HxLineSet" \
+    -category "Data" \
+    -dso "libhxlines.so"
+
+dataFile -name "LineSet" \
+    -option "lineset" \
+    -load "HxLineSet::read" \
+    -header "LineSet" \
+    -dso "libhxlines.so"
+
+amiramesh -ContentType HxLineSet \
+    -load "HxLineSet::readAmiraMesh" \
+    -dso "libhxlines.so"
+
+module -name "LineSetView" \
+    -primary "HxLineSetInterface HxCurve" \
+    -class "HxDisplayLineSet" \
+    -category "Main Display" \
+    -dso "libhxlines.so"
+
+module -name "ComputeContours" \
+    -primary "HxLabelLattice3" \
+    -class "HxComputeContours" \
+    -category "Compute" \
+    -dso "libhxlines.so"
+
+module -name "SelectLines" \
+    -primary "HxLineSet" \
+    -class "HxSelectLines" \
+    -category "Compute" \
+    -dso "libhxlines.so"
+
+editor -name "LineSet Editor" \
+    -data "HxLineSetInterface" \
+    -class "HxLineSetEditor" \
+    -icon "HxLineSetEditor.png" \
+    -dso "libhxlines.so"
+
+dataFile -name "AmiraMesh Lineset" \
+    -ext "am" \
+    -save "HxLineSet::saveAmiraMeshBinary" \
+    -type "HxLineSetInterface" \
+    -package "hxlines"
+
+dataFile -name "AmiraMesh ASCII Lineset" \
+    -ext "am" \
+    -save "HxLineSet::saveAmiraMeshASCII" \
+    -type "HxLineSetInterface" \
+    -package "hxlines"
+
+dataClass -name "BSpline" \
+    -class "HxBSpline" \
+    -category "Data" \
+    -dso "libhxlines.so"
+
+dataFile -name "AmiraMesh BSpline" \
+    -ext "am" \
+    -save "HxBSpline::saveAmiraMesh" \
+    -type "HxBSpline" \
+    -package "hxlines"
+
+amiramesh -ContentType "BSpline" \
+    -load "HxBSpline::readAmiraMesh" \
+    -dso "libhxlines.so"
+
+editor -name "CurveEditor" \
+    -data "HxCurve" \
+    -class "HxCurveEditor" \
+    -dso "libhxlines.so" \
+    -icon "HxCurveEditor.png"

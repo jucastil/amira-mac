@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Colormap</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "Colormap" "stores table of floating point RGBA tuples" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ A <em>Colormap</em> is a sequence of RGBA-tuples, where every tuple
+ specifies a color by a red, green and blue value in the <em>RGB color
+ model</em>. Each value ranges from 0.0 to 1.0 and is represented by a
+ floating point value. A fourth value, the so-called alpha value,
+ defines <em>opacity</em>. It also ranges from 0.0 to 1.0, where 0.0 means
+ that the color is fully transparent, and 1.0 that the color is fully
+ opaque. A colormap usually stores 256 different RGBA-tuples, but other
+ sizes and even procedurally defined colormaps are possible too.</p>
+<p> Beside the raw RGBA values, the colormap also stores two <em>coordinates</em> defining a range used for color interpolation. Color
+ lookup requests for an argument smaller than the minimum coordinate
+ evaluate to the first colormap entry. Requests for an argument greater
+ than the maximum coordinate evaluate to the last entry.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Datafield</span>  
+
+<div class="body"><p>Connection to a data field from which the min-max values of the
+ colormap are taken.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxColormap_colormap.png" /><br /></div>
+<div class="body"><p>This port displays the contents of the colormap. Transparent values
+ are drawn over a checkerboard background. The coordinate range can be
+ edited via the two text fields left and right from the graphics area.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Min-Max</span>  
+<div class="portsnapshot"><img src="HxColormap_flags.png" /><br /></div>
+<div class="body"><p>This port is only visible if an input is connected to port <em>Datafield</em>. If this is the case and <em>data min-max</em> is selected, the
+ coordinate range of the colormap is automatically adjusted so that it
+ matches the min max values of the connected data field. If <em>grow
+ range</em> is selected, the coordinate range is enlarged if the min max
+ values of the connected data field fall outside the current range. The
+ option <em>data window</em> becomes active only if the connected data
+ field contains a parameter <em>DataWindow</em>. 
+ If the option is selected the coordinate range is set to the range 
+ specified by the <em>DataWindow</em> parameter (see also
+ <a class="link" href="../usersguide/parameters.html#A1">Section 3.2.7 (Parameters)</a>).
+ </p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Shift range</span>  
+<div class="portsnapshot"><img src="HxColormap_shift.png" /><br /></div>
+<div class="body"><p>This slider allows you to shift the range assumed for a connected data
+ field. Instead of the true min max values, shifted values are used if
+ the value is different from 0.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Scale range</span>  
+<div class="portsnapshot"><img src="HxColormap_scale.png" /><br /></div>
+<div class="body"><p>This slider allows you to scale the range assumed for a connected data
+ field. Instead of the true min max values, scaled values are used if
+ the value is different from 1. The scaling is applied relative to the
+ shifted center of the range. The shifted and scaled range will always
+ be clamped to the original range. The shift and scale ports are useful
+ for investigating a subrange of a data set in detail. </p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="../hxcore/HxData.html#A1">Data</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">setMinMax &lt;min&gt; &lt;max&gt;</span>  
+
+<div class="body"><p>Sets the coordinate range of the colormap.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">minCoord</span>  
+
+<div class="body"><p>Returns the lower bound of the coordinate range.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">maxCoord</span>  
+
+<div class="body"><p>Returns the upper bound of the coordinate range.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isTransparent</span>  
+
+<div class="body"><p>Checks whether the colormap contains transparent values or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRGBA &lt;u&gt;</span>  
+
+<div class="body"><p>Returns the interpolated RGBA values for the parameter <tt>&lt;u&gt;</tt>, which
+ is a value between 0.0 and 1.0. The value 0.0 corresponds to the first
+ colormap entry, while 1.0 corresponds to the last colormap entry.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getRGB &lt;u&gt;</span>  
+
+<div class="body"><p>Similar to the above command, but returns only three values (RGB,
+ not alpha).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">makeSteps &lt;numsteps&gt;</span>  
+
+<div class="body"><p>Discretizes the colormap so that only <em>&lt;numsteps&gt;</em> different
+ colors remain.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setInterpolate &#123;0|1&#125;</span>  
+
+<div class="body"><p>Turns interpolation on or off. When interpolation is on, the colors of
+ two neighboring colormap entries are interpolated when a color is
+ looked up. When interpolation is off, the color of the nearest colormap
+ entry is returned. This is useful if a colormap modified with the
+ <tt>makeSteps</tt> command is used.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getInterpolate</span>  
+
+<div class="body"><p>Checks whether interpolation is on or off.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">makeRandom</span>  
+
+<div class="body"><p>Replaces all colors of the colormap by random values.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">makeVolren &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;power&gt; &lt;huewidth&gt;</span>  
+
+<div class="body"><p>Replaces the colormap by something useful for volume rendering. The
+ first three arguments specify the base color of the colormap. <em>&lt;power&gt;</em> denotes an exponent used to compute an alpha curve. If this
+ is 1, the colormap goes linearly from fully opaque to fully transparent.
+ <tt>&lt;huewidth&gt;</tt> indicates the width of the color spectrum around the
+ base color between 0 and 1. </p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">interpol &lt;map1&gt; &lt;map2&gt; &lt;u&gt;</span>  
+
+<div class="body"><p>Replaces the colormap by the weighted average of two other colormaps
+ <tt>&lt;map1&gt;</tt> and <tt>&lt;map2&gt;</tt>. The interpolation parameter <tt>&lt;u&gt;</tt>
+ should be chosen between 0 and 1.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

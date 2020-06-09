@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------
+#   hxatlas package
+# ----------------------------------------------------------------------
+
+module -name     "AverageVolumes" \
+       -primary  "HxRegScalarField3" \
+       -category "Compute" \
+       -class    "HxAverageBrain" \
+       -dso      "libhxatlas.so"
+
+module -name     "SegmentBrain" \
+       -primary  "HxRegScalarField3" \
+       -category "Compute" \
+       -class    "HxSegmentBrain" \
+       -dso      "libhxatlas.so"
+

@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------
+#   Colormapeditor package
+# ----------------------------------------------------------------------
+
+editor -name "Colormap Editor" \
+    -data "HxColormap256" \
+    -class "HxColormapEditor" \
+    -icon "HxColormapEditor.png" \
+    -check { [ expr [$PRIMARY getLength] <= 256 ] } \
+    -dso "libhxcolormapeditor.so"
+
+editor -name "Advanced Colormap Editor" \
+    -data "HxColormap256" \
+    -class "HxAdvancedColormapEditor" \
+    -icon "HxAdvancedColormapEditor.png" \
+    -dso "libhxcolormapeditor.so"

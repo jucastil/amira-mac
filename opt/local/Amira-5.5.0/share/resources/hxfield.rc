@@ -1,0 +1,126 @@
+# ----------------------------------------------------------------------
+# hxfield package
+# ----------------------------------------------------------------------
+
+dataClass -name "Scalarfield" 		\
+    -class "HxAnnaScalarField3"		\
+    -category "Data"                    \
+    -dso "libhxfield.so"
+
+dataClass -name "Vectorfield" 		\
+    -class "HxAnnaVectorField3"		\
+    -category "Data"                    \
+    -dso "libhxfield.so"
+
+dataClass -name "LabelField" 		\
+    -class "HxUniformLabelField3"	\
+    -category "Data"                    \
+    -dso "libhxfield.so"
+
+dataClass -name "TetraGrid"\
+          -class "HxTetraGrid"\
+          -category "Data"\
+          -package "hxfield"
+
+dataClass -name "HexaGrid"\
+          -class "HxHexaGrid"\
+          -category "Data"\
+          -package "hxfield"
+
+module -name "ComponentField"		\
+    -primary "HxUniformComplexScalarField3"	\
+    -class "HxUniformComplexComponentField3"	\
+    -category "Main Filter"			\
+    -dso "libhxfield.so"
+
+module -name "SelectRoi"		\
+    -primary "HxSpatialData"	\
+    -class "HxSelectRoi"		\
+    -category "Display"			\
+    -dso "libhxfield.so"
+
+dataFile -name "Raw Data 2D"		\
+    -ext "raw"				\
+    -type "HxUniformScalarField3"	\
+    -type "HxStackedScalarField3"	\
+    -multisave "writeRawData2D"		\
+    -dso "libhxfield.so"
+
+dataFile -name "Raw Data 3D"		\
+    -option "raw" -ext "raw"		\
+    -type "HxLattice3"	                \
+    -save "writeRawData3D"		\
+    -dso "libhxfield.so"
+
+dataFile -name "AmiraMesh binary" \
+    -ext am -save "writeAmiraMeshBinary" \
+    -type HxTetraData \
+    -type HxHexaData \
+    -package "hxfield" \
+    -lda true
+
+dataFile -name "AmiraMesh ascii" \
+    -ext am -save "writeAmiraMeshAscii" \
+    -type HxTetraData \
+    -type HxHexaData \
+    -package "hxfield" \
+    -lda true
+
+if {[theAppSkin getProductName] != "Amira"} {
+    dataClass -name "BlockStructuredGrid" \
+              -class "HxBlockStructuredGrid"\
+              -category "Data"\
+              -package "hxfield"
+}
+
+##########################################################################
+
+module -name LabelField -check \
+    { ![$PRIMARY hasInterface HxLabelLattice3] } \
+    -primary "HxUniformScalarField3" -category "Labelling" \
+    -proc { $this parameters Materials newBundle Inside
+        $this parameters Materials Inside setValue Color 0.64 0 0.8 } \
+    -class "HxUniformLabelField3" -package "hxfield"
+
+module -name LabelField -check \
+    { ![$PRIMARY hasInterface HxLabelLattice3] } \
+    -primary "HxStackedScalarField3" -category "Labelling" \
+    -proc { $this parameters Materials newBundle Inside
+        $this parameters Materials Inside setValue Color 0.64 0 0.8 } \
+    -class "HxStackedLabelField3" -package "hxfield"
+
+dataClass -name "MultiChannelField" \
+    -class "HxMultiChannelField3"   \
+    -category "Data"                \
+    -category "Main "               \
+    -dso "libhxfield.so"
+
+    dataClass -name "MultiField"    \
+    -class "HxMultiChannelField"    \
+    -category "Data"                \
+    -category "Main "               \
+    -dso "libhxfield.so"
+
+amiramesh -ContentType "HxMultiChannelField3" \
+    -load HxMultiChannelField3::readAmiraMesh \
+    -package "hxfield"
+
+proc __checkMultiChannelLDM {module} {
+    set type [$module getTypeId]
+    if { $type=="HxMultiChannelField3" } {
+        set sourcetype [$module getSourceType]
+        if { $sourcetype=="HxVolumeDataObject" ||
+             $sourcetype=="HxSeismicVolumeDataObject"} {
+             return 1
+        }
+    }
+    return 0
+}
+
+amiramesh -ContentType "HxRegSym2TensorField3" \
+    -load HxLattice3::readAmiraMesh \
+    -package "hxfield"
+
+amiramesh -ContentType "HxUniformSym2TensorField3" \
+    -load HxLattice3::readAmiraMesh \
+    -package "hxfield"

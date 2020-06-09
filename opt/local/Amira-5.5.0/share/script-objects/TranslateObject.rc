@@ -1,0 +1,26 @@
+######################################
+# scro TranslateObject
+######################################
+
+module -name "ObjectTranslate" \
+    -package "hxscriptobj" \
+    -category "Animation/Demo" \
+    -proc {
+	set mod [[create HxScriptObject] setLabel ObjectTranslate]
+	$mod script setValue $AMIRA_ROOT/share/script-objects/TranslateObject.scro
+	$mod fire
+    }	
+
+module -name "ObjectTranslate" \
+    -package "hxscriptobj" \
+    -primary HxSpatialData \
+    -category "Animation/Demo" \
+    -proc {
+        set mod [[create HxScriptObject] setLabel ObjectTranslate]
+        $mod script setValue $AMIRA_ROOT/share/script-objects/TranslateObject.scro
+        if { [exists $PRIMARY] } {
+            $mod data connect $PRIMARY
+            $mod fire 
+        }
+    }	
+

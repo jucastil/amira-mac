@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolTrajectoryBundle</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Data" "MolTrajectoryBundle" "represents a set of molecular structures" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>An object of type <em>MolTrajectoryBundle</em> represents a set
+of <a class="link" href="HxMolTrajectory.html#A1">MolTrajectories</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<a name="A2"></a><h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline">getNumTrajectories</span>  
+
+<div class="body"><p>
+Returns the number of trajectories in the bundle.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getTrajectoryIx &lt;name&gt;</span>  
+
+<div class="body"><p>
+Returns index of trajectory with given name. 0 if no such trajectory.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTrajectoryName &lt;index&gt; &lt;name&gt;</span>  
+
+<div class="body"><p>
+Renames the index'th trajectory with the given name.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">findDuplicates</span>  
+
+<div class="body"><p>
+Searches for identical topologies within the bundle.
+Prints a list which shows for each trajectory the list of trajectories
+that have an identical topology. If no duplicates were found in the bundle,
+0 is returned.</p>
+<p><b>Editing:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addTrajectory &lt;object-name&gt;</span>  
+
+<div class="body"><p>
+Adds the trajectory with the given name in the object pool to the bundle.
+Removes all trajectories with the given indices.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">replaceWithTrajectory &lt;index&gt; &lt;object-name&gt;</span>  
+
+<div class="body"><p>
+Repalces the index'th trajectory with the trajectory with the given name in the object pool.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeIx &lt;indices&gt;</span>  
+
+<div class="body"><p>
+Removes all trajectories with the given indices.
+The list of indices needs to be seperated by white space and enclosed in
+curly brackets. No return value.
+ Example:</p>
+
+<ul><li><pre> removeIx {1 5 6}
+</pre></li>
+</ul>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeDuplicatesByData &lt;name&gt;</span>  
+
+<div class="body"><p>
+If several trajectories have the same value for the given data field,
+this command will keep only the first occurence and remove the others.
+If a trajectory has no field of the given name it will not be considered
+in the operation (i.e. it will always be kept regardless whether there
+are other ones without this field).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">copyIx &lt;indices&gt;</span>  
+
+<div class="body"><p>
+Copies the trajectories with the given indices into a new 
+bundle, which will be added to the object pool. The order of the trajectories in the new bundle will be
+as given by the indices. The list of indices needs to be seperated by white space and enclosed in
+curly brackets. Returns label of new object in object pool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeNames &lt;names&gt;</span>  
+
+<div class="body"><p>
+Removes all trajectories of the given names.
+The list of names needs to be seperated by whitespace and enclosed in
+curly brackets. No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">restrictToIx &lt;indices&gt;</span>  
+
+<div class="body"><p>
+Removes all trajectories in the bundle except the ones with the given indices.
+The indices need to be seperated by a white space and enclosed in curly brackets.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">restrictToNames &lt;names&gt;</span>  
+
+<div class="body"><p>
+Removes all trajectories in the bundle except the ones with the given namess.
+The names need to be seperated by a white space and enclosed in curly brackets.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">restrictRandom &lt;number&gt;</span>  
+
+<div class="body"><p>
+Restricts the bundle to a random set of &lt;number&gt; trajectories.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">applyTransform &lt;matrix&gt;</span>  
+
+<div class="body"><p>
+Applies given 4x4 transformation matrix to all trajectories in the bundle.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addHydrogens</span>  
+
+<div class="body"><p>
+Adds hydrogens to all trajectories in the bundle.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">removeHydrogens</span>  
+
+<div class="body"><p>
+Removes hydrogens for all trajectories in the bundle.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">addMMFFParameterization</span>  
+
+<div class="body"><p>
+Adds MMFF94 parameterization for all trajectories in the bundle.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">computeBonds</span>  
+
+<div class="body"><p>
+Computes bonds based on an average bond length table for all trajectories in the bundle.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">loadIntoMemory</span>  
+
+<div class="body"><p>
+For some file types containing trajectories, only the currently used timestep is used
+in memory. This means that most of the editing commands will not work. This command
+allows each trajectory in the bundle to be loaded into memory.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">alignBySmartsMatching</span>  
+
+<div class="body"><p>
+Aligns each trajectory in the bundle to &lt;mol2&gt; by first matching the given smarts string to both molecules
+and then using this matching for computing the transformation yielding the lowest rmsd
+between the matched groups. If either of the molecules did not have a matching
+nothing will be done. No return value.</p>
+<p><b>Sorting:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">sortByName</span>  
+
+<div class="body"><p>
+Sorts trajectories in bundle by the name.
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">sortByData &lt;name&gt; &lt;type&gt;</span>  
+
+<div class="body"><p>
+Sort the trajectories in the bundle by the given data entry.
+Type may be "string", "float" or "int".
+No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">reverseOrder</span>  
+
+<div class="body"><p>
+Reverses order of trajectories in bundle.
+No return value.</p>
+<p><b>Searching:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">match &lt;atomexpression&gt;</span>  
+
+<div class="body"><p>
+Returns a list of indices of trajectories for which at least one atom matches the
+given <a class="link" href="molatomexpressions.html#A1">atom expression</a>.</p>
+<p><b>Importing/exporting data entries:</b></p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">readData &lt;filename&gt; &lt;dataname&gt; &lt;datatype&gt;</span>  
+
+<div class="body"><p>
+Reads data entry from a file. Each data value needs to be in a seperate line and the number of
+lines must be the same as the number of trajectories in the bundle. No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">writeData &lt;filename&gt; &lt;dataname&gt;</span>  
+
+<div class="body"><p>
+Writes data entry to a file. There will be one line per trajectory containing the
+data value for the trajectory. No return value.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">writeAllData &lt;filename&gt;</span>  
+
+<div class="body"><p>
+Writes all data entries to a csv file. There will be one line per trajectory containing first the index of
+the trajectory and then the data values for the trajectory, all comma separated.
+The first line will contain the field names. No return value.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

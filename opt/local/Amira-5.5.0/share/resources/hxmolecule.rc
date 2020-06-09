@@ -1,0 +1,71 @@
+dataClass -name "MoleculeBundle" \
+    -class "HxMoleculeBundle" \
+    -dso "libhxmolecule.so"
+
+dataFile -name "SubTrajectory" \
+    -option "subtrajectory" \
+    -load "HxSubTrajectory::read" \
+    -ext "idx" \
+    -dso "libhxmolecule.so"
+
+dataClass -name "MolTrajectoryBundle" \
+    -class "HxMolTrajectoryBundle" \
+    -dso "libhxmolecule.so"
+
+dataClass -name "MolTrajectory" \
+    -primary "HxMolTrajectoryBundle" \
+    -class "HxMolTrajectory" \
+    -category "Main" \
+    -dso "libhxmolecule.so"
+
+dataClass -name "AlignedTrajectory" \
+    -primary "HxMolTrajectory" \
+    -class "HxAlignedTrajectory" \
+    -category "Main" \
+    -dso "libhxmolecule.so"
+
+dataClass -name "Molecule" \
+    -primary "HxMolTrajectory HxMoleculeBundle" \
+    -class "HxMolecule" \
+    -category "Main" \
+    -dso "libhxmolecule.so"
+
+dataClass -name "BundleTrajectoryConverter" \
+    -primary "HxMolTrajectoryBundle" \
+    -class "HxBundleTrajectoryConverter" \
+    -category "Main" \
+    -dso "libhxmolecule.so"
+
+module -name "MolTrajBundleConverter" \
+    -primary "HxMolecule HxMolTrajectory HxMolTrajectoryBundle" \
+    -class "HxMolTrajBundleConverter" \
+    -category "Main" \
+    -dso "libhxmolecule.so"
+
+module -name "Observables" \
+    -primary "HxMolTrajectory" \
+    -class "HxMolObservables" \
+    -category "Main Display" \
+    -dso "libhxmolecule.so"
+
+module -name "MoleculeLabel" \
+    -primary "HxMolecule" \
+    -class "HxMolLabel" \
+    -category "Display" \
+    -dso "libhxmolecule.so"
+
+module -name "SubsampledTrajectory" \
+    -primary "HxMolTrajectory" \
+    -class "HxSubsampledTrajectory" \
+    -dso "libhxmolecule.so"
+
+dataFile -name "PrecomputedAlignment" \
+    -load "HxAlignment::load" \
+    -save "HxAlignment::save" \
+    -type "HxAlignment" \
+    -header "<\\?amira format=\"MolAlignment\" version=\"0.1\" \\?>" \
+    -ext "ali" \
+    -dso "libhxmolecule.so"
+
+# Commented out - other extensions also do not print a message
+# echo "Extension AmiraMol installed"

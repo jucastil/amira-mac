@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> RelabelTetras</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "RelabelTetras" "global or local assignment of materials" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Similar to a <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> each
+ tetrahedron of a <a class="link" href="../hxfield/HxTetraGrid.html#A1">TetraGrid</a> has a unique
+ material type assigned. Connecting <em>RelabelTetras </em> to a
+ <a class="link" href="../hxfield/HxTetraGrid.html#A1">TetraGrid</a> allows for a global or local
+ reassignment of materials to a copy of the input grid that is
+ automatically generated.</p>
+<p> In an interactive mode only materials, that are defined within the
+ parameter section of a TetraGrid may be used. In case new materials
+ are to be introduced, they have to be defined with the
+ <a class="link" href="../hxcore/HxParameterEditor.html#A1">ParameterEditor</a> before connecting <em>RelabelTetras</em> to the grid. The assignment of materials operates
+ on the selected (i.e. visible) tetrahedra. Therefore a
+ <a class="link" href="HxGridVolume.html#A1">GridVolume</a> has to be connected to the output
+ grid. A subset of tetrahedra may be chosen using the Buffer or the
+ Draw selection tool of GridVolume. In case all tetrahedra are
+ selected, relabeling leads to a homogeneous material grid.</p>
+<p> Another option to relabel tetrahedral grids is to connect a
+ <a class="link" href="../hxfield/HxUniformLabelField3.html#A1">LabelField</a> to the second input of <em>RelabelTetras</em>. The <a class="link" href="../hxcore/HxBoundingBox.html#A1">BoundingBox</a> of the
+ TetraGrid and the LabelField must intersect each other. Typically
+ this is the case for tetrahedral grids that have been constructed
+ from label fields via <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a>. Otherwise use
+ the <a class="link" href="../hxcore/HxTransformEditor.html#A1">TransformEditor</a> to align the two. Now
+ the materials of the label field's parameter section are copied to
+ the output grid, and the input field's labels are transferred to the
+ tetrahedra according to their locations. Using a sampling level of
+ one, assigns the material label that is located at the barycenter of
+ a tetrahedron. Choosing a higher sampling level (up to three)
+ assigns the dominating material label with regard to the sample
+ points. A sampling level of 2 takes the material labels at eight
+ inner points. These locations coincide with the barycenters of the
+ eight tetrahedra that will result by a first level refinement using
+ <a class="link" href="HxRefineTetras.html#A1">RefineTetras</a>. That way up to 512 samples per
+ tetrahedron are evaluated.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">TetraGrid</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The input grid that is to be relabeled.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">LabelField</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A label field.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxRelabelTetras_info.png" /><br /></div>
+<div class="body"><p>This port becomes only visible in case no input grid is connected,
+or a label field is connected.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Materials</span>  
+<div class="portsnapshot"><img src="HxRelabelTetras_materials.png" /><br /></div>
+<div class="body"><p>A list of materials that is defined within the parameters of the input grid.
+This port is only visible in case no label field is connected.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Sampling Level</span>  
+<div class="portsnapshot"><img src="HxRelabelTetras_resample.png" /><br /></div>
+<div class="body"><p>The sampling level will choose the number of samples per tetrahedron.
+This port is only visible in case a label field is connected.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Label</span>  
+<div class="portsnapshot"><img src="HxRelabelTetras_action.png" /><br /></div>
+<div class="body"><p>Triggers the relabeling or resets all labels to the values of the input grid.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

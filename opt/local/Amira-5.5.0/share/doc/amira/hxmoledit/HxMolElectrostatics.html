@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MolElectrostatics</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "Module" "MolElectrostatics" "calculates the electric or potential field of a molecule" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This module calculates the electric or potential field around a molecule.
+ Both potential and E-field can be evaluated both on a uniform grid or on
+ a surface. The surface needs to be supplied as a data connection, while the grid
+ will be computed in a spatial region which may be defined by a tab box.</p>
+<p> To be able to compute the fields, the atom level of the molecule must contain a
+ float attribute which contains the atomic partial charges. MMFF94 partial charges may
+ be computed with the MoleculeEditor. 
+ Additionally a surface field may be supplied as a data connection, 
+ which contains surface polarization charges.</p>
+<p> When choosing the voxel size, the resulting dimensions of the field will be shown.
+ The user should keep in mind that the dimension does not only affect the memory usage but also the
+ computation time, which might be excessively large if the molecule contains many
+ charges. While the number of grid points of the field is dim.x*dim.y*dim.z, the number of
+ function evaluations to compute the fields is the number of grid points multiplied by
+ the number of charge centers different from 0.</p>
+<p> The dielectric is assumed to be constant in space. To use inhomogeneous
+ dielectrics you will need to use a program that solves the Poisson equation
+ and import the generated field in <font face="helvetica">Amira</font>.</p>
+<p> Because of the inverse relationship with r, field values may become very large if grid points
+ are close to charge centers. To avoid the implicated problems, the distance will be
+ set to 0.01 Angstrom during the computation, whenever it is smaller than this minimum value.</p>
+<p> Units of the calculated fields will be <i>$$kg * Angstroem^2 * s^{-2} * chargeunit^{-1}$$</i>
+ for the potential field and <i>$$kg * Angstroem * s^{-2} * chargeunit^{-1}$$</i> 
+ for the electric field, with <i>$$chargeunit$$</i> being the unit of the charges supplied by
+ the user in the charge attribute.</p>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+
+<div class="hxport">
+ <span class="headline">Dielectrical Constant</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portDielectrical.png" /><br /></div>
+<div class="body"><p>Sets the dielectric constant. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Calculation Type</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portCalcType.png" /><br /></div>
+<div class="body"><p>Allows to switch between the calculation of the electrostatic field which will create 
+ a vector field object or potential field which will generate a scalar field object. </p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Output Type</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portOutputType.png" /><br /></div>
+<div class="body"><p>The field may either be generated on a lattice or on a surface. 
+ If surface computation is used the surface needs to be supplied as an input object.</p>
+<p>
+<a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Charge Attribute Name</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portChargeAttributeName.png" /><br /></div>
+<div class="body"><p>The name of the float attribute that gives the atomic charges for the calculation.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Lattice Box</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_box.png" /><br /></div>
+<div class="body"><p>Toggles the dragger box that allows to resize the lattice. 
+ This port is only visible if the output type is 'lattice'.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Field Voxel Size</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portFieldVoxelSize.png" /><br /></div>
+<div class="body"><p>Allows to adjust the voxel size of the lattice. 
+ This port is only visible if the output type is 'lattice'.</p>
+<p>
+<a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Field Dims Info</span>  
+<div class="portsnapshot"><img src="HxMolElectrostatics_portFieldDimsInfo.png" /><br /></div>
+<div class="body"><p>Shows the number of grid points in x, y, and z direction.
+ This port is only visible if the output type is 'lattice'.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+</p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> AMF</a>
+</h2> <ul class="entry_classification"><li>File Format</li><li>Molecular Option</li></ul></div>
+<! HxIndex: "amiraMol" "FileFormat" "AMF" "Amira Molecule Format (rw)" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ AMF is an XML based data description format for molecular data in <font face="helvetica">Molecular Option</font>.</p>
+<p> It is able to store all data contained in the Molecule data-structure in a
+ human readable format. It thus should be the format of choice if you want to edit
+ add or remove levels, attributes, or observables by hand.</p>
+<p> By default, AMF stores the xml file in gzip compression. If you want to
+ edit the contents of the file, you may decompress it with the gzip program.
+ To do so, you first need to rename the file to end on gz:</p>
+<pre>
+    mv Molecule.amf Molecule.amf.gz
+	gzip -d Molecule.amf.gz
+</pre>
+<p>	Both uncompressed and compressed files can be loaded. <font face="helvetica">Amira</font> detects amf files by the ending
+	and the file header.</p>
+<p> AMF can be used to store 3 different data types which will be described in the following
+ sections:</p>
+
+<ul><li>Molecule</li><li>MolTrajectory</li><li>MolTrajectoryBundle</li>
+</ul>
+<p> Each of these entries, which is encountered in a file, will be loaded into a separate data module in <font face="helvetica">Amira</font>.</p>
+<p> AMF stores the topology of each structure by defining levels (e.g. atoms and bonds) and groups in that level (e.g. a single bond in the bond level). 
+ Each level has a reference level (bonds reference atoms) and each group contains indices of groups of the reference level (e.g. a bond contains
+ two atom indices). Attribute values are defined in the order of the groups in the level. 
+ Note that unlike in the rest of <font face="helvetica">Amira</font> where counting of level, group and attribute indices starts with 1, in AMF each index starts
+ with 0, therefore indices will be shifted by -1 compared with what you see after loading it into <font face="helvetica">Amira</font>.</p>
+<p> <b>A first Example:</b>
+ As a first simple example the following text shows how to define a water molecule.
+ The levels "atoms", "bonds" and "residues" exist.
+ The first two levels are of fixed group size. As root level, the atom level has no reference level and 
+ has therefore groups of size 0. This is a special case and the GROUP element can be 
+ omitted. Bonds always reference two atoms and are therefore of fixed group size 2. The indices can therefore be read as consecutive groups
+ of 2. Residues reference an arbitrary number of atoms and the first number for each residue reference in the 
+ groups element therefore needs to contain the number of atoms referenced by the residue (in this case 3), followed by these
+ reference indices (0 1 2). These levels represent the 3 possibilites of defining a level: 
+ Variable group size means that the number of group elements occurs in
+ the list before each group, fixed group size of n means that each group is an n-tuple in the list, and the atom level is a special case
+ because it is the root level and atoms do not reference any other groups.
+ The coordinates are in a different section and the list contains consecutive 3-tuples (x,y,z) for each atom in the order of their index.</p>
+<pre>
+&lt;?xml version="1.0" encoding="ASCII"?&gt;
+&lt;!DOCTYPE AMF SYSTEM "amf.dtd"&gt;
+&lt;AMF version="1.00"&gt;
+&lt;MOLECULE name="water"&gt;
+&lt;TOPOLOGY&gt;
+&lt;LEVEL name="atoms" size="3" fixedgroupsize="0"&gt;
+&lt;ATTRIBUTE name="atomic_number" type="int32"&gt;
+1 8 1
+&lt;/ATTRIBUTE&gt;
+&lt;ATTRIBUTE name="MMFF94_type" type="string"&gt;
+&lt;![CDATA[HOH OH2 HOH ]]&gt;
+&lt;/ATTRIBUTE&gt;
+&lt;/LEVEL&gt;
+&lt;LEVEL name="bonds" size="2" fixedgroupsize="2"&gt;
+&lt;GROUPS&gt;
+1 0 1 2
+&lt;/GROUPS&gt;
+&lt;ATTRIBUTE name="type" type="int32"&gt;
+1 1
+&lt;/ATTRIBUTE&gt;
+&lt;/LEVEL&gt;
+&lt;LEVEL name="residues" size="1"&gt;
+&lt;GROUPS&gt;
+3 0 1 2
+&lt;/GROUPS&gt;
+&lt;/LEVEL&gt;
+&lt;COORDINATES&gt;
+0.251 -0.36 -0.046 0.249 0.684 0.231 0.586 -0.954 0.791
+&lt;/COORDINATES&gt;
+&lt;/MOLECULE&gt;
+&lt;/AMF&gt;
+</pre>
+<p> Now suppose you want to have a trajectory of a water molecule with 3 time steps. How would the
+ file differ? First of all the &lt;MOLECULE&gt; element would be replaced by a 
+</p><pre>   
+&lt;MOLTRAJECTORY name="water" size="3"&gt;
+</pre><p>
+ Next the &lt;COORDINATES&gt; element needs to contain 3 times as many coordinates. 
+ The list starts with the first timestep and gives all coordinates and continues with the second timestep and so on.
+ Finally, a trajectory may contain observables, which for example might be the
+ intramolecular energy per time step as computed during a simulation in an NVT ensemble.
+</p><pre>   
+&lt;OBSERVABLE name="intramolecular_energy"&gt;
+-1.31 -1.29  -1.30
+&lt;/OBSERVABLE&gt;
+</pre>
+<p> <b>Molecule:</b></p>
+<p> A molecule consists of a topology, optional coordinates and an arbitrary number of fields.</p>
+<p> A topology consists of an arbitrary number of levels which contain groups and an arbitrary number of
+ attributes.</p>
+<p> There is a set of predefined levels and attribute which is used by some of the data, viewer or computational
+ modules in <font face="helvetica">Amira</font>. A molecule must have the root level "atoms" which needs to be of fixed group size 0. 
+ The atom level must contain the attribute "atomic_number". 
+ Bonds must be defined in the level "bonds" of fixed group size 2 and usually have the attribute 
+ "order" which has the following meaning: 
+ 0=undefined, 1=single, 2=double, 3=triple, 4=aromatic bond.</p>
+<p> Modules for sequence alignment additionally require a level "residues" with an attribute "type".</p>
+<p> Modules requiring secondary structure information require a level "secondary structure" with the
+ reference level "residues" and the attributes "type" which can be "helix", "sheet" or "turn".</p>
+<p> <b>MolTrajectory:</b> </p>
+<p> MolTrajectories are saved like Molecules except that they can contain several different
+ timesteps (i.e. sets of coordinates) and an arbitrary set of observables. Observables are fields
+ which contain one value per timestep.</p>
+<p>	<b>Data types</b></p>
+<p>	Data can be stored as int32 (c-type: integer), float, or string (c-type: char[]).</p>
+<p>	<b>ASCII Data</b></p>
+<p>	The encoding of the file must be ASCII.</p>
+<p>	Data tokens in PCDATA records must be separated by one or more whitespaces.</p>
+<p> <b>DTD:</b></p>
+<p> <font size="0"></font></p><pre>
+&lt;!ELEMENT AMF (MOLTRAJECTORYBUNDLE*,MOLTRAJECTORY*,MOLECULE*)&gt;
+&lt;!ATTLIST AMF
+    version CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT MOLTRAJECTORYBUNDLE (MOLTRAJECTORY*)&gt;
+&lt;!ATTLIST MOLTRAJECTORYBUNDLE
+    name CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT MOLTRAJECTORY (TOPOLOGY,COORDINATES?,OBSERVABLE*)&gt;
+&lt;!ATTLIST MOLTRAJECTORY
+    name CDATA #REQUIRED
+    size CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT MOLECULE (TOPOLOGY,COORDINATES?)&gt;
+&lt;!ATTLIST MOLECULE
+    name CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT TOPOLOGY (LEVEL+,DATA*)&gt;
+
+&lt;!ELEMENT LEVEL (GROUPS?,ATTRIBUTE*)&gt;
+&lt;!ATTLIST LEVEL
+    name CDATA #REQUIRED
+    size CDATA #REQUIRED
+    reflevel CDATA #IMPLIED
+    fixedgroupsize CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT GROUPS (#PCDATA)&gt;
+
+&lt;!ELEMENT ATTRIBUTE (#PCDATA)&gt;
+&lt;!ATTLIST ATTRIBUTE
+    name CDATA #REQUIRED
+    type (int32|float|string) #REQUIRED&gt;
+
+&lt;!ELEMENT DATA (#PCDATA)&gt;
+&lt;!ATTLIST DATA
+    name CDATA #REQUIRED
+    type (int32|float|string) #REQUIRED
+    size CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT COORDINATES (#PCDATA)&gt;
+&lt;!ATTLIST COORDINATES
+    size CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT OBSERVABLE (#PCDATA)&gt;
+&lt;!ATTLIST OBSERVABLE
+    name CDATA #REQUIRED
+    type (int32|float) #REQUIRED&gt;
+
+
+</pre><p><font size="0">
+</font></p>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> SmoothLine </a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "SmoothLine " "smooth a line set or a spatial graph data object" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+Used to perform a smoothing of the traced <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1"> Spatial Graph </a>
+or <a class="link" href="../hxlines/HxLineSet.html#A1"> Line Set </a> object. A point-averaging routine is used by this module.
+The average is based on the positions of existing coordinate pairs and
+their neighbors. Only the endpoint locations remain the same. The algorithm
+maintains the same number of points as the original line.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Where data can be <a class="link" href="../hxspatialgraph/HxSpatialGraph.html#A1"> Spatial Graph </a> or <a class="link" href="../hxlines/HxLineSet.html#A1"> Line Set </a> 
+which is used as input for the smoothing.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Coefficients</span>  
+<div class="portsnapshot"><img src="HxSmoothLine_coefficients.png" /><br /></div>
+<div class="body"><p>The value of the <em>smooth</em> field is used as a coefficient that controls the influence of neighboring
+points on the position of a point. The parameter can have values between 0 and 1. The greater the value the smoother the result. The
+value at the <em>attach to the data</em> field controls the influence of the initial coordinate on
+the new position. The higher the value the more the initial position will be
+retained. The value should be less than 1. The default value is 0.25.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Number of iterations</span>  
+<div class="portsnapshot"><img src="HxSmoothLine_numberOfIterations.png" /><br /></div>
+<div class="body"><p>Specifies how many times the smoothing is performed. The default value is 10. Higher values will produce smoother curves.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

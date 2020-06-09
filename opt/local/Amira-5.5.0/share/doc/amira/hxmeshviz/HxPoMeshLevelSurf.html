@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Isosurface (Polyhedra)</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Mesh Option</li></ul></div>
+<! HxIndex: "amiraMesh" "Module" "Isosurface (Polyhedra)" "shows isosurfaces for scalar fields on polyhedral grids" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This module computes an isosurface for a scalar field defined
+ on a three-dimensional polyhedral grid. 
+ A second 
+ independent scalar field may be connected
+ to the module. This field determines how the isosurface is colored.
+ If no color field is connected to the module, the isosurface has
+ constant color. </p>
+<p> Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar field defined on a polyhedral grid. Data must be stored per nodes. </p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Arbitrary scalar field which is mapped onto the isosurface
+	using pseudo-coloring. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap is used for pseudo-coloring the isosurface.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The texture field must be an HxUniformColorField3 2D slice. 
+ When connected, the texture is mapped onto the surface geometry along 
+ the texture normal axis. A transformation can be applied to the data to 
+ change the texture projection axis and texture coordinates scale.
+ Note that texture projection override pseudo-color mode.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Connection to a module defining a region of interest.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxPoMeshLevelSurf_drawStyle.png" /><br /></div>
+<div class="body"><p>The draw style port is inherited from class <i>ViewBase</i>.
+ For a description of this port see 
+ <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxPoMeshLevelSurf_colormap.png" /><br /></div>
+<div class="body"><p>If a colormap is connected to the isosurface module, this
+ colormap will be shown here.
+ If no colormap is connected to the module, the port's default
+ color is used. To change this color, click into the color
+ bar with the left mouse button. This will bring up the color
+ selection dialog. To connect the port to a colormap, use the
+ popup menu under the right mouse button.
+ See also <a class="link" href="../hxcolor/HxColormap256.html#A1">Colormap</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Threshold</span>  
+<div class="portsnapshot"><img src="HxPoMeshLevelSurf_threshold.png" /><br /></div>
+<div class="body"><p>Specifies the value used for isosurface computation.
+ The slider is automatically adjusted to cover the whole range
+ of data values. If the threshold value is changed, the
+ computation of the new isosurface is immediately invoked.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxPoMeshLevelSurf_buffer.png" /><br /></div>
+<div class="body"><p>To use this port, you must first create a dragger. To do so, 
+type the command <tt>Isosurface showBox</tt>. Then the
+buffer port must be enabled explicitly with the command
+<tt>Isosurface buffer show</tt>. For a detailed description see
+the <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a> documentation.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">TextureWrap</span>  
+<div class="portsnapshot"><img src="HxPoMeshLevelSurf_textureWrap.png" /><br /></div>
+<div class="body"><p>Wrap mode used for the texture projection on the surface. There are two wrap modes:
+ <i>Repeat: </i> The texture is repeated outside its 0-1 texture coordinate range.
+ <i>Clamp: </i> Clamps texture coordinates to lie within 0-1 range.
+ This port is hidden if there is nothing connected to the <em>Texture</em> connection port.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxPoMeshSkin_cullingMode.png" /><br /></div>
+<div class="body"><p>Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase documentation</a>.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

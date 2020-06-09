@@ -1,0 +1,12 @@
+dataClass -name "FieldAsLattice"   \
+    -class "HxFieldAsLattice"      \
+    -primary "HxField"            \
+    -category "Compute"               \
+    -package "hxcast"
+
+module -name "CastLattice"   \
+    -class "HxCastLattice"      \
+    -check { [__checkMultiChannelLDM $PRIMARY] != 1} \
+    -primary "HxLattice"            \
+    -category "Compute"               \
+    -package "hxcast"

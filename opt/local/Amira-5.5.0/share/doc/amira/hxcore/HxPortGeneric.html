@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PortGeneric</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "PortGeneric" "configurable generic port" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ This is a generic port which can be dynamically configured in various way.
+ Several different predefined user-interface components can be used:</p>
+
+<ul><li>text fields for integer values</li><li>text fields for floating point values</li><li>check boxes</li><li>groups of radio buttons</li><li>combo boxes (option menus)</li><li>push buttons</li><li>labels</li>
+</ul>
+<p> Interface components inserted into this port are identified using a unique
+ ID, which must be specified when creating the component. This ID is used
+ in all commands to set or get the value of the particular component.</p>
+<p> The design goal of this class was primarily ease-of-use. Thus flexibility
+ is somewhat limited. If you want to create a port with custom GUI components,
+ you should use <font face="helvetica">Developer Option</font> and derive a new class from <a class="link" href="HxPort.html#A1">Port</a>
+ using Qt widgets.</p>
+<p> This port is used for example by the
+ <a class="link" href="HxTransformEditor.html#A1">TransformEditor</a>.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">getValue &lt;id&gt;</span>  
+
+<div class="body"><p>Returns the value of the specified component. For combo boxes and radio
+ groups the index of the selected item is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setValue &lt;id&gt; &lt;value&gt;</span>  
+
+<div class="body"><p>Sets the value of the specified component. If the specified component is a
+ combo box or a radio group and if value is not a number, then the value is
+ interpreted as a label and the combo box item or the radio button with that
+ label is selected.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getColor &lt;id&gt;</span>  
+
+<div class="body"><p>Returns the color of a color button inserted via the command <tt>insertColorButton</tt>. If the component <tt>&lt;id&gt;</tt> is not a color button, the
+ result is undefined.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setColor &lt;id&gt; &lt;color&gt;</span>  
+
+<div class="body"><p>Sets the color of a color button with the specified id. If the component
+ <tt>&lt;id&gt;</tt> is not a color button, the command returns immediately.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isItemNew &lt;id&gt;</span>  
+
+<div class="body"><p>Checks if the specified component was modified since the owning module was
+ fired the last time.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">deleteItem &lt;id&gt;</span>  
+
+<div class="body"><p>Deletes the specified item.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertIntText &lt;id&gt; [&lt;columns&gt; [&lt;index&gt;]]</span>  
+
+<div class="body"><p>Inserts an integer text field. In order to set the text field to
+ e.g., 27, use <tt>setValue &lt;id&gt; 27</tt>. In order to query the value of the
+ text field, use <tt>getValue &lt;id&gt;</tt>. <tt>&lt;columns&gt;</tt> specifies the
+ width of the text field. <tt>&lt;index&gt;</tt> specifies the position where the
+ text field should be inserted. If this argument is omitted, the text field
+ is appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertFloatText &lt;id&gt; [&lt;format&gt; [&lt;columns&gt; [&lt;index&gt;]]]</span>  
+
+<div class="body"><p>Inserts a floating point text field. In order to set the text field to
+ e.g., 5.5, use <tt>setValue &lt;id&gt; 5.5</tt>. In order to query the value of the
+ text field, use <tt>getValue &lt;id&gt;</tt>. <tt>&lt;format&gt;</tt> specifies the
+ printf format of the text field. Usually <tt>%g</tt> is a good choice.
+ <tt>&lt;columns&gt;</tt> specifies the width of the text field. <tt>&lt;index&gt;</tt>
+ specifies the position where the text field should be inserted. If this
+ argument is omitted, the text field is appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertCheckBox &lt;id&gt; [&lt;label&gt; [&lt;index&gt;]]</span>  
+
+<div class="body"><p>Inserts a check box with a label. In order to set the check box
+ use <tt>setValue &lt;id&gt; {0|1}</tt>. In order to query the value of the check
+ box use <tt>getValue &lt;id&gt;</tt>. <tt>&lt;index&gt;</tt> specifies the position where
+ the check box should be inserted. If this argument is omitted, the text
+ field is appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertRadioGroup &lt;id&gt; &lt;num&gt; &lt;label1&gt; ... &lt;labelN&gt; [&lt;index&gt;]</span>  
+
+<div class="body"><p>Inserts a group of n radio buttons. The button labels are specified
+ by <tt>&lt;label1&gt;</tt> to <tt>&lt;labelN&gt;</tt>. The number of labels must match the
+ number of radio buttons. In order to set, for example, the second radio button
+ (and unset all others), use <tt>setValue &lt;id&gt; 1</tt>. In order to query which
+ radio button is checked, use <tt>getValue &lt;id&gt;</tt>. <tt>&lt;index&gt;</tt> specifies
+ the position where the radio group should be inserted. If this argument is
+ omitted, the radio group is appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertComboBox &lt;id&gt; &lt;num&gt; &lt;label1&gt; ... &lt;labelN&gt; [&lt;index&gt;]</span>  
+
+<div class="body"><p>Inserts a combo box with n items. The item's labels are specified
+ by <tt>&lt;label1&gt;</tt> to <tt>&lt;labelN&gt;</tt>. The number of labels must match the
+ number of radio buttons. In order to select, for example, the second item
+ (and unset all others), use <tt>setValue &lt;id&gt; 1</tt>. In order to query which
+ item is selected, use <tt>getValue &lt;id&gt;</tt>. <tt>&lt;index&gt;</tt> specifies
+ the position where the combo box should be inserted. If this argument is
+ omitted, the combo box is appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertPushButton &lt;id&gt; &lt;label&gt; [&lt;index&gt;]</span>  
+
+<div class="body"><p>Inserts a simple push button. <tt>&lt;label&gt;</tt> specifies the label of the
+ button. In order to simulate a button press event, use <tt>setValue &lt;id&gt; 1</tt>.
+ In order to check if the button was pressed, use the command <tt>isItemNew
+ &lt;id&gt;</tt>. <tt>&lt;index&gt;</tt> specifies the position where the button should
+ be inserted. If this argument is omitted, the button is appended after all
+ other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertColorButton &lt;id&gt; [&lt;index&gt;]</span>  
+
+<div class="body"><p>Inserts a color button. The button can be used to specify an RGB color.
+ Pushing the button opens the color dialog, In order to set the color, use
+ the command <tt>setColor &lt;id&gt; &lt;color&gt;</tt>. In order to query the color, use
+ the command <tt>getColor &lt;id&gt;</tt>. <tt>&lt;index&gt;</tt> specifies the position where
+ the button should be inserted. If this argument is omitted, the button is
+ appended after all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">insertLabel &lt;id&gt; &lt;label&gt; [&lt;index&gt;]</span>  
+
+<div class="body"><p>Inserts a label. <tt>&lt;index&gt;</tt> specifies the position where the label
+ should be inserted. If this argument is omitted, the label is appended after
+ all other elements.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setSensitivity &lt;id&gt; &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the sensitivity of an element. If an element is insensitive, it
+ is grayed out and accepts no user input. By default, all new elements
+ are sensitive.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">getSensitivity &lt;id&gt;</span>  
+
+<div class="body"><p>Returns the sensitivity of an element.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

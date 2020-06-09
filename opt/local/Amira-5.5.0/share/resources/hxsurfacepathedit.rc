@@ -1,0 +1,89 @@
+editor -name "SurfacePathEditor" \
+    -data "HxSurfacePathSet" \
+    -class "HxSurfacePathEditor" \
+    -icon "HxSurfacePathEditor.xpm" \
+    -dso "libhxsurfacepathedit.so"
+
+if { ![__isProduct "Amira"] } {
+    module -name "GenericPathEditor" \
+        -primary "HxSurface" \
+        -proc {
+            foreach obj [all -selected ] {
+                $obj deselect
+            }
+            set pathset [ create HxSurfacePathSet ]
+            $pathset surface connect $PRIMARY
+            $pathset fire; 
+            $pathset select
+            set editor  [create HxSurfacePathEditor ]
+
+
+            $editor attach $pathset 
+            $editor fire 
+            $editor portEditorTypes setValue 0 
+            $editor portStartEditor hit 0 
+            $editor fire
+        } \
+        -category "SurfacePath" \
+        -dso "libhxsurfacepathedit.so"
+
+    module -name "VertexPathEditor" \
+        -primary "HxSurface" \
+        -proc {
+            foreach obj [all -selected ] {
+                $obj deselect
+            }
+            set pathset [ create HxSurfacePathSet ]
+            $pathset surface connect $PRIMARY
+            $pathset fire; 
+            $pathset select
+            set editor  [create HxSurfacePathEditor ] 
+            $editor attach $pathset 
+            $editor fire 
+            $editor portEditorTypes setValue 1 
+            $editor portStartEditor hit 0 
+            $editor fire
+        } \
+        -category "SurfacePath" \
+        -dso "libhxsurfacepathedit.so"
+} else {
+    module -name "CreateSurfacePath" \
+        -primary "HxSurface" \
+        -proc {
+            foreach obj [all -selected ] {
+                $obj deselect
+            }
+            set pathset [ create HxSurfacePathSet ]
+            $pathset surface connect $PRIMARY
+            $pathset fire; 
+            $pathset select
+            set editor  [create HxSurfacePathEditor ] 
+            $editor attach $pathset 
+            $editor fire 
+            $editor portEditorTypes setValue 0 
+            $editor portStartEditor hit 0 
+            $editor fire
+            $editor connector setValue 2
+            $editor fire
+        } \
+        -category "Measure" \
+        -dso "libhxsurfacepathedit.so"
+}
+
+namespace eval hxsurfacepathedit {
+    set genericEditorConnectors {}
+    set vertexEditorConnectors { "Dijkstra" "NonManifold" "DistanceMap" }
+
+    set editorTypes [list]
+    set editorClasses [list]
+    set editorLibs [list]
+
+    proc declareEditorClass {type className library} {
+        lappend hxsurfacepathedit::editorTypes $type 
+        lappend hxsurfacepathedit::editorClasses $className 
+        lappend hxsurfacepathedit::editorLibs $library
+    }
+}
+
+hxsurfacepathedit::declareEditorClass  "GenericPathEditor"  SurfacePathEditor        hxsurfacepathedit
+hxsurfacepathedit::declareEditorClass  "VertexPathEditor"   SurfaceVertexPathEditor  hxsurfacepathedit

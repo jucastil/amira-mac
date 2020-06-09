@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">10.1.2 Selection, Labeling, and Masking</a></h3>
+<p>You already know how to load files and how to display molecules with
+the <em>MoleculeView</em> module. This tutorial will focus on exploring
+the structure of a loaded molecule. The tutorial consists of three
+subsections, in which you will:</p>
+<p></p>
+<ol><li>Explore the possibilities for selecting within a molecule using
+ the <a class="link" href="../hxmolview/HxMolView.html#A1">MoleculeView</a> module.</li><li>Learn how to use the <a class="link" href="HxMolLabel.html#A1">MoleculeLabel</a> module.</li><li>Get to know the <a class="link" href="QxMolSelectionBrowser.html#A1">Molecule Selection
+ Browser</a>.</li>
+</ol><p></p>
+<p>For this tutorial we will use the molecule <tt>1IGM.pdb</tt>.</p>
+<p></p>
+<ul><li>Load the file <tt>1IGM.pdb</tt> into the Pool from the
+ directory <tt>data/molecules/pdb</tt>.</li><li>Attach a <em>MoleculeView</em> module to the green object that has
+ appeared,</li><li>and change the <em>Mode</em> port to <em>balls and sticks</em>.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A2">10.1.2.1 Interactive Selection with the MoleculeView Module</a></h4>
+<p>In the first tutorial you learned how to use the draw tool to select
+atoms within a molecule. The simplest way to select atoms, however, is
+to click on the atom of interest. In order to do so, the viewer must
+be in <em>interaction</em> mode. If the mouse cursor in the viewing
+window is depicted as a hand, you are in viewing mode. To change to
+interaction mode, you can either</p>
+<p></p>
+<ul><li>click on the arrow button in the upper right corner of the
+ viewing window or press the <tt>Esc</tt> button while the viewing
+ window is active.</li>
+</ul><p></p>
+<p>The mouse cursor will change to an arrow.</p>
+<p></p>
+<ul><li>Now click one of the atoms.</li>
+</ul><p></p>
+<p>The atom you selected should now be highlighted by a red frame around
+it. If you select another atom, the first atom will be unhighlighted.
+In order to select more than one atom</p>
+<p></p>
+<ul><li>press the <tt>Ctrl</tt> key and keep it pressed while clicking
+ additional atoms.</li>
+</ul><p></p>
+<p><tt>Ctrl</tt>-clicking a highlighted atom a second time unhighlights it.</p>
+<p></p>
+<ul><li>Now change the <em>Mode</em> port of the <em>MoleculeView</em> back to
+ <em>sticks</em>.</li><li>Select <em>residues</em> from the first menu of the <i>MoleculeView's</i> <em>Color</em> port.</li><li>Choose a suitable colormap from the list of pre-loaded colormaps
+ as described in the first tutorial.</li>
+</ul><p></p>
+<p>The residues should now be colored according to their type. </p>
+<p></p>
+<ul><li>Now select an atom.</li>
+</ul><p></p>
+<p>As result the whole residue should now be highlighted. The reason for
+this is that picking is bound to the coloring, by default. For
+example, if the color scheme is <em>atoms</em>, a click on an atom will
+only influence the selection for this atom; if the scheme is <em>residues</em>, the atom's residue will be selected; if it is <em>chains</em>, the atom's chain will be selected, and so on. However,
+since this is very restrictive you can easily change the selection
+mode to the most common levels, i.e., atoms, residues, secondary
+structures, and chains. In order to choose a certain level for the
+selection you need to press certain keys in advance. <tt>Ctrl-Alt-Shift-a</tt>
+chooses the <em>atoms</em> level, a click on an atom will only influence
+the selection for this atom. <tt>Ctrl-Alt-Shift-r</tt>, <tt>Ctrl-Alt-Shift-c</tt> and <tt>Ctrl-Alt-Shift-s</tt> choose <em>residues, chains</em> and <em>secondary_structure</em>
+level respectively. To switch back to the default behavior, where
+coloring determines selection, press <tt>Ctrl-Alt-Shift-d</tt>.</p>
+<p>If you select some group and afterwards select a second one from the
+same level holding down the <tt>Shift</tt>-key all groups between the two
+will also be selected. Holding the <tt>Ctrl</tt>-key pressed while
+selecting groups allows you to select multiple groups and also to
+toggle a group when selecting it a second time.</p>
+<p>If you do any selection by clicking in the viewer there will be some
+output in the console window informing you about what you have
+selected, the amount of output can be customized via the Preferences
+dialog:</p>
+<p></p>
+<ul><li>You can set your preferences in the <font face="helvetica">Amira</font> <em>Edit</em> menu by
+ selecting the entry <em>Preferences</em>.</li><li>Press the <em>Molecules</em> tab and take a look on the options in
+ chapter <em>Selection Info</em>:</li><li><b>Molecule name</b> determines that the name of the molecule,
+ to which a selected group belongs, will be printed.</li><li><b>Group name</b> determines that the name of the selected
+ group will be printed.</li><li><b>Group attributes</b> determines that not only the selected
+ group's name but also all attribute values of the group will be
+ printed in the console window.</li><li><b>Explicit attributes</b> restricts the output of attribute
+ values to those attributes that are explicitly named in the text
+ field.</li><li>Pressing the <em>OK</em> button saves your preferences permanently.</li>
+</ul><p></p>
+<p></p>
+<h4><a name="A3">10.1.2.2 Using the MoleculeLabel Module</a></h4>
+<p>So far you have seen that you can select atoms and groups of atoms by
+clicking on the molecule. The result of the picking is always printed
+in the console window. This might suffice in some cases. In other
+cases, however, it is necessary to label the molecule in the viewer so
+that you can easily track certain groups you are interested in. If
+you want to use this tool, here is how you do it.</p>
+<p></p>
+<ul><li>Click again on the icon <em>1IGM.pdb</em> with the right mouse
+ button.</li><li>Select <em>MoleculeLabel</em> from the <em>Display</em> submenu.</li>
+</ul><p></p>
+<p>A second yellow icon labeled <em>MoleculeLabel</em> should have appeared
+in the Pool. By default, all clicks will now be handled by the
+<em>MoleculeLabel</em> module. This means that instead of highlighting
+groups when clicking on them they will now get labeled.</p>
+<p></p>
+<ul><li>Type <tt>Ctrl-Alt-Shift-r</tt> while the viewing window is active.</li><li>Click on the molecule in the 3D viewer.</li>
+</ul><p></p>
+<p>This action should cause the residue of the selected atom to get
+labeled. Pressing <tt>Ctrl-Alt-Shift-a</tt> and clicking the same atom will result
+in the selected atom being labeled. The <tt>Ctrl-</tt> and <tt>Shift-</tt>
+keys have the same effect as when selecting groups.</p>
+<p></p>
+<ul><li>Label a few residues and atoms.</li><li>Click on the <em>MoleculeLabel</em> icon to view its ports in the
+ Properties Area.</li><li>Change the color of the atom labels by pressing the color button
+ of the <em>Color</em> port and selecting a different color in the color
+ editor.</li><li>Now select <em>residues</em> in the <em>Levels</em> port. The <em>Attributes</em>, <em>Level Option</em>, <em>Buttons</em>, <em>Font Size</em>,
+ and <em>Color</em> ports now affect the residue labels.</li><li>Increase the font size (which only increases the font size of the current level, i.e., residues).</li><li>Select the <em>name</em> entry in the second menu of the <em>Attributes</em> port.</li>
+</ul><p></p>
+<p>The selected residues will now be labeled by their types and names.
+In order to understand the <em>Options</em> port of the <em>MoleculeLabel</em> module</p>
+<p></p>
+<ul><li>deselect the last option, <em>replace attributes</em>,</li><li>and set the entry of the second <em>Attributes</em> menu back to
+ <em>disabled</em>.</li><li>Now select a new residue, holding the <tt>Ctrl-</tt> key down.</li>
+</ul><p></p>
+<p>The new residue will only be labeled by its type. In contrast, the
+old residues are still labeled with type and name.</p>
+<p>If the first option of the last port, <em>handle clicks</em>, is
+deselected, mouse clicks will be handled just as if the module
+<em>MoleculeLabel</em> did not exist.</p>
+<p></p>
+<ul><li>Deselect the <em>handle clicks</em> option.</li><li>Select any residue.</li>
+</ul><p></p>
+<p>The residue is selected, not labeled.</p>
+<p></p>
+<h4><a name="A4">10.1.2.3 Molecule Selection Browser</a></h4>
+<p>In this section you will learn the basics about the <em>molecule
+ selection browser</em>, which is a very important feature for the
+investigation of a molecule. The selection browser is a flexible tool
+for selecting those parts of the molecule that you are interested in.
+Moreover, it allows you to easily combine different viewing modules
+into one viewer.</p>
+<p></p>
+<ul><li>Select the green icon <em>1IGM.pdb</em> by clicking on it.</li><li>Press the <em>Show</em> button of the <em>Selection Browser</em> port 
+ to open the browser.</li>
+</ul><p></p>
+<p>The scroll view of the browser currently contains three columns, one
+with the heading <em>level/name</em>, the second with the heading <em>type</em>, and the third with the heading <em>MV</em> which stands for <em>MoleculeView</em>. In the first column, all residues of the molecule are
+displayed. The second column shows the residue type.</p>
+<p></p>
+<ul><li>Connect a <em>BondAngleView</em> to <tt>1IGM.pdb</tt> by
+ right-clicking the icon and choosing <em>BondAngleView</em> from the
+ <em>Display</em> submenu.</li>
+</ul><p></p>
+<p>You will observe a new column in the selection browser, representing
+the <em>BondAngleView (BAV)</em> (see Figure
+<a class="link" href="#A5">54</a>).</p>
+<p></p><div style="text-align:center"><a name="A5"></a><a href=molselection1.png.html><img width=562 src="molselection1.png" /></a><br />
+<div class="caption">
+<b>Figure 54:</b>
+On the left, MoleculeView and BondAngleView displaying the molecule
+ simultaneously.<br />
+ On the right, the Selection browser after connecting two viewing
+ modules to the molecule.</div>
+
+ 
+</div><p></p>
+<p><b>Changing the Appearance of MoleculeView and BondAngleView</b></p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=molselection2.png.html><img width=562 src="molselection2.png" /></a><br />
+<div class="caption">
+<b>Figure 55:</b>
+Setting the ports in the viewing modules.
+ </div>
+
+ 
+</div><p>
+In order to get an image similar to Figure
+<a class="link" href="#A6">55</a>, we first need to set the ports in
+the <em>MoleculeView</em> and the <em>BondAngleView</em> modules correctly.
+We begin with the <em>MoleculeView</em> module.</p>
+<p></p>
+<ul><li>Set the <em>Mode</em> port to <em>balls</em>.</li><li>Set the <em>Quality</em> port to <em>correct</em>.</li><li>Set the <em>Atom Radius</em> port to 1.0.</li>
+</ul><p></p>
+<p>For the <em>BondAngleView</em> continue as follows:</p>
+<p></p>
+<ul><li>Select the <em>residues</em> entry from the first menu of the <em>Color</em> port.</li><li>From the second menu of <em>Color</em> port, select the <em>index</em> entry.</li><li>Right-click on the color bar of the <em>Discrete CM</em> port and
+ select the colormap <em>physics.icol</em>, if this colormap is
+ pre-loaded. Otherwise load it from the directory <tt>data/colormaps</tt>.</li>
+</ul><p></p>
+<p>We now only see the <em>MoleculeView</em>, since the triangles of the
+<em>BondAngleView</em> are hidden by the van der Waals spheres. In order
+to combine the two viewing modules into one image, continue with the
+next section.</p>
+<p><b>Highlighting and Masking with the Selection Browser</b></p>
+<p>We now want to use the selection browser to display parts of the
+molecule with the <em>MoleculeView</em> module and the rest with the <em>BondAngleView</em> module. In this section we will only use the
+selection browser, so all menu names etc. refer to this window.</p>
+<p></p>
+<ul><li>Select <em>chains</em> as new master level from the <em>MasterLevel</em> menu.</li>
+</ul><p></p>
+<p>You will now see three entries in the first column: <em>chains/L</em>,
+<em>chains/H</em>, and <em>chains/W</em>. This means that the level <em>chains</em> contains three groups, named <em>L</em>, <em>H</em>, and <em>W</em>.
+In order to view the group <em>chains/L</em> with the <em>MoleculeView</em>
+and the other two groups with the <em>BondAngleView</em>,</p>
+<p></p>
+<ul><li>remove the check marks for <em>chains/H</em> and <em>chains/W</em>
+ from the column with heading <em>MV</em> by clicking on them.</li>
+</ul><p></p>
+<p>To deselect the group <em>chains/L</em> for the <em>BondAngleView</em>,</p>
+<p></p>
+<ul><li>click on the respective box in the column <em>BAV</em>.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A7"></a><a href=molselection4.png.html><img width=562 src="molselection4.png" /></a><br />
+<div class="caption">
+<b>Figure 56:</b>
+Displaying parts of the
+molecule with the <em>MoleculeView</em> module and the rest with the <em>BondAngleView</em> module.</div>
+
+ 
+</div><p>
+Now you should see an image that is pretty close to that in Figure
+<a class="link" href="#A7">56</a>. However, the <em>BondAngleView</em>
+displays more triangles than in the figure. The <em>BondAngleView</em> in
+Figure <a class="link" href="#A7">56</a> only displays <em>backbone</em>
+atoms. In order to achieve this</p>
+<p></p>
+<ul><li>right-click on the heading labeled <em>BAV</em>.</li>
+</ul><p></p>
+<p>A pop-up menu as in Figure <a class="link" href="#A7">56</a> should appear.</p>
+<p></p>
+<ul><li>Select <em>Backbone</em> from the <em>Restrict to</em> submenu.</li>
+</ul><p></p>
+<p>The side-chain atoms should not be visible anymore. Next, you should
+explore the group <em>chains/L</em> a bit further.</p>
+<p></p>
+<ul><li>Click on the little icon left to it.</li>
+</ul><p></p>
+<p>After this action the residues contained in chain <em>L</em> will
+have appeared.</p>
+<p></p>
+<ul><li>Click on the little icon left to the residue <em>L1</em>.</li><li>Type <tt>atoms/L4-L33</tt> in the text field labeled <em>Expression</em>, below the scroll window, and press the <em>Replace</em>
+ button.</li>
+</ul><p></p>
+<p>Atoms <em>L4</em> to <em>L8</em> and residues <em>L2</em>, <em>L3</em>, and <em>L4</em> are highlighted in red. The residue <em>L1</em> and the chain <em>L</em> are highlighted in green. The color <em>red</em> means that the
+whole group is selected, i.e., all its elements. <em>Green</em> denotes
+that the group is partially selected. See Figure
+<a class="link" href="#A8">57</a>.</p>
+<p></p>
+<p></p><div style="text-align:center"><a name="A8"></a><a href=molselection3.png.html><img width=562 src="molselection3.png" /></a><br />
+<div class="caption">
+<b>Figure 57:</b>
+Molecular browser dialog.</div>
+
+ 
+</div><p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>To get familiar with the browser, play around with it. If you need
+further information, just press the <tt>F1</tt> button in the browser
+window or see the description of the
+<a class="link" href="QxMolSelectionBrowser.html#A1">Selection Browser</a>.</p>
+<p>
+
+
+
+
+
+</p>
+<p>
+
+</p></body>
+</html>

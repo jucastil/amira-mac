@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Cutting Plane</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "Cutting Plane" "creates a line set by intersecting a 3D model" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The <em>Cutting Plane</em> module can be connected to any display module
+derived from <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a>. The module provides a special
+cutting plane of finite size which can be rotated, translated, and scaled
+interactively. The module then computes the intersections of all triangles
+shown by the <em>ViewBase</em> module with the cutting plane. The resulting
+line segments are stored in a <a class="link" href="../hxlines/HxLineSet.html#A1">LineSet</a> object.
+Optionally, the module can be used without any input. In this case the
+intersection of any surface-like geometry shown in the main viewer is
+computed.</p>
+<p><em>Note:</em> Surfaces and tetrahedral grids can be more easily intersected
+with a plane using the <a class="link" href="../hxtetra/HxOverlayGrid.html#A1">Intersect</a> module. This module
+also provides a Tcl command which can be used to export a <em>LineSet</em>
+object.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_optional">
+ <span class="headline">Data</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>A display module derived from <a class="link" href="../hxsurface/HxViewBase.html#A1">ViewBase</a>, e.g.,
+<a class="link" href="../hxiso/HxIsosurface.html#A1">Isosurface</a> or <a class="link" href="HxDisplaySurface.html#A1">SurfaceView</a>.
+If no input is specified the entire scene will be cut with the plane.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxGeometryCutter_orientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the cutting plane's orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxGeometryCutter_options.png" /><br /></div>
+<div class="body"><p>If <em>resample</em> is checked, the resulting lines are resampled so
+ that line segments of equal length are obtained. The length of the
+ resampled line segments can be adjusted using a separate slider (see
+ below). If <em>add to result</em> is checked, the resulting lines will
+ be added to an existing result object. Otherwise, for each cutting
+ operation a new result will be created.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">SampleDist</span>  
+<div class="portsnapshot"><img src="HxGeometryCutter_sampleDist.png" /><br /></div>
+<div class="body"><p>This port is only visible if the <em>resample</em> option is checked
+ (see above). It specifies the preferred length of the resampled line
+ segments.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxGeometryCutter_action.png" /><br /></div>
+<div class="body"><p>The <em>Cut</em> button actually computes the intersecting lines. The
+ <em>Clear result</em> button removes all line segments from the current
+ result.</p>
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

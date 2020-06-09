@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.2.3 Label Fields and the Label Lattice Interface</a></h3>
+<p>Label fields are used to store the results of an image segmentation
+process. Essentially, at each voxel a number is stored indicating
+which material the voxel belongs to. Consequently, label fields
+can be considered scalar fields. In fact, currently there are two
+different types of label fields, one for uniform coordinates (represented
+by class <tt>HxUniformLabelField3</tt> derived from <tt>HxUniformScalarField3</tt>) and one for stacked coordinates (represented by
+class <tt>HxStackedLabelField3</tt> derived from class <tt>HxStackedScalarField3</tt>). Since the two types are not derived from a common
+base class, a special-purpose interface called <tt>HxLabelLattice3</tt> is
+provided. In fact, this interface is in turn derived from <tt>HxLattice3</tt>.
+It replaces the standard lattice variable of ordinary regular fields
+(see <a class="link" href="HxDev-reglattice.html#A1">Section 27.2.1</a>).The primitive data type of a label field is always <tt>McPrimType::mc_uint8</tt>, i.e., bytes. In addition to the standard lattice
+interface, the label lattice interface also provides access to the label
+field's materials. Materials are stored in a special parameter subdirectory
+of the underlying data object. While discussing the plot API, we already
+encountered an example of how to interpret the materials of a label field
+(see <a class="link" href="HxDev-plotmodule1.html#A1">Section 26.3.1</a>). Note that whenever a new label is
+introduced, a new entry should also be put into the material list. Existing
+materials are marked so that they can not be removed from the material list
+(this would corrupt the labeling). In order to remove obsolete materials,
+call the method <tt>removeEmptyMaterials</tt> of <tt>HxLabelLattice3</tt>.
+In addition to the labels, special weights can be stored in
+a label lattice. These weights are used to achieve sub-voxel accuracy
+when reconstructing 3D surfaces from the segmentation results. A pointer
+to the weights can be obtained by calling <tt>getWeights</tt> or <tt>getWeights2</tt> of the label lattice. For more details about <tt>HxLabelLattice3</tt>, please refer to the online class documentation.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

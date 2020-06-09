@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> StandardView</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "StandardView" "three orthogonal views of a 3D image with integrated crosshair" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>StandardView</em> module displays a 3D image data set or, more
+ precisely, a 3D scalar field with either uniform or stacked coordinates
+ in three different 2D windows at once. 
+ The windows show coronal, sagittal, and axial views of the data, respectively. These
+ views correspond to standard xz, yz, and xy-orientations. Note
+ that for the axial (xy) view the origin is in the upper left corner.
+ This is the standard orientation used in radiology. 
+ 
+ In each 2D view
+ the position of the two other slices is indicated by a colored
+ cross hair. You may click at any point in a 2D view in order to
+ reposition the two other slices. The upper left part of the viewer
+ window shows the usual 3D view.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The 3D scalar field to be visualized.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxconnection_optional">
+ <span class="headline">OverlayData</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>If this port is connected to a second 3D image data set, an overlay
+of both images is shown in the 2D windows.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A4"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxStandardView_info.png" /><br /></div>
+<div class="body"><p>This port gives some information about the value of the 3D scalar
+field at the point where the three 2D slices intersect, as well as
+its coordinates.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Range</span>  
+<div class="portsnapshot"><img src="HxStandardView_range.png" /><br /></div>
+<div class="body"><p>Controls the mapping of input data to gray values. Values below <em>min</em> are mapped to black, values above <em>max</em> are mapped to
+white. Values between <em>min</em> and <em>max</em> are mapped linearly.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SliceX</span>  
+<div class="portsnapshot"><img src="HxStandardView_sliceX.png" /><br /></div>
+<div class="body"><p>Number of slice currently displayed in sagittal (yz) window.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SliceY</span>  
+<div class="portsnapshot"><img src="HxStandardView_sliceY.png" /><br /></div>
+<div class="body"><p>Number of slice currently displayed in coronal (xz) window.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">SliceZ</span>  
+<div class="portsnapshot"><img src="HxStandardView_sliceZ.png" /><br /></div>
+<div class="body"><p>Number of slice currently displayed in axial (xy) window.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Zoom</span>  
+<div class="portsnapshot"><img src="HxStandardView_zoom.png" /><br /></div>
+<div class="body"><p>Allows you to decrease, reset, or increase the current image
+ magnification factor. You may also press <tt>[Ctrl][z]</tt> to zoom down or
+ <tt>[Ctrl][Shift][z]</tt> to zoom up.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Overlay mode</span>  
+<div class="portsnapshot"><img src="HxStandardView_overlayMode.png" /><br /></div>
+<div class="body"><p>This port is only visible if a second image data set has been connected
+to input port <em>OverlayData</em>. You can choose one of four overlay
+modes: in <em>blend</em>, <em>add</em>, and <em>maximum</em> mode a blending,
+the sum, or the maximum of both images is shown, respectively. In <em>checkerboard</em> mode the 2D windows are divided like a checkerboard
+showing both image data sets alternately.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Overlay range</span>  
+<div class="portsnapshot"><img src="HxStandardView_overlayRange.png" /><br /></div>
+<div class="body"><p>This port is only visible if a second image data set has been connected
+to input port <em>OverlayData</em>. It controls the mapping of the second
+image data set to gray values, similar to port <em>Range</em> for the first
+image data set.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Blend factor</span>  
+<div class="portsnapshot"><img src="HxStandardView_blendFactor.png" /><br /></div>
+<div class="body"><p>This port is only visible if overlay mode <em>blend</em> has been selected.
+It controls the blending of both image data sets. Blend factors 0 and 1
+mean that only the first or only the second data set is shown, respectively.
+For values between 0 and 1 a linear interpolation is done.</p>
+<p><a name="A13"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Pattern size</span>  
+<div class="portsnapshot"><img src="HxStandardView_patternSize.png" /><br /></div>
+<div class="body"><p>This port is only visible if overlay mode <em>checkerboard</em> has been
+selected. It controls the size of the checkerboard tiles.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,9 @@
+# Amira-Script-Object V3.0
+
+# Check for the demo director component and load the appropriate
+# version of the demo maker script.
+if { ![exists theDemoDirector] } {
+    source ${AMIRA_ROOT}/share/script-objects/DemoMakerClassic.scro
+} else {
+    source ${AMIRA_ROOT}/share/script-objects/DemoMakerWithDemoDirector.scro
+}

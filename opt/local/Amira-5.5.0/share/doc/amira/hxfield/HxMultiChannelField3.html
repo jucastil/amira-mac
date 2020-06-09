@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MultiChannelField3</a>
+</h2> <ul class="entry_classification"><li>Data Type</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Data" "MultiChannelField3" "groups multiple gray images with the same size" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ Multi-channel objects are used to group multiple gray level images of the
+ same size. Display modules such as <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a>,
+ <a class="link" href="../hxneuro/HxProjectionView.html#A1">ProjectionView</a>, or <a class="link" href="../hxvoltex/HxVoltex.html#A1">Voltex</a> then
+ can be directly connected to the multi-channel object, thus allowing
+ all channels to be operated on simultaneously.</p>
+<p> Multi-channel objects are created automatically when reading microscopic
+ image files containing multi-channel information, e.g., Zeiss TIF files or
+ Leica image files. Alternatively, channels can be manually attached to a
+ multi-channel object.</p>
+<p> Details of how to work with multi-channel objects
+ are described in a separate <a class="link" href="../usersguide/tutmultichannel.html#A1">tutorial</a>.
+ </p>
+<p> For each scalar field attached to a multi-channel object a special-purpose
+ port is shown, allowing you to define the channel's data window as well as
+ its preferred color. The data window is usually interpreted in such a way
+ that the lower data value is mapped to black while the upper is mapped to
+ the channel's preferred color.
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Channel 1</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>Used to attach the first scalar field to the multi-channel object. This
+	input determines the dimensions and the data type of the multi-channel
+	object.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Channel 2</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Used to attach a second scalar field to the multi-channel object. The
+	second input must have the same dimensions and the same data type as the
+	first one. After a second input has been connected, a new input called
+	<em>Channel 3</em> will be created, and so on. In this way an arbitrary
+	number of channels can be connected.
+</p></div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Channel 1</span>  
+<div class="portsnapshot"><img src="HxMultiChannelField3_channel1.png" /><br /></div>
+<div class="body"><p>	Determines the preferred data window of a channel as well as its colormap. 
+	For constant colormap, if the lower bound of the data window is set to 100, 
+	voxels with values less than or equal to 100 will be drawn in black
+	by the slicing modules <a class="link" href="../hxlattice/HxOrthoSlice.html#A1">OrthoSlice</a> and
+	<a class="link" href="../hxlattice/HxObliqueSlice.html#A1">ObliqueSlice</a>.</p>
+</div></div>
+<div class="hxport">
+ <span class="headline">Channel 2</span>  
+<div class="portsnapshot"><img src="HxMultiChannelField3_channel2.png" /><br /></div>
+<div class="body"><p>	Specifies the settings of the second channel.
+</p></div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

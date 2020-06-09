@@ -1,0 +1,851 @@
+# Amira-Script-Object V3.0
+#
+# DemoSequence.scro
+# Step through a sequence of demos consisting of multiple steps/subdemos
+#
+#
+# Version: 0.1b
+# Author:  Hartmut Schirmacher
+#
+
+$this proc constructor {} {
+    
+    # echo "$this is going to be constructed" 
+
+    # ID of this scro
+    $this setVar scroTypeDemoSequence 1
+    
+    # demoList is a list of specified demos
+    $this setVar forceLoadFile 0
+    if { ![$this hasVar parseStringScroVersion] } {
+        # in the old version (see comments on parseStringScroVersion),
+        # the demo list was only filled from the demo file; in the new
+        # version, i.e. if parseStringScroVersion==1, the demo list is
+        # saved and reused when reloading the script
+        $this setVar demoList [list]
+        $this setVar forceLoadFile 1
+    }
+    
+    # directories, in which the demos are located
+    
+    # filenames of Demos
+    if {![$this hasVar demoXMLFilenames]} {
+        $this setVar demoXMLFilenames [list]
+    }
+        
+    # currently active demo/step
+    $this setVar currentDemo -1
+    $this setVar currentStep -1
+    $this setVar currentJumpStep -1
+
+    # counter for auto start (set to 2 if load from network, 1 else)
+    if [$this hasVar init] {
+        $this setVar init 2
+        echo "init 2"
+    } else {
+	$this setVar init 0
+	echo "init 0"
+    }
+
+    # this variable states a new version of the DemoSequence.scro,
+    # that allows to parse demos from a string; ensures downward
+    # compatibility 
+    # WARNING: don't move it to another place
+    $this setVar parseStringScroVersion 1
+
+    # ports for connecting annotation modules
+    $this newPortConnection DemoStatusDisplay HxAnnotation
+
+    # file with the loop specification
+    $this newPortFilename demoFile
+    $this demoFile setLabel "Demo file:"
+
+    # list of demos
+    $this newPortButtonMenu demoList 1 1
+    $this demoList setLabel "Demos:"
+    $this demoList setLabel 0 "Start"
+    $this demoList setNumOptEntries 0 0
+    $this demoList setCmd 0 {
+	if [catch {
+	    set i [$this demoList getOptValue 0]
+	    $this startDemo $i 0
+	} msg] {echo $msg}
+    }
+    $this demoList setSensitivity 0 0
+
+    # options
+    $this newPortToggleList options 3
+    $this options setLabel "Options:"
+    $this options setLabel 0 "auto start"
+    $this options setValue 0 1
+    $this options setLabel 1 "auto select"
+    $this options setValue 1 1
+    $this options setLabel 2 "auto step"
+    $this options setValue 2 0
+
+    # auto advance
+    set demoStepDurationInSeconds 20
+
+    # time slider for unsupervised presentation
+    $this newPortTime time
+    $this time setLabel "Hold"
+    $this time setRealTimeDuration $demoStepDurationInSeconds
+    $this time setRealTimeFactor 0.001
+    $this time setMinMax 0 $demoStepDurationInSeconds
+    $this time setIncrement 1
+    $this time setFormat "%0.1f"
+
+    # below this separator, we see status information
+    $this newPortSeparator sep1
+
+    # this object must not be destroyed by "remove -all" commands
+    $this setNoRemoveAll 1
+
+    # select myself so the GUI shows up
+    $this select
+
+    # currently active demo
+    $this newPortInfo currentDemo
+    $this currentDemo setLabel "Demo:"
+    $this currentDemo setValue "n.a."
+
+    # demo navigation bar
+    $this newPortButtonList demoNav 3
+    $this demoNav setLabel "Demo Navi:"
+    $this demoNav setLabel 0 "<< Demo"
+    $this demoNav setLabel 1 "<Reload>"
+    $this demoNav setLabel 2 "Demo >>"
+    $this demoNav setCmd 0 {$this startDemo -1 0}
+    $this demoNav setCmd 1 {$this startDemo +0 0}
+    $this demoNav setCmd 2 {$this startDemo +1 0}
+
+    # currently active demo step
+    $this newPortInfo currentStep
+    $this currentStep setLabel "Step:"
+    $this currentStep setValue "n.a."
+
+    # subdemo navigation bar
+    $this newPortButtonList stepNav 5
+    $this stepNav setLabel "Step Navi:"
+    $this stepNav setLabel 0 "<< Step"
+    $this stepNav setLabel 1 "< Jump"
+    $this stepNav setLabel 2 "<Repeat>"
+    $this stepNav setLabel 3 "Jump >"
+    $this stepNav setLabel 4 "Step >>"
+    
+    $this stepNav setCmd   0 {$this startDemo +0 -1}
+    $this stepNav setCmd   1 {$this jumpDemo  +0 -1}
+    $this stepNav setCmd   2 {$this startDemo +0 +0}
+    $this stepNav setCmd   3 {$this jumpDemo  +0 +1}
+    $this stepNav setCmd   4 {$this startDemo +0 +1}
+
+    # current status of the demo
+    $this newPortInfo status
+    $this status setLabel "Status"
+    $this status setValue ""
+
+    $this status setValue "no demo file specified"
+
+    # set up function keys for demo/step navigation
+    proc onKeyCtrlF2 {} "$this startDemo -1 0"
+    proc onKeyCtrlF3 {} "$this startDemo +0 0"
+    proc onKeyCtrlF4 {} "$this startDemo +1 0"
+    proc onKeyCtrlF6 {} "$this startDemo +0 -1"
+    proc onKeyCtrlF7 {} "$this startDemo +0 +0"
+    proc onKeyCtrlF8 {} "$this startDemo +0 +1"
+
+    # step through demos and then start one 
+    proc onKeyCtrlShiftF4 {} "$this stepDemo 1"
+    proc onKeyCtrlShiftF3 {} "$this stepDemo -1"
+    proc onKeyCtrlShiftF5 {} "$this startDemo \[$this demoList getOptValue\] 0"
+
+    # toggle auto loop
+    proc onKeyCtrlF9 {} "\
+        if { ! [ $this options getValue 2 ] } { \
+            $this options setValue 2 1; \
+            $this time play; \
+        } else { \
+            $this time stop; \
+            $this options setValue 2 0; \
+        }"
+
+    $this update
+
+    $this createStatusDisplay
+}
+
+
+# "destructor" is called when the object is removed or restarted
+$this proc destructor {} {
+
+    set dStatus [$this DemoStatusDisplay source]
+    set dStatusG [$this getVar dStatDisplay]
+    if {$dStatus != ""} {
+        $this DemoStatusDisplay disconnect
+        remove $dStatus
+    } elseif {$dStatusG != ""} {
+        remove $dStatusG
+    }
+}
+
+
+# "update" is called whenever the scro's GUI is touched
+$this proc update {} {
+
+    if [ $this options getValue 2 ] {
+        $this time show
+    } else {
+        $this time stop
+        $this time hide
+    }
+}
+
+$this proc createStatusDisplay {} {
+    # procedure for for creating a module to display the status
+    # in viewer
+    set dStatus [$this DemoStatusDisplay source]
+    if {$dStatus == ""} {
+        set dStatus [[create HxAnnotation] setLabel DemoStatusDisplay]
+        $dStatus position setValue 0 -20
+        $dStatus position setValue 1 20
+        $dStatus text setValue "Data Visualization in Science"
+        $dStatus fire
+        $this DemoStatusDisplay connect $dStatus
+        # display new text and cause redraw
+        viewer redraw
+    }
+    # use every opportunity to make this module load-persistent
+    $dStatus setNoRemoveAll 1
+    # keep name of HxAnnotation module used for displaying the status 
+    $this setVar dStatDisplay $dStatus
+}
+
+$this proc updateListMenu {} {
+# some output
+    set list [$this getVar demoList]
+    set l [llength $list]
+
+    # update list menu
+    $this demoList setNumOptEntries 0 $l
+    for {set i 0} {$i<$l} {incr i} {
+	set label [lindex [lindex $list $i] 0]
+	$this demoList setOptLabel 0 $i $label
+    }
+
+    if { $l > 0 } {
+        $this demoList setSensitivity 0 1
+    } else {
+        $this demoList setSensitivity 0 0
+    }
+}
+
+# "compute" is called whenever the scro's GUI is touched
+$this proc compute {} {
+    
+    if { ([$this getVar init]==0 || [$this getVar forceLoadFile]) && 
+         [$this demoFile isNew] } {
+        $this loadDemoFile 
+    }
+    
+    # decrease init counter until we can do the auto start
+    set i [$this getVar init]
+    if {$i > 0} {
+        echo "init $i"
+	incr i -1
+	$this setVar init $i
+	if {$i == 0} {
+        
+            # even if those variables are saved in a script, they are reset at startup
+            $this setVar currentStep -1
+            $this setVar currentJumpStep -1
+            
+            $this updateListMenu 
+	    
+            # auto start option activated?
+	    if [$this options getValue 0] {
+		if [llength [$this demoFile getFilename]] {
+		    $this output "auto-starting demo sequence"
+		    $this startDemo [$this getVar currentDemo] \
+			[$this getVar currentStep]
+		}
+	    }
+	}
+    }
+
+    # unsupervised presentation (either one step or loop)
+    if { [ $this time isNew ] && [ $this options getValue 2 ] } {
+        set currentTime [ $this time getValue ]
+        set holdTime [ $this time getRealTimeDuration ]
+        # how do we retrieve the true increment value?
+        set elapsedTime [ expr $holdTime - ([ $this time getRealTimeFactor ] * $holdTime) ]
+        # echo "$currentTime $elapsedTime"
+        if { ($currentTime >= $elapsedTime) || ($currentTime <= 0) } {
+            $this autoLoopStep
+        }
+    }
+}
+
+
+# output a string to the console
+$this proc output {msg} {
+    echo $msg
+    catch {puts stderr $msg}
+}
+
+
+# defines the procedures that are need to parse demo files and strings
+$this proc defineDemoProcs {} {
+    # define "demo" procedure that will define a demo 
+    set demobody {
+	# init temporary list "defDemo" of demo steps
+	$this setVar defDemo [list $name]
+
+	# execute demo step definitions (script, step)
+	uplevel \#0 $steplist
+
+	# append newly defined list "defDemo" to internal list of demos
+	set list [$this getVar demoList]
+	set l [$this getVar defDemo]
+	lappend list $l
+	$this setVar demoList $list
+	$this setVar defDemo {}
+	
+	# append $demofile to demoXMLFilenames
+	set fileList [$this getVar demoXMLFilenames]
+	lappend fileList $demofile
+	$this setVar demoXMLFilenames $fileList
+	
+	echo "demo \"[lindex $l 0]\": [expr [llength $l] - 1] steps"
+    }
+
+    # define "step" procedure that will define a demo step 
+    # takes optional parameter "jumparg" that is used to jump to the beginning of a step
+    set stepbody {
+	set demo [$this getVar defDemo]
+	lappend demo [list %cmd% $name $playarg $jumparg]
+	$this setVar defDemo $demo
+    }
+
+    # substitute "$this" in these global procedures
+    regsub -all {\$this} $demobody $this demobody
+    regsub -all {\$this} $stepbody $this stepbody
+    set scriptbody $stepbody
+
+    # substitute different step command names ("script", "step") 
+    regsub -all {%cmd%} $stepbody "step" stepbody
+    regsub -all {%cmd%} $scriptbody "script" scriptbody
+
+    # define the required procedures now
+    proc demo   {name steplist {demofile {} }} $demobody
+    proc step   {name playarg {jumparg {} }} $stepbody
+    proc script {name playarg {jumparg {}}} $scriptbody
+}
+
+# load loop file
+$this proc loadDemoFile {} {
+
+    # check file name
+    set file [$this demoFile getValue]
+    if {$file == ""} {
+	$this output "no demo file specified"
+	return 0
+    } 
+
+    if {![file readable $file]} {
+	$this output "could not read $file"
+	return 0
+    } 
+
+    # change into the right directory
+    cd [file dirname $file]
+	
+    $this defineDemoProcs 
+
+    # simply execute the file to define the demos
+    $this displayStatus "loading demo sequence" "L"
+    source $file
+	
+	# some output
+    set list [$this getVar demoList]
+    set l [llength $list]
+    $this displayStatus "read $l demos from file $file" "."
+
+    $this updateListMenu
+
+    # start without a step at first
+    $this setVar currentDemo -1
+    $this setVar currentStep -1
+    $this setVar currentJumpStep -1
+    $this demoList setOptValue 0 0
+
+    $this displayStatus "demo sequence loaded" "."
+    $this demoList setSensitivity 0 1
+
+    return 1
+}
+
+# parse demo string
+$this proc parseString { demoString } {
+
+    $this defineDemoProcs 
+
+    # simply execute the string to define the demos
+    $this displayStatus "parsing demo string" "L"
+
+    uplevel \#0 $demoString
+
+    # some output
+    set list [$this getVar demoList]
+    set l [llength $list]
+    $this displayStatus "read $l demos from string" "."
+
+	$this updateListMenu
+	
+    # start without a step at first
+    $this setVar currentDemo -1
+    $this setVar currentStep -1
+    $this setVar currentJumpStep -1
+    $this demoList setOptValue 0 0
+
+    $this displayStatus "demo sequence loaded" "."
+    $this demoList setSensitivity 0 1
+}
+
+# write status information and update display of current demo/step
+$this proc displayStatus {status short} {
+
+    # current demo/step number
+    set i [$this getVar currentDemo]
+    set j [$this getVar currentStep]
+    set jumpj [$this getVar currentJumpStep]
+    
+    
+    
+    # module for displaying the status in viewer 
+    set vStatus [$this DemoStatusDisplay source]
+    if {$vStatus != ""} {
+	# use every opportunity to make this module load-persistent
+	$vStatus setNoRemoveAll 1
+	# display new text and cause redraw
+	viewer setAutoRedraw 0
+	$vStatus text setValue $short
+	$vStatus fire
+	viewer redraw
+	viewer setAutoRedraw 1
+    }
+
+    # if step is -1, nothing is "on" right now 
+    if {$j == -1 && $jumpj == -1} {
+
+	$this currentDemo setValue "n.a."
+	$this currentStep setValue "n.a."
+	$this status setValue $status
+	$this output $status
+
+    } else {
+
+	set ni [llength [$this getVar demoList]]
+	set demo [lindex [$this getVar demoList] $i]
+	set nj [expr [llength $demo] - 1]
+	set step [lindex $demo [expr $jumpj + 1]]
+
+	# select corresponding demo in selection menu
+	$this demoList setOptValue 0 $i
+	
+	# update values of current demo/step ports
+	set demotext "[lindex $demo 0] \[[expr $i+1]/$ni\]"
+        set jumptext ""
+        if {$jumpj != $j} {
+            set jumptext "jumped to "
+        }   
+	set steptext "$jumptext[lindex $step 1] \[[expr $jumpj+1]/$nj\]"
+
+	# preview next step?
+        if {$jumpj != $j} {
+          append steptext " Step >> plays it"
+        } else {
+          if {$nj-$j>1} {
+              append steptext "; next: [lindex [lindex $demo [expr $j+2]] 1]"
+          } 
+        }
+	$this currentDemo setValue $demotext
+	$this currentStep setValue $steptext
+
+	# update status port
+	$this status setValue $status
+
+	# console output
+	$this output "demo $demotext; step $steptext" 
+    }
+    $this updateNavSensitivity
+}
+
+# sets the sensitivity of port stepNav according to settings of currentStep, currentJumpStep
+$this proc updateNavSensitivity {} {
+  set i [$this getVar currentDemo]
+  set j [$this getVar currentStep]
+  set jumpj [$this getVar currentJumpStep]
+  set ni [llength [$this getVar demoList]]
+  set demo [lindex [$this getVar demoList] $i]
+  set nj [expr [llength $demo] - 1]
+  set step [lindex $demo [expr $jumpj + 1]]
+
+  #if i am first demo, dont allow << demo
+  if {$i == 0} {
+    $this demoNav setSensitivity 0 0
+  } else {
+    $this demoNav setSensitivity 0 1
+  }
+
+  #if i am last demo, dont allow demo >>
+  if {$i == $ni - 1} {
+    $this demoNav setSensitivity 2 0
+  } else {
+    $this demoNav setSensitivity 2 1
+  }
+  
+  
+
+  #if i am first step, dont allow << step, < jump
+  if {$jumpj == 0} {
+    $this stepNav setSensitivity 0 0
+    $this stepNav setSensitivity 1 0
+  } else {
+    $this stepNav setSensitivity 0 1
+    $this stepNav setSensitivity 1 1
+  }
+
+  #if i am last step, allow step >> only if currentJumpStep != currentStep
+  if {$j == $nj - 1 && $jumpj == $j} {
+    $this stepNav setSensitivity 4 0
+  } else {
+    $this stepNav setSensitivity 4 1
+  }
+
+  #if i am last step, dont allow jump > 
+  if {$jumpj == $nj - 1} {
+    $this stepNav setSensitivity 3 0
+  } else {
+    $this stepNav setSensitivity 3 1
+  }
+  
+  #make repeat unsensitive if currentStep != currentJumpStep
+  if {$j != $jumpj} {
+    $this stepNav setSensitivity 2 0
+  } else {
+    $this stepNav setSensitivity 2 1
+  }
+  
+  # after all I have to check if <jump and jump> is allowed, i.e., if corresponding commands exist
+  # if not, those ports have to be set insensitive
+  # check <jump
+  if {[$this stepNav getSensitivity 1] == 1} {
+    set stepleft [lindex $demo [expr $jumpj - 1 + 1]]
+    set cmd [lindex $stepleft 3]
+    if {$cmd == ""} {
+      $this stepNav setSensitivity 1 0
+    }
+  }
+  # check jump>
+  if {[$this stepNav getSensitivity 3] == 1} {
+    set stepright [lindex $demo [expr $jumpj + 1 + 1]]
+    set cmd [lindex $stepright 3]
+    if {$cmd == ""} {
+      $this stepNav setSensitivity 3 0
+    }
+  }
+}
+
+# prepend the path of the loop file path if the demo filename is relative
+$this proc absoluteFile {file} {
+    # create absolute path if needed
+    if {[file pathtype $file] == "relative"} {
+	set path [file dirname [$this demoFile getFilename]]
+	set file [file join $path $file]
+    }
+    return $file
+}
+
+
+# jump to the specified step of the specified demo and update status variables
+# i and j may be specified relative (e.g. +0 +1)
+$this proc jumpDemo {i jumpj} {
+
+    # relative demo number?
+    set op [string range $i 0 0] 
+    if {$op == "+"} {
+	set i [expr [$this getVar currentDemo] + [string range $i 1 end]]
+    } elseif {$op == "-"} {
+	set i [expr [$this getVar currentDemo] - [string range $i 1 end]]
+    }
+
+    # relative step number?
+    set op [string range $jumpj 0 0] 
+    if {$op == "+"} {
+	set jumpj [expr [$this getVar currentJumpStep] + [string range $jumpj 1 end]]
+    } elseif {$op == "-"} {
+	set jumpj [expr [$this getVar currentJumpStep] - [string range $jumpj 1 end]]
+    }
+
+    # check input value range
+    set ni [llength [$this getVar demoList]]
+    if {$i<0} {
+	$this displayStatus "first demo reached" "|<"
+	return
+    } 
+    if {$i >= $ni} {
+	$this displayStatus "last demo reached" ">|"
+	return
+    }
+    
+    set demo [lindex [$this getVar demoList] $i]
+    set nj [expr [llength $demo] - 1]
+    if {$jumpj<0} {
+	$this displayStatus "first step reached" "|<"
+	return
+    } 
+    if {$jumpj >= $nj} {
+	$this displayStatus "last step reached" ">|"
+	return
+    }
+
+    # get demo and update status display 
+    set demo [lindex [$this getVar demoList] $i]
+    set step [lindex $demo [expr $jumpj + 1]]
+    set cmd [lindex $step 0]
+
+    # execute the demo/step commands
+    if {$cmd == "step"} {
+	$this displayStatus "jumping to" "X"
+	set cmd [lindex $step 3]
+        if {$cmd != ""} {
+          if [catch [list uplevel \#0 $cmd] msg] {
+              $this displayStatus "ERROR" "E"
+              echo $msg
+          } 
+          $this setVar currentDemo $i
+          $this setVar currentJumpStep $jumpj
+        }   
+        $this displayStatus "idle" "."        
+    } else {
+        $this displayStatus "idle" "."        
+    }
+
+
+}
+
+# start the specified step of the specified demo and update status variables
+# i and j may be specified relative (e.g. +0 +1)
+$this proc startDemo {i j} {
+
+    # relative demo number?
+    set op [string range $i 0 0] 
+    if {$op == "+"} {
+	set i [expr [$this getVar currentDemo] + [string range $i 1 end]]
+    } elseif {$op == "-"} {
+	set i [expr [$this getVar currentDemo] - [string range $i 1 end]]
+    }
+
+    # relative step number?
+    set op [string range $j 0 0] 
+    
+    set diffJumpStepStep [expr [$this getVar currentJumpStep] - [$this getVar currentStep]]
+    
+    # toDo : it is not tested yet, if currentJumpStep always gives right values, especially at startup
+    
+    if {$op == "+"} {
+        # if currentJumpStep and currentStep differ, we have to adjust it by one
+        if {$diffJumpStepStep != 0} {
+          incr diffJumpStepStep -1
+        }
+        set j [expr [$this getVar currentStep] + $diffJumpStepStep + [string range $j 1 end]]
+    } elseif {$op == "-"} {
+        # if currentJumpStep and currentStep differ, we have to adjust it by one
+        if {$diffJumpStepStep != 0} {
+          #incr diffJumpStepStep
+        }
+        set j [expr [$this getVar currentStep] + $diffJumpStepStep - [string range $j 1 end]]
+    }
+  
+    # check input value range
+    set ni [llength [$this getVar demoList]]
+    if {$i<0} {
+	$this displayStatus "first demo reached" "|<"
+	return
+    } 
+    if {$i >= $ni} {
+	$this displayStatus "last demo reached" ">|"
+	return
+    }
+    set demo [lindex [$this getVar demoList] $i]
+    set nj [expr [llength $demo] - 1]
+    if {$j<0} {
+	$this displayStatus "first step reached" "|<"
+	return
+    } 
+    if {$j >= $nj} {
+	$this displayStatus "last step reached" ">|"
+	return
+    }
+
+    # get demo and update status display 
+    set demo [lindex [$this getVar demoList] $i]
+    $this setVar currentDemo $i
+    $this setVar currentStep $j
+    $this setVar currentJumpStep $j
+    set step [lindex $demo [expr $j + 1]]
+    set cmd [lindex $step 0]
+
+    # execute the demo/step commands
+    if {$cmd == "script"} {
+	$this displayStatus "loading" "L"
+        # do NOT load the last item from $step since it is an empty string
+        set lbo2load [expr [llength $step] - 2]
+	set cmd "load [lrange $step 2 $lbo2load]"
+	if [catch [list uplevel \#0 $cmd] msg] {
+	    $this displayStatus "ERROR" "E"
+	    echo $msg
+	} else {
+	    $this displayStatus "idle" "."
+	}
+	    
+	# auto-select this module?
+	if [$this options getValue 1] {
+	    foreach module [all -visible] {$module deselect}
+	    $this select
+	}
+
+    } else {
+
+	$this displayStatus "executing" "X"
+	set cmd [lindex $step 2]
+	if [catch [list uplevel \#0 $cmd] msg] {
+	    $this displayStatus "ERROR" "E"
+	    echo $msg
+	} else {
+	    $this displayStatus "idle" "."
+	}
+
+	# auto-select this module?
+	if [$this options getValue 1] {
+	    foreach module [all -visible] {$module deselect}
+	    $this select
+	}
+    }
+
+
+}
+
+# just step the demo menu once, and display demo name in viewer
+$this proc stepDemo {delta} {
+
+    # reset demo counters
+    $this setVar currentDemo -1
+    $this setVar currentStep -1
+    
+    # find previous/next demo in list
+    set i [expr [$this demoList getOptValue 0] + $delta]
+    set ni [llength [$this getVar demoList]]
+    # cycle if <0 or >=n 
+    if {$i >= $ni} {
+	set i 0
+    } elseif {$i <0} {
+	set i [expr $ni - 1]
+    }
+    set demo [lindex [$this getVar demoList] $i]
+    set name [lindex $demo 0]
+    
+    # update demo menu entry
+    $this demoList setOptValue $i
+    $this fire
+
+    # display name in viewer window
+    $this displayStatus "stepping to demo: $name" "\[$name\]"
+
+}
+
+# returns the XML file of demo demoNr
+$this proc getDemoXMLFilename {demoNr} {
+		set demoXMLFilenames [$this getVar demoXMLFilenames]
+		set file [lindex $demoXMLFilenames $demoNr]
+		return $file
+}
+
+# returns the directory the XML file of demo demoNr is located in
+$this proc getDemoDir {demoNr} {
+		set demoXMLFilenames [$this getVar demoXMLFilenames]
+		set file [lindex $demoXMLFilenames $demoNr]
+                set splitted [split $file /]
+                set splitted [ lreplace $splitted end end {} ]
+                
+		return [ join $splitted {/} ]
+}
+
+# returns the XML files of all demos
+$this proc getDemoXMLFilenames {} {
+		set demoXMLFilenames [$this getVar demoXMLFilenames]
+		return $demoXMLFilenames
+}
+
+# returns the steps of demo demoNr
+$this proc getDemoSteps {demoNr} {
+	# get all demos
+	set demos [$this getVar demoList]
+	
+	# get specified demo
+	set demo [lindex $demos $demoNr]
+	
+	# prepare list of stepnames
+	set stepnameList [list]
+	
+	# go through all steps (first is demoname)
+	
+	for {set i 1} { $i < [llength $demo]} {incr i} {
+		set step [lindex $demo $i]
+		# only add steps, not scripts
+		if {[ lindex $step 0] == "step"} {
+			lappend stepnameList [ lindex $step 1]
+		}
+	}
+	return $stepnameList
+}
+
+# return filenames and steps
+
+# returns the XML files of all demos
+$this proc getDemoFilesAndSteps {} {
+  set demoXMLFilenames [$this getVar demoXMLFilenames]
+  set filesAndSteps [list]
+  for {set i 0} { $i < [llength $demoXMLFilenames] } {incr i} {
+    set tmpList [ list [lindex $demoXMLFilenames $i] [ $this getDemoSteps $i] ]
+    lappend filesAndSteps $tmpList
+  }
+  return $filesAndSteps
+}
+
+# for unsupervised presentation of the demo sequence
+$this proc autoLoopStep {} {
+
+    set i [$this getVar currentDemo]
+    set j [$this getVar currentStep]
+    set ni [llength [$this getVar demoList]]
+    set demo [lindex [$this getVar demoList] $i]
+    set nj [expr [llength $demo] - 1]
+
+    #if i am not last step, next step 
+    if {$j < $nj - 1} {
+       $this time stop
+       $this startDemo +0 +1
+       $this time play
+    } else {
+       if { $i<$ni-1 } { 
+           $this time stop
+           $this startDemo +1 0 
+           $this time play
+       } else {
+           $this time stop
+           $this startDemo 0 0
+           $this time play
+       }
+    }
+}

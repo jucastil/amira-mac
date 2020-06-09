@@ -1,0 +1,103 @@
+module -name "FiberTracking" \
+    -primary "HxVectorField3" \
+    -class "HxFiberTracking" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "ComputeTensor" \
+    -primary "HxLattice3" \
+    -class "HxComputeTensor" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "TensorDisplay" \
+    -primary "HxRegSym2TensorField3 HxCluster" \
+    -class "HxTensorDisplay" \
+    -category "Display" \
+    -package "hxtensor"
+
+module -name "2DMesh" \
+    -class "Hx2DMesh" \
+    -category "Others" \
+    -package "hxtensor"
+
+dataClass -name "AnalyticTensorField" \
+    -class "HxGenerateTensorData" \
+    -category "Data" \
+    -package "hxtensor"
+
+module -name "ArithmeticTensor" \
+    -primary "HxGenerateTensorData" \
+    -category "Compute" \
+    -proc {
+      set ArithmeticTensor [[create HxArithmetic] setLabel ArithmeticTensor]; 
+      if { [exists $PRIMARY] } {
+          $ArithmeticTensor inputA connect $PRIMARY; 
+      };
+      $ArithmeticTensor resultChannels setValue 0; 
+      $ArithmeticTensor expr0 setValue "Aii"; 
+      $ArithmeticTensor expr1 setValue "Aij"; 
+      $ArithmeticTensor expr2 setValue "Aik"; 
+      $ArithmeticTensor expr3 setValue "Ajj"; 
+      $ArithmeticTensor expr4 setValue "Ajk"; 
+      $ArithmeticTensor expr5 setValue "Akk"; 
+      $ArithmeticTensor select; } \
+    -package "hxarith"
+
+module -name "RelativeAnisotropy" \
+    -primary "HxRegSym2TensorField3" \
+    -category "Compute" \
+    -proc {
+      set RelativeAnisotropy [[create HxArithmetic] setLabel RelativeAnisotropy]; 
+      if { [exists $PRIMARY] } {
+          $RelativeAnisotropy inputA connect $PRIMARY; 
+      };
+      $RelativeAnisotropy resultChannels setValue 1; 
+      $RelativeAnisotropy expr0 setValue "sqrt(Aii*Aii + 2*Aij*Aij + 2*Aik*Aik + Ajj*Ajj + 2*Ajk*Ajk + Akk*Akk)"; 
+      $RelativeAnisotropy select; } \
+    -package "hxarith"
+
+module -name "FractionalAnisotropy" \
+    -primary "HxRegSym2TensorField3" \
+    -category "Compute" \
+    -proc {
+      set FractionalAnisotropy [[create HxArithmetic] setLabel FractionalAnisotropy]; 
+      if { [exists $PRIMARY] } {
+          $FractionalAnisotropy inputA connect $PRIMARY; 
+      };
+      $FractionalAnisotropy resultChannels setValue 1; 
+      $FractionalAnisotropy expr0 setValue "Aii + Ajj + Akk"; 
+      $FractionalAnisotropy select; } \
+    -package "hxarith"
+
+module -name "ComputeTensorOutOfCore" \
+    -primary "HxLattice3" \
+    -class "HxComputeTensorOutOfCore" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "ExtractEigenvalues" \
+    -primary "HxRegSym2TensorField3" \
+    -class "HxExtractEigenvalues" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "RateOfStrainTensor" \
+    -primary "HxUniformVectorField3" \
+    -check { [$PRIMARY primType]==3 } \
+    -class "HxRateOfStrainTensor" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "EigenvectorToColor" \
+    -primary "HxRegVectorField3" \
+    -check { [$PRIMARY primType]==4 } \
+    -class "HxEigenvector2Color" \
+    -category "Compute" \
+    -package "hxtensor"
+
+module -name "CreateGradientImage" \
+    -primary "HxRegSym2TensorField3" \
+    -class "HxGenerateGradients" \
+    -category "Compute" \
+    -package "hxtensor"

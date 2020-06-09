@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> CityPlot</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "CityPlot" "visualizes scalar data in a plane using a city plot" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+ The <em>CityPlot</em> module offers another method for the visualization
+ of scalar data fields defined on regular grids, such as stacks 
+ of tomographic images. 
+The data is visualized by extracting an arbitrary axial, frontal, or sagittal slice out of the volume. 
+
+ This slice is represented as a set of bars, one for each value. The height of each bar
+ is determined by the data value and a tunable scale parameter. 
+</p></div>
+<p></p>
+<p></p><div class="hxconnections">
+<h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The scalar or color field to be visualized. If an RGBA color field is 
+ connected, the bars of the city plot are colored as in the color
+ field. The height of the bars is determined by the grayvalue intensity
+ which is computed using the formula <em>0.3*R+0.59*G+0.11*B</em>.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Color field</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field used for pseudo-coloring. Only RGBA color fields or
+ scalar fields can be connected. If an RGBA color field is connected, the 
+ colormap is not used and the bars of the city plot are colored
+ according to the RGBA values. If a scalar field is connected, the bars
+ are colored according to the scalar values and the colormap specified in
+ the <em>Colormap</em> port. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Colormap</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>The colormap used to map data values to colors.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Texture</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Not used.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">ROI</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Not used.</p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Projection</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Specifies if the bars of the city plot are projected by a
+ <a class="link" href="../hxneuro/HxProjectionView.html">Projection</a> module. </p>
+</div></div>
+<div class="hxconnection_optional">
+ <span class="headline">Filter mask</span> <span class="connectiontype">[optional]</span> 
+
+<div class="body"><p>Optional scalar field used for masking bars of the city plot. Zero values mask bars of 
+ the city plot. The size of the scalar field should be the same as the scalar field connected to the 
+ port <em>Data </em>.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A2"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Draw Style</span>  
+<div class="portsnapshot"><img src="HxCityPlot_drawStyle.png" /><br /></div>
+<div class="body"><p>This port is inherited from ViewBase.
+ Please refer to the <a class="link" href="../hxsurface/HxViewBase.html#A2">ViewBase</a> documentation.</p>
+<p><a name="A3"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Colormap</span>  
+<div class="portsnapshot"><img src="HxCityPlot_colormap.png" /><br /></div>
+<div class="body"><p>The colormap used to map data values to colors.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Texture wrap</span>  
+<div class="portsnapshot"><img src="HxCityPlot_textureWrap.png" /><br /></div>
+<div class="body"><p>Not used.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Culling mode</span>  
+<div class="portsnapshot"><img src="HxCityPlot_cullingMode.png" /><br /></div>
+<div class="body"><p>This port is inherited from ViewBase.
+ Please refer to the <a class="link" href="HxViewBase_cullingMode.html">ViewBase</a> documentation.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Orientation</span>  
+<div class="portsnapshot"><img src="HxOrthoSlice_sliceOrientation.png" /><br /></div>
+<div class="body"><p>This port provides three buttons for resetting the slice orientation.
+ <em>Axial/xy</em> slices are perpendicular to the z-axis, <em>coronal/xz</em>
+ slices are perpendicular to the y-axis, and <em>sagittal/yz</em> slices
+ are perpendicular to the x-axis.
+</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Slice Number</span>  
+<div class="portsnapshot"><img src="HxCityPlot_sliceNumber.png" /><br /></div>
+<div class="body"><p>This slider allows you to select different slices.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Scale</span>  
+<div class="portsnapshot"><img src="HxCityPlot_scale.png" /><br /></div>
+<div class="body"><p>This slider allows you to select the desired scale for the data-heights
+ mapping. This should be in the range [-1,1].</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filter Show</span>  
+<div class="portsnapshot"><img src="HxCityPlot_filterMaskType.png" /><br /></div>
+<div class="body"><p>This port provides three buttons to filter the bars according to the filter mask:
+</p>
+<ul><li><em>All</em>: Bars are not filtered,</li><li><em>On Data</em>: All bars with a filter mask different from 0 are
+ displayed,</li><li><em>Off Data</em>: All bars with a filter mask equal to 0 are displayed.</li>
+</ul></div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MosaicToLargeDiskData</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Skeleton Option</li></ul></div>
+<! HxIndex: "resolveRTSKEL" "Module" "MosaicToLargeDiskData" "converts a mosaic containing bricks of overlapping data to a single LargeDiskData" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+The module takes a <a class="link" href="HxMosaic.html#A1">Mosaic</a> containing bricks of overlapping
+image data and converts them to one <a class="link" href="../hxdiskdata/HxFileFormat_DiskData.html#A1">LargeDiskData</a> 
+object stored on disk.</p>
+<p>Press the <em>Apply</em> button to start the computation.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxMosaic.html#A1">Mosaic</a> object containing the references to the
+blocks of image data stored on disk.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Info</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_info.png" /><br /></div>
+<div class="body"><p>Information on the internal state.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Filename</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_filename.png" /><br /></div>
+<div class="body"><p>The result will be stored in this file.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Interpolation</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_interpolation.png" /><br /></div>
+<div class="body"><p>Interpolation method to be used during sampling of the bricks. </p>
+<p><em>Standard</em> is trilinear interpolation.</p>
+<p><em>NearestNeighbor</em> can be useful if you're working with labels.</p>
+<p><em>Lanczos</em> uses a kernel of width 6 to improve the interpolation. The
+result will be much better but sampling takes much longer. </p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Options</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_options.png" /><br /></div>
+<div class="body"><p>Select <em>autodims</em> to use the same voxel size as in the input images.</p>
+<p>For seamless transitions between bricks, select <em>blend</em>.</p>
+<p><em>add border</em> extends the result by some amount to guarantee
+voxels with value 0 at the boundaries. You can specify the
+border in port <em>Border</em>.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Specify</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_specify.png" /><br /></div>
+<div class="body"><p>This port is only visible if <em>autodims</em> is not selected.
+It allows you to switch between specifying <em>dims</em> or the <em>voxelsize</em> 
+of the result.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Dims</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_dims.png" /><br /></div>
+<div class="body"><p>The dimensions of the resulting image. To modify them,
+<em>autodims</em> must be deselected.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Voxelsize</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_voxelsize.png" /><br /></div>
+<div class="body"><p>The voxel size of the result. You might either specify the dims or the
+voxel size.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Border</span>  
+<div class="portsnapshot"><img src="HxMosaicToDiskData_border.png" /><br /></div>
+<div class="body"><p>Specifies the size of the border to be added on each side of 
+the mosaic. The port is hidden if <em>add border</em> is not selected.</p>
+
+</div></div>
+</div>
+<p></p>
+<p>
+
+</p></body>
+</html>

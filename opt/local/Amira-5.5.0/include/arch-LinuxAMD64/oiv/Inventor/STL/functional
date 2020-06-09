@@ -1,0 +1,6 @@
+#ifndef  OIV_STL_FUNCTIONAL
+#define  OIV_STL_FUNCTIONAL
+
+#include <Inventor/STL/SO_INCLUDE_STL.h>
+
+#endif

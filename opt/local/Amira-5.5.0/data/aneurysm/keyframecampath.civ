@@ -1,0 +1,352 @@
+#Inventor V2.1 ascii
+
+
+ Group {
+
+  Info {
+	 string "0.000000"
+  }
+  PerspectiveCamera {
+	 position 2.50839 0.21994 22.1619
+	 orientation 0.962446 -0.0459303 0.267558  2.84958
+	 nearDistance 3.80686
+	 farDistance 7.62279
+	 focalDistance 5.71652
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "20.000000"
+  }
+  PerspectiveCamera {
+	 position 0.217146 2.3896 23.6223
+	 orientation 0.996884 -0.0326683 0.0717969  3.25604
+	 nearDistance 1.92415
+	 farDistance 4.64191
+	 focalDistance 3.28328
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "40.000000"
+  }
+  PerspectiveCamera {
+	 position -0.087182 2.31797 25.6767
+	 orientation 0.998324 -0.0181209 0.0549594  3.50795
+	 nearDistance 0.00278612
+	 farDistance 2.79169
+	 focalDistance 1.22276
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "60.000000"
+  }
+  PerspectiveCamera {
+	 position -0.244205 1.85986 26.1744
+	 orientation 0.998324 -0.0181209 0.0549594  3.50795
+	 nearDistance 0.00214436
+	 farDistance 2.14866
+	 focalDistance 0.580407
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "80.000000"
+  }
+  PerspectiveCamera {
+	 position -0.293268 1.50021 26.6174
+	 orientation 0.999962 0.000452161 -0.0087268  3.70711
+	 nearDistance 0.00144775
+	 farDistance 1.45065
+	 focalDistance 1.25046
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "100.000000"
+  }
+  PerspectiveCamera {
+	 position -0.4136 1.15804 27.0604
+	 orientation -0.87644 -0.179304 0.446882  2.72573
+	 nearDistance 0.00151163
+	 farDistance 1.51465
+	 focalDistance 0.580002
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "120.000000"
+  }
+  PerspectiveCamera {
+	 position -0.48191 0.723131 27.3824
+	 orientation 0.542936 0.384776 -0.746437  3.1164
+	 nearDistance 0.00222687
+	 farDistance 2.23133
+	 focalDistance 0.580001
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "140.000000"
+  }
+  PerspectiveCamera {
+	 position -0.277747 0.985768 27.1649
+	 orientation 0.434079 0.382069 -0.815842  3.18262
+	 nearDistance 0.00214543
+	 farDistance 2.14972
+	 focalDistance 0.68179
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "160.000000"
+  }
+  PerspectiveCamera {
+	 position -0.210978 1.09361 27.0495
+	 orientation 0.10712 0.484335 -0.8683  3.26068
+	 nearDistance 0.00201323
+	 farDistance 2.01726
+	 focalDistance 0.499099
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "180.000000"
+  }
+  PerspectiveCamera {
+	 position -0.0902541 1.10391 27.0053
+	 orientation -0.28081 0.505685 -0.815738  3.17714
+	 nearDistance 0.00249807
+	 farDistance 2.50307
+	 focalDistance 0.499099
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "200.000000"
+  }
+  PerspectiveCamera {
+	 position -0.0245422 1.17828 26.9457
+	 orientation -0.602212 0.395461 -0.693506  2.97794
+	 nearDistance 0.00264554
+	 farDistance 2.65083
+	 focalDistance 0.499099
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "220.000000"
+  }
+  PerspectiveCamera {
+	 position -0.506785 1.33244 26.8864
+	 orientation -0.641352 0.297887 -0.707058  2.6992
+	 nearDistance 0.00202433
+	 farDistance 2.02838
+	 focalDistance 0.361053
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "240.000000"
+  }
+  PerspectiveCamera {
+	 position -0.776269 1.31727 26.8474
+	 orientation -0.51002 0.0986028 -0.854492  2.54326
+	 nearDistance 0.00203379
+	 farDistance 2.03786
+	 focalDistance 0.0918411
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "260.000000"
+  }
+  PerspectiveCamera {
+	 position -0.913963 1.17838 26.7262
+	 orientation -0.299243 0.334157 -0.893752  2.49549
+	 nearDistance 0.00208348
+	 farDistance 2.08765
+	 focalDistance 0.284517
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "280"
+  }
+  PerspectiveCamera {
+	 position -1.10445 1.29878 26.5034
+	 orientation -0.391848 0.648205 -0.652906  2.85561
+	 nearDistance 0.00178652
+	 farDistance 1.7901
+	 focalDistance 0.062869
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "300.000000"
+  }
+  PerspectiveCamera {
+	 position -1.24586 1.46926 26.4592
+	 orientation -0.488616 0.638969 -0.594115  2.73915
+	 nearDistance 0.00170019
+	 farDistance 1.70359
+	 focalDistance 0.387849
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "320.000000"
+  }
+  PerspectiveCamera {
+	 position -1.63732 1.65171 26.5886
+	 orientation -0.63786 0.597548 -0.485872  2.63331
+	 nearDistance 0.00130258
+	 farDistance 1.30518
+	 focalDistance 0.509983
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "340.000000"
+  }
+  PerspectiveCamera {
+	 position -1.90907 1.74928 26.744
+	 orientation -0.61796 0.670425 -0.410678  2.88394
+	 nearDistance 0.00118653
+	 farDistance 1.1889
+	 focalDistance 0.655215
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "360.000000"
+  }
+  PerspectiveCamera {
+	 position -2.1274 1.89709 26.982
+	 orientation -0.613539 0.683151 -0.396075  2.94508
+	 nearDistance 0.000862106
+	 farDistance 0.863832
+	 focalDistance 0.355173
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "380.000000"
+  }
+  PerspectiveCamera {
+	 position -2.26213 1.99915 27.0634
+	 orientation -0.756367 0.637317 -0.147432  2.8876
+	 nearDistance 0.000687802
+	 farDistance 0.689179
+	 focalDistance 0.183849
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "400.000000"
+  }
+  PerspectiveCamera {
+	 position -2.29943 2.01352 27.1414
+	 orientation -0.852361 0.458294 0.251889  2.43738
+	 nearDistance 0.00170186
+	 farDistance 1.70527
+	 focalDistance 0.0985223
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "420.000000"
+  }
+  PerspectiveCamera {
+	 position -2.30933 2.00275 27.1516
+	 orientation -0.671092 0.0542938 0.739383  2.21414
+	 nearDistance 0.00359469
+	 farDistance 3.60188
+	 focalDistance 0.0985223
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "440.000000"
+  }
+  PerspectiveCamera {
+	 position -2.29553 2.00342 27.1493
+	 orientation -0.416477 0.164587 0.894124  2.60278
+	 nearDistance 0.00349946
+	 farDistance 3.50647
+	 focalDistance 0.085768
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "460.000000"
+  }
+  PerspectiveCamera {
+	 position -2.44867 2.14443 27.3209
+	 orientation -0.416477 0.164587 0.894124  2.60278
+	 nearDistance 0.00376861
+	 farDistance 3.77615
+	 focalDistance 0.35517
+  } 
+}
+
+ Group {
+
+  Info {
+	 string "480.000000"
+  }
+  PerspectiveCamera {
+	 position -2.36953 4.47377 30.78
+	 orientation -0.231926 0.281329 0.931163  2.62632
+	 nearDistance 3.53656
+	 farDistance 7.01916
+	 focalDistance 4.16
+  } 
+}

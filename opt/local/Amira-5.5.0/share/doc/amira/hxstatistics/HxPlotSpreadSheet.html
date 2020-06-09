@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> PlotSpreadSheet</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "PlotSpreadSheet" "displays a graph from a spreadsheet" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p>This module uses a connected <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a> or
+<a class="link" href="../hxlines/HxLineSet.html#A1">lineset</a> and displays its numeric columns in a separate plot
+window. For linesets, the point coordinates x,y,z and per vertex data values
+are each regarded as comlumns. Each line of a lineset leads to a separate graph
+in the plot.</p>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A2"></a><h3>Connections</h3>
+
+<div class="hxconnection_required">
+ <span class="headline">Data</span> <span class="connectiontype">[required]</span> 
+
+<div class="body"><p>The <a class="link" href="HxSpreadSheet.html#A1">spreadsheet</a> of <a class="link" href="../hxlines/HxLineSet.html#A1">lineset</a> object which contains the
+information to be plotted.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A3"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">X</span>  
+<div class="portsnapshot"><img src="HxPlotSpreadSheet_X.png" /><br /></div>
+<div class="body"><p>The column in the connected spreadsheet that is used
+for the X axis. Only columns that contain numeric values
+can be selected. When another column is selected, the plot
+will automatically switch to the newly selected data.</p>
+<p><a name="A4"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Y</span>  
+<div class="portsnapshot"><img src="HxPlotSpreadSheet_Y.png" /><br /></div>
+<div class="body"><p>The column in the connected spreadsheet that is used 
+for the Y axis. Only columns that contain numeric values
+can be selected. When another column is selected, the
+user must add or remove this column using the <em>Buffer</em>
+port. As a special entry, <em>All</em> refers to all columns of
+the table.</p>
+<p><a name="A5"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Buffer</span>  
+<div class="portsnapshot"><img src="HxPlotSpreadSheet_Buffer.png" /><br /></div>
+<div class="body"><p>This port allows the user to specify which data columns
+should be plotted. Only the data in the Y port will
+be considered. Single curves can be added, removed, or
+all currently displayed curves can be removed from the
+plot window.</p>
+<p><a name="A6"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Plot</span>  
+<div class="portsnapshot"><img src="HxPlotSpreadSheet_Plot.png" /><br /></div>
+<div class="body"><p>Pressing this button will show the plot window.</p>
+</div></div>
+</div>
+<p></p>
+<p><a name="A7"></a>
+</p><div class="hxcommands">
+<h3>Commands</h3>
+
+<div class="hxcommand">
+  <span class="headline"><tt>getActiveYCurves</tt></span>  
+
+<div class="body"><p>
+ Returns a list of numbers which identify the column indexes
+ in the spreadsheet of the currently displayed curves.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>getActiveXCurve</tt></span>  
+
+<div class="body"><p>
+ Returns the index of the currently used X axis.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setActiveYCurves [list]</tt></span>  
+
+<div class="body"><p>
+ Sets a list of numbers which identify the column indexes
+ in the spreadsheet of the curves to be displayed.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setActiveXCurve [number]</tt></span>  
+
+<div class="body"><p>
+ Sets the index of the X axis to be used for plotting.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>getXLabel</tt></span>  
+
+<div class="body"><p>
+ Returns the currently used X label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>getYLabel</tt></span>  
+
+<div class="body"><p>
+ Returns the currently used Y label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setXLabel [name]</tt></span>  
+
+<div class="body"><p>
+ Sets the string used for the X label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>setYLabel [name]</tt></span>  
+
+<div class="body"><p>
+ Sets the string used for the Y label.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline"><tt>createSnapShot [file]</tt></span>  
+
+<div class="body"><p>
+ Creates a snapshot of the plot window and saves it in the file
+	with the name 'file'. The type of image created is determined by
+	the extension of 'file'.
+</p></div></div>
+</div>
+<p></p>
+<p>
+
+
+</p></body>
+</html>

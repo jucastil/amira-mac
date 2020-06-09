@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">13.3 Example 3: Separating, Measuring, and Reconstructing Individual Objects - Pores in Foam</a></h2>
+<p>To follow this tutorial you should have read the first <font face="helvetica">Quantification+ Option</font> tutorial and be familiar with basic manipulation of <font face="helvetica">Amira</font> and the Quantification module (<a class="link" href="QuantificationPackUG-1-basics.html#A1">Getting started with <font face="helvetica">Quantification+ Option</font></a>).<br />
+
+You may want to skip image processing details in this example to focus on the specific new features introduced.<br />
+
+Throughout this tutorial you will find links to corresponding demo scripts.<br />
+</p>
+<p>In this document often the term "enter the command ..." or "apply the command ..." occure. This means that you have to attach a Quantification tool to the input data (defined in the text) and enter the command "..." in the Visilog command line (at the bottom right of the Quantification Properties section). It supports automatic completion. After pressing enter you can see the new command in the Pipeline Section of the Quantification Properties (in the left). Here you can change the input and output data/names (as described in the text). Then press apply.<br />
+</p>
+<p>Notice that sometimes it could happen that you accidentally delete the Visilog colormaps. This is the case, when you for example have a binary image an you attach an OrthoSlice to it and the viewer just shows a black image (see if the colormaps <em>"VisilogBinary.col"</em> and <em>"VisilogLabels.col"</em> are under Pool/ Show Object). The colormaps can be reset with the Tcl command (command line at the bottom right of the Amira window):<br />
+
+<tt>Quantification createColormaps</tt> <br />
+</p>
+<p>The 3D image used in this example was generated using data from several slices of foam.
+This example illustrates the use of automatic segmentation to extract bubbles, in a more detailed way than the "getting started" example, and that can produce better segmentation results.
+The aim of the example is to isolate and quantify these bubbles.</p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=mousse1.png.html><img width=375 src="mousse1.png" /></a><br />
+<div class="caption">
+<b>Figure 113:</b>
+<a href="../../../demo/Mousse/script1.hx">Tomographic image</a></div>
+
+
+</div><p></p>
+<p></p>
+<h3><a name="A3">13.3.1 Automated segmentation with separation</a></h3>
+<p>Here is the result of an automated segmentation based on the <em>watershed</em> algorithm, which can produce better segmentation than the <i>binseparate</i> command:</p>
+<p></p><div style="text-align:center"><a name="A4"></a><a href=mousse2.png.html><img width=375 src="mousse2.png" /></a><br />
+<div class="caption">
+<b>Figure 114:</b>
+<a href="../../../demo/Mousse/script2.hx">Segmented bubbles and original image</a></div>
+
+
+</div><p></p>
+<p>You can run this script (click the link in figure <a class="link" href="#A4">114</a>) or do the following steps manually.
+You will find the sequence of used commands also in the <tt>share/demo/mousse/Mousse.scro</tt>
+script file.</p>
+<p></p>
+<ul><li>Load data set data/images/Mousse/mousse.im6 from the Amira root directory.</li><li>Calibration
+ 
+<ul><li>Attach a Quantification module to the data and apply the command <tt>currentcalibration</tt> with 
+ parameter <tt>no_calib</tt>and choose <em>yes</em> as <em>choice</em><br />
+
+ If an image is not calibrated, the measurements will be done using this calibration. To get
+ measurements in pixels, we set the current calibration to <tt>no_calib</tt>.</li>
+</ul></li><li>Thresholding
+ 
+<ul><li>Apply the command <tt>threshold</tt> to the data with a range
+ from 0 to 38.<br />
+
+ This sets voxels with a value in the range between 0 and 38 as foreground and other 
+ voxels as background in the resulting image.</li>
+</ul></li><li>Fill holes
+ 
+<ul><li>To the result of the thresholding apply the command <tt>hole_fill</tt>
+ with parameter 3D_6.<br />
+
+ <tt>hole_fill</tt> fills all holes inside a region.</li>
+</ul></li><li>Separation by maximal distance
+ 
+<ul><li>To the result of <tt>hole_fill</tt> use the command <tt>distxxx</tt> with 
+ parameter 1, 1.41, and 1.73.<br />
+
+ <tt>distxxx</tt> calculates for all foreground voxels the distance of this voxel to the boundary of the region
+ it belongs to.</li><li>To the result apply <tt>merge_maxima</tt> with contrast factor 1.<br />
+
+ <tt>merge_max</tt> subtracts the contrast factor from the input image and the regional maxima of the result are called
+ merged maxima.</li><li>To this result apply the command <tt>label</tt>.<br />
+
+ <tt>label</tt> assigns each voxel of the same object the same number. Voxels from different objects get different numbers. 
+ The numbers start with 1 and are continuous.</li>
+</ul></li><li>Distance inversion
+ 
+<ul><li>Attach another Quantification module to the result of <tt>distxxx</tt> and apply <tt>logical_not</tt>.<br />
+
+ This computes the logical not of the input image.</li>
+</ul></li><li>Watershed and separate
+ 
+<ul><li>Use <tt>fastwatershed</tt> with the result of <tt>logical_not</tt>
+ as first input and the result of <tt>label</tt> as second input.<br />
+
+ <tt>fastwatershed</tt> produces a binary image which contains the crest lines separating the labelled objects of
+ the input image.</li><li>To the result of <tt>hole_fill</tt> apply <tt>logical_sub</tt> with the result
+ of <tt>hole_fill</tt> as first input and the result of <tt>fastwatershed</tt> as second input.</li>
+</ul></li><li>Labelisation
+ 
+<ul><li>Label the result with the command <tt>label</tt>.</li>
+</ul></li><li>Filtrage
+ 
+<ul><li>Create a new filter <tt>filterVol3D</tt> with a Quantification module using <tt>createfilter</tt> with 
+ the expression (Volume3d &gt;= 500).<br />
+
+ <tt>createfilter</tt> creates a filter according to the given formula. The filter can be used in further
+ commands.</li><li>Use this filter in a Quantification module attached to the result of Labelisation with the command
+ <tt>I_filter_image</tt>. Use the result of the Labelisation for both inputs and the parameter <em>filterVol3D</em> 
+ and <em>adjust</em>.<br />
+
+ <tt>I_filter_image</tt> applies the filter to the input image and creates a filtered image.</li>
+</ul></li><li>Create analyse
+ 
+<ul><li>Use a Quantification module to create a measure group <em>Vol3D</em> with the command <em>addmeasuretogroup</em>
+ and parameter <em>Volume3d</em>.<br />
+
+ <em>addmeasuretogroup</em> allows to change measure groups without using the measure group editor.</li><li>Create an analyze with a Quantification module attached to the result of <em>I_filter_image</em> and the 
+ command <em>I_analyze</em> with parameter <em>adjust</em> and <em>Vol3D</em>.<br />
+</li>
+</ul></li>
+</ul><p></p>
+<p>The following steps are just for further interest, however the results are not necessary for the tutorial.
+</p>
+<ul><li>Create boundary for display
+ 
+<ul><li>Attach a Quantification module to the result of the last step and use <tt>erode</tt> with structure size 1.<br />
+
+ <tt>erode</tt> computes an erosion on the input image with the given structure size.</li><li>Attach another Quantification module to the result of <tt>I_filter_image</tt> and apply <tt>subtract</tt>
+ with the result of <tt>I_filter_image</tt> as first input and the result of <tt>erode</tt> as second input.</li><li>Attach a Quantification module to the last result and run <tt>convert</tt> with format <em>label</em>.<br />
+
+ This converts an image in the format given in the parameters. A conversion to a binary image sets all values not equal to
+ zero to one and zero values stay the same.</li>
+</ul></li>
+</ul><p></p>
+<p>
+</p>
+<h3><a name="A5">13.3.2 Measurements</a></h3>
+<p>You can then, for instance, measure the volume for each individual region.<br />
+
+</p>
+<ul><li>Attach a <a class="link" href="HxVisilogAnalyse.html">Quantification-Analyse</a> module to the result of the filtrage step by right clicking on 
+the image icon and selecting <em>Quantification-Analyse</em> from the <em>Measure</em> submenu in the popup menu.</li>
+</ul><p>
+You will see then the Visilog analysis <em>Result Viewer</em>.<br />
+
+</p><div style="text-align:center"><a name="A6"></a><a href=mousse3.png.html><img width=375 src="mousse3.png" /></a><br />
+<div class="caption">
+<b>Figure 115:</b>
+Measurement results: Individual analysis with volume for each region.</div>
+
+
+</div><p></p>
+<p></p>
+<ul><li>In the interaction mode you can move the dragger. If you release the dragger on a bubble, the row corresponding to this bubble is highlighted in the <em>Result viewer</em>. You can also click on a cell (not a row or column) in the <em>Result viewer</em> and the position of the dragger is highlighted.</li>
+</ul><p></p>
+<p></p>
+<p></p>
+<h3><a name="A7">13.3.3 Geometry Reconstruction</a></h3>
+<p>Finally, you can reconstruct the geometry of the bubbles. 
+</p>
+<ul><li>Attach a <a class="link" href="../hxsurftools/HxGMC.html#A1">SurfaceGen</a> module to the <em>Result </em> image icon by right clicking on it and selecting <em>SurfaceGen</em> from the <em>Compute </em> submenu in the popup menu.</li><li>Select a smoothing mode and press <em>Apply</em> in the properties of the module SurfaceGen to create a surface.</li>
+</ul><p>
+As the result image already contains integer values for material labels, it can be used directly for surface reconstruction. Other image types may require conversion to <font face="helvetica">Amira</font> label data (for instance by using the <a class="link" href="../hxarith/HxCastField.html#A1">CastField</a> module). 
+Notice that the SurfaceGen module can work with more than 256 labels.<br />
+</p>
+<p></p>
+<ul><li>After reconstruction, you can display the resulting surface with a SurfaceView module. However, notice that the resulting surface contains a large number of polygons and may require prior simplification for faster display on your hardware.<br />
+</li>
+</ul><p></p>
+<p><font face="helvetica">Amira</font> also allows you to export the surfaces to various file formats, or to generate and export a tetrahedral model suitable, for instance, for finite element simulation with some external solver.</p>
+<p>
+
+</p></body>
+</html>

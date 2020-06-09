@@ -1,0 +1,9 @@
+# ----------------------------------------------------------------------
+# hxzibmolfile package
+# ----------------------------------------------------------------------
+
+dataFile \
+    -name   "ZMF" \
+    -load   "readZMFtoAmira" \
+    -header "STRUCTURED FILE" \
+    -dso    "libhxzibmolfile.so"

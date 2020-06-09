@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> MoviePlayer</a>
+</h2> <ul class="entry_classification"><li>Module</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Module" "MoviePlayer" "displays an image sequence" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+<p>
+This module allows you to play back a sequence of single images, a movie. 
+These images can be stored as separate files in a 2D image format supported by <font face="helvetica">Amira</font>
+(for example <em>JPEG</em>, <em>TIFF</em>, <em>PNG</em>, or <em>PPM</em>) or they may packed together in one or more
+movie data files (moviename.amovstream).
+To create movies using <font face="helvetica">Amira</font>, use the <a class="link" href="HxMovieMaker.html#A1">MovieMaker</a>.</p>
+
+<h3><a name="A2">The <font face="helvetica">Amira</font> Movie Format</a></h3>
+<p>This module is capable of playing back a sequence of images. This sequence is loaded from 
+one or more so called streams. Each stream consists of an image sequence.
+During playback this module retrieves images from all streams and meshes them together 
+for the final image sequence which gets then rendered to the screen. Imagine there are N streams.
+The first image comes from the first stream, image 2 from stream 2, image N from stream N,
+image N+1 again from stream 1, image N+2 from stream 2 and so on. (Expert note: this behavior 
+can be changed by editing the <font face="helvetica">Amira</font> movie info file). After specifying the streams, the module 
+needs to know what type of movie this image sequence forms, e.g., mono, stereo, 
+stereo interlaced and so on. The structure of an <font face="helvetica">Amira</font> movie, i.e. the 
+number and specification of streams, the type and the preferred compression type, is stored in an 
+<font face="helvetica">Amira</font> movie info file (moviename.amov), which is a human readable and editable 
+text file.
+In <font face="helvetica">Amira</font>, movies are specified in separate data objects connectable to this module. 
+See <a class="link" href="HxMovieData.html#A1">Movie</a> for details.</p>
+
+<h3><a name="A3">Optimized <font face="helvetica">Amira</font> Movies</a></h3>
+<p>This module is capable of converting a movie to an optimized format, i.e. a format that comes 
+up with faster playback speed and sometimes smaller but mostly bigger but fewer data files.
+To perform this conversion, connect a <a class="link" href="HxMovieData.html#A1">Movie</a> to the input connection. That's the source movie. 
+Then connect a <a class="link" href="HxMovieData.html#A1">Movie</a> to the Result connection port. That will be the destination movie. 
+In the stream specification for that destination movie only <font face="helvetica">Amira</font> movie data files are allowed. 
+The movie conversion is not able to write into single image files (which would not make sense anyway).
+After this, select <em>convert (overwrite)</em> for overwrite mode or <em>convert (append)</em> for append mode. 
+To perform the conversion press one of the play buttons. Seeking does not affect the destination movie, 
+so it is possible to seek to the part of interest in the source movie and start the conversion from there.</p>
+
+<h3><a name="A4">Which Movie or Image Format Should I Use ?</a></h3>
+<p>To maximize the playback speed:
+</p>
+<ul><li>Store many images into one or a few big <font face="helvetica">Amira</font> movie data files by performing the conversion process.
+ This avoids the file searching overhead especially if there are 
+ thousands of single image files in a single directory.</li><li>If the target system has limited CPU bandwidth, avoid using 
+ CPU-intensive operations like the post compression feature 
+ or a CPU-intensive image reader. To find out which image 
+ reader is the fastest you have to experiment, since it depends on the 
+ individual hardware and software configuration. If the systems
+ <em>OpenGL</em> implements the extension <em>GL_ARB_texture_compression</em>, you can 
+ compress the images using <em>OpenGL</em> texture compression. This has the 
+ advantage, that the image size is reduced by factor 4 to 6 without
+ the need for decompression by the CPU during playback, since the 
+ decompression is performed by the GPU.</li><li>If the target system has limited harddisk bandwidth, compress 
+ the data by using high compressing single image formats like JPEG or 
+ the post compression feature in combination with the <em>OpenGL</em> texture 
+ compression feature if available.
+ If the bandwidth of a single harddisk limits the playback speed, but there
+ are more harddisks available (like on many PCs), store
+ the movie in multiple streams (described above), each of them stored 
+ on a different harddisk. On systems with RAID the movie should be stored in a 
+ single stream, since the RAID should distribute the movie data file over
+ many disks, which should already increase the retrieval bandwidth. Using 
+ more than one stream jams the RAID strategy used for fast retrieval of large
+ disc files, which results in a slowly and bumpy playback.</li>
+</ul>
+<p>To maximize the playback image quality:
+</p>
+<ul><li>Choose a loss-free image format during movie creation outside of this module 
+ and also during movie conversion with this module. RGB(A) and gzip postcompression
+ are loss-free. <em>OpenGL</em> texture compression is lossy.</li>
+</ul>
+<p>Known Issues
+</p>
+<ul><li>When playing single images with readers that are not thread safe, <font face="helvetica">Amira</font> may crash.
+ In this case one can set the value in the <a class="link" href="HxMovieData.html#A1">movies</a> MaxThreads-port to 1 which sets the maximum 
+ number of reader-threads to one, what makes the playback speed slow but allows 
+ a conversion to the optimized format. On most platforms the JPG-reader should 
+ be thread-save. The BMP-reader is known to be not thread-save.</li>
+</ul>
+</div>
+<p></p>
+<p></p><div class="hxconnections">
+<a name="A5"></a><h3>Connections</h3>
+
+<div class="hxconnection_default">
+ <span class="headline">Data</span>  
+
+<div class="body"><p>Connect the <a class="link" href="HxMovieData.html#A1">Movie</a> the module is going to play or convert.</p>
+</div></div>
+</div>
+<p></p>
+<p></p><div class="hxports">
+<a name="A6"></a><h3>Ports</h3>
+
+<div class="hxport">
+ <span class="headline">Action</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_action.png" /><br /></div>
+<div class="body"><p>Press this button to create a new <a class="link" href="HxMovieData.html#A1">Movie</a> data object connected to this player via the movie's Master port.
+Filename and type of this newly created movie are initialized according to the properties of the input movie.
+The default number of streams is one. Alter the settings within the input movie object to match your needs before
+converting data into that movie.</p>
+<p><a name="A7"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Mode</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_mode.png" /><br /></div>
+<div class="body"><p>Set this to specify the action the module should perform. If set to <em>play</em>, the module will play the movie connected 
+to the data connection port. If set to <em>play result</em>, the module will play the <a class="link" href="HxMovieData.html#A1">Movie</a> connected with
+its <em>Master</em> port.
+If set to <em>convert (overwrite)</em>, the module performs the movie conversion from the source <a class="link" href="HxMovieData.html#A1">Movie</a> to the
+destination <a class="link" href="HxMovieData.html#A1">Movie</a>. 
+The old contents of the destination <a class="link" href="HxMovieData.html#A1">Movie</a> are deleted first. If set to <em>convert (append)</em>, the module
+appends the contents of the source <a class="link" href="HxMovieData.html#A1">Movie</a> to the destination <a class="link" href="HxMovieData.html#A1">Movie</a>.</p>
+<p><a name="A8"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Position</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_position.png" /><br /></div>
+<div class="body"><p>This slider displays the current position in the movie during playback. By pulling the slider it's possible to
+seek in the movie. With the two upper adjustable sub-range buttons one can limit the movie presentation to a
+smaller scene of interest. With the two outside buttons one can step through the movie, image by image, 
+making it possible to use this module to present a series of single high resolution slides. By specifying an integer 
+value in the text field one can jump directly to the specified frame. Note that the frame count begins with zero.</p>
+<p><a name="A9"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Playback</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_playback.png" /><br /></div>
+<div class="body"><p>Push these buttons to seek to the beginning of the scene of interest, to its end, to play the movie forward 
+or backward, and to pause or unpause playback.</p>
+<p><a name="A10"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Pixel format</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_pixelFormat.png" /><br /></div>
+<div class="body"><p>This setting gets evaluated during the movie conversion process.
+If set to <em>RGB(A)</em> the images are stored loss-free to the <font face="helvetica">Amira</font> movie data files, 24 bits per pixel if RGB and 32 
+bits if RGBA. Note the alpha blending feature of this module which is enabled if the input image 
+contains an alpha channel (<font face="helvetica">Amira</font> is capable of creating screenshots with an alpha channel). 
+If <em>GL-compress</em> is enabled and the systems <em>OpenGL</em> is capable of compressing textures, this module
+compresses the images using <em>OpenGL</em>. Note that this kind of compression is lossy. If it is not available on the
+current system, this option is disabled.</p>
+<p><a name="A11"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Post compression</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_postCompression.png" /><br /></div>
+<div class="body"><p>This setting is evaluated during the movie conversion process. Specify this for the destination movie.
+If enabled, the MoviePlayer module compresses the image, independent of the selected pixel format, with <em>GZIP</em>. 
+The result is smaller movie data files that need more CPU power during playback. Note that only parts of the
+movie stream file are going to be compressed, so it is not possible to compress the whole file with an external zip
+encoder application.</p>
+<p><a name="A12"></a>
+</p></div></div>
+<div class="hxport">
+ <span class="headline">Chunk size</span>  
+<div class="portsnapshot"><img src="HxMoviePlayer_chunkSize.png" /><br /></div>
+<div class="body"><p>This setting is evaluated during the movie conversion process.
+Sometimes the resulting <font face="helvetica">Amira</font> movie data file gets too large. With this option one can
+request the module to split this file into pieces during creation. The fragments are named
+filename.amovstream, filename.00000001, filename.00000002, ..., filename.0000000N. A value of
+0 disables the split feature. A value greater 0 specifies the maximum fragment size in 
+megabytes (each 1,048,576 bytes). One can split an <font face="helvetica">Amira</font> movie stream file with external tools into 
+fragments with arbitrary sizes. If the naming scheme matches the one mentioned above, the module
+will play it correctly. Note that there is an <font face="helvetica">Amira</font> movie index file maintained by this module, 
+which holds file numbers and byte offsets for every image on this stream. After manual splits or
+to force a recreation of this index file, simply remove it. At the next attempt to play or seek this 
+stream, this module will scan the <font face="helvetica">Amira</font> movie stream file and recreate the index file.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p>
+
+</p></body>
+</html>

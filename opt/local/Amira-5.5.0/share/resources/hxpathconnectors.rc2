@@ -1,0 +1,10 @@
+hxsurfacepath::declareConnectorClass  TriangleDijkstra  TriangleDijkstraConnector       hxpathconnectors
+hxsurfacepath::declareConnectorClass  Geodesic          GeodesicConnector               hxpathconnectors
+hxsurfacepath::declareConnectorClass  ApproxGeodesic    ApproximateGeodesicConnector    hxpathconnectors
+hxsurfacepath::declareConnectorClass  P2PGeodesic       P2PGeodesicConnector            hxpathconnectors
+hxsurfacepath::declareConnectorClass  LocallyShortest   TriangleStripConnector          hxpathconnectors
+hxsurfacepath::declareConnectorClass  PlaneCut          PlaneCutConnector               hxpathconnectors
+hxsurfacepath::declareConnectorClass  NonManifold       NonManifoldConnector            hxpathconnectors
+if { [ __isProduct "ZIBAmira" ] } {
+    hxsurfacepath::declareConnectorClass  DistanceMap       DistanceMapConnector            hxpathconnectors
+}

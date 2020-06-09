@@ -1,0 +1,767 @@
+# This file contains tcl procedures for use with amiraMol
+
+#use the hivprotease module to compute all atom asymmetries of a bundle of hiv protease cocrystals
+
+proc runMolTests {} {
+	set test [create TestMMFF] 
+	$test startLogging c:/log.txt
+	$test runTests
+#	[create TestMolchem] runTests
+#	[create TestSolvation] runTests
+	$test printGlobalSummary
+	$test stopLogging
+}
+
+# prints the bounding box in xmin,xmax,ymin,ymax,zmin,zmaz for a SelectRoi object
+proc getBoundingBox { roi} {
+    set str "[$roi minimum getValue  0],[$roi maximum getValue  0],[$roi minimum getValue  1],[$roi maximum getValue  1],[$roi minimum getValue  2],[$roi maximum getValue  2]"
+    regsub -all " " $str "" str
+    return $str
+}
+
+
+proc computeHIVAsymmetries {bun } {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        $traj trajectory setValue $i
+        $traj fire
+	    set mod [create HxHivProtease]
+	    $mod portWhat setValue 1
+	    set mol [create HxMolecule]
+    	$mol data connect $traj
+    	$mol fire
+	    $mod data connect $mol
+	    $mod portLigand connect $mol
+	    $mod doIt hit
+	    $mod fire
+	    set mol2 [$mod getResult]
+	    $mol computeDistancePerAtomByAtomicNumber $mol2 dist
+	    remove $mod
+	    remove $mol
+	    remove $mol2
+    }
+    remove $traj
+}
+
+# prints mutations of mol2 in relation to mol1
+
+proc printMutations { mol1 mol2 } {
+    set mod [create HxSeqAlign {SeqAlign}]
+    $mod MoleculeA connect $mol1
+    $mod moleculeB connect $mol2
+    $mod alignType setValue 0 0
+    $mod alignType setValue 1 2
+    $mod doIt setValue
+    $mod doIt touch 
+    $mod compute
+    $mod options setValue 0 0
+    $mod fire   
+    $mod printMutations 1
+    remove $mod
+}
+
+proc printMutationsosBundle {bun mol2} {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        $traj trajectory setValue $i
+        $traj fire
+	    set mol [create HxMolecule]
+		set mol [ $mol setLabel [ $traj trajectoryName ] ]
+    	$mol data connect $traj
+    	$mol fire
+	    printMutations $mol $mol2
+	    remove $mol
+    }
+    remove $traj
+}
+
+
+# the function will look in all chains for the num largest one and restrict to these
+# This was used to cut out all ligands out of a bundle of hiv protease structures
+# with the first two chains being skipped
+proc restrictBundleToLongestChains { bun num } {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        set name [$traj trajectory getLabel $i]
+        echo "Processing $name"
+        $traj trajectory setValue $i
+        $traj fire
+	    set mol [create HxMolecule]
+    	$mol data connect $traj
+    	$mol fire
+    	set resLevelIx [$mol getLevelIx residues]
+    	set chainLevelIx [$mol getLevelIx chains]
+    	set chainNum [$mol getNumGroups $chainLevelIx]
+    	set bestChainLength1 0
+    	set bestChainIx1 -1
+    	set bestChainLength2 0
+    	set bestChainIx1 -2
+    	for {set chainIx 1 } {$chainIx<=$chainNum} {incr chainIx} {
+    		set resNum [ $mol getNumGroupElements $chainLevelIx $chainIx ]
+  			if {$resNum>$bestChainLength1} {
+   				set bestChainLength2 $bestChainLength1
+   				set bestChainIx2 $bestChainIx1
+   				set bestChainLength1 $resNum
+   				set bestChainIx1 $chainIx
+   			} elseif {$resNum>$bestChainLength2} {
+   				set bestChainLength2 $resNum
+   				set bestChainIx2 $chainIx
+   			}
+    	}
+		if {$bestChainIx1 > 0 } {
+			incr bestChainIx1
+			incr bestChainIx2
+   			echo "Chain1: $bestChainIx1 wiht $bestChainLength1 residues"
+   			echo "Chain2: $bestChainIx2 wiht $bestChainLength2 residues"
+  			$mol sel chains/index=$bestChainIx1 OR chains/index=$bestChainIx2
+   			$mol restrictToSelected
+   		} else {
+   			echo "No chain found"
+   		}
+    	remove $mol
+    }
+    remove $traj
+}
+
+
+proc saveBundleAsMMFFPQR { bun path} {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        set name [$traj trajectory getLabel $i]
+        echo "Processing $name"
+        $traj trajectory setValue $i
+        $traj fire
+	    set mol [create HxMolecule]
+    	$mol data connect $traj
+    	$mol fire
+    	$mol addMMFFParameterization
+    	$mol addMMFFRadiusAttribute
+    	$mol savePQR $path/$name mmff94_q mmff94_radius
+    	remove $mol
+    }
+    remove $traj
+}
+
+proc alignProteinBundle { bun refmol} {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        set name [$traj trajectory getLabel $i]
+        echo "Processing $name"
+        $traj trajectory setValue $i
+        $traj fire
+        alignTrajectory $traj $refmol
+    }
+ #   remove $traj
+}
+
+proc alignProteinTrajectory { traj refmol} {
+    set mol [create HxMolecule]
+    $mol data connect $traj
+    $mol fire
+    set view [create HxMolView]
+    $view data connect $mol
+    set numSteps [$traj getNumTimeSteps]
+    for {set i 1} {$i<=$numSteps} {incr i} {
+        $mol time setValue $i
+        $mol fire
+        alignProtein $mol $refmol
+        set trans [$mol getTransform]
+        echo Transform: $trans
+        eval $traj applyTransformToStep $i $trans 
+    }
+    remove $mol
+}
+
+# molecule that will be aligned, molecule to which will be aligned
+proc alignProtein { mol1 mol2} {
+    set mod [create HxSeqAlign]
+    $mod MoleculeA connect $mol1
+    $mod moleculeB connect $mol2
+    $mod fire
+    $mod options setValue 0 0
+    $mod options setValue 1 1
+    $mod input setValue 0
+    $mod motif setState {}
+    $mod alignType setValue 0 0
+    $mod alignType setValue 1 0
+    $mod indel setMinMax -10 0
+    $mod indel setButtons 1
+    $mod indel setIncrement 1
+    $mod indel setValue -2
+    $mod indel setSubMinMax -10 0
+    $mod doIt hit 
+    $mod fire
+    remove $mod
+        
+    set mod [create HxAlignMolecules]
+    $mod moleculeA connect $mol2
+    $mod moleculeB connect $mol1
+    $mod setEpsilon  0.00000000001;    
+    $mod mode setValue 0
+    $mod options setValue 0 1
+    $mod options setValue 1 1
+    $mod transforms setMinMax 0 0
+    $mod transforms setButtons 1
+    $mod transforms setIncrement 1
+    $mod transforms setValue 0
+    $mod transforms setSubMinMax 0 0
+    $mod fire
+    # -- set the correct alignment level
+    set labelIx -1;
+    set nLevel [$mod alignLevel getNum]
+    for {set i 0} {$i<$nLevel} {incr i} {
+        set levelName [$mod alignLevel getLabel $i]
+        if {[string compare $levelName "seq_align1"]==0} {
+            set labelIx $i
+            break
+        } 
+    }
+    if {$labelIx>=0} {
+        $mod alignLevel setValue $labelIx
+    } else {
+        echo "Could not find alignment level"
+        remove $mod
+        return
+    }
+    $mod doIt hit 
+    $mod fire
+    remove $mod
+}
+
+proc doForAllMolecules {command} {
+    set mols [all HxMolecule]
+    foreach {m} $mols {
+        $command $m
+    }
+}
+
+proc forEachTrajectoryInBundle { bun command } {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bun
+    $traj fire
+    set numTraj [$bun getNumTrajectories]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        set name [$traj trajectory getLabel $i]
+        echo "Processing $name"
+        $traj trajectory setValue $i
+        $traj fire
+        $traj $command
+    }
+    remove $traj
+    $bun touch
+    $bun fire
+}
+
+#
+
+proc printAllSolvationEnergy {bundle} {
+    # setup the network of data objects
+    set traj [create  HxMolTrajectory]
+    $traj bundle connect $bundle 
+    set mol [create HxMolecule]
+    $mol data connect $traj
+    # setup the protein ligand interaction module
+    set calc [ create HxProteinLigandInteraction ]
+    $calc data connect $mol
+    $calc portComputeWhich setValue 1
+    $calc portComputeMode setValue 1        
+    $calc portComponents setValue 0 0
+    $calc portComponents setValue 1 0
+    $calc portComponents setValue 2 0   
+    $calc portComponents setValue 3 0
+    $calc portComponents setValue 4 0
+    $calc portComponents setValue 5 0           
+    $calc portComponents setValue 6 0               
+    $calc doIt snap
+    # compute for each trajectory in bundle
+    set nTraj [ $bundle getNumTrajectories ]
+    for {set i 1} {$i<=$nTraj} {incr i} {
+        echo "Name: " [ $traj trajectory getLabel $i ];
+        $traj trajectory setValue $i
+        $traj fire
+    }
+}
+
+# return all objects of a type but unlike 'all' restrict result to those which are selected
+
+proc allSelected { type } {
+    set selected {}
+    set args [all $type]
+    foreach {data} $args {
+        if {[$data select]==0} {
+            $data deselect
+        } else {
+            lappend selected $data
+        }
+    }
+    return $selected
+}
+
+# add a set for all molecule objects
+
+proc addSet { name } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        $mol addSet $name
+    }
+}
+
+# use a set for all molecule objects
+
+proc useSet { name } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        $mol useSet $name
+    }
+}
+
+# apply selection for all molecule objects
+
+proc sel { expr } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        $mol sel $expr
+    }
+}
+
+# apply deselection for all molecule objects
+
+proc desel { expr } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        $mol desel $expr
+    }
+}
+
+#
+
+proc printSelectionByResidues { } {
+    printSelectionByLevel residues
+}
+
+#
+
+proc printSelectionByAtoms { } {
+    printSelectionByLevel atoms
+}
+
+#
+
+proc printSelection { } {
+    printSelectionByLevel atoms
+}
+
+#
+
+proc setSelectionLevel { {level ""} } {
+    set hxmol [create HxMolecule]
+    $hxmol setSelectionLevel $level
+    remove $hxmol
+}
+
+#
+
+proc printSelectionByLevel { levelName } {
+    set mols [all HxMolecule]
+    foreach {mol} $mols {
+        echo $mol
+        echo [$mol printSelectionByLevel $levelName]
+    }
+}
+
+# create a new molecule containing all selected atoms
+
+proc newMolFromSelection { } {
+    set mols [all HxMolecule]
+    set newMol 0
+    foreach {mol} $mols {
+        if {$newMol==0} {
+            set newMol [$mol copySelection]
+        } else {
+            $newMol addMoleculeSelection $mol
+        }
+    }
+    return $newMol
+}
+
+# merges all molecules in object pool into MolTrajectoryBundle
+
+proc mergeMolecules { } {
+    set args [all HxMolecule]
+    set mod [create HxMolTrajBundleConverter {MolTrajBundleConverter}]
+    $mod resultType setValue 1
+    set num 1
+    foreach {mol} $args {
+        $mod input$num connect $mol
+        $mod fire       
+        incr num
+    }
+}
+
+# merges all trajectories in object pool into MolTrajectoryBundle
+
+proc mergeTrajectories { } {
+    set args [all HxMolTrajectory]
+    set mod [create HxMolTrajBundleConverter {MolTrajBundleConverter}]
+    $mod resultType setValue 1
+    set num 1
+    foreach {mol} $args {
+        $mod input$num connect $mol
+        $mod fire       
+        incr num
+    }
+}
+
+# Add the bond type attribute to the molecule. All attribute values are set to 1.
+
+proc addBondTypeAttributeToMolecule { mol} {
+    set btIx [$mol getAttributeIx 1 type]
+    if {$btIx<=0} {
+        set btIx [$mol addIntegerAttribute 1 type]
+        set numBonds [$mol getNumGroups 1]
+        for {set j 1} {$j<=$numBonds} {incr j} {
+            $mol setAttributeValue 1 $btIx $j 1
+        }           
+    }
+}
+
+# Add the bond type attribute to all trajectories of a bundle. All attribute values are set to 1.
+
+proc addBondTypeAttributeToTrajBundle { bundle} {
+    set traj [create HxMolTrajectory]
+    $traj bundle connect $bundle
+    $traj fire
+    set mol [create HxMolecule]
+    $mol data connect $traj
+    $mol fire
+    set numTraj [$traj trajectory getNum]
+    for {set i 1} {$i<=$numTraj} {incr i} {
+        $traj trajectory setValue $i
+        $traj fire
+        addBondTypeAttributeToMolecule $mol
+    }
+    remove $mol
+    remove $traj
+}
+
+# Merge all molecule in the object pool into one trajectory bundle
+
+proc mergeMoleculesToTrajBundle { } {
+    set args [all HxMolecule]
+    create HxMoleculeToTrajectory {MolToTrajectory}
+    create HxMolTrajBundleConverter {MolTrajBundleConverter}
+    MolTrajBundleConverter resultType setValue 1
+    set num 1   
+    foreach {mol} $args {
+        echo $mol
+        # create the trajectory
+        MolToTrajectory data connect $mol
+        [ {MolToTrajectory} create ] setLabel $mol.traj
+        $mol.traj master disconnect
+        # connect it to the bundle generator
+        MolTrajBundleConverter input$num connect $mol.traj
+        MolTrajBundleConverter fire         
+        incr num    
+    }
+    MolTrajBundleConverter compute  
+}
+
+# loads pdbID form pdb.org
+
+proc newMolFromPDB {pdbID} {
+    set creator [create HxMolInterpreter]
+    set name [$creator fromPDB $pdbID]
+    remove $creator
+    return $name
+}
+
+# creates new molecule from smiles string
+
+proc newMolFromSmiles {smiles} {
+    set creator [create HxMolInterpreter]
+    set name [$creator fromSmiles $smiles]
+    remove $creator
+    return $name
+}
+
+proc newMolFromAminoAcidCode1 {code} {
+    set creator [create HxMolInterpreter]
+    set name [$creator fromAACode1 $code]
+    remove $creator
+    return $name
+}
+
+proc newMolFromAminoAcidCode3 {code} {
+    set creator [create HxMolInterpreter]
+    set name [$creator fromAACode3 $code]
+    remove $creator
+    return $name
+}
+
+# ------------------------------------------------------
+#
+#                        copyFilter
+#
+# ------------------------------------------------------
+ 
+proc copyFilter {module1 module2} {
+	if {[[$module1 data source] getNumGroups 1]!=[[$module2 data source] getNumGroups 1]} {
+		echo "$module1 and $module2 have differ in their number of atoms."
+		return
+	}
+	set sel1 [$module1 getSelectedAtoms]
+	$module2 selectAtoms zab $sel1
+}
+ 
+# ------------------------------------------------------
+#
+#                        ls
+#
+# ------------------------------------------------------
+# Replacement for glob
+
+proc ls {{searchString ""}} {
+    if {$searchString == ""} {
+        lsort [glob *]
+    } else {
+        lsort [glob $searchString]
+    }
+}
+
+# ------------------------------------------------------
+#
+#                        showAll
+#
+# ------------------------------------------------------
+# Activates all viewers for hxmolecule objects
+
+proc showAll {} {
+    set args [all HxMolecule]
+    foreach {module} $args {
+        $module setViewerMask 1
+    }
+}
+
+# ------------------------------------------------------
+#
+#                        hideAll
+#
+# ------------------------------------------------------
+# Deactivates all viewers for hxmolecule objects
+
+proc hideAll {} {
+    set args [all HxMolecule]
+    foreach {module} $args {
+        $module setViewerMask 0
+    }
+}
+
+# ------------------------------------------------------
+#
+#                        showBrowser
+#
+# ------------------------------------------------------
+# Shows the selection browser
+
+proc showBrowser {module} {
+    $module createSelectionBrowser
+    $module showSelectionBrowser
+}
+
+# ------------------------------------------------------
+#
+#                        poolCleaner
+#
+# ------------------------------------------------------
+# Reorders the icon positions of hxmolecule related objects in the objetc pool
+
+proc poolCleaner {} {
+    set args [lsort -increasing [all HxMolecule HxMolSurface]]
+    set x 0
+    foreach {module} $args {
+        set myConnections [$module downStreamConnections]
+        set tmpCoor [$module getIconPosition]
+
+        if {$x == 0} {
+            $module setIconPosition 0 0
+        } else {
+            $module setIconPosition 0 [expr $x*23]
+        }
+
+        set xCoor [$module getIconPosition]
+        if {$myConnections != ""} {
+            set myConnections [join $myConnections " "]
+            for {set i 0} {$i < [llength $myConnections]} {incr i; incr i} {
+                set currentConnection [lindex $myConnections $i]
+                set connectionType [lindex $myConnections [expr $i + 1]]
+                if {$connectionType == "data"}  {
+                    set newX [expr ([lindex $xCoor 0] + (170))]
+                    set newY [lindex $xCoor 1]
+                    set oldX [lindex [$currentConnection getIconPosition] 0]
+                    set oldY [lindex [$currentConnection getIconPosition] 1]
+                    $currentConnection setIconPosition $newX $newY
+                } else {
+                    set newX [expr ([lindex $xCoor 0] + (340))]
+                    set newY [expr [lindex $xCoor 1] + (($i*2) - 20)]
+                    set oldX [lindex [$currentConnection getIconPosition] 0]
+                    set oldY [lindex [$currentConnection getIconPosition] 1]
+                    $currentConnection setIconPosition $newX $newY
+                }
+            }
+        }
+        incr x
+    }
+}
+
+# ------------------------------------------------------
+#
+#                        showSticks
+#
+# ------------------------------------------------------
+# Connects a  MoleculeViews to hxmolecule objects
+proc showSticks {args} {
+    if {$args == "all"} {
+    set args [all HxMolecule]
+    }
+    foreach {module} $args {
+    set view [create HxMolView $module-sticks]
+    $view data connect $module
+    $view continuousColormap setDefaultColor 0 0 1
+    $view continuousColormap setDefaultAlpha 1.000000
+    $view continuousColormap setLocalRange 1
+    $view continuousColormap setLocalMinMax 0.000000 1.000000
+    $view discreteColormap setDefaultColor 0 0 1
+    $view discreteColormap setDefaultAlpha 1.000000
+    $view discreteColormap setLocalRange 1
+    $view discreteColormap setLocalMinMax 1.000000 8.000000
+    $view mode setValue 2
+    $view quality setValue 0
+    $view capdrawstyle setValue 2
+    $view options setValue 0 0
+    $view options setValue 1 0
+    $view options setValue 2 0
+    $view atomRadius setValue 0.2
+    $view bondRadius setValue 0.05
+    $view lineWidth setValue 2
+    $view complexity setValue 0.2
+    $view twistFactor setValue 1
+    $view colorscheme setOptValue 0 0
+    $view colorscheme setOptValue 1 0
+    $view fire
+    }
+}
+
+
+# ------------------------------------------------------
+#
+#                        showSurface
+#
+# ------------------------------------------------------
+# Computes a MolSurface and connects a MolSurfaceView to a hxmolecule object
+
+proc showSurface {module} {
+    create HxCompMolSurface $module-CompMolSurface
+    $module-CompMolSurface Molecule connect $module
+    $module-CompMolSurface surfaceType setValue 2
+    $module-CompMolSurface quality setValue 0
+    $module-CompMolSurface probeRadius setButtons 0
+    $module-CompMolSurface probeRadius setValue 1.4
+    $module-CompMolSurface edgeLength setValue 1.07457
+    $module-CompMolSurface radius setValue 2
+    $module-CompMolSurface nopPerA2 setValue 4
+    $module-CompMolSurface options setValue 0 0
+    $module-CompMolSurface options setValue 1 0
+    $module-CompMolSurface options setValue 2 0
+    $module-CompMolSurface options setValue 3 0
+    $module-CompMolSurface edgeContractionScaleFactor setValue 0.3
+    $module-CompMolSurface surfaceArea setValue 0 0
+    $module-CompMolSurface surfaceArea setValue 1 0
+    $module-CompMolSurface surfaceArea setValue 2 0
+    $module-CompMolSurface attributeName setState area
+    $module-CompMolSurface fire
+
+    set hideNewModules 0
+    [ $module-CompMolSurface create
+     ] setLabel $module-surf
+    $module-surf master connect $module-CompMolSurface
+    $module-surf LevelOfDetail setValue -1
+    $module-surf fire
+
+    set hideNewModules 0
+    create HxMolSurfaceView $module-surfview
+    $module-surfview data connect $module-surf
+    $module-surfview colormap setDefaultColor 1 0.1 0.1
+    $module-surfview colormap setDefaultAlpha 0.500000
+    $module-surfview molecule connect $module
+    $module-surfview continuousColormap setDefaultColor 0 0 1
+    $module-surfview continuousColormap setDefaultAlpha 1.000000
+    $module-surfview continuousColormap setLocalRange 1
+    $module-surfview continuousColormap setLocalMinMax 0.000000 1.000000
+    $module-surfview discreteColormap setDefaultColor 0 0 1
+    $module-surfview discreteColormap setDefaultAlpha 1.000000
+    $module-surfview discreteColormap setLocalRange 1
+    $module-surfview discreteColormap setLocalMinMax 1.000000 16.000000
+    $module-surfview drawStyle setValue 1
+    $module-surfview drawStyle setSpecularLighting 1
+    $module-surfview drawStyle setTexture 0
+    $module-surfview drawStyle setAlphaMode 1
+    $module-surfview drawStyle setNormalBinding 1
+    $module-surfview drawStyle setCullingMode 0
+    $module-surfview baseTrans setValue 0.8
+    $module-surfview colorMode setValue 0
+    $module-surfview defaultColors setColor 0 0.5 0.5 0.5
+    $module-surfview defaultColors setColor 1 0.25 0.25 0.25
+    $module-surfview pickAction setValue 0
+    $module-surfview selectionDistance setValue 10
+    $module-surfview colorscheme setOptValue 0 0
+    $module-surfview colorscheme setOptValue 1 0
+    $module-surfview continuousColormap setLocalMinMax 0.000000 1.000000
+    $module-surfview discreteColormap setLocalMinMax 1.000000 16.000000
+    $module-surfview fire
+}
+
+# ------------------------------------------------------
+#
+#                        showHBonds
+#
+# ------------------------------------------------------
+# Connects a  HBondView to hxmolecule objects
+
+proc showHBonds {args} {
+    if {$args == "all"} {
+        set args [all HxMolecule]
+    }
+    foreach {module} $args {
+        set view [create HxHBondView $module-HBondsView]
+        $view data connect $module
+        $view hbondSource setValue 1
+        $view fire
+    }
+}
+
+proc showHBondsLevel {args} {
+    if {$args == "all"} {
+        set args [all HxMolecule]
+    }
+    foreach {module} $args {
+        set view [create HxHBondView $module-HBondsView]
+        $view data connect $module
+        $view hbondSource setValue 0
+        $view fire
+    }
+}

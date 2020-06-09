@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p><div class="generic_head"><h2><a name="A1"> Connection</a>
+</h2> <ul class="entry_classification"><li>Interface Component</li><li>Amira</li></ul></div>
+<! HxIndex: "amira" "Component" "Connection" !>
+<p></p><div class="hxdescription">
+<h3>Description</h3>
+
+<p> This port represents a connection from one object to another. It is
+ commonly used to specify on which input objects some other object
+ should depend. A connection does not provide its own user interface
+ like other ports, but is visually represented in the Pool by a
+ line between the source object and the object the connection port
+ belongs to. In order to change the connection this line can be picked
+ with the mouse and dragged to some other source object. All connection
+ ports of an object are listed in a special popup menu which is activated
+ by clicking with the right mouse button in the connection area, the
+ small white square on the left side of the object's icon.</p>
+</div>
+<p></p>
+<p></p><div class="hxcommands">
+<h3>Commands</h3>
+<p>
+ Inherits all commands of <a class="link" href="HxPort.html#A1">Port</a>.</p>
+
+<div class="hxcommand">
+  <span class="headline">source</span>  
+
+<div class="body"><p>Returns the name of the source object connected to this port. If there
+ is no source object connected an empty string is returned.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">connect &lt;source&gt;</span>  
+
+<div class="body"><p>Tries to connect the port with the specified source object. If the
+ connection cannot be established a Tcl error is generated.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">disconnect</span>  
+
+<div class="body"><p>Disconnects the port from any source object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setTightness &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the tightness flag of the port. If the connection is tight no
+ connection line is drawn in the Pool. Instead, the icon of the
+ owning object is glued together with the icon of the source object, so
+ that both icons comprise an icon group. Each object can only have one
+ connection port with tightness set to 1.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isTight</span>  
+
+<div class="body"><p>Checks if the connection is tight or not (see above).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">setVisibility &#123;0|1&#125;</span>  
+
+<div class="body"><p>Sets the visibility flag of the port. If visibility is switched off
+ the connection will not be represented by a line in the Pool.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isVisible</span>  
+
+<div class="body"><p>Checks if the connection is visible or not (see above).</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">allowEditing &#123;0|1&#125;</span>  
+
+<div class="body"><p>Allow or disallow interactive editing of the connection. If editing
+ is disallowed the connection cannot be changed interactively by
+ moving the connection line to some other source object.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">isEditable</span>  
+
+<div class="body"><p>Checks if the connection can be edited interactively or not.</p>
+</div></div>
+<div class="hxcommand">
+  <span class="headline">validSource &lt;source&gt;</span>  
+
+<div class="body"><p>Checks if the specified object can be connected to this port. If this
+ is the case 1 is returned, otherwise 0 is returned.</p>
+</div></div>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

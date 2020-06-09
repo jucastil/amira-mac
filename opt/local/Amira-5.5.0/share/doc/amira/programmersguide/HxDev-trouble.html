@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h2><a name="A1">30.5 Troubleshooting</a></h2>
+<p>This section describes some frequently occurring problems and some
+general problem solving approaches related to <font face="helvetica">Amira</font> development.</p>
+<p>The section is divided into two parts: Problems which may occur when
+compiling a new package, and problems which may occur when executing it.</p>
+<p></p>
+<h3><a name="A2">30.5.1 Compile-Time Problems</a></h3>
+<p><b>Unknown identifier, strange errors:</b> A very common problem
+occurring in C++ programming is the omission of necessary include
+statements. In <font face="helvetica">Amira</font>, most classes have their own header file (.h
+file) containing the class declaration. You must include the class
+declaration for each class that you are using in your code. When you
+get strange error messages that you do not understand, check whether
+all classes used in the neighborhood of the line the compiler
+complains about have their corresponding include statement.
+<b>Unresolved symbols:</b> If the linker complains about unresolved
+symbols, you probably are missing a library on your link line. 
+The <font face="helvetica">Amira</font> development wizard makes sure that the <font face="helvetica">Amira</font> kernel library
+and important system libraries are linked. If you are using <font face="helvetica">Amira</font> 
+data classes, you will need to link with the corresponding package
+library <tt>hxfield</tt>, <tt>hxcolor</tt>, <tt>hxsurface</tt>, and so on. To add
+libraries to your link line on Unix, edit the <tt>GNUmakefile</tt>, find the
+line starting with <tt>LIBS += ...</tt>, and append <tt>-l&lt;name&gt;</tt>, where
+<tt>&lt;name&gt;</tt> is the name of the package you want to add. On Windows, use
+Visual Studio's project settings dialog. Details are given in
+<a class="link" href="HxDev-compiling.html#A1">Section 23.5</a>.<b>Linker error LNK1000: Internal error during IncrBuildImage:</b> This error 
+may occur when using Microsoft Visual Studio 2008 to compile new packages.
+Microsoft has released a patch (KB948127) to address this issue:
+<tt>https://connect.microsoft.com/VisualStudio/Downloads/&#8204;DownloadDetails.aspx?DownloadID=11399</tt></p>
+<p></p>
+<h3><a name="A3">30.5.2 Run-Time Problems</a></h3>
+<p><b>The module does not show up in the popup menu:</b> If your module
+did compile, but is not visible in the popup menu of a corresponding
+data object, there is probably a problem with the resource file. The
+resource file will be copied from your package's <tt>share/resources</tt>
+directory to the directory <tt>share/resources</tt> in your local <font face="helvetica">Amira</font>
+directory. Verify that this worked. <b>Note:</b> Currently on Windows,
+the resource files are copied in a post link step. Therefore, if you
+change the resource file after linking, you must build the package
+again, e.g., by changing one of the source files.
+If the resource file is present, the next step is to check whether it
+is really parsed. Add a line <tt>echo "hello mypackage"</tt> to the resource
+file. Verify that the message appears in the <font face="helvetica">Amira</font> console when <font face="helvetica">Amira</font>
+starts. If not, probably the environment variable <tt>AMIRA_LOCAL</tt> &nbsp;is not set
+correctly.</p>
+<p>If the file is parsed, but the module still does not show up, the
+syntax of the rc file entry might be wrong or you specified a wrong
+primary data type, so that the module will appear in the menu of a
+different data class.</p>
+<p><b>There is an entry in the pop-up menu, but the module is not created:</b>
+Probably something is wrong with the shared library (the .so or .dll file).
+In the <font face="helvetica">Amira</font> console, type <tt>dso verbose 1</tt> and try to create the module
+again. You will see some error messages, indicating that either the dll is
+not found, or that it cannot be loaded (and why) or that some symbol is
+missing. Check whether your building mode (debug/optimize) and execution
+mode are the same. In particular, if you have compiled debug code you must
+start <font face="helvetica">Amira</font> using the <tt>-debug</tt> command line option or the debug executable
+(see <a class="link" href="HxDev-compiling.html#A1">Section 23.5</a>).<b>A read or write routine does not work:</b> The procedure for such
+problems is the same. First check whether the load function is
+registered. Then verify that your save-file format shows up in the
+file format list when saving the corresponding data object. For a load
+method, right click on a filename in the load-file dialog. Choose format
+and check whether your format appears in the list. If that is the
+case, you probably have a dll problem. Follow the steps above. If the
+library can be loaded, but the symbol cannot be found, your
+method may have either a wrong signature (wrong argument types) or 
+on Windows you might have forgotten the <tt>&lt;PACKAGE&gt;_API</tt> macro.
+This macro indicates that the routine should be exported by the DLL.</p>
+<p>In general, if you have problems with <b>unresolved</b> and/or <b>missing
+symbols</b> you should take a look at the symbols in your library. On Unix, type
+<tt>nm lib/arch-*-Debug/libmypackage.so</tt>. On Windows, type in a command
+shell: <tt>dumpbin /exports bin/arch-Win32VC8-Debug/mypackage.dll</tt>.</p>
+<p></p>
+<h3><a name="A4">30.5.3 Debugging Problems</a></h3>
+<p><b>Setting breakpoints does not work:</b> Since <font face="helvetica">Amira</font> uses shared libraries,
+the code of an individual package is not loaded even after the program has
+started. Therefore some debuggers refuse to set breakpoints in such
+packages or disable previously set breakpoints. To overcome this problem,
+first create your module and then set the breakpoint. If you want to debug
+a module's constructor or a read or write routine, of course, this does
+not work. In these cases, load the library by hand, by typing into the <font face="helvetica">Amira</font>
+console <tt>dso open libmypackage.so</tt> (if your package is called
+mypackage). Then set the breakpoint and create your module or load your
+data file.
+
+</p></body>
+</html>

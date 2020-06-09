@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.3.1 Tetrahedral Grids</a></h3>
+<p>Tetrahedral grids in <font face="helvetica">Amira</font> are implemented by the class <tt>HxTetraGrid</tt>
+and its base class <tt>TetraGrid</tt>. Looking at the reference documentation
+of <tt>TetraGrid</tt> we observe that a tetrahedral grid essentially consists
+of a number of dynamic arrays such as <tt>points</tt>, <tt>tetras</tt>, or
+<tt>materialIds</tt>.</p>
+<ul><li>The <tt>points</tt> array is a list of all 3D points contained in the
+grid. A single point is stored as an element of type <tt>McVec3f</tt>. This
+class has the same layout as the Open Inventor class <tt>SbVec3f</tt>. Thus, a
+pointer to <tt>McVec3f</tt> can be cast to a pointer to <tt>SbVec3f</tt> and
+vice versa.</li><li>The <tt>tetras</tt> array describes the actual tetrahedra. For each
+tetrahedron the indices of the four points and the indices of the four
+triangles it consists of are stored. The numbering of the points and
+triangles is shown in <a class="link" href="#A2">Figure 192</a>. In particular, the fourth
+point is located above of the triangle defined by the first three
+points. Triangle number <em>i</em> is located opposite to point number <em>i</em>.</li><li>The <tt>materialIds</tt> array contains 8-bit labels that assign a
+'material' identifier to every tetrahedron. For example, this is used in
+tetrahedral grids generated from segmented image data to distinguish between
+different image segments corresponding to different material components
+of physical objects represented by the (3D) image data 
+Like in the case of label fields or surfaces, the set of possible material 
+values is stored in the parameter list of the
+grid data object.</li>
+</ul><p></p>
+<p></p><div style="text-align:center"><a name="A2"></a><a href=tetra.png.html><img width=562 src="tetra.png" /></a><br />
+<div class="caption">
+<b>Figure 192:</b>
+Numbering of points in a tetrahedron with positive volume (left).
+Numbering of the corresponding triangles (right).</div>
+
+
+</div><p></p>
+<p>The three arrays, <tt>points</tt>, <tt>tetras</tt>, and <tt>materialIds</tt>, must be
+provided by the 'user'. The triangles of the grid are stored in an additional
+array called <tt>triangles</tt>. This array can be constructed automatically by
+calling the member method <tt>createTriangles2</tt>. This method computes the
+triangles from scratch and sets the triangle indices of all tetrahedra
+defined in <tt>tetras</tt>.</p>
+<p>The <tt>triangles</tt> array also provides a way for accessing neighboring 
+tetrahedra. Among other information (see reference documentation) stored 
+for each triangle, the indices of the two tetrahedra it belongs to are 
+available. In the 
+case of boundary triangles, one of these indices is -1. Therefore, in order
+to get the index of a neighboring tetrahedron you can use the following
+code:</p>
+<p><font size="2"></font></p><pre>
+    // Find tetra adjacent to tetra n at face 0:
+    int triangle = grid-&gt;tetras[n].triangles[0];
+    otherTetra = grid-&gt;triangles[triangle].tetras[0];
+    if (otherTetra == n) 
+        otherTetra = grid-&gt;triangles[triangle].tetras[1];
+    if (otherTetra == -1) {
+        // No neighboring tetra, boundary face
+        ...
+    }
+</pre><p><font size="2"></font></p>
+<p><br />
+
+Note that it is possible to define a grid with duplicated vertices, i.e.
+with vertices having exactly the same coordinates. This is useful to
+represent discontinuous data fields. The method <em>createTriangles2</em>
+checks for such duplicated nodes and correctly creates a single
+triangle between two geometrically adjacent tetrahedra, even if these
+tetrahedra refer to duplicated points.Optionally the edges of a grid can be computed in addition to its points
+triangles, and tetrahedra by calling <em>createEdges</em>. The edges are
+stored in an array called <tt>edges</tt> and another array <tt>edgesPerTetra</tt> is used in order to store the indices of the six edges
+of a tetrahedron.</p>
+<p>Moreover, the class <tt>TetraGrid</tt> provides additional optional
+arrays, for example to store a dynamic list of the indices of all
+tetrahedra adjacent to a particular point (<tt>tetrasPerPoint</tt>).
+This and other information is primarily used for internal purposes,
+for example to facilitate editing and smoothing of tetrahedral grids.</p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

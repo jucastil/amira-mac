@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">27.2.2 Regular Coordinate Types</a></h3>
+<p>Currently four different coordinate types are supported for regular fields,
+namely uniform coordinates, stacked coordinates, rectilinear coordinates,
+and curvilinear coordinates. The coordinate types are distinguished by
+way of the enumeration data type <tt>HxCoordType</tt>. The coordinates
+themselves are stored in a
+separate utility class of type <tt>HxCoord3</tt> which is referenced by the
+lattice member of a regular field. For each coordinate type there is a
+corresponding subclass of <tt>HxCoord3</tt>.</p>
+<p>As already mentioned in the introduction, for some important cases there are
+special subclasses of a regular field dedicated to a particular coordinate
+type. Examples are <tt>HxStackedScalarField3</tt> (derived from <tt>HxRegScalarField3</tt>) or <tt>HxUniformVectorField3</tt>) (derived from <tt>HxRegVectorField3</tt>). If such special classes do not exist, the regular base
+class should be used instead. In this case the coordinate type must be
+checked dynamically and the pointer to the coordinate object has to be
+down-cast explicitly before it can be used. This is illustrated in the
+following example:</p>
+<p><font size="2"></font></p><pre>
+    HxCoord3* coord = field-&gt;lattice.coords();
+
+    if (coord-&gt;coordType() == c_rectilinear) {
+        HxRectilinearCoord3* rectcoord =
+            (HxRectilinearCoord3*) coord;
+        ...
+    }
+</pre><p><font size="2"></font></p>
+<p></p>
+<h4><a name="A2">Uniform Coordinates</a></h4>
+<p>Uniform coordinates are the simplest form of regular coordinates. All
+grid cells are axis-aligned and of equal size. In order to compute the
+position of a particular grid node, it is sufficient to know the number of
+cells in each direction as well as the bounding box of the grid.</p>
+<p>Uniform coordinates are represented by the class <tt>HxUniformCoord3</tt>.
+This class provides a method <tt>bbox</tt> which returns a pointer to an
+array of six floats describing the bounding box of the grid. The six
+numbers represent the minimum x-value, the maximum x-value, the minimum
+y-value, the maximum y-value, the minimum z-value, and the maximum z-value
+in that order. Note that the values refer to grid nodes, i.e., to the
+corner of a grid cell or to the center of a voxel. In order to compute the
+width of a voxel, you should use code like this:</p>
+<p><font size="2"></font></p><pre>
+    const int* dims = uniformcoords-&gt;dims();
+    const float* bbox = uniformcoords-&gt;bbox();
+    float width = (dims[0]&gt;1) ? (bbox[1]-bbox[0])/(dims[0]-1):0;
+</pre><p><font size="2"></font></p>
+<p></p>
+<h4><a name="A3">Stacked Coordinates</a></h4>
+<p>Stacked coordinates are used to describe a stack of uniform 2D slices
+with variable slice distance. They are represented by the class <tt>HxStackedCoord3</tt>. This class provides a method <tt>bboxXY</tt> which returns
+a pointer to an array of four floats describing the bounding box of a
+2D slice. In addition, the method <tt>coordZ</tt> returns a pointer to an
+array containing the z-coordinate of each 2D slice.</p>
+<p></p>
+<h4><a name="A4">Rectilinear Coordinates</a></h4>
+<p>Same as for uniform or stacked coordinates, in the case of rectilinear coordinates
+the grid cells are aligned to the axes, but the grid spacing may vary from
+cell to cell in each direction. Rectilinear coordinates are represented by
+the class <tt>HxRectilinearCoord3</tt>. This class provides three methods, <tt>coordX</tt>, <tt>coordY</tt>, and <tt>coordZ</tt>, returning pointers to the arrays of
+x-, y-, and z-coordinates, respectively.</p>
+<p></p>
+<h4><a name="A5">Curvilinear Coordinates</a></h4>
+<p>In the case of curvilinear coordinates, the position of each grid node is stored
+explicitly as a 3D vector of floats. A single grid cell need not to be
+axis-aligned anymore. An example of a 2D curvilinear grid is shown in
+<a class="link" href="#A6">Figure 191</a>.</p>
+<p>Curvilinear coordinates are represented by the class <tt>HxCurvilinearCoord3</tt>. This class provides a method <tt>pos</tt> which can
+be used to query the position of a grid node indicated by an index triple
+(i,j,k). Alternatively, a pointer to the coordinate values may be obtained
+by calling the method <tt>coords</tt>. The coordinate vectors are stored
+one after another without padding and with index i running fastest. Here
+is an example:</p>
+<p><font size="2"></font></p><pre>
+    const int* dims = curvilinearcoords-&gt;dims();
+    const float* coords = curvilinearcoords-&gt;coords();
+
+    // Position of grid node (i,j,k)
+    float x = coords[3*((k*dims[1]+j)*dims[0]+i)];
+    float y = coords[3*((k*dims[1]+j)*dims[0]+i)+1];
+    float z = coords[3*((k*dims[1]+j)*dims[0]+i)+2];
+</pre><p><font size="2"></font></p>
+<p></p><div style="text-align:center"><a name="A6"></a><a href=curvilinear.png.html><img width=600 src="curvilinear.png" /></a><br />
+<div class="caption">
+<b>Figure 191:</b>
+Example of a 2D grid with curvilinear coordinates.
+</div>
+
+
+</div><p></p>
+<p></p>
+<p></p>
+<p>
+</p></body>
+</html>

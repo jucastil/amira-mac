@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Amira Online Help</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../Amira.css" type="text/css" />
+<script type="text/javascript" src="../MathJax/MathJax.js?config=default.js"></script>
+</head>
+<body lang="en">
+
+
+<p></p>
+<h3><a name="A1">Landmarks for Registration</a></h3>
+<p>The data type <a class="link" href="../hxlandmark/HxLandmarkSet.html#A1">Landmark Set</a> is useful for
+ registration and alignment of multiple 3D image data sets. It allows
+ you to store multiple sets of corresponding marker positions. The
+ data type can also be used to represent a simple list of 3D points
+ in <font face="helvetica">Amira</font>. In this case you would only specify a single set of markers.
+ Consider the following example:</p>
+<p> </p><pre>
+    # AmiraMesh ASCII 1.0
+
+    define Markers 3
+
+    Parameters {
+        ContentType "LandmarkSet",
+        NumSets 2
+    }
+
+    Markers { float[3] Coordinates } = @1
+    Markers { float[3] Coordinates2 } = @2
+
+    @1
+    38.5363 15.2135 20.3196
+    35.1264 14.0106 37.155
+    31.6494 14.2791 31.0932
+
+    @2
+    40.2112 15.907 20.3119
+    35.9551 13.8241 40.4785
+    30.1375 13.7279 28.9235
+    </pre><p></p>
+<p> In this example, first the number of markers or points is defined to be
+ 3. In the parameter section of the AmiraMesh file the content type is
+ specified, as well as the number of marker sets. The marker coordinates
+ of the first set are denoted <tt>Coordinates</tt> (xyz-values stored as
+ <tt>float[3]</tt>). Likewise, the marker coordinates of the second set are
+ denoted <tt>Coordinates2</tt>. If more sets are defined, the coordinate
+ values must be called <tt>Coordinates3</tt>, <tt>Coordinates4</tt>, and so
+ on.</p>
+<p> It is also possible to define additional data values for each marker
+ such as <tt>MarkerTypes</tt> or <tt>Orientations</tt>. How these values are
+ interpreted in detail will be specified in a future release of <font face="helvetica">Amira</font>.</p>
+<p></p>
+<p>
+</p></body>
+</html>
